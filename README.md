@@ -35,6 +35,8 @@ before_script:
   - echo "37ee91ab3469afbf7602a091d466dfa5  hugo_0.16_linux-64bit.tgz" | md5sum -c
   - tar xf hugo_0.16_linux-64bit.tgz && cp ./hugo /usr/bin
   - hugo version
+  # Uncomment the next line if your theme is in a git submodule
+  #- git submodule update --init
 
 pages:
   script:
