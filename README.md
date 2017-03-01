@@ -27,16 +27,22 @@ This project's static Pages are built by [GitLab CI][ci], following the steps
 defined in [`.gitlab-ci.yml`](.gitlab-ci.yml):
 
 ```
-image: alpine:3.4
+image: alpine:3.5
 
 before_script:
   - apk update && apk add openssl
-  - wget https://github.com/spf13/hugo/releases/download/v0.16/hugo_0.16_linux-64bit.tgz
-  - echo "37ee91ab3469afbf7602a091d466dfa5  hugo_0.16_linux-64bit.tgz" | md5sum -c
-  - tar xf hugo_0.16_linux-64bit.tgz && cp ./hugo /usr/bin
+  - wget https://github.com/spf13/hugo/releases/download/v0.18.1/hugo_0.18.1_Linux-64bit.tar.gz
+  - echo "e8ba723c508e87912970f132534c64dc  hugo_0.18.1_Linux-64bit.tar.gz" | md5sum -c
+  - tar xf hugo_0.18.1_Linux-64bit.tar.gz --strip-components=1 && mv hugo_0.18.1_linux_amd64 hugo && cp ./hugo /usr/bin
   - hugo version
   # Uncomment the next line if your theme is in a git submodule
   #- git submodule update --init
+
+test:
+  script:
+  - hugo
+  except:
+  - master
 
 pages:
   script:
@@ -74,7 +80,7 @@ project's **Settings**.
 
 You'll need to configure your site too: change this line
 in your `config.toml`, from `"https://pages.gitlab.io/hugo/"` to `baseurl = "https://namespace.gitlab.io"`.
-Proceed equaly if you are using a [custom domain][post]: `baseurl = "http(s)://example.com"`. 
+Proceed equaly if you are using a [custom domain][post]: `baseurl = "http(s)://example.com"`.
 
 Read more about [user/group Pages][userpages] and [project Pages][projpages].
 
