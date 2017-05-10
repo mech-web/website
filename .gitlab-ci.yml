@@ -1,10 +1,14 @@
-image: alpine:3.5
+image: alpine
+
+variables:
+  HUGO_VERSION: '0.20.7'
+  HUGO_SHA: '04f2c7d2f6ea500b0ead4821f035f334b7ac370154509653391bfccec1c4d524'
 
 before_script:
   - apk update && apk add openssl
-  - wget https://github.com/spf13/hugo/releases/download/v0.18.1/hugo_0.18.1_Linux-64bit.tar.gz
-  - echo "e8ba723c508e87912970f132534c64dc  hugo_0.18.1_Linux-64bit.tar.gz" | md5sum -c
-  - tar xf hugo_0.18.1_Linux-64bit.tar.gz --strip-components=1 && mv hugo_0.18.1_linux_amd64 hugo && cp ./hugo /usr/bin
+  - wget -O ${HUGO_VERSION}.tar.gz https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
+  - echo "${HUGO_SHA}  ${HUGO_VERSION}.tar.gz" | sha256sum -c
+  - tar xf ${HUGO_VERSION}.tar.gz && mv hugo* /usr/bin/hugo
   - hugo version
 
 test:

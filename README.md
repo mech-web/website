@@ -5,7 +5,7 @@
 Example [Hugo] website using GitLab Pages.
 
 Learn more about GitLab Pages at https://pages.gitlab.io and the official
-documentation http://doc.gitlab.com/ee/pages/README.html.
+documentation https://docs.gitlab.com/ce/user/project/pages/.
 
 ---
 
@@ -24,35 +24,7 @@ documentation http://doc.gitlab.com/ee/pages/README.html.
 ## GitLab CI
 
 This project's static Pages are built by [GitLab CI][ci], following the steps
-defined in [`.gitlab-ci.yml`](.gitlab-ci.yml):
-
-```
-image: alpine:3.5
-
-before_script:
-  - apk update && apk add openssl
-  - wget https://github.com/spf13/hugo/releases/download/v0.18.1/hugo_0.18.1_Linux-64bit.tar.gz
-  - echo "e8ba723c508e87912970f132534c64dc  hugo_0.18.1_Linux-64bit.tar.gz" | md5sum -c
-  - tar xf hugo_0.18.1_Linux-64bit.tar.gz --strip-components=1 && mv hugo_0.18.1_linux_amd64 hugo && cp ./hugo /usr/bin
-  - hugo version
-  # Uncomment the next line if your theme is in a git submodule
-  #- git submodule update --init
-
-test:
-  script:
-  - hugo
-  except:
-  - master
-
-pages:
-  script:
-  - hugo
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
-```
+defined in [`.gitlab-ci.yml`](.gitlab-ci.yml).
 
 ## Building locally
 
@@ -70,6 +42,8 @@ Read more at Hugo's [documentation][].
 
 If you clone or download this project to your local computer and run `hugo server`,
 your site can be accessed under `localhost:1313/hugo/`.
+
+The theme used is adapted from http://themes.gohugo.io/beautifulhugo/.
 
 ## GitLab User or Group Pages
 
