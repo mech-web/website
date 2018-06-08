@@ -51,3 +51,8 @@ pygmentCodeFences = true
     name = "Community"
     url = "page/community/"
     weight = 3
+
+[[menu.main]]
+    name = "Blog"
+    url = "page/blog/"
+    weight = 3
