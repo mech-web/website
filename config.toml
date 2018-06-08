@@ -1,4 +1,4 @@
-baseurl = "http://mechlang.net"
+baseurl = "https://mechlang.net"
 contentdir    = "content"
 layoutdir     = "layouts"
 publishdir    = "public"
