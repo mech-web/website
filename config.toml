@@ -39,7 +39,7 @@ pygmentCodeFences = true
 
 [[menu.main]]
     name = "Learn"
-    url = "page/blog/"
+    url = "page/learn/"
     weight = 1
 
 [[menu.main]]
