@@ -2,7 +2,7 @@ baseurl = "http://mechlang.net"
 contentdir    = "content"
 layoutdir     = "layouts"
 publishdir    = "public"
-title = "Mech Language"
+title = "Mech"
 canonifyurls  = true
 
 DefaultContentLanguage = "en"
