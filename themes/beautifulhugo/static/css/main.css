@@ -1,5 +1,8 @@
 @import url("pygment_highlights.css");
-
+@font-face {
+  font-family: 'Monoid';
+  src: url('https://mechlang.net/fonts/Monoid-Regular-Large-Dollar-0-1-l.ttf');
+}
 /* --- General --- */
 
 body {
@@ -18,7 +21,7 @@ p a {
   color: #008AFF;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Monoid', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
 }
 a {
@@ -99,7 +102,7 @@ img {
 /* --- Navbar --- */
 
 .navbar-custom {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Monoid', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .navbar-custom .nav li a {
@@ -469,10 +472,7 @@ footer .theme-by {
   margin-top: 0;
   font-size: 35px;
 }
-@font-face {
-  font-family: 'Monoid';
-  src: url('https://mechlang.net/fonts/Monoid-Regular-Large-Dollar-0-1-l.ttf');
-}
+
 .intro-header .page-heading .page-subheading,
 .intro-header .post-heading .post-subheading {
   font-size: 27px;
@@ -503,7 +503,7 @@ footer .theme-by {
   padding: 5px 10px;
   font-size: 11px;
   color: #EEE;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Monoid', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   right: 0;
   bottom: 0;
   display: none;
