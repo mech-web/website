@@ -469,12 +469,16 @@ footer .theme-by {
   margin-top: 0;
   font-size: 35px;
 }
+@font-face {
+  font-family: 'Monoid';
+  src: url('https://mechlang.net/fonts/Monoid-Regular-Large-Dollar-0-1-l.ttf');
+}
 .intro-header .page-heading .page-subheading,
 .intro-header .post-heading .post-subheading {
   font-size: 27px;
   line-height: 1.1;
   display: block;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Monoid', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   margin: 10px 0 0;
 }
@@ -516,7 +520,7 @@ footer .theme-by {
     padding: 150px 0;
   }  
   .intro-header .page-heading h1 {
-    font-size: 60px;
+    font-size: 50px;
   }
   .intro-header .post-heading h1 {
     font-size: 50px;
