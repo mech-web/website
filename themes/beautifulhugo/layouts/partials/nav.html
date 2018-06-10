@@ -1,29 +1,21 @@
 <nav class="navbar">
-  <div class="container-fluid navbar-custom">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">{{ i18n "toggleNavigation" }}</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+
+  <div class="navbar-header">
       {{ if not .IsHome }}
-        <a class="navbar-brand" href="{{ "" | absLangURL }}">{{ .Site.Title }}</a>
+        <a class="navbar-brand" href="{{ "" | absLangURL }}"><img class="logo-nav" src="https://mechlang.net/img/logo.png" /></a>
       {{ end }}
-
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        {{ range .Site.Menus.main.ByWeight }}
-          <li>
-            <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
-          </li>
-        {{ end }}
-      </ul>
-    </div>
-
   </div>
+  <div class="spacer"></div>
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="nav navbar-nav navbar-right">
+      {{ range .Site.Menus.main.ByWeight }}
+        <li>
+          <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+
 </nav>
 
 <!-- Search Modal -->
