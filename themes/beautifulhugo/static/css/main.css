@@ -65,6 +65,7 @@ a:focus {
   list-style-type: none;
   padding-left: 50px;
   font-family: 'Fira';
+  font-weight: bold;
 }
 
 .navbar-nav li a {
@@ -85,7 +86,7 @@ a:focus {
   padding-top: 20px;
   padding-bottom: 20px;
   margin: auto;
-  width: 40%;
+  width: 60%;
 }
 
 .logo-nav {
