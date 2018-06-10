@@ -36,6 +36,8 @@ a:focus {
 }
 
 .navbar {
+  margin-top: 40px;
+  margin-bottom: 20px;
   width: 900px;
   margin: auto;
   display: flex;
@@ -80,7 +82,8 @@ a:focus {
 }
 
 .logo {
-  padding-top: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   margin: auto;
   width: 40%;
 }
