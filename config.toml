@@ -16,7 +16,7 @@ pygmentCodeFences = true
 [Params]
   subtitle = ""
   logo = ""
-  favicon = ""
+  favicon = "img/favicon.png"
   dateFormat = "January 2, 2006"
   commit = false
   rss = true
