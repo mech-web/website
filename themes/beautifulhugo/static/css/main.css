@@ -26,6 +26,7 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'Fira', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
 }
+
 a {
   color: rgb(91, 34, 127);
   text-decoration: none;
@@ -92,4 +93,9 @@ a:focus {
 .logo-nav {
   margin: auto;
   width: 60%;
+}
+
+.post-meta {
+  color: rgb(0,121,177);
+  font-weight: bold;
 }
