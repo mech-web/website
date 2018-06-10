@@ -13,6 +13,7 @@ body {
   position: relative;
   background: #FFF;
   font-variant-ligatures: normal;
+  line-height: 25px;
 }
 p {
   line-height: 1.5;
