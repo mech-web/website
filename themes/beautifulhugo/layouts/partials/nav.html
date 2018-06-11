@@ -11,10 +11,17 @@
   <div class="spacer"></div>
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="nav navbar-nav navbar-right">
+      {{ $currentPage := . }}
       {{ range .Site.Menus.main.ByWeight }}
-        <li>
-          <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
+        {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+        <li class="nav-active">
+          <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">>{{ .Name }}</a>
         </li>
+        {{else}}
+        <li>
+            <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
+          </li>
+        {{end}}
       {{ end }}
     </ul>
   </div>
