@@ -7,13 +7,13 @@
 /* --- General --- */
 
 body {
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: 'Open Sans', 'Times New Roman', serif;
   font-size: 16px;
   color: #404040;
   position: relative;
   background: #FFF;
   font-variant-ligatures: normal;
-  line-height: 25px;
+  line-height: 30px;
   padding:0px;
   margin:0px;
 }
@@ -25,6 +25,7 @@ p a {
   /* text-decoration: underline */
   color: rgb(91, 34, 127);
 }
+
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Fira', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
