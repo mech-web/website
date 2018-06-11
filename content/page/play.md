@@ -1,7 +1,7 @@
 ---
-title: Community
+title: Play
 menu: main
 comments: false
-weight: 1
+weight: 4
 ---
 
