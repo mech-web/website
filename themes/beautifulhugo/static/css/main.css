@@ -122,7 +122,8 @@ a:focus {
 .well {
   font-family: 'Fira';
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-top: 70px;
+  margin-bottom: 90px;
   text-align: justify;
 }
 
@@ -138,5 +139,9 @@ a:focus {
 }
 
 .nav-active  a {
+  color: rgb(91, 34, 127);
+}
+
+.post-title {
   color: rgb(91, 34, 127);
 }
