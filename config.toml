@@ -37,22 +37,3 @@ pygmentCodeFences = true
   name = "Corey Montella"
   email = "cmontella@live.com"
 
-[[menu.main]]
-    name = "Learn"
-    url = "page/learn/"
-    weight = 2
-
-[[menu.main]]
-    name = "Community"
-    url = "page/community/"
-    weight = 1
-
-[[menu.main]]
-    name = "Blog"
-    url = "page/blog/"
-    weight = 3
-
-[[menu.main]]
-    name = "Play"
-    url = "page/play/"
-    weight = 4
