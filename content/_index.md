@@ -1,1 +1,1 @@
-Mech is a language for developing data-driven, reactive systems such as robots and IoT devices.
+Mech is a language for developing **data-driven**, **reactive** systems such as animations, robots, and and IoT devices. It runs on a network of compute nodes that makes it easy to **compose**, **transform**, and **distribute** streams of data. This way, Mech lets you focus on the essential complexity of your problem.

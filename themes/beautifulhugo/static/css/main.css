@@ -14,6 +14,8 @@ body {
   background: #FFF;
   font-variant-ligatures: normal;
   line-height: 25px;
+  padding:0px;
+  margin:0px;
 }
 p {
   line-height: 1.5;
@@ -40,22 +42,22 @@ a:focus {
 .navbar {
   padding-top: 40px;
   padding-bottom: 20px;
-  width: 750px;
+  max-width: 750px;
   margin: auto;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   display: flex;
   flex-direction: row;
 }
 
 .spacer {
+  width: 100%;
   flex-grow: 1;
 }
 
 .navbar-header {
-
-}
-
-.navbar-nav {
-
+  text-align: center;
 }
 
 .navbar-nav {
@@ -63,24 +65,36 @@ a:focus {
   flex-direction: row;
 }
 
-.navbar-nav li {
+@media screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+  }
+}
+
+#main-navbar li {
   list-style-type: none;
   padding-left: 50px;
   font-family: 'Fira';
   font-weight: bold;
 }
 
-.navbar-nav li a {
+.navbar-nav:first-child { 
+  padding-left: 0px;
+}
+
+
+#main-navbar li a {
   color: #404040;
 }
 
-.navbar-nav li a:hover {
+#main-navbar li a:hover {
   color: rgb(91, 34, 127);
   text-decoration:underline;
 }
 
 .container {
-  width: 750px;
+  max-width: 750px;
+  padding:20px;
   margin: auto;
 }
 
@@ -93,7 +107,7 @@ a:focus {
 
 .logo-nav {
   margin: auto;
-  width: 60%;
+  width: 150px;
 }
 
 .post-meta {
@@ -102,7 +116,13 @@ a:focus {
 }
 .well {
   font-family: 'Fira';
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 20px;
   text-align: justify;
+}
+
+.black-bar {
+  width: 100%;
+  height: 5px;
+  background-color: #000;
 }
