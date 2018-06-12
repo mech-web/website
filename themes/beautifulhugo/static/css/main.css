@@ -156,3 +156,9 @@ p img {
 p a {
   text-decoration: underline;
 }
+
+.footnote {
+  font-size: 14px;
+  line-height: 24px;
+  color: #777;
+}
