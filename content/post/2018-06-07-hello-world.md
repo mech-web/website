@@ -31,6 +31,3 @@ Let's break out the essential properties of the system I described above, so we 
 ### Architecture
 
 Given the above design requirements, you can see how a system of off-the-shelf components doesn't quite cut it. Sure, you can get most of the way there, and cover a good deal of what I'm after. But that last mile will have you implementing a lot of custom code.
-
-
-## Demand Driven Development

@@ -146,3 +146,9 @@ a:focus {
 .post-title {
   color: rgb(91, 34, 127);
 }
+
+p img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
