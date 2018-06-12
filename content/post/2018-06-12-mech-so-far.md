@@ -1,6 +1,6 @@
 ---
 title: Mech So Far
-date: 2018-06-07
+date: 2018-06-12
 ---
 
 Last week I spent a lot of time describing Mech in aspirational terms. focusing more on what Mech should be, while glossing over the implementation specifics on how to achieve those ambitions.
