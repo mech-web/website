@@ -30,24 +30,29 @@ Let's break out the essential properties of the system I described above, so we 
 - **Time and space matter** - Streams of real-world data represent the physical world, so time and space matter. Streams coming into Mech can represent a quantity -- a value plus a unit. Mech should handle conversions between quantities of different scales (e.g. feet to meters). Similarly with time, Mech should handle time explicitly, allowing you to talk about the `previous` or `next` values in a stream.
 - **Visualize Everything** - In a system defined by data flows, bugs are going to exist where streams are incorrectly routed or transformed. Tools capable of visualizing and inspecting streams at any point in time will make debugging this kind of program easier.
 
-Alright, that's a good start: now we have a system we want to work with, and a list of things essential to working with that system. Now we need to think about what kinds of things I'd like to do with this system. We'll do this by expressing some things we hope Mech will make trivial and impossible. The things Mech makes trivial should be things we do often in the language, making it the right tool for the job by design. The things Mech makes impossible should be pitfalls commonly faced for this task, making the solutions you produce with Mech robust and tolerant to failure.
+## Writing the Science Fiction
 
+We used to do something at Eve where we would imagine a sci-fi future where we had cool computing tools. What kinds of things could we do with those, that we couldn't do today? By imagining this future that didn't exist in explicit terms, we could work backwards and figure out the necessary technologies to make that fiction a reality. I'm going to do the same thing here, phrased as two lists: things that an idealized Mech makes trivial, and things that it makes impossible [1]. Here's a chance for us to think big and imagine a future where anything is possible.
 
+## Mech makes it trivial to...
 
+- ...transform data from one shape into another.
+- ...visualize anything. I should be a
+- ...track down the source of bugs. Mech should let
+- ...share programs with friends or coworkers. Click one button to host online, send a link or text to grant access to a running application.
+- ...store anything.
+- ...record and playback everything.
+- ...compose everything.
+- ...scale and distribute effortlessly.
 
+## Mech makes it impossible impossible to...
 
+- ...write a program that can crash.
+- ...deadlock your program.
+- ...corrupt memory or access uninitialized memory.
+- ...exist in a state inconsistent with the defined program.
+- ...get stuck at any phase of development. Mech's tooling always tells you what's wrong, and guides you on how to fix it.
 
-## Mech makes it trivial to..
-
-- Transform data from one shape into another. MATLAB is the gold standard here, where everything in the language is represented as a matrix that can be sliced, diced, split, and inverted any way possible.
-- I should be able to visualize anything in a number of ways. I should be a
-- share
-- visualize
-- record
-- compose
-
-## Mech makes it impossible impossible to..
-
-- crash
-- deadlock
-- get stuck
+<div class="footnote">
+[1] When I worked on it, I was responsible for talking about the Eve language to outside audiences, so I've spent a lot of time thinking about how people talk about programming languages to one another. This is the first time I'm trying this method, but I like it for a couple reasons. First, by talking about what the language makes trivial or impossible, we recognize that implicit in the design of a language is a set of tradeoffs, and we highlight the *implications* of the design decisions we felt were most significant. Further, a reader of these lists isn't left to wonder what how a feature may impact their work. Programming languages are often first presented as a list of supported features, frameworks, or programming paradigms, leaving the user to decide how e.g. "trait-based generics" impact their work.
+<div>
