@@ -28,7 +28,4 @@ Let's break out the essential properties of the system I described above, so we 
 - **Real-time** - both real-time in the sense that we want the most up-to-date view on data, and real-time in the sense that we want guarantees about the responsiveness of the system when we can. Mech will operate on systems like robot cars where latency does matter.
 - **Reactive** - reacting to changes in data should be a forte of the language. You shouldn't have to specify how data flows, but only what data is flowing. Mech should do everything for you in terms of routing and updating streams and computations.
 - **Time and space matter** - Streams of real-world data represent the physical world, so time and space matter. Streams coming into Mech can represent a quantity -- a value plus a unit. Mech should handle conversions between quantities of different scales (e.g. feet to meters). Similarly with time, Mech should handle time explicitly, allowing you to talk about the `previous` or `next` values in a stream.
-- **Visualize Everything** - In a system defined by data flows, bugs are going to exist where streams are incorrectly routed or transformed. Tools capable of visualizing and inspecting streams at any point in time, will make debugging this kind of program easier.
-
-### Architecture
-
+- **Visualize Everything** - In a system defined by data flows, bugs are going to exist where streams are incorrectly routed or transformed. Tools capable of visualizing and inspecting streams at any point in time will make debugging this kind of program easier.
