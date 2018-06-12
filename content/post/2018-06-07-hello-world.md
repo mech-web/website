@@ -11,7 +11,7 @@ I'm developing Mech as a domain specific language for a project I'm working on, 
 
 The final piece is a server, which will do long-running computations like SLAM or neural net model training. It can communicate with the tablet or the car directly. In summary, the system looks like this:
 
-
+<img src="/img/post/topology.png" />
 
 Mech is therefore a platform that allows me to work with the system described above with the minimum amount of coding. The platform should handle all the heavy lifting in terms of connecting to devices, shuffling data around, providing transforms and visualizations, and it should all be fast enough for a robotics-focused application.
 
