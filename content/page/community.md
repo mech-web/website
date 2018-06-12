@@ -8,7 +8,7 @@ layout: page
 
 The Mech code repository is hosted on GitLab:
 
-[https://gitlab.com/cmontella/mech](https://gitlab.com/cmontella/mech)
+[https://gitlab.com/mech-lang/core](https://gitlab.com/mech-lang/core)
 
 You can submit pull requests and issues using their web interface.
 
