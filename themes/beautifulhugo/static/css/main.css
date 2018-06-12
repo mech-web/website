@@ -152,3 +152,7 @@ p img {
   margin: auto;
   width: 50%;
 }
+
+p a {
+  text-decoration: underline;
+}
