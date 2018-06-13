@@ -41,10 +41,11 @@ We used to do something at Eve where we would imagine a sci-fi future where we h
 - ...track down the source of a bug. It points out exactly what piece of code is causing the error, and show the full chain of execution that generated it.
 - ...share programs with friends or coworkers. Click one button to host online, send a link or text to grant access to a running application.
 - ...record and playback everything.
-- ...compose code like legos.
+- ...compose code like snapping together lego bricks. For real this time.
 - ...scale and distribute your program with a single click.
 - ...explore different execution paths by allowing you to rewind an execution, change code, and then resume the execution in place.
 - ...rewind to the past and change the computation graph.
+- ...use a variety of input methods: mouse, pen, touch, voice, VR, etc.
 
 ### Mech makes it impossible to...
 
