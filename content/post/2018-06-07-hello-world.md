@@ -37,21 +37,26 @@ We used to do something at Eve where we would imagine a sci-fi future where we h
 ### Mech makes it trivial to...
 
 - ...transform data from one shape into another.
-- ...visualize anything. I should be a
-- ...track down the source of bugs. Mech should let
+- ...visualize anything in multiple ways. Mech provides you a virtual oscilloscope into your code.
+- ...track down the source of a bug. It points out exactly what piece of code is causing the error, and show the full chain of execution that generated it.
 - ...share programs with friends or coworkers. Click one button to host online, send a link or text to grant access to a running application.
-- ...store anything.
 - ...record and playback everything.
 - ...compose everything.
 - ...scale and distribute effortlessly.
+- ...explore different execution paths.
+- ...rewind to the past and change the computation graph.
 
 ### Mech makes it impossible to...
 
 - ...write a program that can crash.
-- ...deadlock your program.
+- ...write a program that can deadlock.
 - ...corrupt memory or access uninitialized memory.
-- ...exist in a state inconsistent with the defined program.
-- ...get stuck at any phase of development. Mech's tooling always tells you what's wrong, and guides you on how to fix it.
+- ...end up in an state inconsistent.
+- ...get stuck at any phase of development.
+
+## Conclusion
+
+There's still a lot to say about Mech. In this post I've spoken about it in very broad terms, so in the next post I'll talk about the architecture of Mech and the implementation as it stands so far.
 
 <div class="footnote">
 [1] When I worked on it, I was responsible for talking about the Eve language to outside audiences, so I've spent a lot of time thinking about how people talk about programming languages to one another. This is the first time I'm trying this method, but I like it for a couple reasons. First, by talking about what the language makes trivial or impossible, we recognize that implicit in the design of a language is a set of tradeoffs, and we highlight the *implications* of the design decisions we felt were most significant. Further, a reader of these lists isn't left to wonder how a feature may impact their work. Programming languages are often first presented as a list of supported features, frameworks, or programming paradigms, leaving the user to decide how e.g. "trait-based generics" impact their work.
