@@ -34,7 +34,7 @@ Let's break out the essential properties of the system I described above, so we 
 
 We used to do something at Eve where we would imagine a sci-fi future where we had cool computing tools. What kinds of things could we do with those, that we couldn't do today? By imagining this future that didn't exist in explicit terms, we could work backwards and figure out the necessary technologies to make that fiction a reality. I'm going to do the same thing here, phrased as two lists: things that an idealized Mech makes trivial, and things that it makes impossible [1]. Here's a chance for us to think big and imagine a future where anything is possible.
 
-## Mech makes it trivial to...
+### Mech makes it trivial to...
 
 - ...transform data from one shape into another.
 - ...visualize anything. I should be a
@@ -45,7 +45,7 @@ We used to do something at Eve where we would imagine a sci-fi future where we h
 - ...compose everything.
 - ...scale and distribute effortlessly.
 
-## Mech makes it impossible impossible to...
+### Mech makes it impossible impossible to...
 
 - ...write a program that can crash.
 - ...deadlock your program.
