@@ -45,7 +45,7 @@ We used to do something at Eve where we would imagine a sci-fi future where we h
 - ...compose everything.
 - ...scale and distribute effortlessly.
 
-### Mech makes it impossible impossible to...
+### Mech makes it impossible to...
 
 - ...write a program that can crash.
 - ...deadlock your program.
