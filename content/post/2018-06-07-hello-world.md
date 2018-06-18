@@ -55,10 +55,14 @@ We used to do something at Eve where we would imagine a sci-fi future where we h
 - ...end up with inconsistent state.
 - ...get stuck at any phase of development.
 
+Coming from today's programming language landscape, the above may seem more on the fiction side of things. But it is my hypothesis that all of the above will be achievable with Mech, made possible by the greenfield approach we're taking. As I'll show in the coming blog posts, some of the decisions we make up-front about the semantics of the language will have major implications down the road on what we can achieve with tooling.
+
 ## Conclusion
 
-Hopefully now you have an idea about the spirit of Mech. This post was really about the motivation for building it and what I hope it will become one day. In the next post I'll talk about specifics, in terms of architecture and the implementation as it stands so far. 
+Hopefully now you have an idea about the spirit of Mech. This post was really about the motivation for building it and what I hope it will become one day. I hope it was enough to convince you to follow along as we build this language. In the next post I'll talk about specifics of Mech, in terms of its architecture and the implementation as it stands so far. I'm going to try to make at least one post per week going forward, so hopefully the next one will be up by then.
 
-<div class="footnote">
-[1] When I worked on it, I was responsible for talking about the Eve language to outside audiences, so I've spent a lot of time thinking about how people talk about programming languages to one another. This is the first time I'm trying this method, but I like it for a couple reasons. First, by talking about what the language makes trivial or impossible, we recognize that implicit in the design of a language is a set of tradeoffs, and we highlight the *implications* of the design decisions we felt were most significant. Further, a reader of these lists isn't left to wonder how a feature may impact their work. Programming languages are often first presented as a list of supported features, frameworks, or programming paradigms, leaving the user to decide how e.g. "trait-based generics" impact their work.
+<div class="footnotes">
+  <div class="footnote">
+  [1] When I worked on it, I was responsible for talking about the Eve language to outside audiences, so I've spent a lot of time thinking about how people talk about programming languages to one another. This is the first time I'm trying this method, but I like it for a couple reasons. First, by talking about what the language makes trivial or impossible, we recognize that implicit in the design of a language is a set of tradeoffs, and we highlight the *implications* of the design decisions we felt were most significant. Further, a reader of these lists isn't left to wonder how a feature may impact their work. Programming languages are often first presented as a list of supported features, frameworks, or programming paradigms, leaving the user to decide how e.g. "trait-based generics" impact their work.
+  <div>
 <div>
