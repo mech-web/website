@@ -6,52 +6,54 @@ weight: 2
 layout: page
 ---
 
-## An Example
+# Bouncing Balls
 
-```rust
-// In Cargo.toml, include Mech as a dependency:
-// mech = {git = "https://gitlab.com/mech-lang/core.git"}
-extern crate mech;
-use mech::{Core, Transaction, Block, Value};
+Set up the environment
 
-// Create a new mech core
-let mut core = Core::new(change_capacity, table_capacity);
+```
+  #ball = [x y vx vy]
+  #system/timer += [#timer resolution: 60Hz]
+  #gravity = 9.8m/s^2
+  #boundary = 5km
+```
 
-// Create a new table, and add two values to it
-let txn = Transaction::from_text("#add += [5 3]");
+## Update Condition
 
-// Apply the transaction
-core.process_transaction(&txn);
+The positions of the balls updates on every tick
 
-// #add:
-// ┌───┬───┬───┐
-// │ 5 │ 3 │   │
-// └───┴───┴───┘
+```
+  on #timer.tick
+  [#ball x y vx vy]
+  x := x + vx
+  y := y + vy
+  vy := vy + #gravity * #timer.dt
+```
 
-// Create a block that adds two numbers.
-let mut block = Block::new("#add[3] = #add[1] + #add[2]");
+## Boundary Conditions
 
-// Register the block with the core
-core.register_block(block);
+Constrain balls to within the boundary 
 
-// #add:
-// ┌───┬───┬───┐
-// │ 5 │ 3 │ 8 │
-// └───┴───┴───┘
+```
+  [#ball x y vx vy]
+  ix = x > #boundary
+  iy = y > #boundary
+  i0 = x < 0km
 
-// Check that the numbers were added together
-assert_eq!(core.get_cell("add", 1, 3), Some(Value::from_u64(8)));
+  // The balls cannot exceed the window boundary
+  x[ix] := #boundary
+  y[iy] := #boundary
+  x[i0] := 0
+  
+  // Reverse velocity and dampen rebound
+  vy[iy] := -vy * 90%
+  vx[ix or i0] := -vx * 90%
+```
 
-// We can add another row to the #add table
-let txn2 = Transaction::from_text("#add += [3 4]");
-core.process_transaction(&txn2);
+## Reset on click
 
-// #add:
-// ┌───┬───┬───┐
-// │ 5 │ 3 │ 8 │
-// │ 3 │ 4 │ 7 │
-// └───┴───┴───┘
-
-// Notice the second row was automatically added
-assert_eq!(core.get_cell("add", 2, 3), Some(Value::from_u64(7)));
+```
+  on click = [#html/event/click]
+  [#ball x y]
+  x := click.x
+  y := click.y
 ```
