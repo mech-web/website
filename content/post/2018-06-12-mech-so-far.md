@@ -3,7 +3,7 @@ title: Mech So Far
 date: 2018-06-12
 ---
 
-[Last week](https://mechlang.net/post/2018-06-07-hello-world/) I spent the post describing Mech in aspirational terms. Today we'll focus on the form of the project, and the state of the current implementation. 
+[Last week](https://mechlang.net/blog/2018-06-07-hello-world/) I spent the post describing Mech in aspirational terms. Today we'll focus on the form of the project, and the state of the current implementation. 
 
 ## Design
 
@@ -15,16 +15,14 @@ While we refer to Mech primarily as a "language", the project really consists of
 2. Server - a virtual machine that hosts Mech cores. It can send messages to other servers, which can spawn mech cores in response to message contents or performance demands.
 3. Notebook - a web-deliverable GUI for Mech. 
 
-Each of these components deserves its own post. 
+Each of these components deserves its own post, but I'll get started now with Mech Core.
 
 ### Core
+
+
 
 #### Tables
 #### Database
 #### Runtime
-
-### Server
-
-### Notebook
 
 ## Implementation
