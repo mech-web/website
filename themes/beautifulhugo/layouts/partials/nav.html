@@ -11,21 +11,18 @@
   <div class="spacer"></div>
   <div class="collapse navbar-collapse" id="main-navbar">
     <ul class="nav navbar-nav navbar-right">
-      {{ $currentPage := . }}
-      {{ range .Site.Menus.main.ByWeight }}
-        {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
-        <li class="nav-active">
-          <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">>{{ .Name }}</a>
-        </li>
-        {{else}}
-        <li>
-            <a title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
-        </li>
-        {{end}}
-      {{ end }}
-        <li>
-          <a title="Play" href="http://play.mechlang.net">Play</a>
-        </li>
+      <li>
+        <a title="Community" href="/page/community/">Play</a>
+      </li>
+      <li>
+        <a title="Learn" href="/page/learn/">Play</a>
+      </li>
+      <li>
+        <a title="Blog" href="/blog/">Play</a>
+      </li>
+      <li>
+        <a title="Try" href="http://try.mechlang.net">Play</a>
+      </li>
     </ul>
   </div>
 
