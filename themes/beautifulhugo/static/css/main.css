@@ -82,8 +82,7 @@ a:focus {
   }
 
   #main-navbar li {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 0px;
     flex-grow: 1;
   }
 }
