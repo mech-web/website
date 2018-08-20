@@ -14,7 +14,7 @@ Follow us on Twitter [@MechLang](https://twitter.com/MechLang).
 
 The Mech code repository is hosted on GitLab:
 
-[https://gitlab.com/mech-lang/core](https://gitlab.com/mech-lang/core)
+[https://gitlab.com/mech-lang/mech](https://gitlab.com/mech-lang/mech)
 
 You can submit pull requests and issues using their web interface.
 
