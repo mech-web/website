@@ -3,7 +3,7 @@ title: Hello World
 date: 2018-06-07
 ---
 
-Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I'll be taking it in the near future. You can also follow Mech's development on Twitter ([@MechLang](https://twitter.com/MechLang)) or by signing up for the [mailing list](https://mechlang.net/page/community/).
+Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I'll be taking it in the near future. You can also follow Mech's development on Twitter ([@MechLang](https://twitter.com/MechLang)) or by signing up for the [mailing list](http://mech-lang.org/page/community/).
 
 ## What's Mech?
 
