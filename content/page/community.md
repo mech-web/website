@@ -24,10 +24,10 @@ Register for the Mech mailing list here:
 
 <form action="http://kundenserver.de/cgi-bin/mailinglist.cgi" method="POST" target="_blank">
   <input checked name="subscribe_r" type="radio" value="subscribe">
-  Yes, I want to become a member of the mailing list talk@mechlang.net.
+  Yes, I want to become a member of the mailing list talk@mech-lang.org.
   <br />
   <input name="subscribe_r" type="radio" value="unsubscribe">
-  Please remove me from mailing list talk@mechlang.net.
+  Please remove me from mailing list talk@mech-lang.org.
   <br />
   Enter your e-mail address:
   <br />
@@ -41,7 +41,7 @@ Register for the Mech mailing list here:
   <br />
   <input type="RESET" value="Reset">
   <hr />
-  <input name="FBMLNAME" type="hidden" value="talk@mechlang.net">
+  <input name="FBMLNAME" type="hidden" value="talk@mech-lang.org">
   <br />
   <input name="FBLANG" type="hidden" value="en">
   <br />
