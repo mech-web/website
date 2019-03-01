@@ -59,7 +59,7 @@ Coming from today's programming language landscape, the above may seem more on t
 
 ## Conclusion
 
-Hopefully now you have an idea about the spirit of Mech. This post was really about the motivation for building it and what I hope it will become one day. I hope it was enough to convince you to follow along as we build this language. In the next post I'll talk about specifics of Mech, in terms of its architecture and the implementation as it stands so far. I'm going to try to make at least one post per week going forward, so hopefully the next one will be up by then.
+Hopefully now you have an idea about the spirit of Mech. This post was really about the motivation for building it and what I hope it will become one day. I hope it was enough to convince you to follow along as we build this language. In the next post I'll talk about specifics of Mech, in terms of its architecture and the implementation as it stands so far.
 
 <div class="footnotes">
   <div class="footnote">
