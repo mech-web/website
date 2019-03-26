@@ -1,18 +1,11 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/hugo
-image: dettmering/hugo-build
+image: alpine:latest
 
 pages:
+  stage: deploy
   script:
-  - hugo
+  - echo 'Nothing to do...'
   artifacts:
     paths:
     - public
   only:
-  - master
-  
-test:
-  script:
-  - hugo
-  except:
   - master
