@@ -186,3 +186,10 @@ button:hover {
   -webkit-appearance: none;
   background: #d3d3d3;
 }
+
+.time-travel {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: 10px;
+}
