@@ -44,9 +44,16 @@ p a {
   color: rgb(91, 34, 127);
 }
 
-ul a {
-  /* text-decoration: underline */
-  color: rgb(91, 34, 127);
+input {
+  width: 245px;
+}
+
+p {
+  text-align: justify;
+}
+
+li a {
+  text-decoration: underline;
 }
 
 h1,h2,h3,h4,h5,h6 {
