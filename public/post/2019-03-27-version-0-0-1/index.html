@@ -65,7 +65,30 @@
               </div>
 
               <p>Here is the source for the rendered program: <a href="https://github.com/mech-lang/mech/blob/master/examples/robot-drawing.mec">robot-drawing.mec</a>. What's going on? At a high level Mech program defines the canvas drawing and the positions of the robot arm links. The angles of the joints are connected to the values of the three sliders. When you change the slider's position, that change is reported to Mech, which in turn updates the drawing.</p>
+
+              <p>Let's take a look at some code excerpts. We'll consider just the first arm joint. First, we create a control for the joint</p>
+
+              <pre class="code">#slider = [type: "slider" parameters: [min: -120 max: 120 value: -45]]</pre>
+
+              <p>The min and max parameters allow us to specify the angle range for the joint, and value sets its initial value. Then, we can draw the portion of the arm based on that angle</p>
+
+              <pre class="code">angle = #slider{1,2}{1,3}
+base = [375 350]
+arm-length = 53
+y1 = (base{1} - 50) - arm-length * math/cos(degrees: angle)
+x1 = base{2} + arm-length * math/sin(degrees: angle)
+#arm = [|shape   parameters|
+         "image" [x: x1 y: y1 rotation: angle1 image: "link1.png"]
+         "image" [x: base{1} y: base{2} rotation: 0 image: "link0.png"]]</pre>
                 
+              <p>Finally, we add the drawing to our page by specifying to which root it should attach</p>
+
+              <pre class="code">#app/main = [|root             contains|
+              "robot-drawing"  [#slider]
+              "robot-drawing"  [#arm]]</pre>
+
+              <p>Where the root is the ID of an element in the DOM. If this ID doesn't exist, the drawing won't be added.</p>
+
               <h2>Time Traveling</h2>
 
               <p>Now here's the really cool part: notice the slider control and associated buttons below the robot drawing. This is the time travel control, which allows you to step back in time to a previous state of the drawing. Go ahead and adjust the time travel slider, and watch the robot arm reverse its position to where it was before. You can move backwards and forwards in time freely by moving the slider back and forth, or move one step at a time by clicking the "<" and ">" buttons. As long as the program is in a rewound state, the program is "paused" meaning that the angle control sliders will not work. To resume regular operation, click the "Resume" button, whic restores the program to the state is was before you started time traveling.</p>
