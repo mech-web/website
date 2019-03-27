@@ -44,17 +44,29 @@ p a {
   color: rgb(91, 34, 127);
 }
 
+ul a {
+  /* text-decoration: underline */
+  color: rgb(91, 34, 127);
+}
+
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Fira', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
 }
 
 a {
+  text-decoration: none;
   color: rgb(91, 34, 127);
 }
 a:hover,
 a:focus {
   color: rgb(91, 34, 127);
+}
+
+.code {
+  background-color: rgb(16, 2, 24);
+  font-family: 'Fira';
+  color: rgb(250,250,250);
 }
 
 .navbar {
