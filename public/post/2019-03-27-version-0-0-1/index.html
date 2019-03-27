@@ -55,12 +55,69 @@
             March 27, 2019
           </span>
           <article role="main" class="blog-post">
-              <p>Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I&rsquo;ll be taking it in the near future. You can also follow Mech&rsquo;s development on Twitter (<a href="https://twitter.com/MechLang">@MechLang</a>) or by signing up for the <a href="https://mech-lang.org/page/community/">mailing list</a>.</p>
+              <p>Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version of Mech, but it represents the first time we can show off useful features like rendering the output of Mech code to arbitrary browser elements. Although it's minimally useful, documentation and tooling are still sparse, so the purpose of this release is to show off some features and to try and establish a release procedure. The next release, v0.0.2, will add more along the lines of user documentation. Nonetheless, in this post we'll go over what's included in v0.0.1, and introduce you to some of the unique features of the Mech programming language.</p>
+
+              <p>The easiest way to try out Mech is to head over to the online editor at <a href="try.mech-lang.org">try.mech-lang.org</a>. If you have Rust and NodeJS installed, you can build Mech from source by cloning our <a href="https://github.com/mech-lang/mech">main repository</a>, and following the included instructions.</p>
+                
+              <p>We can actually demonstrate Mech without even leaving this post. While the post is written in plain HTML, we have included a bit of Javascript that compiles and attaches a live Mech program to this post. Below is a drawing of a robot arm, with three slider controls that adjust the angle of the joints. Go ahead and move the sliders and watch how the robot arm responds.</p>
 
               <div id="robot-arm">
               </div>
 
-              <p>Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I&rsquo;ll be taking it in the near future. You can also follow Mech&rsquo;s development on Twitter (<a href="https://twitter.com/MechLang">@MechLang</a>) or by signing up for the <a href="https://mech-lang.org/page/community/">mailing list</a>.</p>
+              <p>Here is the source for the rendered program: <a href="https://github.com/mech-lang/mech/blob/master/examples/robot-drawing.mec">robot-drawing.mec</a>. What's going on? At a high level Mech program defines the canvas drawing and the positions of the robot arm links. The angles of the joints are connected to the values of the three sliders. When you change the slider's position, that change is reported to Mech, which in turn updates the drawing.</p>
+                
+              <h2>Time Traveling</h2>
+
+              <p>Now here's the really cool part: notice the slider control and associated buttons below the robot drawing. This is the time travel control, which allows you to step back in time to a previous state of the drawing. Go ahead and adjust the time travel slider, and watch the robot arm reverse its position to where it was before. You can move backwards and forwards in time freely by moving the slider back and forth, or move one step at a time by clicking the "<" and ">" buttons. As long as the program is in a rewound state, the program is "paused" meaning that the angle control sliders will not work. To resume regular operation, click the "Resume" button, whic restores the program to the state is was before you started time traveling.</p>
+
+              <p>This feature is made possible because Mech is built on top of a database. Any changes to tables in Mech are recorded as "transactions" on the database. When we travel back in time, the transactions are replayed in reverse order. When we travel forward in time, the transactions are replayed in forward order. This feature has some far-reaching implications as far as the way tooling will work, such as the ability to rewind the program state to the occurance of a bug, or to save and share the state of a running program. More on this in a future post.</p>
+
+              <h2>Project Structure</h2>
+
+              <p>Let's take a step back and look at the project structure of the Mech language. The Mech project is just over a year old, with 6300 lines of code (mostly Rust) and 2173 commits across <a href="https://github.com/mech-lang">several repositories</a> (one of the constraints on the project is to keep the total line count under 10,000). These repositories include:</p>
+              
+              <ul>
+                <li><a href="https://github.com/mech-lang/mech">mech</a> - The main Mech repository. It integrates the rest of the project and provides a REPL and a hosted editor.</li>
+                <li><a href="https://github.com/mech-lang/core">core</a> - The Mech runtime. It's a small dataflow engine that accepts transactions of changes, and applies them to a compute network.</li>
+                <li><a href="https://github.com/mech-lang/syntax">syntax</a> - A compiler for a textual Mech syntax.</li>
+                <li><a href="https://github.com/mech-lang/program">program</a> - Organizes Mech cores into a program. Handles reading files, interfacing with libraries, and persisting changes.</li>
+                <li><a href="https://github.com/mech-lang/server">server</a> - Provides a server and client ofr hosting Mech programs on a websocket.</li>
+                <li><a href="https://github.com/mech-lang/notebook">notebook</a> / <a href="https://github.com/mech-lang/wasm">wasm</a> - A hosted editor for writing Mech applications.</li>
+              </ul>
+
+              <h2>Mech REPL</h2>
+              
+              <p align="center">
+                  <img width="50%" height="50%" src="https://mech-lang.org/img/post/REPL.PNG" />
+              </p>
+
+              <p>We've included the beginning of a REPL with our first release. If you have Rust and Cargo installed, you download and install the REPL with</p>
+
+<pre>> cargo install mech</pre>
+
+              <p>Then start the REPL by just invoking the command "mech". This will drop you at a prompt (pictured above). Right now you can load a program from disk, inspect the core and runtime, and perform calculations.</p>
+
+              <h2>Standard Library</h2>
+
+              Since this is the first release, the standard library is very small. Right now we have four (albeit barebones) libraries available:
+
+              <ul>
+                <li><b>app</b> - this is the primary UI library. For now it can only draw a canvas, slider input, divs, and images.</li>
+                <li><b>system</b> - includes only system/timer[] for now.</li>
+                <li><b>math</b> - includes math/cos() and math/sin() functions</li>
+                <li><b>stat</b> - right now just contains the stat/sum() function.</li>
+              </ul>
+
+              <p>Documentation for these libraries is coming in v0.0.2, but for now a good example of their usage can be found in the <a href="https://github.com/mech-lang/mech/blob/master/examples/clock.mec">clock.mec</a> program.</p>
+
+              <h2>Roadmap</h2>
+
+              <p>As we mentioned, Mech is a very alpha piece of software right now. The next step in making Mech more usable is adding some documentation and tooling. This will be the focus of the v0.0.2 release. The next version will include self-hosting documentation (docs will be written in Mech) and we'd like to get to the point where the website can be written in Mech as well.</p>
+                
+              <p>After that, we are going to focus on making the vision outlined in the <a href="https://mech-lang.org/post/2018-06-07-hello-world/">previous blog post</a> a reality; version 0.0.3 will demonstrate coordination between multiple distributed Mech cores interacting with hardware.</p>
+
+              <p>Thanks for following along, and as always, you can reach us by following the various community links found on the <a href="https://mech-lang.org/page/community/">Community page</a>.</p>
+
           </article>
         </div>
       </div>
