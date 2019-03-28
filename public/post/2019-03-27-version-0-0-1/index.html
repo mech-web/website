@@ -73,7 +73,7 @@
 
               <p>The min and max parameters allow us to specify the angle range for the joint, and value sets its initial value. Then, we can draw the portion of the arm based on that angle</p>
 
-              <pre class="code"><span class="hl-table">#</span>angle = <span class="hl-table">#</span>slider<span class="hl-bracket">{</span><span class="hl-number">1</span>,<span class="hl-number">2</span><span class="hl-bracket">}</span><span class="hl-bracket">{</span><span class="hl-number">1</span>,<span class="hl-number">3</span><span class="hl-bracket">}</span>
+              <pre class="code">angle = <span class="hl-table">#</span>slider<span class="hl-bracket">{</span><span class="hl-number">1</span>,<span class="hl-number">2</span><span class="hl-bracket">}</span><span class="hl-bracket">{</span><span class="hl-number">1</span>,<span class="hl-number">3</span><span class="hl-bracket">}</span>
 base = <span class="hl-table">[</span><span class="hl-number">375</span> <span class="hl-number">350</span><span class="hl-table">]</span>
 arm-length = <span class="hl-number">53</span>
 y1 = (base<span class="hl-bracket">{</span><span class="hl-number">1</span><span class="hl-bracket">}</span> - <span class="hl-number">50</span>) - arm-length * <span class="hl-function">math/cos(</span><span class="hl-parameter">degrees:</span> angle<span class="hl-function">)</span>
