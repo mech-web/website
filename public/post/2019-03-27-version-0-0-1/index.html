@@ -56,22 +56,37 @@
             March 27, 2019
           </span>
           <article role="main" class="blog-post">
-              <p>Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version of Mech, but it represents the first time we can show off useful features like rendering the output of Mech code to arbitrary browser elements. Although it's minimally useful, documentation and tooling are still sparse, so the purpose of this release is to show off some features and to try and establish a release procedure. The next release, v0.0.2, will add more along the lines of user documentation. Nonetheless, in this post we'll go over what's included in v0.0.1, and introduce you to some of the unique features of the Mech programming language.</p>
+              <p>Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version of Mech, but it represents the first time we can show off some features like time-travel debugging and rendering the output of Mech code to arbitrary browser elements. Although this release has some useful features, they aren't yet documented; we'll focus on that in the next release. For now though, we'll go over what's included in v0.0.1, and introduce you to some of the unique features of the Mech programming language.</p>
 
-              <p>The easiest way to try out Mech is to head over to the online editor at <a href="try.mech-lang.org">try.mech-lang.org</a>. If you have Rust and NodeJS installed, you can build Mech from source by cloning our <a href="https://github.com/mech-lang/mech">main repository</a>, and following the included instructions.</p>
+              <p>The easiest way to try out Mech is the online editor hosted at <a href="http://try.mech-lang.org">try.mech-lang.org</a>. If you have Rust and NodeJS installed, you can build Mech from source by cloning our <a href="https://github.com/mech-lang/mech">main repository</a>, and following the included instructions.</p>
                 
-              <p>We can actually demonstrate Mech without even leaving this post. While the post is written in plain HTML, we have included a bit of Javascript that compiles and attaches a live Mech program to this post. Below is a drawing of a robot arm, with three slider controls that adjust the angle of the joints. Go ahead and move the sliders and watch how the robot arm responds.</p>
+              <h2>Project Structure</h2>
+
+              <p>The Mech project is just over a year old, with 6,300 lines of code (mostly Rust) and 2,173 commits across <a href="https://github.com/mech-lang">several repositories</a> (one of the constraints on the project is to keep the total line count under 10,000). These repositories include:</p>
+              
+              <ul>
+                <li><a href="https://github.com/mech-lang/mech">mech</a> - The main Mech repository. It integrates the rest of the project and provides a REPL and a hosted editor.</li>
+                <li><a href="https://github.com/mech-lang/core">core</a> - The Mech runtime. It's a small dataflow engine that accepts transactions of changes, and applies them to a compute network.</li>
+                <li><a href="https://github.com/mech-lang/syntax">syntax</a> - A compiler for a textual Mech syntax.</li>
+                <li><a href="https://github.com/mech-lang/program">program</a> - Organizes Mech cores into a program. Handles reading files, interfacing with libraries, and persisting changes.</li>
+                <li><a href="https://github.com/mech-lang/server">server</a> - Provides a server and client for hosting Mech programs on a websocket.</li>
+                <li><a href="https://github.com/mech-lang/notebook">notebook</a> / <a href="https://github.com/mech-lang/wasm">wasm</a> - A web-based editor for writing Mech applications.</li>
+              </ul>
+
+              <h2>Mech in Action</h2>
+
+              <p>We can actually demonstrate Mech without even leaving this post. While the post is written in plain HTML, we have included a bit of Javascript that compiles and attaches a live Mech program to a div with an arbitrary ID. Below is a drawing of a robot arm, with three slider controls that adjust the angles of the joints. Go ahead and move the sliders and watch how the robot arm responds.</p>
 
               <div id="robot-arm">
               </div>
 
-              <p>Here is the source for the rendered program: <a href="https://github.com/mech-lang/mech/blob/master/examples/robot-drawing.mec">robot-drawing.mec</a>. What's going on? At a high level Mech program defines the canvas drawing and the positions of the robot arm links. The angles of the joints are connected to the values of the three sliders. When you change the slider's position, that change is reported to Mech, which in turn updates the drawing.</p>
+              <p>Here is the source for the rendered program: <a href="https://github.com/mech-lang/mech/blob/master/examples/robot-drawing.mec">robot-drawing.mec</a>. What's going on? At a high level, the Mech program defines the canvas drawing and the slider controls. The angles of the robot arm joints are connected to the values of the three sliders. When you adjust a slider's value, the change is reported to Mech, which in turn updates the drawing.</p>
 
               <p>Let's take a look at some code excerpts. We'll consider just the first arm joint. First, we create a control for the joint</p>
 
               <pre class="code"><span class="hl-table">#</span>slider = <span class="hl-table">[</span><span class="hl-parameter">type:</span> <span class="hl-string">"slider"</span> <span class="hl-parameter">parameters:</span> <span class="hl-table">[</span><span class="hl-parameter">min:</span> <span class="hl-number">-120</span> <span class="hl-parameter">max:</span> <span class="hl-number">120</span> <span class="hl-parameter">value:</span> <span class="hl-number">-45</span><span class="hl-table">]</span><span class="hl-table">]</span></pre>
 
-              <p>The min and max parameters allow us to specify the angle range for the joint, and value sets its initial value. Then, we can draw the portion of the arm based on that angle</p>
+              <p>The min and max parameters allow us to specify the angle range for the joint, and value sets its initial value. Next, we can draw the portion of the arm and orient it at the indicated angle</p>
 
               <pre class="code">angle = <span class="hl-table">#</span>slider<span class="hl-bracket">{</span><span class="hl-number">1</span>,<span class="hl-number">2</span><span class="hl-bracket">}</span><span class="hl-bracket">{</span><span class="hl-number">1</span>,<span class="hl-number">3</span><span class="hl-bracket">}</span>
 base = <span class="hl-table">[</span><span class="hl-number">375</span> <span class="hl-number">350</span><span class="hl-table">]</span>
@@ -82,32 +97,19 @@ x1 = base<span class="hl-bracket">{</span><span class="hl-number">2</span><span 
          <span class="hl-string">"image"</span> <span class="hl-table">[</span><span class="hl-parameter">x:</span> x1 <span class="hl-parameter">y:</span> y1 <span class="hl-parameter">rotation:</span> angle <span class="hl-parameter">image:</span> <span class="hl-string">"link1.png"</span><span class="hl-table">]</span>
          <span class="hl-string">"image"</span> <span class="hl-table">[</span><span class="hl-parameter">x:</span> base<span class="hl-bracket">{</span><span class="hl-number">1</span><span class="hl-bracket">}</span> <span class="hl-parameter">y:</span> base<span class="hl-bracket">{</span><span class="hl-number">2</span><span class="hl-bracket">}</span> <span class="hl-parameter">rotation:</span> <span class="hl-number">0</span> <span class="hl-parameter">image:</span> <span class="hl-string">"link0.png"</span><span class="hl-table">]</span><span class="hl-table">]</span></pre>
                 
-              <p>Finally, we add the drawing to our page by specifying to which root it should attach</p>
+              <p>Finally, we add the drawing to our page by specifying an element in the DOM as the root of the program output</p>
 
               <pre class="code"><span class="hl-table">#</span>app/main = <span class="hl-table">[</span><span class="hl-parameter">|root             contains|</span>
               <span class="hl-string">"robot-drawing"</span>  <span class="hl-table">[</span><span class="hl-table">#</span>slider<span class="hl-table">]</span>
               <span class="hl-string">"robot-drawing"</span>  <span class="hl-table">[</span><span class="hl-table">#</span>arm<span class="hl-table">]</span><span class="hl-table">]</span></pre>
 
-              <p>Where the root is the ID of an element in the DOM. If this ID doesn't exist, the drawing won't be added.</p>
+              <p>We do that for each link in the arm, and we have our drawing!</p>
 
               <h2>Time Traveling</h2>
 
-              <p>Now here's the really cool part: notice the slider control and associated buttons below the robot drawing. This is the time travel control, which allows you to step back in time to a previous state of the drawing. Go ahead and adjust the time travel slider, and watch the robot arm reverse its position to where it was before. You can move backwards and forwards in time freely by moving the slider back and forth, or move one step at a time by clicking the "<" and ">" buttons. As long as the program is in a rewound state, the program is "paused" meaning that the angle control sliders will not work. To resume regular operation, click the "Resume" button, whic restores the program to the state is was before you started time traveling.</p>
+              <p>Now here's the really cool part: notice the slider control and associated buttons below the robot drawing. This is the time travel control, which allows you to step back in time to a previous state of the program. Go ahead and adjust the time travel slider, and watch the robot arm reverse its position to where it was before. You can move backwards and forwards in time freely by moving the slider back and forth, or move one step in the history by clicking the "<" and ">" buttons. As long as the program is in a rewound state, the program is "paused" meaning that Mech won't process any new data, and the angle control sliders therefore will not work. To resume regular operation, click the "Resume" button, which restores the program to the state is was before you started time traveling.</p>
 
-              <p>This feature is made possible because Mech is built on top of a database. Any changes to tables in Mech are recorded as "transactions" on the database. When we travel back in time, the transactions are replayed in reverse order. When we travel forward in time, the transactions are replayed in forward order. This feature has some far-reaching implications as far as the way tooling will work, such as the ability to rewind the program state to the occurance of a bug, or to save and share the state of a running program. More on this in a future post.</p>
-
-              <h2>Project Structure</h2>
-
-              <p>Let's take a step back and look at the project structure of the Mech language. The Mech project is just over a year old, with 6300 lines of code (mostly Rust) and 2173 commits across <a href="https://github.com/mech-lang">several repositories</a> (one of the constraints on the project is to keep the total line count under 10,000). These repositories include:</p>
-              
-              <ul>
-                <li><a href="https://github.com/mech-lang/mech">mech</a> - The main Mech repository. It integrates the rest of the project and provides a REPL and a hosted editor.</li>
-                <li><a href="https://github.com/mech-lang/core">core</a> - The Mech runtime. It's a small dataflow engine that accepts transactions of changes, and applies them to a compute network.</li>
-                <li><a href="https://github.com/mech-lang/syntax">syntax</a> - A compiler for a textual Mech syntax.</li>
-                <li><a href="https://github.com/mech-lang/program">program</a> - Organizes Mech cores into a program. Handles reading files, interfacing with libraries, and persisting changes.</li>
-                <li><a href="https://github.com/mech-lang/server">server</a> - Provides a server and client ofr hosting Mech programs on a websocket.</li>
-                <li><a href="https://github.com/mech-lang/notebook">notebook</a> / <a href="https://github.com/mech-lang/wasm">wasm</a> - A hosted editor for writing Mech applications.</li>
-              </ul>
+              <p>This feature is made possible because Mech is built on top of a database. Any changes to tables in Mech are recorded as "transactions" on the database. When we travel back in time, the transactions are replayed in reverse order. When we travel forward in time, the transactions are replayed in forward order. This feature has some far-reaching implications on the kinds of tooling it enables, such as the ability to rewind the program state to the occurrence of a bug, or to save and share the state of a running program. More on this in a future post.</p>
 
               <h2>Mech REPL</h2>
               
@@ -115,11 +117,11 @@ x1 = base<span class="hl-bracket">{</span><span class="hl-number">2</span><span 
                   <img width="50%" height="50%" src="http://mech-lang.org/img/post/REPL.PNG" />
               </p>
 
-              <p>We've included the beginning of a REPL with our first release. If you have Rust and Cargo installed, you download and install the REPL with</p>
+              <p>We've included the beginning of a REPL with our first release. If you have <a href="https://www.rust-lang.org/tools/install">Rust and Cargo installed</a>, you can download and install the Mech REPL with</p>
 
 <pre>> cargo install mech</pre>
 
-              <p>Then start the REPL by just invoking the command "mech". This will drop you at a prompt (pictured above). Right now you can load a program from disk, inspect the core and runtime, and perform calculations.</p>
+              <p>Then start the REPL by just invoking the command "mech" in a console. This will drop you into a prompt (pictured above). Right now you can load a program from disk, inspect the core and runtime, and perform calculations. Type "help" in the REPL to see a full list of commands, or run the REPL with the -h flag to see a full list of supported options.</p>
 
               <h2>Standard Library</h2>
 
@@ -128,7 +130,7 @@ x1 = base<span class="hl-bracket">{</span><span class="hl-number">2</span><span 
               <ul>
                 <li><b>app</b> - this is the primary UI library. For now it can only draw a canvas, slider input, divs, and images.</li>
                 <li><b>system</b> - includes only system/timer[] for now.</li>
-                <li><b>math</b> - includes math/cos() and math/sin() functions</li>
+                <li><b>math</b> - includes math/cos() and math/sin() functions.</li>
                 <li><b>stat</b> - right now just contains the stat/sum() function.</li>
               </ul>
 
@@ -138,9 +140,9 @@ x1 = base<span class="hl-bracket">{</span><span class="hl-number">2</span><span 
 
               <p>As we mentioned, Mech is a very alpha piece of software right now. The next step in making Mech more usable is adding some documentation and tooling. This will be the focus of the v0.0.2 release. The next version will include self-hosting documentation (docs will be written in Mech) and we'd like to get to the point where the website can be written in Mech as well.</p>
                 
-              <p>After that, we are going to focus on making the vision outlined in the <a href="http://mech-lang.org/post/2018-06-07-hello-world/">previous blog post</a> a reality; version 0.0.3 will demonstrate coordination between multiple distributed Mech cores interacting with hardware.</p>
+              <p>After that, we are going to focus on making the vision outlined in the <a href="http://mech-lang.org/post/2018-06-07-hello-world/">previous blog post</a> a reality; version 0.0.3 will demonstrate coordination between multiple distributed Mech cores interacting with robot hardware.</p>
 
-              <p>Thanks for following along, and as always, you can reach us by following the various community links found on the <a href="http://mech-lang.org/page/community/">Community page</a>.</p>
+              <p>Thanks for following along, and as always, you can reach us by following the various community links found on the <a href="http://mech-lang.org/page/community/">community page</a>.</p>
 
           </article>
         </div>
