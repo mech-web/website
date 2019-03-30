@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on The Mech Programming Language</title>
-    <link>http://mech-lang.org/page/</link>
+    <link>https://mech-lang.github.io/website/page/</link>
     <description>Recent content in Pages on The Mech Programming Language</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>cmontella@live.com (Corey Montella)</managingEditor>
     <webMaster>cmontella@live.com (Corey Montella)</webMaster>
     
-	<atom:link href="http://mech-lang.org/page/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mech-lang.github.io/website/page/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Community</title>
-      <link>http://mech-lang.org/page/community/</link>
+      <link>https://mech-lang.github.io/website/page/community/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>cmontella@live.com (Corey Montella)</author>
-      <guid>http://mech-lang.org/page/community/</guid>
+      <guid>https://mech-lang.github.io/website/page/community/</guid>
       <description>Repository The Mech code repository is hosted on GitHab:
 https://github.com/mech-lang/mech
 You can submit pull requests and issues using their web interface.
@@ -27,10 +27,10 @@ Twitter Follow us on Twitter @MechLang.</description>
     
     <item>
       <title>Learn</title>
-      <link>http://mech-lang.org/page/learn/</link>
+      <link>https://mech-lang.github.io/website/page/learn/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>cmontella@live.com (Corey Montella)</author>
-      <guid>http://mech-lang.org/page/learn/</guid>
+      <guid>https://mech-lang.github.io/website/page/learn/</guid>
       <description>Documentation Some brief documentation to start out with.
 Tables Create a singleton table
  #value = 1 #name = &amp;quot;Alan Turing&amp;quot;  Create an array
