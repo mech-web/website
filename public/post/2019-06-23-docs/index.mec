@@ -1,5 +1,5 @@
 # Rendered Mech Programs
 
-June 14, 2019
+June 23, 2019
 
 Mech programs are compatible with markup languages like Markdown. This gives us the opportunity to render Mech programs as rich text documents for display in the browser. This blog post is an example of a rendered Mech document, with headers, code blocks, and other associated elements rendered as HTML elements. 
