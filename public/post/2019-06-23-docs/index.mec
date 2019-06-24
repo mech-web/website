@@ -1,5 +1,15 @@
-# v0.0.2 - Documentation, Visualizations, Distribution
+# v0.0.2 - Documentation, Inspector, Distribution
 
 June 23, 2019
 
+## Documentation
+
 Mech programs are compatible with markup languages like Markdown. This gives us the opportunity to render Mech programs as rich text documents for display in the browser. This blog post is an example of a rendered Mech document, with headers, code blocks, and other associated elements rendered as HTML elements. 
+
+## Inspector 
+
+## Distribution
+
+## Roadmap
+
+The next version, v0.0.3, will focus on input/output facilities, which will necessarily involve a closer look at the distribution model.
