@@ -12,6 +12,8 @@ Mech programs are compatible with markup languages like Markdown. This gives us 
 
 ## Visualizations
 
+The editor can render block output. Right now, anything you bind to block/view is rendered under the block.
+
 ## Distribution
 
 ## Roadmap
