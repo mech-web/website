@@ -2,7 +2,7 @@
 
 June 23, 2019
 
-Today we're happy to release v0.0.2-alpha of Mech. This release has improvements for the language, but the main focus was on documentation and notebook features. First, we've overhauled the notebook interface so that most components are rendered in Rust wasm instead of Javascript. Eventually we will move over to an interface entirely written in Mech. Second, we've rendered Mech documents in HTML, rather than plain text. This necessitated finishing the formatter for syntax highlighting. Finally, we have included a couple tools like an inspector and block views that will help programmers. Let's take a look at each of these new features.
+Today we're happy to release v0.0.2-alpha of Mech. This release has improvements for the language, but the focus was on documentation and notebook features. First, we've overhauled the notebook interface so that most components are rendered in Rust wasm instead of Javascript. Eventually we will move over to an interface entirely written in Mech. Second, we've rendered Mech documents in HTML, rather than plain text. This necessitated finishing the formatter for syntax highlighting. Finally, we have included a couple tools like an inspector and block views that will help programmers. Let's look at each of these new features.
 
 ## Documentation
 
