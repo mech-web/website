@@ -47,7 +47,7 @@ In v0.0.3 we're planning to revisit views with a better way to create them. For 
 
 The inspector will be the main debugging tool in the Mech Notebook. As its name implies, it will allow you to inspect any aspect of a running Mech program, from the value of tables, to the result of a compiled block, to the properties on graphical elements of an output program. The first feature of the inspector we've implemented is the ability to inspect tables and see their values displayed as a table:
 
-<img src="images/inspector.gif" />
+<img src="img/inspector.gif" />
 
 When you click on a table in a block, the inspector pops ups in a modal window nearby. The values displayed in the table update as they are recaculted. Try it out yourself with tables in the block below:
 
