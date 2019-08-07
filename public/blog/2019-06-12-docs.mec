@@ -14,7 +14,11 @@ In this release we're including a new <a href="https://github.com/mech-lang/synt
             1 2 3
             4 5 6]
 
-There's some work to do still in terms of formatting the output (especially when the columns differ in width), but it generally produces nice looking blocks of code. 
+There's some work to do still in terms of formatting the output (especially when the columns differ in width), but it generally produces nice looking blocks of code.
+
+<h3>Table of Contents</h3>
+
+When you use Markdown headers in a Mech document, the notebook uses those to aid in document navigation. H1 headers are rendered in large text that spans the document, so you can quickly see what document you have opened. H2 headers are used to populate the Table of Contents on the left of the document. This table contains links that jump to the indicated section, which is convenient for longer documents. You can see this document has five such links.
 
 ## Views
 
