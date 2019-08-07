@@ -6,7 +6,7 @@ Today we're happy to release <a href="https://github.com/mech-lang/mech/releases
 
 ## Documentation
 
-For this version we've started the never-finished task of writing documentation for Mech. To do this we've created a dialect of Markdown called "Mechdown". It supports all the featues of Markdown (although not all are implemented yet), and has several extensions specific for Mech, like the ability to interpret and display the results of in-line Mech statements (for example, we can evaluate a simple math expression like [[45.7 * 4]]) and execute Mech blocks. This allows us to write live documentation for Mech directly in Mechdown.
+For this version we've started the never-finished task of writing documentation for Mech. To do this we've created a dialect of Markdown called "Mechdown". It supports all the features of Markdown (although not all are implemented yet), and has several extensions specific for Mech, like the ability to interpret and display the results of in-line Mech statements (for example, we can evaluate a simple math expression like [[45.7 * 4]]) and execute Mech blocks. This allows us to write live documentation for Mech directly in Mechdown.
 
 In this release we're including a new <a href="https://github.com/mech-lang/syntax/blob/master/src/formatter.rs">formatter</a>, which takes a Mech AST and produces formatted Mech syntax. We use this formatter to provide syntax highlighting for Mech code blocks. For example:
 
@@ -101,7 +101,7 @@ There's a lot more work to do here. It would be nice to do the same thing we did
 
 <h3>Example Programs</h3>
 
-- Added a simple <a href="http://docs.mech-lang.org/#/examples/breakout.mec">pong game</a> that will eventually be breakout
+- Added a simple <a href="http://docs.mech-lang.org/#/examples/breakout.mec">Pong game</a> that will eventually be the class arcade game Breakout.
 
 ## Roadmap
 
