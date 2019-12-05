@@ -1,0 +1,34 @@
+# Version 0.0.3-alpha
+
+
+
+
+## Change Log
+
+
+### Core
+
+- implement new comparators https://gitlab.com/mech-lang/core/commit/286c41d55c00c62743ca3f8422aa49aa9e20fbb5
+==
+!=
+<=
+>=
+
+- implement units in quantities, scaling, math
+kg
+g
+m
+km
+https://gitlab.com/mech-lang/core/commit/ef56dcda1081785e93d11c0e424d8be0d9597e5d
+add domain mismatch error: https://gitlab.com/mech-lang/core/commit/6bd60f402c6a9d94c21f13b4f14f204973a77ae3
+
+- add math/round function https://gitlab.com/mech-lang/core/commit/86cffd5a9c50727274a723a548b569c36c0342b4
+- add math/floor function https://gitlab.com/mech-lang/core/commit/2198d1cdea04a2896020aec14502ce71630db020
+- add set/any function https://gitlab.com/mech-lang/core/commit/923c07973c36d7402b83b260114e735a2d15f3b7
+
+- handle #x{3}
+
+- implicit fill e.g. x = [first: 1 second: [1 2 3]] https://gitlab.com/mech-lang/core/commit/648042680f0ef0c0061f617fe7d5ae9092fadd38
+
+### Syntax
+
