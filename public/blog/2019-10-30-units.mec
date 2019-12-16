@@ -1,10 +1,10 @@
 # Version 0.0.3-alpha
 
+## Units
 
-
+## New Functions
 
 ## Change Log
-
 
 ### Core
 
@@ -13,22 +13,41 @@
 !=
 <=
 >=
-
-- implement units in quantities, scaling, math
+- implement units in quantities, scaling, math https://gitlab.com/mech-lang/core/commit/ef56dcda1081785e93d11c0e424d8be0d9597e5d
 kg
 g
 m
 km
-https://gitlab.com/mech-lang/core/commit/ef56dcda1081785e93d11c0e424d8be0d9597e5d
-add domain mismatch error: https://gitlab.com/mech-lang/core/commit/6bd60f402c6a9d94c21f13b4f14f204973a77ae3
+- add domain mismatch error: https://gitlab.com/mech-lang/core/commit/6bd60f402c6a9d94c21f13b4f14f204973a77ae3
+- Automatic table fill https://gitlab.com/mech-lang/core/commit/648042680f0ef0c0061f617fe7d5ae9092fadd38
+
+### Syntax
+
+- no std support https://gitlab.com/mech-lang/syntax/commit/f34b01145c057cd04b60cb5f01a2f64a24ef92c1
+- parse and compile units https://gitlab.com/mech-lang/syntax/commit/d397ea5105f1cebd4c1b2d0caf79ab901d109517 https://gitlab.com/mech-lang/syntax/commit/dff741beff990fcc286feae92e2b1c4f8e774426
+- parse state machines https://gitlab.com/mech-lang/syntax/commit/318df9c9c0757ae44b81f04a413273de0f112afb
+- parse and compile section title https://gitlab.com/mech-lang/syntax/commit/51652656726984688875497d744206d2c4d7f5d8
+- parse anonymous table after += https://gitlab.com/mech-lang/syntax/commit/f19593066ebe8037ca890bddb2e5eb936f4d7cc2
+- parse until operator https://gitlab.com/mech-lang/syntax/commit/0a331f93b4751fd561681eb4ac21bda22256c633
+- parse whole table watch https://gitlab.com/mech-lang/syntax/commit/44b19d5b2708c60c152ddb6d3619a7589c4c655f
+- compile single index subscripts https://gitlab.com/mech-lang/syntax/commit/0a1c2f39ee097fabaf5f3e65105035acc2b69eec
+- parse expressions in inline table https://gitlab.com/mech-lang/syntax/commit/36e0af99c82ca49029001afc1ac69ab316fc27b6
+- conform to updated insert definition https://gitlab.com/mech-lang/syntax/commit/962458316ab76d3b16f663d287a3f92ce7524225
+- parse and compile filters in watch https://gitlab.com/mech-lang/syntax/commit/0d20f2707b5688d1a358612e246a868c8dcc81e2 https://gitlab.com/mech-lang/syntax/commit/a1934aadea677f5d9601bc13f8c130b90c0ced8c
+- format units https://gitlab.com/mech-lang/syntax/commit/ab6b771a6226f40605b042078c09cece9a93482c
+- parse as soon as operator and matrix math operator https://gitlab.com/mech-lang/syntax/commit/0ae2a4ff431eb337a0ddeb584c8fbf4189d6c214
+
+### Notebook
+
+- Made canvas rendering incremental https://gitlab.com/mech-lang/wasm/commit/3519727170079859a50ca00c95e94a54684daa20
+- Add mouse events https://gitlab.com/mech-lang/wasm/commit/78acdbfc061820425df12dc920a6b093381f22b3
+- Add keydown events https://gitlab.com/mech-lang/wasm/commit/ca32dde430420c37566e4c152b17fc037d48cad4
+- Vectorize circle drawing https://gitlab.com/mech-lang/wasm/commit/78acdbfc061820425df12dc920a6b093381f22b3
+- Make redrawing nodes safer https://gitlab.com/mech-lang/wasm/commit/fe21c95a33a44cf99e31a4284b00af153b2e120a
+- Remove errors from block when they are fixed https://gitlab.com/mech-lang/wasm/commits/master
+
+### Libraries
 
 - add math/round function https://gitlab.com/mech-lang/core/commit/86cffd5a9c50727274a723a548b569c36c0342b4
 - add math/floor function https://gitlab.com/mech-lang/core/commit/2198d1cdea04a2896020aec14502ce71630db020
 - add set/any function https://gitlab.com/mech-lang/core/commit/923c07973c36d7402b83b260114e735a2d15f3b7
-
-- handle #x{3}
-
-- implicit fill e.g. x = [first: 1 second: [1 2 3]] https://gitlab.com/mech-lang/core/commit/648042680f0ef0c0061f617fe7d5ae9092fadd38
-
-### Syntax
-
