@@ -1,7 +1,21 @@
-# Version 0.0.4-alpha
+# Version 0.0.4 - Modules
 
 April 05, 2020
 
 ## Change Log
 
 ### Core
+
+Dynamically load functions from modules: https://gitlab.com/mech-lang/core/-/commit/d03018d142d922a7f1e6249021be7d94e6010cc1
+Add table/split function: https://gitlab.com/mech-lang/core/-/commit/f0366607c909994064c6443503b7d5be1e6e852c
+Add set/any function: https://gitlab.com/mech-lang/core/-/commit/bf6382961cd8696bdfcc98c8f75efc9121346a02
+Add equal and not equal comparators to quantities: https://gitlab.com/mech-lang/core/-/commit/b12395c3a500aed147228fcead7406206884c321
+Support equality and not equality on strings: https://gitlab.com/mech-lang/core/-/commit/5f9628177c66d47ce37e29c6aa89d5b158ecf823
+
+### Syntax
+
+Add syntax for splitting tables: https://gitlab.com/mech-lang/syntax/-/commit/83c8c9dd17179fcf734c8e63a65a2fcf4b7549f3
+
+### Machines
+
+## Roadmap

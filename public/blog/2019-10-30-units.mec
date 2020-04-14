@@ -1,4 +1,4 @@
-# Version 0.0.3-alpha
+# Version 0.0.3 - Units and Errors
 
 October 30, 2019
 
@@ -48,8 +48,10 @@ km
 - Make redrawing nodes safer https://gitlab.com/mech-lang/wasm/commit/fe21c95a33a44cf99e31a4284b00af153b2e120a
 - Remove errors from block when they are fixed https://gitlab.com/mech-lang/wasm/commits/master
 
-### Libraries
+### Machines
 
 - add math/round function https://gitlab.com/mech-lang/core/commit/86cffd5a9c50727274a723a548b569c36c0342b4
 - add math/floor function https://gitlab.com/mech-lang/core/commit/2198d1cdea04a2896020aec14502ce71630db020
 - add set/any function https://gitlab.com/mech-lang/core/commit/923c07973c36d7402b83b260114e735a2d15f3b7
+
+## Roadmap
