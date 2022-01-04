@@ -55,6 +55,9 @@
           <span class="post-meta">
             January 1, 2022
           </span>
+          <span class="post-author">
+            Corey Montella
+          </span>
           <article role="main" class="blog-post">
 
 <p>Hello everyone and Happy New Year! Mech changed a lot in 2021 -- so much that it's almost ready for its first beta release in 2022. Development of the Mech language has been relatively underground lately, <a href="https://github.com/mech-lang/mech/issues/4">causing some to wonder</a> if the project was dead. Mech is very much alive, but I've been quiet about it since the pandemic started. The last time I <a href="http://docs.mech-lang.org/#/live2019.mec">spoke publicly</a> about Mech was at <a href="https://2019.splashcon.org/details/live/6/Mech-A-Programming-Language-for-Data-Driven-Reactive-Systems">Live 2019</a> in October of that year. If you are new to Mech, the 2019 paper is a good place to learn about the basics of the language.</p>
@@ -65,7 +68,7 @@
 
 <p>I wanted to start by thanking everyone who has been involved with the Mech project. First, thank you to the 2020 <a href="https://creativeinquiry.lehigh.edu/mountaintop-summer-experience/mech-robotics-education">Mountaintop Summer Experience</a> group: Allison Codi, Zack Coriarty, Thanos Kougionis, and Sarah Pontier, who worked on the Forward Robotics initiative. They developed a curriculum that incorporates Mech and Sphero robots into fun learning activities for middle school students. You can learn a little more about their work <a href="http://mech-lang.org/post/2020-08-06-forward-robotics/">here</a>.</p>
 
-<p>Also thanks to my 2021 Lehigh CSE Capstone team: Nic Campion, Sean Hong, Sherry Huang, Dave Jha, and Ronan Leahy. Sean, Dave, and Ronan worked to stress test Mech by implementing classic arcade games. Serry and Nic worked on scripting the Mech CI/CD pipeline. You can see their final capstone presentation <a href="https://drive.google.com/file/d/1ZBR7mkCkNEyT5tEGwMkLOMxCSRU9dmoF/view?usp=sharing">here</a>.</p>
+<p>Also thanks to my 2021 Lehigh CSE Capstone team: Nic Campion, Sean Hong, Sherry Huang, Dave Jha, and Ronan Leahy. Sean, Dave, and Ronan worked to stress test Mech by implementing classic arcade games. Sherry and Nic worked on scripting the Mech CI/CD pipeline. You can see their final capstone presentation <a href="https://drive.google.com/file/d/1ZBR7mkCkNEyT5tEGwMkLOMxCSRU9dmoF/view?usp=sharing">here</a>.</p>
 
 <img src="assets/mech-capstone-2021.jpg" width="100%">
 <p>Photo Caption: The 2021 Mechanics at the Lehigh University Capstone Demo Day.</p>
@@ -87,7 +90,7 @@
         <a href="https://gitlab.com/mech-lang/core/-/tree/v0.1-beta">Implemented</a> a distributed, parallel, asynchronous runtime (WIP)
     </li>
     <li>
-        Enhanced Module system added with a package manager and a <a href="https://gitlab.com/mech-lang/machines">foundational standard library</a> (WIP)
+        Module system with a package manager were improved and a <a href="https://gitlab.com/mech-lang/machines">standard library</a> was expanded (WIP)
     </li>
     <li>
         Added new <a href="https://gitlab.com/mech-lang/examples/-/tree/v0.1-beta/src">example Mech games</a> implemented using <a href="https://gitlab.com/mech-lang/wasm/-/tree/v0.1-beta">enhanced drawing and events capabilities</a> (WIP).
@@ -96,7 +99,7 @@
 
 <h2>Parallel, Asynchronous, Distributed Runtime</h2>
 
-<p>The bulk of 2022 was spent on a runtime rewrite that leverages data parallelism where possible, which is now mostly in place. This rewrite started as an attempt to take performance of Mech programs more seriously. In the figure below, you can see the results of some benchmarking I did of the <a href="http://docs.mech-lang.org/#/examples/bouncing-balls.mec">bouncing balls game</a> versus a Python implementation:</p>
+<p>The bulk of 2021 was spent on a runtime rewrite that leverages data parallelism where possible, which is now mostly in place. This rewrite started as an attempt to take performance of Mech programs more seriously. In the figure below, you can see the results of some profiling I did of the <a href="http://docs.mech-lang.org/#/examples/bouncing-balls.mec">bouncing balls game</a> versus a Python implementation:</p>
 
 <img src="assets/perf.png" width="100%">
 
@@ -113,7 +116,7 @@
 #ball.vy := #ball.vy + #gravity
 </pre>
 
-<p>Operators and functions work element-wise in Mech, so this block represents 3N addition and assignment operations. There is a lot of inherent parallelism that can be exploited here! The new runtime changes Mech in several ways in recognition of this.</p>
+<p>Operators and functions work element-wise in Mech, so this block represents 3N addition and assignment operations. There is a lot of inherent parallelism that can be exploited here! In recognition of this, I changed the Mech runtime in a few important ways:</p>
 
 <p>
 First, table columns are now typed. This means that instead of accepting a `Value` enum that can be anything, column entries must be homogenous. This allows the Mech compiler to take advantage of automatic vectorization that enables parallelism when appropriate. You can see the result of that in the figure below, showing the execution of the bouncing balls program:</p>
