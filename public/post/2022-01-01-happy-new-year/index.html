@@ -129,7 +129,7 @@ First, table columns are now typed. This means that instead of accepting a `Valu
 
 <p>Second, this also means that we can automatically parallelize most built-in operators beyond what  the Rust compiler manages. Below are the results of using the [Rayon work-stealing parallelism crate](https://github.com/rayon-rs/rayon) for Rust:</p>
 
-<img src="assets/par_iter.gif">
+<img src="assets/par_iter.gif" width="100%">
 
 <p>This yields a 64% percent speedup over the standard iterators, and we can see that CPU utilization is at 100%. Unfortunately, there is some overhead associated with the use of the Rayon crate such that it's not beneficial unless N exceeds a threshold. Potentially what we can do here is switch between regular or parallel iterators depending on how large the operands are, but this is a work in progress.</p>
 
@@ -305,7 +305,7 @@ Test result: ok | total 9 | passed 9 | failed 0 |
 <p>You can see some a demo of the Asteroids game below:
 </p>
 
-<img src="assets/asteroids.gif">
+<img src="assets/asteroids.gif" width="100%">
 
 <p>To run any of these demos, clone the [examples repository](https://github.com/mech-lang/examples/tree/v0.1-beta/), and then run a new server. For instance:
 </p>
@@ -335,7 +335,7 @@ The Mech ecosystem was enhanced in other various was throughout 2021.
 
 <p>The Mech logo was revamped to be a little more interesting. The logo was created by the community -- I presented different variations of the M E C H letters and the community voted on the ones you see here:</p>
 
-<img src="assets/logo-small.png"/>
+<img src="assets/logo-small.png" width="100%"/>
 
 <p>The logo went through a scond revision more recently to give it a different vibe -- I'm going for a 70s palette meets 90s GUI aesthetic. The Mech ethos is very reflective of programming language designs that bloomed in the 70s, including languages like Prolog, Matlab, Smalltalk, and [Lucid](https://en.wikipedia.org/wiki/Lucid_(programming_language)) (by [Bill Wadge](https://billwadge.wordpress.com) and Ed Ashcroft, Lucid was actually the main inspiration that kicked off my journey with Mech).</p>
 
@@ -343,11 +343,11 @@ The Mech ecosystem was enhanced in other various was throughout 2021.
 </p>
 
 
-<img src="assets/logo-embossed.png"/>
+<img src="assets/logo-embossed.png" width="100%"/>
 
 <p>And the color palette:</p>
 
-<img src="assets/palette.png">
+<img src="assets/palette.png" width="100%">
 
 <p>I'm not a designer or anything, but I think it looks good!</p>
 
