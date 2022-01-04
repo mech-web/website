@@ -123,7 +123,7 @@
 <p>
 First, table columns are now typed. This means that instead of accepting a `Value` enum that can be anything, column entries have to be homogenous. This allows the Mech compiler to take advantage of automatic vectorization that enables paralellism when appropriate. You can see the result of that in the figure below, showing the execution of the bouncing balls program:</p>
 
-<img src="assets/iter.gif">
+<img src="assets/iter.gif" width="100%" >
 
 <p>Now instead of running at ~40Hz, the program runs at over 200Hz. This is not *quite* a fair comparison, because the machines are different. I'll have to do a fairer comparison later, but another order of magnitude improvement isn't unreasonable given how much vectorization we can now leverage.</p>
 
