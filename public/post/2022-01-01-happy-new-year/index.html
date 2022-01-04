@@ -105,7 +105,7 @@
 
 <p>Initially Mech performed much worse than Python, but after some tuning guided by the excellent <a href="https://superluminal.eu">Superluminal Profiler</a>, I managed to get about a 10x performance improvement (from 3Hz to 40Hz for N=1e6). Not bad, but I was bitten by the optimization bug at this point, and I couldn't see a way to improve performance further without a big rewrite to leverage the inherent parallelism of this problem.</p>
 
-<h2>Parallel</h2>
+<h3>Parallel</h3>
 
 <p>In this benchmark, N refers to the number of balls being simulated. For instance, consider the following block:</p>
 
