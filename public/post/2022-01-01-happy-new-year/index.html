@@ -107,7 +107,7 @@
 
 <p>In this benchmark, N refers to the number of balls being simulated. For instance, consider the following block:</p>
 
-<pre>
+<pre class="code">
 ~ #time/timer.tick
 #ball.x := #ball.x + #ball.vx
 #ball.y := #ball.y + #ball.vy
@@ -133,13 +133,13 @@ First, table columns are now typed. This means that instead of accepting a `Valu
 
 <p>Work started on scheduling blocks to asynchronously execute within a core. Consider a [file](https://gitlab.com/mech-lang/machines/file) I/O operation, such as opening a file to read the contents:</p>
 
-<pre>
+<pre class="code">
 #file/read += [path: "myfile.txt"]
 </pre>
 
 <p>We can then use the file contents when they are available:</p>
 
-<pre>
+<pre class="code">
 #x = #file/read.contents
 </pre>
 
@@ -162,11 +162,11 @@ First, table columns are now typed. This means that instead of accepting a `Valu
 <p>The left window is a Mech core serving the following code on a websocket (notice the Hex literal; those are new):
 </p>
 
-<pre>#pacman/fill = 0x00FF00</pre>
+<pre class="code">#pacman/fill = 0x00FF00</pre>
 
 <p>The middle window is a Mech core serving the following code (and more) on an HTTP server:</p>
 
-<pre>
+<pre class="code">
 #pacman/drawing = [
     parameters: [
     stroke: 0x000000 
@@ -191,7 +191,7 @@ First, table columns are now typed. This means that instead of accepting a `Valu
 
 <p>Mech also got a package manager in 2020, which downloads machines as they are needed. Required packages are identified when a Mech program is compiled and loaded. Let's use the `math/sin()` function as an example. A program can use the function in a block like so:</p>
 
-<pre>
+<pre class="code">
 #x = math/sin(angle: y)
 </pre>
 
@@ -222,7 +222,7 @@ First, table columns are now typed. This means that instead of accepting a `Valu
 
 <p>This is solved by the native Mech testing harness, which also is a good integration test for verifying the whole system works. The testing machine is quite simple: it runs a test and compares it to the expected results:</p>
 
-<pre>
+<pre class="code">
 Define the test table
     #mech/test = [|name expected actual result|]
     
@@ -232,13 +232,13 @@ Compares the expected and actual results of the test table
 
 <p>A test would be defined as follows</p>
 
-<pre>
+<pre class="code">
 #mech/test += ["Add test", 2, 1 + 1]
 </pre>
 
 <p>Or more explicitly</p>         
 
-<pre>
+<pre class="code">
 #mech/test += [
     name: "Less-than test"
     expected: true 
@@ -249,7 +249,7 @@ Compares the expected and actual results of the test table
 <p>The test can be invoked:
 </p>
 
-<pre>
+<pre class="code">
 > mech test my-tests.mec    
 </pre>
 
@@ -297,7 +297,7 @@ Test result: ok | total 9 | passed 9 | failed 0 |
 <p>To run any of these demos, clone the [examples repository](https://github.com/mech-lang/examples/tree/v0.1-beta/), and then run a new server. For instance:
 </p>
 
-<pre>
+<pre class="code">
 > mech serve examples/src/asteroids
 </pre>
 
@@ -354,7 +354,7 @@ The Mech ecosystem was enhanced in other various was throughout 2021.
 
 <p>Unicode characters as contained in the following block can now be parsed:</p>
 
-<pre>
+<pre class="code">
 y̆és = 😃 + 1
 </pre>
 
@@ -407,7 +407,7 @@ y̆és = 😃 + 1
 
 <p>I'm going to start keeping track of some key project metrics each year:</p>
 
-<pre>
+<pre class="code">
 #github-stars = [|year stars|
                     2018 2
                     2019 31
@@ -451,7 +451,7 @@ y̆és = 😃 + 1
 
 <p>Summary Statistics</p>
 
-<pre>
+<pre class="code">
 #loc/total = stats/sum(column: #loc)
 #loc/budget = 10000
 #loc/remaining = #loc/budget - #loc/total
