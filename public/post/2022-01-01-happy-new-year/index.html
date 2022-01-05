@@ -183,7 +183,9 @@
 
 <p>This drawing uses #pacman/fill as a fill color, but this table is not defined locally. Therefore, the #pacman/drawing is not fully specified, and it cannot be drawing to the screen by the rendering engine until the missing value is filled in.</p>
 
-<p>The right window is a browser that connects to the HTTP server. It receives the above code, but it can't render the Pacman drawing until #pacman/fill is satisfied. It connects via a websocket to the Mech core running in the left window, and it requests the missing table. The missing table is sent to the client, which then draws the now fully specified Pacman to the screen. Finally, the window is duplicated, demonstrating that the programs are rendered independently client-side; even though they communicate with a centralized server to receive the Pacman color, all interactions and updates are performed locally.</p>
+<p>The right window is a browser that connects to the HTTP server. It receives the above code, but it can't render the Pacman drawing. It connects via a websocket to the Mech core running in the left window, and it announces that it requires a table that is missing. The server sends the requested table to the client, which satisfies the missing variable and allows the renderer to draw the Pacman to the screen.</p>
+    
+<p>Finally, the window is duplicated, demonstrating that the programs are rendered independently client-side; even though they communicate with a centralized server to receive the Pacman color, all interactions and updates are performed locally.</p>
 
 <h2>A Module System for Mech</h2>
 
