@@ -118,6 +118,8 @@
 #ball.vy := #ball.vy + #gravity
 </pre>
 
+<p>This would be read as "Whenever the timer ticks, update the position and velocity of the ball using its current position and velocity." The thing to remember about Mech though, is that each variable is actually a vector e.g. #ball.x represents a vector representing the x coordinates of N simulated balls.</p>
+
 <p>Operators and functions work element-wise in Mech, so this block represents 3N addition and assignment operations. There is a lot of inherent parallelism that can be exploited here! In recognition of this, I changed the Mech runtime in a few important ways:</p>
 
 <p>First, table columns are now typed. This means that instead of accepting a Value enum that can be anything, column entries must be homogenous e.g. all unisgned 8-bit integers. This allows the Mech compiler to take advantage of automatic vectorization that enables parallelism when appropriate. You can see the result of that in the figure below, showing the execution of the bouncing balls program:</p>
