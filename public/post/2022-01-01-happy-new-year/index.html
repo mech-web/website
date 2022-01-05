@@ -152,6 +152,8 @@
 
 <p>One very interesting possibility this opens up is the ability to offload computations onto other hardware, like a GPU or remote CPU. Running a computation on a GPU can be viewed as asynchronous operation, because data must be written to and read from the GPU's main memory into the main system memory. Therefore, we began <a href="https://gitlab.com/mech-lang/core/-/tree/gpu">investigating the possibly</a> of offloading these computations onto one or more GPUs (again, very much a WIP). </p>
 
+<p>You'll notice the conspicuous absence of any async or await keywords. That's because asynchrony is built into the semantics of Mech programs. The flip side of this is that actually ordering blocks can be a bit of a pain. However, I believe we can use state machines to help with this problem, and maybe get the best of both worlds. One interesting thing to do here would be to add the ability to specify where you want a computation to occur e.g. on a remote core or on a GPU. Right now, a computation defined on a core will execute on that core. This is an area of active research and very preliminary.</p>
+
 <h3>Distributed</h3>
 
 <p>Work finally began on making the Mech runtime distributed, which enables the ability to write multiplayer games. For instance, consider a game of Pong, seen below seen below running in distributed Mech on three different computers:</p>
