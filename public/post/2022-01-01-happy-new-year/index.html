@@ -79,7 +79,7 @@
 
 <h2>Project Status</h2>
 
-<p>Mech is currently at the alpha stage of development. It's hard to use because there are no error messages yet, and there isn't a lot of documentation. Also some features remain unimplemented. Nevertheless if you know how to use it, it does currenrtly do useful things. Its primary applications to date have been implementing classic arcade games using canvas, and serving as the core of an experimental operating system called Hivemind. It also has been used to power a robot.</p>
+<p>Mech is currently at the alpha stage of development. It's hard to use because there are no error messages yet, and there isn't a lot of documentation. Also some features remain unimplemented. Nevertheless if you know how to use it, it does currently do useful things. Its primary applications to date have been implementing classic arcade games using canvas, and serving as the core of an experimental operating system called Hivemind. It also has been used to power a robot.</p>
     
 <p>When I've implemented at least a prototype of every planned feature (with basic documentation), I will certify Mech as ready for public consumption. My current target for completing the work necessary to release <a href="https://github.com/mech-lang/mech/tree/v0.1-beta">Mech v0.1-beta</a> is October of this year. There are details about a proposed roadmap and timeline at the end of this post.</p>
 
@@ -118,11 +118,11 @@
 #ball.vy := #ball.vy + #gravity
 </pre>
 
-<p>This would be read as "Whenever the timer ticks, update the position and velocity of the ball using its current position and velocity." The thing to remember about Mech though, is that each variable is actually a vector e.g. #ball.x represents a vector representing the x coordinates of N simulated balls.</p>
+<p>This would be read as "Whenever the timer ticks, update the position and velocity of the ball using its current position and velocity." The thing to remember about Mech though, is that each variable is actually a vector e.g. #ball.x selects an entire column vector from the #ball table, representing the x coordinates of N simulated balls.</p>
 
 <p>Operators and functions work element-wise in Mech, so this block represents 3N addition and assignment operations. There is a lot of inherent parallelism that can be exploited here! In recognition of this, I changed the Mech runtime in a few important ways:</p>
 
-<p>First, table columns are now typed. This means that instead of accepting a Value enum that can be anything, column entries must be homogenous e.g. all unisgned 8-bit integers. This allows the Mech compiler to take advantage of automatic vectorization that enables parallelism when appropriate. You can see the result of that in the figure below, showing the execution of the bouncing balls program:</p>
+<p>First, table columns are now typed. This means that instead of accepting a Value enum that can be anything, column entries must be homogenous e.g. all unsigned 8-bit integers. This allows the Mech compiler to take advantage of automatic vectorization that enables parallelism when appropriate. You can see the result of that in the figure below, showing the execution of the bouncing balls program:</p>
 
 <img src="assets/iter.gif" width="100%" >
 
@@ -150,7 +150,7 @@
 
 <p>Mech will automatically make sure the variable #x is updated when the contents become available. What's cool is that any kind of I/O operation works this way, including <a href="https://gitlab.com/mech-lang/machines/http">HTTP</a> requests. </p>
 
-<p>One very interesting possibility this opens is the ability to offload computations onto other hardware, like a GPU or remote CPU. Running a computation on a GPU can be viewed as asynchronous operation, because data must be written to and read from the GPU's main memory into the main system memory. Therefore, we began <a href="https://gitlab.com/mech-lang/core/-/tree/gpu">investigating the possibly</a> of offloading these computations onto one or more GPUs (again, very much a WIP). </p>
+<p>One very interesting possibility this opens up is the ability to offload computations onto other hardware, like a GPU or remote CPU. Running a computation on a GPU can be viewed as asynchronous operation, because data must be written to and read from the GPU's main memory into the main system memory. Therefore, we began <a href="https://gitlab.com/mech-lang/core/-/tree/gpu">investigating the possibly</a> of offloading these computations onto one or more GPUs (again, very much a WIP). </p>
 
 <h3>Distributed</h3>
 
@@ -308,7 +308,7 @@ Test result: ok | total 9 | passed 9 | failed 0 |
 
 <p>My favorite thing about these examples is that they were written by my students, and they probably represent the first serious Mech programs written by anyone who is not me. So that's a big milestone right there, even if they weren't organic (that will be the next milestone: when someone writes a serious Mech program uncoerced).</p>
 
-<p>The purpose of writing these games was to stress test Mech to reveal weak points in the language design, and boy did we find weak points. The games themselves are incomplete due to limitations of Mechh identified during development, and changes will be made in the coming months to address those issues. When that's done, I will do a rewrite of these games to make them a little more idiomatic.
+<p>The purpose of writing these games was to stress test Mech to reveal weak points in the language design, and boy did we find weak points. The games themselves are incomplete due to limitations of Mech identified during development, and changes will be made in the coming months to address those issues. When that's done, I will do a rewrite of these games to make them a little more idiomatic.
 </p>
 
 <p>Another thing about these programs is that the students who wrote them did not have any real training in Mech, and they didn't have the benefit of any error messages when writing this code. Usually syntax errors or logic errors would result in the program just not working at all, with no indication of what went wrong. Despite this, these students managed to write fully working games. I'm very impressed at this, and honestly I don't know how they managed to accomplish what they did.</p>
@@ -414,7 +414,7 @@ y̆és = 😃 + 1
     <li>Mech running on the Hivecar via Hivemind OS</li>
 </ul>
 
-<p>This represents a very busy year for Mech, so I'm not sure how much of this we will be able to get done. A year seems like a long time, but it goes by so quickly. This year I have more help than ever, so it may be doable. My resolution this year is to spend less time working on the runtime (because I could spend infinite time working on the runtime, it's an endless time sink) to free upmore time writing docs. I hope you'll follow along!</p>
+<p>This represents a very busy year for Mech, so I'm not sure how much of this we will be able to get done. A year seems like a long time, but it goes by so quickly. This year I have more help than ever, so it may be doable. My resolution this year is to spend less time working on the runtime (because I could spend infinite time working on the runtime, it's an endless time sink) to free up more time writing docs. I hope you'll follow along!</p>
 
 <h2>Getting Involved</h3>
 
