@@ -120,7 +120,7 @@
 
 <p>This would be read as "Whenever the timer ticks, update the position and velocity of the ball using its current position and velocity." The thing to remember about Mech though, is that each variable is actually a vector e.g. #ball.x selects an entire column vector from the #ball table, representing the x coordinates of N simulated balls.</p>
 
-<p>Operators and functions work element-wise in Mech, so this block represents 3N addition and assignment operations. There is a lot of inherent parallelism that can be exploited here! In recognition of this, I changed the Mech runtime in a few important ways:</p>
+<p>Operators and functions work element-wise in Mech, so this block represents 3N independent addition and assignment operations. There is a lot of inherent parallelism that can be exploited here! In recognition of this, I changed the Mech runtime in a few important ways:</p>
 
 <p>First, table columns are now typed. This means that instead of accepting a Value enum that can be anything, column entries must be homogenous e.g. all unsigned 8-bit integers. This allows the Mech compiler to take advantage of automatic vectorization that enables parallelism when appropriate. You can see the result of that in the figure below, showing the execution of the bouncing balls program:</p>
 
@@ -132,7 +132,7 @@
 
 <img src="assets/par_iter.gif" width="100%">
 
-<p>This yields a 64% percent speedup over the standard Rust iterators, and we can see that CPU utilization is at 100%. Unfortunately, there is some overhead associated with the use of the Rayon crate such that it's not beneficial unless N exceeds a certain usually very high threshold. Potentially what we can do here is switch between regular or parallel iterators depending on how large the operands are, but this is a work in progress.</p>
+<p>This yields a 64% percent speedup over the standard Rust iterators, and we can see that CPU utilization is at 100%. Without the video recorder sucking up precious cycles, the benchmark runs at ~420Hz. Unfortunately, there is some overhead associated with the use of the Rayon crate such that it's not beneficial unless N exceeds a certain usually very high threshold. Potentially what we can do here is switch between regular or parallel iterators depending on how large the operands are, but this is a work in progress.</p>
 
 <h3>Asynchronous</h3>
 
