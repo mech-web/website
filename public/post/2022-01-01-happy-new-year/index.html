@@ -361,19 +361,15 @@ Test result: ok | total 9 | passed 9 | failed 0 |
 
 <p>Several students wrote an <a href="https://gitlab.com/mech-lang/syntax/-/blob/main/grammar.md">EBNF</a> grammar for Mech by carefully translating the parser. This may be out of date; the parser has changed slightly since the grammar was written.</p>
 
-<p>Here's a taste of the grammar for Mech tables:</p>
+<p>Here's a taste of the grammar for Mech data:</p>
 
 <pre class="code">
-table = hashtag, identifier;
-binding = identifier, ": ", empty | expression | identifier | constant, space, [comma], space;
-function_binding = identifier, colon, space, empty | expression | identifier | constant, space, [comma], space;
-table_column = {space | tab} , true_literal | false_literal | empty | data | expression | rational_number | number_literal | quantity, [comma], {space| tab};
-table_row = {space | tab}, {table_column}, [semicolon], [newline];
-attribute = identifier, space, [comma], space;
-table_header = bar , {attribute}, bar, space, [newline];
-anonymous_table = left_bracket, space, [table_header], {table_row}, right_bracket;
-anonymous_matrix = left_angle, space, [table_header], {table_row}, right_angle;
-inline_table = left_bracket, {binding} , right_bracket;    
+select_all = colon;
+subscript = select_all | expression, space, [comma], space;
+subscript_index = left_bracket, {subscripts}, right_bracket;
+dot_index = period, identifier;
+index = dot_index | subscript_index;
+data = table | identifier , {index};
 </pre>
 
 <h3>Unicode Support</h3>
