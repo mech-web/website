@@ -1,0 +1,113 @@
+# Spring 2022 Update
+
+Since our January update, we've been making steady progress on the current target if releasing v0.1-beta in October. We've just reached a mjor milestone, so let's dive into all the new enhancements that were added to Mech this season.
+
+## People 
+
+Oliver
+
+New Mechanics
+
+Haocheng's video
+
+Others?
+
+Who wants to join the mech project?
+
+## Mech ❤️ Sphero
+
+After years and years of work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.
+
+<VIDEO HERE>
+
+What it took to get here and why it took so long:
+
+1. For a long time there was a lack of adequate Bluetooth for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.
+
+2. There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, here.
+
+So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which will be held later this week. See below for more details on that front.
+
+Here's a demonstration of the Sphero being controlled with an Xbox controller. 
+
+<VIDEO HERE>
+
+All the code necessary to make this happen is written in Mech. Here's that code: 
+
+```
+Connect to a gamepad
+  #io/gamepad += [id: 100<u64>]
+
+Connect to a particular Sphero robot
+  #sphero/robot += [id: "SB-C714"]
+
+Map controller state to robot velocity and heading
+  #sphero/robot.speed := #io/gamepad.left-stick-y / 4
+  #sphero/robot.heading := (#io/gamepad.right-stick-x + 1) / 2 * 360
+```
+
+The code is very short, which is the promise of Mech. What's going on here is that there are two tables #io/gamepad and #sphero/robot. As the buttons on the Xbox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, repsectively. 
+
+The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update #sphero/robot. Furthermore, Mech knows that when it #sphero/robot, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.
+
+## Platform Improvements
+
+### Units
+
+### Distribution
+
+### Performance
+
+In the last development update I spent some time talking about the various ways that we improved the performace of Mech for the new v0.1-beta runtime. The performance bechmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs.
+
+According to our benchmark of the bouncing balls simulation, Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust.
+
+### Ecosystem
+
+- io, system, timer all work again
+
+- io/gamepad 
+
+### Tests
+
+The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech itself.
+
+### Debugging and Errors Messages
+
+Debugging has been difficult in Mech since the beginning, but that all changes with the addition of error messages and other debugging features added over the last couple of months.
+
+## Outreach
+
+### Forward Robotics @ CHOICES
+
+Forward Robotics is getting its first official test-run this Spring at the CHOICEs program hosted at Lehigh University.
+
+### IROS 2022
+
+We submitted a paper to IROS 2022 which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present we'll have to choose another venue (there are other good choices we can fallback). The preprint needs to be a cleaned up a little before I show it to everyone, so you look forward to that in the future.
+
+### HYTRADBOI
+
+Mech has been accepted to speak at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This is a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring bring people together who are working on data-centric applications to all sorts of problems. The day will be arranged with pre-recorded 10-minute talks followed by what I'm sure will be excellent and thought-provoking discussions between the attendees. 
+
+I hope you'll join us for the day, but if you don't Mech's 10-minute presentation will be posted afterwards.
+
+## Summer 2022 Roadmap
+
+- teaser website
+
+- documentation revamp
+
+- error messages
+
+- robust standard library
+
+- more example applications
+
+- Summer CHOICES
+
+- Foundations of Robotics course
+
+## v0.1-beta release roadmap
+
+Here's the work left to complete before v0.1-beta is launched in October. There's no order implied in this list; I'm just putting everything I can think of down. 
