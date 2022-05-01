@@ -6,7 +6,6 @@
         <description>Follow along with the development of the Mech programming language.</description>
         <item>
             <title>Mech in 2021 - A year (or two) in review</title>
-            <author>Corey Montella</author>
             <link>http://mech-lang.org/post/2022-01-01-happy-new-year/</link>
             <guid>http://mech-lang.org/post/2022-01-01-happy-new-year/</guid>
             <pubDate>Sat, 01 Jan 2022 00:00:00 EST</pubDate>
@@ -14,7 +13,6 @@
         </item>
         <item>
             <title>Forward Robotics</title>
-            <author>Sarah Pontier</author>
             <link>http://mech-lang.org/post/2020-08-06-forward-robotics/</link>
             <guid>http://mech-lang.org/post/2020-08-06-forward-robotics/</guid>
             <pubDate>Thu, 06 Aug 2020 00:00:00 EST</pubDate>
@@ -22,7 +20,6 @@
         </item>
         <item>
             <title>Version 0.0.2 - Documentation, Views, and the Inspector</title>
-            <author>Corey Montella</author>
             <link>http://mech-lang.org/#/blog/2019-06-12-docs.mec</link>
             <guid>http://mech-lang.org/#/blog/2019-06-12-docs.mec</guid>
             <pubDate>Wed, 12 Jun 2019 00:00:00 EST</pubDate>
@@ -30,7 +27,6 @@
         </item>
         <item>
             <title>Version 0.0.1</title>
-            <author>Corey Montella</author>
             <link>http://mech-lang.org/post/2019-03-27-version-0-0-1/</link>
             <guid>http://mech-lang.org/post/2019-03-27-version-0-0-1/</guid>
             <pubDate>Wed, 27 Mar 2019 00:00:00 EST</pubDate>
@@ -38,7 +34,6 @@
         </item>
         <item>
             <title>Hello World</title>
-            <author>Corey Montella</author>
             <link>http://mech-lang.org/post/2018-06-07-hello-world/</link>
             <guid>http://mech-lang.org/post/2018-06-07-hello-world/</guid>
             <pubDate>Thu, 07 Jun 2018 00:00:00 EST</pubDate>
