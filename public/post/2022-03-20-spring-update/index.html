@@ -16,7 +16,7 @@ Want to join the mech project? Send us an <a href="mailto:corey@mech-lang.org">e
 
 <h2>Platform Improvements</h2>
 
-<h3>Units
+<h3>Units</h3>
 
 Units have been a long time coming, and now they are finally implemented in Mech. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular type. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed &lt;m&gt;. At this point there's no symbolic dimensional analysis going on, we're just selecting from a list of pre-compiled functions that take the dimensions into account manually. 
 
@@ -49,9 +49,9 @@ And the answer is...
 test = stats/sum(row: q)
 </pre>
 
-This is a subtle but huge change because it changes the way exposition works with the language. I realized this while trying to write the paper
+<p>This is a subtle but huge change because it changes the way exposition works with the language. I realized this while trying to write the paper</p>
 
-There's enough to think about with Mech without having to worry about asynchrony and distributed stuff. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. What this means is that Mech programs without blocks will be limited -- it'll be more like a scripting language.
+<p>There's enough to think about with Mech without having to worry about asynchrony and distributed stuff. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. What this means is that Mech programs without blocks will be limited -- it'll be more like a scripting language.</p>
 
 <h3>Distribution</h3>
 
@@ -84,39 +84,44 @@ According to our benchmark of the bouncing balls simulation, Mech is not only ve
 
 <h3>Tests</h3>
 
-The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech itself.
+<p>The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech itself.</p>
 
-Tests presents an interesting problem with typed columns, because the expected value of a test could be different depending on the operation under scrutiny. For example, the following code is problematic because we should be able to have a column with heterogenous types:
+<p>Tests presents an interesting problem with typed columns, because the expected value of a test could be different depending on the operation under scrutiny. For example, the following code is problematic because we should be able to have a column with heterogenous types:</p>
 
 <pre>
 #mech/test += ["Addition"      2    1 + 1
                "String Concat" "ab" "a" + "b"]
 </pre>
 
-This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type <pre>&lt;_&gt;</pre>. It's kind of like an "Any" type, but it's not the default column type; you have to expliticly opt-in to a wildcard column. Accordingly, the #test table is defined as such:
+<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type <pre>&lt;_&gt;</pre>. It's kind of like an "Any" type, but it's not the default column type; you have to expliticly opt-in to a wildcard column. Accordingly, the #test table is defined as such:</p>
 
 <pre>
 #mech/test = [|name&lt;string&gt; expected&lt;_&gt; actual&lt;_&gt;|]
 </pre>
 
-This is implemented by keeping the elements of these columns wrapped in their Value enums. This allows them to coexist in the same column, but it's going to slow down computations as operands must be unwrapped dynamically on each function call.
+<p>This is implemented by keeping the elements of these columns wrapped in their Value enums. This allows them to coexist in the same column, but it's going to slow down computations as operands must be unwrapped dynamically on each function call.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WOqJeA0dS-Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Debugging and Errors Messages
 
-Debugging has been difficult in Mech since the beginning, but that all changes with the addition of error messages and other debugging features added over the last couple of months.
+<p>Debugging has been difficult in Mech since the beginning, but that all changes with the addition of error messages and other debugging features added over the last couple of months.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2>Mech ❤️ Sphero</h2>
 
-After years and years of work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.
+<p>After years and years of work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.</p>
 
 <iframe width="315" height="560" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-What it took to get here and why it took so long:
+<p>What it took to get here and why it took so long:</p>
 
-1. For a long time there was a lack of adequate Bluetooth for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.
+<ol>
+  <li>For a long time there was a lack of adequate Bluetooth for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.</li>
 
-2. There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, here.
-
+  <li>There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, here.</li>
+</ol>
 So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier last month. See below for more details on that front.
 
 Here's a demonstration of the Sphero being controlled with an Xbox controller. 
@@ -187,11 +192,11 @@ We submitted a paper to IROS 2022 which will be held in October. This is the ven
 
 <h3>HYTRADBOI</h3>
 
-We presented at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring bring people together who are working on data-centric applications to all sorts of problems. 
+<p>We presented at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring bring people together who are working on data-centric applications to all sorts of problems. </p>
 
-It was actually a very well-attended conference, so it actually served as kind of a soft launch for Mech, as garnered more eyeballs than ever before. Reception was generally positive.
+<p>It was actually a very well-attended conference, so it actually served as kind of a soft launch for Mech, as garnered more eyeballs than ever before. Reception was generally positive.</p>
 
-If you weren't able to attend, here is the video that was presented:
+<p>If you weren't able to attend, here is the video that was presented:</p>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-ypiPSaWJNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -217,9 +222,9 @@ Which I feel like has autobot vibes, so it works on more levels than before.
 
 <h3>Repository shakeup</h3>
 
-The main Mech repository at gitlab.com/mech-lang/mech has been reoganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repository in the mech-lang namespace. Now when someone wants to build Mech from source, they will have to clone the submodules first.
+<p>The main Mech repository at gitlab.com/mech-lang/mech has been reoganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repository in the mech-lang namespace. Now when someone wants to build Mech from source, they will have to clone the submodules first.</p>
 
-The new build process is as follows:
+<p>The new build process is as follows:</p>
 
 <pre>
 git clone https://gitlab.com/mech-lang/mech -b v0.1-beta --recurse-submodules
