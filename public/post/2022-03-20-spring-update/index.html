@@ -1,77 +1,150 @@
-<h1>Spring 2022 Update</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Try Mech lang</title>
+    <link rel="stylesheet" type="text/css" href="http://mech-lang.org/css/main.css">
+    <link rel="stylesheet" type="text/css" href="highlight.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    <link rel="stylesheet" href="http://mech-lang.org/css/pygment_highlights.css" />
+    <link rel="stylesheet" href="http://mech-lang.org/css/highlight.min.css" />
+    <link href="http://mech-lang.org/img/favicon.ico" rel="icon" type="image/x-icon">
+    <script type="application/javascript">
+      var doNotTrack = false;
+      if (!doNotTrack) {
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-120731667-1', 'auto');
+        
+        ga('send', 'pageview');
+      }
+      </script>
+      <script async src='https://www.google-analytics.com/analytics.js'></script>
+  </head>
+  <body>       
+    <div class="black-bar">
+    </div> 
+    <nav class="navbar">
+      <div class="navbar-header">
+            <a class="navbar-brand" href="http://mech-lang.org"><img class="logo-nav" src="http://mech-lang.org/img/logo.png" /></a>
+      </div>
+      <div class="spacer"></div>
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a title="Community" href="http://mech-lang.org/page/community/">Community</a>
+          </li>
+          <li>
+            <a title="Learn" href="http://mech-lang.org/page/learn/">Learn</a>
+          </li>
+          <li>
+            <a title="Blog" href="http://mech-lang.org/blog/">Blog</a>
+          </li>
+          <li>
+            <a title="Try" href="http://try.mech-lang.org">Try</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div>
+            <h2 class="post-title"># Spring 2022 Update</h2>
+          </div>
+          <span class="post-meta">
+            May 3, 2022
+          </span>
+          <span class="post-author">
+            Corey Montella
+          </span>
+          <article role="main" class="blog-post">
 
-We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs from the HYTRADBOI conference yesterday let's dive into all the new enhancements that were added to Mech since the beginning of the year.
-
-<h2>People</h2>
-
-Oliver is a masters student at lehigh who has been working on an exploration of automatic differentiation and how it might be integrated into Mech. He'll be making a guest blog post soon on his progress.
-
-2022 Capstone Mechanics
-
-Haocheng Gao, Simone Pankenier, Xinaho Tang, Tom Wang,
-
-<HAOCHENG'S VIDEO HERE>
-
-Want to join the mech project? Send us an <a href="mailto:corey@mech-lang.org">e-mail</a> and we'll help you get started. The best way to get involved at this point is to try to write Mech code, and also to let us know how you'd like to use Mech. We're looking to target use cases beyond those stated on the hompage (games, animations, robots), and it would help to focus that effort on things people actually want to use Mech to accomplish.
+<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs from the HYTRADBOI conference last week. So let's dive into all the new enhancements that were added to Mech since the beginning of the year.</p>
 
 <h2>Platform Improvements</h2>
 
-<h3>Units</h3>
+<h3>Physical units</h3>
 
-Units have been a long time coming, and now they are finally implemented in Mech. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular type. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed &lt;m&gt;. At this point there's no symbolic dimensional analysis going on, we're just selecting from a list of pre-compiled functions that take the dimensions into account manually. 
+<p>Physical units have been a long time coming, and now they are finally implemented in Mech. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
 
+<p>Units are specified the same way as the builtin datatypes:</p>
 
-<pre>
+<pre class="code">
 x = 10&lt;m&gt;
 y = 20&lt;m/s&gt;
 z = 3&lt;s&gt;
 a = x + y * z
-╭──────────────────────────────╮
+╭─────────────────────────────╮
 │a (1 x 1)                     │
 ├──────────────────────────────┤
 │Length                        │
 ├──────────────────────────────┤
 │70m                           │
-╰──────────────────────────────╯
+╰─────────────────────────────╯
 </pre>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5i-KZJ5VYbo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Right now only a few built-in types are hardcoded into the compiler, but in the future these will be user-specified in Mech code by adding rows to a table.</p>
+
+<p>Now that we have physical units, we can have units-aware functions and tables. For example, #time/timer is now defined as:</p>
+
+<pre class="code">
+#time/timer = [|period&lt;s&gt; ticks&lt;u64&gt;|]
+</pre>
+
+Where we can see that the type of the period column is "s" meaning "seconds". The following video demonstrates specyfying the period in both seconds and milliseconds, and how Mech does the right thing by normalizing both units to a common scale.
+
+<iframe width="750" height="421" src="https://www.youtube.com/embed/5i-KZJ5VYbo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Top-level statements</h3>
 
-<pre>
+You can now write statements without having to put them in a block, with the restriction that they can't query any other global tables. The following is valid Mech code now:
+
+<pre class="code">
 x = 10 + 15
 y = 20
 z = [1 2 3 4]
 q = z + y + x
 
 And the answer is...
-test = stats/sum(row: q)
+#value = stats/sum(row: q)
 </pre>
 
-<p>This is a subtle but huge change because it changes the way exposition works with the language. I realized this while trying to write the paper</p>
+<p>This is a subtle but huge change because it affects the way we can expose Mech to new users. It means that Mech looks more like a scripting language at first, but then can expand its capabilities with blocks and global tables.</p>
 
-<p>There's enough to think about with Mech without having to worry about asynchrony and distributed stuff. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. What this means is that Mech programs without blocks will be limited -- it'll be more like a scripting language.</p>
+<p>There's enough to think about with Mech without having to worry about asynchrony and distributed stuff right away. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. I'm glad I figured this out now, because the entire framing of the beta documentation will now have to change.</p>
 
 <h3>Distribution</h3>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hFMWBRrhxls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>At the beginning of the year I had just finihed the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the sytem converted over to the changes brough by the upated runtime. This entailed restoring distribution capabilities, which you can demonsrated below.</p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/NE8MP39fV18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="750" height="421" src="https://www.youtube.com/embed/hFMWBRrhxls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>In this video, one Mech server is started in a terminal (the bottom one) which hosts the drawing code for the examples/demo program. In the other terminal, a second Mech server is started which hosts the simulation code for the examples/demo program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code while the remote machine running the simulation is much more powerful.</p>
+
+<p>The video goes on to demonstrate the implication -- that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then furhter propograted to every other connected client.</p>
+
+<p>The video below extends this concept to a game. In this case, the centralized server runs the gamepad code. From that, we connect two clients that run different client code -- one client </p>
+
+
+<iframe width="750" height="421" src="https://www.youtube.com/embed/NE8MP39fV18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Mech Notebook GUI and Standalone Executables</h3>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="750" height="421" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vU1P9fX_cM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+<iframe width="750" height="421" src="https://www.youtube.com/embed/vU1P9fX_cM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Performance</h3>
 
 In the last development update I spent some time talking about the various ways that we improved the performace of Mech for the new v0.1-beta runtime. The performance bechmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs.
 
-<img src="assets/perf.png">
+<img width="100%" src="assets/perf.png">
 
-<img src="assets/parallel.png">
+<img width="100%" src="assets/parallel.png">
 
 According to our benchmark of the bouncing balls simulation, Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. Now, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works.
 
@@ -88,32 +161,32 @@ According to our benchmark of the bouncing balls simulation, Mech is not only ve
 
 <p>Tests presents an interesting problem with typed columns, because the expected value of a test could be different depending on the operation under scrutiny. For example, the following code is problematic because we should be able to have a column with heterogenous types:</p>
 
-<pre>
+<pre class="code">
 #mech/test += ["Addition"      2    1 + 1
                "String Concat" "ab" "a" + "b"]
 </pre>
 
-<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type <pre>&lt;_&gt;</pre>. It's kind of like an "Any" type, but it's not the default column type; you have to expliticly opt-in to a wildcard column. Accordingly, the #test table is defined as such:</p>
+<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type <pre class="code">&lt;_&gt;</pre>. It's kind of like an "Any" type, but it's not the default column type; you have to expliticly opt-in to a wildcard column. Accordingly, the #test table is defined as such:</p>
 
-<pre>
+<pre class="code">
 #mech/test = [|name&lt;string&gt; expected&lt;_&gt; actual&lt;_&gt;|]
 </pre>
 
 <p>This is implemented by keeping the elements of these columns wrapped in their Value enums. This allows them to coexist in the same column, but it's going to slow down computations as operands must be unwrapped dynamically on each function call.</p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/WOqJeA0dS-Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="750" height="421" src="https://www.youtube.com/embed/WOqJeA0dS-Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>Debugging and Errors Messages
+<h3>Debugging and Errors Messages</h3>
 
 <p>Debugging has been difficult in Mech since the beginning, but that all changes with the addition of error messages and other debugging features added over the last couple of months.</p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="750" height="421" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h2>Mech ❤️ Sphero</h2>
 
 <p>After years and years of work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.</p>
 
-<iframe width="315" height="560" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 <p>What it took to get here and why it took so long:</p>
 
@@ -122,14 +195,17 @@ According to our benchmark of the bouncing balls simulation, Mech is not only ve
 
   <li>There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, here.</li>
 </ol>
-So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier last month. See below for more details on that front.
 
-Here's a demonstration of the Sphero being controlled with an Xbox controller. 
+<p>So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier last month. See below for more details on that front.</p>
+
+<p>Here's a demonstration of the Sphero being controlled with an Xbox controller.</p>
+
+<iframe width="421" height="750" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-All the code necessary to make this happen is written in Mech. Here's that code: 
+<p>All the code necessary to make this happen is written in Mech. Here's that code:</p>
 
-<pre>
+<pre class="code">
 Connect to a gamepad
   #io/gamepad += [id: 100&lt;u64&gt;]
 
@@ -151,7 +227,7 @@ The Mech runtime handles all issues of data transport, serialization, and storag
 
 Forward Robotics is getting its first official test-run this Spring at the CHOICEs program hosted at Lehigh University.
 
-<pre>
+<pre class="code">
 🔵🔵⚪🔵🔵🔵🔵🔵
 🔵⚪⚪⚪🔵🔵🔵🔵
 🔵🔵🔵🔵🔵🟡⚪🔵
@@ -162,9 +238,9 @@ Forward Robotics is getting its first official test-run this Spring at the CHOIC
 🔵🔵🔵🔵🔵⚪⚪⚪
 </pre>
 
-<iframe width="315" height="560" src="https://www.youtube.com/embed/PVjEKyl-K-g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="421" height="750" src="https://www.youtube.com/embed/PVjEKyl-K-g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<pre>
+<pre class="code">
 🟡🟡⚫⚪⚫⚪⚫⚫
 🟡🟡⚫🔴⚫🔴⚫⚫
 ⚫⚫⚫🔵⚪🔵⚫⚫
@@ -175,7 +251,7 @@ Forward Robotics is getting its first official test-run this Spring at the CHOIC
 ⚫🟠⚫🟠⚫🟠⚫🟠
 </pre>
 
-<pre>
+<pre class="code">
 ⚫⚫⚫🟢🟢⚫⚫⚫
 ⚫⚫⚫🟢🟢⚫⚫⚫
 ⚫🟢🟤🟤🟤🟤🟢⚫
@@ -198,7 +274,7 @@ We submitted a paper to IROS 2022 which will be held in October. This is the ven
 
 <p>If you weren't able to attend, here is the video that was presented:</p>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-ypiPSaWJNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="750" height="421" src="https://www.youtube.com/embed/-ypiPSaWJNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Array 2022</h3>
 
@@ -218,7 +294,7 @@ So I put it to my students and we agreed on a new revision. Here it is!
 
 Which I feel like has autobot vibes, so it works on more levels than before.
 
-<img src="assets/autobot.png">
+<img width="100%" src="assets/autobot.png">
 
 <h3>Repository shakeup</h3>
 
@@ -226,7 +302,7 @@ Which I feel like has autobot vibes, so it works on more levels than before.
 
 <p>The new build process is as follows:</p>
 
-<pre>
+<pre class="code">
 git clone https://gitlab.com/mech-lang/mech -b v0.1-beta --recurse-submodules
 cd mech
 cargo build --bin mech --release
@@ -264,3 +340,10 @@ Likewise there was interest in subscribing to the Mech blog so as to not miss wh
 
 Here's the work left to complete before v0.1-beta is launched in October. There's no order implied in this list; I'm just putting everything I can think of down. 
 
+          </article>
+        </div>
+      </div>
+    </div>
+    <script src="/mech0-0-1/bootstrap.js"></script>
+  </body>
+</html>
