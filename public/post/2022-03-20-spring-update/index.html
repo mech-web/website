@@ -98,7 +98,7 @@ Where we can see that the type of the period column is "s" meaning "seconds". Th
 
 <h3>Top-level statements</h3>
 
-You can now write statements without having to put them in a block, with the restriction that they can't query any other global tables. The following is valid Mech code now:
+You can now write statements without having to put them in a block, with the restriction that they can't query any global tables. The following is valid Mech code now:
 
 <pre class="code">
 x = 10 + 15
@@ -124,19 +124,27 @@ And the answer is...
 
 <p>The video goes on to demonstrate the implication -- that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then furhter propograted to every other connected client.</p>
 
-<p>The video below extends this concept to a game. In this case, the centralized server runs the gamepad code. From that, we connect two clients that run different client code -- one client </p>
-
+<p>The video below extends this concept to a game. In this case, the centralized server runs the gamepad code. From that, we connect two clients that run different client code -- one client that displays a gamepad drawing, and another that displays a platform game with physics. Both browsers subscribe to the same data stream connected to the hardware gamepad.</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/NE8MP39fV18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>Mech Notebook GUI and Standalone Executables</h3>
+<h3>Standalone Executables</h3>
+
+<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as a sort of interpreter; it will consume .mec source code and then run the program, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section), but the interpretation step is still there.</p>
+
+<p>What we can do though is compile .mec files into a sort of bytecode, and store that in a .blx file (prounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled by the Mech runtmie.</p>
+
+<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fast I can trim from that executable. We'll see.</p>
+
+<p>Here's a video demonstrating the various ways to package a Mech program at this time.</p>
+
+<iframe width="750" height="421" src="https://www.youtube.com/embed/vU1P9fX_cM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3>Mech Notebook GUI</h3>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-
-
-<iframe width="750" height="421" src="https://www.youtube.com/embed/vU1P9fX_cM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Performance</h3>
 
