@@ -66,7 +66,7 @@
 
 <h3>Physical units</h3>
 
-<p>Physical units have been a long time coming, and now they are finally implemented in Mech. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
+<p>Physical units have been a long time coming, and now they are finally implemented. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
 
 <p>Units are specified the same way as the builtin datatypes:</p>
 
@@ -92,13 +92,13 @@ a = x + y * z
 #time/timer = [|period&lt;s&gt; ticks&lt;u64&gt;|]
 </pre>
 
-Where we can see that the type of the period column is "s" meaning "seconds". The following video demonstrates specyfying the period in both seconds and milliseconds, and how Mech does the right thing by normalizing both units to a common scale.
+<p>Where we can see that the type of the period column is "s" meaning "seconds". The following video demonstrates specyfying the period in both seconds and milliseconds, and how Mech does the right thing by normalizing both units to a common scale.</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/5i-KZJ5VYbo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>Top-level statements</h3>
 
-You can now write statements without having to put them in a block, with the restriction that they can't query any global tables. The following is valid Mech code now:
+<p>You can now write statements without having to put them in a block, with the restriction that they can't query any global tables. The following is valid Mech code now (what's new is that it's not indented):</p>
 
 <pre class="code">
 x = 10 + 15
@@ -114,7 +114,7 @@ And the answer is...
 
 <p>There's enough to think about with Mech without having to worry about asynchrony and distributed stuff right away. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. I'm glad I figured this out now, because the entire framing of the beta documentation will now have to change.</p>
 
-<h3>Distribution</h3>
+<h3>Distributed Programs</h3>
 
 <p>At the beginning of the year I had just finihed the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the sytem converted over to the changes brough by the upated runtime. This entailed restoring distribution capabilities, which you can demonsrated below.</p>
 
@@ -142,8 +142,14 @@ And the answer is...
 
 <h3>Mech Notebook GUI</h3>
 
+From the start, the tagline for Mech has been that it's a language for "games, animations, and robots". After doing some GUI programming in Mech, I may just have to add "interfaces" to the list.
+
+For the last couple of weeks I've been using the excellent egui crate to create a GPU-accelerated GUI for Mech. So far I've been wrapping the various UI elements for usage in Mech, and I've done enough to enable one of the longest-needed features for the language: a table browser! Check out the video below to see what happens when we open elements of the GUI inside of the GUI itself.
+
+
 <iframe width="750" height="421" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+Recent work has been focused on the ability to write Mech code from within the editor itself, as you can do in Smalltalk.
 
 
 <h3>Performance</h3>
@@ -152,9 +158,13 @@ In the last development update I spent some time talking about the various ways 
 
 <img width="100%" src="assets/perf.png">
 
+According to our benchmark of the bouncing balls simulation, Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. Now, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works. The relative ordering of Mech and Rust here doesn't indicate anything; as Mech is implmemented in Rust we should expect performance to be similar if I've done my job right with the JIT compiler.
+
+
 <img width="100%" src="assets/parallel.png">
 
-According to our benchmark of the bouncing balls simulation, Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. Now, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works.
+
+I'm planning on writing a more detailed blog post about performance soon.
 
 <h3>Ecosystem</h3>
 
@@ -165,7 +175,7 @@ According to our benchmark of the bouncing balls simulation, Mech is not only ve
 
 <h3>Tests</h3>
 
-<p>The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech itself.</p>
+<p>The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech.</p>
 
 <p>Tests presents an interesting problem with typed columns, because the expected value of a test could be different depending on the operation under scrutiny. For example, the following code is problematic because we should be able to have a column with heterogenous types:</p>
 
