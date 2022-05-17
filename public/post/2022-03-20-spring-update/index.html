@@ -130,11 +130,11 @@ And the answer is...
 
 <h3>Standalone Executables</h3>
 
-<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as a sort of interpreter; it will consume .mec source code and then run the program, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section), but the interpretation step is still there.</p>
+<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as an interpreter; it will comile and run .mec source code in one step, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section for more on performance), but the interpretation step is still there.</p>
 
-<p>What we can do though is compile .mec files into a sort of bytecode, and store that in a .blx file (prounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled by the Mech runtmie.</p>
+<p>What we can do for a standalone executable for a Mech program (without having to go through the interpreter) is compile .mec files into a bytecode, and store that in a file. I've decided to call it a .blx file (prounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled.</p>
 
-<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fast I can trim from that executable. We'll see.</p>
+<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB on Windows, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fast I can trim from that executable. We'll see.</p>
 
 <p>Here's a video demonstrating the various ways to package a Mech program at this time.</p>
 
@@ -142,36 +142,27 @@ And the answer is...
 
 <h3>Mech Notebook GUI</h3>
 
-From the start, the tagline for Mech has been that it's a language for "games, animations, and robots". After doing some GUI programming in Mech, I may just have to add "interfaces" to the list.
+<p>From the start, the tagline for Mech has been that it's a language for "games, animations, and robots". After doing some GUI programming in Mech, I may just have to add "interfaces" to the list, because it works very well in that domain.</p>
 
-For the last couple of weeks I've been using the excellent egui crate to create a GPU-accelerated GUI for Mech. So far I've been wrapping the various UI elements for usage in Mech, and I've done enough to enable one of the longest-needed features for the language: a table browser! Check out the video below to see what happens when we open elements of the GUI inside of the GUI itself.
-
+<p>For the last couple of weeks I've been using the excellent egui crate to create a GPU-accelerated GUI for Mech. So far I've been wrapping the various UI elements for usage in Mech, and I've done enough to implement one of the longest-needed features for the language: a table browser! Check out the video below to see what happens when we open elements of the GUI inside of the GUI itself.</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Recent work has been focused on the ability to write Mech code from within the editor itself, as you can do in Smalltalk.
-
+<p>Recent work has been focused on the ability to write Mech code from within the editor itself, as you can do in Smalltalk.</p>
 
 <h3>Performance</h3>
 
-In the last development update I spent some time talking about the various ways that we improved the performace of Mech for the new v0.1-beta runtime. The performance bechmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs.
+<p>In the last development update I spent some time talking about the various ways that we improved the performace of Mech for the new v0.1-beta runtime. The performance bechmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs:</p>
 
 <img width="100%" src="assets/perf.png">
 
-According to our benchmark of the bouncing balls simulation, Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. Now, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works. The relative ordering of Mech and Rust here doesn't indicate anything; as Mech is implmemented in Rust we should expect performance to be similar if I've done my job right with the JIT compiler.
+<p>According to our benchmark of the bouncing balls simulation (with n = 1e7 balls), Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. Now, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works. The relative ordering of Mech and Rust here doesn't indicate anything; since Mech is implemented in Rust, we should expect performance to be similar if I've done my job right with the JIT compiler.</p>
 
+<p>Actually single threaded Mech does not perform as well as Rust. Without parallel processing, Mech performance falls between Matlab and Rust in this comparison. It's only when parallel processing is turned on that Mech manages to beat Rust. As we can see in the following image, Mech makes full usage of all cores:</p>
 
 <img width="100%" src="assets/parallel.png">
 
-
-I'm planning on writing a more detailed blog post about performance soon.
-
-<h3>Ecosystem</h3>
-
-<ul>
-  <li>io, system, timer all work again</li>
-  <li>io/gamepad</li>
-</ul>
+<p>This is due to its use of the Rust work-stealing parallelism crate called Rayon, which obviously could be used to speed up the Rust version beyond Mech. Mech's value proposition here is that it will automatically provide fast parallel performance by default.</p>
 
 <h3>Tests</h3>
 
@@ -200,26 +191,54 @@ I'm planning on writing a more detailed blog post about performance soon.
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h2>Mech ❤️ Sphero</h2>
+<h2>🌳 Ecosystem</h2>
 
-<p>After years and years of work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.</p>
+<h3>New Machine Interface</h3>
 
+<p>The big news in the Mech ecosystem is that basically every machine has to change due to the new dynamic dispatch JIT compiler. But that's okay, because the change is well worth it. Nonetheless, this is a reminder of why Mech is alpha right now, and why nothing critical should be built on it at this point. It's also a good reason as to why I'm not fleshing out every single module I've started yet, because often that work needs to be redone.</p>
 
+<p>Anyway, here's the change: machines that offer functions will now have to provide a compiler for those functions. That compiler must implement that following trait:</p>
+
+<pre class="code">
+pub trait MechFunctionCompiler {
+  fn compile(&self, block: &mut Block, arguments: &Vec<Argument>, out: &(TableId, TableIndex, TableIndex)) -> std::result::Result<(),MechError>;
+}
+</pre>
+
+<p>What does this compiler do? It chooses a function based on the types of the input arguments. For example, adding two u8 numbers will choose an efficient implementation of add for u8s. If we add two u32s, then an implementation will be chosen for u32s.</p>
+  
+<p>I'm not exactly sure this won't change again in the future, but this is what it is for now. What I may change is that these mini compilers should return a plan rather than modifying the block's plan. Functions must also implement the following trait:</p>
+
+<pre class="code">
+pub trait MechFunction {
+  fn solve(&self);
+  fn to_string(&self) -> String;
+}
+</pre>
+
+<p>So far math, stats, compare, logic, and table have been upgraded to this new format. More will follow in the future.</p>
+
+<h3>html/wasm Reorganization</h3>
+
+<p>It used to be that the wasm repository contained most of the code for drawing HTML and canvas elements, while the html machine repo was sort of a shell. Now that code has been abstracted out of wasm and moved into html proper. Unfortunately the code in wasm is still there, so that will be moved soon.</p>
+
+<h3>Mech ❤️ Sphero</h3>
+
+<p>After years work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.</p>
 
 <p>What it took to get here and why it took so long:</p>
 
 <ol>
-  <li>For a long time there was a lack of adequate Bluetooth for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.</li>
+  <li>For a long time there was a lack of adequate Bluetooth support for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.</li>
 
   <li>There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, here.</li>
 </ol>
 
-<p>So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier last month. See below for more details on that front.</p>
+<p>So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier in the year. See below for more details on that front.</p>
 
 <p>Here's a demonstration of the Sphero being controlled with an Xbox controller.</p>
 
 <iframe width="421" height="750" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 <p>All the code necessary to make this happen is written in Mech. Here's that code:</p>
 
@@ -235,9 +254,13 @@ Map controller state to robot velocity and heading
   #sphero/robot.heading := (#io/gamepad.right-stick-x + 1) / 2 * 360
 </pre>
 
-The code is very short, which is the promise of Mech. What's going on here is that there are two tables #io/gamepad and #sphero/robot. As the buttons on the Xbox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, repsectively. 
+<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables #io/gamepad and #sphero/robot. As the buttons on the Xbox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, repsectively.</p>
 
-The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update #sphero/robot. Furthermore, Mech knows that when it #sphero/robot, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.
+<p>The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update #sphero/robot. Furthermore, Mech knows that when it #sphero/robot, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.</p>
+
+<p>The Sphero machine is not part of the Mech standard library, so it's hosted under my personal account at github.com/cmontella/sphero-mech. You can find the Rust port of the Sphero crate at cmontella/sphero-rs. I'll add this to the Rust crates.io directory soon as I can get a student to clean it up and do the rest of the porting.</p>
+
+<p>By contrast, the gamepad driver is a part of the Mech standard library and it's been added as a member of the io machine. You can find it at io/gamepad with some examples.</p>
 
 <h2>Outreach</h2>
 
@@ -288,7 +311,7 @@ We submitted a paper to IROS 2022 which will be held in October. This is the ven
 
 <p>We presented at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring bring people together who are working on data-centric applications to all sorts of problems. </p>
 
-<p>It was actually a very well-attended conference, so it actually served as kind of a soft launch for Mech, as garnered more eyeballs than ever before. Reception was generally positive.</p>
+<p>It was a very well-attended conference, so it actually served as kind of an unofficial soft launch for Mech, as it garnered the project more eyeballs than ever before. Reception was generally positive, of course no one actually used Mech at the conference. We've got some signups on the mailing list and expressions of interest.</p>
 
 <p>If you weren't able to attend, here is the video that was presented:</p>
 
