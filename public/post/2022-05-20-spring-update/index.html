@@ -259,9 +259,9 @@ pub struct MechError {
 pub trait MechFunctionCompiler {
   fn compile(&self, 
     block: &mut Block, 
-    arguments: &Vec<Argument>, 
+    arguments: &Vec&lt;Argument&gt;, 
     out: &(TableId, TableIndex, TableIndex)) 
-    -> std::result::Result<(),MechError>;
+    -> std::result::Result&lt;(),MechError&gt;;
 }
 </pre>
 
