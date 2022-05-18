@@ -56,24 +56,24 @@
             May 3, 2022
           </span>
           <span class="post-author">
-            Corey Montella
+            - Corey Montella
           </span>
           <article role="main" class="blog-post">
 
-<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs from the HYTRADBOI conference last week. So let's dive into all the new enhancements that were added to Mech since the beginning of the year.</p>
+<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs from the HYTRADBOI conference last month. Somehow this post is longer than the last one which summarized 2 years of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since the beginning of the year.</p>
 
 <h2>🛠️ Platform Improvements</h2>
 
-<h3>Physical units</h3>
+<h3>1. Physical units</h3>
 
-<p>Physical units have been a long time coming, and now they are finally implemented. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
+<p>Physical units have been a long time coming, and now we've finally implemented a prototype. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
 
 <p>Units are specified the same way as the builtin datatypes:</p>
 
 <pre class="code">
 x = 10&lt;m&gt;
 y = 20&lt;m/s&gt;
-z = 3&lt;s&gt;
+z = 3000&lt;ms&gt;
 a = x + y * z
 ╭─────────────────────────────╮
 │a (1 x 1)                     │
@@ -84,7 +84,7 @@ a = x + y * z
 ╰─────────────────────────────╯
 </pre>
 
-<p>Right now only a few built-in types are hardcoded into the compiler, but in the future these will be user-specified in Mech code by adding rows to a table.</p>
+<p>Right now only a few built-in units and scales thereof are hardcoded into the compiler, but in the future these will be user-specified in Mech code by adding rows to a table.</p>
 
 <p>Now that we have physical units, we can have units-aware functions and tables. For example, #time/timer is now defined as:</p>
 
@@ -96,7 +96,9 @@ a = x + y * z
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/5i-KZJ5VYbo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>Top-level statements</h3>
+<p>Obviously this is just the beginning, and we'll have to to a lot more work to make this a more robust feature with more units and more functions that accept units. One big addition for next time will be the ability to define custom types within Mech rather than through the compiler.</p>
+
+<h3>2. Top-level Statements</h3>
 
 <p>You can now write statements without having to put them in a block, with the restriction that they can't query any global tables. The following is valid Mech code now (what's new is that it's not indented):</p>
 
@@ -110,25 +112,27 @@ And the answer is...
 #value = stats/sum(row: q)
 </pre>
 
-<p>This is a subtle but huge change because it affects the way we can expose Mech to new users. It means that Mech looks more like a scripting language at first, but then can expand its capabilities with blocks and global tables.</p>
+<p>This is a subtle but huge change because it affects the way we can expose Mech to new users; it means that Mech looks more like a scripting language at first, but then can expand its capabilities with blocks and global tables.</p>
 
-<p>There's enough to think about with Mech without having to worry about asynchrony and distributed stuff right away. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. I'm glad I figured this out now, because the entire framing of the beta documentation will now have to change.</p>
+<p>I think this is a big win, because there's enough to think about with Mech without having to worry about asynchrony and distributed stuff right away. We can talk about all the new concepts in the language gradually, and then when the user is ready introduce the concept of blocks. I'm glad I figured this out now, because the entire framing of the beta documentation will now have to change.</p>
 
-<h3>Distributed Programs</h3>
+<h3>3. Distributed Programs</h3>
 
-<p>At the beginning of the year I had just finihed the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the sytem converted over to the changes brough by the upated runtime. This entailed restoring distribution capabilities, which you can demonsrated below.</p>
+<p>At the beginning of the year I had just finihed the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the sytem converted over to the changes brought by the upated runtime. This entailed restoring distribution capabilities, which are demonstrated below fully operational again:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/hFMWBRrhxls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>In this video, one Mech server is started in a terminal (the bottom one) which hosts the drawing code for the examples/demo program. In the other terminal, a second Mech server is started which hosts the simulation code for the examples/demo program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code while the remote machine running the simulation is much more powerful.</p>
+<p>In this video, one Mech server is started in a terminal (the bottom one) which hosts the drawing code for the examples/demo program. In the other terminal, a second Mech server is started which hosts the simulation code for the examples/demo program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code, while the remote machine running the simulation is much more powerful.</p>
 
 <p>The video goes on to demonstrate the implication -- that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then furhter propograted to every other connected client.</p>
 
-<p>The video below extends this concept to a game. In this case, the centralized server runs the gamepad code. From that, we connect two clients that run different client code -- one client that displays a gamepad drawing, and another that displays a platform game with physics. Both browsers subscribe to the same data stream connected to the hardware gamepad.</p>
+<p>The video below extends this concept to a game:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/NE8MP39fV18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>Standalone Executables</h3>
+<p>In this case, the centralized server runs the gamepad code. To that, we connect two clients that run different client code -- one client that displays a gamepad drawing, and another that displays a platform game with physics. Both browsers subscribe to the same data stream connected to the hardware gamepad.</p>
+
+<h3>4. Standalone Executables</h3>
 
 <p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as an interpreter; it will comile and run .mec source code in one step, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section for more on performance), but the interpretation step is still there.</p>
 
@@ -140,7 +144,7 @@ And the answer is...
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/vU1P9fX_cM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>Mech Notebook GUI</h3>
+<h3>5. Mech Notebook GUI</h3>
 
 <p>From the start, the tagline for Mech has been that it's a language for "games, animations, and robots". After doing some GUI programming in Mech, I may just have to add "interfaces" to the list, because it works very well in that domain.</p>
 
@@ -150,7 +154,7 @@ And the answer is...
 
 <p>Recent work has been focused on the ability to write Mech code from within the editor itself, as you can do in Smalltalk.</p>
 
-<h3>Performance</h3>
+<h3>6. Performance</h3>
 
 <p>In the last development update I spent some time talking about the various ways that we improved the performace of Mech for the new v0.1-beta runtime. The performance bechmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs:</p>
 
@@ -164,7 +168,7 @@ And the answer is...
 
 <p>This is due to its use of the Rust work-stealing parallelism crate called Rayon, which obviously could be used to speed up the Rust version beyond Mech. Mech's value proposition here is that it will automatically provide fast parallel performance by default.</p>
 
-<h3>Tests</h3>
+<h3>7. Tests</h3>
 
 <p>The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech.</p>
 
@@ -191,15 +195,57 @@ And the answer is...
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/WOqJeA0dS-Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>Debugging and Errors Messages</h3>
+<h3>8. Error Messages and Debugging</h3>
 
 <p>Debugging has been difficult in Mech since the beginning, but that all changes with the addition of error messages and other debugging features added over the last couple of months.</p>
 
+<p>First, let's talk about error messages. One thing that's nice about Rust is that it forces programmers to handle error conditions, like when a program fails to parse or a file fails to open. What we've done recently with Mech is to make almost every function return a special Mech error code except the compiled Mech functions, so there is no possibility for a branch when evaluating them. This means that pretty much every error condition that could arise in Mech has a code that references a particular branch of the runtime, which allows us to easily discern what the error was.</p>
+
+<pre class="code">
+pub struct MechError {
+  pub id: u64,
+  pub kind: MechErrorKind,
+}
+</pre>
+
+<p>MechErrorKind allows us to further specify the kind of error that has occurred. Right now, most errors are either Generic, which is a string; or None, which is just a placeholder at this point. Before the beta release these will be replaced with more informative error messages, but at least for now we don't have to become mystified whenever a program isn't working. Now we look up the error code in the source, and we can see exactly where it failed. Obviously not user friendly, but it'll be better for the beta.</p>
+
+<p>What's more, we added full compiler introspection that really supercharges debugging capabilities in Mech. With the -d flag, the compiler will now report all internal state, including that of blocks. In the video below, you can see the state which is inspectable at runtime:</p>
+
 <iframe width="750" height="421" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>Reflected runtime information includes:</p>
+
+<ul>
+  <li>
+    <b>Blocks:</b>
+    <ul>
+      <li>id and state</li>
+      <li>input and output registers</li>
+      <li>transformations and plan, with each step</li>
+      <li>local tables</li>
+      <li>block-level errors</li>
+    </ul>
+  </li>
+  <li>
+    <b>Core:</b>
+    <ul>
+      <li>input and output registers</li>
+      <li>loaded blocks</li>
+      <li>loaded functions</li>
+      <li>block schedule</li>
+      <li>global tables</li>
+      <li>block-level errors across all blocks</li>
+      <li>core-level errors</li>
+    </ul>
+  </li>
+</ul>
+
+<p>With this information, it should be possible to debug almost any Mech program.</p>
 
 <h2>🐠 Ecosystem</h2>
 
-<h3>New Machine Interface</h3>
+<h3>1. New Machine Interface</h3>
 
 <p>The big news in the Mech ecosystem is that basically every machine has to change due to the new dynamic dispatch JIT compiler. But that's okay, because the change is well worth it. Nonetheless, this is a reminder of why Mech is alpha right now, and why nothing critical should be built on it at this point. It's also a good reason as to why I'm not fleshing out every single module I've started yet, because often that work needs to be redone.</p>
 
@@ -224,11 +270,11 @@ pub trait MechFunction {
 
 <p>So far math, stats, compare, logic, and table have been upgraded to this new format. More will follow in the future.</p>
 
-<h3>Reorganization of html/wasm</h3>
+<h3>2. Reorganization of html/wasm</h3>
 
 <p>It used to be that the wasm repository contained most of the code for drawing HTML and canvas elements, while the html machine repo was sort of a shell. Now that code has been abstracted out of wasm and moved into html proper. Unfortunately the code in wasm is still there, so that will be moved soon.</p>
 
-<h3>Mech ❤️ Sphero</h3>
+<h3>3. Mech ❤️ Sphero</h3>
 
 <p>After years work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.</p>
 
@@ -270,7 +316,7 @@ Map controller state to robot velocity and heading
 
 <h2>🏫 Outreach</h2>
 
-<h3>Forward Robotics @ CHOICES</h3>
+<h3>1. Forward Robotics @ CHOICES</h3>
 
 <p>Forward Robotics (FR) is the outreach component of the Mech project which aims to educate kids about robotics. Over the Summer of 2020 a number of my students developed activities of the FR cirriculum, but we weren't able to test them on actual kids due to the pandemic. At long last, in early March Forward Robotics got its first playtest at the CHOICES program:</p>
 
@@ -317,11 +363,11 @@ Map controller state to robot velocity and heading
 ⚫⚫⚫🟢🟢⚫⚫⚫
 </pre>
 
-<h3>IROS 2022</h3>
+<h3>2. IROS 2022</h3>
 
 <p>We submitted a paper to IROS 2022 which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present we'll have to choose another venue (there are other good choices we can fallback on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
 
-<h3>HYTRADBOI 2022</h3>
+<h3>3. HYTRADBOI 2022</h3>
 
 <p>We presented Mech at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring bring people together who are working on data-centric applications to all sorts of problems.</p>
 
@@ -331,13 +377,13 @@ Map controller state to robot velocity and heading
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/-ypiPSaWJNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>ARRAY 2022</h3>
+<h3>4. ARRAY 2022</h3>
 
 Mech has been accepted to present at the <a href="https://pldi22.sigplan.org/home/ARRAY-2022">Array 2022</a> workshop hosted at PLDI. The presentation will be in San Diego on June 13th, 2022. I don't know if it will be recorded, but if it is I'll be sure to put a link in a future blog post.
 
 <h2>🤝 Project and Community</h2>
 
-<h3>Repository Shakeup</h3>
+<h3>1. Repository Shakeup</h3>
 
 <p>The main Mech repository at gitlab.com/mech-lang/mech has been reoganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repository in the mech-lang namespace. Now when someone wants to build Mech from source, they will have to clone the submodules first.</p>
 
@@ -349,51 +395,96 @@ cd mech
 cargo build --bin mech --release
 </pre>
 
-<h3>Soft launch website</h3>
+<h3>2. Soft launch website</h3>
 
-Since I figured the HYTRADBOI conference was going to attract a decent number of eyeballs, I did a quick refresh of the Mech website to include content from the talk. It's not written in Mech (it's mostly just pngs), but it's at least got a code sample and some rationale on the project.
+<p>Since I figured the HYTRADBOI conference was going to attract a decent number of eyeballs, I did a quick refresh of the Mech website to include content from the talk. It's not written in Mech (it's mostly just pngs), but it's at least got a code sample and some rationale on the project.</p>
 
-A better website is still forthcoming for the Fall launch.
+<p>A better website is still forthcoming for the Fall launch.</p>
 
-<h3>Logo</h3>
+<h3>3. Logo</h3>
 
-<p>The logo has undergone a second revision. Embarassingly enough, until I put it on the Sphero LED display, I didn't realize the logo we had settled on last time looked like "F-" when rotated 90 degrees. </p>
+<p>The logo has undergone a second revision. Embarassingly enough, until I put it on the Sphero LED display and looked at it from new perspectives, I didn't realize the logo we had settled on last time looked like "F-" when rotated 90 degrees.</p>
 
 <img src="assets/f-.png">
 
-<p>And now I can't unsee it! Oops... not quite the message I want to send with the logo. So I put it to my students and we agreed on a new revision. Here it is!</p>
+<p>And now I can't unsee it! Oops... not quite the message I want to send with the logo (I guess this is what designers are for). So I put it to my students and we agreed on a new revision. Here it is!</p>
 
 <img width="25%" src="assets/mech-m128.png">
 
-<p>Which I think doesn't have any negative connotations in any direcion. Maybe it's a curse in a foreign language, but I'm happy with this for now. Also, I feel like it has autobot vibes, so it works on more levels than before:</p>
+<p>Which I think doesn't have any negative connotations in any orientation. Maybe it's a curse in a foreign language, but I'm happy with this for now. Also, I feel like it has autobot vibes, so it works on more levels than before:</p>
 
 <img width="50%" src="assets/autobot.png">
 
-<h3>Mailing List Signup</h3>
+<h3>4. Mailing List Signup</h3>
 
-There was some actual interest in joining a mailing list at the HYTRADBOI conference, so there is now a mailing list sign-up on the home page.
+<p>There was some actual interest in joining a mailing list at the HYTRADBOI conference, so there is now a mailing list sign-up on the home page. You can sign up for the mailing list below as well (pardon the lack of styling):</p>
 
-<h3>RSS Feed</h3>
+<div>
+  <form action="https://ml.kundenserver.de/cgi-bin/mailinglist.cgi" method="POST" target="_blank">
+    <input checked="" name="subscribe_r" type="radio" value="subscribe">
+    Subscribe.
+    <br>
+    <input name="subscribe_r" type="radio" value="unsubscribe">
+    Unsubscribe.
+    <br>
+    Enter your email address:
+    <br>
+    <input maxlength="51" name="mailaccount_r" size="51" type="text">
+    <br>
+    Please confirm your email address:
+    <br>
+    <input maxlength="51" name="mailaccount2_r" size="51" type="text">
+    <br>
+    <input type="SUBMIT" value="Send">
+    <br>
+    <input type="RESET" value="Reset">
+    <input name="FBMLNAME" type="hidden" value="talk@mech-lang.org">
+    <br>
+    <input name="FBLANG" type="hidden" value="en">
+    <br>
+    <input name="FBURLERROR_L" type="hidden" value="https://ml.kundenserver.de/mailinglist/error.en.html">
+    <br>
+    <input name="FBURLSUBSCRIBE_L" type="hidden" value="https://ml.kundenserver.de/mailinglist/subscribe.en.html">
+    <br>
+    <input name="FBURLUNSUBSCRIBE_L" type="hidden" value="https://ml.kundenserver.de/mailinglist/unsubscribe.en.html">
+    <br>
+    <input name="FBURLINVALID_L" type="hidden" value="https://ml.kundenserver.de/mailinglist/invalid.en.html">
+  </form>
+</div>
 
-Likewise there was interest in subscribing to the Mech blog so as to not miss when the launch happens. Accordingly, I created an RSS feed that people can subscribe to: <a href="http://mech-lang.org/feed.xml">http://mech-lang.org/feed.xml</a>. I will post all new blog updates to the mailing list and the RSS feed.
+<p>If you subscribe, be sure to check your spam folder for a confirmation e-mail, and to add talk@mech-lang.org to your trusted address list.</p>
+
+<h3>5. RSS Feed</h3>
+
+<p>Likewise there was interest in subscribing to the Mech blog so as to not miss when the launch happens. Accordingly, I created an RSS feed that people can subscribe to: <a href="http://mech-lang.org/feed.xml">http://mech-lang.org/feed.xml</a>. I will post all new blog updates to the mailing list and the RSS feed.</p>
 
 <h2>🌞 Summer 2022 Roadmap</h2>
 
+<p>Whew, okay so that was a lot. Unfortunately, the pace can't let up if we want to make our October deadline. Here's what we're planning to accomplish this summer to stay on pace:</p>
+
 <ul>
-<li>documentation revamp</li>
-
-<li>robust standard library</li>
-
-<li>more example applications</li>
-
-<li>Summer CHOICES</li>
-
-<li>Foundations of Robotics course</li>
+  <li><b>Mech Notebook</b> - The Mech notebook will be the main project for the first part of the summer. The goal there is to have something to demo at ARRAY 2022.</li>
+  <li><b>gui Machine</b> - As part of creating the Mech Notebook, we'll have to create a machine to render common gui elements like sliders, windows, panels, labels, etc. This will be a part of the standard library.</li>
+  <li><b>Flesh Out Standard Library</b> - The standard library is... spotty. I have a student this summer who will be filling in the gaps and implementing as much of it as he can.</li>
+  <li><b>Documentation Revamp</b> - The docs need to be completely rewritten. They were written for v0.4, so they are mostly out of date by now. This will be an ongoing project that will coincide with the fleshing out of the standard library.</li>
+  <li><b>ARRAY 2022</b> - As I mentioned earlier, I'll be presenting Mech at ARRAY 2022, which is co-located with PLDI 2022. If you're going, let me know, I'd love to give you a demo!</li>
+  <li><b>Summer CHOICES</b> - Forward Robotics will be re-running the robot bowling activity at the CHOICES camp in June. At the Spring event we had a limited amount of time over a single afternoon, but the upcoming event will be over a couple days. Hopefully this means the students will get more time to write Mech code.</li>
+  <li><b>Foundations of Robotics</b> - In July and August I will be teaching my Foundations of Robotics course, which will leverage Mech on the Tegra, along with a number of sensors. I'll have to write drivers for all of the sensors we will use, as well as implement the matrix math functions needed to implement SLAM, RANSAC, and other algorithms we will be using.</li>
+  <li><b>CAREER Grant Proposal</b> - I still intend on submitting a CAREER proposal for this cycle, which would be due in July.</li>
+  <li><b>SWAG</b> - I'm going to comission a line of Mech SWAG like stickers and such that I can hand out at PLDI and IROS.</li>
+  <li><b>Website Revamp</b> - We'll launch a full new website. I will need to find a designer to do the work of creating the design, but the site will be fully implemented in Mech.</li>
 </ul>
 
-<h2>v0.1-beta release roadmap</h2>
+<h2>🎃 v0.1-beta Release Roadmap</h2>
 
-Here's the work left to complete before v0.1-beta is launched in October. There's no order implied in this list; I'm just putting everything I can think of down. 
+<p>
+By the end of Summer (Sep 22), I'm going to feature-freeze Mech. Everything that's not in at that time will have to wait until after v0.1-beta is launched. IROS 2022 will be held starting Oct 22, so if we're accepted to present at that conference then we will have about a month to test, fix bugs, and write documentsation and release material!
+</p>
+
+<p>Thanks for reading if you made it this far. This post could probably have been shorter if I made them more frequent, but I kind of like the megapost update as it makes me feel like I've been productive. As I post this I already have more to talk about, but I've scoped this post roughly to work that happened between January and April.</p>
+
+<p>That said, the update the Summer update at the end of August, but I will have some non-Mech update blog posts I will be 
+</p>
 
           </article>
         </div>
