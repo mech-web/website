@@ -60,13 +60,13 @@
           </span>
           <article role="main" class="blog-post">
 
-<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs from the HYTRADBOI conference last month. Somehow this post is longer than the last one which summarized 2 years of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since the beginning of the year.</p>
+<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 year's worth of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since January.</p>
 
 <h2>🛠️ Platform Improvements</h2>
 
 <h3>1. Physical units</h3>
 
-<p>Physical units have been a long time coming, and now we've finally implemented a prototype. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
+<p>Physical units have been a long time coming, and now we've finally implemented a prototype. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as <code>&lt;m/s&gt;</code> and one typed as <code>&lt;s&gt;</code> will yield a column typed as <code>&lt;m&gt;</code>. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
 
 <p>Units are specified the same way as the built in datatypes:</p>
 
@@ -86,7 +86,7 @@ a = x + y * z
 
 <p>Right now only a few built-in units and scales thereof are hardcoded into the compiler, but in the future these will be user-specified in Mech code by adding rows to a table.</p>
 
-<p>Now that we have physical units, we can have units-aware functions and tables. For example, #time/timer is now defined as:</p>
+<p>Now that we have physical units, we can have units-aware functions and tables. For example, <code>#time/timer</code> is now defined as:</p>
 
 <pre class="code">
 #time/timer = [|period&lt;s&gt; ticks&lt;u64&gt;|]
@@ -118,88 +118,90 @@ And the answer is...
 
 <h3>3. Distributed Programs</h3>
 
-<p>At the beginning of the year I had just finished the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the system converted over to the changes brought by the updated runtime. This entailed restoring distribution capabilities, which are demonstrated below fully operational again:</p>
+<p>At the beginning of the year I had just finished the major portions of the runtime rewrite, which meant mech-lang/core and mech-lang/syntax were passing most tests. But mech-lang/program, which handles the networking layer of the Mech runtime, still was broken. No the work of getting the rest of the system converted over to the changes brought by the updated runtime is completed. This entailed restoring distribution capabilities, which are demonstrated below to be fully operational again:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/hFMWBRrhxls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>In this video, one Mech server is started in a terminal (the bottom one) which hosts the drawing code for the examples/demo program. In the other terminal, a second Mech server is started which hosts the simulation code for the examples/demo program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code, while the remote machine running the simulation is much more powerful.</p>
+<p>In this video, one Mech server is started in a terminal (the bottom one) which hosts the drawing code for the <a href="https://gitlab.com/mech-lang/examples/-/tree/v0.1-beta/src/demo">examples/demo</a> program. In the other terminal, a second Mech server is started which hosts the simulation code for the examples/demo program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code, while the remote machine running the simulation is much more powerful.</p>
 
-<p>The video goes on to demonstrate the implication -- that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then further propagated to every other connected client.</p>
+<p>The video goes on to demonstrate the implication — that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then further propagated to every other connected client.</p>
 
-<p>The video below extends this concept to a game:</p>
+<p>The video below extends this concept to a game, which can be found in the <a href="https://gitlab.com/mech-lang/machines/io/-/tree/v0.1-beta/examples">io machine</a> to demonstrate the usage of the new <code>#io/gamepad</code>:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/NE8MP39fV18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>In this case, the centralized server runs the gamepad code. To that, we connect two clients that run different client code -- one client that displays a gamepad drawing, and another that displays a platform game with physics. Both browsers subscribe to the same data stream connected to the hardware gamepad.</p>
+<p>In this case, the centralized server runs the gamepad code. To that, we connect two clients that run different client code — one client that displays a gamepad drawing, and another that displays a platform game with physics. Both browsers subscribe to the same data stream connected to the hardware gamepad.</p>
 
 <h3>4. Standalone Executables</h3>
 
-<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as an interpreter; it will compile and run .mec source code in one step, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section for more on performance), but the interpretation step is still there.</p>
+<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable that can run on most platforms Rust can target. Until now, to run Mech programs, one would invoke the Mech compiler as an interpreter; it will compile and run <code>.mec</code> source code in one step, the same way Python works. Unlike Python, Mech has a JIT compiler, so it runs a lot faster than Python (see the next section for more on performance), but the interpretation step is still there.</p>
 
-<p>What we can do for a standalone executable for a Mech program (without having to go through the interpreter) is compile .mec files into a bytecode, and store that in a file. I've decided to call it a .blx file (pronounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled.</p>
+<p>What we can do to compile Mech programs into standalone executables (without having to go through the interpreter) is compile <code>.mec</code> files into bytecode, and store that on disk in a serialized binary format. I've decided to call this file format a <code>.blx</code> file (pronounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled.</p>
 
-<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB on Windows, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fast I can trim from that executable. We'll see.</p>
+<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB on Windows, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fat we can trim from that executable. We'll see.</p>
 
-<p>Here's a video demonstrating the various ways to package a Mech program at this time.</p>
+<p>Here's a video demonstrating the various ways to run a Mech program at this time, including running it through the mech toolchain, bundling a console application, or bundling a GPU rendered GUI:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/vU1P9fX_cM4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<h3>5. Mech Notebook GUI</h3>
+<p>The packaging story will be a major topic of development this summer, and I have one students who will be devoted to working on this aspect of the project.</p>
 
-<p>From the start, the tagline for Mech has been that it's a language for "games, animations, and robots". After doing some GUI programming in Mech, I may just have to add "interfaces" to the list, because it works very well in that domain.</p>
+<h3>5. Performance</h3>
 
-<p>For the last couple of weeks I've been using the excellent egui crate to create a GPU-accelerated GUI for Mech. So far I've been wrapping the various UI elements for usage in Mech, and I've done enough to implement one of the longest-needed features for the language: a table browser! Check out the video below to see what happens when we open elements of the GUI inside of the GUI itself.</p>
-
-<iframe width="750" height="421" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>Recent work has been focused on the ability to write Mech code from within the editor itself, as you can do in Smalltalk.</p>
-
-<h3>6. Performance</h3>
-
-<p>In the last development update I spent some time talking about the various ways that we improved the performance of Mech for the new v0.1-beta runtime. The performance benchmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs:</p>
+<p>In the last development update I spent some time talking about the various ways that we improved the performance of Mech for the new v0.1-beta runtime. Although I did compare to Python at one point, it wasn't a very enlightening benchmark. Now we've done performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech stacks up against the competition:</p>
 
 <img width="100%" src="assets/perf.png">
 
-<p>According to our benchmark of the bouncing balls simulation (with n = 1e7 balls), Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. Now, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works. The relative ordering of Mech and Rust here doesn't indicate anything; since Mech is implemented in Rust, we should expect performance to be similar if I've done my job right with the JIT compiler.</p>
+<p>According to our benchmark of the bouncing balls simulation (with n = 1e7 balls), Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. To be clear, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works. The relative ordering of Mech and Rust here doesn't indicate anything; since Mech is implemented in Rust, we should expect performance to be similar if I've done my job right with the JIT compiler.</p>
 
-<p>Actually single threaded Mech does not perform as well as Rust. Without parallel processing, Mech performance falls between Matlab and Rust in this comparison. It's only when parallel processing is turned on that Mech manages to beat Rust. As we can see in the following image, Mech makes full usage of all cores:</p>
+<p>Actually single threaded Mech does not perform as well as Rust on this benchmark. Without parallel processing, Mech performance falls between Matlab and Rust in this benchmark. It's only when parallel processing is turned on that Mech manages to beat Rust. As we can see in the following image, Mech makes full usage of all cores:</p>
 
 <img width="100%" src="assets/parallel.png">
 
-<p>This is due to its use of the Rust work-stealing parallelism crate called Rayon, which obviously could be used to speed up the Rust version beyond Mech. Mech's value proposition here is that it will automatically provide fast parallel performance by default.</p>
+<p>This is due to its use of the Rust work-stealing parallelism crate called <a href="https://docs.rs/rayon/latest/rayon/">Rayon</a>, which obviously could be used to speed up the Rust version beyond Mech. Mech's value proposition is therefore not that it's the fastest, but that it will automatically provide fast parallel performance by default at the language-level. This means we don't have to sacrifice expressivity for performance, as is usually the tradeoff.</p>
+
+<h3>6. Mech Notebook GUI</h3>
+
+<p>From the start, the tagline for Mech has been that it's a language for "games, animations, and robots". After doing some GUI programming in Mech, I may just have to add "interfaces" to the list, because it works very well in that domain.</p>
+
+<p>For the last couple of weeks I've been using the excellent <a href="https://docs.rs/egui/latest/egui/index.html">egui</a> crate to create a GPU-accelerated GUI for Mech. So far I've been wrapping the various UI elements for usage in Mech, and I've done enough to implement one of the longest-needed features for the language: a table browser! Check out the video below to see what happens when we open elements of the GUI inside of the GUI itself:</p>
+
+<iframe width="750" height="421" src="https://www.youtube.com/embed/9Eoeerr9bjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>Recent work has been focused on the ability to write Mech code from within the editor itself, as you can do in Smalltalk. Soon we'll have a Mech editor fully written in Mech!</p>
 
 <h3>7. Tests</h3>
 
-<p>The testing harness is now written 100% in Mech. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech.</p>
+<p>The testing harness is now written <a href="https://gitlab.com/mech-lang/machines/mech/-/blob/v0.1-beta/src/test.mec">100% in Mech</a>. Before it was a combination of Mech code which ran the tests, but Rust code which aggregated them and produced printed output. Now Mech is running all of the testing and result aggregation through Mech itself. This milestone represents the first feature of the Mech platform implemented end-to-end in Mech.</p>
 
-<p>Tests presents an interesting problem with typed columns, because the expected value of a test could be different depending on the operation under scrutiny. For example, the following code is problematic because we should be able to have a column with heterogenous types:</p>
+<p>Tests present an interesting problem with typed columns, because the expected value of a test could be different depending on the operation under scrutiny. For example, the following code is problematic because it requires the concept of a column with heterogenous types:</p>
 
 <pre class="code">
 #mech/test += ["Addition"      2    1 + 1
                "String Concat" "ab" "a" + "b"]
 </pre>
 
-<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type &lt;_&gt;. It's like an "Any" type, but it's not the default column type; you have to explicitly opt-in to a wildcard column. Accordingly, the #test table is defined as such:</p>
+<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1-beta runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this pattern, so now Mech has a wildcard column kind <code>&lt;_&gt;</code>. It's like an "Any" type, but it's not the default for columns; the default will be inferred from the column elements, so you have to explicitly opt-in to a wildcard column. Accordingly, the <code>#test</code> table is defined as such:</p>
 
 <pre class="code">
 #test = [|name&lt;string&gt; expected&lt;_&gt; actual&lt;_&gt;|]
 </pre>
 
-<p>This is implemented by keeping the elements of these columns wrapped in their Value enums. This allows them to coexist in the same column, but it's going to slow down computations as operands must be unwrapped dynamically on each function call. The tests are run with the following code:</p>
+<p>This is implemented by keeping the elements of these columns wrapped in their Value enums, which allows them to coexist in the same column. However, it's going to slow down computations as operands must be unwrapped dynamically on each function call. The tests are run with the following code:</p>
 
 <pre class="code">
   #test/results = #test.expected == #test.actual
 </pre>
 
-<p>You can see the testing framework in action here:</p>
+<p>You can see the testing framework live <a href="https://gitlab.com/mech-lang/mech/-/jobs/2465314486">here</a> and in action below:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/WOqJeA0dS-Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <h3>8. Error Messages and Debugging</h3>
 
-<p>Debugging has been difficult in Mech since the beginning, but that all changes with the addition of error messages and other debugging features added over the last couple of months.</p>
+<p>Debugging has been difficult in Mech since the beginning due to a lack of any error messages whatsoever. That all changes with the addition of error messages and other debugging features added over the last couple of months.</p>
 
-<p>First, let's talk about error messages. One thing that's nice about Rust is that it forces programmers to handle error conditions, like when a program fails to parse or a file fails to open. What we've done recently with Mech is to make almost every function return a special Mech error code except the compiled Mech functions, so there is no possibility for a branch when evaluating them. This means that pretty much every error condition that could arise in Mech has a code that references a particular branch of the runtime, which allows us to easily discern what the error was.</p>
+<p>First, let's talk about error messages. One thing that's nice about Rust is that it forces programmers to handle error conditions, like when a program fails to parse or a file fails to open. What we've done recently with Mech is to make almost every function return a special error code (except for the compiled functions to avoid branching during evaluation). This means that pretty much every error condition that could arise in Mech has a code that references a particular branch of the runtime logic. When a violation occurs, the error code is noted and we can use that to discern what the error was. Here's the struct which represnts and error in Mech:</p>
 
 <pre class="code">
 pub struct MechError {
@@ -208,13 +210,13 @@ pub struct MechError {
 }
 </pre>
 
-<p>MechErrorKind allows us to further specify the kind of error that has occurred. Right now, most errors are either Generic, which is a string; or None, which is just a placeholder at this point. Before the beta release these will be replaced with more informative error messages, but at least for now we don't have to become mystified whenever a program isn't working. Now we look up the error code in the source, and we can see exactly where it failed. Obviously not user friendly, but it'll be better for the beta.</p>
+<p><code>MechErrorKind</code> allows us to further specify the kind of error that has occurred. Right now, most errors are either <code>Generic</code>, which returns an arbitrary string with context for the erorr; or <code>None</code>, which is just a placeholder at this point. Before the beta release, these will be replaced with more informative error messages. But at least for now we don't have to become mystified whenever a program isn't working; we look up the error code in the source, and we can see exactly where it failed. Obviously this is not user friendly, but it'll be better for the beta with actual error messages and informative error kinds.</p>
 
-<p>What's more, we added full compiler introspection that really supercharges debugging capabilities in Mech. With the -d flag, the compiler will now report all internal state, including that of blocks. In the video below, you can see the state which is inspectable at runtime:</p>
+<p>What's more, we added full compiler introspection that really supercharges debugging capabilities in Mech. With the <code>-d</code> flag, the compiler will now report all internal state, including that of blocks. In the video below, you can see the state which is inspectable at runtime:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>Reflected runtime information includes:</p>
+<p>The following runtime information is includeded in the debugger output:</p>
 
 <ul>
   <li>
@@ -241,13 +243,13 @@ pub struct MechError {
   </li>
 </ul>
 
-<p>With this information, it should be possible to debug almost any Mech program.</p>
+<p>With this information, it should be possible to debug almost any Mech program. In the future, this information will be reflected into the running program, so that we can do this introspection from within the program itself.</p>
 
 <h2>🐠 Ecosystem</h2>
 
 <h3>1. New Machine Interface</h3>
 
-<p>The big news in the Mech ecosystem is that basically every machine has to change due to the new dynamic dispatch JIT compiler. But that's okay, because the change is well worth it. Nonetheless, this is a reminder of why Mech is alpha right now, and why nothing critical should be built on it at this point. It's also a good reason as to why I'm not fleshing out every single module I've started yet, because often that work needs to be redone.</p>
+<p>The big news in the Mech ecosystem is that basically every machine has to change due to the new dynamic dispatch JIT compiler. But that's okay, because the change is well worth it. Nonetheless, this is a reminder of why Mech is alpha right now, and why nothing critical should be built on it at this point. It's also a good reason as to why I'm not fleshing out every single module I've started yet, because often that work needs to be redone when the platform changes underneath it.</p>
 
 <p>Anyway, here's the change: machines that offer functions will now have to provide a compiler for those functions. That compiler must implement that following trait:</p>
 
@@ -257,9 +259,9 @@ pub trait MechFunctionCompiler {
 }
 </pre>
 
-<p>What does this compiler do? It chooses a function based on the types of the input arguments. For example, adding two u8 numbers will choose an efficient implementation of add for u8s. If we add two u32s, then an implementation will be chosen for u32s.</p>
+<p>What does this compiler do? It plans an appropriate function based on the types of the input arguments. For example, when adding two <code>u8</code> numbers, the function compiler will choose an efficient implementation of add for <code>u8</code>s. If we add two <code>u32</code>s, then an implementation will be chosen for <code>u32</code>s. If no implementation is available (adding two boolean values) then the compiler should record an error.</p>
   
-<p>I'm not exactly sure this won't change again in the future, but this is what it is for now. What I may change is that these mini compilers should return a plan rather than modifying the block's plan. Functions must also implement the following trait:</p>
+<p>I'm not exactly sure this won't change again in the future, but this is what it is for now. What I may change is that these mini compilers should return a <code>Plan</code> rather than taking an <code>&mut Block</code> and modifying the block's plan. Functions must also implement the following trait:</p>
 
 <pre class="code">
 pub trait MechFunction {
@@ -272,25 +274,23 @@ pub trait MechFunction {
 
 <h3>2. Reorganization of html/wasm</h3>
 
-<p>It used to be that the wasm repository contained most of the code for drawing HTML and canvas elements, while the html machine repo was sort of a shell. Now that code has been abstracted out of wasm and moved into html proper. Unfortunately the code in wasm is still there, so that will be moved soon.</p>
+<p>It used to be that the wasm repository contained most of the code for drawing HTML and canvas elements, while the html machine repo was sort of a shell. Now that code has been abstracted out of wasm and moved into html proper. Unfortunately the code in wasm is still there and alive, so that will be moved soon, at which point html will be a dependency of wasm.</p>
 
 <h3>3. Mech ❤️ Sphero</h3>
 
-<p>After years work, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth.</p>
+<p>After years of trying and failing, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth!</p>
+
+<iframe style="float:left; padding: 20px;" width="421" height="750" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>What it took to get here and why it took so long:</p>
 
 <ol>
-  <li>For a long time there was a lack of adequate Bluetooth support for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.</li>
+  <li><p>For a long time there was a lack of adequate Bluetooth support for Rust under Windows. The state of Bluetooth crates on Rust for a while mostly focused on Linux. The Btleplug crate is one of the newer Bluetooth crates and one of the first ones to support BTLE on Windows, which the Sphero Bolt requires.</p></li>
 
-  <li>There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, here.</li>
+  <li><p>There's also a lack of a proper Sphero SDK for Rust. Thankfully this very helpful Python driver <a href="https://github.com/EnotYoyo/pysphero">PySphero</a> exists, and I've ported portions of it to Rust. You can find that crate, sphero-rs, <a href="https://github.com/cmontella/sphero-rs">here</a>.</p></li>
 </ol>
 
-<p>So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier in the year. See below for more details on that front.</p>
-
-<p>Here's a demonstration of the Sphero being controlled with an Xbox controller.</p>
-
-<iframe width="421" height="750" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>So far I've only ported enough of the PySphero driver to cover the functionality I need for the Spring CHOICES event, which was held earlier in the year. See below for more details on that front. Here's a demonstration of the Sphero being controlled with an Xbox controller.</p>
 
 <p>All the code necessary to make this happen is written in Mech. Here's that code:</p>
 
@@ -306,25 +306,26 @@ Map controller state to robot velocity and heading
   #sphero/robot.heading := (#io/gamepad.right-stick-x + 1) / 2 * 360
 </pre>
 
-<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables #io/gamepad and #sphero/robot. As the buttons on the Xbox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, respectively.</p>
+<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables <code>#io/gamepad</code> and <code>#sphero/robot</code>. As the buttons on the XBox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, respectively.</p>
 
-<p>The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update #sphero/robot. Furthermore, Mech knows that when it #sphero/robot, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.</p>
-
-<p>The Sphero machine is not part of the Mech standard library, so it's hosted under my personal account at github.com/cmontella/sphero-mech. You can find the Rust port of the Sphero crate at cmontella/sphero-rs. I'll add this to the Rust crates.io directory soon as I can get a student to clean it up and do the rest of the porting.</p>
-
-<p>By contrast, the gamepad driver is a part of the Mech standard library and it's been added as a member of the io machine. You can find it at io/gamepad with some examples.</p>
+<p>The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update <code>#sphero/robot</code>. Furthermore, Mech knows that when it updates <code>#sphero/robot</code>, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.</p>
 
 <h2>🏫 Outreach</h2>
 
 <h3>1. Forward Robotics @ CHOICES</h3>
 
+<iframe style="float:right;  padding: 20px;" width="421" height="750" src="https://www.youtube.com/embed/PVjEKyl-K-g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 <p>Forward Robotics (FR) is the outreach component of the Mech project which aims to educate kids about robotics. Over the Summer of 2020, several of my students developed activities of the FR curriculum, but we weren't able to test them on actual kids due to the pandemic. At long last, in early March Forward Robotics got its first playtest at the CHOICES program:</p>
 
 <p>"Lehigh University's CHOICES program allows middle school girls to participate in a variety of fun engineering and science experiments designed to foster an interest in the future pursuit of science, technology, engineering and math (STEM)."</p>
 
-<p>For our part, Forward Robotics deployed the robot bowling activity, in which students write Mech code to draw logos on the 8x8 Sphero Bolt display and then use the robot to knock over bowling pins. Here's an example of one of the team logos designed by kids at CHOICES:</p>
+<p>For our part, Forward Robotics deployed the robot bowling activity, in which students write Mech code to draw logos on the 8x8 Sphero Bolt display and then use the robot to knock over bowling pins.</p>
 
-<pre class="code">
+<p>Some logos designed by the CHOICES teams, including a sky, a rabbit, a turtle, and an orange slice:</p>
+
+<div style="display: flex;">
+<pre style="max-width: 175px; line-height: 23px;" class="code">
 🔵🔵⚪🔵🔵🔵🔵🔵
 🔵⚪⚪⚪🔵🔵🔵🔵
 🔵🔵🔵🔵🔵🟡⚪🔵
@@ -334,14 +335,7 @@ Map controller state to robot velocity and heading
 🔵⚪⚪⚪🔵🔵⚪🔵
 🔵🔵🔵🔵🔵⚪⚪⚪
 </pre>
-
-<p>And here's that logo on the Sphero robot:</p>
-
-<iframe width="421" height="750" src="https://www.youtube.com/embed/PVjEKyl-K-g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>Some more logos designed by other teams including a rabbit and a turtle:</p>
-
-<pre class="code">
+<pre style="max-width: 175px; line-height: 23px;" class="code">
 🟡🟡⚫⚪⚫⚪⚫⚫
 🟡🟡⚫🔴⚫🔴⚫⚫
 ⚫⚫⚫🔵⚪🔵⚫⚫
@@ -352,7 +346,7 @@ Map controller state to robot velocity and heading
 ⚫🟠⚫🟠⚫🟠⚫🟠
 </pre>
 
-<pre class="code">
+<pre style="max-width: 175px; line-height: 23px;" class="code">
 ⚫⚫⚫🟢🟢⚫⚫⚫
 ⚫⚫⚫🟢🟢⚫⚫⚫
 ⚫🟢🟤🟤🟤🟤🟢⚫
@@ -362,10 +356,23 @@ Map controller state to robot velocity and heading
 ⚫🟢🟤🟤🟤🟤🟢⚫
 ⚫⚫⚫🟢🟢⚫⚫⚫
 </pre>
+<pre style="max-width: 175px; line-height: 23px;" class="code">
+⚫⚫⚫⚫⚫⚫⚫⚫
+⚫⚫⚫⚫⚫⚫⚫⚫
+⚫⚫⚫⚫⚫⚫⚫⚫
+🟠🟡🟡🟡🟡🟡🟡🟠
+🟠🟡🟡🟡🟡🟡🟡🟠
+⚫🟠🟡🟡🟡🟡🟠⚫
+⚫⚫🟠🟠🟠🟠⚫⚫
+⚫⚫⚫⚫⚫⚫⚫⚫
+⚫⚫⚫⚫⚫⚫⚫⚫
+</pre>
+</div>
+
 
 <h3>2. IROS 2022</h3>
 
-<p>We submitted a paper to IROS 2022 which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present, we'll have to choose another venue (there are other good choices we can fall back on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
+<p>We submitted a paper to <a href="https://iros2022.org">IROS 2022</a> which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present, we'll have to choose another venue (there are other good choices we can fall back on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
 
 <h3>3. HYTRADBOI 2022</h3>
 
@@ -379,7 +386,7 @@ Map controller state to robot velocity and heading
 
 <h3>4. ARRAY 2022</h3>
 
-Mech has been accepted to present at the <a href="https://pldi22.sigplan.org/home/ARRAY-2022">Array 2022</a> workshop hosted at PLDI. The presentation will be in San Diego on June 13th, 2022. I don't know if it will be recorded, but if it is I'll be sure to put a link in a future blog post.
+<p>Mech has been <a href="https://pldi22.sigplan.org/details/ARRAY-2022-papers/4/Mech-An-Array-Programming-Language-for-Robots-extended-abstract-">accepted</a> to present at the <a href="https://pldi22.sigplan.org/home/ARRAY-2022">Array 2022</a> workshop hosted at PLDI. The presentation will be in San Diego on June 13th, 2022. I don't know if it will be recorded, but if it is I'll be sure to put a link in a future blog post.</p>
 
 <h2>🤝 Project and Community</h2>
 
@@ -395,7 +402,7 @@ cd mech
 cargo build --bin mech --release
 </pre>
 
-<h3>2. Soft launch website</h3>
+<h3>2. Soft Launch Website</h3>
 
 <p>Since I figured the HYTRADBOI conference was going to attract a decent number of eyeballs, I did a quick refresh of the Mech website to include content from the talk. It's not written in Mech (it's mostly just pngs), but it's at least got a code sample and some rationale on the project.</p>
 
