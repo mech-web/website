@@ -60,7 +60,7 @@
           </span>
           <article role="main" class="blog-post">
 
-<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 year's worth of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since January.</p>
+<p>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 years’ worth of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since January.</p>
 
 <h2>🛠️ Platform Improvements</h2>
 
@@ -96,7 +96,7 @@ a = x + y * z
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/5i-KZJ5VYbo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>Obviously this is just the beginning, and we'll have to to a lot more work to make this a more robust feature with more units and more functions that accept units. One big addition for next time will be the ability to define custom types within Mech rather than through the compiler.</p>
+<p>Obviously this is just the beginning, and we'll have to a lot more work to make this a more robust feature with more units and more functions that accept units. One big addition for next time will be the ability to define custom types within Mech rather than through the compiler.</p>
 
 <h3>2. Top-level Statements</h3>
 
@@ -124,7 +124,7 @@ And the answer is...
 
 <p>In this video, one Mech server is started in the bottom terminal which hosts the drawing code from the <a href="https://gitlab.com/mech-lang/examples/-/tree/v0.1-beta/src/demo">examples/demo</a> program. In the other terminal, a second Mech server is started which hosts the simulation code from that same program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code, while the remote machine running the simulation is much more powerful.</p>
 
-<p>But my favorite part about this design is that the program remains unchained whether it's distribted or not! At this point, fully distributed code is syntactically identical to distributed code; what changes is the context in which it's run. Now, I don't know if this is a good idea or not, but it <i>feels good</i>, although may be too confusing on a larger application. If that's the case, I have some ideas on how to make it less magical yet still feel good. We'll see though!</p>
+<p>But my favorite part about this design is that the program remains unchained whether it's distributed or not! At this point, fully distributed code is syntactically identical to distributed code; what changes is the context in which it's run. Now, I don't know if this is a good idea or not, but it <i>feels good</i>, although may be too confusing on a larger application. If that's the case, I have some ideas on how to make it less magical yet still feel good. We'll see though!</p>
 
 <p>The video goes on to demonstrate the implication — that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then further propagated to every other connected client.</p>
 
@@ -150,7 +150,7 @@ And the answer is...
 
 <h3>5. Performance</h3>
 
-<p>In the last development update I spent some time talking about the various ways that we improved the performance of Mech for the new v0.1-beta runtime. Although I did compare to Python at one point, it wasn't a very enlightening benchmark. Now we've done performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech stacks up against the competition:</p>
+<p>In the last development update I spent some time talking about the various ways that we improved the performance of Mech for the new v0.1-beta runtime. Although I did compare to Python at one point, it wasn't a very enlightening benchmark. Now we've done performance benchmarking against some other languages and honestly, I'm a little surprised at how well Mech stacks up against the competition:</p>
 
 <img width="100%" src="assets/perf.png">
 
@@ -203,7 +203,7 @@ And the answer is...
 
 <p>Debugging has been difficult in Mech since the beginning due to a lack of any error messages whatsoever. That all changes with the addition of error messages and other debugging features added over the last couple of months.</p>
 
-<p>First, let's talk about error messages. One thing that's nice about Rust is that it forces programmers to handle error conditions, like when a program fails to parse or a file fails to open. What we've done recently with Mech is to make almost every function return a special error code (except for the compiled functions to avoid branching during evaluation). This means that pretty much every error condition that could arise in Mech has a code that references a particular branch of the runtime logic. When a violation occurs, the error code is noted and we can use that to discern what the error was. Here's the struct which represnts and error in Mech:</p>
+<p>First, let's talk about error messages. One thing that's nice about Rust is that it forces programmers to handle error conditions, like when a program fails to parse, or a file fails to open. What we've done recently with Mech is to make almost every function return a special error code (except for the compiled functions to avoid branching during evaluation). This means that pretty much every error condition that could arise in Mech has a code that references a particular branch of the runtime logic. When a violation occurs, the error code is noted, and we can use that to discern what the error was. Here's the Rust struct which represents and error in Mech:</p>
 
 <pre class="code">
 pub struct MechError {
@@ -212,13 +212,13 @@ pub struct MechError {
 }
 </pre>
 
-<p><code>MechErrorKind</code> allows us to further specify the kind of error that has occurred. Right now, most errors are either <code>Generic</code>, which returns an arbitrary string with context for the erorr; or <code>None</code>, which is just a placeholder at this point. Before the beta release, these will be replaced with more informative error messages. But at least for now we don't have to become mystified whenever a program isn't working; we look up the error code in the source, and we can see exactly where it failed. Obviously this is not user friendly, but it'll be better for the beta with actual error messages and informative error kinds.</p>
+<p><code>MechErrorKind</code> allows us to further specify the kind of error that has occurred. Right now, most errors are either <code>Generic</code>, which returns an arbitrary string with context for the error; or <code>None</code>, which is just a placeholder at this point. Before the beta release, these will be replaced with more informative error messages. But at least for now we don't have to become mystified whenever a program isn't working; we look up the error code in the source, and we can see exactly where it failed. Obviously this is not user friendly, but it'll be better for the beta with actual error messages and informative error kinds.</p>
 
 <p>What's more, we added full compiler introspection that really supercharges debugging capabilities in Mech. With the <code>-d</code> flag, the compiler will now report all internal state, including that of blocks. In the video below, you can see the state which is inspectable at runtime:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/b_xjnUfpMe8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>The following runtime information is includeded in the debugger output:</p>
+<p>The following runtime information is included in the debugger output:</p>
 
 <ul>
   <li>
@@ -251,7 +251,7 @@ pub struct MechError {
 
 <h3>1. New Machine Interface</h3>
 
-<p>The big news in the Mech ecosystem is that basically every machine has to change due to the new dynamic dispatch JIT compiler. But that's okay, because the change is well worth it. Nonetheless, this is a reminder of why Mech is alpha right now, and why nothing critical should be built on it at this point. It's also a good reason as to why I'm not fleshing out every single module I've started yet, because often that work needs to be redone when the platform changes underneath it.</p>
+<p>The big news in the Mech ecosystem is that basically every machine must change due to the new dynamic dispatch JIT compiler. But that's okay because the change is well worth it. Nonetheless, this is a reminder of why Mech is alpha right now, and why nothing critical should be built on it at this point. It's also a good reason as to why I'm not fleshing out every single module I've started yet, because often that work needs to be redone when the platform changes underneath it.</p>
 
 <p>Anyway, here's the change: machines that offer functions will now have to provide a compiler for those functions. That compiler must implement that following trait:</p>
 
@@ -265,7 +265,7 @@ pub trait MechFunctionCompiler {
 }
 </pre>
 
-<p>What does this compiler do? It plans an appropriate function based on the types of the input arguments. For example, when adding two <code>u8</code> numbers, the function compiler will choose an efficient implementation of add for <code>u8</code>s. If we add two <code>u32</code>s, then an implementation will be chosen for <code>u32</code>s. If no implementation is available (adding two boolean values) then the compiler should record an error.</p>
+<p>What does this compiler do? It plans an appropriate function based on the types of the input arguments. For example, when adding two <code>u8</code> numbers, the function compiler will choose an efficient implementation of add for <code>u8</code>s. If we add two <code>u32</code>s, then an implementation will be chosen for <code>u32</code>s. If no implementation is available (adding two Boolean values) then the compiler should record an error.</p>
   
 <p>I'm not exactly sure this won't change again in the future, but this is what it is for now. What I may change is that these mini compilers should return a <code>Plan</code> rather than taking an <code>&mut Block</code> and modifying the block's plan. Functions must also implement the following trait:</p>
 
@@ -280,7 +280,7 @@ pub trait MechFunction {
 
 <h3>2. Reorganization of html/wasm</h3>
 
-<p>It used to be that the wasm repository contained most of the code for drawing HTML and canvas elements, while the html machine repo was sort of a shell. Now that code has been abstracted out of wasm and moved into html proper. Unfortunately the code in wasm is still there and alive, so that will be moved soon, at which point html will be a dependency of wasm.</p>
+<p>It used to be that the wasm repository contained most of the code for drawing HTML and canvas elements, while the html machine repo was sort of a shell. Now that code has been abstracted out of wasm and moved into html proper. Unfortunately, the code in wasm is still there and alive, so that will be moved soon, at which point html will be a dependency of wasm.</p>
 
 <h3>3. Mech ❤️ Sphero</h3>
 
@@ -384,7 +384,7 @@ Map controller state to robot velocity and heading
 
 <p>We presented Mech at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It?"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring people together who are working on data-centric applications to all sorts of problems.</p>
 
-<p>It was a very well-attended conference for being new, so it actually served as kind of an unofficial soft launch for Mech, as it garnered the project more eyeballs than ever before. Reception was generally positive, but of course no one actually used Mech at the conference. We also got some signups on the mailing list and expressions of interest. In all, I think it was successful and worth while to submit and present.</p>
+<p>It was a very well-attended conference for being new, so it served as kind of an unofficial soft launch for Mech, as it garnered the project more eyeballs than ever before. Reception was generally positive, but of course no one actually used Mech at the conference. We also got some signups on the mailing list and expressions of interest. In all, I think it was successful and worthwhile to submit and present.</p>
 
 <p>If you couldn’t attend, here is the video that was presented:</p>
 
@@ -398,7 +398,7 @@ Map controller state to robot velocity and heading
 
 <h3>1. Repository Shakeup</h3>
 
-<p>The main Mech repository at <a href="https://gitlab.com/mech-lang/mech">gitlab.com/mech-lang/mech</a> has been reorganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repositories in the mech-lang namespace, so that now when someone wants to build Mech from source they will have to clone the submodules first. Then I use the cargo patch feature to redirect all inlcusions of mech crates to the local submodules.</p>
+<p>The main Mech repository at <a href="https://gitlab.com/mech-lang/mech">gitlab.com/mech-lang/mech</a> has been reorganized. This was because versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repositories in the mech-lang namespace, so that now when someone wants to build Mech from source, they will have to clone the submodules first. Then I use the cargo patch feature to redirect all inclusions of mech crates to the local submodules.</p>
 
 <p>The new build process is as follows:</p>
 
@@ -507,3 +507,4 @@ By the end of Summer (Sep 22), I'm going to feature-freeze Mech. Everything that
     <script src="/mech0-0-1/bootstrap.js"></script>
   </body>
 </html>
+
