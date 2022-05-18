@@ -140,7 +140,7 @@ And the answer is...
 
 <p>What we can do to compile Mech programs into standalone executables (without having to go through the interpreter) is compile <code>.mec</code> files into bytecode, and store that on disk in a serialized binary format. I've decided to call this file format a <code>.blx</code> file (pronounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled.</p>
 
-<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB on Windows, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fat we can trim from that executable. We'll see.</p>
+<p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech runtime. The runtime itself is 5.7MB on Windows, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fat we can trim from that executable. We'll see.</p>
 
 <p>Here's a video demonstrating the various ways to run a Mech program at this time, including running it through the mech toolchain, bundling a console application, or bundling a GPU rendered GUI:</p>
 
