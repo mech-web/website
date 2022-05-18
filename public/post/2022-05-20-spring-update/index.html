@@ -278,7 +278,7 @@ pub trait MechFunction {
 
 <h3>3. Mech ❤️ Sphero</h3>
 
-<p>After years of trying and failing, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth! Here's a demonstration of Mech controlling the Sphero with an XBox gamepad:</p>
+<p>After years of trying and failing, I thought this day would never arrive. But here we have it, finally Mech is communicating with a Sphero directly via Bluetooth! Here's a demonstration of Mech controlling the Sphero with an Xbox gamepad:</p>
 
 <iframe style="float:left; padding: 20px;" width="421" height="750" src="https://www.youtube.com/embed/DLL46tVTmmw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -306,9 +306,9 @@ Map controller state to robot velocity and heading
   #sphero/robot.heading := (#io/gamepad.right-stick-x + 1) / 2 * 360
 </pre>
 
-<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables <code>#io/gamepad</code> and <code>#sphero/robot</code>. As the buttons on the XBox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, respectively.</p>
+<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables <code>#io/gamepad</code> and <code>#sphero/robot</code>. As the buttons on the Xbox controller are pressed, <code>#io/gamepad</code> updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, respectively.</p>
 
-<p>The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update <code>#sphero/robot</code>. Furthermore, Mech knows that when it updates <code>#sphero/robot</code>, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.</p>
+<p>The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the  controller updates <code>#io/gamepad</code>, it also has to update <code>#sphero/robot</code>. Furthermore, Mech knows that when it updates <code>#sphero/robot</code>, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.</p>
 
 <h2>🏫 Outreach</h2>
 
