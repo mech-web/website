@@ -68,7 +68,7 @@
 
 <p>Physical units have been a long time coming, and now we've finally implemented a prototype. This is done by leveraging the dynamic dispatch system and choosing functions specialized for operands of a particular unit. For example, multiplying a column typed as &lt;m/s&gt; and one typed as &lt;s&gt; will yield a column typed as &lt;m&gt;. At this point there's no symbolic dimensional analysis going on; we're just selecting from a list of pre-compiled functions that take the dimensions into account manually.</p>
 
-<p>Units are specified the same way as the builtin datatypes:</p>
+<p>Units are specified the same way as the built in datatypes:</p>
 
 <pre class="code">
 x = 10&lt;m&gt;
@@ -92,7 +92,7 @@ a = x + y * z
 #time/timer = [|period&lt;s&gt; ticks&lt;u64&gt;|]
 </pre>
 
-<p>Where we can see that the type of the period column is "s" meaning "seconds". The following video demonstrates specyfying the period in both seconds and milliseconds, and how Mech does the right thing by normalizing both units to a common scale.</p>
+<p>Where we can see that the type of the period column is "s" meaning "seconds". The following video demonstrates specifying the period in both seconds and milliseconds, and how Mech does the right thing by normalizing both units to a common scale.</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/5i-KZJ5VYbo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -118,13 +118,13 @@ And the answer is...
 
 <h3>3. Distributed Programs</h3>
 
-<p>At the beginning of the year I had just finihed the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the sytem converted over to the changes brought by the upated runtime. This entailed restoring distribution capabilities, which are demonstrated below fully operational again:</p>
+<p>At the beginning of the year I had just finished the major portions of the runtime rewrite. After the post went live, I went to work getting the rest of the system converted over to the changes brought by the updated runtime. This entailed restoring distribution capabilities, which are demonstrated below fully operational again:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/hFMWBRrhxls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>In this video, one Mech server is started in a terminal (the bottom one) which hosts the drawing code for the examples/demo program. In the other terminal, a second Mech server is started which hosts the simulation code for the examples/demo program. In a non-distributed context, these two programs would run on the same Mech core; but in a distributed context, the drawing code can run on the client while the simulation code can run on a remote server. This enables the ability to have a "thin" client of marginal power (and therefore cost), which only runs interface drawing code, while the remote machine running the simulation is much more powerful.</p>
 
-<p>The video goes on to demonstrate the implication -- that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then furhter propograted to every other connected client.</p>
+<p>The video goes on to demonstrate the implication -- that because the simulation is running on a remote server, any clients that connect to it will have their output synchronized. Moreover, we can interact with the simulation from one browser and synchronize those interactions with the server, which are then further propagated to every other connected client.</p>
 
 <p>The video below extends this concept to a game:</p>
 
@@ -134,9 +134,9 @@ And the answer is...
 
 <h3>4. Standalone Executables</h3>
 
-<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as an interpreter; it will comile and run .mec source code in one step, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section for more on performance), but the interpretation step is still there.</p>
+<p>The packaging and distribution story for Mech programs got a little more work this cycle. We've always packaged the Mech REPL and compiler as a standalone executable, and that can run on most platforms Rust can target. To run Mech programs, one typically has to invoke the Mech compiler as an interpreter; it will compile and run .mec source code in one step, the same way Python works. Mech has a JIT compiler, so it runs a lot faster than Pyton (see the next section for more on performance), but the interpretation step is still there.</p>
 
-<p>What we can do for a standalone executable for a Mech program (without having to go through the interpreter) is compile .mec files into a bytecode, and store that in a file. I've decided to call it a .blx file (prounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled.</p>
+<p>What we can do for a standalone executable for a Mech program (without having to go through the interpreter) is compile .mec files into a bytecode, and store that in a file. I've decided to call it a .blx file (pronounced "blocks"). This file format is essentially the raw output of the syntax compiler, right before it's JIT compiled.</p>
 
 <p>So then what we can do for a quick and dirty self-contained executable is store that bytecode inside of the Mech interpreter. The interpreter itself is 5.7MB on Windows, which is quite large, but I have a feeling that this can be reduced to under 1MB. The core runtime itself is only 1.7KB, so I feel like there's a lot of fast I can trim from that executable. We'll see.</p>
 
@@ -156,7 +156,7 @@ And the answer is...
 
 <h3>6. Performance</h3>
 
-<p>In the last development update I spent some time talking about the various ways that we improved the performace of Mech for the new v0.1-beta runtime. The performance bechmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs:</p>
+<p>In the last development update I spent some time talking about the various ways that we improved the performance of Mech for the new v0.1-beta runtime. The performance benchmark was mostly against Mech v0.0.6-alpha; although I did compare to Python at one point, it wasn't a very robust benchmark. Now we've done some performance benchmarking against some other languages and honestly I'm a little surprised at how well Mech performs:</p>
 
 <img width="100%" src="assets/perf.png">
 
@@ -179,7 +179,7 @@ And the answer is...
                "String Concat" "ab" "a" + "b"]
 </pre>
 
-<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type &lt;_&gt;. It's like an "Any" type, but it's not the default column type; you have to expliticly opt-in to a wildcard column. Accordingly, the #test table is defined as such:</p>
+<p>This kind of thing used to be possible in older versions of Mech, but since the new v0.1 runtime with typed columns, this has been forbidden. To implement testing though, we still need to support this, so now Mech has a wildcard type &lt;_&gt;. It's like an "Any" type, but it's not the default column type; you have to explicitly opt-in to a wildcard column. Accordingly, the #test table is defined as such:</p>
 
 <pre class="code">
 #test = [|name&lt;string&gt; expected&lt;_&gt; actual&lt;_&gt;|]
@@ -306,7 +306,7 @@ Map controller state to robot velocity and heading
   #sphero/robot.heading := (#io/gamepad.right-stick-x + 1) / 2 * 360
 </pre>
 
-<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables #io/gamepad and #sphero/robot. As the buttons on the Xbox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, repsectively.</p>
+<p>The code is very short, which is the promise of Mech as a language. What's going on here is that there are two tables #io/gamepad and #sphero/robot. As the buttons on the Xbox controller are pressed, #io/gamepad updates accordingly. The left stick y value and the right stick x value are mapped to the speed and heading of the Sphero robot, respectively.</p>
 
 <p>The Mech runtime handles all issues of data transport, serialization, and storage. It knows when the Xbox controller updates #io/gamepad, it also has to update #sphero/robot. Furthermore, Mech knows that when it #sphero/robot, this will trigger the associated machine to send the table contents to the Sphero robot, wirelessly over Bluetooth.</p>
 
@@ -318,7 +318,7 @@ Map controller state to robot velocity and heading
 
 <h3>1. Forward Robotics @ CHOICES</h3>
 
-<p>Forward Robotics (FR) is the outreach component of the Mech project which aims to educate kids about robotics. Over the Summer of 2020 a number of my students developed activities of the FR cirriculum, but we weren't able to test them on actual kids due to the pandemic. At long last, in early March Forward Robotics got its first playtest at the CHOICES program:</p>
+<p>Forward Robotics (FR) is the outreach component of the Mech project which aims to educate kids about robotics. Over the Summer of 2020, several of my students developed activities of the FR curriculum, but we weren't able to test them on actual kids due to the pandemic. At long last, in early March Forward Robotics got its first playtest at the CHOICES program:</p>
 
 <p>"Lehigh University's CHOICES program allows middle school girls to participate in a variety of fun engineering and science experiments designed to foster an interest in the future pursuit of science, technology, engineering and math (STEM)."</p>
 
@@ -365,15 +365,15 @@ Map controller state to robot velocity and heading
 
 <h3>2. IROS 2022</h3>
 
-<p>We submitted a paper to IROS 2022 which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present we'll have to choose another venue (there are other good choices we can fallback on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
+<p>We submitted a paper to IROS 2022 which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present, we'll have to choose another venue (there are other good choices we can fall back on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
 
 <h3>3. HYTRADBOI 2022</h3>
 
-<p>We presented Mech at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring bring people together who are working on data-centric applications to all sorts of problems.</p>
+<p>We presented Mech at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring people together who are working on data-centric applications to all sorts of problems.</p>
 
 <p>It was a very well-attended conference for being new, so it actually served as kind of an unofficial soft launch for Mech, as it garnered the project more eyeballs than ever before. Reception was generally positive, but of course no one actually used Mech at the conference. We also got some signups on the mailing list and expressions of interest. In all, I think it was successful and worth while to submit and present.</p>
 
-<p>If you weren't able to attend, here is the video that was presented:</p>
+<p>If you couldn’t attend, here is the video that was presented:</p>
 
 <iframe width="750" height="421" src="https://www.youtube.com/embed/-ypiPSaWJNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -385,7 +385,7 @@ Mech has been accepted to present at the <a href="https://pldi22.sigplan.org/hom
 
 <h3>1. Repository Shakeup</h3>
 
-<p>The main Mech repository at gitlab.com/mech-lang/mech has been reoganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repository in the mech-lang namespace. Now when someone wants to build Mech from source, they will have to clone the submodules first.</p>
+<p>The main Mech repository at gitlab.com/mech-lang/mech has been reorganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repository in the mech-lang namespace. Now when someone wants to build Mech from source, they will have to clone the submodules first.</p>
 
 <p>The new build process is as follows:</p>
 
@@ -403,7 +403,7 @@ cargo build --bin mech --release
 
 <h3>3. Logo</h3>
 
-<p>The logo has undergone a second revision. Embarassingly enough, until I put it on the Sphero LED display and looked at it from new perspectives, I didn't realize the logo we had settled on last time looked like "F-" when rotated 90 degrees.</p>
+<p>The logo has undergone a second revision. Embarrassingly enough, until I put it on the Sphero LED display and looked at it from new perspectives, I didn't realize the logo we had settled on last time looked like "F-" when rotated 90 degrees.</p>
 
 <img src="assets/f-.png">
 
@@ -411,7 +411,7 @@ cargo build --bin mech --release
 
 <img width="25%" src="assets/mech-m128.png">
 
-<p>Which I think doesn't have any negative connotations in any orientation. Maybe it's a curse in a foreign language, but I'm happy with this for now. Also, I feel like it has autobot vibes, so it works on more levels than before:</p>
+<p>Which I think doesn't have any negative connotations in any orientation. Maybe it's a curse in a foreign language, but I'm happy with this for now. Also, I feel like it has Autobot vibes, so it works on more levels than before:</p>
 
 <img width="50%" src="assets/autobot.png">
 
@@ -460,7 +460,7 @@ cargo build --bin mech --release
 
 <h2>🌞 Summer 2022 Roadmap</h2>
 
-<p>Whew, okay so that was a lot. Unfortunately, the pace can't let up if we want to make our October deadline. Here's what we're planning to accomplish this summer to stay on pace:</p>
+<p>Whew, okay so that was a lot. Unfortunately, this pace can't let up if we want to make our October deadline. so here's what we're planning to accomplish this summer to stay on pace:</p>
 
 <ul>
   <li><b>Mech Notebook</b> - The Mech notebook will be the main project for the first part of the summer. The goal there is to have something to demo at ARRAY 2022.</li>
@@ -469,22 +469,21 @@ cargo build --bin mech --release
   <li><b>Documentation Revamp</b> - The docs need to be completely rewritten. They were written for v0.4, so they are mostly out of date by now. This will be an ongoing project that will coincide with the fleshing out of the standard library.</li>
   <li><b>ARRAY 2022</b> - As I mentioned earlier, I'll be presenting Mech at ARRAY 2022, which is co-located with PLDI 2022. If you're going, let me know, I'd love to give you a demo!</li>
   <li><b>Summer CHOICES</b> - Forward Robotics will be re-running the robot bowling activity at the CHOICES camp in June. At the Spring event we had a limited amount of time over a single afternoon, but the upcoming event will be over a couple days. Hopefully this means the students will get more time to write Mech code.</li>
-  <li><b>Foundations of Robotics</b> - In July and August I will be teaching my Foundations of Robotics course, which will leverage Mech on the Tegra, along with a number of sensors. I'll have to write drivers for all of the sensors we will use, as well as implement the matrix math functions needed to implement SLAM, RANSAC, and other algorithms we will be using.</li>
+  <li><b>Foundations of Robotics</b> - In July and August I will be teaching my Foundations of Robotics course, which will leverage Mech on the Tegra, along with several sensors. I'll have to write drivers for all the sensors we will use, as well as implement the matrix math functions needed to implement SLAM, RANSAC, and other algorithms we will be using.</li>
   <li><b>CAREER Grant Proposal</b> - I still intend on submitting a CAREER proposal for this cycle, which would be due in July.</li>
-  <li><b>SWAG</b> - I'm going to comission a line of Mech SWAG like stickers and such that I can hand out at PLDI and IROS.</li>
+  <li><b>SWAG</b> - I'm going to commission a line of Mech SWAG like stickers and such that I can hand out at PLDI and IROS.</li>
   <li><b>Website Revamp</b> - We'll launch a full new website. I will need to find a designer to do the work of creating the design, but the site will be fully implemented in Mech.</li>
 </ul>
 
 <h2>🎃 v0.1-beta Release Roadmap</h2>
 
 <p>
-By the end of Summer (Sep 22), I'm going to feature-freeze Mech. Everything that's not in at that time will have to wait until after v0.1-beta is launched. IROS 2022 will be held starting Oct 22, so if we're accepted to present at that conference then we will have about a month to test, fix bugs, and write documentsation and release material!
+By the end of Summer (Sep 22), I'm going to feature-freeze Mech. Everything that's not in at that time will have to wait until after v0.1-beta is launched. IROS 2022 will be held starting Oct 22, so if we're accepted to present at that conference then we will have about a month to test, fix bugs, and write documentation and release material!
 </p>
 
-<p>Thanks for reading if you made it this far. This post could probably have been shorter if I made them more frequent, but I kind of like the megapost update as it makes me feel like I've been productive. As I post this I already have more to talk about, but I've scoped this post roughly to work that happened between January and April.</p>
+<p>Thanks for reading if you made it this far. This post could probably have been shorter if I made more frequent updates, but I kind of like the megapost update as it makes me feel like I've been productive. At the time this post goes live, post this I already have more to talk about, but I've scoped this post roughly to work that happened between January and April.</p>
 
-<p>That said, the update the Summer update at the end of August, but I will have some non-Mech update blog posts I will be 
-</p>
+<p>That said, the update the Summer update at the end of August, but I will have some non-Mech update posts I will be adding here over the summer to try and build some hype for the release.</p>
 
           </article>
         </div>
