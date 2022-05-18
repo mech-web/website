@@ -316,7 +316,7 @@ Map controller state to robot velocity and heading
 
 <iframe style="float:right;  padding: 20px;" width="421" height="750" src="https://www.youtube.com/embed/PVjEKyl-K-g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p>Forward Robotics (FR) is the outreach component of the Mech project which aims to educate kids about robotics. Over the Summer of 2020, several of my students developed activities of the FR curriculum, but we weren't able to test them on actual kids due to the pandemic. At long last, in early March Forward Robotics got its first playtest at the CHOICES program:</p>
+<p>Forward Robotics (FR) is the outreach component of the Mech project which aims to educate kids about robotics. Over the Summer of 2020, several of my students developed activities of the FR curriculum, but we weren't able to test them on actual kids due to the pandemic. At long last, in early March Forward Robotics got its first playtest at the <a href="https://engineering.lehigh.edu/choices">Lehigh CHOICES</a> program:</p>
 
 <p>"Lehigh University's CHOICES program allows middle school girls to participate in a variety of fun engineering and science experiments designed to foster an interest in the future pursuit of science, technology, engineering and math (STEM)."</p>
 
@@ -372,11 +372,11 @@ Map controller state to robot velocity and heading
 
 <h3>2. IROS 2022</h3>
 
-<p>We submitted a paper to <a href="https://iros2022.org">IROS 2022</a> which will be held in October. This is the venue at which I plan to launch Mech, but if we don't get accepted to present, we'll have to choose another venue (there are other good choices we can fall back on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
+<p>We submitted a paper to <a href="https://iros2022.org">IROS 2022</a> which will be held in October. This is the venue at which I plan to launch Mech, so if we don't get accepted to present we'll have to choose another venue (there are other good choices we can fall back on if necessary, or we can submit to an IROS workshop). The preprint needs to be cleaned up a little before I show it to everyone, so you can look forward to that in the future as a blog post.</p>
 
 <h3>3. HYTRADBOI 2022</h3>
 
-<p>We presented Mech at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring people together who are working on data-centric applications to all sorts of problems.</p>
+<p>We presented Mech at the <a href="https://www.hytradboi.com">"Have You Tried Rubbing A Database On It?"</a> conference on April 29th. This was a new (remote only) conference organized by one of my former colleagues on the Eve project, Jamie Brandon. The conference aims to bring people together who are working on data-centric applications to all sorts of problems.</p>
 
 <p>It was a very well-attended conference for being new, so it actually served as kind of an unofficial soft launch for Mech, as it garnered the project more eyeballs than ever before. Reception was generally positive, but of course no one actually used Mech at the conference. We also got some signups on the mailing list and expressions of interest. In all, I think it was successful and worth while to submit and present.</p>
 
@@ -392,7 +392,7 @@ Map controller state to robot velocity and heading
 
 <h3>1. Repository Shakeup</h3>
 
-<p>The main Mech repository at gitlab.com/mech-lang/mech has been reorganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repository in the mech-lang namespace. Now when someone wants to build Mech from source, they will have to clone the submodules first.</p>
+<p>The main Mech repository at <a href="https://gitlab.com/mech-lang/mech">gitlab.com/mech-lang/mech</a> has been reorganized. This was due to the fact that versions kept getting out of sync between my local dev environment and the online environment. What I've done is create git submodules of the various repositories in the mech-lang namespace, so that now when someone wants to build Mech from source they will have to clone the submodules first. Then I use the cargo patch feature to redirect all inlcusions of mech crates to the local submodules.</p>
 
 <p>The new build process is as follows:</p>
 
@@ -404,7 +404,7 @@ cargo build --bin mech --release
 
 <h3>2. Soft Launch Website</h3>
 
-<p>Since I figured the HYTRADBOI conference was going to attract a decent number of eyeballs, I did a quick refresh of the Mech website to include content from the talk. It's not written in Mech (it's mostly just pngs), but it's at least got a code sample and some rationale on the project.</p>
+<p>Since I figured the HYTRADBOI conference was going to attract a decent number of eyeballs, I did a quick refresh of the Mech website to include content from the talk. It's not written in Mech (it's mostly just pngs), but at least it has a code sample and some rationale on the project.</p>
 
 <p>A better website is still forthcoming for the Fall launch.</p>
 
@@ -474,7 +474,7 @@ cargo build --bin mech --release
   <li><b>gui Machine</b> - As part of creating the Mech Notebook, we'll have to create a machine to render common gui elements like sliders, windows, panels, labels, etc. This will be a part of the standard library.</li>
   <li><b>Flesh Out Standard Library</b> - The standard library is... spotty. I have a student this summer who will be filling in the gaps and implementing as much of it as he can.</li>
   <li><b>Documentation Revamp</b> - The docs need to be completely rewritten. They were written for v0.4, so they are mostly out of date by now. This will be an ongoing project that will coincide with the fleshing out of the standard library.</li>
-  <li><b>ARRAY 2022</b> - As I mentioned earlier, I'll be presenting Mech at ARRAY 2022, which is co-located with PLDI 2022. If you're going, let me know, I'd love to give you a demo!</li>
+  <li><b>ARRAY 2022</b> - As I mentioned earlier, I'll be presenting Mech at ARRAY 2022 in June, which is co-located with PLDI 2022. If you're going, let me know, I'd love to meet up and give you a demo!</li>
   <li><b>Summer CHOICES</b> - Forward Robotics will be re-running the robot bowling activity at the CHOICES camp in June. At the Spring event we had a limited amount of time over a single afternoon, but the upcoming event will be over a couple days. Hopefully this means the students will get more time to write Mech code.</li>
   <li><b>Foundations of Robotics</b> - In July and August I will be teaching my Foundations of Robotics course, which will leverage Mech on the Tegra, along with several sensors. I'll have to write drivers for all the sensors we will use, as well as implement the matrix math functions needed to implement SLAM, RANSAC, and other algorithms we will be using.</li>
   <li><b>CAREER Grant Proposal</b> - I still intend on submitting a CAREER proposal for this cycle, which would be due in July.</li>
