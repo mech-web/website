@@ -156,11 +156,11 @@ And the answer is...
 
 <p>According to our benchmark of the bouncing balls simulation (with n = 1e7 balls), Mech is not only very fast, but it turns out to be faster than all other languages tested, which includes Rust. To be clear, I'm not saying Mech is the fastest language around, but it does go to show that performance tuning works. The relative ordering of Mech and Rust here doesn't indicate anything; since Mech is implemented in Rust, we should expect performance to be similar if I've done my job right with the JIT compiler.</p>
 
-<p>Actually single threaded Mech does not perform as well as Rust on this benchmark. Without parallel processing, Mech performance falls between Matlab and Rust in this benchmark. It's only when parallel processing is turned on that Mech manages to beat Rust. As we can see in the following image, Mech makes full usage of all cores:</p>
+<p>Actually single threaded Mech does not perform quite as well as Rust on this benchmark; without parallel processing, Mech performance falls between Matlab and Rust. It's only when parallel processing is turned on that Mech manages to beat Rust. As we can see in the following image, Mech makes full usage of all available cores:</p>
 
 <img width="100%" src="assets/parallel.png">
 
-<p>This is due to its use of the Rust work-stealing parallelism crate called <a href="https://docs.rs/rayon/latest/rayon/">Rayon</a>, which obviously could be used to speed up the Rust version beyond Mech. Mech's value proposition is therefore not that it's the fastest, but that it will automatically provide fast parallel performance by default at the language-level. This means we don't have to sacrifice expressivity for performance, as is usually the tradeoff.</p>
+<p>This is due to its use of Rust's work-stealing parallelism crate called <a href="https://docs.rs/rayon/latest/rayon/">Rayon</a>, which obviously could be used to speed up the Rust version beyond Mech. Mech's value proposition is therefore not that it's the fastest, but that it will automatically provide fast parallel performance by default at the language-level. This means we don't have to sacrifice expressivity for performance, as is usually the tradeoff. That's what being a higher-level language is all about -- not having to tediously cobble together a system capable of supporting your work. The point of Mech is that when we already have a well-designed system to do this kind of thing (parallel distributed array processing), we can aim higher than we would otherwise be able to do starting from basic software building materials like libraries or even frameworks.</p>
 
 <h3>6. Mech Notebook GUI</h3>
 
