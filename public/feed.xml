@@ -5,6 +5,13 @@
         <link>http://www.mech-lang.org/blog</link>
         <description>Follow along with the development of the Mech programming language.</description>
         <item>
+            <title>Spring 2022 Progress Report</title>
+            <link>http://mech-lang.org/post/2022-05-20-spring-update/</link>
+            <guid>http://mech-lang.org/post/2022-05-20-spring-update/</guid>
+            <pubDate>Sat, 20 May 2022 00:00:00 EST</pubDate>
+            <description>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 years’ worth of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since January.</description>
+        </item>
+        <item>
             <title>Mech in 2021 - A year (or two) in review</title>
             <link>http://mech-lang.org/post/2022-01-01-happy-new-year/</link>
             <guid>http://mech-lang.org/post/2022-01-01-happy-new-year/</guid>
