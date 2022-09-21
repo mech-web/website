@@ -3,28 +3,30 @@
 
 🛠️ Platform Improvements
 -------------------------
-
-- Update operators
+- user defined functions
+- builtin matrix operators
 - swizzling
 - dynamic tables
 - error messages - Haocheng
-- title and subtitle updated syntax
 - table/flatten (-<) implemented finally
+- Update operators
+- title and subtitle updated syntax
+
+🐠 Ecosystem
+-------------
+
+- Repository reshuffle redux
+- matrix machine
+- gui machine
+- html machine
+- notebook resurrection
+- smaller binaries (10x reduction)
 
 📖 Documentation
 -----------------
 
 - semantic docs
 - new doc structure
-
-🐠 Ecosystem
--------------
-
-- Repository reshuffle redux
-- gui machine
-- html machine
-- notebook resurrection
-- smaller binaries (10x reduction)
 
 🏫 Outreach
 ------------
