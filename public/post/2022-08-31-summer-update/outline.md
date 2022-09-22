@@ -5,11 +5,14 @@
 -------------------------
 - user defined functions
 - builtin matrix operators
-- swizzling
-- dynamic tables
+  - matrix multiply
+  - transpose
+  - swizzling
 - error messages - Haocheng
+- persistence
+- dynamic tables
 - table/flatten (-<) implemented finally
-- Update operators
+- Update operators (:+=)
 - title and subtitle updated syntax
 
 🐠 Ecosystem
@@ -27,6 +30,7 @@
 
 - semantic docs
 - new doc structure
+- ekf localization example
 
 🏫 Outreach
 ------------
