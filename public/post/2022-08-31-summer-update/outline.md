@@ -13,26 +13,74 @@ The biggest change to Mech over the Summer was the addition of user-defined func
 Functions in Mech differ from blocks in that blocks they are idempotent, meaning that they are functions in the mathematical sense of being a pure mapping from input to output; no side-channels are allowed. For Mech, this means that functions can only operate on their input arguments, and cannot select any global tables in the body of the function. This also means that Mech functions cannot write to global tables. The implication is that the set operators (:=, :+=, etc.) and the append operator (+=) cannot be used in function bodies, as well as temporal operators like whenever (~). It also means that functions cannot read from or write to any machine-related tables, which by definition interact with the outside world and would introduce side effects. However, it's completely fine for Mech functions to call other Mech functions.
 
 A Mech function is defined like this:
-
+```
 [x] = add-two(y<f32>)
   x = y + 2
-
+```
 Inside the brackets is a list of variables, defined in the function body, which are the output of the function. Mech functions can output as many tables as the programmer likes. Next follows the name of the function, as well as an input argument list. The argument name and kind are listed in the argument list, and again there can be as many as the programmer likes. The body of the function must define the output argument at some point, or a compiler error will result. If an input is unused in the body, a compiler warning will alter the programmer.
 
 The function would be called like this:
-
+```
 [x] = add-two(y: 10)
-
+```
 2. Matrix operators
 
 For a long time Mech has aspired to compete with Matlab when it comes to manipulating matricies. We've had broadcast semantics on vectors and tables for a while, but now we've finally gotten bonefide matrix operators in Mech that even go beyond what Matlab has to offer. 
 
-a. matrix multiply
+a. Matrix multiply
 
-b. transpose
+First and foremost, we've implemented matrix multiplaction as a built-in operator `**`. For instance, we can multiply two matricies together like this with the following result:
 
-c. swizzling
+```
+#x = [1 2; 3 4] ** [5 6; 7 8]
+╭──────────────────────────────╮
+│#x (2 x 2)                    │
+├───────────────┼──────────────┤
+│F32            │F32           │
+├───────────────┼──────────────┤
+│19f32          │22f32         │
+│43f32          │50f32         │
+╰───────────────┴──────────────╯
+```
 
+The will work for any matrix that follow the rule that the left hand side rows must equal the right hand side columns. Any other combination will yield an error and the operation will fail. So far, this works only for matricies that are entirely of kind f32; compound-kind tables and tables of other numeric kinds haven't been implemented yet.
+
+The reason we've opted for a unique operator `**` instead of the Matlab style single `*` is that in Mech, the single `*` is already a broadcast operator, whereas Matlab uses `.*` to broadcast the multiply operator. 
+
+b. Transpose
+
+Transposing tables is done with the apostraphe operator appended to any expression, like so:
+
+```
+#x = [1 2 3]'
+╭──────────────────────────────╮
+│#x (3 x 1)                    │
+├──────────────────────────────┤
+│F32                           │
+├──────────────────────────────┤
+│1f32                          │
+│2f32                          │
+│3f32                          │
+╰──────────────────────────────╯
+```
+Users of Matlab will be familiar with this operator and its useage. For now, it only works when the entire table is of a uniform kind. A downside rightnow is that after evaluating a transpose, the names of columns are lost. I'm not sure what we'll dow with this in the future, but named rows has been on the agenda for a while, and it might be time to implement those.
+
+c. Swizzling
+
+As a Matlab user myself, swizzling is a term I was was familiar with until recently, because it's not a feature of that language. It's a term coming from the computer graphics world, which Wikipedia defines as "ability to compose vectors by arbitrarily rearranging and combining components of other vectors." With typed columns in Mech, swizzling is a feature that can help programmers write very terse code with used in conjunction with broadcast and matrix operators. Here's an example of swizzling working in Mech:
+
+```
+x = [a: 1, b: 2, c: 3, d: 4]
+#y = x.a,c,c
+╭──────────────────────────────╮
+│#y (1 x 3)                    │
+├──────────┼─────────┼─────────┤
+│F32       │F32      │F32      │
+├──────────┼─────────┼─────────┤
+│1f32      │3f32     │3f32     │
+╰──────────┴─────────┴─────────╯
+```
+Right now, the output table doesn't inherit the names of the columns that are selected, but this can be changed in the future.
 
 - error messages - Haocheng
 - persistence
