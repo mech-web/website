@@ -1,4 +1,4 @@
-🍂 Fall 2022 Progress Report
+🍂 Fall 2022 Update
 ===============================
 
 Fall has officially arrived, so it's time for another quarterly update for the Mech language. When we last updated this blog in May, most of the work at the time focused on adding long-awaited features such as units, executables, and performance improvements. The summer was devoted to extending some of these features, as well as filling in a lot of the gaps in the platform. Let's take a look!
@@ -17,12 +17,30 @@ A Mech function is defined like this:
 [x] = add-two(y<f32>)
   x = y + 2
 ```
-Inside the brackets is a list of variables, defined in the function body, which are the output of the function. Mech functions can output as many tables as the programmer likes. Next follows the name of the function, as well as an input argument list. The argument name and kind are listed in the argument list, and again there can be as many as the programmer likes. The body of the function must define the output argument at some point, or a compiler error will result. If an input is unused in the body, a compiler warning will alter the programmer.
+Inside the brackets is a list of variables, defined in the function body, which are the output of the function. Mech functions can output as many tables as the programmer likes. For instance:
+
+```
+[x,z] = add-mul-two(y<f32>)
+  x = y + 2
+  z = y * 2
+```
+
+After the output list follows the name of the function, an then an input argument list. The argument name and kind are listed in the argument list, and again there can be as many as the programmer likes. The body of the function must define the output argument at some point, or a compiler error will result. If an input is unused in the body, a compiler warning will alter the programmer.
 
 The function would be called like this:
 ```
 [x] = add-two(y: 10)
 ```
+Dynamic dispatch is a major feature of Mech, and we want to be able to support this feature with user defined functions. To do this, we can allow function definition overloading, which will allow the user to define multiple functions with the same name and different parameters. For example, the `add-two()` function for `u64` kind could be defined like this:
+```
+[x] = add-two(y<u64>)
+  x = y + 2
+```
+And now we have a function that will be able to call `add-two()` with `u64` and `f32` types. Now, this will mean that there will have to be a lot of duplication to support every numeric type. Perhaps in the future we will add a feature like "typeclasses", which would allow a user to define one function for all supported numeric types. But for now, this is what we have to do.
+
+
+
+
 2. Matrix operators
 
 For a long time Mech has aspired to compete with Matlab when it comes to manipulating matricies. We've had broadcast semantics on vectors and tables for a while, but now we've finally gotten bonefide matrix operators in Mech that even go beyond what Matlab has to offer. 
@@ -82,48 +100,123 @@ x = [a: 1, b: 2, c: 3, d: 4]
 ```
 Right now, the output table doesn't inherit the names of the columns that are selected, but this can be changed in the future.
 
-- error messages - Haocheng
-- persistence
-- dynamic tables
-- table/flatten (-<) implemented finally
-- Update operators (:+=)
-- title and subtitle updated syntax
+3. Parser error messages
+
+My student Haocheng Gao has done significant work toward making error messages more readable in Mech. In the last update, we added error indications for semantic compiletime errors, which was much needed but still not enough to help the newest users, who will encounter syntax errors frequently.
+
+Haocheng has retrofitted the parser to allow us to generate detailed parser errors with information as to what the error is, where in the source file it occurred, and perhaps also hints on how to fix it. Here's an example of what error messages look like so far:
+
+
+To generate these messages, Haocheng retrofitted the parser with a series of tags that annotate the various paerser combinators and help with generating relevent and informative packets of information which are later rendered as messages in whatever context the program is running (editor, console, browser, etc.)
+
+4. Dynamic tables
+
+In many programs, we can statically analyze the shapes of tables and figure out the size of all dependent tables at compile time. Other times, the shape of the table is based on some variable which might change. For example, the table append operator will `+=` dynamically grow a table during runtime; or when filtering a table using logical indexing, the resulting table's size will depend on how many rows in the logical index variable are true.
+
+5. table/flatten operator (-<)
+
+The table split operator (>-) has been implemented for a while. This turns a vector into a vector of fectors, which is useful in combination with table interpolation. For example, we can split a column of numbers as follows: 
+
+```
+  x = [1; 2; 3; 4]
+  y >- x
+  div = [kind: "div" contents: y]
+```
+
+The result is that `y = [[1];[2];[3]]`, and div will be:
+
+```
+[|kind contents|
+  "div" [1]
+  "div" [2]
+  "div" [3]]
+```
+That has been possible for a while, but now what's possible with the flatten operator (-<) is to take the split vector and to flatten it back into its original form. For example:
+
+```
+x -< div.contents
+```
+This evaluated to `x = [1; 2; 3; 4]`, which was the original vector.
+
+6. Update operators (:+=)
+
+I've added a collection of update operators which aim to simplify both the syntax as well as the compiled block code. These operators perform a mathematical operation on a table and update it in place, without the need to create an intermediate table. This will save both space and time, as well as lines of code. The operators are `:+=`, `:-=`, `:*=`, `:/=`, `:^=`, and `:**=`, which correspond to the respective mathematical operator in the middle of each corresponding operator. For example:
+
+```
+x := x + 5  -- old 
+x :+= 5     -- new
+```
+These new operators have the potential to yield great savings in syntax. Consider the pose update code from the bouncing balls demo:
+
+```
+#balls.x := #balls.x + #balls.vx * #dt
+#balls.y := #balls.y + #balls.vy * #dt
+```
+This can be condensed into a single line of code with the update operator and table swizzling:
+
+```
+#balls.x,y :+= #balls.vx,vy * #dt
+```
+
+7. Title and subtitle syntax deprecated and replaced
+
+I've always been a little uneasy about the header and subheader syntax using hashtags, which conforms to Markdown but potentially clashes with the global table select operator. To remove this potential point of confusion, I've switched to using the alternative Markdown header, which uses an underline of = or - to indicate a header and subheader respectively. The source for this document uses the new syntax. You can also see it in action in some of the examples.
 
 🐠 Ecosystem
 -------------
 
-- Repository reshuffle redux
-- matrix machine
-- gui machine
-- html machine
-- notebook resurrection
-- smaller binaries (10x reduction)
+1. Repository reshuffle redux
+
+2. Smaller binaries (10x reduction)
+
+3. `matrix` machine
+
+4. `gui` machine
+
+5. `html` machine
+
+6. Notebook resurrection
 
 📖 Documentation
 -----------------
 
-- semantic docs
-- new doc structure
-- ekf localization example
+1. New doc structure
+
+2. EKF localization example
+
+3. Machine index files
 
 🏫 Outreach
 ------------
 
-- Outreach
-  - PLDI ARRAY workshop presentation
-  - ICRA paper
-  - Forward Robotics
-    - Summer CHOICES
-    - PreLUsion
+1. PLDI ARRAY workshop presentation
+
+2. ICRA paper
+
+3. Forward Robotics
+
+a. Summer CHOICES
+
+b. PreLUsion
 
 🤝 Project and Community
 -------------------------
 
-- Summer research group
-  - Remembering Yuehan Wang
-  - Adding more tests
-  - Adding more types
-- Capstone Group
+1. Summer research group
+
+a. ❤️ Remembering Yuehan Wang
+
+b. Adding more tests
+
+c. Adding more types
+
+2. Capstone Group
 
 🎃 v0.1-beta Release Roadmap
 -----------------------------
+
+On September 22, I decided to feature freeze Mech, meaning that any feature that wasn't started by that date will have to be punted to the next release (v0.2-beta), which currently is unscheduled but will probably be ready some time in 2023. This includes features like persistence, autodiff, gpgpu, and others.
+
+The original plan was to have a release ready by October 22, which was a deadline predicated on attending IROS 2022, which I've decided against since the paper was declined, and it would be a lot of travel without having a paper to present. So October 22 isn't a hard deadline anymore, which means it will be the deadline for the first release candidate. I'd like most features to be ready to go by then, but if there are any showstopping bugs or extremely rough edges, we can afford to push things off. So the bottom line is Oct 22 is the v0.1-beta RC1 release, but it might be necessary to release a couple weeks after that if anything prevents a release.
+
+So it's heads down until then, and the next blog update will be at that time.
