@@ -1,4 +1,4 @@
-🌞 Summer 2022 Progress Report
+🍂 Fall 2022 Progress Report
 ===============================
 
 Fall has officially arrived, so it's time for another quarterly update for the Mech language. When we last updated this blog in May, most of the work at the time focused on adding long-awaited features such as units, executables, and performance improvements. The summer was devoted to extending some of these features, as well as filling in a lot of the gaps in the platform. Let's take a look!
