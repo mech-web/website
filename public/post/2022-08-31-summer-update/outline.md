@@ -38,9 +38,6 @@ Dynamic dispatch is a major feature of Mech, and we want to be able to support t
 ```
 And now we have a function that will be able to call `add-two()` with `u64` and `f32` types. Now, this will mean that there will have to be a lot of duplication to support every numeric type. Perhaps in the future we will add a feature like "typeclasses", which would allow a user to define one function for all supported numeric types. But for now, this is what we have to do.
 
-
-
-
 2. Matrix operators
 
 For a long time Mech has aspired to compete with Matlab when it comes to manipulating matricies. We've had broadcast semantics on vectors and tables for a while, but now we've finally gotten bonefide matrix operators in Mech that even go beyond what Matlab has to offer. 
@@ -98,7 +95,6 @@ x = [a: 1, b: 2, c: 3, d: 4]
 │1f32      │3f32     │3f32     │
 ╰──────────┴─────────┴─────────╯
 ```
-Right now, the output table doesn't inherit the names of the columns that are selected, but this can be changed in the future.
 
 3. Parser error messages
 
@@ -186,12 +182,20 @@ I've always been a little uneasy about the header and subheader syntax using has
 
 3. Machine index files
 
+4. Syntax highlighting
+
 🏫 Outreach
 ------------
 
 1. PLDI ARRAY workshop presentation
 
+On June 13, I presented Mech at the PLDI ARRAY Workshop in San Diego, California, USA. The presentation I gave was a modification of the 10 minute talk I did for HYTRADBOI, but I had over twice as long to speak so I was able to get a little more in depth, and I was able to give a live demo of some of the features. 
+
+There's no recording of the talk available, but if you're interested in what was said you can take a look at the afforementioned HyTRADBOI talk for a good idea. 
+
 2. ICRA paper
+
+The main actionable feedback from the rejected IROS paper was that it needed more examples to give a better sense of how Mech would be applicable for a real-life robotics system. I updated the paper with the EKF demo and some notes from the CHOICES experience, and I submitted it to ICRA 2023, which is a larger conference but more selective than IROS. I hope to be accepted there, and if so I will present a live demonstration at the conference at the end of May. Fingers crossed! Here's a copy of the preprint.
 
 3. Forward Robotics
 
@@ -202,15 +206,15 @@ b. PreLUsion
 🤝 Project and Community
 -------------------------
 
-1. Summer research group
+1. Capstone Group
 
-a. ❤️ Remembering Yuehan Wang
+2. Summer research group
 
-b. Adding more tests
+a. Adding more tests
 
-c. Adding more types
+b. Adding more types
 
-2. Capstone Group
+c. ❤️ Remembering Yuehan Wang
 
 🎃 v0.1-beta Release Roadmap
 -----------------------------
