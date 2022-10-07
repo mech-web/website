@@ -1,5 +1,5 @@
 🍂 Fall 2022 Update
-===============================
+====================
 
 Fall has officially arrived, so it's time for another quarterly update for the Mech language. When we last updated this blog in May, most of the work at the time focused on adding long-awaited features such as units, executables, and performance improvements. The summer was devoted to extending some of these features, as well as filling in a lot of the gaps in the platform. Let's take a look!
 
@@ -161,26 +161,88 @@ I've always been a little uneasy about the header and subheader syntax using has
 🐠 Ecosystem
 -------------
 
-1. Repository reshuffle redux
+1. Smaller binaries (10x reduction)
 
-2. Smaller binaries (10x reduction)
+I've managed to cut down on the size of machine binaries by about an order of magnitude (from 8mb down to 800kb), which is a great savings. This was accomplished in two ways. First, I cut out a lot of redundant code that's not being used in the dependent repositories. Machines usually depend on `core` and `utilities`. Core depends on rayon and brings in the entire standard machine, which typically go unused in machine implementations. These are now both behind feature flags in core. Likewise, utilities has a definition for a type that uses a websocket, which itself depends on tokio. Bringing all of tokio in for a machine took up a lot of space, so now that is behind a feature flag as well. Eschewing this unused code saves most of the space in binaries.
 
-3. `matrix` machine
+Second, after the binary is compiled, I use the upx executable packer to make the machine even smaller (nominally a 50% savings over the regularly compiled file).
 
-4. `gui` machine
+I'm sure there should be a way to get even greater savings, as a lot of the code that is included in these binaries is available in the Mech executable anyway. One thing to look at in the future is excising this code from the compiled machine, and linking to it in the Mech executable. Unfortunately, that's a long term task, but in the meantime a 10x reduction is satisfactory.
 
-5. `html` machine
+2. `matrix` machine
 
-6. Notebook resurrection
+The `matrix` machine is brand new and will include a variety of linear algebra related functions. By default, matrix/multiply and matrix/transpose are included in the standard machine, and exposed to the programmer through builtin operators. The rest of the machine will wrap a number of functions from the rust nl algebra crate so that they will work through Mech.
+
+3. `gui` machine
+
+The `gui` machine includes a number of tables that help with drawing native interface elements. It leverages the Rust egui framework for most of this work, with custom wrappers to make the elements reactive. The `gui` machine has so far existed inside of notebook2 (now just notebook), but now I've moved most of the code out of there and into this machine. This means that the the remaining notebook code is now mostly implemented in just Mech.
+
+4. `html` machine
+
+Like `gui`, the `html` machine has existed inside of the wasm repository. It helps with drawing to canvas and rendering HTML elements. Now all that code has been moved into its own machine, which is a dependency of wasm. I think this organizes things a little better, and wasm will slowly be converted into mostly Mech code.
+
+5. Notebook resurrection
+
+The old notebook repository is back from being an archived repository. Now it hosts the contents of notebook2, and notebook has been renamed to wasm-notebook. The main difference between these two offerings is that notebook (again formerly notebook2) makes use of the egui rust GUI framework, whereas wasm-notebook (formerly notebook) makes use of the rust websys framework.
+
+6. Repository reshuffle redux
+
+In the Spring I made the various repositories of the Mech project into git submodules of the main Mech repo. Now I've move a bunch of those git submodules into the src directory, and I've renamed some of the folders. It should make the repo a little cleaner and easier to work with for developers working on the runtime.
 
 📖 Documentation
 -----------------
 
 1. New doc structure
 
+The documentation will have a new structure, and will be oganized into the following categories: 
+
+- getting started - welcome, install, running, quickstart, help
+- reference - core langauge, writing programs, design documents
+- machines - standard machine references
+- guides - mech-for-x, tutorials, how tos
+
+I don't have much to say about these yet, as I've mostly just updated the formatting and outlined the sections. This is where most of the work still needs to be done before the beta can be released.
+
 2. EKF localization example
 
+One piece of feedback from the IROS submission was that the reviewers didn't find the example bouncing ball simulation illustrative enough due to its simplicity. They said they couldn't get a good idea of the extent of Mech's capabilities without a more representative example program. To fix this in the ICRA paper, I implemented a simulation of an Extended Kalman Filter localization algorithm in Mech, which you can find in the examples repository [here](https://gitlab.com/mech-lang/examples/-/blob/v0.1-beta/src/ekf.mec). This was made possible by the addition of builtin matrix operators.
+
+A couple things are neat about this. First, it demonstrates unicode support by way of greek symbols as variable names. Second, at roughly 20 lines of code, the length of the algorithm in Mech is just about as long as the algorithm as expressed in mathematical notation. Third, implementing this algorithm was dead simple. It was a near 1:1 translation from the source algorithm, and it worked like a charm.
+
+Finally, the biggest thing I learned from this example is that Mech is *way* faster than Matlab. I have an implementation of the EKF localization algorithm in Matlab, so a direct comparison was possible. Here are the results:
+
+Notice that the Y-axis is a log scale, meaning that Mech is over 500x faster than Matlab for this task.
+
 3. Machine index files
+
+Each machine now includes an index file (written in Mech) that explains the purpose and contents of the machine. It will act as a table of contents for the machine, as well as the first page of documentation. A sample abriged index looks like this:
+
+```
+math
+=====
+
+1. Description
+---------------
+
+Provides standard mathematical functions.
+
+2. Provided Functions
+----------------------
+
+- math/sin(angle<f32>)
+- math/sin(angle<degrees>)
+
+3. Info
+--------
+
+#math/machine = [
+  name: "math" 
+  version: "v0.0.1"
+  authors: "Corey Montella" 
+  machine-url: "https://gitlab.com/mech-lang/machines/math"
+  license: "Apache-2.0"]
+```
+You can find the full index [here](https://github.com/mech-machines/math/blob/main/index.mec)
 
 4. Syntax highlighting
 
@@ -199,22 +261,40 @@ The main actionable feedback from the rejected IROS paper was that it needed mor
 
 3. Forward Robotics
 
+If you're not aware yet, Forward Robotics is the outreach component of the Mech project which aims to educate kids about robotics. 
+
 a. Summer CHOICES
 
+Forward Robotics was involved in several outreach programs over the summer which helped test Mech for one of its intended audiences: students brand new to programming. 
+
+In the Spring we participated in the CHOICES program that teaches middle school girls about various STEM topics including robotics. This Summer we repeated the program with more students, with as many as 60 students. This was the largest offering of the FR program to date.
+
 b. PreLUsion
+
+Lehigh offers the PreLUsion program to incoming freshman before the semester starts. It provides first year students with a variety of activities that help them bond and get excited about learning in a university setting. Forward Robotics participated in the Lehigh Women Engineers version of the program which is restricted to female students interested in Engineering. We ran mostly the same experience as the CHOICES program, and it turned out to be fun even for older girls. Several students expressed interest in Mech and Forward Robotics after doing the activity, so hopefully they will join the project soon enough!
 
 🤝 Project and Community
 -------------------------
 
-1. Capstone Group
+1. CSE Capstone Group
+
+All CSE students at Lehigh have to take a Senior Capstone course to graduate, and each year I usually have a capstone group working on Mech.
 
 2. Summer research group
 
-a. Adding more tests
+Over the summer I maintained an informal research group that met weekly to work on Mech. Here's what we managed to get up to over the summer:
 
-b. Adding more types
+a. Increased test coverage
+
+Most Mech tests of the core language syntax and semantics are covered in the syntax repository. While that's still the case (with almost 200 tests now), over the summer we've slowly started testing more Mech code using the Mech testing framework. The first thing we're doing is covering the basic operators to make sure they work on different data types and different shapes.
+
+b. Adding support for more kinds
+
+The second objective over the summer was to create a matrix of arguments and operators, and to document which work and are tested, which work but are not tested, and which don't work at all. My student DJ Edwards is doing an independent study with me this semester to help make sure that everything is working and tested before we launch the beta.
 
 c. ❤️ Remembering Yuehan Wang
+
+Tragedy struck at the end of Summer when Yuehan Wang (also known as John) passed away. Yuehan  worked on Mech with us over the summer, and was indispensible in contributing to the progress we made. Yuehan was a 4th year undergraduate studying Physics and CS, and was very close to completing his degrees before his sudden death. We're all very saddened by his loss, and wish his family and friends our deepest condolences.
 
 🎃 v0.1-beta Release Roadmap
 -----------------------------
