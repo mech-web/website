@@ -98,12 +98,19 @@ x = [a: 1, b: 2, c: 3, d: 4]
 
 3. Parser error messages
 
-My student Haocheng Gao has done significant work toward making error messages more readable in Mech. In the last update, we added error indications for semantic compiletime errors, which was much needed but still not enough to help the newest users, who will encounter syntax errors frequently.
+Haocheng Gao has done significant work toward making error messages more readable in Mech. In the last update, we added error indications for semantic compiletime errors, which was much needed but still not enough to help the newest users, who will encounter syntax errors frequently.
 
 Haocheng has retrofitted the parser to allow us to generate detailed parser errors with information as to what the error is, where in the source file it occurred, and perhaps also hints on how to fix it. Here's an example of what error messages look like so far:
 
+<img src="images/error.png"/>
 
 To generate these messages, Haocheng retrofitted the parser with a series of tags that annotate the various paerser combinators and help with generating relevent and informative packets of information which are later rendered as messages in whatever context the program is running (editor, console, browser, etc.)
+
+From Haocheng:
+
+> Mech's parser has been extended to produce helpful error message and to make good attempts to recover from common errors.  Previously, the only feedback the parser offered when it's given invalid input is throwing out a generic error that says the input didn't parse. Now with the new extensions, the parser can actually print out the portion of the source code that contains the error, as well as pointing the user to where and what went wrong, with annotations and carefully-written error messages.  
+>
+> This is yet annother attempt to improve user experience for the upcomming release in October, 2022. As a learner of Mech, I myself initially suffered from syntax errors because of Mech's rather uncommon grammar comparing to some traditional imperative languages like C and Java, and there was nothing to inform me about what I did wrong. Having struggled through that, I sincerely hope our new feature can minimize the chance of such incident from happening again.
 
 4. Dynamic tables
 
@@ -158,6 +165,11 @@ This can be condensed into a single line of code with the update operator and ta
 
 I've always been a little uneasy about the header and subheader syntax using hashtags, which conforms to Markdown but potentially clashes with the global table select operator. To remove this potential point of confusion, I've switched to using the alternative Markdown header, which uses an underline of = or - to indicate a header and subheader respectively. The source for this document uses the new syntax. You can also see it in action in some of the examples.
 
+8. Faster parsing (100x speed increase)
+
+
+
+
 🐠 Ecosystem
 -------------
 
@@ -177,15 +189,25 @@ The `matrix` machine is brand new and will include a variety of linear algebra r
 
 The `gui` machine includes a number of tables that help with drawing native interface elements. It leverages the Rust egui framework for most of this work, with custom wrappers to make the elements reactive. The `gui` machine has so far existed inside of notebook2 (now just notebook), but now I've moved most of the code out of there and into this machine. This means that the the remaining notebook code is now mostly implemented in just Mech.
 
-4. `html` machine
+Haocheng was able to extend the library features enough to be able to draw this angry giraffe:
+
+<img src="images/giraffe.gif" />
+
+4. Self-Contained Executables 
+
+Mech GUI applications are packaged using hte gui crate. The way this works is that Mech starts an `egui` desktop engine and uses one or more Mech cores to update the GUI display in a loop according to some loaded Mech program that defines App's behavior. While this is a totoally valid design, the GUI executable is not self-contained (i.e. in a single binary executable) - we either had to allow a `.mec` file to be separated from the executable, or to include the Mech program as a string constant inside the executable, and recompile the executable everytime the Mech program is modified. 
+
+The CSE Capston group implemented a prototype executable builder that solves this problem and allows a self-contained GUI executable to be built from any `.mec` file.
+
+5. `html` machine
 
 Like `gui`, the `html` machine has existed inside of the wasm repository. It helps with drawing to canvas and rendering HTML elements. Now all that code has been moved into its own machine, which is a dependency of wasm. I think this organizes things a little better, and wasm will slowly be converted into mostly Mech code.
 
-5. Notebook resurrection
+6. Notebook resurrection
 
 The old notebook repository is back from being an archived repository. Now it hosts the contents of notebook2, and notebook has been renamed to wasm-notebook. The main difference between these two offerings is that notebook (again formerly notebook2) makes use of the egui rust GUI framework, whereas wasm-notebook (formerly notebook) makes use of the rust websys framework.
 
-6. Repository reshuffle redux
+7. Repository reshuffle redux
 
 In the Spring I made the various repositories of the Mech project into git submodules of the main Mech repo. Now I've move a bunch of those git submodules into the src directory, and I've renamed some of the folders. It should make the repo a little cleaner and easier to work with for developers working on the runtime.
 
