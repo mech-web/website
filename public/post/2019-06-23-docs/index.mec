@@ -20,7 +20,7 @@ In this release we're including a new <a href="https://github.com/mech-lang/synt
 
 The inspector will be the main debugging tool in the Mech Notebook. As its name implies, it will allow you to inspect any aspect of a running Mech program, from the value of tables, to the result of a compiled block, to the properties on graphical elements of an output program. 
 
-<img src="http://mech-lang.org/img/post/inspector.PNG" />
+<img src="https://mech-lang.org/img/post/inspector.PNG" />
 
 The editor can render block output. Right now, anything you bind to `block/view` is rendered under the block. For example, we can write a block
 

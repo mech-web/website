@@ -6,7 +6,7 @@ Since then, Mech has been rewritten a couple times, and I think it's finally alm
 
 ## People
 
-I wanted to start by thanking everyone who has been involved with the Mech project. First, thank you to the 2020 [Mountaintop Summer Experience](https://creativeinquiry.lehigh.edu/mountaintop-summer-experience/mech-robotics-education) group: Allison Codi, Zack Coriarty, Thanos Kougionis, and Sarah Pontier, who worked on the Forward Robotics initiative. They developed a cirriculum that incorporates Mech and Sphero robots into fun learning activities for middle school students. You can learn a little more about their work [here](http://mech-lang.org/post/2020-08-06-forward-robotics/).
+I wanted to start by thanking everyone who has been involved with the Mech project. First, thank you to the 2020 [Mountaintop Summer Experience](https://creativeinquiry.lehigh.edu/mountaintop-summer-experience/mech-robotics-education) group: Allison Codi, Zack Coriarty, Thanos Kougionis, and Sarah Pontier, who worked on the Forward Robotics initiative. They developed a cirriculum that incorporates Mech and Sphero robots into fun learning activities for middle school students. You can learn a little more about their work [here](https://mech-lang.org/post/2020-08-06-forward-robotics/).
 
 Also thanks to my 2021 Lehigh CSE Capstone team: Nic Campion, Sean Hong, Sherry Huang, Dave Jha, and Ronan Leahy. Sean, Dave, and Ronan worked to stress test Mech by implementing classic arcade games. Serry and Nic worked on scripting the Mech CI/CD pipeline. You can see their final capstone presentation [here](https://drive.google.com/file/d/1ZBR7mkCkNEyT5tEGwMkLOMxCSRU9dmoF/view?usp=sharing).
 
