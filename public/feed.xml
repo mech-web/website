@@ -2,47 +2,47 @@
 <rss version="2.0">
     <channel>
         <title>The Mech Development Blog</title>
-        <link>http://www.mech-lang.org/blog</link>
+        <link>https://www.mech-lang.org/blog</link>
         <description>Follow along with the development of the Mech programming language.</description>
         <item>
             <title>Spring 2022 Progress Report</title>
-            <link>http://mech-lang.org/post/2022-05-20-spring-update/</link>
-            <guid>http://mech-lang.org/post/2022-05-20-spring-update/</guid>
+            <link>https://mech-lang.org/post/2022-05-20-spring-update/</link>
+            <guid>https://mech-lang.org/post/2022-05-20-spring-update/</guid>
             <pubDate>Sat, 20 May 2022 00:00:00 EST</pubDate>
             <description>We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 years’ worth of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since January.</description>
         </item>
         <item>
             <title>Mech in 2021 - A year (or two) in review</title>
-            <link>http://mech-lang.org/post/2022-01-01-happy-new-year/</link>
-            <guid>http://mech-lang.org/post/2022-01-01-happy-new-year/</guid>
+            <link>https://mech-lang.org/post/2022-01-01-happy-new-year/</link>
+            <guid>https://mech-lang.org/post/2022-01-01-happy-new-year/</guid>
             <pubDate>Sat, 01 Jan 2022 00:00:00 EST</pubDate>
             <description>Hello everyone and Happy New Year! Mech changed a lot in 2021 -- so much that it's almost ready for its first beta release in 2022. Development of the Mech language has been relatively underground lately, causing some to wonder if the project was dead. Mech is very much alive, but I've been quiet about it since the pandemic started.</description>
         </item>
         <item>
             <title>Forward Robotics</title>
-            <link>http://mech-lang.org/post/2020-08-06-forward-robotics/</link>
-            <guid>http://mech-lang.org/post/2020-08-06-forward-robotics/</guid>
+            <link>https://mech-lang.org/post/2020-08-06-forward-robotics/</link>
+            <guid>https://mech-lang.org/post/2020-08-06-forward-robotics/</guid>
             <pubDate>Thu, 06 Aug 2020 00:00:00 EST</pubDate>
             <description>The goal of Forward Robotics is to teach everyone the fundamentals of controlling technology. The program is itended not to create future programmers, but to give everyone the tools they need to makes sense of and control of their digital worlds.</description>
         </item>
         <item>
             <title>Version 0.0.2 - Documentation, Views, and the Inspector</title>
-            <link>http://mech-lang.org/#/blog/2019-06-12-docs.mec</link>
-            <guid>http://mech-lang.org/#/blog/2019-06-12-docs.mec</guid>
+            <link>https://mech-lang.org/#/blog/2019-06-12-docs.mec</link>
+            <guid>https://mech-lang.org/#/blog/2019-06-12-docs.mec</guid>
             <pubDate>Wed, 12 Jun 2019 00:00:00 EST</pubDate>
             <description>Today we're happy to release Mech v0.0.2. This release has improvements for the language itself, but the focus was on documentation and notebook features. First, we've overhauled the notebook interface so that most components are rendered in Rust wasm instead of Javascript. Eventually we will move over to an interface entirely written in Mech. Second, we've rendered Mech documents in HTML, rather than plain text. This necessitated finishing the formatter for syntax highlighting. Finally, we have included a couple tools like an inspector and block views that will help programmers. Let's look at each of these new features.</description>
         </item>
         <item>
             <title>Version 0.0.1</title>
-            <link>http://mech-lang.org/post/2019-03-27-version-0-0-1/</link>
-            <guid>http://mech-lang.org/post/2019-03-27-version-0-0-1/</guid>
+            <link>https://mech-lang.org/post/2019-03-27-version-0-0-1/</link>
+            <guid>https://mech-lang.org/post/2019-03-27-version-0-0-1/</guid>
             <pubDate>Wed, 27 Mar 2019 00:00:00 EST</pubDate>
             <description>Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version of Mech, but it represents the first time we can show off some features like time-travel debugging and rendering the output of Mech code to arbitrary browser elements. Although this release has some useful features, they aren't yet documented; we'll focus on that in the next release. For now though, we'll go over what's included in v0.0.1, and introduce you to some of the unique features of the Mech programming language.</description>
         </item>
         <item>
             <title>Hello World</title>
-            <link>http://mech-lang.org/post/2018-06-07-hello-world/</link>
-            <guid>http://mech-lang.org/post/2018-06-07-hello-world/</guid>
+            <link>https://mech-lang.org/post/2018-06-07-hello-world/</link>
+            <guid>https://mech-lang.org/post/2018-06-07-hello-world/</guid>
             <pubDate>Thu, 07 Jun 2018 00:00:00 EST</pubDate>
             <description>Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I’ll be taking it in the near future.</description>
         </item>
