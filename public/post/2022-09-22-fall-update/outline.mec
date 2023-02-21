@@ -123,6 +123,8 @@ I've always been a little uneasy about the header and subheader syntax using has
 
 8. Faster parsing (100x speed increase)
 
+Inside of the parsing module, we were inefficiently using `String` types as opposed to `&str` types. By converting to use an &str, we were able to speed up the parser by 100 fold. Obviously this means a lot of unneeded allocations were eliminated!
+
 🐠 Ecosystem
 -------------
 
@@ -192,8 +194,6 @@ Each machine now includes an index file (written in Mech) that explains the purp
 
 You can find the full index [here](https://github.com/mech-machines/math/blob/main/index.mec)
 
-4. Syntax highlighting
-
 🏫 Outreach
 ------------
 
@@ -202,10 +202,6 @@ You can find the full index [here](https://github.com/mech-machines/math/blob/ma
 On June 13, I presented Mech at the PLDI ARRAY Workshop in San Diego, California, USA. The presentation I gave was a modification of the 10 minute talk I did for HYTRADBOI, but I had over twice as long to speak so I was able to get a little more in depth, and I was able to give a live demo of some of the features. 
 
 There's no recording of the talk available, but if you're interested in what was said you can take a look at the afforementioned HyTRADBOI talk for a good idea. 
-
-2. ICRA paper
-
-The main actionable feedback from the rejected IROS paper was that it needed more examples to give a better sense of how Mech would be applicable for a real-life robotics system. I updated the paper with the EKF demo and some notes from the CHOICES experience, and I submitted it to ICRA 2023, which is a larger conference but more selective than IROS. I hope to be accepted there, and if so I will present a live demonstration at the conference at the end of May. Fingers crossed! Here's a copy of the preprint.
 
 3. Forward Robotics
 
@@ -223,12 +219,6 @@ Lehigh offers the PreLUsion program to incoming freshman before the semester sta
 
 🤝 Project and Community
 -------------------------
-
-1. CSE Capstone Group
-
-All CSE students at Lehigh have to take a Senior Capstone course to graduate, and each year I usually have a capstone group working on Mech.
-
-2. Summer research group
 
 Over the summer I maintained an informal research group that met weekly to work on Mech. Here's what we managed to get up to over the summer:
 
