@@ -1,3 +1,33 @@
+    
+<style type="text/css">
+  .user-function {
+    display: block;
+    background-color: #17151E;
+    color: #E3E1EA;
+    padding: 10px;
+    font-family: monospace;
+    line-height: 20px;
+    border-radius: 3px;
+  }
+  .block {
+    display: block;
+    background-color: #17151E;
+    color: #E3E1EA;
+    padding: 10px;
+    font-family: monospace;
+    line-height: 20px;
+    border-radius: 3px;
+  }
+  .transformation {
+    display: block;
+  }
+  .number-literal {
+    color: #72CAAB;
+  }
+  .hashtag {
+    color: #B27E9B
+  }
+</style>
   <span class="root">
     <h1 class="program-title">🍂 Fall 2022 Update</h1>
       <span class="section">
@@ -164,30 +194,34 @@ u64              </span>
           </span>
           <span class="paragraph-text">. For instance, we can multiply two matricies together like this with the following result:</span>
         </p>
-        <span class="statement">
-          <span class="hashtag">#</span><span class="global-variable">x</span><span class="equal"> = </span>
-            <span class="expression">
-              <span class="math-expression">
-<span class="function-name">matrix/multiply</span>(<span class="bracket">[</span>                        <span class="expression">
-<span class="number-literal">1</span>                        </span>
-                         <span class="expression">
-<span class="number-literal">2</span>                        </span>
+        <span class="block">
+          <span class="transformation">
+            <span class="statement">
+              <span class="hashtag">#</span><span class="global-variable">x</span><span class="equal"> = </span>
+                <span class="expression">
+                  <span class="math-expression">
+<span class="function-name">matrix/multiply</span>(<span class="bracket">[</span>                            <span class="expression">
+<span class="number-literal">1</span>                            </span>
+                             <span class="expression">
+<span class="number-literal">2</span>                            </span>
 
-                                  <span class="expression">
-<span class="number-literal">3</span>                        </span>
-                         <span class="expression">
-<span class="number-literal">4</span>                        </span>
-<span class="bracket">]</span><span class="clear">, </span><span class="bracket">[</span>                        <span class="expression">
-<span class="number-literal">5</span>                        </span>
-                         <span class="expression">
-<span class="number-literal">6</span>                        </span>
+                                        <span class="expression">
+<span class="number-literal">3</span>                            </span>
+                             <span class="expression">
+<span class="number-literal">4</span>                            </span>
+<span class="bracket">]</span><span class="clear">, </span><span class="bracket">[</span>                            <span class="expression">
+<span class="number-literal">5</span>                            </span>
+                             <span class="expression">
+<span class="number-literal">6</span>                            </span>
 
-                                  <span class="expression">
-<span class="number-literal">7</span>                        </span>
-                         <span class="expression">
-<span class="number-literal">8</span>                        </span>
-<span class="bracket">]</span>)              </span>
+                                        <span class="expression">
+<span class="number-literal">7</span>                            </span>
+                             <span class="expression">
+<span class="number-literal">8</span>                            </span>
+<span class="bracket">]</span>)                  </span>
+                </span>
             </span>
+          </span>
         </span>
         <p class="paragraph">
           <span class="paragraph-text">The will work for any matrix that follow the rule that the left hand side rows must equal the right hand side columns. Any other combination will yield an error and the operation will fail. So far, this works only for matricies that are entirely of kind f32; compound-kind tables and tables of other numeric kinds haven't been implemented yet.</span>
@@ -217,16 +251,20 @@ u64              </span>
         <p class="paragraph">
           <span class="paragraph-text">Transposing tables is done with the apostraphe operator appended to any expression, like so:</span>
         </p>
-        <span class="statement">
-          <span class="hashtag">#</span><span class="global-variable">y</span><span class="equal"> = </span>
-            <span class="expression">
-<span class="bracket">[</span>                    <span class="expression">
-<span class="number-literal">1</span>                    </span>
-                     <span class="expression">
-<span class="number-literal">2</span>                    </span>
-                     <span class="expression">
-<span class="number-literal">3</span>                    </span>
-<span class="bracket">]</span>            </span>
+        <span class="block">
+          <span class="transformation">
+            <span class="statement">
+              <span class="hashtag">#</span><span class="global-variable">y</span><span class="equal"> = </span>
+                <span class="expression">
+<span class="bracket">[</span>                        <span class="expression">
+<span class="number-literal">1</span>                        </span>
+                         <span class="expression">
+<span class="number-literal">2</span>                        </span>
+                         <span class="expression">
+<span class="number-literal">3</span>                        </span>
+<span class="bracket">]</span>                </span>
+            </span>
+          </span>
         </span>
         <p class="paragraph">
           <span class="paragraph-text">Users of Matlab will be familiar with this operator and its useage. For now, it only works when the entire table is of a uniform kind. A downside rightnow is that after evaluating a transpose, the names of columns are lost. I'm not sure what we'll dow with this in the future, but named rows has been on the agenda for a while, and it might be time to implement those.</span>
@@ -235,26 +273,32 @@ u64              </span>
           <span class="paragraph-text">c) Swizzling</span>
         </p>
         <p class="paragraph">
-          <span class="paragraph-text">As a Matlab user myself, swizzling is a term I was was familiar with until recently, because it's not a feature of that language. It's a term coming from the computer graphics world, which Wikipedia defines as "ability to compose vectors by arbitrarily rearranging and combining components of other vectors." With typed columns in Mech, swizzling is a feature that can help programmers write very terse code with used in conjunction with broadcast and matrix operators. Here's an example of swizzling working in Mech:</span>
+          <span class="paragraph-text">As a Matlab user myself, swizzling is a term I was was unfamiliar with until recently, because it's not a feature of that language. It's a term coming from the computer graphics world, which Wikipedia defines as "ability to compose vectors by arbitrarily rearranging and combining components of other vectors." With typed columns in Mech, swizzling is a feature that can help programmers write very terse code with used in conjunction with broadcast and matrix operators. Here's an example of swizzling working in Mech:</span>
         </p>
-        <span class="statement">
-<span class="local-variable">x</span> =             <span class="expression">
-<span class="bracket">[</span><span class="parameter">a:</span>                   <span class="expression">
-<span class="number-literal">1</span>                  </span>
-<span class="clear">, </span><span class="parameter">b:</span>                   <span class="expression">
-<span class="number-literal">2</span>                  </span>
-<span class="clear">, </span><span class="parameter">c:</span>                   <span class="expression">
-<span class="number-literal">3</span>                  </span>
-<span class="clear">, </span><span class="parameter">d:</span>                   <span class="expression">
-<span class="number-literal">4</span>                  </span>
-<span class="bracket">]</span>            </span>
-        </span>
-        <span class="statement">
-          <span class="hashtag">#</span><span class="global-variable">z</span><span class="equal"> = </span>
-            <span class="expression">
-<span class="local-variable">x</span>                      <span class="inline-code">
-acc                      </span>
+        <span class="block">
+          <span class="transformation">
+            <span class="statement">
+<span class="local-variable">x</span> =                 <span class="expression">
+<span class="bracket">[</span><span class="parameter">a:</span>                       <span class="expression">
+<span class="number-literal">1</span>                      </span>
+<span class="clear">, </span><span class="parameter">b:</span>                       <span class="expression">
+<span class="number-literal">2</span>                      </span>
+<span class="clear">, </span><span class="parameter">c:</span>                       <span class="expression">
+<span class="number-literal">3</span>                      </span>
+<span class="clear">, </span><span class="parameter">d:</span>                       <span class="expression">
+<span class="number-literal">4</span>                      </span>
+<span class="bracket">]</span>                </span>
             </span>
+          </span>
+          <span class="transformation">
+            <span class="statement">
+              <span class="hashtag">#</span><span class="global-variable">z</span><span class="equal"> = </span>
+                <span class="expression">
+<span class="local-variable">x</span>                          <span class="inline-code">
+acc                          </span>
+                </span>
+            </span>
+          </span>
         </span>
         <p class="paragraph">
           <span class="paragraph-text">3. Parser error messages</span>
