@@ -1,27 +1,61 @@
 🐰 Spring 2023 Update
 =======================
 
+
+
 🛠️ Platform Improvements
--------------------------
+--------------------------
+
+(1) Sub headings
+
+(2) Loading .mec files
 
 🐠 Ecosystem
--------------
+--------------
 
-(1) Language Server Protocol implementation
+(1) REPL Improvements
+
+- Saving and Loading
+
+(2) Notebook Editors Improvements
+
+- Styling
+- Tabs
+- Compiler
+- Keyboard
+- Pointer buttons
+
+(3) Language Server Protocol implementation
+
+- syntax highlighting
+- 
 
 📖 Documentation
------------------
+------------------
+
+(1) Grammar Update
+
+(2) Language Spec
 
 🏫 Outreach
-------------
+-------------
 
 (1) Forward Robotics
 
 (a) Spring CHOICES
 
+(b) Summer CHOICES
+
+(2) Foundations of Robotics
+
 🤝 Project and Community
+--------------------------
+
+(1) 2023-2024 Capstone Mechanics
+
+(2) Mech Mascots!
+
+☃️ v0.2 Release Roadmap
 -------------------------
 
 
-v0.1.1 Release Roadmap
------------------------------
