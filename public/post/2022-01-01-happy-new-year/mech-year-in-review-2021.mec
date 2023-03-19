@@ -1,10 +1,12 @@
-# Mech in 2021 - A year (or two) in review
+Mech in 2021 - A year (or two) in review
+=========================================
 
 Hello everyone and Happy New Year! Mech changed a lot in 2021 -- so much that it's almost ready for its first beta release in 2022. Development of the Mech language has been relatively underground lately, [causing some to wonder](https://github.com/mech-lang/mech/issues/4) if the project was dead. Mech is very much alive, but I've been quiet about it since the pandemic started. The last time I [spoke publicly](http://docs.mech-lang.org/#/live2019.mec) about Mech was at [Live 2019](https://2019.splashcon.org/details/live/6/Mech-A-Programming-Language-for-Data-Driven-Reactive-Systems) in October of that year. If you are new to Mech, the 2019 paper is a good place to learn about the basics of the language.
 
 Since then, Mech has been rewritten a couple times, and I think it's finally almost in a state that is ready for public consumption in 2022. Therefore, I plan to be a lot more public about Mech this year in order to get the word out. To that end, let's take a look at what has happened to Mech in the last couple of years, and where it's headed in 2022.
 
-## People
+People
+--------
 
 I wanted to start by thanking everyone who has been involved with the Mech project. First, thank you to the 2020 [Mountaintop Summer Experience](https://creativeinquiry.lehigh.edu/mountaintop-summer-experience/mech-robotics-education) group: Allison Codi, Zack Coriarty, Thanos Kougionis, and Sarah Pontier, who worked on the Forward Robotics initiative. They developed a cirriculum that incorporates Mech and Sphero robots into fun learning activities for middle school students. You can learn a little more about their work [here](https://mech-lang.org/post/2020-08-06-forward-robotics/).
 
@@ -17,11 +19,12 @@ Finally, there are a number of other students who have been involved and helped 
 
 And for anyone else I may have missed, I'm sorry, but thank you too!
 
-## Project status
+Project status
+----------------
 
 Mech is currently at the alpha stage of development. My general strategy has been one of breadth as opposed to depth -- implement at least a first-cut on as much of the Mech platform as possible, and then iterate. Mech is almost at the point where at least some part of every part of the platform has been implemented. However, there are still some aspects that remain unimplemented, so the project will persist at the alpha stage until the outstanding components are added (I'll talk about them in the roadmap section at the end of this post). My current target for completing the work necessary to release [Mech v0.1-beta](https://github.com/mech-lang/mech/tree/v0.1-beta) is October of this year. 
 
-### 2021 TL;DR
+(1) 2021 TL;DR
 
 The topline Mech features that were added or enhanced in 2021 were:
 
@@ -37,7 +40,7 @@ The bulk of 2022 was spent on a runtime rewrite that leverages data parallelism 
 
 Initially Mech performed much worse than Python, but after some tuning guided by the excellent [Superluminal Profiler](https://superluminal.eu), I managed to get about a 10x performance gain (from 3Hz to 40Hz for N=1e6). Not bad, but I was bitten by the optimization bug at this point, and I couldn't see a way to improve performance further without a big rewrite to leverage the inherent parallelism of this problem.
 
-### Parallel
+(2) Parallel
 
 In this benchmark, N refers to the number of balls being simulated. For instance, consider the following block:
 
@@ -61,7 +64,7 @@ Second, this also means that we can automatically parallelize most built-in oper
 
 This yields a 64% percent speedup over the standard iterators, and we can see that CPU utilization is at 100%. Unfortunately, there is some overhead associated with the use of the Rayon crate such that it's not beneficial unless N exceeds a threshold. Potentially what we can do here is switch between regular or parallel iterators depending on how large the operands are, but this is a work in progress.
 
-### Asynchronous
+(3) Asynchronous
 
 Work started on scheduling blocks to asynchronously execute within a core. Consider a [file](https://gitlab.com/mech-lang/machines/file) I/O operation, such as opening a file to read the contents:
 
@@ -79,7 +82,7 @@ Mech will automatically make sure the variable #x is updated when the contents b
 
 One very interesting possibility this opens up is the ability to offload computations to other hardware, like a GPU. Running a computation on a GPU is oten considered an asynchronous operation, because data must be written to and from the GPU's main memory. Therefore, we began [investigating the possibly](https://gitlab.com/mech-lang/core/-/tree/gpu) of offloading these computations onto one or more GPU (again, very much a WIP). 
 
-### Distributed
+(4) Distributed
 
 Work finally began on making the Mech runtime distributed, which enables the ability to write multiplayer games. For instance, consider a game of pong, seen below:
 
@@ -93,34 +96,32 @@ The way this works is that each node of the network is running an isolated Mech 
 
 The left window is a Mech core serving the following code on a websocket (notice the Hex literal; those are new):
 
-```
 #pacman/fill = 0x00FF00
-```
 
 The middle window is a Mech core serving the following code (and more) on an HTTP server:
 
-```
-#pacman/drawing = [
-  parameters: [
-    stroke: 0x000000 
-    fill: #pacman/fill
-    line-width: 3
+  #pacman/drawing = [
+    parameters: [
+      stroke: 0x000000 
+      fill: #pacman/fill
+      line-width: 3
+    ]
   ]
-```
 
 The right window is a browser that connects to the HTTP server. It receives the above code, but it can't render the Pacman drawing until `#pacman/fill` is satisfied. It connects via a websocket to the Mech core running in the left window, and it it requests the missing table. The missing table is sent to the client, which then draws the green Pacman to the screen. Finally, the window is duplicated, demonstrating that the programs are rendered independently client-side, even though they communicate with a centralized server to receieve the Pacman color, all interactions and updates are performed locally.
 
-## The Mech Module System
+The Mech Module System
+------------------------
 
 Mech gained a module system in 2020, including a package manager and [machine directory](https://github.com/mech-machines/directory/blob/main/machines.mec). In 2021, we spent some time laying the groundwork for the standard library, which in Mech is called the standard machine.
 
-### Machines
+(1) Machines
 
 Many programming langauges use libraries as units of published code suitable for consuption by third parties. They are typically linked to by a program to access added functionality, usually in the form of callable library functions. However, libraries usually are not considered as an idiomatic way to distribute data for computation within a program; usually this is accomplished through a file, database connection, HTTP request, or any number of ways. But usually not libraries.
 
 In Mech, machines are conceptually similar to libraries in that they are units of published Mech code. But machines are a little different; they provide added functionality in the form of tables and functions, but they also can contain data. Therefore, you could use a machine to distribute code as you would using a library, data as you would using a file/database, or even both at the same time! Therefore, I felt it was appropriate to name them something other than "modules" or "libraries".
 
-### Package Manager
+(2) Package Manager
 
 Mech also got a package manager in 2020, which downloads machines as they are needed. Needed packages are identified when a Mech program is compiled and loaded. Let's use the `math/sin()` function as an example. A program can use the function in a block like so:
 
@@ -132,7 +133,7 @@ When this program is loaded, it will report to the runtime that the `math/sin()`
 
 Right now imports are implicit, but this could be changed to make it explicit. Packages can currently be added by submitting a pull request to the directory repository, but in the future this will probably be handled by a native Mech server.
 
-### The Standard Machine
+(3) The Standard Machine
 
 The standard Mech machine is the collection of 1st party machines which represent the basic Mech platform. In 2021, we added the following machines:
 
@@ -147,7 +148,7 @@ The standard Mech machine is the collection of 1st party machines which represen
 
 The goal was to get these machines started, so they don't provide a lot of functionality right now. In 2022 we will add more machines, and the flesh out existing ones.
 
-### Testing Harness
+(4) Testing Harness
 
 Native testing capabilities were also enhances in 2021. For now, [most testing](https://github.com/mech-lang/syntax/blob/main/tests/compiler.rs) of core components is done in the `syntax` repository. But this can only test core components, not machines, which are loaded by the `program` repository.
 
@@ -207,7 +208,8 @@ $ mech test tests
 Test result: ok | total 9 | passed 9 | failed 0 | 
 ```
 
-## Drawing and New Example Games
+Drawing and New Example Games
+-------------------------------
 
 The final major area of development in 2021 was on the HTML machine, which received far more attention than any other. Currently, the HTML machine (which is hosted [here](https://gitlab.com/mech-lang/machines/html), but all of the machinery exists in the [wasm repository](https://gitlab.com/mech-lang/wasm). This needs to be refactored, but I can't deal with that quite yet.)
 
@@ -234,11 +236,12 @@ The purpose of writing these games was to stress test Mech to reveal weak points
 
 Another thing about these programs is that the students who wrote them did not have any real training in Mech, and they didn't have the benefit of any error messages when writing this code. Usually syntax errors or logic errors would result in the program just not working at all, with no indication of what went wrong. Despite this, these students managed to write fully working games. I'm very impressed at this, and honestly I don't know how they managed to accomplish what they did.
 
-## Other Ecosystem Enhancements
+Other Ecosystem Enhancements
+------------------------------
 
 The Mech ecosystem was enhanced in other various was throughout 2021.
 
-### Logo revamp
+(1) Logo revamp
 
 The Mech logo was revamped to be a little more interesting. The logo was created by the community -- I presented different variations of the M E C H letters and the community voted on the ones you see here:
 
@@ -257,7 +260,7 @@ And the color palette:
 
 I'm not a designer or anything, but I think it looks good!
 
-### Number Literals
+(2) Number Literals
 
 Number literals are now supported:
 
@@ -268,18 +271,18 @@ Number literals are now supported:
 
 I started investigating rational numbers as well, which can be parsed, but they don't do anything yet.
 
-### EBNF Grammar
+(3) EBNF Grammar
 
 Several students wrote an [EBNF grammar](https://gitlab.com/mech-lang/syntax/-/blob/main/grammar.md) for Mech by carefully translating the parser.
 
-### Unicode Support
+(4) Unicode Support
 
 Unicode characters as contained in the following block can now be parsed:
 
 ```mech
   y̆és = 😃 + 1
 ```
-### The Mech Compiler
+(5) The Mech Compiler
 
 The [Mech compiler toolchain](https://github.com/mech-lang/mech), called `mech`, gained a lot of functionality in 2020 and 2020. Currently it supports the following subcommands:
 
@@ -290,7 +293,8 @@ The [Mech compiler toolchain](https://github.com/mech-lang/mech), called `mech`,
 
 Running `mech` without any subcommand opens the Mech REPL.
 
-## Mech in 2022
+Mech in 2022
+--------------
 
 This year is going to be very big for Mech. Here's what I think the year will look like:
 
@@ -303,7 +307,7 @@ This year is going to be very big for Mech. Here's what I think the year will lo
 - Finally in July I plan to apply for an NSF CAREER grant. This could really change things, as it would be the first time real money is behind the Mech project.
 
 
-### Topline Features to Implement in 2022
+(1) Topline Features to Implement in 2022
 
 - Implement the [B2T2 spec](https://github.com/cmontella/B2T2) to make sure the table API is complete.
 - Integrating typed columns with the parser is the next priority.
@@ -315,17 +319,17 @@ This year is going to be very big for Mech. Here's what I think the year will lo
 
 This represents a very busy year for Mech, so I'm not sure how much of this we will be able to get done. A year seems like a long time, but it can go by so quickly. This year I have more help than ever, so it may be doable. My New Year's resolution is to spend less time working on the runtime this year so I have more time to spend on writing docs and the blog. I hope you'll follow along!
 
-## Getting Involved
+(2) Getting Involved
 
 The best way to contribute to Mech at this stage is to write Mech code, and to contribute to discussions and brainstorming. The code is changing rapidly enough that it doesn't make sense to contribute there -- if you want to contribute to the Mech platform proper, it's best to wait until the v0.1-beta release later this year.
 
 If you'd like to join our Slack community, you can use [this link](https://join.slack.com/t/mech-lang/shared_invite/zt-10lkzm7jp-_dkuykN_dSMFo_V8PMx31Q) until 1/20.
 
-## Metrics
+Metrics
+---------
 
 I'm going to start keeping track of some key project metrics each year:
 
-```mech
 #github-stars = [|year stars|
                   2018 2
                   2019 31
@@ -365,12 +369,10 @@ I'm going to start keeping track of some key project metrics each year:
                
 #community = [|year members|
                2021 28]
-```
 
 Summary statistics 
-```mech
-#loc/total = stats/sum(column: #loc)
-#loc/budget = 10000
-#loc/remaining = #loc/budget - #loc/total
-#commits/total = stats/sum(column: #commits)
-```
+
+  #loc/total = stats/sum(column: #loc)
+  #loc/budget = 10000
+  #loc/remaining = #loc/budget - #loc/total
+  #commits/total = stats/sum(column: #commits)
