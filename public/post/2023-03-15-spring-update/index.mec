@@ -1,21 +1,49 @@
 🐰 Spring 2023 Update
 =======================
 
-
+The Mech Spring 2023 Update includes platform improvements, ecosystem updates, documentation changes, community initiatives, and a preview of the upcoming Mech v0.2 release. Highlights include changes to headings and loading .mec files, improvements to the REPL and notebook editors, and the implementation of the Language Server Protocol. The update also features the 2023-2024 Capstone Mechanics project and the introduction of the Mech mascots. This post is an essential resource for Mech developers and enthusiasts looking to stay current with the latest developments in robotics and automation.
 
 🛠️ Platform Improvements
 --------------------------
 
 (1) Sub headings
 
+Previously, titles and subheadings were prepended with `#`, which could clash with the table declaration syntax. To resolve this issue, subheadings now have distinct formats for up to four different levels of headings. The new subheading format is as follows:
+
+```
+Title
+=======
+
+Subtitle
+----------
+
+(1) Subsection
+
+(b) Sub-Subsection
+```
+
 (2) Loading .mec files
+
+We've added the addition of the ability to load/download `.mec` and `.blx` files to satisfy dependencies. 
+
+Previously, the runtime could only download precompiled Rust machines. With this update, the you can now either download a `.mec` file and compile it, or download a precompiled `.blx` file and load it directly.
 
 🐠 Ecosystem
 --------------
 
 (1) REPL Improvements
 
-- Saving and Loading
+It is now possible to load `.mec` and `.blx` files from disk directly into the REPL using the `:load` command. For example, to load a file named `program.mec` in the current directory, you would run:
+
+```
+>: :load my_program.mec
+```
+
+In addition, it is now possible to save the state of the REPL into a `.blx` file using the `:save` command. This feature allows developers to save their work in progress and return to it later. To save the current state of the REPL into a file named `state.blx` in the current directory, you would run:
+
+```
+>: :save state.blx
+```
 
 (2) Notebook Editors Improvements
 
@@ -28,7 +56,10 @@
 (3) Language Server Protocol implementation
 
 - syntax highlighting
-- 
+- jump to definition
+
+list the other features
+
 
 📖 Documentation
 ------------------
@@ -36,6 +67,10 @@
 (1) Grammar Update
 
 (2) Language Spec
+
+(3) AI Docs
+
+We're using ChatGPT to write a lot of these docs, and this blog post as well.
 
 🏫 Outreach
 -------------
