@@ -140,80 +140,125 @@ With the update operator and table swizzling, this can be condensed into a singl
 
 This example demonstrates how update operators can make code more concise and efficient, while also reducing the need for intermediate tables.
 
-(7) Title and subtitle syntax deprecated and replaced
+(7) Deprecating and Replacing Title and Subtitle Syntax
 
-I've always been a little uneasy about the header and subheader syntax using hashtags, which conforms to Markdown but potentially clashes with the global table select operator. To remove this potential point of confusion, I've switched to using the alternative Markdown header, which uses an underline of = or - to indicate a header and subheader respectively. The source for this document uses the new syntax. You can also see it in action in some of the examples.
+We have been concerned about the use of hashtags for header and subheader syntax, as it follows the Markdown convention but could potentially conflict with Mech's global table select operator. To eliminate this potential confusion, we have decided to adopt the alternative Markdown header syntax, which uses an underline of `=` or `-` to indicate headers and subheaders, respectively. The new syntax looks like this:
 
-(8) Faster parsing (100x speed increase)
+```
+Title
+=======
 
-Inside of the parsing module, we were inefficiently using `String` types as opposed to `&str` types. By converting to use an &str, we were able to speed up the parser by 100 fold. Obviously this means a lot of unneeded allocations were eliminated!
+Section Title
+---------------
+```
+
+This document's source and the various examples in the Mech examples directory demonstrate the new syntax. By adopting this alternative syntax, we aim to make the Mech language more intuitive and user-friendly, minimizing confusion between different syntax elements.
+
+(8) Boosting Parser Speed (100x Speed Increase)
+
+We identified inefficiencies within the parsing module, specifically the use of String types instead of &str types. By transitioning to &str, we achieved a remarkable 100-fold increase in parser speed. This improvement highlights the elimination of numerous unneeded allocations, leading to a significant performance boost for the Mech language parser!
 
 🐠 Ecosystem
 -------------
 
-(1) Smaller binaries (10x reduction)
+(1) Smaller Binaries (10x Reduction)
 
-I've managed to cut down on the size of machine binaries by about an order of magnitude (from 8mb down to 800kb), which is a great savings. This was accomplished in two ways. First, I cut out a lot of redundant code that's not being used in the dependent repositories. Machines usually depend on `core` and `utilities`. Core depends on rayon and brings in the entire standard machine, which typically go unused in machine implementations. These are now both behind feature flags in core. Likewise, utilities has a definition for a type that uses a websocket, which itself depends on tokio. Bringing all of tokio in for a machine took up a lot of space, so now that is behind a feature flag as well. Eschewing this unused code saves most of the space in binaries.
+We've achieved a significant reduction in the size of machine binaries, decreasing them by an order of magnitude (from 8MB to 800KB). This improvement was accomplished in two ways:
 
-Second, after the binary is compiled, I use the upx executable packer to make the machine even smaller (nominally a 50% savings over the regularly compiled file).
+First, we eliminated redundant code in the dependent repositories. Machines typically depend on core and utilities. The core dependency includes rayon and the entire standard machine, which often go unused in machine implementations. These are now behind feature flags in core. Similarly, utilities has a type definition using a websocket, which depends on tokio. Importing all of tokio for a machine consumed considerable space, so this is now behind a feature flag as well. Removing this unused code accounts for most of the space savings in binaries.
 
-I'm sure there should be a way to get even greater savings, as a lot of the code that is included in these binaries is available in the Mech executable anyway. One thing to look at in the future is excising this code from the compiled machine, and linking to it in the Mech executable. Unfortunately, that's a long term task, but in the meantime a 10x reduction is satisfactory.
+Second, after compiling the binary, we utilized the UPX executable packer to further reduce the machine size (approximately a 50% savings over the regular compiled file).
 
-(2) `matrix` machine
+While we believe there's potential for even greater savings, considering a lot of the code included in these binaries is available in the Mech executable, a long-term task would be to remove this code from the compiled machine and link it to the Mech executable. In the meantime, a 10x reduction is a substantial improvement.
 
-The `matrix` machine is brand new and will include a variety of linear algebra related functions. By default, matrix/multiply and matrix/transpose are included in the standard machine, and exposed to the programmer through builtin operators. The rest of the machine will wrap a number of functions from the rust nl algebra crate so that they will work through Mech.
+(2) matrix Machine
 
-(3) `gui` machine
+Introducing the new matrix machine, which offers a range of linear algebra-related functions. By default, matrix/multiply and matrix/transpose are included in the standard machine and made available to programmers through built-in operators. The matrix machine wraps several functions from the Rust nalgebra crate, allowing seamless integration with Mech. This addition enriches Mech's capabilities and provides users with a powerful set of tools for linear algebra operations.
 
-The `gui` machine includes a number of tables that help with drawing native interface elements. It leverages the Rust egui framework for most of this work, with custom wrappers to make the elements reactive. The `gui` machine has so far existed inside of notebook2 (now just notebook), but now I've moved most of the code out of there and into this machine. This means that the the remaining notebook code is now mostly implemented in just Mech.
+(3) gui Machine
+
+The gui machine incorporates various tables that aid in rendering native interface elements. It primarily utilizes the Rust egui framework, along with custom wrappers that make the elements reactive. Previously, the gui machine was a part of the notebook2 (now simply notebook), but we have since extracted most of its code into a separate machine. As a result, the remaining notebook code is now predominantly implemented using Mech, streamlining the overall organization and functionality.
 
 Haocheng was able to extend the library features enough to be able to draw this angry giraffe:
 
 <img src="images/giraffe.gif" />
 
-(4) Self-Contained Executables 
+(4) html machine
 
-Mech GUI applications are packaged using hte gui crate. The way this works is that Mech starts an `egui` desktop engine and uses one or more Mech cores to update the GUI display in a loop according to some loaded Mech program that defines App's behavior. While this is a totoally valid design, the GUI executable is not self-contained (i.e. in a single binary executable) - we either had to allow a `.mec` file to be separated from the executable, or to include the Mech program as a string constant inside the executable, and recompile the executable everytime the Mech program is modified. 
+Similar to the `gui` machine, the html machine was previously integrated within the wasm repository. Its primary functions are drawing to canvas and rendering HTML elements. Now, all of the relevant code has been moved into its own separate machine, which has become a dependency of wasm. This change not only improves the code organization but also paves the way for easier maintenance and further development of both the html machine and the wasm repository.
 
-The CSE Capston group implemented a prototype executable builder that solves this problem and allows a self-contained GUI executable to be built from any `.mec` file.
+(5) Self-Contained Executables 
 
-(5) `html` machine
+Mech GUI applications are packaged using the gui crate. This works by having Mech initiate an egui desktop engine and employ one or more Mech cores to update the GUI display in a loop, following a loaded Mech program that defines the App's behavior. However, this design has a limitation as the GUI executable is not self-contained - either a .mec file needs to be separate from the executable or the Mech program has to be included as a string constant within the executable, requiring recompilation each time the Mech program is modified.
 
-Like `gui`, the `html` machine has existed inside of the wasm repository. It helps with drawing to canvas and rendering HTML elements. Now all that code has been moved into its own machine, which is a dependency of wasm. I think this organizes things a little better, and wasm will slowly be converted into mostly Mech code.
+To address this issue, the CSE Capstone group has developed a prototype executable builder that enables the creation of a self-contained GUI executable from any .mec file. This solution streamlines the process, allowing for more efficient and user-friendly development of Mech GUI applications.
+
 
 (6) Notebook resurrection
 
-The old notebook repository is back from being an archived repository. Now it hosts the contents of notebook2, and notebook has been renamed to wasm-notebook. The main difference between these two offerings is that notebook (again formerly notebook2) makes use of the egui rust GUI framework, whereas wasm-notebook (formerly notebook) makes use of the rust websys framework.
+The previously archived notebook repository has been revived, now hosting the contents of what used to be notebook2. The original notebook has been renamed to wasm-notebook. The primary distinction between these two repositories is their underlying GUI frameworks. The notebook (previously known as notebook2) utilizes the egui Rust GUI framework, while wasm-notebook (previously called notebook) relies on the Rust websys framework. This renaming and reorganization clarify the differences between the two repositories and make it easier for users to choose the appropriate solution based on their preferred GUI framework.
+
+A little confusing, but we can move past that.
 
 (7) Repository reshuffle redux
 
-In the Spring I made the various repositories of the Mech project into git submodules of the main Mech repo. Now I've move a bunch of those git submodules into the src directory, and I've renamed some of the folders. It should make the repo a little cleaner and easier to work with for developers working on the runtime.
+During the spring, the Mech project repositories were converted into git submodules of the main Mech repo. Recently, several of these git submodules have been relocated to the src directory, and some folder names have been changed. These adjustments aim to streamline the repo's structure, making it cleaner and more user-friendly for developers working on the runtime.
 
 📖 Documentation
 -----------------
 
 (1) New doc structure
 
-The documentation will have a new structure, and will be oganized into the following categories: 
+The documentation for Mech is being restructured to improve organization and accessibility. The new layout will be divided into the following categories:
 
-- getting started - welcome, install, running, quickstart, help
-- reference - core langauge, writing programs, design documents
-- machines - standard machine references
-- guides - mech-for-x, tutorials, how tos
+- Getting Started - Welcome, Install, Running, Quickstart, Help
+- Reference - Core Language, Writing Programs, Design Documents
+- Machines - Standard Machine References
+- Guides - Mech-for-X, Tutorials, How-tos
 
-I don't have much to say about these yet, as I've mostly just updated the formatting and outlined the sections. This is where most of the work still needs to be done before the beta can be released.
+Although the formatting has been updated and the sections outlined, there is still considerable work to be done in these areas. The completion of the documentation is a crucial step before the beta release can be launched.
 
 (2) EKF localization example
 
-One piece of feedback from the IROS submission was that the reviewers didn't find the example bouncing ball simulation illustrative enough due to its simplicity. They said they couldn't get a good idea of the extent of Mech's capabilities without a more representative example program. To fix this in the ICRA paper, I implemented a simulation of an Extended Kalman Filter localization algorithm in Mech, which you can find in the examples repository [here](https://gitlab.com/mech-lang/examples/-/blob/v0.1-beta/src/ekf.mec). This was made possible by the addition of builtin matrix operators.
+The feedback from the IROS submission highlighted the need for a more representative example program to showcase Mech's capabilities. To address this concern, an Extended Kalman Filter (EKF) localization algorithm was implemented in Mech. You can find the example in the repository here. The addition of built-in matrix operators made this possible.
 
-A couple things are neat about this. First, it demonstrates unicode support by way of greek symbols as variable names. Second, at roughly 20 lines of code, the length of the algorithm in Mech is just about as long as the algorithm as expressed in mathematical notation. Third, implementing this algorithm was dead simple. It was a near 1:1 translation from the source algorithm, and it worked like a charm.
+Some interesting aspects of this example include:
 
-Finally, the biggest thing I learned from this example is that Mech is *way* faster than Matlab. I have an implementation of the EKF localization algorithm in Matlab, so a direct comparison was possible. Here are the results:
+- Unicode support is demonstrated through the use of Greek symbols as variable names.
+- The Mech implementation of the EKF algorithm is roughly 20 lines of code, which is similar in length to the algorithm expressed in mathematical notation.
+- The implementation process was straightforward and closely followed the source algorithm, resulting in a smooth and successful execution.
+
+Moreover, a significant finding from this example is that Mech demonstrates a much faster performance than Matlab. With an EKF localization algorithm implemented in both languages, a direct comparison was made, and Mech significantly outperformed Matlab.
 
 (3) Machine index files
 
 Each machine now includes an index file (written in Mech) that explains the purpose and contents of the machine. It will act as a table of contents for the machine, as well as the first page of documentation. A sample abriged index looks like this:
+
+```
+math
+=====
+
+1. Description
+---------------
+
+Provides standard mathematical functions.
+
+2. Provided Functions
+----------------------
+
+- math/sin(angle<f32>)
+- math/sin(angle<degrees>)
+
+3. Info
+--------
+
+#math/machine = [
+  name: "math" 
+  version: "v0.1.0"
+  authors: ["Corey Montella", "Haocheng Gao"] 
+  machine-url: "https://gitlab.com/mech-lang/machines/math"
+  license: "Apache-2.0"]
+```
 
 You can find the full index [here](https://github.com/mech-machines/math/blob/main/index.mec)
 
@@ -222,23 +267,27 @@ You can find the full index [here](https://github.com/mech-machines/math/blob/ma
 
 (1) PLDI ARRAY workshop presentation
 
-On June 13, I presented Mech at the PLDI ARRAY Workshop in San Diego, California, USA. The presentation I gave was a modification of the 10 minute talk I did for HYTRADBOI, but I had over twice as long to speak so I was able to get a little more in depth, and I was able to give a live demo of some of the features. 
+On June 13, I had the opportunity to present Mech at the PLDI ARRAY Workshop in San Diego, California, USA. The presentation was an extended version of the 10-minute talk I gave for HYTRADBOI, allowing me to delve deeper into the subject matter and showcase more of Mech's features.
 
-There's no recording of the talk available, but if you're interested in what was said you can take a look at the afforementioned HyTRADBOI talk for a good idea. 
+With over twice the amount of time to speak, I was able to provide a more comprehensive overview of Mech, its capabilities, and the problems it aims to solve. Additionally, the longer format allowed me to conduct a live demo, demonstrating some of Mech's unique features and functionality.
+
+Unfortunately, there is no recording of the talk available. However, if you're interested in the content of the presentation, you can refer to the aforementioned HYTRADBOI talk, which covers similar topics and provides a good overview of Mech's capabilities.
 
 (2) Forward Robotics
 
-If you're not aware yet, Forward Robotics is the outreach component of the Mech project which aims to educate kids about robotics. 
+Forward Robotics is the outreach component of the Mech project, aiming to educate kids about robotics and inspire their interest in STEM fields.
 
 (a) Summer CHOICES
 
-Forward Robotics was involved in several outreach programs over the summer which helped test Mech for one of its intended audiences: students brand new to programming. 
+Over the summer, Forward Robotics participated in several outreach programs, providing an opportunity to test Mech with one of its target audiences: students who are new to programming.
 
-In the Spring we participated in the CHOICES program that teaches middle school girls about various STEM topics including robotics. This Summer we repeated the program with more students, with as many as 60 students. This was the largest offering of the FR program to date.
+In the spring, we took part in the CHOICES program, which introduces middle school girls to various STEM topics, including robotics. This summer, we expanded the program to reach even more students, with up to 60 participants. This marked the largest offering of the Forward Robotics program to date.
 
 (b) PreLUsion
 
-Lehigh offers the PreLUsion program to incoming freshman before the semester starts. It provides first year students with a variety of activities that help them bond and get excited about learning in a university setting. Forward Robotics participated in the Lehigh Women Engineers version of the program which is restricted to female students interested in Engineering. We ran mostly the same experience as the CHOICES program, and it turned out to be fun even for older girls. Several students expressed interest in Mech and Forward Robotics after doing the activity, so hopefully they will join the project soon enough!
+Lehigh University offers the PreLUsion program to incoming freshmen before the semester starts. This program provides first-year students with a range of activities designed to help them bond and become excited about learning in a university environment. Forward Robotics participated in the Lehigh Women Engineers version of the program, which is tailored to female students interested in engineering.
+
+We offered an experience similar to the CHOICES program, and it proved to be enjoyable for the older participants as well. Several students expressed interest in Mech and Forward Robotics after completing the activity, and we hope they will join the project in the near future!
 
 🤝 Project and Community
 -------------------------
