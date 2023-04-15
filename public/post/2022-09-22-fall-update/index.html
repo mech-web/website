@@ -1,4 +1,32 @@
-    
+<style type="text/css">
+.user-function {
+  display: block;
+  background-color: #17151E;
+  color: #E3E1EA;
+  padding: 10px;
+  font-family: monospace;
+  line-height: 20px;
+  border-radius: 3px;
+}
+.block {
+  display: block;
+  background-color: #17151E;
+  color: #E3E1EA;
+  padding: 10px;
+  font-family: monospace;
+  line-height: 20px;
+  border-radius: 3px;
+}
+.transformation {
+  display: block;
+}
+.number-literal {
+  color: #72CAAB;
+}
+.hashtag {
+  color: #B27E9B
+}
+</style>    
 <style type="text/css">
   .user-function {
     display: block;
@@ -36,166 +64,142 @@
         </p>
       </span>
       <span class="section">
-      <h2 class="section-title">🛠️ Platform Improvements</h1>
-        <p class="paragraph">
-          <span class="paragraph-text">1. User-defined functions</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The biggest change to Mech over the Summer was the addition of user-defined functions that can be written in Mech. For a long time, I didn't know if I wanted to include user-defined functions in Mech, because I wanted to see how far I could push the language without them. I still think they are mostly obviated by asynchronous blocks, but at the same time I think their inclusion in the language is important from the perspective of new learners coming from other languages, who may be used to defining programs in terms of function calls. The "weirdness budget" of any language is small, so this is one area I think I need to compromise on to make Mech more approachable.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Functions in Mech differ from blocks in that blocks they are idempotent, meaning that they are functions in the mathematical sense of being a pure mapping from input to output; no side-channels are allowed. For Mech, this means that functions can only operate on their input arguments, and cannot select any global tables in the body of the function. This also means that Mech functions cannot write to global tables. The implication is that the set operators (:=, :+=, etc.) and the append operator (+=) cannot be used in function bodies, as well as temporal operators like whenever (~). It also means that functions cannot read from or write to any machine-related tables, which by definition interact with the outside world and would introduce side effects. However, it's completely fine for Mech functions to call other Mech functions.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">A Mech function is defined like this:</span>
-        </p>
-        <span class="user-function">
-          <span class="function-args">
-            <span class="function-output">
-x              <span class="kind-annotation">
-f32              </span>
+      <h2 class="level-1-title">🛠️ Platform Improvements</h2>
+        <span class="section">
+        <h3 class="level-2-title">User-defined functions</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">A significant change in Mech this summer was the introduction of user-defined functions. Initially, I was hesitant to include them, wanting to explore the language's potential without them. Although asynchronous blocks may often replace user-defined functions, their inclusion benefits new learners familiar with function calls in other languages. This compromise makes Mech more approachable.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Mech functions differ from blocks due to their idempotency, meaning they're pure mappings from input to output without side channels. Functions in Mech can only operate on input arguments and cannot access global tables or manipulate them. They also can't use set operators, append operators, or temporal operators. Functions can't interact with machine-related tables either, but they can call other Mech functions.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">A Mech function is defined as follows:</span>
+          </p>
+          <span class="user-function">
+            <span class="function-args">
+              <span class="function-output">
+x                <span class="kind-annotation">
+f32                </span>
+              </span>
             </span>
-          </span>
-add-two          <span class="function-args">
-            <span class="function-input">
-y              <span class="kind-annotation">
-f32              </span>
+add-two            <span class="function-args">
+              <span class="function-input">
+y                <span class="kind-annotation">
+f32                </span>
+              </span>
             </span>
-          </span>
-          <span class="function-body">
-            <span class="transformation">
-              <span class="statement">
-<span class="local-variable">x</span> =                   <span class="expression">
-                    <span class="math-expression">
-<span class="local-variable">y</span> + <span class="number-literal">2</span>                    </span>
-                  </span>
+            <span class="function-body">
+              <span class="transformation">
+                <span class="statement">
+<span class="local-variable">x</span> =                     <span class="expression">
+                      <span class="math-expression">
+<span class="local-variable">y</span> + <span class="number-literal">2</span>                      </span>
+                    </span>
+                </span>
               </span>
             </span>
           </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">Inside the brackets is a list of variables, defined in the function body, which are the output of the function. Mech functions can output as many tables as the programmer likes. For instance:</span>
-        </p>
-        <span class="user-function">
-          <span class="function-args">
-            <span class="function-output">
-x              <span class="kind-annotation">
-f32              </span>
-            </span>
-            <span class="function-output">
-z              <span class="kind-annotation">
-f32              </span>
-            </span>
-          </span>
-add-mul-two          <span class="function-args">
-            <span class="function-input">
-y              <span class="kind-annotation">
-f32              </span>
-            </span>
-          </span>
-          <span class="function-body">
-            <span class="transformation">
-              <span class="statement">
-<span class="local-variable">x</span> =                   <span class="expression">
-                    <span class="math-expression">
-<span class="local-variable">y</span> + <span class="number-literal">2</span>                    </span>
-                  </span>
+          <p class="paragraph">
+            <span class="paragraph-text">The brackets contain variables defined in the function body, which represent the function's output. Mech functions can output multiple tables as needed. Example:</span>
+          </p>
+          <span class="user-function">
+            <span class="function-args">
+              <span class="function-output">
+x                <span class="kind-annotation">
+f32                </span>
+              </span>
+              <span class="function-output">
+z                <span class="kind-annotation">
+f32                </span>
               </span>
             </span>
-            <span class="transformation">
-              <span class="statement">
-<span class="local-variable">z</span> =                   <span class="expression">
-                    <span class="math-expression">
-<span class="local-variable">y</span> * <span class="number-literal">2</span>                    </span>
-                  </span>
+add-mul-two            <span class="function-args">
+              <span class="function-input">
+y                <span class="kind-annotation">
+f32                </span>
               </span>
             </span>
-          </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">After the output list follows the name of the function, an then an input argument list. The argument name and kind are listed in the argument list, and again there can be as many as the programmer likes. The body of the function must define the output argument at some point, or a compiler error will result. If an input is unused in the body, a compiler warning will alter the programmer.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The function would be called like this:</span>
-        </p>
-        <span class="statement">
-<span class="local-variable">x</span> =             <span class="expression">
-              <span class="math-expression">
-<span class="function-name">add-two</span>(                  <span class="function-binding">
-y                    <span class="expression">
-<span class="number-literal">10</span>                    </span>
-                  </span>
-)              </span>
-            </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">Dynamic dispatch is a major feature of Mech, and we want to be able to support this feature with user defined functions. To do this, we can allow function definition overloading, which will allow the user to define multiple functions with the same name and different parameters. For example, the </span>
-          <span class="inline-code">
-            <span class="string">add-two()</span>
-          </span>
-          <span class="paragraph-text">function for </span>
-          <span class="inline-code">
-            <span class="string">u64</span>
-          </span>
-          <span class="paragraph-text">kind could be defined like this:</span>
-        </p>
-        <span class="user-function">
-          <span class="function-args">
-            <span class="function-output">
-x              <span class="kind-annotation">
-u64              </span>
-            </span>
-          </span>
-add-two          <span class="function-args">
-            <span class="function-input">
-y              <span class="kind-annotation">
-u64              </span>
-            </span>
-          </span>
-          <span class="function-body">
-            <span class="transformation">
-              <span class="statement">
-<span class="local-variable">x</span> =                   <span class="expression">
-                    <span class="math-expression">
-<span class="local-variable">y</span> + <span class="number-literal">2</span>                    </span>
-                  </span>
+            <span class="function-body">
+              <span class="transformation">
+                <span class="statement">
+<span class="local-variable">x</span> =                     <span class="expression">
+                      <span class="math-expression">
+<span class="local-variable">y</span> + <span class="number-literal">2</span>                      </span>
+                    </span>
+                </span>
+              </span>
+              <span class="transformation">
+                <span class="statement">
+<span class="local-variable">z</span> =                     <span class="expression">
+                      <span class="math-expression">
+<span class="local-variable">y</span> * <span class="number-literal">2</span>                      </span>
+                    </span>
+                </span>
               </span>
             </span>
           </span>
+          <p class="paragraph">
+            <span class="paragraph-text">After the output list is the function name and an input argument list. The body of the function must define the output argument, or a compiler error will occur. If an input is unused in the body, a compiler warning alerts the programmer.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">To call the function:</span>
+          </p>
+          <span class="statement">
+<span class="local-variable">x</span> =               <span class="expression">
+                <span class="math-expression">
+<span class="function-name">add-two</span>(                    <span class="function-binding">
+y                      <span class="expression">
+<span class="number-literal">10</span>                      </span>
+                    </span>
+)                </span>
+              </span>
+          </span>
+          <p class="paragraph">
+            <span class="paragraph-text">Dynamic dispatch is crucial in Mech, so function definition overloading allows users to define multiple functions with the same name but different parameters. For instance:</span>
+          </p>
+          <span class="user-function">
+            <span class="function-args">
+              <span class="function-output">
+x                <span class="kind-annotation">
+u64                </span>
+              </span>
+            </span>
+add-two            <span class="function-args">
+              <span class="function-input">
+y                <span class="kind-annotation">
+u64                </span>
+              </span>
+            </span>
+            <span class="function-body">
+              <span class="transformation">
+                <span class="statement">
+<span class="local-variable">x</span> =                     <span class="expression">
+                      <span class="math-expression">
+<span class="local-variable">y</span> + <span class="number-literal">2</span>                      </span>
+                    </span>
+                </span>
+              </span>
+            </span>
+          </span>
+          <p class="paragraph">
+            <span class="paragraph-text">Now add-two() can be called with both u64 and f32 types. However, this requires duplication for every numeric type. A future "typeclasses" feature may enable a single function definition for all supported numeric types, but for now, duplication is necessary.</span>
+          </p>
         </span>
-        <p class="paragraph">
-          <span class="paragraph-text">And now we have a function that will be able to call </span>
-          <span class="inline-code">
-            <span class="string">add-two()</span>
-          </span>
-          <span class="paragraph-text">with </span>
-          <span class="inline-code">
-            <span class="string">u64</span>
-          </span>
-          <span class="paragraph-text">and </span>
-          <span class="inline-code">
-            <span class="string">f32</span>
-          </span>
-          <span class="paragraph-text">types. Now, this will mean that there will have to be a lot of duplication to support every numeric type. Perhaps in the future we will add a feature like "typeclasses", which would allow a user to define one function for all supported numeric types. But for now, this is what we have to do.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">2. Matrix operators</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">For a long time Mech has aspired to compete with Matlab when it comes to manipulating matricies. We've had broadcast semantics on vectors and tables for a while, but now we've finally gotten bonefide matrix operators in Mech that even go beyond what Matlab has to offer. </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">a) Matrix multiply</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">First and foremost, we've implemented matrix multiplaction as a built-in operator </span>
-          <span class="inline-code">
-            <span class="string">**</span>
-          </span>
-          <span class="paragraph-text">. For instance, we can multiply two matricies together like this with the following result:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
+        <span class="section">
+        <h3 class="level-2-title">Matrix Operators</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">For a long time Mech has aspired to compete with Matlab when it comes to manipulating matricies. We've had broadcast semantics on vectors and tables for a while, but now we've finally gotten bonefide matrix operators in Mech that even go beyond what Matlab has to offer. </span>
+          </p>
+          <span class="section">
+          <h4 class="level-3-title">Matrix Multiply</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">We've implemented matrix multiplication using the built-in </span>
+              <span class="inline-code">
+                <span class="string">**</span>
+              </span>
+              <span class="paragraph-text">operator. For example, multiplying two matrices can be done like this:</span>
+            </p>
             <span class="statement">
               <span class="hashtag">#</span><span class="global-variable">x</span><span class="equal"> = </span>
                 <span class="expression">
@@ -221,38 +225,34 @@ u64              </span>
 <span class="bracket">]</span>)                  </span>
                 </span>
             </span>
+            <p class="paragraph">
+              <span class="paragraph-text">The operation follows the rule that the number of rows in the left-hand opernd must equal the number of columns in the right-hand side operand. Currently, it only works for f32 kind matrices.</span>
+            </p>
+            <p class="paragraph">
+              <span class="paragraph-text">The reason we've opted for a unique operator </span>
+              <span class="inline-code">
+                <span class="string">**</span>
+              </span>
+              <span class="paragraph-text">instead of the Matlab style single </span>
+              <span class="inline-code">
+                <span class="string">*</span>
+              </span>
+              <span class="paragraph-text">is that in Mech, the single </span>
+              <span class="inline-code">
+                <span class="string">*</span>
+              </span>
+              <span class="paragraph-text">is already a broadcast operator, whereas Matlab uses </span>
+              <span class="inline-code">
+                <span class="string">.*</span>
+              </span>
+              <span class="paragraph-text">to broadcast the multiply operator.</span>
+            </p>
           </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">The will work for any matrix that follow the rule that the left hand side rows must equal the right hand side columns. Any other combination will yield an error and the operation will fail. So far, this works only for matricies that are entirely of kind f32; compound-kind tables and tables of other numeric kinds haven't been implemented yet.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The reason we've opted for a unique operator </span>
-          <span class="inline-code">
-            <span class="string">**</span>
-          </span>
-          <span class="paragraph-text">instead of the Matlab style single </span>
-          <span class="inline-code">
-            <span class="string">*</span>
-          </span>
-          <span class="paragraph-text">is that in Mech, the single </span>
-          <span class="inline-code">
-            <span class="string">*</span>
-          </span>
-          <span class="paragraph-text">is already a broadcast operator, whereas Matlab uses </span>
-          <span class="inline-code">
-            <span class="string">.*</span>
-          </span>
-          <span class="paragraph-text">to broadcast the multiply operator.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">b) Transpose</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Transposing tables is done with the apostraphe operator appended to any expression, like so:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
+          <span class="section">
+          <h4 class="level-3-title">Transpose</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">Transposing tables is accomplished with the apostrophe operator:</span>
+            </p>
             <span class="statement">
               <span class="hashtag">#</span><span class="global-variable">y</span><span class="equal"> = </span>
                 <span class="expression">
@@ -264,19 +264,15 @@ u64              </span>
 <span class="number-literal">3</span>                        </span>
 <span class="bracket">]</span>                </span>
             </span>
+            <p class="paragraph">
+              <span class="paragraph-text">Matlab users will be familiar with this operator. However, it currently only works for tables of a uniform kind; after evaluating a transpose, column names are lost. Implementing named rows may be a future solution.</span>
+            </p>
           </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">Users of Matlab will be familiar with this operator and its useage. For now, it only works when the entire table is of a uniform kind. A downside rightnow is that after evaluating a transpose, the names of columns are lost. I'm not sure what we'll dow with this in the future, but named rows has been on the agenda for a while, and it might be time to implement those.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">c) Swizzling</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">As a Matlab user myself, swizzling is a term I was was unfamiliar with until recently, because it's not a feature of that language. It's a term coming from the computer graphics world, which Wikipedia defines as "ability to compose vectors by arbitrarily rearranging and combining components of other vectors." With typed columns in Mech, swizzling is a feature that can help programmers write very terse code with used in conjunction with broadcast and matrix operators. Here's an example of swizzling working in Mech:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
+          <span class="section">
+          <h4 class="level-3-title">Swizzling</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">Swizzling, a term from the computer graphics world, allows composing vectors by rearranging and combining components of other vectors. Mech's typed columns enable swizzling to help write concise code in combination with broadcast and matrix operators. Here's an example:</span>
+            </p>
             <span class="statement">
 <span class="local-variable">x</span> =                 <span class="expression">
 <span class="bracket">[</span><span class="parameter">a:</span>                       <span class="expression">
@@ -289,8 +285,6 @@ u64              </span>
 <span class="number-literal">4</span>                      </span>
 <span class="bracket">]</span>                </span>
             </span>
-          </span>
-          <span class="transformation">
             <span class="statement">
               <span class="hashtag">#</span><span class="global-variable">z</span><span class="equal"> = </span>
                 <span class="expression">
@@ -300,441 +294,520 @@ acc                          </span>
             </span>
           </span>
         </span>
-        <p class="paragraph">
-          <span class="paragraph-text">3. Parser error messages</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Haocheng Gao has done significant work toward making error messages more readable in Mech. In the last update, we added error indications for semantic compiletime errors, which was much needed but still not enough to help the newest users, who will encounter syntax errors frequently.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Haocheng has retrofitted the parser to allow us to generate detailed parser errors with information as to what the error is, where in the source file it occurred, and perhaps also hints on how to fix it. Here's an example of what error messages look like so far:</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text"><img src="images/error.png"/></span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">To generate these messages, Haocheng retrofitted the parser with a series of tags that annotate the various paerser combinators and help with generating relevent and informative packets of information which are later rendered as messages in whatever context the program is running (editor, console, browser, etc.)</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">> Mech's parser has been extended to produce helpful error message and to make good attempts to recover from common errors.  Previously, the only feedback the parser offered when it's given invalid input is throwing out a generic error that says the input didn't parse. Now with the new extensions, the parser can actually print out the portion of the source code that contains the error, as well as pointing the user to where and what went wrong, with annotations and carefully-written error messages.  </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">> This is yet annother attempt to improve user experience for the upcomming release in October, 2022. As a learner of Mech, I myself initially suffered from syntax errors because of Mech's rather uncommon grammar comparing to some traditional imperative languages like C and Java, and there was nothing to inform me about what I did wrong. Having struggled through that, I sincerely hope our new feature can minimize the chance of such incident from happening again.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">4. Dynamic tables</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">In many programs, we can statically analyze the shapes of tables and figure out the size of all dependent tables at compile time. Other times, the shape of the table is based on some variable which might change. For example, the table append operator will </span>
-          <span class="inline-code">
-            <span class="string">+=</span>
+        <span class="section">
+        <h3 class="level-2-title">Improved Parser Error Messages</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Haocheng Gao has made significant progress in making Mech's error messages more readable. While the previous update addressed semantic compile-time errors, it was still challenging for new users who frequently encounter syntax errors.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Now, Haocheng has revamped the parser to generate detailed error messages that inform users about the error type, its location in the source file, and possibly offer hints for fixing it. Here's an example of the improved error messages:</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text"><img src="images/error.png"/></span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Haocheng has tagged various parser combinators to generate relevant and informative messages that are rendered contextually, whether in an editor, console, or browser.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">> Mech's parser now produces helpful error messages and makes an effort to recover from common errors. Previously, it only provided a generic error message for invalid inputs. With the new extensions, the parser can display the source code portion containing the error and guide users to identify and fix the issue with annotations and well-crafted error messages.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">> This enhancement is part of our ongoing efforts to improve user experience for the upcoming Fall 2022 release. As a Mech learner, I initially struggled with syntax errors due to Mech's unique grammar compared to traditional imperative languages like C and Java, and there was no guidance on correcting my mistakes. I hope our new feature will prevent such difficulties for future learners.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Dynamic Tables</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">In numerous programs, we can analyze table shapes statically and determine the size of dependent tables at compile time. However, sometimes table shapes depend on variables that might change. Dynamic tables come into play when table sizes need to adapt during runtime. Two common scenarios involving dynamic tables are appending new elements to a table and filtering a table using logical indexing.</span>
+          </p>
+          <span class="section">
+          <h4 class="level-3-title">Table Append Operator (+=)</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">The table append operator (</span>
+              <span class="inline-code">
+                <span class="string">+=</span>
+              </span>
+              <span class="paragraph-text">) allows a table to grow dynamically during runtime. For instance, consider a program that accumulates data from a sensor:</span>
+            </p>
+            <span class="block">
+              <span class="transformation">
+                <span class="statement">
+<span class="hashtag">#</span><span class="global-variable">acumulated-data</span> += <span class="hashtag">#</span><span class="global-variable">sensor</span>.data                </span>
+              </span>
+            </span>
+            <p class="paragraph">
+              <span class="paragraph-text">As the </span>
+              <span class="inline-code">
+                <span class="string">#sensor</span>
+              </span>
+              <span class="paragraph-text">table updates, the latest data reading is appended to the </span>
+              <span class="inline-code">
+                <span class="string">#acumulated-data</span>
+              </span>
+              <span class="paragraph-text">table, which means it will grow unbounded. Since Mech tables are backed by Rust vectors, reallocations will happen in the same way. Discuss how they happen in rust.</span>
+            </p>
           </span>
-          <span class="paragraph-text">dynamically grow a table during runtime; or when filtering a table using logical indexing, the resulting table's size will depend on how many rows in the logical index variable are true.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">5. table/flatten operator (-<)</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The table split operator (>-) has been implemented for a while. This turns a vector into a vector of fectors, which is useful in combination with table interpolation. For example, we can split a column of numbers as follows:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
-            <span class="statement">
-<span class="local-variable">x</span> =                 <span class="expression">
-<span class="bracket">[</span>                        <span class="expression">
-<span class="number-literal">1</span>                        </span>
+          <span class="section">
+          <h4 class="level-3-title">Filtering a Table Using Logical Indexing</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">When filtering a table using logical indexing, the resulting table's size depends on how many rows in the logical index variable are true. For example, consider a table of students and their test scores:</span>
+            </p>
+            <span class="block">
+              <span class="transformation">
+                <span class="statement">
+<span class="local-variable">ix</span> =                     <span class="expression">
+                      <span class="math-expression">
+<span class="hashtag">#</span><span class="global-variable">students</span>.score > <span class="hashtag">#</span><span class="global-variable">threshold</span>                      </span>
+                    </span>
+                </span>
+              </span>
+              <span class="transformation">
+                <span class="statement">
+                  <span class="hashtag">#</span><span class="global-variable">passed-students</span><span class="equal"> = </span>
+                    <span class="expression">
+<span class="hashtag">#</span><span class="global-variable">students</span><span class="bracket">{</span><span class="local-variable">ix</span><span class="bracket">}</span>                    </span>
+                </span>
+              </span>
+            </span>
+            <p class="paragraph">
+              <span class="paragraph-text">In this case, the </span>
+              <span class="inline-code">
+                <span class="string">#passed-students</span>
+              </span>
+              <span class="paragraph-text">table contains only the students with scores higher than </span>
+              <span class="inline-code">
+                <span class="string">#threshold</span>
+              </span>
+              <span class="paragraph-text">. The size of this resulting table is determined during runtime, as it depends on the number of students meeting the specified condition, which can both be dynamic. Therefore the size of </span>
+              <span class="inline-code">
+                <span class="string">#passed-students</span>
+              </span>
+              <span class="paragraph-text">can't be determiend at compile time.</span>
+            </p>
+            <p class="paragraph">
+              <span class="paragraph-text">Dynamic tables can impact performance due to memory reallocations and the inability to optimize table sizes at compile time. Memory reallocations can be expensive if they occur frequently. Additionally, dynamic table sizes make it challenging to apply certain optimizations that rely on fixed-size data structures.</span>
+            </p>
+            <p class="paragraph">
+              <span class="paragraph-text">However, since tables are implemented using Rust vectors helps mitigate these performance concerns. Rust's exponential growth strategy for vector capacities minimizes the number of reallocations required, and the language's safety features reduce the likelihood of memory-related bugs.</span>
+            </p>
+          </span>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Table Flatten Operator (-<)</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">The table split operator (</span>
+            <span class="inline-code">
+              <span class="string">>-</span>
+            </span>
+            <span class="paragraph-text">) converts a vector into a vector of vectors, which is particularly useful when combined with table interpolation. For instance, splitting a column of numbers can be done as follows:</span>
+          </p>
+          <span class="block">
+            <span class="transformation">
+              <span class="statement">
+<span class="local-variable">x</span> =                   <span class="expression">
+<span class="bracket">[</span>                          <span class="expression">
+<span class="number-literal">1</span>                          </span>
 
-                                  <span class="expression">
-<span class="number-literal">2</span>                        </span>
+                                     <span class="expression">
+<span class="number-literal">2</span>                          </span>
 
-                                  <span class="expression">
-<span class="number-literal">3</span>                        </span>
+                                     <span class="expression">
+<span class="number-literal">3</span>                          </span>
 
-                                  <span class="expression">
-<span class="number-literal">4</span>                        </span>
-<span class="bracket">]</span>                </span>
+                                     <span class="expression">
+<span class="number-literal">4</span>                          </span>
+<span class="bracket">]</span>                  </span>
+              </span>
             </span>
-          </span>
-          <span class="transformation">
-            <span class="statement">
-<span class="local-variable">y</span> >- <span class="local-variable">x</span>            </span>
-          </span>
-          <span class="transformation">
-            <span class="statement">
-<span class="local-variable">div</span> =                 <span class="expression">
-<span class="bracket">[</span><span class="parameter">kind:</span>                       <span class="expression">
-                        <span class="string">div</span>
-                      </span>
-<span class="clear">, </span><span class="parameter">contents:</span> <span class="local-variable">y</span><span class="bracket">]</span>                </span>
+            <span class="transformation">
+              <span class="statement">
+<span class="local-variable">y</span> >- <span class="local-variable">x</span>              </span>
             </span>
-          </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">The result is that </span>
-          <span class="inline-code">
-            <span class="string">y = [[1];[2];[3]]</span>
-          </span>
-          <span class="paragraph-text">and div will be:</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">That has been possible for a while, but now what's possible with the flatten operator (-<) is to take the split vector and to flatten it back into its original form. For example:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
-            <span class="statement">
-              <span class="inline-code">
-x<span class="local-variable">div</span>.contents              </span>
-            </span>
-          </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">This evaluated to </span>
-          <span class="inline-code">
-            <span class="string">x = [1; 2; 3; 4]</span>
-          </span>
-          <span class="paragraph-text">, which was the original vector.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">6. Update operators (:+=)</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">I've added a collection of update operators which aim to simplify both the syntax as well as the compiled block code. These operators perform a mathematical operation on a table and update it in place, without the need to create an intermediate table. This will save both space and time, as well as lines of code. The operators are </span>
-          <span class="inline-code">
-            <span class="string">:+=</span>
-          </span>
-          <span class="paragraph-text">, </span>
-          <span class="inline-code">
-            <span class="string">:-=</span>
-          </span>
-          <span class="paragraph-text">, </span>
-          <span class="inline-code">
-            <span class="string">:*=</span>
-          </span>
-          <span class="paragraph-text">, </span>
-          <span class="inline-code">
-            <span class="string">:/=</span>
-          </span>
-          <span class="paragraph-text">, </span>
-          <span class="inline-code">
-            <span class="string">:^=</span>
-          </span>
-          <span class="paragraph-text">, and </span>
-          <span class="inline-code">
-            <span class="string">:**=</span>
-          </span>
-          <span class="paragraph-text">, which correspond to the respective mathematical operator in the middle of each corresponding operator. For example:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
-            <span class="statement">
-              <span class="inline-code">
-                <span class="string"> old</span>
+            <span class="transformation">
+              <span class="statement">
+<span class="local-variable">div</span> =                   <span class="expression">
+<span class="bracket">[</span><span class="parameter">kind:</span>                         <span class="expression">
+                          <span class="string">div</span>
+                        </span>
+<span class="clear">, </span><span class="parameter">contents:</span> <span class="local-variable">y</span><span class="bracket">]</span>                  </span>
               </span>
             </span>
           </span>
-          <span class="transformation">
-            <span class="statement">
-<span class="local-variable">x</span> :=                 <span class="expression">
-                  <span class="math-expression">
-<span class="local-variable">x</span> + <span class="number-literal">5</span>                  </span>
-                </span>
+          <p class="paragraph">
+            <span class="paragraph-text">The result is y = [[1]; [2]; [3]; [4]], and the div will contain:</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">This functionality has been available for some time. However, the new flatten operator (</span>
+            <span class="inline-code">
+              <span class="string">-<</span>
             </span>
-          </span>
-          <span class="transformation">
-            <span class="statement">
-              <span class="inline-code">
-                <span class="string">new</span>
+            <span class="paragraph-text">) allows us to revert the split vector back to its original form. Here's an example:</span>
+          </p>
+          <span class="block">
+            <span class="transformation">
+              <span class="statement">
+                <span class="inline-code">
+x<span class="local-variable">div</span>.contents                </span>
               </span>
             </span>
           </span>
-          <span class="transformation">
-            <span class="statement">
-              <span class="inline-code">
-<span class="local-variable">x</span>                <span class="expression">
-<span class="number-literal">5</span>                </span>
+          <p class="paragraph">
+            <span class="paragraph-text">The evaluation results in x = [1; 2; 3; 4], which is the original vector.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Update Operators (:+=)</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">We have introduced a set of update operators to streamline syntax, compiled block code, and memory usage. These operators perform a mathematical operation on a table and update it in place, eliminating the need for an intermediate table. This saves space, time, and lines of code. The update operators are </span>
+            <span class="inline-code">
+              <span class="string">:+=</span>
+            </span>
+            <span class="paragraph-text">, </span>
+            <span class="inline-code">
+              <span class="string">:-=</span>
+            </span>
+            <span class="paragraph-text">, </span>
+            <span class="inline-code">
+              <span class="string">:*=</span>
+            </span>
+            <span class="paragraph-text">, </span>
+            <span class="inline-code">
+              <span class="string">:/=</span>
+            </span>
+            <span class="paragraph-text">, </span>
+            <span class="inline-code">
+              <span class="string">:^=</span>
+            </span>
+            <span class="paragraph-text">, and </span>
+            <span class="inline-code">
+              <span class="string">:**=</span>
+            </span>
+            <span class="paragraph-text">, each corresponding to their respective mathematical operator.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">For example:</span>
+          </p>
+          <span class="block">
+            <span class="transformation">
+              <span class="statement">
+                <span class="inline-code">
+                  <span class="string"> old</span>
+                </span>
               </span>
             </span>
-          </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">These new operators have the potential to yield great savings in syntax. Consider the pose update code from the bouncing balls demo:</span>
-        </p>
-        <span class="block">
-          <span class="transformation">
-            <span class="statement">
-<span class="hashtag">#</span><span class="global-variable">balls</span>.x :=                 <span class="expression">
-                  <span class="math-expression">
-<span class="hashtag">#</span><span class="global-variable">balls</span>.x + <span class="hashtag">#</span><span class="global-variable">balls</span>.vx * <span class="hashtag">#</span><span class="global-variable">dt</span>                  </span>
-                </span>
+            <span class="transformation">
+              <span class="statement">
+<span class="local-variable">x</span> :=                   <span class="expression">
+                    <span class="math-expression">
+<span class="local-variable">x</span> + <span class="number-literal">5</span>                    </span>
+                  </span>
+              </span>
             </span>
-          </span>
-          <span class="transformation">
-            <span class="statement">
-<span class="hashtag">#</span><span class="global-variable">balls</span>.y :=                 <span class="expression">
-                  <span class="math-expression">
-<span class="hashtag">#</span><span class="global-variable">balls</span>.y + <span class="hashtag">#</span><span class="global-variable">balls</span>.vy * <span class="hashtag">#</span><span class="global-variable">dt</span>                  </span>
+            <span class="transformation">
+              <span class="statement">
+                <span class="inline-code">
+                  <span class="string"> new</span>
                 </span>
+              </span>
             </span>
-          </span>
-        </span>
-        <p class="paragraph">
-          <span class="paragraph-text">This can be condensed into a single line of code with the update operator and table swizzling:  </span>
-        </p>
-        <span class="block">
-          <span class="transformation">
-            <span class="statement">
-              <span class="inline-code">
-<span class="hashtag">#</span><span class="global-variable">balls</span>                  <span class="inline-code">
-xy                  </span>
-                <span class="expression">
-                  <span class="math-expression">
-<span class="hashtag">#</span><span class="global-variable">balls</span>                        <span class="inline-code">
-vxvy                        </span>
- * <span class="hashtag">#</span><span class="global-variable">dt</span>                  </span>
+            <span class="transformation">
+              <span class="statement">
+                <span class="inline-code">
+<span class="local-variable">x</span>                  <span class="expression">
+<span class="number-literal">5</span>                  </span>
                 </span>
               </span>
             </span>
           </span>
+          <p class="paragraph">
+            <span class="paragraph-text">These new operators have the potential to significantly simplify the syntax. Consider the pose update code from the bouncing balls demo:</span>
+          </p>
+          <span class="block">
+            <span class="transformation">
+              <span class="statement">
+<span class="hashtag">#</span><span class="global-variable">balls</span>.x :=                   <span class="expression">
+                    <span class="math-expression">
+<span class="hashtag">#</span><span class="global-variable">balls</span>.x + <span class="hashtag">#</span><span class="global-variable">balls</span>.vx * <span class="hashtag">#</span><span class="global-variable">dt</span>                    </span>
+                  </span>
+              </span>
+            </span>
+            <span class="transformation">
+              <span class="statement">
+<span class="hashtag">#</span><span class="global-variable">balls</span>.y :=                   <span class="expression">
+                    <span class="math-expression">
+<span class="hashtag">#</span><span class="global-variable">balls</span>.y + <span class="hashtag">#</span><span class="global-variable">balls</span>.vy * <span class="hashtag">#</span><span class="global-variable">dt</span>                    </span>
+                  </span>
+              </span>
+            </span>
+          </span>
+          <p class="paragraph">
+            <span class="paragraph-text">With the update operator and table swizzling, this can be condensed into a single line of code:</span>
+          </p>
+          <span class="block">
+            <span class="transformation">
+              <span class="statement">
+                <span class="inline-code">
+<span class="hashtag">#</span><span class="global-variable">balls</span>                    <span class="inline-code">
+xy                    </span>
+                  <span class="expression">
+                    <span class="math-expression">
+<span class="hashtag">#</span><span class="global-variable">balls</span>                          <span class="inline-code">
+vxvy                          </span>
+ * <span class="hashtag">#</span><span class="global-variable">dt</span>                    </span>
+                  </span>
+                </span>
+              </span>
+            </span>
+          </span>
+          <p class="paragraph">
+            <span class="paragraph-text">This example demonstrates how update operators can make code more concise and efficient, while also reducing the need for intermediate tables.</span>
+          </p>
         </span>
-        <p class="paragraph">
-          <span class="paragraph-text">7. Title and subtitle syntax deprecated and replaced</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">I've always been a little uneasy about the header and subheader syntax using hashtags, which conforms to Markdown but potentially clashes with the global table select operator. To remove this potential point of confusion, I've switched to using the alternative Markdown header, which uses an underline of = or - to indicate a header and subheader respectively. The source for this document uses the new syntax. You can also see it in action in some of the examples.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">8. Faster parsing (100x speed increase)</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Inside of the parsing module, we were inefficiently using </span>
-          <span class="inline-code">
-            <span class="string">String</span>
-          </span>
-          <span class="paragraph-text">types as opposed to </span>
-          <span class="inline-code">
-            <span class="string">&str</span>
-          </span>
-          <span class="paragraph-text">types. By converting to use an &str, we were able to speed up the parser by 100 fold. Obviously this means a lot of unneeded allocations were eliminated!</span>
-        </p>
+        <span class="section">
+        <h3 class="level-2-title">Deprecating and Replacing Title and Subtitle Syntax</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">We have been concerned about the use of hashtags for header and subheader syntax, as it follows the Markdown convention but could potentially conflict with Mech's global table select operator. To eliminate this potential confusion, we have decided to adopt the alternative Markdown header syntax, which uses an underline of </span>
+            <span class="inline-code">
+              <span class="string">=</span>
+            </span>
+            <span class="paragraph-text">or </span>
+            <span class="inline-code">
+              <span class="string">-</span>
+            </span>
+            <span class="paragraph-text">to indicate headers and subheaders, respectively. The new syntax looks like this:</span>
+          </p>
+          <pre class="code-block">
+            <span class="string">Title=======Section Title---------------</span>
+          </pre>
+          <p class="paragraph">
+            <span class="paragraph-text">This document's source and the various examples in the Mech examples directory demonstrate the new syntax. By adopting this alternative syntax, we aim to make the Mech language more intuitive and user-friendly, minimizing confusion between different syntax elements.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Boosting Parser Speed (100x Speed Increase)</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">We identified inefficiencies within the parsing module, specifically the use of String types instead of &str types. By transitioning to &str, we achieved a remarkable 100-fold increase in parser speed. This improvement highlights the elimination of numerous unneeded allocations, leading to a significant performance boost for the Mech language parser!</span>
+          </p>
+        </span>
       </span>
       <span class="section">
-      <h2 class="section-title">🐠 Ecosystem</h1>
-        <p class="paragraph">
-          <span class="paragraph-text">1. Smaller binaries (10x reduction)</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">I've managed to cut down on the size of machine binaries by about an order of magnitude (from 8mb down to 800kb), which is a great savings. This was accomplished in two ways. First, I cut out a lot of redundant code that's not being used in the dependent repositories. Machines usually depend on </span>
-          <span class="inline-code">
-            <span class="string">core</span>
-          </span>
-          <span class="paragraph-text">and </span>
-          <span class="inline-code">
-            <span class="string">utilities</span>
-          </span>
-          <span class="paragraph-text">. Core depends on rayon and brings in the entire standard machine, which typically go unused in machine implementations. These are now both behind feature flags in core. Likewise, utilities has a definition for a type that uses a websocket, which itself depends on tokio. Bringing all of tokio in for a machine took up a lot of space, so now that is behind a feature flag as well. Eschewing this unused code saves most of the space in binaries.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Second, after the binary is compiled, I use the upx executable packer to make the machine even smaller (nominally a 50% savings over the regularly compiled file).</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">I'm sure there should be a way to get even greater savings, as a lot of the code that is included in these binaries is available in the Mech executable anyway. One thing to look at in the future is excising this code from the compiled machine, and linking to it in the Mech executable. Unfortunately, that's a long term task, but in the meantime a 10x reduction is satisfactory.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">2. </span>
-          <span class="inline-code">
-            <span class="string">matrix</span>
-          </span>
-          <span class="paragraph-text">machine</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The </span>
-          <span class="inline-code">
-            <span class="string">matrix</span>
-          </span>
-          <span class="paragraph-text">machine is brand new and will include a variety of linear algebra related functions. By default, matrix/multiply and matrix/transpose are included in the standard machine, and exposed to the programmer through builtin operators. The rest of the machine will wrap a number of functions from the rust nl algebra crate so that they will work through Mech.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">3. </span>
-          <span class="inline-code">
-            <span class="string">gui</span>
-          </span>
-          <span class="paragraph-text">machine</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The </span>
-          <span class="inline-code">
-            <span class="string">gui</span>
-          </span>
-          <span class="paragraph-text">machine includes a number of tables that help with drawing native interface elements. It leverages the Rust egui framework for most of this work, with custom wrappers to make the elements reactive. The </span>
-          <span class="inline-code">
-            <span class="string">gui</span>
-          </span>
-          <span class="paragraph-text">machine has so far existed inside of notebook2 (now just notebook), but now I've moved most of the code out of there and into this machine. This means that the the remaining notebook code is now mostly implemented in just Mech.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Haocheng was able to extend the library features enough to be able to draw this angry giraffe:</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text"><img src="images/giraffe.gif" /></span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">4. Self-Contained Executables </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Mech GUI applications are packaged using hte gui crate. The way this works is that Mech starts an </span>
-          <span class="inline-code">
-            <span class="string">egui</span>
-          </span>
-          <span class="paragraph-text">desktop engine and uses one or more Mech cores to update the GUI display in a loop according to some loaded Mech program that defines App's behavior. While this is a totoally valid design, the GUI executable is not self-contained (i.e. in a single binary executable) - we either had to allow a </span>
-          <span class="inline-code">
-            <span class="string">.mec</span>
-          </span>
-          <span class="paragraph-text">file to be separated from the executable, or to include the Mech program as a string constant inside the executable, and recompile the executable everytime the Mech program is modified. </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The CSE Capston group implemented a prototype executable builder that solves this problem and allows a self-contained GUI executable to be built from any </span>
-          <span class="inline-code">
-            <span class="string">.mec</span>
-          </span>
-          <span class="paragraph-text">file.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">5. </span>
-          <span class="inline-code">
-            <span class="string">html</span>
-          </span>
-          <span class="paragraph-text">machine</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Like </span>
-          <span class="inline-code">
-            <span class="string">gui</span>
-          </span>
-          <span class="paragraph-text">, the </span>
-          <span class="inline-code">
-            <span class="string">html</span>
-          </span>
-          <span class="paragraph-text">machine has existed inside of the wasm repository. It helps with drawing to canvas and rendering HTML elements. Now all that code has been moved into its own machine, which is a dependency of wasm. I think this organizes things a little better, and wasm will slowly be converted into mostly Mech code.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">6. Notebook resurrection</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The old notebook repository is back from being an archived repository. Now it hosts the contents of notebook2, and notebook has been renamed to wasm-notebook. The main difference between these two offerings is that notebook (again formerly notebook2) makes use of the egui rust GUI framework, whereas wasm-notebook (formerly notebook) makes use of the rust websys framework.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">7. Repository reshuffle redux</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">In the Spring I made the various repositories of the Mech project into git submodules of the main Mech repo. Now I've move a bunch of those git submodules into the src directory, and I've renamed some of the folders. It should make the repo a little cleaner and easier to work with for developers working on the runtime.</span>
-        </p>
+      <h2 class="level-1-title">🐠 Ecosystem</h2>
+        <span class="section">
+        <h3 class="level-2-title">Smaller Binaries (10x Reduction)</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">We've achieved a significant reduction in the size of machine binaries, decreasing them by an order of magnitude (from 8MB to 800KB). This improvement was accomplished in two ways:</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">First, we eliminated redundant code in the dependent repositories. Machines typically depend on core and utilities. The core dependency includes rayon and the entire standard machine, which often go unused in machine implementations. These are now behind feature flags in core. Similarly, utilities has a type definition using a websocket, which depends on tokio. Importing all of tokio for a machine consumed considerable space, so this is now behind a feature flag as well. Removing this unused code accounts for most of the space savings in binaries.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Second, after compiling the binary, we utilized the UPX executable packer to further reduce the machine size (approximately a 50% savings over the regular compiled file).</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">While we believe there's potential for even greater savings, considering a lot of the code included in these binaries is available in the Mech executable, a long-term task would be to remove this code from the compiled machine and link it to the Mech executable. In the meantime, a 10x reduction is a substantial improvement.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">matrix Machine</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Introducing the new matrix machine, which offers a range of linear algebra-related functions. By default, matrix/multiply and matrix/transpose are included in the standard machine and made available to programmers through built-in operators. The matrix machine wraps several functions from the Rust nalgebra crate, allowing seamless integration with Mech. This addition enriches Mech's capabilities and provides users with a powerful set of tools for linear algebra operations.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">gui Machine</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">The gui machine incorporates various tables that aid in rendering native interface elements. It primarily utilizes the Rust egui framework, along with custom wrappers that make the elements reactive. Previously, the gui machine was a part of the notebook2 (now simply notebook), but we have since extracted most of its code into a separate machine. As a result, the remaining notebook code is now predominantly implemented using Mech, streamlining the overall organization and functionality.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Haocheng was able to extend the library features enough to be able to draw this angry giraffe:</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text"><img src="images/giraffe.gif" /></span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">html machine</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Similar to the </span>
+            <span class="inline-code">
+              <span class="string">gui</span>
+            </span>
+            <span class="paragraph-text">machine, the html machine was previously integrated within the wasm repository. Its primary functions are drawing to canvas and rendering HTML elements. Now, all of the relevant code has been moved into its own separate machine, which has become a dependency of wasm. This change not only improves the code organization but also paves the way for easier maintenance and further development of both the html machine and the wasm repository.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Self-Contained Executables </h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Mech GUI applications are packaged using the gui crate. This works by having Mech initiate an egui desktop engine and employ one or more Mech cores to update the GUI display in a loop, following a loaded Mech program that defines the App's behavior. However, this design has a limitation as the GUI executable is not self-contained - either a .mec file needs to be separate from the executable or the Mech program has to be included as a string constant within the executable, requiring recompilation each time the Mech program is modified.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">To address this issue, the CSE Capstone group has developed a prototype executable builder that enables the creation of a self-contained GUI executable from any .mec file. This solution streamlines the process, allowing for more efficient and user-friendly development of Mech GUI applications.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Notebook resurrection</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">The previously archived notebook repository has been revived, now hosting the contents of what used to be notebook2. The original notebook has been renamed to wasm-notebook. The primary distinction between these two repositories is their underlying GUI frameworks. The notebook (previously known as notebook2) utilizes the egui Rust GUI framework, while wasm-notebook (previously called notebook) relies on the Rust websys framework. This renaming and reorganization clarify the differences between the two repositories and make it easier for users to choose the appropriate solution based on their preferred GUI framework.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">A little confusing, but we can move past that.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Repository reshuffle redux</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">During the spring, the Mech project repositories were converted into git submodules of the main Mech repo. Recently, several of these git submodules have been relocated to the src directory, and some folder names have been changed. These adjustments aim to streamline the repo's structure, making it cleaner and more user-friendly for developers working on the runtime.</span>
+          </p>
+        </span>
       </span>
       <span class="section">
-      <h2 class="section-title">📖 Documentation</h1>
-        <p class="paragraph">
-          <span class="paragraph-text">1. New doc structure</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The documentation will have a new structure, and will be oganized into the following categories: </span>
-        </p>
+      <h2 class="level-1-title">📖 Documentation</h2>
+        <span class="section">
+        <h3 class="level-2-title">New doc structure</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">The documentation for Mech is being restructured to improve organization and accessibility. The new layout will be divided into the following categories:</span>
+          </p>
+          <ul class="unordrered-list">
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">Getting Started - Welcome, Install, Running, Quickstart, Help</span>
+              </p>
+            </li>
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">Reference - Core Language, Writing Programs, Design Documents</span>
+              </p>
+            </li>
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">Machines - Standard Machine References</span>
+              </p>
+            </li>
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">Guides - Mech-for-X, Tutorials, How-tos</span>
+              </p>
+            </li>
+          </ul>
+          <p class="paragraph">
+            <span class="paragraph-text">Although the formatting has been updated and the sections outlined, there is still considerable work to be done in these areas. The completion of the documentation is a crucial step before the beta release can be launched.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">EKF localization example</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">The feedback from the IROS submission highlighted the need for a more representative example program to showcase Mech's capabilities. To address this concern, an Extended Kalman Filter (EKF) localization algorithm was implemented in Mech. You can find the example in the repository here. The addition of built-in matrix operators made this possible.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Some interesting aspects of this example include:</span>
+          </p>
+          <ul class="unordrered-list">
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">Unicode support is demonstrated through the use of Greek symbols as variable names.</span>
+              </p>
+            </li>
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">The Mech implementation of the EKF algorithm is roughly 20 lines of code, which is similar in length to the algorithm expressed in mathematical notation.</span>
+              </p>
+            </li>
+            <li class="list-item">
+              <p class="paragraph">
+                <span class="paragraph-text">The implementation process was straightforward and closely followed the source algorithm, resulting in a smooth and successful execution.</span>
+              </p>
+            </li>
+          </ul>
+          <p class="paragraph">
+            <span class="paragraph-text">Moreover, a significant finding from this example is that Mech demonstrates a much faster performance than Matlab. With an EKF localization algorithm implemented in both languages, a direct comparison was made, and Mech significantly outperformed Matlab.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Machine index files</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Each machine now includes an index file (written in Mech) that explains the purpose and contents of the machine. It will act as a table of contents for the machine, as well as the first page of documentation. A sample abriged index looks like this:</span>
+          </p>
+          <pre class="code-block">
+            <span class="string">math=====1. Description---------------Provides standard mathematical functions.2. Provided Functions----------------------- math/sin(angle<f32>)- math/sin(angle<degrees>)3. Info--------#math/machine = [  name: "math"   version: "v0.1.0"  authors: ["Corey Montella", "Haocheng Gao"]   machine-url: "https://gitlab.com/mech-lang/machines/math"  license: "Apache-2.0"]</span>
+          </pre>
+          <p class="paragraph">
+            <span class="paragraph-text">You can find the full index [here](https://github.com/mech-machines/math/blob/main/index.mec)</span>
+          </p>
+        </span>
       </span>
       <span class="section">
-      <h2 class="section-title">machines - standard machine references</h1>
-        <p class="paragraph">
-          <span class="paragraph-text">guides - mech-for-x, tutorials, how tos</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">I don't have much to say about these yet, as I've mostly just updated the formatting and outlined the sections. This is where most of the work still needs to be done before the beta can be released.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">2. EKF localization example</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">One piece of feedback from the IROS submission was that the reviewers didn't find the example bouncing ball simulation illustrative enough due to its simplicity. They said they couldn't get a good idea of the extent of Mech's capabilities without a more representative example program. To fix this in the ICRA paper, I implemented a simulation of an Extended Kalman Filter localization algorithm in Mech, which you can find in the examples repository [here](https://gitlab.com/mech-lang/examples/-/blob/v0.1-beta/src/ekf.mec). This was made possible by the addition of builtin matrix operators.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">A couple things are neat about this. First, it demonstrates unicode support by way of greek symbols as variable names. Second, at roughly 20 lines of code, the length of the algorithm in Mech is just about as long as the algorithm as expressed in mathematical notation. Third, implementing this algorithm was dead simple. It was a near 1:1 translation from the source algorithm, and it worked like a charm.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Finally, the biggest thing I learned from this example is that Mech is *way* faster than Matlab. I have an implementation of the EKF localization algorithm in Matlab, so a direct comparison was possible. Here are the results:</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">3. Machine index files</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Each machine now includes an index file (written in Mech) that explains the purpose and contents of the machine. It will act as a table of contents for the machine, as well as the first page of documentation. A sample abriged index looks like this:</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">You can find the full index [here](https://github.com/mech-machines/math/blob/main/index.mec)</span>
-        </p>
+      <h2 class="level-1-title">🏫 Outreach</h2>
+        <span class="section">
+        <h3 class="level-2-title">PLDI ARRAY workshop presentation</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">On June 13, I had the opportunity to present Mech at the PLDI ARRAY Workshop in San Diego, California, USA. The presentation was an extended version of the 10-minute talk I gave for HYTRADBOI, allowing me to delve deeper into the subject matter and showcase more of Mech's features.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">With over twice the amount of time to speak, I was able to provide a more comprehensive overview of Mech, its capabilities, and the problems it aims to solve. Additionally, the longer format allowed me to conduct a live demo, demonstrating some of Mech's unique features and functionality.</span>
+          </p>
+          <p class="paragraph">
+            <span class="paragraph-text">Unfortunately, there is no recording of the talk available. However, if you're interested in the content of the presentation, you can refer to the aforementioned HYTRADBOI talk, which covers similar topics and provides a good overview of Mech's capabilities.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Forward Robotics</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Forward Robotics is the outreach component of the Mech project, aiming to educate kids about robotics and inspire their interest in STEM fields.</span>
+          </p>
+          <span class="section">
+          <h4 class="level-3-title">Summer CHOICES</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">Over the summer, Forward Robotics participated in several outreach programs, providing an opportunity to test Mech with one of its target audiences: students who are new to programming.</span>
+            </p>
+            <p class="paragraph">
+              <span class="paragraph-text">In the spring, we took part in the CHOICES program, which introduces middle school girls to various STEM topics, including robotics. This summer, we expanded the program to reach even more students, with up to 60 participants. This marked the largest offering of the Forward Robotics program to date.</span>
+            </p>
+          </span>
+          <span class="section">
+          <h4 class="level-3-title">PreLUsion</h4>
+            <p class="paragraph">
+              <span class="paragraph-text">Lehigh University offers the PreLUsion program to incoming freshmen before the semester starts. This program provides first-year students with a range of activities designed to help them bond and become excited about learning in a university environment. Forward Robotics participated in the Lehigh Women Engineers version of the program, which is tailored to female students interested in engineering.</span>
+            </p>
+            <p class="paragraph">
+              <span class="paragraph-text">We offered an experience similar to the CHOICES program, and it proved to be enjoyable for the older participants as well. Several students expressed interest in Mech and Forward Robotics after completing the activity, and we hope they will join the project in the near future!</span>
+            </p>
+          </span>
+        </span>
       </span>
       <span class="section">
-      <h2 class="section-title">🏫 Outreach</h1>
+      <h2 class="level-1-title">🤝 Project and Community</h2>
         <p class="paragraph">
-          <span class="paragraph-text">1. PLDI ARRAY workshop presentation</span>
+          <span class="paragraph-text">Throughout the summer, we maintained an informal research group that met weekly to work on Mech. Here's a summary of our accomplishments over the summer:</span>
         </p>
-        <p class="paragraph">
-          <span class="paragraph-text">On June 13, I presented Mech at the PLDI ARRAY Workshop in San Diego, California, USA. The presentation I gave was a modification of the 10 minute talk I did for HYTRADBOI, but I had over twice as long to speak so I was able to get a little more in depth, and I was able to give a live demo of some of the features. </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">There's no recording of the talk available, but if you're interested in what was said you can take a look at the afforementioned HyTRADBOI talk for a good idea. </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">3. Forward Robotics</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">If you're not aware yet, Forward Robotics is the outreach component of the Mech project which aims to educate kids about robotics. </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">a) Summer CHOICES</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Forward Robotics was involved in several outreach programs over the summer which helped test Mech for one of its intended audiences: students brand new to programming. </span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">In the Spring we participated in the CHOICES program that teaches middle school girls about various STEM topics including robotics. This Summer we repeated the program with more students, with as many as 60 students. This was the largest offering of the FR program to date.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">b) PreLUsion</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Lehigh offers the PreLUsion program to incoming freshman before the semester starts. It provides first year students with a variety of activities that help them bond and get excited about learning in a university setting. Forward Robotics participated in the Lehigh Women Engineers version of the program which is restricted to female students interested in Engineering. We ran mostly the same experience as the CHOICES program, and it turned out to be fun even for older girls. Several students expressed interest in Mech and Forward Robotics after doing the activity, so hopefully they will join the project soon enough!</span>
-        </p>
+        <span class="section">
+        <h3 class="level-2-title">Increased test coverage</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">While most Mech tests of the core language syntax and semantics are covered in the syntax repository (with almost 200 tests now), we have been gradually expanding the testing of Mech code using the Mech testing framework. Our initial focus is on covering the basic operators to ensure they work with different data types and shapes.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">Adding support for more kinds</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">Our second objective over the summer was to create a matrix of arguments and operators, documenting which work and are tested, which work but are not tested, and which don't work at all. My student DJ Edwards is conducting an independent study with me this semester to help ensure that everything is working and tested before the beta launch.</span>
+          </p>
+        </span>
+        <span class="section">
+        <h3 class="level-2-title">❤️ Remembering Yuehan Wang</h3>
+          <p class="paragraph">
+            <span class="paragraph-text">At the end of the summer, tragedy struck with the passing of Yuehan Wang (also known as John). Yuehan worked on Mech with us over the summer, and his contributions were indispensable to the progress we made. Yuehan was a 4th-year undergraduate studying Physics and CS and was very close to completing his degrees before his sudden death. We are all deeply saddened by his loss and extend our heartfelt condolences to his family and friends.</span>
+          </p>
+        </span>
       </span>
       <span class="section">
-      <h2 class="section-title">🤝 Project and Community</h1>
+      <h2 class="level-1-title">🎃 v0.1-beta Release Roadmap</h2>
         <p class="paragraph">
-          <span class="paragraph-text">Over the summer I maintained an informal research group that met weekly to work on Mech. Here's what we managed to get up to over the summer:</span>
+          <span class="paragraph-text">On September 22, I decided to implement a feature freeze for Mech, meaning that any feature not started by that date would have to be postponed to the next release (v0.2-beta), which is currently unscheduled but likely to be ready sometime in 2023. This includes features like persistence, autodiff, GPGPU, and others.</span>
         </p>
         <p class="paragraph">
-          <span class="paragraph-text">a) Increased test coverage</span>
+          <span class="paragraph-text">The original plan was to have a release ready by October 22, a deadline based on attending IROS 2022. However, since the paper was declined and attending the conference without a paper to present would involve a significant amount of travel, I decided against it. As a result, October 22 is no longer a hard deadline. It will now serve as the deadline for the first release candidate. I aim to have most features ready to go by then, but if there are any critical bugs or extremely rough edges, we can afford to push the release date back. In summary, October 22 is the v0.1-beta RC1 release date, but it may be necessary to release a couple of weeks later if any issues prevent a timely release.</span>
         </p>
         <p class="paragraph">
-          <span class="paragraph-text">Most Mech tests of the core language syntax and semantics are covered in the syntax repository. While that's still the case (with almost 200 tests now), over the summer we've slowly started testing more Mech code using the Mech testing framework. The first thing we're doing is covering the basic operators to make sure they work on different data types and different shapes.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">b) Adding support for more kinds</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The second objective over the summer was to create a matrix of arguments and operators, and to document which work and are tested, which work but are not tested, and which don't work at all. My student DJ Edwards is doing an independent study with me this semester to help make sure that everything is working and tested before we launch the beta.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">c) ❤️ Remembering Yuehan Wang</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">Tragedy struck at the end of Summer when Yuehan Wang (also known as John) passed away. Yuehan  worked on Mech with us over the summer, and was indispensible in contributing to the progress we made. Yuehan was a 4th year undergraduate studying Physics and CS, and was very close to completing his degrees before his sudden death. We're all very saddened by his loss, and wish his family and friends our deepest condolences.</span>
-        </p>
-      </span>
-      <span class="section">
-      <h2 class="section-title">🎃 v0.1-beta Release Roadmap</h1>
-        <p class="paragraph">
-          <span class="paragraph-text">On September 22, I decided to feature freeze Mech, meaning that any feature that wasn't started by that date will have to be punted to the next release (v0.2-beta), which currently is unscheduled but will probably be ready some time in 2023. This includes features like persistence, autodiff, gpgpu, and others.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">The original plan was to have a release ready by October 22, which was a deadline predicated on attending IROS 2022, which I've decided against since the paper was declined, and it would be a lot of travel without having a paper to present. So October 22 isn't a hard deadline anymore, which means it will be the deadline for the first release candidate. I'd like most features to be ready to go by then, but if there are any showstopping bugs or extremely rough edges, we can afford to push things off. So the bottom line is Oct 22 is the v0.1-beta RC1 release, but it might be necessary to release a couple weeks after that if anything prevents a release.</span>
-        </p>
-        <p class="paragraph">
-          <span class="paragraph-text">So it's heads down until then, and the next blog update will be at that time.</span>
+          <span class="paragraph-text">With this in mind, our focus will be on preparing for the release, and the next blog update will be around that time.</span>
         </p>
       </span>
   </span>
