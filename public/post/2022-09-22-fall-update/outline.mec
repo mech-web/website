@@ -43,7 +43,7 @@ For a long time Mech has aspired to compete with Matlab when it comes to manipul
 
 We've implemented matrix multiplication using the built-in `**` operator. For example, multiplying two matrices can be done like this:
 
-#x = [1 2; 3 4] ** [5 6; 7 8]
+  x = [1 2; 3 4] ** [5 6; 7 8]
 
 The operation follows the rule that the number of rows in the left-hand opernd must equal the number of columns in the right-hand side operand. Currently, it only works for f32 kind matrices.
 
@@ -53,7 +53,7 @@ The reason we've opted for a unique operator `**` instead of the Matlab style si
 
 Transposing tables is accomplished with the apostrophe operator:
 
-#y = [1 2 3]'
+  y = [1 2 3]'
 
 Matlab users will be familiar with this operator. However, it currently only works for tables of a uniform kind; after evaluating a transpose, column names are lost. Implementing named rows may be a future solution.
 
@@ -61,8 +61,8 @@ Matlab users will be familiar with this operator. However, it currently only wor
 
 Swizzling, a term from the computer graphics world, allows composing vectors by rearranging and combining components of other vectors. Mech's typed columns enable swizzling to help write concise code in combination with broadcast and matrix operators. Here's an example:
 
-x = [a: 1, b: 2, c: 3, d: 4]
-#z = x.a,c,c
+  x = [a: 1, b: 2, c: 3, d: 4]
+  z = x.a,c,c
 
 (3) Improved Parser Error Messages
 Haocheng Gao has made significant progress in making Mech's error messages more readable. While the previous update addressed semantic compile-time errors, it was still challenging for new users who frequently encounter syntax errors.
@@ -311,6 +311,6 @@ At the end of the summer, tragedy struck with the passing of Yuehan Wang (also k
 
 On September 22, I decided to implement a feature freeze for Mech, meaning that any feature not started by that date would have to be postponed to the next release (v0.2-beta), which is currently unscheduled but likely to be ready sometime in 2023. This includes features like persistence, autodiff, GPGPU, and others.
 
-The original plan was to have a release ready by October 22, a deadline based on attending IROS 2022. However, since the paper was declined and attending the conference without a paper to present would involve a significant amount of travel, I decided against it. As a result, October 22 is no longer a hard deadline. It will now serve as the deadline for the first release candidate. I aim to have most features ready to go by then, but if there are any critical bugs or extremely rough edges, we can afford to push the release date back. In summary, October 22 is the v0.1-beta RC1 release date, but it may be necessary to release a couple of weeks later if any issues prevent a timely release.
+The original plan was to have a release ready by October 22, a deadline based on attending IROS 2022. However, since the paper was declined and attending the conference without a paper to present would involve a significant amount of travel, I decided against it. As a result, October 22 is no longer a hard deadline. It will now serve as the deadline for the first release candidate. I aim to have most features ready to go by then, but if there are any critical bugs or extremely rough edges, we can afford to push the release date back.
 
-With this in mind, our focus will be on preparing for the release, and the next blog update will be around that time.
+With this in mind, our focus will be on preparing for the release!

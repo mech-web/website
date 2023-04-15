@@ -79,6 +79,9 @@
                 line-height: 20px;
                 border-radius: 3px;
               }
+              .statement {
+                display: block;
+              }
               .transformation {
                 display: block;
               }
@@ -270,6 +273,7 @@
                             </span>
                             <span class="paragraph-text">operator. For example, multiplying two matrices can be done like this:</span>
                           </p>
+                          <span class="block">
                           <span class="statement">
                             <span class="hashtag">#</span><span class="global-variable">x</span><span class="equal"> = </span>
                               <span class="expression">
@@ -294,6 +298,7 @@
               <span class="number-literal">8</span>                            </span>
               <span class="bracket">]</span>)                  </span>
                               </span>
+                            </span>
                           </span>
                           <p class="paragraph">
                             <span class="paragraph-text">The operation follows the rule that the number of rows in the left-hand opernd must equal the number of columns in the right-hand side operand. Currently, it only works for f32 kind matrices.</span>
@@ -323,6 +328,8 @@
                           <p class="paragraph">
                             <span class="paragraph-text">Transposing tables is accomplished with the apostrophe operator:</span>
                           </p>
+                          <span class="block">
+
                           <span class="statement">
                             <span class="hashtag">#</span><span class="global-variable">y</span><span class="equal"> = </span>
                               <span class="expression">
@@ -334,6 +341,7 @@
               <span class="number-literal">3</span>                        </span>
               <span class="bracket">]</span>                </span>
                           </span>
+                          </span>
                           <p class="paragraph">
                             <span class="paragraph-text">Matlab users will be familiar with this operator. However, it currently only works for tables of a uniform kind; after evaluating a transpose, column names are lost. Implementing named rows may be a future solution.</span>
                           </p>
@@ -343,6 +351,8 @@
                           <p class="paragraph">
                             <span class="paragraph-text">Swizzling, a term from the computer graphics world, allows composing vectors by rearranging and combining components of other vectors. Mech's typed columns enable swizzling to help write concise code in combination with broadcast and matrix operators. Here's an example:</span>
                           </p>
+                          <span class="block">
+
                           <span class="statement">
               <span class="local-variable">x</span> =                 <span class="expression">
               <span class="bracket">[</span><span class="parameter">a:</span>                       <span class="expression">
@@ -359,7 +369,9 @@
                             <span class="hashtag">#</span><span class="global-variable">z</span><span class="equal"> = </span>
                               <span class="expression">
               <span class="local-variable">x</span>                          <span class="inline-code">
-              acc                          </span>
+              a,c,c                          </span>
+              <span class="block">
+
                               </span>
                           </span>
                         </span>
@@ -898,10 +910,10 @@ Provides standard mathematical functions.
                         <span class="paragraph-text">On September 22, I decided to implement a feature freeze for Mech, meaning that any feature not started by that date would have to be postponed to the next release (v0.2-beta), which is currently unscheduled but likely to be ready sometime in 2023. This includes features like persistence, autodiff, GPGPU, and others.</span>
                       </p>
                       <p class="paragraph">
-                        <span class="paragraph-text">The original plan was to have a release ready by October 22, a deadline based on attending IROS 2022. However, since the paper was declined and attending the conference without a paper to present would involve a significant amount of travel, I decided against it. As a result, October 22 is no longer a hard deadline. It will now serve as the deadline for the first release candidate. I aim to have most features ready to go by then, but if there are any critical bugs or extremely rough edges, we can afford to push the release date back. In summary, October 22 is the v0.1-beta RC1 release date, but it may be necessary to release a couple of weeks later if any issues prevent a timely release.</span>
+                        <span class="paragraph-text">The original plan was to have a release ready by October 22, a deadline based on attending IROS 2022. However, since the paper was declined and attending the conference without a paper to present would involve a significant amount of travel, I decided against it. As a result, October 22 is no longer a hard deadline. It will now serve as the deadline for the first release candidate. I aim to have most features ready to go by then, but if there are any critical bugs or extremely rough edges, we can afford to push the release date back.</span>
                       </p>
                       <p class="paragraph">
-                        <span class="paragraph-text">With this in mind, our focus will be on preparing for the release, and the next blog update will be around that time.</span>
+                        <span class="paragraph-text">With this in mind, our focus will be on preparing for the release!</span>
                       </p>
                     </span>
                 </span>
