@@ -36,48 +36,45 @@ Dynamic dispatch is crucial in Mech, so function definition overloading allows u
 
 Now add-two() can be called with both u64 and f32 types. However, this requires duplication for every numeric type. A future "typeclasses" feature may enable a single function definition for all supported numeric types, but for now, duplication is necessary.
 
-(2) Matrix operators
-
+(2) Matrix Operators
 For a long time Mech has aspired to compete with Matlab when it comes to manipulating matricies. We've had broadcast semantics on vectors and tables for a while, but now we've finally gotten bonefide matrix operators in Mech that even go beyond what Matlab has to offer. 
 
-(a) Matrix multiply
+(a) Matrix Multiply
 
-First and foremost, we've implemented matrix multiplaction as a built-in operator `**`. For instance, we can multiply two matricies together like this with the following result:
+We've implemented matrix multiplication using the built-in `**` operator. For example, multiplying two matrices can be done like this:
 
-  #x = [1 2; 3 4] ** [5 6; 7 8]
+#x = [1 2; 3 4] ** [5 6; 7 8]
 
-The will work for any matrix that follow the rule that the left hand side rows must equal the right hand side columns. Any other combination will yield an error and the operation will fail. So far, this works only for matricies that are entirely of kind f32; compound-kind tables and tables of other numeric kinds haven't been implemented yet.
+The operation follows the rule that the number of rows in the left-hand opernd must equal the number of columns in the right-hand side operand. Currently, it only works for f32 kind matrices.
 
 The reason we've opted for a unique operator `**` instead of the Matlab style single `*` is that in Mech, the single `*` is already a broadcast operator, whereas Matlab uses `.*` to broadcast the multiply operator.
 
 (b) Transpose
 
-Transposing tables is done with the apostraphe operator appended to any expression, like so:
+Transposing tables is accomplished with the apostrophe operator:
 
-  #y = [1 2 3]'
+#y = [1 2 3]'
 
-Users of Matlab will be familiar with this operator and its useage. For now, it only works when the entire table is of a uniform kind. A downside rightnow is that after evaluating a transpose, the names of columns are lost. I'm not sure what we'll dow with this in the future, but named rows has been on the agenda for a while, and it might be time to implement those.
+Matlab users will be familiar with this operator. However, it currently only works for tables of a uniform kind; after evaluating a transpose, column names are lost. Implementing named rows may be a future solution.
 
 (c) Swizzling
 
-As a Matlab user myself, swizzling is a term I was was unfamiliar with until recently, because it's not a feature of that language. It's a term coming from the computer graphics world, which Wikipedia defines as "ability to compose vectors by arbitrarily rearranging and combining components of other vectors." With typed columns in Mech, swizzling is a feature that can help programmers write very terse code with used in conjunction with broadcast and matrix operators. Here's an example of swizzling working in Mech:
+Swizzling, a term from the computer graphics world, allows composing vectors by rearranging and combining components of other vectors. Mech's typed columns enable swizzling to help write concise code in combination with broadcast and matrix operators. Here's an example:
 
-  x = [a: 1, b: 2, c: 3, d: 4]
-  #z = x.a,c,c
+x = [a: 1, b: 2, c: 3, d: 4]
+#z = x.a,c,c
 
-(3) Parser error messages
+(3) Improved Parser Error Messages
+Haocheng Gao has made significant progress in making Mech's error messages more readable. While the previous update addressed semantic compile-time errors, it was still challenging for new users who frequently encounter syntax errors.
 
-Haocheng Gao has done significant work toward making error messages more readable in Mech. In the last update, we added error indications for semantic compiletime errors, which was much needed but still not enough to help the newest users, who will encounter syntax errors frequently.
-
-Haocheng has retrofitted the parser to allow us to generate detailed parser errors with information as to what the error is, where in the source file it occurred, and perhaps also hints on how to fix it. Here's an example of what error messages look like so far:
+Now, Haocheng has revamped the parser to generate detailed error messages that inform users about the error type, its location in the source file, and possibly offer hints for fixing it. Here's an example of the improved error messages:
 
 <img src="images/error.png"/>
+Haocheng has tagged various parser combinators to generate relevant and informative messages that are rendered contextually, whether in an editor, console, or browser.
 
-To generate these messages, Haocheng retrofitted the parser with a series of tags that annotate the various paerser combinators and help with generating relevent and informative packets of information which are later rendered as messages in whatever context the program is running (editor, console, browser, etc.)
+Mech's parser now produces helpful error messages and makes a conscious effort to recover from common errors. Previously, it only provided a generic error message for invalid inputs. With the new extensions, the parser can display the source code portion containing the error and guide users to identify and fix the issue with annotations and well-crafted error messages.
 
-> Mech's parser has been extended to produce helpful error message and to make good attempts to recover from common errors.  Previously, the only feedback the parser offered when it's given invalid input is throwing out a generic error that says the input didn't parse. Now with the new extensions, the parser can actually print out the portion of the source code that contains the error, as well as pointing the user to where and what went wrong, with annotations and carefully-written error messages.  
-
-> This is yet annother attempt to improve user experience for the upcomming release in October, 2022. As a learner of Mech, I myself initially suffered from syntax errors because of Mech's rather uncommon grammar comparing to some traditional imperative languages like C and Java, and there was nothing to inform me about what I did wrong. Having struggled through that, I sincerely hope our new feature can minimize the chance of such incident from happening again.
+This enhancement is part of our ongoing efforts to improve user experience for the upcoming October 2022 release. As a Mech learner, I initially struggled with syntax errors due to Mech's unique grammar compared to traditional imperative languages like C and Java, and there was no guidance on correcting my mistakes. I hope our new feature will prevent such difficulties for future learners.
 
 (4) Dynamic tables
 
