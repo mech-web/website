@@ -8,33 +8,33 @@ Fall has officially arrived, so it's time for another quarterly update for the M
 
 (1) User-defined functions
 
-The biggest change to Mech over the Summer was the addition of user-defined functions that can be written in Mech. For a long time, I didn't know if I wanted to include user-defined functions in Mech, because I wanted to see how far I could push the language without them. I still think they are mostly obviated by asynchronous blocks, but at the same time I think their inclusion in the language is important from the perspective of new learners coming from other languages, who may be used to defining programs in terms of function calls. The "weirdness budget" of any language is small, so this is one area I think I need to compromise on to make Mech more approachable.
+A significant change in Mech this summer was the introduction of user-defined functions. Initially, I was hesitant to include them, wanting to explore the language's potential without them. Although asynchronous blocks may often replace user-defined functions, their inclusion benefits new learners familiar with function calls in other languages. This compromise makes Mech more approachable.
 
-Functions in Mech differ from blocks in that blocks they are idempotent, meaning that they are functions in the mathematical sense of being a pure mapping from input to output; no side-channels are allowed. For Mech, this means that functions can only operate on their input arguments, and cannot select any global tables in the body of the function. This also means that Mech functions cannot write to global tables. The implication is that the set operators (:=, :+=, etc.) and the append operator (+=) cannot be used in function bodies, as well as temporal operators like whenever (~). It also means that functions cannot read from or write to any machine-related tables, which by definition interact with the outside world and would introduce side effects. However, it's completely fine for Mech functions to call other Mech functions.
+Mech functions differ from blocks due to their idempotency, meaning they're pure mappings from input to output without side channels. Functions in Mech can only operate on input arguments and cannot access global tables or manipulate them. They also can't use set operators, append operators, or temporal operators. Functions can't interact with machine-related tables either, but they can call other Mech functions.
 
-A Mech function is defined like this:
+A Mech function is defined as follows:
 
 [x<f32>] = add-two(y<f32>)
   x = y + 2
 
-Inside the brackets is a list of variables, defined in the function body, which are the output of the function. Mech functions can output as many tables as the programmer likes. For instance:
+The brackets contain variables defined in the function body, which represent the function's output. Mech functions can output multiple tables as needed. Example:
 
 [x<f32>,z<f32>] = add-mul-two(y<f32>)
   x = y + 2
   z = y * 2
 
-After the output list follows the name of the function, an then an input argument list. The argument name and kind are listed in the argument list, and again there can be as many as the programmer likes. The body of the function must define the output argument at some point, or a compiler error will result. If an input is unused in the body, a compiler warning will alter the programmer.
+After the output list is the function name and an input argument list. The body of the function must define the output argument, or a compiler error will occur. If an input is unused in the body, a compiler warning alerts the programmer.
 
-The function would be called like this:
+To call the function:
 
 x = add-two(y: 10)
 
-Dynamic dispatch is a major feature of Mech, and we want to be able to support this feature with user defined functions. To do this, we can allow function definition overloading, which will allow the user to define multiple functions with the same name and different parameters. For example, the `add-two()` function for `u64` kind could be defined like this:
+Dynamic dispatch is crucial in Mech, so function definition overloading allows users to define multiple functions with the same name but different parameters. For instance:
 
 [x<u64>] = add-two(y<u64>)
   x = y + 2
 
-And now we have a function that will be able to call `add-two()` with `u64` and `f32` types. Now, this will mean that there will have to be a lot of duplication to support every numeric type. Perhaps in the future we will add a feature like "typeclasses", which would allow a user to define one function for all supported numeric types. But for now, this is what we have to do.
+Now add-two() can be called with both u64 and f32 types. However, this requires duplication for every numeric type. A future "typeclasses" feature may enable a single function definition for all supported numeric types, but for now, duplication is necessary.
 
 (2) Matrix operators
 
