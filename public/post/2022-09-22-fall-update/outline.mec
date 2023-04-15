@@ -292,25 +292,25 @@ We offered an experience similar to the CHOICES program, and it proved to be enj
 🤝 Project and Community
 -------------------------
 
-Over the summer I maintained an informal research group that met weekly to work on Mech. Here's what we managed to get up to over the summer:
+Throughout the summer, we maintained an informal research group that met weekly to work on Mech. Here's a summary of our accomplishments over the summer:
 
 (1) Increased test coverage
 
-Most Mech tests of the core language syntax and semantics are covered in the syntax repository. While that's still the case (with almost 200 tests now), over the summer we've slowly started testing more Mech code using the Mech testing framework. The first thing we're doing is covering the basic operators to make sure they work on different data types and different shapes.
+While most Mech tests of the core language syntax and semantics are covered in the syntax repository (with almost 200 tests now), we have been gradually expanding the testing of Mech code using the Mech testing framework. Our initial focus is on covering the basic operators to ensure they work with different data types and shapes.
 
 (2) Adding support for more kinds
 
-The second objective over the summer was to create a matrix of arguments and operators, and to document which work and are tested, which work but are not tested, and which don't work at all. My student DJ Edwards is doing an independent study with me this semester to help make sure that everything is working and tested before we launch the beta.
+Our second objective over the summer was to create a matrix of arguments and operators, documenting which work and are tested, which work but are not tested, and which don't work at all. My student DJ Edwards is conducting an independent study with me this semester to help ensure that everything is working and tested before the beta launch.
 
 (3) ❤️ Remembering Yuehan Wang
 
-Tragedy struck at the end of Summer when Yuehan Wang (also known as John) passed away. Yuehan  worked on Mech with us over the summer, and was indispensible in contributing to the progress we made. Yuehan was a 4th year undergraduate studying Physics and CS, and was very close to completing his degrees before his sudden death. We're all very saddened by his loss, and wish his family and friends our deepest condolences.
+At the end of the summer, tragedy struck with the passing of Yuehan Wang (also known as John). Yuehan worked on Mech with us over the summer, and his contributions were indispensable to the progress we made. Yuehan was a 4th-year undergraduate studying Physics and CS and was very close to completing his degrees before his sudden death. We are all deeply saddened by his loss and extend our heartfelt condolences to his family and friends.
 
 🎃 v0.1-beta Release Roadmap
 -----------------------------
 
-On September 22, I decided to feature freeze Mech, meaning that any feature that wasn't started by that date will have to be punted to the next release (v0.2-beta), which currently is unscheduled but will probably be ready some time in 2023. This includes features like persistence, autodiff, gpgpu, and others.
+On September 22, I decided to implement a feature freeze for Mech, meaning that any feature not started by that date would have to be postponed to the next release (v0.2-beta), which is currently unscheduled but likely to be ready sometime in 2023. This includes features like persistence, autodiff, GPGPU, and others.
 
-The original plan was to have a release ready by October 22, which was a deadline predicated on attending IROS 2022, which I've decided against since the paper was declined, and it would be a lot of travel without having a paper to present. So October 22 isn't a hard deadline anymore, which means it will be the deadline for the first release candidate. I'd like most features to be ready to go by then, but if there are any showstopping bugs or extremely rough edges, we can afford to push things off. So the bottom line is Oct 22 is the v0.1-beta RC1 release, but it might be necessary to release a couple weeks after that if anything prevents a release.
+The original plan was to have a release ready by October 22, a deadline based on attending IROS 2022. However, since the paper was declined and attending the conference without a paper to present would involve a significant amount of travel, I decided against it. As a result, October 22 is no longer a hard deadline. It will now serve as the deadline for the first release candidate. I aim to have most features ready to go by then, but if there are any critical bugs or extremely rough edges, we can afford to push the release date back. In summary, October 22 is the v0.1-beta RC1 release date, but it may be necessary to release a couple of weeks later if any issues prevent a timely release.
 
-So it's heads down until then, and the next blog update will be at that time.
+With this in mind, our focus will be on preparing for the release, and the next blog update will be around that time.
