@@ -1,12 +1,17 @@
 🐰 Spring 2023 Update
 =======================
 
-The Mech Spring 2023 Update includes platform improvements, ecosystem updates, documentation changes, community initiatives, and a preview of the upcoming Mech v0.2 release. Highlights include changes to headings and loading .mec files, improvements to the REPL and notebook editors, and the implementation of the Language Server Protocol. The update also features the 2023-2024 Capstone Mechanics project and the introduction of the Mech mascots. This post is an essential resource for Mech developers and enthusiasts looking to stay current with the latest developments in robotics and automation.
 
 🛠️ Platform Improvements
 --------------------------
 
-(1) Sub headings
+(1) Capability Permission System
+
+(2) Auto-differentiation
+
+(3) GPGPU
+
+(4) Sub headings
 
 Previously, titles and subheadings were prepended with `#`, which could clash with the table declaration syntax. To resolve this issue, subheadings now have distinct formats for up to four different levels of headings. The new subheading format is as follows:
 
@@ -22,7 +27,7 @@ Subtitle
 (b) Sub-Subsection
 ```
 
-(2) Loading .mec files
+(5) Downloading .mec files
 
 We've added the addition of the ability to load/download `.mec` and `.blx` files to satisfy dependencies. 
 
@@ -59,6 +64,13 @@ In addition, it is now possible to save the state of the REPL into a `.blx` file
 - jump to definition
 
 list the other features
+
+(4) ai machine
+
+(a) ChatGPT
+
+(b) Stable Diffusion
+
 
 
 📖 Documentation
