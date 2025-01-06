@@ -1,16 +1,25 @@
 <html>
 
 <head>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-family: 'FiraCodeRegular';
             src: url('../../fonts/FiraCode-Regular.ttf') 
         }
+        @font-face {
+            font-family: 'FiraCodeLight';
+            src: url('../../fonts/FiraCode-Light.ttf') 
+        }
         body {
             background-color: #222021;
-            font-family: sans-serif;
+            font-family: "Roboto";
+            font-weight: 100;
             line-height: 22pt;
+            margin: 0px;
+            padding: 0px;
         }
         #footer {
             height: 200px;
@@ -20,11 +29,16 @@
         #post {
             font-size: 14pt;
             color: #FEF3EC;
-            width: 650px;
-            align: center;
-            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
         }
         p {
+            width: 650px;
+            margin: 16px auto;
+            text-align: left;
+            word-wrap: break-word;
         }
         a {
             color: #E69D86;
@@ -41,17 +55,18 @@
         h2 {
             font-family: 'FiraCodeRegular';
             margin-top: 75px;
-            margin-left: -25px;
+            margin-left: -40px;
             color: #EEC26A;
             font-size: 18pt;
         }
         h3 {
+            font-family: 'FiraCodeRegular';
             color: #d27998;
         }
 
         blockquote{
             font-size: 14pt;
-            width:70%;
+            width: 500px;
             margin: 50px auto;
             font-family:Open Sans;
             font-style:italic;
@@ -69,11 +84,8 @@
             margin-bottom: 100px;
             margin-left: -75px;
         }
-        code {
-            color: #E69D86;
-        }
         #logo {
-            padding: 50px;
+            margin-top: 50px;
         }
         .post-image {
             display: block;         
@@ -91,7 +103,7 @@
             letter-spacing: 1pt;
         }
         h2::after {
-            content: "---------------------------------------------------------------"; 
+            content: "----------------------------------------------------------------"; 
             color: #EEC26A; 
             font-size: 10pt; 
             display: block; 
@@ -103,6 +115,7 @@
             color: #E07C8A;
         }
         ul {
+            width: 650px;
             list-style-type: none;
             padding: 0;
             margin: 0;   
@@ -123,32 +136,57 @@
         li b {
             color: #E69D86;
         }
-        .mechcode {
-            display:block;
-            background-color:rgb(25, 22, 24);
-            float: left; 
-            position: relative;
-            left: -150px;
-            margin: 50 auto;
-            padding: 50px 50px;
+
+        .code-container {
+            margin: 10px 0;
+            border-radius: 8px;
+            background-color: rgb(25, 22, 25);
+            overflow-x: auto;
+            white-space: nowrap;  
+            border: solid, 1px, #E69D86; 
+            font-family: 'FiraCodeLight';
+            font-size: 16px;
+            line-height: 18px;
+        }
+        .code-container #title {
+            margin: 0px;
+            padding: 15px 10px;
+            border-bottom: 1px solid #E69D86; 
+        }
+        .code-block {
+            color: #E69D86;
+            margin: 0;
+            padding: 20;
+        }
+        figure {
+            margin: 0px;
+            margin-bottom: 15px;
+            margin-top: 15px;
         }
         .image-caption {
             display: inline-block;
             text-align: center;
-            margin-bottom: 15px;
+            width: 650px;
+            
         }
 
         .image-caption img {
-            max-width: 100%;
-            height: auto;
+            margin: auto;
         }
 
         .image-caption figcaption {
+            font-family: "Roboto";
+            font-weight: 300;
             font-size: 0.9rem;
-            color: #9C818b;
-            margin-top: 12pt;
+            color: #c7a9b4;
+            margin-top: 15px;
+            padding:0px;
             font-style: italic;
             text-align: center;
+        }
+        #header {
+            margin: auto;
+            width: 800px;
         }
     </style>
 
@@ -156,10 +194,11 @@
 
 <body>
 
-<img src="https://mech-lang.org/img/logo.png" width = "200px" id = "logo" />
+<div id="header">
+    <img src="https://mech-lang.org/img/logo.png" width = "200px" id = "logo" />
+</div>
 
 <div id = "post">
-
 
 <div id = "title">
     <h1>Where Do Programming Languages Go From Here?</h1>
@@ -169,8 +208,8 @@
 <p>Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it.</p>
 
 <figure class="image-caption">
-  <img src="github.png" alt="Description of image">
-  <figcaption>Coding stalled in 2023 and picked back up this year.</figcaption>
+  <img src="github.png" width="550px" alt="Description of image">
+  <figcaption>Mech development took a hiatus for a year, but we are back and more active than ever.</figcaption>
 </figure>
 
 
@@ -184,29 +223,44 @@
 
 <p>For context, here is <a href="https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2023-04-15-spring-update/index.mec?ref_type=heads">a draft blog post</a> from Spring 2023 that was never published. By that point, it had become clear that v0.1 wasn't quite "it." While it included all the features we initially wanted (or at least prototypes of them), the language was still lacking something. More on that later.</p>
 
-<img src="EKF.png" width="600" class="post-image" />
+<figure class="image-caption">
+    <img src="EKF.png" width="600px" alt="Description of image">
+    <figcaption>This particular algorithm comes from Probabilistic Robotics found <a href="https://answers.ros.org/question/299372/">here</a>, expressed in 23 statements. When expressed in Mech, the EKF is just as concise.</figcaption>
+</figure>
 
-<p>Also, for posterity, here is an <a href="">unpublished draft paper about Mech</a> that I had intended for a conference like Onward! or SPLASH or something. However, given the recent changes to the language in v0.2, it's now outdated. The paper characterizes Mech in terms of the <a href="https://tomasp.net/techdims/">"Technical Dimensions of Programming Systems"</a> proposed by Jakubovic, Edwards, and Petricek, and includes a brief survey of programming languages within the robotics domain. It also presents some performance results from v0.1 and features two example programs that demonstrate many of the language's capabilities.</p>
+<p>Also, for posterity, here is an <a href="Onward___23.pdf">unpublished draft paper about Mech</a> that I had intended for a conference like Onward! or SPLASH or something. However, given the recent changes to the language in v0.2, it's now outdated. The paper characterizes Mech in terms of the <a href="https://tomasp.net/techdims/">"Technical Dimensions of Programming Systems"</a> proposed by Jakubovic, Edwards, and Petricek, and includes a brief survey of programming languages within the robotics domain. It also presents some performance results from v0.1 and features three example programs that demonstrate many of the language's capabilities.</p>
 
 <h2>The Arrival of ChatGPT</h2>
 
 <p>ChatGPT's preview was released in November 2022, and it made an impact everywhere, but in programming languages in particular, there was especially some consternation. It was the first time I (and everyone else) had seen a language model that could generate code not only syntactically correct, but also semantically correct. This raised some big existential questions about the necessity of programming languages. If a language model could generate correct code, then what was the point of programming languages? This worry derailed my development of Mech, as you can see from my git commit chart at the end of the post.</p>
 
-<img src="llmbackend.jpeg" alt="https://github.com/RootbeerComputer/backend-GPT" width="400px" class="post-image" />
+
+
+<figure class="image-caption">
+    <img src="llmbackend.jpeg" alt="https://github.com/RootbeerComputer/backend-GPT" width="400px" />
+    <figcaption>Caption</figcaption>
+</figure>
 
 <p>The argument is that compilers are really just translating languages from one representation to another. When I look at a technology like ChatGPT, I don't see a chatbot — I see a <a href="https://wiki.c2.com/?SufficientlySmartCompiler">sufficiently advanced compiler</a>, one that can potentially take high-level instructions in natural language and compile them directly to optimized machine code, circumventing traditional language compialtion pipelines that involve parsers and optimizing compilers. Or at least, that's the sci-fi vision. But it took me a long time to fully understand exactly what ChatGPT and LLMs were, as they became more popular and capable. A long time...</p>
 
 <h3>WikiEve</h3>
 
-<p>Ultimately, I came to the same conclusion we reached when I worked on the <a href="https://witheve.com">Eve</a> language variant "WikiEve" (not to be confused with the <a href="https://www.bleepingcomputer.com/news/security/new-wiki-eve-attack-can-steal-numerical-passwords-over-wifi/">password interception attack</a>, this was before that), described <a href="https://incidentalcomplexity.com/2016/06/10/jan-feb/">in this blog post</a>. Eve was a Prolog/Smalltalk-like programming system where your entire program state existed in a relational database of (Entity,Attribute,Value) triplets. In the WikiEve version of Eve, you could make a database of facts about say, planets, and then write queries against them like "group the planets by moons and sort them by mass", and the system would generate the appropriate query plan to select the results.
+<p>Ultimately, I came to the same conclusion we reached when I worked on the <a href="https://witheve.com">Eve</a> language variant "WikiEve" (not to be confused with the <a href="https://www.bleepingcomputer.com/news/security/new-wiki-eve-attack-can-steal-numerical-passwords-over-wifi/">password interception attack</a>, this was before that), described <a href="https://incidentalcomplexity.com/2016/06/10/jan-feb/">in this blog post</a>. Eve was a Prolog/Smalltalk-like programming system where your entire program state existed in a relational database of (Entity,Attribute,Value) triplets. In the WikiEve, you could make a database of facts about say, planets, and then write queries against them like "group the planets by moons and sort them by mass", and the system would generate the appropriate query plan, execute it, and display the results.
 
-<img src="wikieve4.png" class="post-image" width="400px" />
+    
+<figure class="image-caption">
+    <img src="wikieve4.png"  width="400px" />
+    <figcaption>Caption</figcaption>
+</figure>
 
 <p>This was built in 2016, around the same time AlphaGo was gaining popularity, so we weren't using the same kind of machine learning techniques that are common in LLMs today. Instead, we built a <a href="https://github.com/witheve/eve-experiments/blob/1fd5ac10bc00cfcf914e085262dac246532ca540/src/NLQueryParser.ts">"natural language query parser"</a> that would take natural language text and compile it into a query that would then execute with the database. We used the <a href="https://nlp.stanford.edu/software/">Stanford NLP toolkit</a> to extract parts of speech, and then applied a number of heuristics to generate a query. The point is that we were able to generate queries that were syntactically and semantically valid, but they weren't always what the user wanted when the heuristics failed. The user had to learn the quirks of the database and its query language to get the results they sought through the natural language interface (a classic leaky abstraction). This is the same problem that ChatGPT faces, and it's the same problem that all LLMs and "low code solutions" face -- there always has to be some escape hatch that exposes a typical programming interface.</p>
 
 <p>In the planet test dataset, we encountered one example query that really drove the point home: "get all inhabitable planets." In our natural language query parser, a heuristic we used was that the prefix "in" should negate the rest of the word, so this query would return planets that were not habitable. But "inhabitable" doesn't mean "not habitable"; it means "habitable." To compound the issue, we also had a notion that "un" meant "not," so "uninhabitable" was interpreted as a double negative, and therefore meant "habitable." And of course, the English language is riddled with inconsistencies like this, so special casing each one is not really the way to go.</p>
 
-<img src="drnick.png" alt="S12E18" width="400px" class="post-image" />
+<figure class="image-caption">
+    <img src="drnick.png" alt="S12E18" width="400px" />
+    <figcaption>The idiosyncrasies of language have confounded many.</figcaption>
+</figure>
 
 <p>Here are some of the observations we made at the time:</p>
 
@@ -226,10 +280,12 @@
 
 <p>Could you imagine using a hammer, but every time you swing it you can't be sure if the head will come off or if it will turn into a screwdriver or phase through the table? When it comes to programming LLMs are like that quantum hammer.</p>
 
-
 <p>Using an LLM as a programming language is exactly that — it's programming without ever being sure what your program is going to do. An opaque system with rules that change each time you use it in arbitrary and inscrutable ways is not a tool; it's a bureaucracy, and we should not want to depend on such systems in our programming environments. I think tools like Copilot can be useful at times, but we have to be careful about how LLMs are used, or writing code will become more like dealing with a health insurance company than true engineering.</p>
 
-<img src="hn.png" width="500px" class="post-image" />
+<figure class="image-caption">
+    <img src="hn.png" width="500px"/>
+    <figcaption>Not everyone is eager to stick LLMs in their backends.</figcaption>
+</figure>
 
 <p>For instance, LLMs would make an excellent front-end technology for Eve; they could have been used to replace the query planner we built. If I were to redo that project, I would seriously consider using an LLM. What makes this an ideeal case for LLMS is that the database itself can serve as a guardrail, effectively "de-hallucinating" the LLM's output. This ensures it only generates queries about entities, attributes, and values that exist in the database. I've noticed a few startups exploring similar ideas. However, even with these guardrails in place, the system would still function like a bureaucracy. One query might run efficiently, but an equivalent query could generate a significantly different plan depending on the phrasing, time of day, or even the weather outside. That's not a good tool, and a reason why programming langauges still have a purpose.</p>
 
@@ -239,7 +295,11 @@
 
 <p>For instance, you can tell ChatGPT that you want a calendar app in JavaScript, and it will give you one. But what it provides is essentially an "average" calendar app — a distillation of the concept of a calendar app based on the corpus it was trained on. The calendar app it generates is likely to be very different from the one you have in your head. This is even more obvious in the domain of AI art, where it's easy to get a generic "painting of a woman," but much harder to get the specific painting that matches the idea in your imagination. To truly achieve what you want, you have to pick up a brush and paint it yourself, where you have fine-grained control over every detail. </p>
 
-<img src="monalisa.png" alt="https://www.reddit.com/r/midjourney/comments/z9tmg3/my_first_midjourney_meme/" width="400px" class="post-image" />
+
+<figure class="image-caption">
+    <img src="monalisa.png" alt="https://www.reddit.com/r/midjourney/comments/z9tmg3/my_first_midjourney_meme/" width="400px" />
+    <figcaption>If you wanted a picture of someone who likes like Mona Lisa, Midjourney has got you covered. Otherwise you'll have to be more specific with your prompt.</figcaption>
+</figure>
 
 <p>The same principle applies to LLMs and that calendar app. If you want precise control over it, you need to specify it in a language that allows for clear and unambiguous expression of your ideas. This is exactly the role of a programming language. Even with the most intelligent and capable AI imaginable — one indistinguishable from a human — you would still need a language beyond natural language to define the parameters of the program you want. Programming languages exist precisely to enable the detailed and unambiguous specification of ideas, ensuring that what you imagine can be faithfully realized, and so that's another reason why LLMs won't supplant them in their current form.</p>
 
@@ -264,45 +324,55 @@
 
 <p>Here's an example of a search algorithm implemented in Mech v0.2 using state machines:</p>
 
-<pre><code class="mechcode">
+
+
+<div class="code-container">
+    <div id="title">insertion-sort.mec</div>
+    <pre class="code-block">
 #insertion-sort(arr<[u8]:4>) -> <[u8]:4> :=
-  ├ Compare(arr,ix)
-  ├ Insert(arr,ix)
-  ├ Shift(arr,ix,arr)
-  └ Done(arr).
+    ├ Compare(arr,ix)
+    ├ Insert(arr,ix)
+    ├ Shift(arr,ix,arr)
+    └ Done(arr).
 
 #insertion-sort(arr) => Compare(arr, 0)
+    
+    -- Check if we have iterated through the entire array. If 
+    -- not, we move to the Insertion state.
+    Compare(arr, i) =>
+        ├ i >= length(arr) => Done(arr)
+        └ * => Insert(arr, i)
+    
+    -- Compare the element at index i with the preceding 
+    -- elements. If necessary, we shift elements to make 
+    -- space for the current element.
+    Insert([], i) => Compare([], i + 1)
+    Insert([head, tail], i) =>
+        ├ head > arr[i] => Shift([head, tail], i, head)
+        └ * => Compare([head, tail], i + 1)
 
-  -- Check if we have iterated through the entire array. If 
-  -- not, we move to the Insertion state.
-  Compare(arr, i) =>
-      ├ i >= length(arr) => Done(arr)
-      └ * => Insert(arr, i)
-  -- Compare the element at index i with the preceding 
-  -- elements. If necessary, we shift elements to make 
-  -- space for the current element.
-  Insert([], i) => Compare([], i + 1)
-  Insert([head, tail], i) =>
-      ├ head > arr[i] => Shift([head, tail], i, head)
-      └ * => Compare([head, tail], i + 1)
+    -- Handles the shifting of elements to the right to 
+    -- insert the current element into its correct position.
+    Shift([head, tail], j, key) =>
+        ├ (j == 0 | arr[j - 1] <= key) => arr[j] = key => Compare([head, tail], j + 1)
+        └ * => arr[j] = arr[j - 1] => Shift([head, tail], j - 1, key)
 
-  -- Handles the shifting of elements to the right to 
-  -- insert the current element into its correct position.
-  Shift([head, tail], j, key) =>
-      ├ (j == 0 | arr[j - 1] <= key) => arr[j] = key => Compare([head, tail], j + 1)
-      └ * => arr[j] = arr[j - 1] => Shift([head, tail], j - 1, key)
-  
-  -- Output the sorted array.
-  Done(arr) -> arr.
-</code></pre>
+    -- Output the sorted array.
+    Done(arr) -> arr.
+    </pre>
+  </div>
 
 <p>This program parses but does not execute in version v0.2. In line with our new development strategy, we're fully implementing the new data semantics first and building a solid foundation before starting on state machines. As a result, Mech v0.2 without state machines isn't Turing complete yet. In fact, it's not really a programming language at this point, but more of a powerful, Matlab-like calculator. And that's fine — although it's not a programming language, it's a valuable artifact in its own right. It serves as a powerful calculator that can handle many tasks that are difficult to do in other calculators, like linear algebra. Once this part is done, we will start state machine but not before.</p>
 
-<h3>Build a Car not a House</h3>
+<h3>Building a Car instead of a House</h3>
 
 <p>Mech version 0.1 was built as a house is. Houses are constructed starting with a solid foundation, followed by the framing, roof, and interior. This approach allows work to continue on one incomplete area (like the exterior) while another area (like the kitchen) can be developed in parallel. Building a language in this way meant creating a solid core, and then sketching out features like functions, modules, and tooling as proof-of-concept stubs, which could be further developed in parallel. Mech version 0.1 had a solid core and demonsrated a proof of concept of Mech's features, but each aspect was too incomplete to be useful on its own. If more people were working on the language this might have been a good model, but it really just meant that it lacked a core competency and was quite brittle off the "happy path".</p>
 
-<img src="engine.jpg" width="500px" class="post-image" />
+<figure class="image-caption">
+    <img src="engine.png" width="500px" />
+    <figcaption>Caption</figcaption>
+</figure>
+
 
 <p>To fix this issue, for Mech v0.2 we are now building Mech like a car. Cars are built in tha modular way, where components are assembled in different locations and at different times, and then are assembled into the final frame of the car. For example, engines and radios are assembled on their own and work in their own right, and they can be installed in a varity of chassis. By developing Mech in this way, we will ensure that at all times it will have useful components that can be helpful and stand on their own.</p>
 
@@ -310,7 +380,10 @@
 
 <h2>Mech in 2025 and Beyond</h2>
 
-<img src="github2.png" width="500pxs" class="post-image" />
+<figure class="image-caption">
+    <img src="github2.png" width="500pxs" />
+    <figcaption>After restarting development in May, we shipped 27 weekly releases. We look forward to shipping more code in 2025!</figcaption>
+</figure>
 
 <p>Mech development was restarted in May 2024 with renewed vigor. By July, we began shipping regular weekly releases of the language toolchain, with the latest <a href="https://github.com/mech-lang/mech/releases/tag/v0.2.27-beta">released on Monday (12/30/24)</a>. I'll be posting more regular updates on the blog about these releases, and I'll also have a post in the future detailing the changes in Mech to date, of which there are many. To start, you may want to check out the document <a href="https://gitlab.com/mech-lang/docs/-/raw/v0.2-beta/III.guides/MechFifteen.mec?ref_type=heads">"Learn Mech in Fifteen Minutes"</a> for an overview of what has changed in the language so far, particularly the new data types. You can also explore some working programs: <a href="https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/working/n-body.mec">"n-body.mec"</a> and <a href="https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/working/ekf.mec">"ekf.mec"</a>.</p>
 
@@ -331,10 +404,10 @@
 <p>We also have plans to grow the community, because for a long time now Mech has been a project between myself and my students at Lehigh. But for the language to grow, I will have to make efforts to spread the word.</p>
 
 <ul>
-    <li data-bullet="👾"><a href="https://discord.gg/asqP25NNTH">Discord</a> - We have maintained a discord channel for a while, but it's been mostly private. We used to have a gittr, but I learned most people use Discord so that's what I'll use. We're now opening it up</li>
-    <li data-bullet="📺"><a href="https://www.youtube.com/@MechLang">YouTube</a> - We've had a video </li>
-    <li data-bullet="🛸"><a href="https://www.reddit.com/r/mechlang/">Reddit</a> - for help and discussion</li>
-    <li data-bullet="📧"> <a href="https://groups.google.com/g/mechtalk">Mailing List</a> - for help and discussion</li>
+    <li data-bullet="👾"><a href="https://discord.gg/asqP25NNTH">Discord</a> - We have maintained a discord channel for a while, but it's been mostly private. We used to have a gittr, but I learned most people use Discord so that's what I'll use. We're now opening it up to more people! There's currently not a lot of discussion in general, but I hope after I start making more noise some people other than Lehigh students will hang around.</li>
+    <li data-bullet="📺"><a href="https://www.youtube.com/@MechLang">YouTube</a> - We've had a YouTube channel up for a while with a couple videos on it, but this year I plan to post multiple video tutorials showing off features of Mech.</li>
+    <li data-bullet="🛸"><a href="https://www.reddit.com/r/mechlang/">Reddit</a> - There's a subreddit for Mech that I have posted a couple blog posts to. For now, there's only one other person who has posted there, but I hope for more!</li>
+    <li data-bullet="📧"> <a href="https://groups.google.com/g/mechtalk">Mailing List</a> - The mailing list is now back to being mechtalk@googlegroups.com. I had tried to use a custom domain mailing list but I found it confusing, so I'm going back to Google Groups. It doesn't matter much since there was no correspondence over the mailing list, but I'll have transfer everyone who signed up for the custom domain list into Google Groups, so don't be surprised if you find an e-mail about that in your inbox!</li>
 </ul>
 
 <h2></h2>
