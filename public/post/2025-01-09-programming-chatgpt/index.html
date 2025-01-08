@@ -16,7 +16,7 @@
         body {
             background-color: #222021;
             font-family: "Roboto";
-            font-weight: 100;
+            font-weight: 300;
             line-height: 22pt;
             margin: 0px;
             padding: 0px;
@@ -82,7 +82,7 @@
         #title {
             width: 800px;
             margin-top: 100px;
-            margin-bottom: 100px;
+            margin-bottom: 50px;
             margin-left: -75px;
         }
         #logo {
@@ -206,7 +206,7 @@
 
 <div id = "title">
     <h1>Where Do Programming Languages Go From Here?</h1>
-    <author>Corey Montella - January 9 2025</author>
+    <author>Corey Montella - January 9 2025 (DRAFT)</author>
 </div>
 
 <p>Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.</p>
@@ -242,7 +242,7 @@
 
 <figure class="image-caption">
     <img src="llmbackend.jpeg" alt="https://github.com/RootbeerComputer/backend-GPT" width="400px" />
-    <figcaption>Caption</figcaption>
+    <figcaption>Some people are eager to shove LLMs in their backends.</figcaption>
 </figure>
 
 <p>The argument is that compilers are really just translating languages from one representation to another. When I look at a technology like ChatGPT, I don't see a chatbot — I see a <a href="https://wiki.c2.com/?SufficientlySmartCompiler">sufficiently advanced compiler</a>, one that can potentially take high-level instructions in natural language and compile them directly to optimized machine code, circumventing traditional language compialtion pipelines that involve parsers and optimizing compilers. Or at least, that's the sci-fi vision. But it took me a long time to fully understand exactly what ChatGPT and LLMs were, as they became more popular and capable. A long time...</p>
@@ -254,7 +254,7 @@
     
 <figure class="image-caption">
     <img src="wikieve4.png"  width="400px" />
-    <figcaption>Caption</figcaption>
+    <figcaption>WikiEve was one version of the defunct research language Eve. This version translated natural language into query plans that could be executed in the context of an Entity Attribute Value relational database.</figcaption>
 </figure>
 
 <p>This was built in 2016, around the same time AlphaGo was gaining popularity, so we weren't using the same kind of machine learning techniques that are common in LLMs today. Instead, we built a <a href="https://github.com/witheve/eve-experiments/blob/1fd5ac10bc00cfcf914e085262dac246532ca540/src/NLQueryParser.ts">"natural language query parser"</a> that would take natural language text and compile it into a query that would then execute with the database. We used the <a href="https://nlp.stanford.edu/software/">Stanford NLP toolkit</a> to extract parts of speech, and then applied a number of heuristics to generate a query. The point is that we were able to generate queries that were syntactically and semantically valid, but they weren't always what the user wanted when the heuristics failed. The user had to learn the quirks of the database and its query language to get the results they sought through the natural language interface (a classic leaky abstraction). This is the same problem that ChatGPT faces, and it's the same problem that all LLMs and "low code solutions" face -- there always has to be some escape hatch that exposes a typical programming interface.</p>
@@ -285,13 +285,6 @@
 <p>Could you imagine using a hammer, but every time you swing it you can't be sure if the head will come off or if it will turn into a screwdriver or phase through the table? When it comes to programming LLMs are like that quantum hammer.</p>
 
 <p>Using an LLM as a programming language is exactly that — it's programming without ever being sure what your program is going to do. An opaque system with rules that change each time you use it in arbitrary and inscrutable ways is not a tool; it's a bureaucracy, and we should not want to depend on such systems in our programming environments. I think tools like Copilot can be useful at times, but we have to be careful about how LLMs are used, or writing code will become more like dealing with a health insurance company than true engineering.</p>
-
-<figure class="image-caption">
-    <img src="hn.png" width="500px"/>
-    <figcaption>Not everyone is eager to stick LLMs in their backends.</figcaption>
-</figure>
-
-<p>For instance, LLMs would make an excellent front-end technology for Eve; they could have been used to replace the query planner we built. If I were to redo that project, I would seriously consider using an LLM. What makes this an ideeal case for LLMS is that the database itself can serve as a guardrail, effectively "de-hallucinating" the LLM's output. This ensures it only generates queries about entities, attributes, and values that exist in the database. I've noticed a few startups exploring similar ideas. However, even with these guardrails in place, the system would still function like a bureaucracy. One query might run efficiently, but an equivalent query could generate a significantly different plan depending on the phrasing, time of day, or even the weather outside. That's not a good tool, and a reason why programming langauges still have a purpose.</p>
 
 <h3>AI Can't Save You From Specifying Your System</h3>
 
@@ -327,8 +320,6 @@
 <p>To fully integrate state machines, we needed to enhance the language's data semantics. Previously, everything in Mech was treated as a table, which was theortically nice but was kind of like treating everything as a pointer - uniform but not expressive. In the new version, we introduced distinct datatypes, including matrix, record, table, tuple, enum, atom, map, and set. While these datatypes can still be reduced to a table, each has its own semantics, enabling more expressive and powerful data handling. This change supports the introduction of state machines and greatly improves the overall flexibility and expressiveness of Mech.</p>
 
 <p>Here's an example of a search algorithm implemented in Mech v0.2 using state machines:</p>
-
-
 
 <div class="code-container">
     <div id="title">insertion-sort.mec</div>
@@ -370,11 +361,18 @@
 
 <h3>Building a Car instead of a House</h3>
 
-<p>Mech version 0.1 was built as a house is. Houses are constructed starting with a solid foundation, followed by the framing, roof, and interior. This approach allows work to continue on one incomplete area (like the exterior) while another area (like the kitchen) can be developed in parallel. Building a language in this way meant creating a solid core, and then sketching out features like functions, modules, and tooling as proof-of-concept stubs, which could be further developed in parallel. Mech version 0.1 had a solid core and demonsrated a proof of concept of Mech's features, but each aspect was too incomplete to be useful on its own. If more people were working on the language this might have been a good model, but it really just meant that it lacked a core competency and was quite brittle off the "happy path".</p>
+Going forward, we are using a different development model for Mech.
+
+<figure class="image-caption">
+    <img src="foundation.png" width="500px" />
+    <figcaption>Mech v0.1 was a strong foundation, but it was too brittle as a whole and it didn't have any useful standalone components, so it couldn't go anywhere.</figcaption>
+</figure>
+
+<p>Mech version 0.1 was built as a house is; houses are constructed starting with a solid foundation, followed by the framing, roof, and interior. This approach allows work to continue on one incomplete area (like the exterior) while another area (like the kitchen) can be developed in parallel. Building a language in this way meant creating a solid core, and then sketching out features like functions, modules, and tooling as proof-of-concept stubs, which could be further developed in parallel. Mech version 0.1 had a solid core and demonsrated a proof of concept of Mech's features, but each aspect was too incomplete to be useful on its own. If more people were working on the language this might have been a good model, but it really just meant that it lacked a core competency and was quite brittle off the "happy path".</p>
 
 <figure class="image-caption">
     <img src="engine.png" width="500px" />
-    <figcaption>Caption</figcaption>
+    <figcaption>Mech v0.2 is designed to be modular and useful on its own. It will be made even more useful come v0.3, when we will implement state machines and other features from v0.1 that haven't made it back into the rewrite. Hopefully then it can go places!</figcaption>
 </figure>
 
 
