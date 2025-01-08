@@ -322,7 +322,7 @@
 <p>Here's an example of a search algorithm implemented in Mech v0.2 using state machines:</p>
 
 <div class="code-container">
-    <div id="title">insertion-sort.mec</div>
+    <div id="title"><a href="https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/aspirational/insertion-sort.mec">insertion-sort.mec</a></div>
     <pre class="code-block">
 #insertion-sort(arr<[u8]:4>) -> <[u8]:4> :=
     ├ Compare(arr,ix)
@@ -358,6 +358,8 @@
   </div>
 
 <p>This program parses but does not execute in version v0.2. In line with our new development strategy, we're fully implementing the new data semantics first and building a solid foundation before starting on state machines. As a result, Mech v0.2 without state machines isn't Turing complete yet. In fact, it's not really a programming language at this point, but more of a powerful, Matlab-like calculator. And that's fine — although it's not a programming language, it's a valuable artifact in its own right. It serves as a powerful calculator that can handle many tasks that are difficult to do in other calculators, like linear algebra. Once this part is done, we will start state machine but not before.</p>
+
+<p>Here are some working programs that are implemented in v0.2: <a href="https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/working/n-body.mec">n-body.mec</a>, <a href="https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/working/ekf.mec">ekf.mec</a></p>
 
 <h3>Building a Car instead of a House</h3>
 
