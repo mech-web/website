@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <link href="https://mech-lang.org/img/favicon.ico" rel="icon" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -47,22 +48,27 @@
             color: #EEC26A;
             line-height: 35pt;
             text-align: left;
-            position: relative; 
             display: inline-block; 
             font-size: 22pt; 
-            font-family: 'FiraCodeRegular'
+            font-family: 'FiraCodeRegular';
+            width: 800px;
         }
         h2 {
             font-family: 'FiraCodeRegular';
             margin-top: 75px;
-            margin-left: -40px;
+            margin-left: 0px;
             color: #EEC26A;
             font-size: 18pt;
+            width: 750px;
         }
         h3 {
             font-family: 'FiraCodeRegular';
             color: #d27998;
             width: 640px;
+        }
+        author {
+            color: #E07C8A;
+            display: block;
         }
 
         blockquote{
@@ -83,10 +89,10 @@
             width: 800px;
             margin-top: 100px;
             margin-bottom: 50px;
-            margin-left: -75px;
+            margin-left: 0px;
         }
         #logo {
-            margin-top: 50px;
+
         }
         .post-image {
             display: block;         
@@ -95,25 +101,23 @@
             height: auto;
         }
         h1::after {
-            content: "======================================================================================";
+            content: "=======================================================================================";
             color: #EEC26A; 
             font-size: 10pt; 
             display: block;
-            text-align: center; 
+            text-align: left; 
             margin-top: 5px; 
             letter-spacing: 1pt;
+            overflow: hidden;
         }
         h2::after {
-            content: "----------------------------------------------------------------"; 
+            content: "----------------------------------------------------------------------"; 
             color: #EEC26A; 
             font-size: 10pt; 
             display: block; 
-            text-align: center; 
+            text-align: left; 
             margin-top: 5px; 
             letter-spacing: 2pt;
-        }
-        author {
-            color: #E07C8A;
         }
         ul {
             width: 650px;
@@ -189,9 +193,42 @@
             text-align: center;
         }
         #header {
+            padding-top: 50px;
+            font-family: 'FiraCodeRegular';
             margin: auto;
             width: 800px;
+            display: flex;
+            align-items: stretch;
         }
+        #nav {
+            font-size: 20px;
+            color: #EEC26A;
+            flex-grow: 2;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        #nav a {
+            color: #EEC26A;
+            text-decoration: none;
+        }
+        #nav span::before {
+            content: ":";
+            color: #E07C8A;
+        }
+        #nav a:hover {
+            text-decoration: underline;
+            color: #E07C8A;
+        }
+        #nav span {
+            margin-left:  40px;
+        }
+        
+        #nav .active:before {
+            content: ">:";
+            color: #E07C8A;
+        }
+        
     </style>
 
 </head>
@@ -199,14 +236,22 @@
 <body>
 
 <div id="header">
-    <img src="https://mech-lang.org/img/logo.png" width = "200px" id = "logo" />
+    <div id="logo">
+        <img src="https://mech-lang.org/img/logo.png" width = "200px" />
+    </div>
+    <div id="nav">
+        <span><a href="https://mech-lang.org/docs">learn</a></span>
+        <span><a href="https://mech-lang.org/community">community</a></span>
+        <span class="active"><a href="https://mech-lang.org/blog">blog</a></span>
+        <span><a href="https://mech-lang.org/try">try</a></span>
+    </div>
 </div>
 
 <div id = "post">
 
 <div id = "title">
-    <h1>Where Do Programming Languages Go From Here?</h1>
-    <author>Corey Montella - January 9 2025 (DRAFT)</author>
+    <h1>LLMs Won't Replace Programming Languages</h1>
+    <author>Corey Montella • January 9 2025</author>
 </div>
 
 <p>Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.</p>
@@ -241,7 +286,7 @@
 
 
 <figure class="image-caption">
-    <img src="llmbackend.jpeg" alt="https://github.com/RootbeerComputer/backend-GPT" width="400px" />
+    <img src="llmbackend.jpeg" alt="Writing a backend; Hiring a backend engineer; asking ChatGPT for a backend; the LLM is the backend." width="400px" />
     <figcaption>Some people are eager to shove LLMs in their backends.</figcaption>
 </figure>
 
@@ -262,7 +307,7 @@
 <p>In the planet test dataset, we encountered one example query that really drove the point home: "get all inhabitable planets." In our natural language query parser, a heuristic we used was that the prefix "in" should negate the rest of the word, so this query would return planets that were not habitable. But "inhabitable" doesn't mean "not habitable"; it means "habitable." To compound the issue, we also had a notion that "un" meant "not," so "uninhabitable" was interpreted as a double negative, and therefore meant "habitable." And of course, the English language is riddled with inconsistencies like this, so special casing each one is not really the way to go.</p>
 
 <figure class="image-caption">
-    <img src="drnick.png" alt="S12E18" width="400px" />
+    <img src="drnick.png" alt="Simpsons S12E18:  Inflammable means flammable? What a country! " width="400px" />
     <figcaption>The idiosyncrasies of language have confounded many.</figcaption>
 </figure>
 
@@ -294,8 +339,8 @@
 
 
 <figure class="image-caption">
-    <img src="monalisa.png" alt="https://www.reddit.com/r/midjourney/comments/z9tmg3/my_first_midjourney_meme/" width="400px" />
-    <figcaption>If you wanted a picture of someone who likes like Mona Lisa, Midjourney has got you covered. Otherwise you'll have to be more specific with your prompt.</figcaption>
+    <img src="monalisa.png" alt="/imagine prompt: Renassaince portrait of a young woman with black hair, oil painting --v 4" width="400px" />
+    <figcaption>If you wanted a picture of someone who lookes like Mona Lisa, Midjourney has got you covered. Otherwise you'll have to be more specific with your prompt.</figcaption>
 </figure>
 
 <p>The same principle applies to LLMs and that calendar app. If you want precise control over it, you need to specify it in a language that allows for clear and unambiguous expression of your ideas. This is exactly the role of a programming language. Even with the most intelligent and capable AI imaginable — one indistinguishable from a human — you would still need a language beyond natural language to define the parameters of the program you want. Programming languages exist precisely to enable the detailed and unambiguous specification of ideas, ensuring that what you imagine can be faithfully realized, and so that's another reason why LLMs won't supplant them in their current form.</p>
@@ -363,14 +408,14 @@
 
 <h3>Building a Car instead of a House</h3>
 
-Going forward, we are using a different development model for Mech.
+<p>Going forward, we are using a different development model for Mech. Mech version 0.1 was built as a house is; houses are constructed starting with a solid foundation, followed by the framing, roof, and interior. This approach allows work to continue on one incomplete area (like the exterior) while another area (like the kitchen) can be developed in parallel.</p>
 
 <figure class="image-caption">
     <img src="foundation.png" width="500px" />
     <figcaption>Mech v0.1 was a strong foundation, but it was too brittle as a whole and it didn't have any useful standalone components, so it couldn't go anywhere.</figcaption>
 </figure>
 
-<p>Mech version 0.1 was built as a house is; houses are constructed starting with a solid foundation, followed by the framing, roof, and interior. This approach allows work to continue on one incomplete area (like the exterior) while another area (like the kitchen) can be developed in parallel. Building a language in this way meant creating a solid core, and then sketching out features like functions, modules, and tooling as proof-of-concept stubs, which could be further developed in parallel. Mech version 0.1 had a solid core and demonsrated a proof of concept of Mech's features, but each aspect was too incomplete to be useful on its own. If more people were working on the language this might have been a good model, but it really just meant that it lacked a core competency and was quite brittle off the "happy path".</p>
+<p>Building a language in this way meant creating a solid core, and then sketching out features like functions, modules, and tooling as proof-of-concept stubs, which could be further developed in parallel. Mech version 0.1 had a solid core and demonsrated a proof of concept of Mech's features, but each aspect was too incomplete to be useful on its own. If more people were working on the language this might have been a good model, but it really just meant that it lacked a core competency and was quite brittle off the "happy path".</p>
 
 <figure class="image-caption">
     <img src="engine.png" width="500px" />
