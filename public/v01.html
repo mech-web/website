@@ -1,0 +1,185 @@
+<head>
+    <title>Mech Programming Langauge</title>
+    <link rel="preload" as="font" href="https://gitlab.com/mech-lang/assets/-/blob/main/fonts/FiraCode-Regular.ttf" type="font/ttf">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="alternate" type="application/atom+xml" href="feed.xml">
+    <style type="text/css">
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            font-family: "FiraCode-Regular", monospace;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .page {
+           width: 100%;
+        }
+        .width {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .purple {
+            color: #DCC2D0;
+            background-color: #593348;
+        }
+        .green {
+            color: #cff2ce;
+            background-color: #819E80;
+        }
+        .blue {
+            color: #d7e0f5;
+            background-color: #3E4C70;
+        }
+        .red {background-color: #952B2B;}
+        .cream {background-color: #FCE3BA;}
+        .pink {
+            color: #F4726C;
+            background-color: #FFCDC9;
+        }
+        .brown {background-color: #613C23;}
+        .slate {
+            color: #DCC2D0;
+            background-color: #222222;
+        }
+
+        html {
+            box-sizing: border-box;
+            font-family: Lato;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        section {
+            max-width: 100%;
+            min-height: 100%;
+            border: 0px;
+            margin-bottom: 0px;
+            font-size: 30px;
+        }
+
+        div {
+            padding: 12px;
+            margin-right: 4px;
+            margin-bottom: 40px;
+            line-height: 80px;
+            width: 75%;
+            text-align: center;
+            display: inline-block;
+        }
+        a {
+            color: #DCC2D0;
+        }
+
+        /* center items */
+        section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        .logo {
+            margin-top: 200px;
+            margin-bottom: 100px;
+            width: 80%;
+            height: auto;
+            max-width: 800px;
+        }
+    </style>
+</head>
+
+<html>
+    <section class="purple">
+        <img class="logo" src="assets/images/logo-embossed.png">
+        <div>A programming language for developing data-driven, reactive systems like animations, games, and robots. Mech makes composing, transforming, and distributing data easy, allowing you to focus on the essential complexity of your project.</div>
+        <div>This page previews Mech v0.1-beta, released in 2023. Get the code on <a href="https://github.com/mech-lang/mech/tree/v0.1-beta">GitHub</a>.</div>
+        <div>Current development is happening at branch <a href="https://github.com/mech-lang/mech/tree/v0.2-beta">v0.2-beta</a>.</div>
+    </section>
+
+    <section class="green">
+        <div>We're at an inflection point in the history of computing. Core counts are exploding while clock frequencies have stalled. Machines of the future will have high core counts, heterogenous architectures, and a menagerie of coprocessors to get work done. To take advantage of these resources, programming languages of the future should be built from the ground-up to support concurrent programming at the language-level.</div>
+        <img style = "max-height: 50%; max-width: 100%"src="assets/images/history.png">
+    </section>
+
+    <section class="slate">
+        <div>Mech programs are distributed, parallel, and asynchronous. All operations are defined over tables of data. For a taste, here's some example code.</div>
+        <img style = "max-width: 100%; height: auto;"src="assets/images/code.png">
+    </section>
+
+
+
+    <section class="blue">
+        <div>Mech is primarily designed to interoperate with typical robot software technologies like C++, Python, and the Robot Operating System (ROS). But it works well for any system architected as a feedback or open control loop that subscribes to external data sources. Besides robotics, games are another application domain where Mech fits well.</div>
+        <img style = "max-width: 100%; height: auto;"src="assets/images/robot.png">
+    </section>
+
+    <section class="green">
+        <div>Mech is designed to be performant on workloads that can be highly parallelized, which is a feature of many robot applications. This means Mech can achieve performance on par with compiled languages, while still maintaining the expressivness of languages like Matlab and Python.</div>
+        <img style = "max-width: 100%; height: auto;"src="assets/images/perf.png">
+    </section>
+
+    <section class="green">
+        <div>Mech achieves these speeds through dynamic dispatch and JIT compilation, as well as fine-grained parallelism achieved through highly vectorized datastructors and operators which take full advantage of multiple cores and threads.</div>
+        <img style = "max-width: 100%; height: auto;"src="assets/images/parallel.png">
+    </section>
+
+    <section class="pink">
+        <div>Mech has an outreach component called <a style="color: #F4726C;" href="https://mech-lang.org/post/2020-08-06-forward-robotics/">Forward Robotics</a>, an extracurricular program that teaches middle school students the fundamentals of robotics engineering using Sphero robots and the Mech language. Here you can see the robot Light Bright event, and several Mech programs written by middle school students.</div>
+        <img style = "max-width: 100%; height: auto;"src="assets/images/forward.png">
+    </section>
+
+    <section class="cream">
+        <img style = "max-width: 100%; height: auto;"src="assets/images/status.png">
+    </section>
+
+    <section class="purple">
+        <img class="logo" src="assets/images/logo-embossed.png">
+        <div>This has been a preview look at Mech v0.1-beta.</div>
+        <div>If you want to learn more or try Mech alpha, you can do so at the following links:</div>
+        <div><a href="http://github.com/mech-lang">Repository</a></div>
+        <div><a href="http://docs.mech-lang.org/#/docs/index.mec">Docs for v0.0.5-alpha</a></div>
+        <div><a href="https://mech-lang.org/blog/">Blog</a></div>
+    </section>
+
+
+</html>
