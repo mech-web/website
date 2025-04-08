@@ -1,0 +1,197 @@
+LLMs Won't Replace Programming Languages
+===============================================================================
+
+**Corey Montella • January 9 2025**
+
+Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.
+
+<figure class="image-caption">
+  <img src="github.png" width="550px" alt="Description of image">
+  <figcaption>Mech development took a hiatus for a year, but we are back and more active than ever.</figcaption>
+</figure>
+
+First, I want to thank everyone who has been involved in the Mech project over the past couple of years, especially my students at Lehigh. A post about their work will be coming soon. I also appreciate those who have followed the project and shared their thoughts on its progress and future directions.
+    
+In this post I will provide some exciting updates about where Mech has been recently and where we are taking it this year. One thing I want to especially cover is my outlook on the future of Mech and indeed all programming langauges in the age of LLMs and ChatGPT.
+
+1. Version 0.1-beta
+-------------------------------------------------------------------------------
+
+ChatGPT's preview was released in November 2022, and it made an impact everywhere, but in programming languages in particular, there was especially some consternation. It was the first time I (and everyone else) had seen a language model that could generate code not only syntactically correct, but also semantically correct. This raised some big existential questions about the necessity of programming languages. If a language model could generate correct code, then what was the point of programming languages? This worry derailed my development of Mech, as you can see from my git commit chart at the beginning of the post.
+
+
+
+<figure class="image-caption">
+    <img src="llmbackend.jpeg" alt="Writing a backend; Hiring a backend engineer; asking ChatGPT for a backend; the LLM is the backend." width="400px" />
+    <figcaption>Some people are eager to shove LLMs in their backends.</figcaption>
+</figure>
+
+The argument is that compilers are really just translating languages from one representation to another, and that's something ChatGPT can do well, maybe well enough to replace a compiler. When I look at a technology like ChatGPT, I don't see a chatbot — I see a [sufficiently advanced compiler](https://wiki.c2.com/?SufficientlySmartCompiler), one that can potentially take high-level instructions in natural language and compile them directly to optimized machine code, circumventing the traditional language compialtion pipeline that involves parsers and optimizing compilers. Or at least, that's the sci-fi vision. But it took me a long time to fully understand exactly what ChatGPT and LLMs were, as they became more popular and capable.
+
+(a) WikiEve
+
+Ultimately, I came to the same conclusion we reached when I worked on the [Eve](https://witheve.com) language variant "WikiEve" (not to be confused with the [password interception attack](https://www.bleepingcomputer.com/news/security/new-wiki-eve-attack-can-steal-numerical-passwords-over-wifi/), this was before that), described [in this blog post](https://incidentalcomplexity.com/2016/06/10/jan-feb/). Eve was a Prolog/Smalltalk-like programming system where your entire program state existed in a relational database of (Entity,Attribute,Value) triplets. In the WikiEve, you could make a database of facts about say, planets, and then write queries against them like "group the planets by moons and sort them by mass", and the system would generate the appropriate query plan, execute it, and display the results.
+
+    
+<figure class="image-caption">
+    <img src="wikieve4.png"  width="400px" />
+    <figcaption>WikiEve was one version of the defunct research language Eve. This version translated natural language into query plans that could be executed in the context of an Entity Attribute Value relational database.</figcaption>
+</figure>
+
+This was built in 2016, around the same time AlphaGo was gaining popularity, so we weren't using the same kind of machine learning techniques that are common in LLMs today. Instead, we built a [natural language query parser](https://github.com/witheve/eve-experiments/blob/1fd5ac10bc00cfcf914e085262dac246532ca540/src/NLQueryParser) that would take natural language text and compile it into a query that would then execute with the database. We used the [Stanford NLP toolkit](https://nlp.stanford.edu/software/) to extract parts of speech, and then applied a number of heuristics to generate a query. The point is that we were able to generate queries that were syntactically and semantically valid, but they weren't always what the user wanted when the heuristics failed. The user had to learn the quirks of the database and its query language to get the results they sought through the natural language interface (a classic leaky abstraction). This is the same problem that ChatGPT faces, and it's the same problem that all LLMs and "low code solutions" face -- there always has to be some escape hatch that exposes a typical programming interface.
+
+In the planet test dataset, we encountered one example query that really drove the point home: "get all inhabitable planets." In our natural language query parser, a heuristic we used was that the prefix "in" should negate the rest of the word, so this query would return planets that were not habitable. But "inhabitable" doesn't mean "not habitable"; it means "habitable." To compound the issue, we also had a notion that "un" meant "not," so "uninhabitable" was interpreted as a double negative, and therefore meant "habitable." And of course, the English language is riddled with inconsistencies like this, so special casing each one is not really the way to go.
+
+<figure class="image-caption">
+    <img src="drnick.png" alt="Simpsons S12E18:  Inflammable means flammable? What a country! " width="400px" />
+    <figcaption>The idiosyncrasies of language have confounded many.</figcaption>
+</figure>
+
+Here are some of the observations we made at the time:
+
+> We launched WikiEve to a limited audience of friends and family on February 24th. The results were mixed. On the positive side, users generally seemed to enjoy how simple it was. They liked how using it didn't feel like programming. They appreciated the simple and approachable UI. Our in-person demos (where we were driving the product in front of a user), impressed the most; **users were very enthusiastic about the magic and power of NL search when we showed it working as intended.**
+
+> We intentionally decided not to provide a tutorial as well; we were curious to see how well users could understand the interface without any instruction. How far could they get? Where did most users get stuck? Our hope was that most users would at least figure out the NL search interface. In fact, we couldn't have been more wrong. Many users failed to even recognize the search box, so they were lost before they even got started. Still, users who did find the search box didn't treat it as an advanced Google type search interface, but as a simple keyword match search interface. Finally, **users who did treat it as an intelligent search box immediately broke our model by phrasing searches in ways we hadn't anticipated.**
+
+And then we made some conclusions:
+
+> While a pure NL interface sounds like a programming panacea, **it doesn't work well as a tool**. Great tools are clear in their purpose and their usage. By contrast, the NL interface is completely opaque. You can't discern its operational boundaries. You can't figure out how to fix queries when the results are wrong. We thought the flexibility of the NL interface was its strength, but many users expressed a feeling of paralysis when presented with its open-ended nature.
+
+(b) LLMs Are Not Good Tools
+
+I think many of the conclusions we reached with the NL Eve interface apply to LLMs as well, and a lot of people are realizing today what we did back with WikiEve — natural language is not a good "tool" for programming. A good tool is like a hammer. Why is a hammer a good tool? It does one thing well, it has an ergonomic interface, and most of all, it's predictable; it does the same thing every time you swing it. Its function does not change based on the time of day or the context in which it's being used.
+
+In the world of programming, we call this property [idempotence](https://en.wikipedia.org/wiki/Idempotence), and we value it when applied to functions. Some functions, like <code>rand()</code> or <code>date()</code> are expected to give a different result on subsequent calls, but functions like <code>sin()</code> are expected to return the same result given the same input. This is how most mathematical functions work. By contrast, functions like [strtok()](https://cplusplus.com/reference/cstring/strtok/), which tokenizes a string and gives different results on each call, are surprising in their design and are perennial nightmares for learners of C. When a function returns the same result on subsequent calls (given the same input arguments), it makes reasoning about code easier. There's less "spooky action at a distance" when there are no side channels into and out from functions (e.g., global variables, system calls, network requests, etc.). This makes following control flow and program state more straightforward, testing easier as you can mock data, the system more composable, programs better optimized, and so on.
+
+Could you imagine using a hammer, but every time you swing it you can't be sure if the head will come off or if it will turn into a screwdriver or phase through the table? When it comes to programming LLMs are like that quantum hammer.
+
+Using an LLM as a programming language is exactly that — it's programming without ever being sure what your program is going to do. An opaque system with rules that change each time you use it in arbitrary and inscrutable ways is not a tool; it's a bureaucracy, and we should not want to depend on such systems in our programming environments. I think tools like Copilot can be useful at times, but we have to be careful about how LLMs are used, or writing code will become more like dealing with a health insurance company than true engineering.
+
+(c) AI Can't Save You From Specifying Your System
+
+The history of programming languages is a story of building steadily rising abstractions, each one more powerful and expressive than the last. For decades, the idea of expressing programs in natural language has been seen as the ultimate goal of this abstraction tower — a pinnacle that would free us from the need to painstakingly specify every detail of a program. But now, with systems like ChatGPT that can convincingly approximate this kind of abstraction, it's clear that even this won't save us from the fundamental task of precisely specifying what our programs must do.
+
+For instance, you can tell ChatGPT that you want a calendar app in JavaScript, and it will give you one. But what it provides is essentially an "average" calendar app — a distillation of the concept of a calendar app based on the corpus it was trained on. The calendar app it generates is likely to be very different from the one you have in your head. This is even more obvious in the domain of AI art, where it's easy to get a generic "painting of a woman," but much harder to get the specific painting that matches the idea in your imagination. To truly achieve what you want, you have to pick up a brush and paint it yourself, where you have fine-grained control over every detail. 
+
+
+<figure class="image-caption">
+    <img src="monalisa.png" alt="/imagine prompt: Renassaince portrait of a young woman with black hair, oil painting --v 4" width="400px" />
+    <figcaption>If you wanted a picture of someone who lookes like Mona Lisa, Midjourney has got you covered. Otherwise you'll have to be more specific with your prompt.</figcaption>
+</figure>
+
+The same principle applies to LLMs and that calendar app. If you want precise control over it, you need to specify it in a language that allows for clear and unambiguous expression of your ideas. This is exactly the role of a programming language. Even with the most intelligent and capable AI imaginable — one indistinguishable from a human — you would still need a language beyond natural language to define the parameters of the program you want. Programming languages exist precisely to enable the detailed and unambiguous specification of ideas, ensuring that what you imagine can be faithfully realized, and so that's another reason why LLMs won't supplant them in their current form.
+
+(d) Mech and AI
+
+So where does that leave Mech in the land of AI? First, I think it's clear that I don't believe AI can replace or supplant programming languages—at least not until the challenges I've raised are addressed.
+
+But I do think AI can be a powerful tool in the programming language space. I've explored how LLMs handle Mech, and one interesting observation is that LLMs don't really know much about Mech's syntax or semantics, as Mech is not big enough to be included or discerned in their training data. Despite this, when I present current LLMs with Mech code, they can analyze it, explain how it works, and even simulate an interpreter for it to some degree. With a little work, we could leverage LLMs to debug and generate Mech code. They could also be used to create Mechdown documentation directly within programs. Beyond that, I've used AI to generate large portions of repetitive compiler code that would otherwise be tedious to write. It's also helped me improve my own coding skills by suggesting code patterns and techniques I hadn't considered before.
+
+So, I think AI can be a powerful tool in the programming language space, but it's not going to replace programming languages—it's going to augment them. And I believe that's where Mech fits into the future. We'll use AI to enhance Mech, making it more powerful, easier to use, and more accessible to a broader audience.
+
+2. Mech v0.2
+-------------------------------------------------------------------------------
+
+Version 0.1 was a great start, but it faced two main challenges. First, while the asynchronous semantics of blocks were useful for building reactive applications, they became a hindrance in scenarios where ordered computation was required. Second, my development model made it difficult for developers to adopt the language. Both of these challenges must be addressed in 2025.
+
+(a) State Machines
+
+Mech v0.1 lacked a feature for ordered computation, which is essential for many applications. This led to the challenge of building a language that could balance both reactivity and order. In version 0.2, we are introducing state machines as a solution. State machines are a powerful way to model ordered computation and can represent a wide variety of systems. They provide explicit execution order but can be compiled in such a way that they execute asynchronously. This makes them a versatile tool for modeling control structures like if statements, match statements, loops, and functions, filling in many gaps in the language.
+
+To fully integrate state machines, we needed to enhance the language's data semantics. Previously, everything in Mech was treated as a table, which was theortically nice but was kind of like treating everything as a pointer - uniform but not expressive. In the new version, we introduced distinct datatypes, including matrix, record, table, tuple, enum, atom, map, and set. While these datatypes can still be reduced to a table, each has its own semantics, enabling more expressive and powerful data handling. This change supports the introduction of state machines and greatly improves the overall flexibility and expressiveness of Mech.
+
+Here's an example of a search algorithm implemented in Mech v0.2 using state machines:
+
+```
+#insertion-sort(arr<[u8]:4>) -> <[u8]:4> :=
+    ├ Compare(arr,ix)
+    ├ Insert(arr,ix)
+    ├ Shift(arr,ix,arr)
+    └ Done(arr).
+
+#insertion-sort(arr) => Compare(arr, 0)
+    
+    -- Check if we have iterated through the entire array. If 
+    -- not, we move to the Insertion state.
+    Compare(arr, i) =>
+        ├ i >= length(arr) => Done(arr)
+        └ * => Insert(arr, i)
+    
+    -- Compare the element at index i with the preceding 
+    -- elements. If necessary, we shift elements to make 
+    -- space for the current element.
+    Insert([], i) => Compare([], i + 1)
+    Insert([head, tail], i) =>
+        ├ head > arr[i] => Shift([head, tail], i, head)
+        └ * => Compare([head, tail], i + 1)
+
+    -- Handles the shifting of elements to the right to 
+    -- insert the current element into its correct position.
+    Shift([head, tail], j, key) =>
+        ├ (j == 0 | arr[j - 1] <= key) => arr[j] = key => Compare([head, tail], j + 1)
+        └ * => arr[j] = arr[j - 1] => Shift([head, tail], j - 1, key)
+
+    -- Output the sorted array.
+    Done(arr) -> arr.
+```
+
+This program parses but does not execute in version v0.2. In line with our new development strategy, we're fully implementing the new data semantics first and building a solid foundation before starting on state machines. As a result, Mech v0.2 without state machines isn't Turing complete yet. In fact, it's not really a programming language at this point, but more of a powerful, Matlab-like calculator. And that's fine — although it's not a programming language, it's a valuable artifact in its own right. It serves as a powerful calculator that can handle many tasks that are difficult to do in other calculators, like linear algebra. Once this part is done, we will start state machine but not before.
+
+Here are some working programs that are implemented in v0.2: [n-body.mec](https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/working/n-body.mec), [ekf.mec](https://gitlab.com/mech-lang/examples/-/raw/v0.2-beta/working/ekf.mec).
+
+(b) Building a Car instead of a House
+
+Going forward, we are using a different development model for Mech. Mech version 0.1 was built as a house is; houses are constructed starting with a solid foundation, followed by the framing, roof, and interior. This approach allows work to continue on one incomplete area (like the exterior) while another area (like the kitchen) can be developed in parallel.
+
+<figure class="image-caption">
+    <img src="foundation.png" width="500px" />
+    <figcaption>Mech v0.1 was a strong foundation, but it was too brittle as a whole and it didn't have any useful standalone components, so it couldn't go anywhere.</figcaption>
+</figure>
+
+Building a language in this way meant creating a solid core, and then sketching out features like functions, modules, and tooling as proof-of-concept stubs, which could be further developed in parallel. Mech version 0.1 had a solid core and demonsrated a proof of concept of Mech's features, but each aspect was too incomplete to be useful on its own. If more people were working on the language this might have been a good model, but it really just meant that it lacked a core competency and was quite brittle off the "happy path".
+
+<figure class="image-caption">
+    <img src="engine.png" width="500px" />
+    <figcaption>Mech v0.2 is designed to be modular and useful on its own. It will be made even more useful come v0.3, when we will implement state machines and other features from v0.1 that haven't made it back into the rewrite. Hopefully then it can go places!</figcaption>
+</figure>
+
+
+To fix this issue, for Mech v0.2 we are now building Mech like a car. Cars are built in a modular way, where components are assembled in different locations and at different times, and then are assembled into the final frame of the car. For example, engines and radios are assembled on their own and work in their own right, and they can be installed in a varity of chassis. By developing Mech in this way, we will ensure that at all times it will have useful components that can be helpful and stand on their own.
+
+So Mech v0.2 onward will be built in this way. Unfortunately it means we have to start from scratch though, because we need to accomodate state machines. But v0.2 is already almost done, and looking at the results in terms of how much better the language design is and how much faster the runtime is, it was worth it.
+
+3. Mech in 2025 and Beyond
+-------------------------------------------------------------------------------
+
+<figure class="image-caption">
+    <img src="github2.png" width="500pxs" />
+    <figcaption>After restarting development in May, we shipped 27 weekly releases. We look forward to shipping more code in 2025!</figcaption>
+</figure>
+
+Mech development was restarted in May 2024 with renewed vigor. By July, we began shipping regular weekly releases of the language toolchain, with the latest [released on Monday (1/6/25)](https://github.com/mech-lang/mech/releases/tag/v0.2.29-beta). I'll be posting more regular updates on the blog about these releases, and I'll also have a post in the future detailing the changes in Mech to date, of which there are many. To start, you may want to check out the document ["Learn Mech in Fifteen Minutes"](https://gitlab.com/mech-lang/docs/-/raw/v0.2-beta/III.guides/MechFifteen.mec?ref_type=heads) for an overview of what has changed in the language so far, particularly the new data types.
+
+
+(a) 2025 Roadmap
+
+The updated README in the Mech repository has the following roadmap for the future:
+
+-(☑️) **v0.1 - Proof of concept system** - This is the version released in 2022, and will not be supported in the future. Version 0.2 is a departure from this older version.
+-(📍) **v0.2 - Data specification** - In this version, we've implemented all of the data structures mentioned previously, along with a new standard library, including a more robust matrix library based on nalgebra.
+-(☐) **v0.3 - Program specification** - Once we are done with the data specification language, we will implement the state machines, the syntax of which we showed above. We will also redefine the Mech module system and fully implement functions.
+-(☐) **v0.4 - System specification** - This version of Mech, when finished, should represent the fully realized version that we glimpsed in v0.1. It will include distributed computation, a capability permission system, heterogeneous computing, and more.
+
+For more details, you may want to check out the [ROADMAP](https://gitlab.com/mech-lang/mech/-/blob/main/ROADMAP.mec?ref_type=heads) in the Mech repository.
+
+We also have plans to grow the community, because for a long time now Mech has been a project between myself and my students at Lehigh. But for the language to grow, I will have to make efforts to spread the word.
+
+
+-(👾) [Discord](https://discord.gg/asqP25NNTH) - We have maintained a discord channel for a while, but it's been mostly private. We used to have a gittr, but I learned most people use Discord so that's what I'll use. We're now opening it up to more people! There's currently not a lot of discussion in general, but I hope after I start making more noise some people other than Lehigh students will hang around.
+-(📺) [YouTube](https://www.youtube.com/@MechLang) - We've had a YouTube channel up for a while with a couple videos on it, but this year I plan to post multiple video tutorials showing off features of Mech.
+-(🛸) [Reddit](https://www.reddit.com/r/mechlang/) - There's a subreddit for Mech that I have posted a couple blog posts to. For now, there's only one other person who has posted there, but I hope for more!
+-(📧) [Mailing List](https://groups.google.com/g/mechtalk) - The mailing list is now back to being mechtalk@googlegroups.com. I had tried to use a custom domain mailing list but I found it confusing, so I'm going back to Google Groups. It doesn't matter much since there was no correspondence over the mailing list, but I'll have transfer everyone who signed up for the custom domain list into Google Groups, so don't be surprised if you find an e-mail about that in your inbox!
+
+*******************************************************************************
+
+I'm excited about this new release because it's the fastest and most expressive version of Mech yet. It doesn't have as many features as v0.1, but they will be added back in time, after the data structure foundation is finished. Currently, that work is mostly complete, with some rough edges still outstanding. Soon, we will finish the documentation and release website. I'm targeting this work for the next month or so. After that, we'll begin work on the state machines and the program specification language.
+
+I have a lot more to say, but this post is already too long, so I'll save that for future posts, starting with one about the work done so far in v0.2. I'm excited to see where Mech goes in the future, and I hope you are too!
