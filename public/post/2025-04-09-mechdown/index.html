@@ -937,7 +937,7 @@ li p {
     <div class="mech-root">
       <div class="mech-toc">
         <h1 class="mech-program-title">
-          Mechdown - a new platform for writin documentation and static sites
+          Mechdown - a new platform for writing rich documents
         </h1>
         <div class="mech-toc-sections">
           <section class="mech-program-section">
@@ -1083,7 +1083,7 @@ li p {
       </div>
       <div class="mech-program">
         <h1 class="mech-program-title">
-          Mechdown - a new platform for writin documentation and static sites
+          Mechdown - a new platform for writing rich documents
         </h1>
         <div class="mech-program-body">
           <section class="mech-program-section">
@@ -1715,7 +1715,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </h2>
             <div class="mech-section-element">
               <p class="mech-paragraph">
-                Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser; every Mechdown program is also a valid Mech program. But of course you can write Mech programs without writing any 
+                Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
               </p>
             </div>
             <div class="mech-section-element">
@@ -1725,6 +1725,45 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     Parsing
                   </a>
                 </h4>
+                <div class="mech-section-element">
+                  <ul class="mech-unordered-list">
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        What does this buy us? A we can write naturally just as in markdown.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        Parsing generates a parse tree which we then pass on to the formatter
+                      </p>
+                    </li>
+                  </ul>
+                </div>
               </section>
             </div>
             <div class="mech-section-element">
@@ -1734,6 +1773,44 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     Formatting
                   </a>
                 </h4>
+                <div class="mech-section-element">
+                  <ul class="mech-unordered-list">
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        The formatter takes a parse tree and generates a HTML document from it. 
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        The HTML document is fully styled
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated 
+                        <em class="mech-em">
+                          inside
+                        </em>
+                         of the document, so that we don't have to reparse anything if we want to recover the source code.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
               </section>
             </div>
             <div class="mech-section-element">
@@ -1743,6 +1820,25 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     Serving
                   </a>
                 </h4>
+                <div class="mech-section-element">
+                  <ul class="mech-unordered-list">
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
+                      </p>
+                    </li>
+                    <li class="mech-list-item">
+                      <p class="mech-paragraph">
+                        After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
               </section>
             </div>
           </section>
@@ -1875,7 +1971,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     We can run arbitary Mech expressions inline with a 
                     <code class="mech-inline-code">{}</code>
                      like so 
-                    <code id="43400001955129180" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></code>
+                    <code id="52247030353429059" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></code>
                     .
                   </p>
                 </div>
@@ -1934,7 +2030,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     We can then query this value in the document. For example the value of 
                     <code class="mech-inline-code">x</code>
                      is 
-                    <code id="57135434874464641" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></code>
+                    <code id="28189246506856920" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></code>
                     .
                   </p>
                 </div>
@@ -1980,7 +2076,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     If we ask for 
                     <code class="mech-inline-code">z</code>
                      we don't get that one, we get the one from before, because that was defined in the default code space: 
-                    <code id="5663960426275251" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span></span></code>
+                    <code id="58363059670361488" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span></span></code>
                     .
                   </p>
                 </div>
@@ -2056,7 +2152,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
       let wasm_core;
       async function run() {
         await init();
-        var code = `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`;
+        var code = `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`;
         wasm_core = new WasmMech();
         var xhr = new XMLHttpRequest();
         var codeUrl = `/code${window.location.pathname}`;

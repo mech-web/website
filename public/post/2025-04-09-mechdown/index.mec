@@ -1,4 +1,4 @@
-Mechdown - a new platform for writin documentation and static sites
+Mechdown - a new platform for writing rich documents
 ===============================================================================
 
 Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine *inside* of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
@@ -267,13 +267,38 @@ Eve is a programming language
 2. Mechdown Architecture
 -------------------------------------------------------------------------------
 
-Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser; every Mechdown program is also a valid Mech program. But of course you can write Mech programs without writing any 
+Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
 
 (a) Parsing
 
+- Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
+
+- Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
+- This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
+- But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
+
+- What does this buy us? A we can write naturally just as in markdown.
+- We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
+
+- Parsing generates a parse tree which we then pass on to the formatter
+
 (b) Formatting
 
+- The formatter takes a parse tree and generates a HTML document from it. 
+- The HTML document is fully styled
+- The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated *inside* of the document, so that we don't have to reparse anything if we want to recover the source code.
+- The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
+- The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
+- You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
+
+
 (c) Serving
+
+- mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
+
+- So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
+
+- After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
 
 3. Features
 -------------------------------------------------------------------------------
