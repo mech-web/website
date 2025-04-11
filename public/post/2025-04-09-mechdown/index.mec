@@ -1,7 +1,7 @@
 Mechdown - a new platform for writin documentation and static sites
 ===============================================================================
 
-tldr; Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine *inside* of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
+Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine *inside* of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
 
 In the last blog post, we had mentioned that Mech v0.2 should be more useful on its own without having to be a full-fledged language. It'll take time to get there, but we want it to be useful in the meantime so people will actually work in Mech. The analogy we made is that Mech v0.2 is like a car engine -- it's a useful self-contained thing which allows it to be modularly used in a wide range of vehicles for different purposes.
 
