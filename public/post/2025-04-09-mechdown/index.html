@@ -11,8 +11,13 @@ html {
     scroll-behavior: smooth;
 }
 
-.mech-program{counter-reset: section}
-.mech-toc{counter-reset: section}
+.mech-program {
+    counter-reset: section;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 700px;
+}
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -23,31 +28,40 @@ body {
 }
 
 .mech-root {
+    width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-.mech-output {
+#mech-output {
+    max-width: 700px;
+    min-width: 250px;
     background-color: #171D21;
     color: #f2ead9;
-    padding: 20px;
-    margin: 20px;
     border-radius: 10px;
-    flex-grow: 1;
-    overflow-y: auto;
 }
 
 .mech-toc {
+    width: 250px;
+    min-width: 250px;
+    counter-reset: section;
     background-color: #171D21;
     color: #f2ead9;
     overflow-y: auto;
     margin-right: 20px;
     padding-right: 15px;
-    width: 250px;
     padding-left: 10px;
     position: sticky; 
     top: 0; 
     height: 100vh;
+}
+
+.mech-toc h2 {
+    line-height: 23px;
+}
+
+.mech-toc h3 {
+    line-height: 23px;
 }
 
 .mech-toc::-webkit-scrollbar {
@@ -83,42 +97,47 @@ body {
     padding-left: 15px;
 }
 
+h2.toc::before {
+    padding-right: 5px;
+}
+
+h3.toc::before {
+    font-size: 12pt;
+    padding-right: 5px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
 .mech-toc h2 a {
     color: #f2ead9;
     text-decoration: none;
 }
 
+.mech-toc h2:hover::before {
+    color: #ee6262;
+}
+
 .mech-toc h2 a:hover {
-    color: #ffd139;
-    text-decoration: none;
-}
-
-.mech-toc h4 {
-    font-size: 12pt;
-    padding-left: 30px;
-    font-weight: normal;
-}
-
-.mech-toc h4 a {
-    color: #f2ead9;
-    text-decoration: none;
-}
-
-.mech-toc h4 a:hover {
     color: #ee6262;
     text-decoration: none;
 }
 
-
-.mech-program {
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 690px;
+.mech-toc h3 {
+    font-size: 12pt;
+    padding-left: 30px;
 }
 
-.mech-output {
-    flex-grow: 1;
+.mech-toc h3 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h3:hover::before {
+    color: #ee6262;
+}
+
+.mech-toc h3 a:hover {
+    color: #ee6262;
+    text-decoration: none;
 }
 
 .mech-matrix {
@@ -175,29 +194,18 @@ h2:before{
     content: counter(section) " ";
 }
 
-h4:before{
-    counter-increment: sub-section;
-    color: #ee6262;
-    content: counter(section) "." counter(sub-section) " ";
-}
-
 .mech-program .mech-program-title {
+    width: 900px;
     font-family: 'FiraCodeRegular', monospace;
+    padding-bottom: 10px;
+    border-bottom: 4px dashed #d19710;
     color: #f2ead9;
     letter-spacing: 2px;
     font-size: 22pt;
     font-weight: bold;
     text-align: center;
     margin-bottom: 16px;
-}
-.mech-program .mech-program-title::after {
-    letter-spacing: 0px;
-    content: "==============================================================================";
-    color: #F3B62D; 
-    font-size: 12pt; 
-    display: block;
-    text-align: left; 
-    margin-top: 5px; 
+    margin-left: -100px;
 }
 
 .mech-program h2 a {
@@ -206,23 +214,24 @@ h4:before{
 }
 
 .mech-program h2 {
+    width: 850px;
     font-family: 'FiraCodeRegular', monospace;
+    padding-bottom: 10px;
+    border-bottom: 3px dashed #d19710;
     color: #f2ead9;
     font-size: 16pt;
     font-weight: bold;
     letter-spacing: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-top: 50px;
-    margin-left: -50px;
+    margin-left: -75px;
 }
-.mech-program h2::after {
-    content: "------------------------------------------------------------------------------------";
-    letter-spacing: 0px;
-    color: #F3B62D; 
-    font-size: 12pt; 
-    display: block;
-    text-align: left; 
-    margin-top: 5px; 
+
+h3:before{
+    counter-increment: sub-section;
+    counter-reset: sub-sub-section;
+    color: #F3B62D;
+    content: counter(section) "." counter(sub-section) " ";
 }
 
 .mech-program h3 a {
@@ -237,6 +246,14 @@ h4:before{
     font-weight: bold;
     margin-bottom: 10px;
     letter-spacing: 1px;
+    margin-left: -48px;
+}
+
+h4:before {
+    counter-increment: sub-sub-section;
+    color: #F3B62D;
+    font-weight: bold;
+    content: counter(section) "." counter(sub-section) "." counter(sub-sub-section) " ";
 }
 
 .mech-program h4 a {
@@ -247,10 +264,28 @@ h4:before{
 .mech-program h4 {
     font-family: 'FiraCodeRegular', monospace;
     color: #f2ead9;
-    font-size: 14pt;
+    font-size: 12pt;
     font-weight: bold;
     margin-bottom: 10px;
     letter-spacing: 1px;
+}
+
+.mech-program h4 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h4 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+h4.toc {
+    display: none;
 }
 
 .mech-variable-mutable {
@@ -364,7 +399,7 @@ h4:before{
 
 
 .mech-grammar-terminal {
-    color: #ef5f90;
+    color: #ee6262;
 }
 
 
@@ -683,16 +718,85 @@ code {
 }
 
 .mech-comment {
-    color: #ef5f90;
+    color: #ef5f90;;
     font-style: italic;
     padding-top: 20px;
 }
 
 .mech-string {
-    color: #ef5f90;
+    color: #ee6262;
 }
 
-.mech-unordered-list {
+
+ul {
+    color: #F3B62D;
+    font-weight: bold;
+}
+
+ol {
+    color: #F3B62D;
+    font-weight: bold;
+}
+
+
+.mech-check-list {
+    list-style: none;
+    padding-left: 9px;
+    margin-top: 0.5em;
+}
+
+.mech-check-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+    margin: 0;
+    color: #dcd4c9;
+}
+
+.mech-check-list-item input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    border: 2px solid #777;
+    border-radius: 3px;
+    background-color: #171D21;
+    cursor: pointer;
+    position: relative;
+}
+
+.mech-check-list-item input[type="checkbox"]:checked {
+    background-color: #171D21;
+    border-color: #F3B62D;
+}
+
+.mech-check-list-item input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: #F3B62D;
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.mech-list-item-emoji {
+    list-style-type: none;
+    color: #ee6262;
+}
+
+.mech-list-item-emoji {
+    line-height: 0px;
+    color: #ee6262;
+}
+
+.mech-list-item-emoji::before {
+    content: attr(data-bullet); 
+    position: relative;         
+    font-size: 12pt;          
+    color: #ee6262;;    
+    right: 30px;
+    top: 13px;
 }
 
 .mech-figure {
@@ -706,61 +810,29 @@ code {
     max-width: 120%;
 }
 
+.mech-figure-label {
+    color: #F3B62D; 
+    font-size: 12pt;
+}
+
 .mech-figure-caption {
     margin-top: 1em;
-    color: #ada594;
+    color: #eadec2;
     font-size: 12pt;
     text-align: left;;
     line-height: 1.4;
     font-style: italic;
     padding: 1em;
 }
-  
-.mech-list-item::before {
-    content: "•";
-    position: relative;         
-    font-size: 1.2rem;          
-    color: #ef5f90;;    
-    right: 20px;
-    top: 18px;
-    font-weight: bold;
-    font-size: 18pt;
+
+li {
+    padding-left: 5px;
 }
-
-.mech-list-item {
-    line-height: 0px;
-    color: #ef5f90;
-    padding-left: 20px;
-}
-
-.mech-list-item-emoji::before {
-    content: attr(data-bullet); 
-    position: relative;         
-    font-size: 1.2rem;          
-    color: #ef5f90;;    
-    right: 35px;
-    top: 17px;
-}
-
-.mech-list-item-emoji {
-    line-height: 0px;
-    color: #ef5f90;
-    padding-left: 30px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;   
-}
-
-
 
 li p {
-    margin: 0px;
-    padding: 0px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-weight: normal;
 }
 
 .mech-table-header {
@@ -823,7 +895,7 @@ li p {
 .mech-block-quote {
     width: 80%;
     background-color: #232A30; 
-    border-left: 5px solid #ee6262; 
+    border-left: 4px solid #F3B62D;; 
     padding: 15px 20px;
     color: #f2ead9; 
     font-style: italic; 
@@ -898,23 +970,23 @@ li p {
     margin-top: 1em;
     font-size: 0.9em;
     color: #ada594;
-  }
-  
-  .mech-footnote-id {
+}
+
+.mech-footnote-id {
     color: #ee6262;
     font-weight: bold;
     min-width: 2em;
     text-align: right;
     font-family: monospace;
-  }
-  
-  .mech-footnote .mech-paragraph {
+}
+
+.mech-footnote .mech-paragraph {
     margin: 0;
     line-height: 1.6;
     color: #f2ead9;
-  }
+}
 
-  .mech-footnote-reference {
+.mech-footnote-reference {
     font-size: 0.7em;
     vertical-align: super;
     text-decoration: none;
@@ -922,13 +994,27 @@ li p {
     color: #ee6262;
     cursor: pointer;
     transition: color 0.2s;
-  }
-  
-  .mech-footnote-reference:hover {
+}
+
+.mech-footnote-reference:hover {
     color: #f28b82;
     text-decoration: underline;
-  }
-  
+}
+
+.mech-abstract {
+    background-color: #1f252a;
+    border: 1px solid #F3B62D;
+    padding: 2em 2em;
+    margin: 2em 2em;
+    border-radius: 8px;
+    color: #dcd4c9;
+}
+
+.mech-abstract p {
+    line-height: 25pt;
+    margin: 0px;
+    text-align: justify;
+}
 
         
     </style>
@@ -939,52 +1025,97 @@ li p {
         <h1 class="mech-program-title">
           Mechdown - a new platform for writing rich documents
         </h1>
-        <div class="mech-toc-sections">
+        <section class="mech-toc-sections">
           <section class="mech-program-section">
           </section>
           <section class="mech-program-section">
-            <h2 id="56966096824969810" class="mech-program-subtitle">
+            <h2 id="56966096824969810" class="mech-program-subtitle toc">
               <a href="#32037774375897904">
                 About This Document
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="26332845237319012" class="mech-program-subtitle">
+            <h2 id="26332845237319012" class="mech-program-subtitle toc">
               <a href="#61394873977566001">
                 Background: Literate Programming
               </a>
             </h2>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="40188222926801880" class="mech-program-subtitle">
-                  <a href="#3072617773211710">
+                <h3 id="35927614198707484" class="mech-program-subtitle toc">
+                  <a href="#24294806546187453">
                     History
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="455602286454154" class="mech-program-subtitle">
-                  <a href="#21904197255809755">
+                <h3 id="36295933628547248" class="mech-program-subtitle toc">
+                  <a href="#7798288460541298">
                     Notable Literate Programming Systems
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="54237924193468610" class="mech-program-subtitle">
-                  <a href="#25005200936664514">
-                    Notebook Programming Systems
+                <h4 id="40658797646273419" class="mech-program-subtitle toc">
+                  <a href="#8355565590829283">
+                    WEB
                   </a>
                 </h4>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="46066097139110627" class="mech-program-subtitle">
+                <h4 id="13116669495915608" class="mech-program-subtitle toc">
+                  <a href="#56728777345526667">
+                    Literate Haskell
+                  </a>
+                </h4>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="18398377061549097" class="mech-program-subtitle toc">
+                  <a href="#69025674288977430">
+                    Emacs Org-mode
+                  </a>
+                </h4>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h3 id="22316178343330937" class="mech-program-subtitle toc">
+                  <a href="#30185077681464233">
+                    Notebook Programming Systems
+                  </a>
+                </h3>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="24416588962239614" class="mech-program-subtitle toc">
+                  <a href="#19447518485351348">
+                    Jupyter
+                  </a>
+                </h4>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="31704380360537915" class="mech-program-subtitle toc">
+                  <a href="#22834545534867090">
+                    Matlab
+                  </a>
+                </h4>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="46066097139110627" class="mech-program-subtitle toc">
                   <a href="#64103774474506607">
                     Eve
                   </a>
@@ -993,93 +1124,93 @@ li p {
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="26927706745025209" class="mech-program-subtitle">
+            <h2 id="26927706745025209" class="mech-program-subtitle toc">
               <a href="#66077898666376167">
                 Mechdown Architecture
               </a>
             </h2>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="738102794235380" class="mech-program-subtitle">
-                  <a href="#50308333892731047">
+                <h3 id="45087826309718588" class="mech-program-subtitle toc">
+                  <a href="#6104727724541002">
                     Parsing
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="17721611038113206" class="mech-program-subtitle">
-                  <a href="#11850855293835175">
+                <h3 id="15831414955065593" class="mech-program-subtitle toc">
+                  <a href="#53829581029483180">
                     Formatting
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="8394804475057016" class="mech-program-subtitle">
-                  <a href="#37487135023289503">
+                <h3 id="66486965813274988" class="mech-program-subtitle toc">
+                  <a href="#41285097521998504">
                     Serving
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="20114060742218147" class="mech-program-subtitle">
+            <h2 id="20114060742218147" class="mech-program-subtitle toc">
               <a href="#16141801293562355">
                 Features
               </a>
             </h2>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="53661307784093721" class="mech-program-subtitle">
-                  <a href="#18913120349736819">
+                <h3 id="18286585641169603" class="mech-program-subtitle toc">
+                  <a href="#13230474457982473">
                     Markdown Features
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="28065265593502370" class="mech-program-subtitle">
-                  <a href="#63662537794375209">
+                <h3 id="65172811187172741" class="mech-program-subtitle toc">
+                  <a href="#6406000554017629">
                     Mech Specific Features
                   </a>
-                </h4>
+                </h3>
               </section>
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="30126148200856492" class="mech-program-subtitle">
+            <h2 id="30126148200856492" class="mech-program-subtitle toc">
               <a href="#45169909149306489">
                 Usecase: Static Sites
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="67126094256587813" class="mech-program-subtitle">
+            <h2 id="67126094256587813" class="mech-program-subtitle toc">
               <a href="#32085779454505553">
                 Usecase: Documentation
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="16807387686889603" class="mech-program-subtitle">
+            <h2 id="16807387686889603" class="mech-program-subtitle toc">
               <a href="#69304377785479616">
                 Comparison to Other Tools
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="69957635814841631" class="mech-program-subtitle">
+            <h2 id="69957635814841631" class="mech-program-subtitle toc">
               <a href="#33539917709397492">
                 Project Roadmap
               </a>
             </h2>
           </section>
-        </div>
+        </section>
       </div>
       <div class="mech-program">
         <h1 class="mech-program-title">
@@ -1088,13 +1219,15 @@ li p {
         <div class="mech-program-body">
           <section class="mech-program-section">
             <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine 
-                <em class="mech-em">
-                  inside
-                </em>
-                 of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
-              </p>
+              <div id="abstract" class="mech-abstract">
+                <p class="mech-paragraph">
+                  Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine 
+                  <em class="mech-em">
+                    inside
+                  </em>
+                   of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
+                </p>
+              </div>
             </div>
             <div class="mech-section-element">
               <p class="mech-paragraph">
@@ -1117,7 +1250,7 @@ li p {
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="32037774375897904" class="mech-program-subtitle">
+            <h2 id="32037774375897904" class="mech-program-subtitle ">
               <a href="#32037774375897904">
                 About This Document
               </a>
@@ -1129,12 +1262,12 @@ li p {
             </div>
             <div class="mech-section-element">
               <ul class="mech-unordered-list">
-                <li class="mech-list-item">
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
                     You can read the source code here, which is a plain text file written in valid Mech textual syntax.
                   </p>
                 </li>
-                <li class="mech-list-item">
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
                     You can read the program rendered as an HTML document here, which is generated by running the plain text source through the Mech formatter utilitiy.
                   </p>
@@ -1222,7 +1355,7 @@ li p {
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="61394873977566001" class="mech-program-subtitle">
+            <h2 id="61394873977566001" class="mech-program-subtitle ">
               <a href="#61394873977566001">
                 Background: Literate Programming
               </a>
@@ -1275,11 +1408,11 @@ li p {
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="3072617773211710" class="mech-program-subtitle">
-                  <a href="#3072617773211710">
+                <h3 id="24294806546187453" class="mech-program-subtitle ">
+                  <a href="#24294806546187453">
                     History
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB systems as a way to improve the readability and maintainability of code
@@ -1325,18 +1458,20 @@ li p {
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="21904197255809755" class="mech-program-subtitle">
-                  <a href="#21904197255809755">
+                <h3 id="7798288460541298" class="mech-program-subtitle ">
+                  <a href="#7798288460541298">
                     Notable Literate Programming Systems
                   </a>
+                </h3>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="8355565590829283" class="mech-program-subtitle ">
+                  <a href="#8355565590829283">
+                    WEB
+                  </a>
                 </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    <strong class="mech-strong">
-                      WEB:
-                    </strong>
-                  </p>
-                </div>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with TeX-formatted documentation
@@ -1353,14 +1488,14 @@ li p {
                 </div>
                 <div class="mech-section-element">
                   <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         Source File (
                         <code class="mech-inline-code">.web</code>
                         ) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by a name reference.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         TANGLE - This tool processes the 
                         <code class="mech-inline-code">.web</code>
@@ -1369,7 +1504,7 @@ li p {
                          file, which can be compiled by a Pascal compiler.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         WEAVE - This tool turns the 
                         <code class="mech-inline-code">.web</code>
@@ -1403,13 +1538,15 @@ li p {
                     </figure>
                   </p>
                 </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    <strong class="mech-strong">
-                      Literate Haskell:
-                    </strong>
-                  </p>
-                </div>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="56728777345526667" class="mech-program-subtitle ">
+                  <a href="#56728777345526667">
+                    Literate Haskell
+                  </a>
+                </h4>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Haskell is one of the few languages that provides native features to support literate programming. In Haskell, a literate program is one with the suffix 
@@ -1475,13 +1612,15 @@ main =  print [ (n, product [1..n]) | n <- [1..20]]
 \end{document}
 </pre>
                 </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    <strong class="mech-strong">
-                      Emacs Org-mode
-                    </strong>
-                  </p>
-                </div>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="69025674288977430" class="mech-program-subtitle ">
+                  <a href="#69025674288977430">
+                    Emacs Org-mode
+                  </a>
+                </h4>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Whereas Literate Haskell is specific to the Haskell programming language, Emacs Org-mode is a general-purpose markup language that can be used with any programming language. It was developed by Carsten Dominik, Bastien Guerry et al in 2003 as a way to organize notes, tasks, and projects in Emacs. Org-mode allows you to write documents in a plain text format, and then export them to various formats such as HTML, LaTeX, and PDF.
@@ -1516,23 +1655,25 @@ plt.savefig("plot.png")
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="25005200936664514" class="mech-program-subtitle">
-                  <a href="#25005200936664514">
+                <h3 id="30185077681464233" class="mech-program-subtitle ">
+                  <a href="#30185077681464233">
                     Notebook Programming Systems
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. In this section we'll take a look at two notable notebook programming systems: JuPyter and Matlab.
                   </p>
                 </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    <strong class="mech-strong">
-                      Jupyter
-                    </strong>
-                  </p>
-                </div>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="19447518485351348" class="mech-program-subtitle ">
+                  <a href="#19447518485351348">
+                    Jupyter
+                  </a>
+                </h4>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
@@ -1544,29 +1685,33 @@ plt.savefig("plot.png")
                   </p>
                 </div>
                 <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Markdown Cells: You can use Markdown to write explanatory text alongside your code.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Code Cells: Code is written in cells that can be executed independently.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
-                  </p>
+                  <ul class="mech-unordered-list">
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Markdown Cells: You can use Markdown to write explanatory text alongside your code.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Code Cells: Code is written in cells that can be executed independently.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
+                      </p>
+                    </li>
+                  </ul>
                 </div>
                 <div class="mech-section-element">
                   <pre class="mech-code-block">* Data Analysis
@@ -1588,13 +1733,15 @@ plt.savefig("plot.png")
 [[./plot.png]]
 </pre>
                 </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    <strong class="mech-strong">
-                      Matlab:
-                    </strong>
-                  </p>
-                </div>
+              </section>
+            </div>
+            <div class="mech-section-element">
+              <section class="mech-program-section">
+                <h4 id="22834545534867090" class="mech-program-subtitle ">
+                  <a href="#22834545534867090">
+                    Matlab
+                  </a>
+                </h4>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Matlab is Mech's closest cousin and also a language that has a long history of being used for notebook programming, especially in engineering, physics, and numerical analysis. Matlab's primary strength lies in its powerful array and matrix operations, making it an ideal tool for mathematical modeling, simulation, and data analysis.
@@ -1606,24 +1753,28 @@ plt.savefig("plot.png")
                   </p>
                 </div>
                 <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Live Scripts: Matlab's live scripts allow for combining code and formatted text in a single document. These scripts are similar to Jupyter notebooks in that they allow inline results and visualization.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Interactive Plots: Matlab supports interactive plots that can be adjusted within the notebook itself, allowing for dynamic exploration of data.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Rich Outputs: Matlab supports rich outputs like equations, formatted text, and interactive visualizations directly in the script.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Built-In Functions: Matlab comes with a vast library of built-in functions for numerical analysis, signal processing, optimization, and more.
-                  </p>
+                  <ul class="mech-unordered-list">
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Live Scripts: Matlab's live scripts allow for combining code and formatted text in a single document. These scripts are similar to Jupyter notebooks in that they allow inline results and visualization.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Interactive Plots: Matlab supports interactive plots that can be adjusted within the notebook itself, allowing for dynamic exploration of data.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Rich Outputs: Matlab supports rich outputs like equations, formatted text, and interactive visualizations directly in the script.
+                      </p>
+                    </li>
+                    <li class="mech-ul-list-item">
+                      <p class="mech-paragraph">
+                        Built-In Functions: Matlab comes with a vast library of built-in functions for numerical analysis, signal processing, optimization, and more.
+                      </p>
+                    </li>
+                  </ul>
                 </div>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
@@ -1694,7 +1845,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="64103774474506607" class="mech-program-subtitle">
+                <h4 id="64103774474506607" class="mech-program-subtitle ">
                   <a href="#64103774474506607">
                     Eve
                   </a>
@@ -1708,7 +1859,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="66077898666376167" class="mech-program-subtitle">
+            <h2 id="66077898666376167" class="mech-program-subtitle ">
               <a href="#66077898666376167">
                 Mechdown Architecture
               </a>
@@ -1720,44 +1871,44 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="50308333892731047" class="mech-program-subtitle">
-                  <a href="#50308333892731047">
+                <h3 id="6104727724541002" class="mech-program-subtitle ">
+                  <a href="#6104727724541002">
                     Parsing
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         What does this buy us? A we can write naturally just as in markdown.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         Parsing generates a parse tree which we then pass on to the formatter
                       </p>
@@ -1768,24 +1919,24 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="11850855293835175" class="mech-program-subtitle">
-                  <a href="#11850855293835175">
+                <h3 id="53829581029483180" class="mech-program-subtitle ">
+                  <a href="#53829581029483180">
                     Formatting
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         The formatter takes a parse tree and generates a HTML document from it. 
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         The HTML document is fully styled
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated 
                         <em class="mech-em">
@@ -1794,17 +1945,17 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                          of the document, so that we don't have to reparse anything if we want to recover the source code.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
                       </p>
@@ -1815,24 +1966,24 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="37487135023289503" class="mech-program-subtitle">
-                  <a href="#37487135023289503">
+                <h3 id="41285097521998504" class="mech-program-subtitle ">
+                  <a href="#41285097521998504">
                     Serving
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
                       </p>
@@ -1843,18 +1994,18 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="16141801293562355" class="mech-program-subtitle">
+            <h2 id="16141801293562355" class="mech-program-subtitle ">
               <a href="#16141801293562355">
                 Features
               </a>
             </h2>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="18913120349736819" class="mech-program-subtitle">
-                  <a href="#18913120349736819">
+                <h3 id="13230474457982473" class="mech-program-subtitle ">
+                  <a href="#13230474457982473">
                     Markdown Features
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Mechdown supports various features from Markdown and its derivatives/extensions. As you've been reading this document you've already seen some of them in action. Here we'll go through them all and note some of the advanced features that give Mechdown an advantage.
@@ -1862,85 +2013,81 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                 </div>
                 <div class="mech-section-element">
                   <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
                         Titles and Subtitles
                       </p>
                     </li>
-                  </ul>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Section Elements:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
-                        Paragraphs
+                        Section Elements
                       </p>
                     </li>
-                    <li class="mech-list-item">
+                    <ul class="mech-unordered-list">
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Paragraphs
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Callouts
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Lists
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Code Blocks
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Tables
+                        </p>
+                      </li>
+                    </ul>
+                    <li class="mech-ul-list-item">
                       <p class="mech-paragraph">
-                        Callouts
+                        Paragraph Elements:
                       </p>
                     </li>
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Lists
-                      </p>
-                    </li>
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Code Blocks
-                      </p>
-                    </li>
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Tables
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Paragraph Elements:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Inline Code
-                      </p>
-                    </li>
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Links
-                      </p>
-                    </li>
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Images
-                      </p>
-                    </li>
-                    <li class="mech-list-item">
-                      <p class="mech-paragraph">
-                        Emphasis
-                      </p>
-                    </li>
+                    <ul class="mech-unordered-list">
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Inline Code
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Links
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Images
+                        </p>
+                      </li>
+                      <li class="mech-ul-list-item">
+                        <p class="mech-paragraph">
+                          Emphasis
+                        </p>
+                      </li>
+                    </ul>
                   </ul>
                 </div>
               </section>
             </div>
             <div class="mech-section-element">
               <section class="mech-program-section">
-                <h4 id="63662537794375209" class="mech-program-subtitle">
-                  <a href="#63662537794375209">
+                <h3 id="6406000554017629" class="mech-program-subtitle ">
+                  <a href="#6406000554017629">
                     Mech Specific Features
                   </a>
-                </h4>
+                </h3>
                 <div class="mech-section-element">
                   <p class="mech-paragraph">
                     Markdown's strength is that it allows users to markup plain text easily for the purpose of generating rich-HTML documents. But these generated documents although "rich", are "static"; the user cannot interact with the document in any way, and the document cannot change based on user input or any computed values.
@@ -1971,7 +2118,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     We can run arbitary Mech expressions inline with a 
                     <code class="mech-inline-code">{}</code>
                      like so 
-                    <code id="52247030353429059" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></code>
+                    <code id="34939046707140533" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></code>
                     .
                   </p>
                 </div>
@@ -2030,7 +2177,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     We can then query this value in the document. For example the value of 
                     <code class="mech-inline-code">x</code>
                      is 
-                    <code id="28189246506856920" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></code>
+                    <code id="22537555396208126" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></code>
                     .
                   </p>
                 </div>
@@ -2076,7 +2223,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                     If we ask for 
                     <code class="mech-inline-code">z</code>
                      we don't get that one, we get the one from before, because that was defined in the default code space: 
-                    <code id="58363059670361488" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span></span></code>
+                    <code id="19798699407359259" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span></span></code>
                     .
                   </p>
                 </div>
@@ -2084,41 +2231,65 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
             </div>
           </section>
           <section class="mech-program-section">
-            <h2 id="45169909149306489" class="mech-program-subtitle">
+            <h2 id="45169909149306489" class="mech-program-subtitle ">
               <a href="#45169909149306489">
                 Usecase: Static Sites
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="32085779454505553" class="mech-program-subtitle">
+            <h2 id="32085779454505553" class="mech-program-subtitle ">
               <a href="#32085779454505553">
                 Usecase: Documentation
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="69304377785479616" class="mech-program-subtitle">
+            <h2 id="69304377785479616" class="mech-program-subtitle ">
               <a href="#69304377785479616">
                 Comparison to Other Tools
               </a>
             </h2>
           </section>
           <section class="mech-program-section">
-            <h2 id="33539917709397492" class="mech-program-subtitle">
+            <h2 id="33539917709397492" class="mech-program-subtitle ">
               <a href="#33539917709397492">
                 Project Roadmap
               </a>
             </h2>
             <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Dynamic sites
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Queryable documents / dashboards / programs / animations
-              </p>
+              <ul class="mech-check-list">
+                <li class="mech-check-list-item">
+                  <input type="checkbox" >
+                  <p class="mech-paragraph">
+                     Dynamic sites
+                  </p>
+                </li>
+                <li class="mech-check-list-item">
+                  <input type="checkbox" >
+                  <p class="mech-paragraph">
+                     Queryable documents
+                  </p>
+                </li>
+                <li class="mech-check-list-item">
+                  <input type="checkbox" >
+                  <p class="mech-paragraph">
+                     Dashboards
+                  </p>
+                </li>
+                <li class="mech-check-list-item">
+                  <input type="checkbox" >
+                  <p class="mech-paragraph">
+                     Programs / animations
+                  </p>
+                </li>
+                <li class="mech-check-list-item">
+                  <input type="checkbox" >
+                  <p class="mech-paragraph">
+                     Forms
+                  </p>
+                </li>
+              </ul>
             </div>
             <div class="mech-section-element">
               <div class="mech-footnote" id="9969322063809408">
@@ -2152,7 +2323,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
       let wasm_core;
       async function run() {
         await init();
-        var code = `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`;
+        var code = `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`;
         wasm_core = new WasmMech();
         var xhr = new XMLHttpRequest();
         var codeUrl = `/code${window.location.pathname}`;

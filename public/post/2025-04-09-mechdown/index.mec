@@ -1,7 +1,7 @@
 Mechdown - a new platform for writing rich documents
 ===============================================================================
 
-Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine *inside* of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
+%% Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine *inside* of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
 
 In the last blog post, we had mentioned that Mech v0.2 should be more useful on its own without having to be a full-fledged language. It'll take time to get there, but we want it to be useful in the meantime so people will actually work in Mech. The analogy we made is that Mech v0.2 is like a car engine -- it's a useful self-contained thing which allows it to be modularly used in a wide range of vehicles for different purposes.
 
@@ -31,7 +31,7 @@ This block is fenced in the sourcecode, which indicates to the compiler that the
 
 If you're reading the HTML version, you should be able to tell that it was formatted by Mech by inspecting the source; you should see every element has a class prefixed with "mech-". Which is fun because this means the HTML source is a valid Mech parse tree! You can use the element inspector in Chrome to interactively browse the tree to get an idea of how Mech programs are constructed.
 
-1. Background: Literate Programming
+2. Background: Literate Programming
 -------------------------------------------------------------------------------
 
 According to Wikipedia, Literate Programming is:
@@ -50,7 +50,7 @@ Then there are array languages such as APL, J, and K, which are designed to work
 
 In this section we'll look at the history of literate programming, some notable literate programming systems, and some prior work that predates Mech in this area.
 
-(a) History
+(2.1) History
 
 Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB systems as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
 
@@ -66,9 +66,9 @@ Some of this can (and has) been solved with better language design; modern langu
 
 While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of this direction. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
 
-(b) Notable Literate Programming Systems
+(2.2) Notable Literate Programming Systems
 
-**WEB:**
+(2.2.1) WEB
 
 WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with TeX-formatted documentation[^2]. 
 
@@ -89,7 +89,7 @@ filename.web ──► TANGLE ──► filename.pas ──► [Pascal Compiler]
 
 ![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](web.png)
 
-**Literate Haskell:** 
+(2.2.3) Literate Haskell
 
 Haskell is one of the few languages that provides native features to support literate programming. In Haskell, a literate program is one with the suffix `.lhs` rather than `.hs`.
 
@@ -134,7 +134,7 @@ main =  print [ (n, product [1..n]) | n <- [1..20]]
 \end{document}
 ```
 
-**Emacs Org-mode**
+(2.2.4) Emacs Org-mode
 
 Whereas Literate Haskell is specific to the Haskell programming language, Emacs Org-mode is a general-purpose markup language that can be used with any programming language. It was developed by Carsten Dominik, Bastien Guerry et al in 2003 as a way to organize notes, tasks, and projects in Emacs. Org-mode allows you to write documents in a plain text format, and then export them to various formats such as HTML, LaTeX, and PDF.
 
@@ -160,25 +160,21 @@ plt.savefig("plot.png")
 [[./plot.png]]
 ```
 
-(c) Notebook Programming Systems
+(2.3) Notebook Programming Systems
 
 Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. In this section we'll take a look at two notable notebook programming systems: JuPyter and Matlab.
 
-**Jupyter**
+(2.3.1) Jupyter
 
 Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
 
 Key Features of Jupyter Notebooks:
 
-Markdown Cells: You can use Markdown to write explanatory text alongside your code.
-
-Code Cells: Code is written in cells that can be executed independently.
-
-Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
-
-Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
-
-Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
+- Markdown Cells: You can use Markdown to write explanatory text alongside your code.
+- Code Cells: Code is written in cells that can be executed independently.
+- Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
+- Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
+- Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
 
 ```
 * Data Analysis
@@ -200,19 +196,16 @@ plt.savefig("plot.png")
 [[./plot.png]]
 ```
 
-**Matlab:**
+(2.3.2) Matlab
 
 Matlab is Mech's closest cousin and also a language that has a long history of being used for notebook programming, especially in engineering, physics, and numerical analysis. Matlab's primary strength lies in its powerful array and matrix operations, making it an ideal tool for mathematical modeling, simulation, and data analysis.
 
 Matlab has supported a notebook-like interface since version 7, where users could combine script execution with rich text annotations. This style of interactive programming allows users to create self-contained documents that explain and execute code in a cohesive manner.
 
-Live Scripts: Matlab's live scripts allow for combining code and formatted text in a single document. These scripts are similar to Jupyter notebooks in that they allow inline results and visualization.
-
-Interactive Plots: Matlab supports interactive plots that can be adjusted within the notebook itself, allowing for dynamic exploration of data.
-
-Rich Outputs: Matlab supports rich outputs like equations, formatted text, and interactive visualizations directly in the script.
-
-Built-In Functions: Matlab comes with a vast library of built-in functions for numerical analysis, signal processing, optimization, and more.
+- Live Scripts: Matlab's live scripts allow for combining code and formatted text in a single document. These scripts are similar to Jupyter notebooks in that they allow inline results and visualization.
+- Interactive Plots: Matlab supports interactive plots that can be adjusted within the notebook itself, allowing for dynamic exploration of data.
+- Rich Outputs: Matlab supports rich outputs like equations, formatted text, and interactive visualizations directly in the script.
+- Built-In Functions: Matlab comes with a vast library of built-in functions for numerical analysis, signal processing, optimization, and more.
 
 Example of Matlab Notebook Programming:
 
@@ -260,16 +253,16 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
 
 The interactive slider allows users to modify the frequency of the sine wave and immediately view the updated plot, all within the same script.
 
-(d) Eve
+(2.3.4) Eve
 
 Eve is a programming language 
 
-2. Mechdown Architecture
+3. Mechdown Architecture
 -------------------------------------------------------------------------------
 
 Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
 
-(a) Parsing
+(3.1) Parsing
 
 - Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
 
@@ -282,7 +275,7 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 
 - Parsing generates a parse tree which we then pass on to the formatter
 
-(b) Formatting
+(3.2) Formatting
 
 - The formatter takes a parse tree and generates a HTML document from it. 
 - The HTML document is fully styled
@@ -292,7 +285,7 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 - You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
 
 
-(c) Serving
+(3.3) Serving
 
 - mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
 
@@ -300,39 +293,33 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 
 - After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
 
-3. Features
+4. Features
 -------------------------------------------------------------------------------
 
-(a) Markdown Features
+(4.1) Markdown Features
 
 Mechdown supports various features from Markdown and its derivatives/extensions. As you've been reading this document you've already seen some of them in action. Here we'll go through them all and note some of the advanced features that give Mechdown an advantage.
 
 - Titles and Subtitles
+- Section Elements
+    - Paragraphs
+    - Callouts
+    - Lists
+    - Code Blocks
+    - Tables
+- Paragraph Elements:
+    - Inline Code
+    - Links
+    - Images
+    - Emphasis
 
-Section Elements:
-
-- Paragraphs
-- Callouts
-- Lists
-- Code Blocks
-- Tables
-
-Paragraph Elements:
-
-- Inline Code
-- Links
-- Images
-- Emphasis
-
-(b) Mech Specific Features
+(4.2) Mech Specific Features
 
 Markdown's strength is that it allows users to markup plain text easily for the purpose of generating rich-HTML documents. But these generated documents although "rich", are "static"; the user cannot interact with the document in any way, and the document cannot change based on user input or any computed values.
 
 Bringing Mech to Markdown means that we can evaluate code and use the results to support our prose. This feature that allows us to write code and documentation in the same document, and have them work together seamlessly. And that's not marketing speak, by seamlessly I mean you can just write code in the document, and it'll be parsed. No code fences, or indention, or brackets.
 
 This solves the two-step tangle/weave aspect of Knuth's original conception of literate programming, and also solves the slice-and-dice hack that is notebook programming.
-
-
 
 Mechdown solves
 
@@ -369,21 +356,23 @@ z := x + y
 
 If we ask for `z` we don't get that one, we get the one from before, because that was defined in the default code space: {z}.
 
-4. Usecase: Static Sites
+5. Usecase: Static Sites
 -------------------------------------------------------------------------------
 
-5. Usecase: Documentation
+6. Usecase: Documentation
 -------------------------------------------------------------------------------
 
-6. Comparison to Other Tools
+7. Comparison to Other Tools
 -------------------------------------------------------------------------------
 
-7. Project Roadmap
+8. Project Roadmap
 -------------------------------------------------------------------------------
 
-Dynamic sites
-
-Queryable documents / dashboards / programs / animations
+-[ ] Dynamic sites
+-[ ] Queryable documents
+-[ ] Dashboards
+-[ ] Programs / animations
+-[ ] Forms
 
 [^1]: Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. You can also read about Edwin Towster's system here.
 
