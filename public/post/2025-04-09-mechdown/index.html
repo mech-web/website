@@ -12,7 +12,7 @@ html {
 }
 
 .mech-program {
-    counter-reset: section;
+    counter-reset: h2;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -44,7 +44,7 @@ body {
 .mech-toc {
     width: 250px;
     min-width: 250px;
-    counter-reset: section;
+    counter-reset: h2;
     background-color: #171D21;
     color: #f2ead9;
     overflow-y: auto;
@@ -186,14 +186,6 @@ h3.toc::before {
     padding-right: 6px;
 }
 
-h2{counter-reset: sub-section}
-
-h2:before{
-    counter-increment: section;
-    color: #F3B62D;
-    content: counter(section) " ";
-}
-
 .mech-program .mech-program-title {
     width: 900px;
     font-family: 'FiraCodeRegular', monospace;
@@ -227,13 +219,6 @@ h2:before{
     margin-left: -75px;
 }
 
-h3:before{
-    counter-increment: sub-section;
-    counter-reset: sub-sub-section;
-    color: #F3B62D;
-    content: counter(section) "." counter(sub-section) " ";
-}
-
 .mech-program h3 a {
     color: #f2ead9;
     text-decoration: none;
@@ -247,13 +232,6 @@ h3:before{
     margin-bottom: 10px;
     letter-spacing: 1px;
     margin-left: -48px;
-}
-
-h4:before {
-    counter-increment: sub-sub-section;
-    color: #F3B62D;
-    font-weight: bold;
-    content: counter(section) "." counter(sub-section) "." counter(sub-sub-section) " ";
 }
 
 .mech-program h4 a {
@@ -807,7 +785,7 @@ ol {
 }
 
 .mech-image {
-    max-width: 120%;
+    max-width: 110%;
 }
 
 .mech-figure-label {
@@ -1016,6 +994,31 @@ li p {
     text-align: justify;
 }
 
+h2 {
+    counter-reset: h3;
+}
+
+h3 {
+    counter-reset: h4;
+}
+
+h2::before {
+    color: #F3B62D;
+    counter-increment: h2;
+    content: counter(h2) ". ";
+}
+
+h3::before {
+    color: #F3B62D;
+    counter-increment: h3;
+    content: counter(h2) "." counter(h3) " ";
+}
+
+h4::before {
+    color: #F3B62D;
+    counter-increment: h4;
+    content: counter(h2) "." counter(h3) "." counter(h4) " ";
+}
         
     </style>
   </head>
@@ -1041,87 +1044,86 @@ li p {
                 Background: Literate Programming
               </a>
             </h2>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="35927614198707484" class="mech-program-subtitle toc">
-                  <a href="#24294806546187453">
-                    History
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="36295933628547248" class="mech-program-subtitle toc">
-                  <a href="#7798288460541298">
-                    Notable Literate Programming Systems
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="40658797646273419" class="mech-program-subtitle toc">
-                  <a href="#8355565590829283">
-                    WEB
-                  </a>
-                </h4>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="13116669495915608" class="mech-program-subtitle toc">
-                  <a href="#56728777345526667">
-                    Literate Haskell
-                  </a>
-                </h4>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="18398377061549097" class="mech-program-subtitle toc">
-                  <a href="#69025674288977430">
-                    Emacs Org-mode
-                  </a>
-                </h4>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="22316178343330937" class="mech-program-subtitle toc">
-                  <a href="#30185077681464233">
-                    Notebook Programming Systems
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="24416588962239614" class="mech-program-subtitle toc">
-                  <a href="#19447518485351348">
-                    Jupyter
-                  </a>
-                </h4>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="31704380360537915" class="mech-program-subtitle toc">
-                  <a href="#22834545534867090">
-                    Matlab
-                  </a>
-                </h4>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="46066097139110627" class="mech-program-subtitle toc">
-                  <a href="#64103774474506607">
-                    Eve
-                  </a>
-                </h4>
-              </section>
-            </div>
+            <h3 id="50599056448760981" class="mech-program-subtitle toc">
+              <a href="#26334865335736140">
+                History of Document Generation
+              </a>
+            </h3>
+            <h3 id="15470605436348378" class="mech-program-subtitle toc">
+              <a href="#37643128500978993">
+                Markup Languages
+              </a>
+            </h3>
+            <h4 id="8319484813924354" class="mech-program-subtitle toc">
+              <a href="#22344185125356022">
+                GenCode
+              </a>
+            </h4>
+            <h4 id="52819399527558064" class="mech-program-subtitle toc">
+              <a href="#23307105247084652">
+                Tex
+              </a>
+            </h4>
+            <h4 id="18503258295513493" class="mech-program-subtitle toc">
+              <a href="#38985891095577027">
+                HTML / CSS
+              </a>
+            </h4>
+            <h4 id="21739126348134109" class="mech-program-subtitle toc">
+              <a href="#46342641307342099">
+                Javadoc et al
+              </a>
+            </h4>
+            <h4 id="29413347736156093" class="mech-program-subtitle toc">
+              <a href="#33326203508497622">
+                Markdown and Extensions
+              </a>
+            </h4>
+            <h3 id="36012779289837989" class="mech-program-subtitle toc">
+              <a href="#36709580758863101">
+                History of Literate Programming
+              </a>
+            </h3>
+            <h3 id="36295933628547248" class="mech-program-subtitle toc">
+              <a href="#7798288460541298">
+                Notable Literate Programming Systems
+              </a>
+            </h3>
+            <h4 id="40658797646273419" class="mech-program-subtitle toc">
+              <a href="#8355565590829283">
+                WEB
+              </a>
+            </h4>
+            <h4 id="13116669495915608" class="mech-program-subtitle toc">
+              <a href="#56728777345526667">
+                Literate Haskell
+              </a>
+            </h4>
+            <h4 id="18398377061549097" class="mech-program-subtitle toc">
+              <a href="#69025674288977430">
+                Emacs Org-mode
+              </a>
+            </h4>
+            <h3 id="22316178343330937" class="mech-program-subtitle toc">
+              <a href="#30185077681464233">
+                Notebook Programming Systems
+              </a>
+            </h3>
+            <h4 id="24416588962239614" class="mech-program-subtitle toc">
+              <a href="#19447518485351348">
+                Jupyter
+              </a>
+            </h4>
+            <h4 id="31704380360537915" class="mech-program-subtitle toc">
+              <a href="#22834545534867090">
+                Matlab
+              </a>
+            </h4>
+            <h4 id="46066097139110627" class="mech-program-subtitle toc">
+              <a href="#64103774474506607">
+                Eve
+              </a>
+            </h4>
           </section>
           <section class="mech-program-section">
             <h2 id="26927706745025209" class="mech-program-subtitle toc">
@@ -1129,33 +1131,21 @@ li p {
                 Mechdown Architecture
               </a>
             </h2>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="45087826309718588" class="mech-program-subtitle toc">
-                  <a href="#6104727724541002">
-                    Parsing
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="15831414955065593" class="mech-program-subtitle toc">
-                  <a href="#53829581029483180">
-                    Formatting
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="66486965813274988" class="mech-program-subtitle toc">
-                  <a href="#41285097521998504">
-                    Serving
-                  </a>
-                </h3>
-              </section>
-            </div>
+            <h3 id="45087826309718588" class="mech-program-subtitle toc">
+              <a href="#6104727724541002">
+                Parsing
+              </a>
+            </h3>
+            <h3 id="15831414955065593" class="mech-program-subtitle toc">
+              <a href="#53829581029483180">
+                Formatting
+              </a>
+            </h3>
+            <h3 id="66486965813274988" class="mech-program-subtitle toc">
+              <a href="#41285097521998504">
+                Serving
+              </a>
+            </h3>
           </section>
           <section class="mech-program-section">
             <h2 id="20114060742218147" class="mech-program-subtitle toc">
@@ -1163,24 +1153,16 @@ li p {
                 Features
               </a>
             </h2>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="18286585641169603" class="mech-program-subtitle toc">
-                  <a href="#13230474457982473">
-                    Markdown Features
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="65172811187172741" class="mech-program-subtitle toc">
-                  <a href="#6406000554017629">
-                    Mech Specific Features
-                  </a>
-                </h3>
-              </section>
-            </div>
+            <h3 id="18286585641169603" class="mech-program-subtitle toc">
+              <a href="#13230474457982473">
+                Markdown Features
+              </a>
+            </h3>
+            <h3 id="65172811187172741" class="mech-program-subtitle toc">
+              <a href="#6406000554017629">
+                Mech Specific Features
+              </a>
+            </h3>
           </section>
           <section class="mech-program-section">
             <h2 id="30126148200856492" class="mech-program-subtitle toc">
@@ -1218,36 +1200,28 @@ li p {
         </h1>
         <div class="mech-program-body">
           <section class="mech-program-section">
-            <div class="mech-section-element">
-              <div id="abstract" class="mech-abstract">
-                <p class="mech-paragraph">
-                  Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine 
-                  <em class="mech-em">
-                    inside
-                  </em>
-                   of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
-                </p>
-              </div>
-            </div>
-            <div class="mech-section-element">
+            <div id="abstract" class="mech-abstract">
               <p class="mech-paragraph">
-                In the last blog post, we had mentioned that Mech v0.2 should be more useful on its own without having to be a full-fledged language. It'll take time to get there, but we want it to be useful in the meantime so people will actually work in Mech. The analogy we made is that Mech v0.2 is like a car engine -- it's a useful self-contained thing which allows it to be modularly used in a wide range of vehicles for different purposes.
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Today we are introducing the first of those vehicles for the Mech language: Mechdown, a platform for writing documentation and generating static websites, as well as serving them. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a suprise though -- since it's built off Mech, users gain access to a full computational engine 
+                Mechdown is a new platform for writing documentation and generating static and dynamic websites. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a super power though; since it's built off Mech, users gain access to a full computational engine 
                 <em class="mech-em">
                   inside
                 </em>
-                 of their document.
+                 of their document. In this post we present Mech by example, and discuss why we believe it's better than previous systems.
               </p>
             </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                In this blog post we'll introduce Mechdown and the practice of "literate programming", talk about the history of this concept, and show how it can be practiced with Mech to create static websites.
-              </p>
-            </div>
+            <p class="mech-paragraph">
+              In the last blog post, we had mentioned that Mech v0.2 should be more useful on its own without having to be a full-fledged language. It'll take time to get there, but we want it to be useful in the meantime so people will actually work in Mech. The analogy we made is that Mech v0.2 is like a car engine -- it's a useful self-contained thing which allows it to be modularly used in a wide range of vehicles for different purposes.
+            </p>
+            <p class="mech-paragraph">
+              Today we are introducing the first of those vehicles for the Mech language: Mechdown, a platform for writing documentation and generating static websites, as well as serving them. It has a simple-to-write syntax based on Markdown, so it can be used for most things Markdown is used for. Mechdown comes with a suprise though -- since it's built off Mech, users gain access to a full computational engine 
+              <em class="mech-em">
+                inside
+              </em>
+               of their document.
+            </p>
+            <p class="mech-paragraph">
+              In this blog post we'll introduce Mechdown and the practice of "literate programming", talk about the history of this concept, and show how it can be practiced with Mech to create static websites.
+            </p>
           </section>
           <section class="mech-program-section">
             <h2 id="32037774375897904" class="mech-program-subtitle ">
@@ -1255,68 +1229,60 @@ li p {
                 About This Document
               </a>
             </h2>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                This document presents Mechdown by example; the entire document is written in Mechdown, so everything you see here has been parsed and rendered by the Mechdown platform! You can find a couple different representations of it ont the Internet:
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <ul class="mech-unordered-list">
-                <li class="mech-ul-list-item">
-                  <p class="mech-paragraph">
-                    You can read the source code here, which is a plain text file written in valid Mech textual syntax.
-                  </p>
-                </li>
-                <li class="mech-ul-list-item">
-                  <p class="mech-paragraph">
-                    You can read the program rendered as an HTML document here, which is generated by running the plain text source through the Mech formatter utilitiy.
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Mech and Mechdown syntax have been designed together so that writing Mech code in Mechdown is seamless. For example, here is a Mech statement written directly in the Mechdown source, which defines a new variable 
-                <code class="mech-inline-code">a</code>
-                :
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <div class="mech-code-block">
-                <div class="mech-code">
-                  <span class="mech-statement">
-                    <span class="mech-variable-define">
-                      <span class="mech-variable-mutable">
-                      </span>
-                      <span class="mech-var-name mech-clickable" id="55170961230981453:0">
-                        a
-                      </span>
-                      <span class="mech-variable-assign-op">
-                        :=
-                      </span>
-                      <span class="mech-expression">
-                        <span class="mech-range-expression">
-                          <span class="mech-range-start">
-                            <span class="mech-factor">
-                              <span class="mech-expression">
-                                <span class="mech-literal">
-                                  <span class="mech-number">
-                                    2
-                                  </span>
+            <p class="mech-paragraph">
+              This document presents Mechdown by example; the entire document is written in Mechdown, so everything you see here has been parsed and rendered by the Mechdown platform! You can find a couple different representations of it ont the Internet:
+            </p>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  You can read the source code here, which is a plain text file written in valid Mech textual syntax.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  You can read the program rendered as an HTML document here, which is generated by running the plain text source through the Mech formatter utilitiy.
+                </p>
+              </li>
+            </ul>
+            <p class="mech-paragraph">
+              Mech and Mechdown syntax have been designed together so that writing Mech code in Mechdown is seamless. For example, here is a Mech statement written directly in the Mechdown source, which defines a new variable 
+              <code class="mech-inline-code">a</code>
+              :
+            </p>
+            <div class="mech-code-block">
+              <div class="mech-code">
+                <span class="mech-statement">
+                  <span class="mech-variable-define">
+                    <span class="mech-variable-mutable">
+                    </span>
+                    <span class="mech-var-name mech-clickable" id="55170961230981453:0">
+                      a
+                    </span>
+                    <span class="mech-variable-assign-op">
+                      :=
+                    </span>
+                    <span class="mech-expression">
+                      <span class="mech-range-expression">
+                        <span class="mech-range-start">
+                          <span class="mech-factor">
+                            <span class="mech-expression">
+                              <span class="mech-literal">
+                                <span class="mech-number">
+                                  2
                                 </span>
                               </span>
                             </span>
                           </span>
-                          <span class="mech-range-operator">
-                            ..=
-                          </span>
-                          <span class="mech-range-terminal">
-                            <span class="mech-factor">
-                              <span class="mech-expression">
-                                <span class="mech-literal">
-                                  <span class="mech-number">
-                                    8
-                                  </span>
+                        </span>
+                        <span class="mech-range-operator">
+                          ..=
+                        </span>
+                        <span class="mech-range-terminal">
+                          <span class="mech-factor">
+                            <span class="mech-expression">
+                              <span class="mech-literal">
+                                <span class="mech-number">
+                                  8
                                 </span>
                               </span>
                             </span>
@@ -1325,34 +1291,26 @@ li p {
                       </span>
                     </span>
                   </span>
-                </div>
+                </span>
               </div>
             </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                This is parsed as a Mech statement, and rendered as an HTML code box. If the document is hosted on a server, then the code within the document can be executed and results can be rendered for the user. For example:
-              </p>
+            <p class="mech-paragraph">
+              This is parsed as a Mech statement, and rendered as an HTML code box. If the document is hosted on a server, then the code within the document can be executed and results can be rendered for the user. For example:
+            </p>
+            <div class="mech-fenced-mech-block">
+              <pre class="mech-code-block"><div class="mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">2</span></span></span></span><span class="mech-formula-operator">^</span><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="55170961230981453:0">a</span></span></span></span></span><span class="mech-formula-operator">-</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></div></pre>
+              <pre id="49629282501482587:0" class="mech-block-output"></pre>
             </div>
-            <div class="mech-section-element">
-              <div class="mech-fenced-mech-block">
-                <pre class="mech-code-block"><div class="mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">2</span></span></span></span><span class="mech-formula-operator">^</span><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="55170961230981453:0">a</span></span></span></span></span><span class="mech-formula-operator">-</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></div></pre>
-                <pre id="49629282501482587:0" class="mech-block-output"></pre>
-              </div>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                This block is fenced in the sourcecode, which indicates to the compiler that the block output is to be displayed underneath. What's more, inline Mech expression are supported; when the document is live, the result of the expression is overlayed. For instance, the third element of 
-                <code class="mech-inline-code">a</code>
-                 is 
-                <code id="22773708370065239" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-slice"><span id="55170961230981453:0" class="mech-var-name mech-clickable">a</span><span class="mech-subscript"><span class="mech-bracket">[<span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">3</span></span></span></span>]</span></span></span></span></code>
-                .
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                If you're reading the HTML version, you should be able to tell that it was formatted by Mech by inspecting the source; you should see every element has a class prefixed with "mech-". Which is fun because this means the HTML source is a valid Mech parse tree! You can use the element inspector in Chrome to interactively browse the tree to get an idea of how Mech programs are constructed.
-              </p>
-            </div>
+            <p class="mech-paragraph">
+              This block is fenced in the sourcecode, which indicates to the compiler that the block output is to be displayed underneath. What's more, inline Mech expression are supported; when the document is live, the result of the expression is overlayed. For instance, the third element of 
+              <code class="mech-inline-code">a</code>
+               is 
+              <code id="22773708370065239" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-slice"><span id="55170961230981453:0" class="mech-var-name mech-clickable">a</span><span class="mech-subscript"><span class="mech-bracket">[<span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">3</span></span></span></span>]</span></span></span></span></code>
+              .
+            </p>
+            <p class="mech-paragraph">
+              If you're reading the HTML version, you should be able to tell that it was formatted by Mech by inspecting the source; you should see every element has a class prefixed with "mech-". Which is fun because this means the HTML source is a valid Mech parse tree! You can use the element inspector in Chrome to interactively browse the tree to get an idea of how Mech programs are constructed.
+            </p>
           </section>
           <section class="mech-program-section">
             <h2 id="61394873977566001" class="mech-program-subtitle ">
@@ -1360,204 +1318,249 @@ li p {
                 Background: Literate Programming
               </a>
             </h2>
-            <div class="mech-section-element">
+            <p class="mech-paragraph">
+              According to Wikipedia, Literate Programming is:
+            </p>
+            <blockquote class="mech-block-quote">
               <p class="mech-paragraph">
-                According to Wikipedia, Literate Programming is:
+                a programming paradigm introduced in 1984 by Donald Knuth in which a computer program is given as an explanation of how it works in a natural language, such as English, interspersed (embedded) with snippets of macros and traditional source code, from which compilable source code can be generated.
               </p>
-            </div>
-            <div class="mech-section-element">
-              <blockquote class="mech-block-quote">
+            </blockquote>
+            <p class="mech-paragraph">
+              We often think of source code as a language we use to communicate with machines, but really source code's primary purpose is to communicate with other humans. That's why we use natural language words for keywords, function names, variable names, comments and so forth -- because we need to be able to map programming concepts to familiar concepts in our brains, and that's usually done by drawing connections using familiar words and symbols.
+            </p>
+            <p class="mech-paragraph">
+              For instance a function in source code that draws a circle might be called 
+              <code class="mech-inline-code">circle()</code>
+              . Or it might be represented by an actual circle symbol 
+              <code class="mech-inline-code">○</code>
+              . But when the command to draw a circle meets the CPU, it will likely be represented as a series of machine instructions that, to a human, don't obviously resemble the notion of a "circle" at all!
+            </p>
+            <hr class="mech-thematic-break"/>
+            <p class="mech-paragraph">
+              Some languages are designed to be more human-readable than others. Python, which eschews curly braces in favor of semantic whitespace, is often praised for its readability. On the other hand Lisp with its deeply nested S-expressions, which are closer to a machine representation of source than a human one, is often criticized for being inscrutible.
+            </p>
+            <p class="mech-paragraph">
+              Then there are array languages such as APL, J, and K, which are designed to work with arrays as their primary data structure. These languages allow for concise and expressive manipulation of arrays, often using a minimalistic syntax with no keywords, and expanded glyph alphabet. For example, in APL, you can sum all elements of an array with a single operator 
+              <code class="mech-inline-code">+/</code>
+              . Moreover, these operations are broadcast over arrays, so you typically don't code explicit loops.you can perform operations on entire arrays without needing explicit loops. While the powerful operators of these languages allow you to write very terse code, they are often critcized as being "write only" languages, as the lack of English signifiers in the code render them unreadable to people who are not versed in the language.
+            </p>
+            <p class="mech-paragraph">
+              In this section we'll look at the history of literate programming, some notable literate programming systems, and some prior work that predates Mech in this area.
+            </p>
+            <h3 id="26334865335736140" class="mech-program-subtitle ">
+              <a href="#26334865335736140">
+                History of Document Generation
+              </a>
+            </h3>
+            <p class="mech-paragraph">
+              Humans have been making documents for thousands of years. If we look back at the history of documentat generation, we see cycles of increasingly complex documents being produced by skilled artisans, demand for those documents increasing as reader want access to the information they present, and technology being invented to automate the production of such documents to decrease production costs and  meet those demands.
+            </p>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
                 <p class="mech-paragraph">
-                  a programming paradigm introduced in 1984 by Donald Knuth in which a computer program is given as an explanation of how it works in a natural language, such as English, interspersed (embedded) with snippets of macros and traditional source code, from which compilable source code can be generated.
+                  Starts with monks hand writing beautiful books, which are expensive and rare.
                 </p>
-              </blockquote>
-            </div>
-            <div class="mech-section-element">
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Then the printing press and movable type is invented to automate what they do -- now the creativity is in the typesetting and layout, and the monks are replaced by typesetters and printers.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  No longer are monks necessary to do this job, now more people have access.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  What's the effect? With more access, now more people have the ability to spread what they want to say. Before it was just the guy who could afford hte monks whose message we written down. Now it's whoever can afford a printing press and someone who knows how to use it.
+                </p>
+              </li>
+            </ul>
+            <p class="mech-paragraph">
+              <a href="https://commons.wikimedia.org/wiki/File:Pictographs_Recording_the_Allocation_of_Beer_(London,_England).jpg" class="mech-hyperlink">
+                https://commons.wikimedia.org/wiki/File:Pictographs_Recording_the_Allocation_of_Beer_(London,_England).jpg
+              </a>
+            </p>
+            <p class="mech-paragraph">
+              <a href="https://www.metmuseum.org/essays/papyrus-in-ancient-egypt" class="mech-hyperlink">
+                https://www.metmuseum.org/essays/papyrus-in-ancient-egypt
+              </a>
+            </p>
+            <p class="mech-paragraph">
+              The transition to brush and ink writing took place during the Zhou Dynasty (1046-256 BCE), following the decline of the Shang Dynasty. The Zhou Dynasty was characterized by significant social and political changes, which also influenced the development of writing. It was during this time that the art of calligraphy began to take shape, and brush and ink emerged as the primary tools for writing.
+            </p>
+            <p class="mech-paragraph">
+              Brushes used in ancient China were typically made from animal hair, such as goat, rabbit, or wolf. The hair was carefully selected and arranged to form a brush head, which was then attached to a bamboo or wooden handle. The quality of the brush and the choice of hair influenced the stroke thickness and texture of the resulting characters.
+            </p>
+            <p class="mech-paragraph">
+              Ink, on the other hand, was produced by grinding inksticks against an inkstone. The inkstick was typically made from soot, obtained by burning pine wood or other vegetable materials, mixed with glue or animal products to bind it together. The inkstick was ground against the inkstone with a small amount of water, resulting in a black ink of varying consistencies. The process of grinding the inkstick was considered an art form in itself, and skilled calligraphers took great care in preparing their ink.
+            </p>
+            <p class="mech-paragraph">
+              With the tools of brush and ink in hand, ancient Chinese scholars and calligraphers began to explore the possibilities of writing. Calligraphy, or the art of beautiful writing, became a highly esteemed discipline and a fundamental component of Chinese culture. It was not merely a means of communication but a reflection of an individual's character, emotions, and spiritual depth.
+            </p>
+            <p class="mech-paragraph">
+              The earliest calligraphic style in ancient China was known as "seal script" (zhuanshu), characterized by its angular and structured forms. Seal script was used primarily for inscriptions on seals and official documents. It later evolved into "clerical script" (lishu), which was more rounded and flowing. Clerical script became the dominant form of writing during the Han Dynasty (206 BCE-220 CE) and was widely used for administrative purposes.
+            </p>
+            <p class="mech-paragraph">
+              As calligraphy gained popularity, different styles and techniques emerged. "Regular script" (kaishu) developed during the Han Dynasty as a simplified and more legible form of clerical script. Regular script became the standard script for writing and has remained influential to this day.
+            </p>
+            <p class="mech-paragraph">
+              While calligraphy was initially practiced by the elite and scholars, it gradually spread to broader segments of society, becoming an integral part of Chinese education and culture. The ability to write with brush and ink became a mark of refinement and sophistication, and calligraphers were revered for their mastery of the art.
+            </p>
+            <p class="mech-paragraph">
+              Beyond its aesthetic appeal, calligraphy also served practical purposes. In ancient China, calligraphic skills were essential for individuals pursuing careers in government administration, as calligraphers were responsible for drafting official documents and records. Mastery of calligraphy was therefore crucial for social advancement and success in official examinations.
+            </p>
+            <p class="mech-paragraph">
+              <a href="https://www.quora.com/How-did-people-in-ancient-China-start-writing-using-brush-and-ink" class="mech-hyperlink">
+                https://www.quora.com/How-did-people-in-ancient-China-start-writing-using-brush-and-ink
+              </a>
+            </p>
+            <p class="mech-paragraph">
+              <a href="https://en.wikipedia.org/wiki/Wax_tablet" class="mech-hyperlink">
+                https://en.wikipedia.org/wiki/Wax_tablet
+              </a>
+            </p>
+            <h3 id="37643128500978993" class="mech-program-subtitle ">
+              <a href="#37643128500978993">
+                Markup Languages
+              </a>
+            </h3>
+            <h4 id="22344185125356022" class="mech-program-subtitle ">
+              <a href="#22344185125356022">
+                GenCode
+              </a>
+            </h4>
+            <h4 id="23307105247084652" class="mech-program-subtitle ">
+              <a href="#23307105247084652">
+                Tex
+              </a>
+            </h4>
+            <h4 id="38985891095577027" class="mech-program-subtitle ">
+              <a href="#38985891095577027">
+                HTML / CSS
+              </a>
+            </h4>
+            <h4 id="46342641307342099" class="mech-program-subtitle ">
+              <a href="#46342641307342099">
+                Javadoc et al
+              </a>
+            </h4>
+            <h4 id="33326203508497622" class="mech-program-subtitle ">
+              <a href="#33326203508497622">
+                Markdown and Extensions
+              </a>
+            </h4>
+            <h3 id="36709580758863101" class="mech-program-subtitle ">
+              <a href="#36709580758863101">
+                History of Literate Programming
+              </a>
+            </h3>
+            <p class="mech-paragraph">
+              Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB systems as a way to improve the readability and maintainability of code
+              <a href="#9969322063809408" class="mech-footnote-reference">
+                1
+              </a>
+              . Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
+            </p>
+            <p class="mech-paragraph">
+              In his words:
+            </p>
+            <blockquote class="mech-block-quote">
               <p class="mech-paragraph">
-                We often think of source code as a language we use to communicate with machines, but really source code's primary purpose is to communicate with other humans. That's why we use natural language words for keywords, function names, variable names, comments and so forth -- because we need to be able to map programming concepts to familiar concepts in our brains, and that's usually done by drawing connections using familiar words and symbols.
+                The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author ... strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other.
               </p>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                For instance a function in source code that draws a circle might be called 
-                <code class="mech-inline-code">circle()</code>
-                . Or it might be represented by an actual circle symbol 
-                <code class="mech-inline-code">○</code>
-                . But when the command to draw a circle meets the CPU, it will likely be represented as a series of machine instructions that, to a human, don't obviously resemble the notion of a "circle" at all!
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <hr class="mech-thematic-break"/>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Some languages are designed to be more human-readable than others. Python, which eschews curly braces in favor of semantic whitespace, is often praised for its readability. On the other hand Lisp with its deeply nested S-expressions, which are closer to a machine representation of source than a human one, is often criticized for being inscrutible.
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Then there are array languages such as APL, J, and K, which are designed to work with arrays as their primary data structure. These languages allow for concise and expressive manipulation of arrays, often using a minimalistic syntax with no keywords, and expanded glyph alphabet. For example, in APL, you can sum all elements of an array with a single operator 
-                <code class="mech-inline-code">+/</code>
-                . Moreover, these operations are broadcast over arrays, so you typically don't code explicit loops.you can perform operations on entire arrays without needing explicit loops. While the powerful operators of these languages allow you to write very terse code, they are often critcized as being "write only" languages, as the lack of English signifiers in the code render them unreadable to people who are not versed in the language.
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                In this section we'll look at the history of literate programming, some notable literate programming systems, and some prior work that predates Mech in this area.
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="24294806546187453" class="mech-program-subtitle ">
-                  <a href="#24294806546187453">
-                    History
-                  </a>
-                </h3>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB systems as a way to improve the readability and maintainability of code
-                    <a href="#9969322063809408" class="mech-footnote-reference">
-                      1
-                    </a>
-                    . Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    In his words:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <blockquote class="mech-block-quote">
-                    <p class="mech-paragraph">
-                      The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author ... strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other.
-                    </p>
-                  </blockquote>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    For example, at the time some languages required programmers to declare all variables before you any of them were used, like early Pascal, Fortran, and Algol. This was only the case because it made the lives of Pascal compiler developers easier, but the purpose of a language should be to make the users' lives better, not the lang devs. 
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it. 
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of this direction. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
-                  </p>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="7798288460541298" class="mech-program-subtitle ">
-                  <a href="#7798288460541298">
-                    Notable Literate Programming Systems
-                  </a>
-                </h3>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="8355565590829283" class="mech-program-subtitle ">
-                  <a href="#8355565590829283">
-                    WEB
-                  </a>
-                </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with TeX-formatted documentation
-                    <a href="#47765531206544500" class="mech-footnote-reference">
-                      2
-                    </a>
-                    . 
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    WEB consists of three major components:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Source File (
-                        <code class="mech-inline-code">.web</code>
-                        ) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by a name reference.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        TANGLE - This tool processes the 
-                        <code class="mech-inline-code">.web</code>
-                         file and extracts the code portions, assembling them into proper Pascal source code. The name reflects the idea of untangling the narrative to produce compilable code. It resolves named code sections into an order appropriate for compilation, and outputs a 
-                        <code class="mech-inline-code">.pas</code>
-                         file, which can be compiled by a Pascal compiler.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        WEAVE - This tool turns the 
-                        <code class="mech-inline-code">.web</code>
-                         file into a typeset document using TeX. It organizes and formats both the prose and the code with syntax highlighting, cross-references, and indexing, generating high-quality documentation -- typically a 
-                        <code class="mech-inline-code">.tex</code>
-                         file for further processing into PDF.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    So the workflow went like this:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">filename.web ──► TANGLE ──► filename.pas ──► [Pascal Compiler]
+            </blockquote>
+            <p class="mech-paragraph">
+              For example, at the time some languages required programmers to declare all variables before you any of them were used, like early Pascal, Fortran, and Algol. This was only the case because it made the lives of Pascal compiler developers easier, but the purpose of a language should be to make the users' lives better, not the lang devs. 
+            </p>
+            <p class="mech-paragraph">
+              As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it. 
+            </p>
+            <p class="mech-paragraph">
+              Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
+            </p>
+            <p class="mech-paragraph">
+              While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of this direction. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
+            </p>
+            <h3 id="7798288460541298" class="mech-program-subtitle ">
+              <a href="#7798288460541298">
+                Notable Literate Programming Systems
+              </a>
+            </h3>
+            <h4 id="8355565590829283" class="mech-program-subtitle ">
+              <a href="#8355565590829283">
+                WEB
+              </a>
+            </h4>
+            <p class="mech-paragraph">
+              WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with TeX-formatted documentation
+              <a href="#47765531206544500" class="mech-footnote-reference">
+                2
+              </a>
+              . 
+            </p>
+            <p class="mech-paragraph">
+              WEB consists of three major components:
+            </p>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Source File (
+                  <code class="mech-inline-code">.web</code>
+                  ) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by a name reference.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  TANGLE - This tool processes the 
+                  <code class="mech-inline-code">.web</code>
+                   file and extracts the code portions, assembling them into proper Pascal source code. The name reflects the idea of untangling the narrative to produce compilable code. It resolves named code sections into an order appropriate for compilation, and outputs a 
+                  <code class="mech-inline-code">.pas</code>
+                   file, which can be compiled by a Pascal compiler.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  WEAVE - This tool turns the 
+                  <code class="mech-inline-code">.web</code>
+                   file into a typeset document using TeX. It organizes and formats both the prose and the code with syntax highlighting, cross-references, and indexing, generating high-quality documentation -- typically a 
+                  <code class="mech-inline-code">.tex</code>
+                   file for further processing into PDF.
+                </p>
+              </li>
+            </ul>
+            <p class="mech-paragraph">
+              So the workflow went like this:
+            </p>
+            <pre class="mech-code-block">filename.web ──► TANGLE ──► filename.pas ──► [Pascal Compiler]
              └──► WEAVE  ──► filename.tex ──► [TeX Typesetting]
 </pre>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    <figure id="44387155327512458" class="mech-figure">
-                      <img id="15355461249119494" class="mech-image" src="web.png" alt="The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d)." />
-                      <figcaption class="mech-figure-caption">
-                        <strong class="mech-figure-label">
-                          Fig 2.1:
-                        </strong>
-                         The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).
-                      </figcaption>
-                    </figure>
-                  </p>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="56728777345526667" class="mech-program-subtitle ">
-                  <a href="#56728777345526667">
-                    Literate Haskell
-                  </a>
-                </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Haskell is one of the few languages that provides native features to support literate programming. In Haskell, a literate program is one with the suffix 
-                    <code class="mech-inline-code">.lhs</code>
-                     rather than 
-                    <code class="mech-inline-code">.hs</code>
-                    .
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">This literate program prompts the user for a number
+            <p class="mech-paragraph">
+              <figure id="44387155327512458" class="mech-figure">
+                <img id="15355461249119494" class="mech-image" src="web.png" alt="The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d)." />
+                <figcaption class="mech-figure-caption">
+                  <strong class="mech-figure-label">
+                    Fig 2.1:
+                  </strong>
+                   The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).
+                </figcaption>
+              </figure>
+            </p>
+            <h4 id="56728777345526667" class="mech-program-subtitle ">
+              <a href="#56728777345526667">
+                Literate Haskell
+              </a>
+            </h4>
+            <p class="mech-paragraph">
+              Haskell is one of the few languages that provides native features to support literate programming. In Haskell, a literate program is one with the suffix 
+              <code class="mech-inline-code">.lhs</code>
+               rather than 
+              <code class="mech-inline-code">.hs</code>
+              .
+            </p>
+            <pre class="mech-code-block">This literate program prompts the user for a number
 and prints the factorial of that number:
 
 > main :: IO ()
@@ -1573,30 +1576,22 @@ This is the factorial function.
 > fact 0 = 1
 > fact n = n * fact (n-1)
 </pre>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    It's kind of an inversion of the typical code/comment syntax; whereas as in typical languages you normally write code and use special sigils to denote comments, in literate haskell you normally write comments and use special sigils to denote code. Obviously this will become noisy if you have a lot of code to write, so Haskell also allows you surround lines of code with 
-                    <code class="mech-inline-code">\begin{code}</code>
-                     and 
-                    <code class="mech-inline-code">\end{code}</code>
-                    . This is a little more verbose, but it allows you to write code in a more natural way.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    When fed into a Haskell compiler like GHC, only the lines prefixed with 
-                    <code class="mech-inline-code">></code>
-                     will be compiled, while the rest are treated like comments. When fed into a documentation generator though all lines are parsed into rich documents in the target format.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Here's another example wher LaTex is used to format the prose with a section header and a code block.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">\documentstyle{article}
+            <p class="mech-paragraph">
+              It's kind of an inversion of the typical code/comment syntax; whereas as in typical languages you normally write code and use special sigils to denote comments, in literate haskell you normally write comments and use special sigils to denote code. Obviously this will become noisy if you have a lot of code to write, so Haskell also allows you surround lines of code with 
+              <code class="mech-inline-code">\begin{code}</code>
+               and 
+              <code class="mech-inline-code">\end{code}</code>
+              . This is a little more verbose, but it allows you to write code in a more natural way.
+            </p>
+            <p class="mech-paragraph">
+              When fed into a Haskell compiler like GHC, only the lines prefixed with 
+              <code class="mech-inline-code">></code>
+               will be compiled, while the rest are treated like comments. When fed into a documentation generator though all lines are parsed into rich documents in the target format.
+            </p>
+            <p class="mech-paragraph">
+              Here's another example wher LaTex is used to format the prose with a section header and a code block.
+            </p>
+            <pre class="mech-code-block">\documentstyle{article}
 
 \begin{document}
 
@@ -1611,28 +1606,18 @@ main =  print [ (n, product [1..n]) | n <- [1..20]]
 
 \end{document}
 </pre>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="69025674288977430" class="mech-program-subtitle ">
-                  <a href="#69025674288977430">
-                    Emacs Org-mode
-                  </a>
-                </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Whereas Literate Haskell is specific to the Haskell programming language, Emacs Org-mode is a general-purpose markup language that can be used with any programming language. It was developed by Carsten Dominik, Bastien Guerry et al in 2003 as a way to organize notes, tasks, and projects in Emacs. Org-mode allows you to write documents in a plain text format, and then export them to various formats such as HTML, LaTeX, and PDF.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Org-mode is so called because it's designed to help organizations use Emacs by giving it features that are useful for that kind of thing. Support for literate programming is an obvious win here, because what better way to help a team stay on top of a project than support for rich documentation?
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">* Data Analysis
+            <h4 id="69025674288977430" class="mech-program-subtitle ">
+              <a href="#69025674288977430">
+                Emacs Org-mode
+              </a>
+            </h4>
+            <p class="mech-paragraph">
+              Whereas Literate Haskell is specific to the Haskell programming language, Emacs Org-mode is a general-purpose markup language that can be used with any programming language. It was developed by Carsten Dominik, Bastien Guerry et al in 2003 as a way to organize notes, tasks, and projects in Emacs. Org-mode allows you to write documents in a plain text format, and then export them to various formats such as HTML, LaTeX, and PDF.
+            </p>
+            <p class="mech-paragraph">
+              Org-mode is so called because it's designed to help organizations use Emacs by giving it features that are useful for that kind of thing. Support for literate programming is an obvious win here, because what better way to help a team stay on top of a project than support for rich documentation?
+            </p>
+            <pre class="mech-code-block">* Data Analysis
 
 ** Load Data
 #+BEGIN_SRC python :results output
@@ -1650,71 +1635,53 @@ plt.savefig("plot.png")
 
 [[./plot.png]]
 </pre>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="30185077681464233" class="mech-program-subtitle ">
-                  <a href="#30185077681464233">
-                    Notebook Programming Systems
-                  </a>
-                </h3>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. In this section we'll take a look at two notable notebook programming systems: JuPyter and Matlab.
-                  </p>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="19447518485351348" class="mech-program-subtitle ">
-                  <a href="#19447518485351348">
-                    Jupyter
-                  </a>
-                </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Key Features of Jupyter Notebooks:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Markdown Cells: You can use Markdown to write explanatory text alongside your code.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Code Cells: Code is written in cells that can be executed independently.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">* Data Analysis
+            <h3 id="30185077681464233" class="mech-program-subtitle ">
+              <a href="#30185077681464233">
+                Notebook Programming Systems
+              </a>
+            </h3>
+            <p class="mech-paragraph">
+              Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. In this section we'll take a look at two notable notebook programming systems: JuPyter and Matlab.
+            </p>
+            <h4 id="19447518485351348" class="mech-program-subtitle ">
+              <a href="#19447518485351348">
+                Jupyter
+              </a>
+            </h4>
+            <p class="mech-paragraph">
+              Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
+            </p>
+            <p class="mech-paragraph">
+              Key Features of Jupyter Notebooks:
+            </p>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Markdown Cells: You can use Markdown to write explanatory text alongside your code.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Code Cells: Code is written in cells that can be executed independently.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
+                </p>
+              </li>
+            </ul>
+            <pre class="mech-code-block">* Data Analysis
 
 ** Load Data
 #+BEGIN_SRC python :results output
@@ -1732,57 +1699,43 @@ plt.savefig("plot.png")
 
 [[./plot.png]]
 </pre>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="22834545534867090" class="mech-program-subtitle ">
-                  <a href="#22834545534867090">
-                    Matlab
-                  </a>
-                </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Matlab is Mech's closest cousin and also a language that has a long history of being used for notebook programming, especially in engineering, physics, and numerical analysis. Matlab's primary strength lies in its powerful array and matrix operations, making it an ideal tool for mathematical modeling, simulation, and data analysis.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Matlab has supported a notebook-like interface since version 7, where users could combine script execution with rich text annotations. This style of interactive programming allows users to create self-contained documents that explain and execute code in a cohesive manner.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Live Scripts: Matlab's live scripts allow for combining code and formatted text in a single document. These scripts are similar to Jupyter notebooks in that they allow inline results and visualization.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Interactive Plots: Matlab supports interactive plots that can be adjusted within the notebook itself, allowing for dynamic exploration of data.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Rich Outputs: Matlab supports rich outputs like equations, formatted text, and interactive visualizations directly in the script.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Built-In Functions: Matlab comes with a vast library of built-in functions for numerical analysis, signal processing, optimization, and more.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Example of Matlab Notebook Programming:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">%% Load Data
+            <h4 id="22834545534867090" class="mech-program-subtitle ">
+              <a href="#22834545534867090">
+                Matlab
+              </a>
+            </h4>
+            <p class="mech-paragraph">
+              Matlab is Mech's closest cousin and also a language that has a long history of being used for notebook programming, especially in engineering, physics, and numerical analysis. Matlab's primary strength lies in its powerful array and matrix operations, making it an ideal tool for mathematical modeling, simulation, and data analysis.
+            </p>
+            <p class="mech-paragraph">
+              Matlab has supported a notebook-like interface since version 7, where users could combine script execution with rich text annotations. This style of interactive programming allows users to create self-contained documents that explain and execute code in a cohesive manner.
+            </p>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Live Scripts: Matlab's live scripts allow for combining code and formatted text in a single document. These scripts are similar to Jupyter notebooks in that they allow inline results and visualization.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Interactive Plots: Matlab supports interactive plots that can be adjusted within the notebook itself, allowing for dynamic exploration of data.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Rich Outputs: Matlab supports rich outputs like equations, formatted text, and interactive visualizations directly in the script.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Built-In Functions: Matlab comes with a vast library of built-in functions for numerical analysis, signal processing, optimization, and more.
+                </p>
+              </li>
+            </ul>
+            <p class="mech-paragraph">
+              Example of Matlab Notebook Programming:
+            </p>
+            <pre class="mech-code-block">%% Load Data
 % We load the data from a CSV file.
 data = readtable('data.csv');
 
@@ -1799,28 +1752,20 @@ xlabel('Date');
 ylabel('Temperature (°C)');
 grid on;
 </pre>
+            <p class="mech-paragraph">
+              In Matlab, the above example would result in:
+            </p>
+            <div class="mech-code-block">
+              <div class="mech-code">
+                <div class="mech-comment">
+                  --  show a picture here
                 </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    In Matlab, the above example would result in:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <div class="mech-code-block">
-                    <div class="mech-code">
-                      <div class="mech-comment">
-                        --  show a picture here
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Interactive Matlab Code: Matlab's live scripts also allow for interactive features, such as the use of sliders to adjust parameters in real-time. For example, a live script might allow a user to adjust the frequency of a signal and immediately see the resulting plot:
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <pre class="mech-code-block">f = 1;  % Initial frequency
+              </div>
+            </div>
+            <p class="mech-paragraph">
+              Interactive Matlab Code: Matlab's live scripts also allow for interactive features, such as the use of sliders to adjust parameters in real-time. For example, a live script might allow a user to adjust the frequency of a signal and immediately see the resulting plot:
+            </p>
+            <pre class="mech-code-block">f = 1;  % Initial frequency
 t = 0:0.001:1;  % Time vector
 y = sin(2*pi*f*t);  % Generate the sine wave
 
@@ -1835,28 +1780,17 @@ slider = uifigure('Name', 'Frequency Control');
 s = uislider(slider, 'Position', [100 100 200 3]);
 s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot on slider change
 </pre>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    The interactive slider allows users to modify the frequency of the sine wave and immediately view the updated plot, all within the same script.
-                  </p>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h4 id="64103774474506607" class="mech-program-subtitle ">
-                  <a href="#64103774474506607">
-                    Eve
-                  </a>
-                </h4>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Eve is a programming language 
-                  </p>
-                </div>
-              </section>
-            </div>
+            <p class="mech-paragraph">
+              The interactive slider allows users to modify the frequency of the sine wave and immediately view the updated plot, all within the same script.
+            </p>
+            <h4 id="64103774474506607" class="mech-program-subtitle ">
+              <a href="#64103774474506607">
+                Eve
+              </a>
+            </h4>
+            <p class="mech-paragraph">
+              Eve is a programming language 
+            </p>
           </section>
           <section class="mech-program-section">
             <h2 id="66077898666376167" class="mech-program-subtitle ">
@@ -1864,134 +1798,114 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                 Mechdown Architecture
               </a>
             </h2>
-            <div class="mech-section-element">
-              <p class="mech-paragraph">
-                Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
-              </p>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="6104727724541002" class="mech-program-subtitle ">
-                  <a href="#6104727724541002">
-                    Parsing
-                  </a>
-                </h3>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        What does this buy us? A we can write naturally just as in markdown.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Parsing generates a parse tree which we then pass on to the formatter
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="53829581029483180" class="mech-program-subtitle ">
-                  <a href="#53829581029483180">
-                    Formatting
-                  </a>
-                </h3>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        The formatter takes a parse tree and generates a HTML document from it. 
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        The HTML document is fully styled
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated 
-                        <em class="mech-em">
-                          inside
-                        </em>
-                         of the document, so that we don't have to reparse anything if we want to recover the source code.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="41285097521998504" class="mech-program-subtitle ">
-                  <a href="#41285097521998504">
-                    Serving
-                  </a>
-                </h3>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              </section>
-            </div>
+            <p class="mech-paragraph">
+              Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
+            </p>
+            <h3 id="6104727724541002" class="mech-program-subtitle ">
+              <a href="#6104727724541002">
+                Parsing
+              </a>
+            </h3>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  What does this buy us? A we can write naturally just as in markdown.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Parsing generates a parse tree which we then pass on to the formatter
+                </p>
+              </li>
+            </ul>
+            <h3 id="53829581029483180" class="mech-program-subtitle ">
+              <a href="#53829581029483180">
+                Formatting
+              </a>
+            </h3>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  The formatter takes a parse tree and generates a HTML document from it. 
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  The HTML document is fully styled
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated 
+                  <em class="mech-em">
+                    inside
+                  </em>
+                   of the document, so that we don't have to reparse anything if we want to recover the source code.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
+                </p>
+              </li>
+            </ul>
+            <h3 id="41285097521998504" class="mech-program-subtitle ">
+              <a href="#41285097521998504">
+                Serving
+              </a>
+            </h3>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
+                </p>
+              </li>
+            </ul>
           </section>
           <section class="mech-program-section">
             <h2 id="16141801293562355" class="mech-program-subtitle ">
@@ -1999,236 +1913,192 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                 Features
               </a>
             </h2>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="13230474457982473" class="mech-program-subtitle ">
-                  <a href="#13230474457982473">
-                    Markdown Features
-                  </a>
-                </h3>
-                <div class="mech-section-element">
+            <h3 id="13230474457982473" class="mech-program-subtitle ">
+              <a href="#13230474457982473">
+                Markdown Features
+              </a>
+            </h3>
+            <p class="mech-paragraph">
+              Mechdown supports various features from Markdown and its derivatives/extensions. As you've been reading this document you've already seen some of them in action. Here we'll go through them all and note some of the advanced features that give Mechdown an advantage.
+            </p>
+            <ul class="mech-unordered-list">
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Titles and Subtitles
+                </p>
+              </li>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Section Elements
+                </p>
+              </li>
+              <ul class="mech-unordered-list">
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    Mechdown supports various features from Markdown and its derivatives/extensions. As you've been reading this document you've already seen some of them in action. Here we'll go through them all and note some of the advanced features that give Mechdown an advantage.
+                    Paragraphs
                   </p>
-                </div>
-                <div class="mech-section-element">
-                  <ul class="mech-unordered-list">
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Titles and Subtitles
-                      </p>
-                    </li>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Section Elements
-                      </p>
-                    </li>
-                    <ul class="mech-unordered-list">
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Paragraphs
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Callouts
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Lists
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Code Blocks
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Tables
-                        </p>
-                      </li>
-                    </ul>
-                    <li class="mech-ul-list-item">
-                      <p class="mech-paragraph">
-                        Paragraph Elements:
-                      </p>
-                    </li>
-                    <ul class="mech-unordered-list">
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Inline Code
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Links
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Images
-                        </p>
-                      </li>
-                      <li class="mech-ul-list-item">
-                        <p class="mech-paragraph">
-                          Emphasis
-                        </p>
-                      </li>
-                    </ul>
-                  </ul>
-                </div>
-              </section>
-            </div>
-            <div class="mech-section-element">
-              <section class="mech-program-section">
-                <h3 id="6406000554017629" class="mech-program-subtitle ">
-                  <a href="#6406000554017629">
-                    Mech Specific Features
-                  </a>
-                </h3>
-                <div class="mech-section-element">
+                </li>
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    Markdown's strength is that it allows users to markup plain text easily for the purpose of generating rich-HTML documents. But these generated documents although "rich", are "static"; the user cannot interact with the document in any way, and the document cannot change based on user input or any computed values.
+                    Callouts
                   </p>
-                </div>
-                <div class="mech-section-element">
+                </li>
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    Bringing Mech to Markdown means that we can evaluate code and use the results to support our prose. This feature that allows us to write code and documentation in the same document, and have them work together seamlessly. And that's not marketing speak, by seamlessly I mean you can just write code in the document, and it'll be parsed. No code fences, or indention, or brackets.
+                    Lists
                   </p>
-                </div>
-                <div class="mech-section-element">
+                </li>
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    This solves the two-step tangle/weave aspect of Knuth's original conception of literate programming, and also solves the slice-and-dice hack that is notebook programming.
+                    Code Blocks
                   </p>
-                </div>
-                <div class="mech-section-element">
+                </li>
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    Mechdown solves
+                    Tables
                   </p>
-                </div>
-                <div class="mech-section-element">
+                </li>
+              </ul>
+              <li class="mech-ul-list-item">
+                <p class="mech-paragraph">
+                  Paragraph Elements:
+                </p>
+              </li>
+              <ul class="mech-unordered-list">
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    This is a paragraph.
+                    Inline Code
                   </p>
-                </div>
-                <div class="mech-section-element">
+                </li>
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    We can run arbitary Mech expressions inline with a 
-                    <code class="mech-inline-code">{}</code>
-                     like so 
-                    <code id="34939046707140533" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></code>
-                    .
+                    Links
                   </p>
-                </div>
-                <div class="mech-section-element">
+                </li>
+                <li class="mech-ul-list-item">
                   <p class="mech-paragraph">
-                    We can define a variable right in the document:
+                    Images
                   </p>
-                </div>
-                <div class="mech-section-element">
-                  <div class="mech-code-block">
-                    <div class="mech-code">
-                      <span class="mech-statement">
-                        <span class="mech-variable-define">
-                          <span class="mech-variable-mutable">
-                          </span>
-                          <span class="mech-var-name mech-clickable" id="863861563252387:0">
-                            x
-                          </span>
-                          <span class="mech-variable-assign-op">
-                            :=
-                          </span>
-                          <span class="mech-expression">
-                            <span class="mech-factor">
-                              <span class="mech-term">
-                                <span class="mech-factor">
-                                  <span class="mech-expression">
-                                    <span class="mech-literal">
-                                      <span class="mech-number">
-                                        12
-                                      </span>
-                                    </span>
-                                  </span>
+                </li>
+                <li class="mech-ul-list-item">
+                  <p class="mech-paragraph">
+                    Emphasis
+                  </p>
+                </li>
+              </ul>
+            </ul>
+            <h3 id="6406000554017629" class="mech-program-subtitle ">
+              <a href="#6406000554017629">
+                Mech Specific Features
+              </a>
+            </h3>
+            <p class="mech-paragraph">
+              Markdown's strength is that it allows users to markup plain text easily for the purpose of generating rich-HTML documents. But these generated documents although "rich", are "static"; the user cannot interact with the document in any way, and the document cannot change based on user input or any computed values.
+            </p>
+            <p class="mech-paragraph">
+              Bringing Mech to Markdown means that we can evaluate code and use the results to support our prose. This feature that allows us to write code and documentation in the same document, and have them work together seamlessly. And that's not marketing speak, by seamlessly I mean you can just write code in the document, and it'll be parsed. No code fences, or indention, or brackets.
+            </p>
+            <p class="mech-paragraph">
+              This solves the two-step tangle/weave aspect of Knuth's original conception of literate programming, and also solves the slice-and-dice hack that is notebook programming.
+            </p>
+            <p class="mech-paragraph">
+              Mechdown solves
+            </p>
+            <p class="mech-paragraph">
+              This is a paragraph.
+            </p>
+            <p class="mech-paragraph">
+              We can run arbitary Mech expressions inline with a 
+              <code class="mech-inline-code">{}</code>
+               like so 
+              <code id="11398935096104038" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></span></span></span></code>
+              .
+            </p>
+            <p class="mech-paragraph">
+              We can define a variable right in the document:
+            </p>
+            <div class="mech-code-block">
+              <div class="mech-code">
+                <span class="mech-statement">
+                  <span class="mech-variable-define">
+                    <span class="mech-variable-mutable">
+                    </span>
+                    <span class="mech-var-name mech-clickable" id="863861563252387:0">
+                      x
+                    </span>
+                    <span class="mech-variable-assign-op">
+                      :=
+                    </span>
+                    <span class="mech-expression">
+                      <span class="mech-factor">
+                        <span class="mech-term">
+                          <span class="mech-factor">
+                            <span class="mech-expression">
+                              <span class="mech-literal">
+                                <span class="mech-number">
+                                  12
                                 </span>
-                                <span class="mech-formula-operator">
-                                  +
-                                </span>
-                                <span class="mech-factor">
-                                  <span class="mech-expression">
-                                    <span class="mech-literal">
-                                      <span class="mech-number">
-                                        34
-                                      </span>
-                                    </span>
-                                  </span>
+                              </span>
+                            </span>
+                          </span>
+                          <span class="mech-formula-operator">
+                            +
+                          </span>
+                          <span class="mech-factor">
+                            <span class="mech-expression">
+                              <span class="mech-literal">
+                                <span class="mech-number">
+                                  34
                                 </span>
                               </span>
                             </span>
                           </span>
                         </span>
                       </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    We can then query this value in the document. For example the value of 
-                    <code class="mech-inline-code">x</code>
-                     is 
-                    <code id="22537555396208126" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></code>
-                    .
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    If we want a block that displays its output, we can use a code fence with the 
-                    <code class="mech-inline-code">mec</code>
-                     tag. The value of the last expression in the block will be displayed below the code block.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <div class="mech-fenced-mech-block">
-                    <pre class="mech-code-block"><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="29341039262997047:0">y</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-literal"><span class="mech-number">456</span></span></span></span></span></div><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="29341039262997047:0">y</span></span></span></span></span></span></span></span></div></pre>
-                    <pre id="18498819328624993:0" class="mech-block-output"></pre>
-                  </div>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    We can create different code spaces so that we can re-use the same variable name without an error.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <div class="mech-fenced-mech-block">
-                    <pre class="mech-code-block"><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="863861563252387:53432269317410613">x</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-structure"><span class="mech-matrix"><span class="mech-bracket start">[</span><div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">2</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">3</span></span></span></span></div><span class="mech-bracket end">]</span></span></span></span></span></span></div><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="29341039262997047:53432269317410613">y</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-structure"><span class="mech-matrix"><span class="mech-bracket start">[</span><div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">4</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">5</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">6</span></span></span></span></div><span class="mech-bracket end">]</span></span></span></span></span></span></div></pre>
-                    <pre id="54243316077819338:53432269317410613" class="mech-block-output"></pre>
-                  </div>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    Now this one references x and y in the 
-                    <code class="mech-inline-code">mec-1</code>
-                     code space.
-                  </p>
-                </div>
-                <div class="mech-section-element">
-                  <div class="mech-fenced-mech-block">
-                    <pre class="mech-code-block"><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="47432400571875225:53432269317410613">z</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:53432269317410613">x</span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="29341039262997047:53432269317410613">y</span></span></span></span></span></span></span></span></div></pre>
-                    <pre id="16614260485598224:53432269317410613" class="mech-block-output"></pre>
-                  </div>
-                </div>
-                <div class="mech-section-element">
-                  <p class="mech-paragraph">
-                    If we ask for 
-                    <code class="mech-inline-code">z</code>
-                     we don't get that one, we get the one from before, because that was defined in the default code space: 
-                    <code id="19798699407359259" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span></span></code>
-                    .
-                  </p>
-                </div>
-              </section>
+                    </span>
+                  </span>
+                </span>
+              </div>
             </div>
+            <p class="mech-paragraph">
+              We can then query this value in the document. For example the value of 
+              <code class="mech-inline-code">x</code>
+               is 
+              <code id="53773835776067867" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></code>
+              .
+            </p>
+            <p class="mech-paragraph">
+              If we want a block that displays its output, we can use a code fence with the 
+              <code class="mech-inline-code">mec</code>
+               tag. The value of the last expression in the block will be displayed below the code block.
+            </p>
+            <div class="mech-fenced-mech-block">
+              <pre class="mech-code-block"><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="29341039262997047:0">y</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-literal"><span class="mech-number">456</span></span></span></span></span></div><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:0">x</span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="29341039262997047:0">y</span></span></span></span></span></span></span></span></div></pre>
+              <pre id="18498819328624993:0" class="mech-block-output"></pre>
+            </div>
+            <p class="mech-paragraph">
+              We can create different code spaces so that we can re-use the same variable name without an error.
+            </p>
+            <div class="mech-fenced-mech-block">
+              <pre class="mech-code-block"><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="863861563252387:53432269317410613">x</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-structure"><span class="mech-matrix"><span class="mech-bracket start">[</span><div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">1</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">2</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">3</span></span></span></span></div><span class="mech-bracket end">]</span></span></span></span></span></span></div><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="29341039262997047:53432269317410613">y</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-structure"><span class="mech-matrix"><span class="mech-bracket start">[</span><div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">4</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">5</span></span></span></span></div> <div class="mech-matrix-column"><span class="mech-matrix-element"><span class="mech-expression"><span class="mech-literal"><span class="mech-number">6</span></span></span></span></div><span class="mech-bracket end">]</span></span></span></span></span></span></div></pre>
+              <pre id="54243316077819338:53432269317410613" class="mech-block-output"></pre>
+            </div>
+            <p class="mech-paragraph">
+              Now this one references x and y in the 
+              <code class="mech-inline-code">mec-1</code>
+               code space.
+            </p>
+            <div class="mech-fenced-mech-block">
+              <pre class="mech-code-block"><div class="mech-code"><span class="mech-statement"><span class="mech-variable-define"><span class="mech-variable-mutable"></span><span class="mech-var-name mech-clickable" id="47432400571875225:53432269317410613">z</span><span class="mech-variable-assign-op">:=</span><span class="mech-expression"><span class="mech-factor"><span class="mech-term"><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="863861563252387:53432269317410613">x</span></span></span><span class="mech-formula-operator">+</span><span class="mech-factor"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="29341039262997047:53432269317410613">y</span></span></span></span></span></span></span></span></div></pre>
+              <pre id="16614260485598224:53432269317410613" class="mech-block-output"></pre>
+            </div>
+            <p class="mech-paragraph">
+              If we ask for 
+              <code class="mech-inline-code">z</code>
+               we don't get that one, we get the one from before, because that was defined in the default code space: 
+              <code id="29647021946242013" class="mech-inline-mech-code"><span class="mech-expression"><span class="mech-var-name mech-clickable" id="47432400571875225:0">z</span></span></code>
+              .
+            </p>
           </section>
           <section class="mech-program-section">
             <h2 id="45169909149306489" class="mech-program-subtitle ">
@@ -2257,59 +2127,53 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
                 Project Roadmap
               </a>
             </h2>
-            <div class="mech-section-element">
-              <ul class="mech-check-list">
-                <li class="mech-check-list-item">
-                  <input type="checkbox" >
-                  <p class="mech-paragraph">
-                     Dynamic sites
-                  </p>
-                </li>
-                <li class="mech-check-list-item">
-                  <input type="checkbox" >
-                  <p class="mech-paragraph">
-                     Queryable documents
-                  </p>
-                </li>
-                <li class="mech-check-list-item">
-                  <input type="checkbox" >
-                  <p class="mech-paragraph">
-                     Dashboards
-                  </p>
-                </li>
-                <li class="mech-check-list-item">
-                  <input type="checkbox" >
-                  <p class="mech-paragraph">
-                     Programs / animations
-                  </p>
-                </li>
-                <li class="mech-check-list-item">
-                  <input type="checkbox" >
-                  <p class="mech-paragraph">
-                     Forms
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <div class="mech-section-element">
-              <div class="mech-footnote" id="9969322063809408">
-                <div class="mech-footnote-id">
-                  1:
-                </div>
+            <ul class="mech-check-list">
+              <li class="mech-check-list-item">
+                <input type="checkbox" >
                 <p class="mech-paragraph">
-                  Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. You can also read about Edwin Towster's system here.
+                   Dynamic sites
                 </p>
-              </div>
-            </div>
-            <div class="mech-section-element">
-              <div class="mech-footnote" id="47765531206544500">
-                <div class="mech-footnote-id">
-                  2:
-                </div>
+              </li>
+              <li class="mech-check-list-item">
+                <input type="checkbox" >
                 <p class="mech-paragraph">
-                  Knuth also invented TeX, a typesetting system that is widely used for producing high-quality documents, especially in the fields of mathematics and computer science. This was a time when many tools we use today were invented by necessity.
+                   Queryable documents
                 </p>
+              </li>
+              <li class="mech-check-list-item">
+                <input type="checkbox" >
+                <p class="mech-paragraph">
+                   Dashboards
+                </p>
+              </li>
+              <li class="mech-check-list-item">
+                <input type="checkbox" >
+                <p class="mech-paragraph">
+                   Programs / animations
+                </p>
+              </li>
+              <li class="mech-check-list-item">
+                <input type="checkbox" >
+                <p class="mech-paragraph">
+                   Forms
+                </p>
+              </li>
+            </ul>
+            <div class="mech-footnote" id="9969322063809408">
+              <div class="mech-footnote-id">
+                1:
               </div>
+              <p class="mech-paragraph">
+                Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. You can also read about Edwin Towster's system here.
+              </p>
+            </div>
+            <div class="mech-footnote" id="47765531206544500">
+              <div class="mech-footnote-id">
+                2:
+              </div>
+              <p class="mech-paragraph">
+                Knuth also invented TeX, a typesetting system that is widely used for producing high-quality documents, especially in the fields of mathematics and computer science. This was a time when many tools we use today were invented by necessity.
+              </p>
             </div>
           </section>
         </div>
@@ -2323,7 +2187,7 @@ s.ValueChangedFcn = @(src, event) plot(t, sin(2*pi*src.Value*t));  % Update plot
       let wasm_core;
       async function run() {
         await init();
-        var code = `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`;
+        var code = `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`;
         wasm_core = new WasmMech();
         var xhr = new XMLHttpRequest();
         var codeUrl = `/code${window.location.pathname}`;

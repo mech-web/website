@@ -50,7 +50,66 @@ Then there are array languages such as APL, J, and K, which are designed to work
 
 In this section we'll look at the history of literate programming, some notable literate programming systems, and some prior work that predates Mech in this area.
 
-(2.1) History
+(2.1) History of Document Generation
+
+Humans have been making documents for thousands of years. If we look back at the history of documentat generation, we see cycles of increasingly complex documents being produced by skilled artisans, demand for those documents increasing as reader want access to the information they present, and technology being invented to automate the production of such documents to decrease production costs and  meet those demands.
+
+- Starts with monks hand writing beautiful books, which are expensive and rare.
+- Then the printing press and movable type is invented to automate what they do -- now the creativity is in the typesetting and layout, and the monks are replaced by typesetters and printers.
+- No longer are monks necessary to do this job, now more people have access.
+- What's the effect? With more access, now more people have the ability to spread what they want to say. Before it was just the guy who could afford hte monks whose message we written down. Now it's whoever can afford a printing press and someone who knows how to use it.
+
+https://commons.wikimedia.org/wiki/File:Pictographs_Recording_the_Allocation_of_Beer_(London,_England).jpg
+
+https://www.metmuseum.org/essays/papyrus-in-ancient-egypt
+
+
+
+
+
+
+The transition to brush and ink writing took place during the Zhou Dynasty (1046-256 BCE), following the decline of the Shang Dynasty. The Zhou Dynasty was characterized by significant social and political changes, which also influenced the development of writing. It was during this time that the art of calligraphy began to take shape, and brush and ink emerged as the primary tools for writing.
+
+Brushes used in ancient China were typically made from animal hair, such as goat, rabbit, or wolf. The hair was carefully selected and arranged to form a brush head, which was then attached to a bamboo or wooden handle. The quality of the brush and the choice of hair influenced the stroke thickness and texture of the resulting characters.
+
+Ink, on the other hand, was produced by grinding inksticks against an inkstone. The inkstick was typically made from soot, obtained by burning pine wood or other vegetable materials, mixed with glue or animal products to bind it together. The inkstick was ground against the inkstone with a small amount of water, resulting in a black ink of varying consistencies. The process of grinding the inkstick was considered an art form in itself, and skilled calligraphers took great care in preparing their ink.
+
+With the tools of brush and ink in hand, ancient Chinese scholars and calligraphers began to explore the possibilities of writing. Calligraphy, or the art of beautiful writing, became a highly esteemed discipline and a fundamental component of Chinese culture. It was not merely a means of communication but a reflection of an individual's character, emotions, and spiritual depth.
+
+The earliest calligraphic style in ancient China was known as "seal script" (zhuanshu), characterized by its angular and structured forms. Seal script was used primarily for inscriptions on seals and official documents. It later evolved into "clerical script" (lishu), which was more rounded and flowing. Clerical script became the dominant form of writing during the Han Dynasty (206 BCE-220 CE) and was widely used for administrative purposes.
+
+As calligraphy gained popularity, different styles and techniques emerged. "Regular script" (kaishu) developed during the Han Dynasty as a simplified and more legible form of clerical script. Regular script became the standard script for writing and has remained influential to this day.
+
+While calligraphy was initially practiced by the elite and scholars, it gradually spread to broader segments of society, becoming an integral part of Chinese education and culture. The ability to write with brush and ink became a mark of refinement and sophistication, and calligraphers were revered for their mastery of the art.
+
+Beyond its aesthetic appeal, calligraphy also served practical purposes. In ancient China, calligraphic skills were essential for individuals pursuing careers in government administration, as calligraphers were responsible for drafting official documents and records. Mastery of calligraphy was therefore crucial for social advancement and success in official examinations.
+
+https://www.quora.com/How-did-people-in-ancient-China-start-writing-using-brush-and-ink
+
+
+
+
+https://en.wikipedia.org/wiki/Wax_tablet
+
+
+
+
+
+
+
+(2.1) Markup Languages
+
+(2.1.1) GenCode
+
+(2.1.2) Tex
+
+(2.1.3) HTML / CSS
+
+(2.1.4) Javadoc et al
+
+(2.1.5) Markdown and Extensions
+
+(2.1) History of Literate Programming
 
 Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB systems as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
 
