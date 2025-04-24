@@ -54,48 +54,72 @@ In this section we'll look at the history of literate programming, some notable 
 
 Humans have been making documents for thousands of years. If we look back at the history of documentat generation, we see cycles of increasingly complex documents being produced by skilled artisans, demand for those documents increasing as reader want access to the information they present, and technology being invented to automate the production of such documents to decrease production costs and  meet those demands.
 
-- Starts with monks hand writing beautiful books, which are expensive and rare.
-- Then the printing press and movable type is invented to automate what they do -- now the creativity is in the typesetting and layout, and the monks are replaced by typesetters and printers.
-- No longer are monks necessary to do this job, now more people have access.
-- What's the effect? With more access, now more people have the ability to spread what they want to say. Before it was just the guy who could afford hte monks whose message we written down. Now it's whoever can afford a printing press and someone who knows how to use it.
+(2.1.1) Record-Keeping Era (Antiquity)
 
-https://commons.wikimedia.org/wiki/File:Pictographs_Recording_the_Allocation_of_Beer_(London,_England).jpg
+In the early history of written communication, the materials and methods used to record information were deeply shaped by the practical needs of the civilizations that created them.
 
-https://www.metmuseum.org/essays/papyrus-in-ancient-egypt
+The earliest form of writing was on clay tablets, used by the Sumerians around 3300 BCE. These tablets were made by pressing a reed stylus into soft, wet clay, which was then left to harden. The primary advantage of clay was its abundance and reusability; if the text was no longer needed, the clay could simply be reworked by moistening it again. However, while clay tablets were durable and could withstand the test of time, they were heavy, fragile, and bulky, which made them impractical for large-scale trade or transport.
 
+By around 2500 BCE, the Egyptians made a significant advancement with the use of papyrus, a material made from the papyrus plant. This early form of paper was lightweight, portable, and could be rolled into scrolls, making it far easier to transport and store than clay tablets. Papyrus became essential for administrative records, religious texts, and letters. Its widespread use expanded the utility of writing beyond fixed locations like temples to reach a broader audience. However, papyrus, while cheaper and faster to produce than clay, was still not very durable and could degrade over time.
 
+Meanwhile, in China, the use of ink and brushes emerged around 2000 BCE, allowing for smoother and faster writing. This innovation facilitated more expressive, fluid scripts and marked a turning point in document creation. In 100 CE, the Chinese invention of paper by Cai Lun revolutionized writing even further. Unlike papyrus, paper was cheap, scalable, and widely accessible, dramatically improving the efficiency and reach of document production across the world.
 
+In Greece and Rome, wax tablets were commonly used for short-term notes. These tablets were coated with wax and inscribed with a stylus, offering a reusable medium ideal for quick, temporary records. They became the ancient equivalent of whiteboards, primarily used for education, accounting, and daily administrative tasks. Despite their practicality, wax tablets were not durable and were best suited for short-term use.
 
+Additionally, the Romans made significant strides with the use of parchment, made from animal skins. Parchment was more durable than papyrus and allowed for the creation of codices—early books that could be bound and stored easily. This innovation laid the foundation for the shift from scrolls to bound books in the Western world, with parchment becoming the standard medium until the introduction of paper.
 
+Throughout these developments, the cost of production and durability of the materials played crucial roles in shaping the evolution of document creation. Materials like stone were expensive and slow to produce, but they were incredibly durable, surviving throughout history. Papyrus and ink allowed for faster production at a lower cost, but they were less durable. Wax tablets, while efficient and inexpensive, were short-lived. The difficulty and inefficiency of earlier methods prompted continuous innovation, with each successive technology responding to the growing bureaucratic and commercial demands of the time.
 
-The transition to brush and ink writing took place during the Zhou Dynasty (1046-256 BCE), following the decline of the Shang Dynasty. The Zhou Dynasty was characterized by significant social and political changes, which also influenced the development of writing. It was during this time that the art of calligraphy began to take shape, and brush and ink emerged as the primary tools for writing.
+(2.1.2) Manuscript Era (1st CE - 1400s CE)
 
-Brushes used in ancient China were typically made from animal hair, such as goat, rabbit, or wolf. The hair was carefully selected and arranged to form a brush head, which was then attached to a bamboo or wooden handle. The quality of the brush and the choice of hair influenced the stroke thickness and texture of the resulting characters.
+**Scrolls to Codices (\~1st - 4th Century CE)**
 
-Ink, on the other hand, was produced by grinding inksticks against an inkstone. The inkstick was typically made from soot, obtained by burning pine wood or other vegetable materials, mixed with glue or animal products to bind it together. The inkstick was ground against the inkstone with a small amount of water, resulting in a black ink of varying consistencies. The process of grinding the inkstick was considered an art form in itself, and skilled calligraphers took great care in preparing their ink.
+In the early centuries of the Common Era, a significant shift occurred in the format of written documents: the scroll—made from rolled papyrus—gave way to the codex, a format resembling the modern book with pages bound together. This transition was driven by the practical advantages of the codex: it was much easier to flip through, annotate, and carry compared to cumbersome scrolls. Early Christians played a key role in popularizing the codex format, using it to compile important religious texts such as the Bible. The codex allowed for more structured collections of knowledge, which encouraged the organization of texts into permanent formats — a step toward more accessible and lasting documentation of information.
 
-With the tools of brush and ink in hand, ancient Chinese scholars and calligraphers began to explore the possibilities of writing. Calligraphy, or the art of beautiful writing, became a highly esteemed discipline and a fundamental component of Chinese culture. It was not merely a means of communication but a reflection of an individual's character, emotions, and spiritual depth.
+**Manuscripts & Scriptoria (500s — 1400s)**
 
-The earliest calligraphic style in ancient China was known as "seal script" (zhuanshu), characterized by its angular and structured forms. Seal script was used primarily for inscriptions on seals and official documents. It later evolved into "clerical script" (lishu), which was more rounded and flowing. Clerical script became the dominant form of writing during the Han Dynasty (206 BCE-220 CE) and was widely used for administrative purposes.
+From the 6th century to the 15th century, a vibrant manuscript culture emerged across Europe, the Islamic world, and other regions, primarily within monasteries and scriptoria. Monks and scribes dedicated their lives to hand-copying texts, often on parchment or vellum, using ink and quill. The types of documents produced were mainly religious texts, philosophical works, and scientific treatises. As manuscripts were meticulously transcribed, they often became art objects in their own right, featuring elaborate illuminations and careful calligraphy. Despite the beauty and detail of these works, the process of creating them was extremely labor-intensive — a single book could take months or even years to complete. This practice reinforced the idea that documents were precious, handcrafted objects, but also made the production of texts a slow, costly endeavor.
 
-As calligraphy gained popularity, different styles and techniques emerged. "Regular script" (kaishu) developed during the Han Dynasty as a simplified and more legible form of clerical script. Regular script became the standard script for writing and has remained influential to this day.
+(2.1.3) Printing Revolution (1440s - 1900s)
 
-While calligraphy was initially practiced by the elite and scholars, it gradually spread to broader segments of society, becoming an integral part of Chinese education and culture. The ability to write with brush and ink became a mark of refinement and sophistication, and calligraphers were revered for their mastery of the art.
+**Printing Press & Movable Type (1440s)**
 
-Beyond its aesthetic appeal, calligraphy also served practical purposes. In ancient China, calligraphic skills were essential for individuals pursuing careers in government administration, as calligraphers were responsible for drafting official documents and records. Mastery of calligraphy was therefore crucial for social advancement and success in official examinations.
+The invention of the printing press by Johannes Gutenberg in the 1440s marked a pivotal moment in the history of document production. Gutenberg's technology—movable metal type, a press, and oil-based ink—revolutionized the way books and written materials were produced. Prior to the press, scribes painstakingly hand-copied texts, a process that was both slow and costly. Gutenberg's breakthrough automated this work, making it faster, more consistent, and much cheaper. The advent of the printing press led to a massive increase in book production, escalating from mere thousands to millions.
 
-https://www.quora.com/How-did-people-in-ancient-China-start-writing-using-brush-and-ink
+One of the most immediate impacts was the spread of literacy. As books became more affordable and accessible, literacy rates began to rise, especially in urban areas. The most notable example of the printing press's power was its role in disseminating the Bible, scientific works, and political tracts, which could now be mass-produced and shared widely. This democratization of information marked the transition from a world where knowledge was largely controlled by the elite to one where the general population could access written material. The pattern that emerged was the replacement of skilled artisans (such as monks) with printers and typesetters, allowing for wider public readership and the democratization of the ability to publish.
 
+**Lithography (1796)**
 
+By the 18th century, another printing technology, lithography, emerged. Invented by Alois Senefelder in 1796, lithography was created in response to the high costs associated with traditional engraving. The process was based on the principle that oil and water repel each other, allowing for the creation of flat printing plates instead of carved ones. This new method revolutionized the way text and images could be printed together. Lithography made printing more affordable and flexible, leading to the widespread use of posters, sheet music, and newspapers. It also helped meet the rising demand for visual media, marking a shift toward cheaper, more expressive printing methods.
 
+**Industrial Printing (19th Century)**
 
-https://en.wikipedia.org/wiki/Wax_tablet
+The 19th century saw the emergence of industrial printing with the introduction of steam-powered presses, followed by rotary and offset printing presses. These innovations dramatically increased the speed and volume of printing, enabling the mass production of daily newspapers, mass-market books, and an advertising boom. The development of automated typesetting tools like the Linotype and Monotype systems further streamlined the process, replacing manual typesetting and speeding up production. This period demonstrated the growing demand for scale and speed, with complex machines gradually replacing the manual labor that had once been the hallmark of print production. The industrial revolution in printing led to an explosion of accessible written material, fundamentally altering how information was distributed and consumed.
 
+(2.1.4) Desktop Publishing & the Web (1950s - 2020)
 
+**Photocopying & Desktop Publishing (1950s - 1980s)**
 
+In the 1950s, photocopying technology revolutionized document duplication. Xerox machines allowed for the instant reproduction of documents, making it easier for individuals and businesses to quickly produce copies without needing to retype or rewrite. This was followed by the rise of personal computers and laser printers in the 1980s, alongside desktop publishing software like Adobe PageMaker. These technologies enabled individuals and small organizations to design, layout, and print professional-looking documents from the comfort of their own homes or offices. The impact was profound: zines, flyers, resumes, and newsletters became common outputs, often created by individuals at home or in school settings. The pattern that emerged was a shift from factory-based production to desktop-based production, where authorship and publishing were no longer confined to large corporations or printing presses but spread across a much broader audience.
 
+**Web Publishing & Blogging (1990s - 2000s)**
 
+The 1990s brought the rise of web publishing, driven by the development of HTML, CSS, and content management systems (CMS) like WordPress and Blogger. This marked a fundamental shift in how documents were produced and distributed, as publishing moved online, bypassing print entirely. Now, anyone with internet access could create and publish content that could be accessed globally. Access to publishing no longer required a printer, only a browser, allowing people to share their ideas, stories, and information without the barriers of physical media. The pattern that developed involved the automation of distribution and a radical reduction in publishing costs, leading to an explosion of voices as people from all walks of life could now participate in global conversations.
 
+**Social Media (2000s - 2010s)**
+
+As we moved into the 2000s, social media platforms like Facebook, Twitter, Instagram, and YouTube transformed document publishing once again. Now, publishing became instant and informal. Documents were no longer just articles or books, but also included posts, tweets, videos, and stories—all of which could be shared instantly with vast audiences. The concept of virality replaced the idea of permanence, as content could rapidly spread and be consumed but often disappeared just as quickly. Social media ushered in a new era of mass participation in content creation, where individuals could instantly share their thoughts, images, and videos with the world. The pattern here was the collapse of the traditional divide between authorship and audience—everyone became both a creator and a consumer of content.
+
+**Cloud Docs & Real-Time Collaboration (2010s - Now)**
+
+By the 2010s, the development of cloud-based document tools like Google Docs, Notion, and Dropbox Paper fundamentally changed how documents were created, shared, and edited. These tools allowed for real-time collaboration, where multiple users could edit the same document simultaneously, make comments, and embed various forms of media. Documents were no longer static artifacts but living objects that evolved as people worked together on them. This also included version control, ensuring that changes could be tracked and reverted if needed. The pattern here is the shift from documents being individualistic, static creations to becoming collaborative platforms where teams and individuals could interact dynamically, making the process of creating documents more inclusive and flexible than ever before.
+
+At every stage:
+
+- Documents get more complex and expressive
+- Demand for access and production increases
+- Technology emerges to automate or democratize creation
+- Authorship shifts from elites to everyone
 
 (2.1) Markup Languages
 
