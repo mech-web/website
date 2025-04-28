@@ -46,46 +46,7 @@ Some languages are designed to be more human-readable than others. Python, which
 
 Then there are array languages such as APL, J, and K, which are designed to work with arrays as their primary data structure. These languages allow for concise and expressive manipulation of arrays, often using a minimalistic syntax with no keywords, and expanded glyph alphabet. For example, in APL, you can sum all elements of an array with a single operator `+/`. Moreover, these operations are broadcast over arrays, so you typically don't code explicit loops.you can perform operations on entire arrays without needing explicit loops. While the powerful operators of these languages allow you to write very terse code, they are often critcized as being "write only" languages, as the lack of English signifiers in the code render them unreadable to people who are not versed in the language.
 
-In this section we'll look at the history of literate programming, some notable literate programming systems, and some prior work that predates Mech in this area.
-
-(2.1) History of Document Generation
-
-Humans have been making documents for thousands of years. If we look back at the history of documentat generation, we see cycles of increasingly complex documents being produced by skilled artisans, demand for those documents increasing as reader want access to the information they present, and technology being invented to automate the production of such documents to decrease production costs and  meet those demands.
-
-(2.1.1) Early Writing Systems (3000 BCE — 500 CE)
-
-In the early history of written communication, the materials and methods used to record information were deeply shaped by the practical needs of the civilizations that created them. The Sumerians, around 3300 BCE, used clay tablets, pressing a reed stylus into wet clay to create their cuneiform script. These tablets were durable and reusable—clay could be re-moistened and reshaped—but they were also bulky and fragile, making them ill-suited for transport. By 2500 BCE, the Egyptians developed papyrus, a lightweight, rollable medium made from the papyrus plant. This innovation enabled writing to move beyond fixed locations like temples and spread through administrative, religious, and personal uses. However, papyrus, while easier to produce and transport than clay, lacked long-term durability. Meanwhile in China, ink and brushes emerged around 2000 BCE, allowing for smoother, more expressive writing. This culminated in the invention of paper by Cai Lun around 100 CE—a cheap, scalable material that revolutionized document production and made written communication vastly more accessible.
-
-In Greece and Rome, wax tablets served as an efficient, reusable medium for short-term notes, functioning much like whiteboards in education and daily administration. While practical, they were fragile and impermanent. The Romans also advanced the use of parchment, a more durable material made from animal skins, which enabled the development of codices—early bound books that were easier to store and navigate than scrolls. Parchment became the dominant medium in the Western world until paper eventually took its place.
-
-Across these innovations, the balance between cost, durability, and ease of production played a pivotal role. Stone was long-lasting but expensive and slow to produce; papyrus and ink allowed for faster, cheaper writing but lacked longevity; wax tablets were quick and inexpensive, yet ephemeral. The constant push to address these trade-offs drove innovation, as growing bureaucratic, religious, and commercial demands necessitated more efficient ways to record, store, and transmit information.
-
-(2.1.2) Manuscript Era (500 CE — 1400s CE)
-
-In the early centuries of the Common Era, a significant shift occurred in the format of written documents: the scroll gave way to the codex, a format resembling the modern book with pages bound together. This transition was driven by the practical advantages of the codex: it was much easier to flip through, annotate, and carry compared to scrolls. Early Christians played a key role in popularizing the codex format, using it to compile important religious texts such as the Bible. The codex allowed for more structured collections of knowledge, which encouraged the organization of texts into permanent formats — a step toward more accessible and lasting documentation of information.
-
-From the 6th century to the 15th century, a vibrant manuscript culture emerged across Europe, the Islamic world, and other regions, primarily within monasteries and scriptoria. Monks and scribes dedicated their lives to hand-copying texts, often on parchment or vellum, using ink and quill. The types of documents produced were mainly religious texts, philosophical works, and scientific treatises. 
-
-As manuscripts were meticulously transcribed, they often became art objects in their own right, featuring elaborate illuminations and careful calligraphy. Despite the beauty and detail of these works, the process of creating them was extremely labor-intensive — a single book could take months or even years to complete. This practice reinforced the idea that documents were precious, handcrafted objects, but also made the production of texts a slow, costly endeavor.
-
-(2.1.3) Printing Revolution (1440s — 1900s)
-
-The invention of the printing press by Johannes Gutenberg in the 1440s transformed the landscape of document production. Using movable metal type, a press mechanism, and oil-based ink, Gutenberg created a system that could rapidly reproduce texts with consistency and at a much lower cost than hand-copying. This breakthrough ended the monopoly of scribes and monasteries over written knowledge. Book production skyrocketed from thousands to millions, and literacy rates began to rise, especially in urban centers. Religious texts like the Bible, along with scientific treatises and political pamphlets, could now reach broad audiences, sparking widespread intellectual and social change. The printing press marked a shift in authorship and access: skilled scribes were replaced by printers and typesetters, and ordinary people gained the ability to read—and eventually publish.
-
-By the late 18th century, lithography emerged as a cheaper and more flexible alternative to engraving. Invented by Alois Senefelder in 1796, it used the principle that oil and water repel each other to create flat printing surfaces. This innovation allowed for easier integration of text and images, paving the way for the mass production of posters, sheet music, and illustrated newspapers. In the 19th century, printing scaled further with the rise of steam-powered, rotary, and offset presses. These industrial machines enabled high-speed production of newspapers and books, fueling the growth of mass media and advertising. Automated typesetting systems like Linotype and Monotype replaced manual layout work, dramatically accelerating publishing workflows. As demand for information exploded, printing evolved into a high-volume, high-speed enterprise that brought written content into nearly every aspect of modern life.
-
-(2.1.4) Desktop Publishing & the Web (1950s — 2020)
-
-In the mid-20th century, document production shifted dramatically with the arrival of Xerox machines, enabling instant duplication without retyping. By the 1980s, desktop publishing tools—personal computers, laser printers, and software like Adobe PageMaker—let individuals design and print professional-quality materials from home. Flyers, zines, resumes, and newsletters became everyday projects. This marked a key transition: authorship and production moved from centralized presses to personal desktops, empowering small organizations and individuals to publish with ease.
-
-The digital revolution accelerated in the 1990s with web publishing tools like HTML and content management systems such as WordPress and Blogger, making it possible for anyone online to share content globally. Social media in the 2000s further blurred the line between creator and audience, as posts, tweets, and videos replaced traditional documents with informal, fast-moving content. In the 2010s, cloud-based tools like Google Docs and Notion introduced real-time collaboration, turning documents into dynamic, shared spaces that evolve continuously. Publishing became participatory, networked, and immediate—no longer a static act, but an ongoing, collective process.
-
-At every stage:
-
-- Documents get more complex and expressive
-- Demand for access and production increases
-- Technology emerges to automate or democratize creation
-- Authorship shifts from elites to everyone
+In this section we'll provide a comprehesive look at the history of literate programming, some notable literate programming systems, and some prior work that predates Mech in this area.
 
 (2.1) Markup Languages
 
@@ -129,13 +90,14 @@ TeX is a typesetting system developed by Donald Knuth in the late 1970s [TEXBOOK
 
 TeX uses commands prefixed with a backslash `\` to control document behavior. It is especially useful for rendering complex mathematical notation, making it the standard in academic publishing -- even Mechdown uses TeX for rendering equations! [^3] For example, this equation expressed in TeX:
 
-$$ \int_0^1 x^2 \, dx = \frac{1}{3}
-
-is rendered as:
-
 ```
 \int_0^1 x^2 \, dx = \frac{1}{3}
 ```
+
+is rendered as:
+
+$$ \int_0^1 x^2 \, dx = \frac{1}{3}
+
 
 In 1985, Leslie Lamport created the LaTex system (stylized as $$\LaTeX$$), which extended TeX to make it easier to produce books and articles [LATEX]. His goal was to provide a more user-friendly interface for writing technical documents, allowing users to focus on content rather than formatting. For example:
 
@@ -157,9 +119,6 @@ This is a simple LaTeX document. Here's the same integral from before:
 This system allows authors to write documents in separate files, and link them together using `\input` or `\include`. LaTeX also supports bibliographies, cross-references, and other features that make it suitable for large documents. It has become the de facto standard for typesetting academic papers, theses, and books in many fields, especially mathematics and computer science. One feature that supports this is stylesheets, which allow authors to define a set of formatting rules for their documents. This allows for consistent formatting across multiple documents, and makes it easy to change the appearance of a document without modifying the content.
 
 Today, LaTeX is being developed and maintained by the LaTeX Project, which is volunteer-driven and open-source [LATEXPRJ]. The LaTeX Project is responsible for maintaining the LaTeX kernel, which is the core of the LaTeX system, as well as a number of packages that extend its functionality.
-
-(2.1.2) SGML
-
 
 (2.1.3) HTML / CSS
 
@@ -206,17 +165,73 @@ This clear separation of content and presentation is a common design pattern in 
 
 (2.1.4) Javadoc et al.
 
-- Inline documentation for codebases
-- Java's approach with `/** */` comments and tags
-- Tools for other languages (e.g., Doxygen, Rustdoc, Sphinx)
-- Strengths and weaknesses of docstring-style systems
+As codebases grew larger in the 1990s, developers needed better ways to document software directly alongside source code. This led to the rise of inline documentation systems—special comment formats that could be automatically extracted to produce human-readable documentation.
+
+Java pioneered this approach with Javadoc, introduced by Sun Microsystems with the original Java Development Kit (JDK). Javadoc uses comment blocks marked by `/** */` and tagged fields like @param, @return, and @throws to describe methods and classes:
+
+```java
+/**
+ * Returns the maximum of two integers.
+ * @param a the first number
+ * @param b the second number
+ * @return the greater of a and b
+ */
+public int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+```
+
+Using the `javadoc` tool, developers can generate consistent HTML documentation automatically from their source files, promoting better code readability and standardized external docs.
+
+Other languages quickly adopted similar systems. Doxygen supports C, C++, and several other languages with a syntax similar to Javadoc. Rustdoc generates documentation from triple-slash `///` comments in Rust:
+
+```rust
+/// Adds two numbers together.
+/// 
+/// # Arguments
+/// 
+/// * `a` - The first number.
+/// * `b` - The second number.
+/// 
+/// # Returns
+/// 
+/// The sum of `a` and `b`.
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+```
+
+Rustdoc imporves upon Javadoc in several ways:
+
+- Markdown support: Documentation comments are parsed as full Markdown, allowing easy formatting (e.g., headings, lists, code blocks, links).
+- Executable code examples: Code snippets written in the documentation are automatically compiled and tested with cargo test. This ensures examples are always correct and up to date.
+- Hidden setup code: Rust allows parts of code examples to be hidden from the rendered documentation (using # to hide lines), making examples clean for the reader while still functional during testing. For example:W
+
+These additional features try to solve the problem of keeping documentation synchronized with code, which is a common issue in large codebases. By allowing documentation to be written in Markdown and including executable code examples, Rustdoc makes it easier for developers to maintain accurate and up-to-date documentation.
 
 (2.1.5) Markdown and Extensions
 
-- Simplicity and readability of Markdown
-- Common extensions (GitHub Flavored Markdown, Pandoc, RMarkdown)
-- Popularity in documentation, static sites, and publishing
-- Limitations and workarounds (e.g., HTML fallback, custom syntax)
+Markdown was created by John Gruber in 2004 with the goal of making documents easy to write and easy to read in plain text. Its syntax is intentionally simple: headings are marked with #, lists with -, links with [text](url), and code blocks with backticks. Unlike earlier markup languages, Markdown prioritizes readability first, even without any processing, so that plain-text documents would appear as close to their rendered form as possible.
+
+For example, this Markdown document:
+
+```Markdown
+# This is a Heading
+
+## This is a Subheading
+
+This is a paragraph with a [link](https://example.com).
+
+- List item 1
+- List item 2
+- List item 3
+
+~~~
+This is a code block.
+~~~
+```
+
+Because it's easy to read and write and implement, Markdown quickly gained popularity and became the de facto standard for lightweight markup languages. Along the way it gained several notable extensions like GitHub Flavored Markdown (GFM), which added support for tables, strikethrough, and task lists; and a spec called CommonMark, which aimed to standardize the syntax across implementations.
 
 (2.1) History of Literate Programming
 
