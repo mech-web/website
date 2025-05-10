@@ -135,7 +135,7 @@ export function main() {
 }
 
 function __wbg_adapter_14(arg0, arg1) {
-    wasm._dyn_core__ops__function__Fn_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h563fb7515b86494a(arg0, arg1);
+    wasm._dyn_core__ops__function__Fn_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h9d55e126e3a758d5(arg0, arg1);
 }
 
 const WasmMechFinalization = (typeof FinalizationRegistry === 'undefined')
@@ -160,6 +160,24 @@ export class WasmMech {
         this.__wbg_ptr = ret >>> 0;
         WasmMechFinalization.register(this, this.__wbg_ptr, this);
         return this;
+    }
+    /**
+     * @returns {string}
+     */
+    out_string() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.wasmmech_out_string(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    clear() {
+        wasm.wasmmech_clear(this.__wbg_ptr);
     }
     init() {
         wasm.wasmmech_init(this.__wbg_ptr);
@@ -274,8 +292,8 @@ function __wbg_get_imports() {
         const ret = typeof window === 'undefined' ? null : window;
         return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper332 = function(arg0, arg1, arg2) {
-        const ret = makeClosure(arg0, arg1, 104, __wbg_adapter_14);
+    imports.wbg.__wbindgen_closure_wrapper333 = function(arg0, arg1, arg2) {
+        const ret = makeClosure(arg0, arg1, 93, __wbg_adapter_14);
         return ret;
     };
     imports.wbg.__wbindgen_init_externref_table = function() {
