@@ -1,0 +1,189 @@
+The Megaman Theory of Programming Language Design
+===============================================================================
+
+1. The Programming Language Learning Curve Gap
+-------------------------------------------------------------------------------
+
+
+(1.1) Scratch's Learning Curve
+
+Students are introduced to the Scratch programming language in elementary school, where they learn the basics of programming by dragging and dropping blocks to create programs. Scratch is designed to be easy to use and understand, with a focus on visual programming and interactive learning. The learning curve for Scratch is relatively shallow, allowing students to quickly grasp the concepts of programming without being overwhelmed by complex syntax or semantics.
+
+Scratch and Blockly both offer students a structured editing environment where they can create programs by dragging and dropping blocks. This approach allows students to focus on the logic of programming without getting bogged down by syntax errors or other complexities. The visual nature of Scratch and Blockly makes it easier for students to understand how different blocks interact with each other, and how they can be combined to create more complex programs.
+
+(1.1) Java's Learning Curve
+
+Java is a programming language that has a reputation for being difficult to learn, especially for beginners. This is due in part to its complex syntax and semantics, which can be overwhelming for new programmers.
+
+Consider the simplest program in Java, Hello World:
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+Even with this simple program, there are a number of concepts that must be understood to fully grok what's going on:
+
+- Java file structure: one public class per file named the same as the class.
+- What is a class? Understanding that Java is object-oriented and everything resides inside a class.
+- What is a method? Methods contain code that performs tasks.
+- main method as the entry point of a Java application.
+- public: access modifier — means the method/class is visible to other classes.
+- static: the method belongs to the class, not to an instance.
+- void: return type — means the method does not return anything.
+- `String[]`: array of strings
+- args - command-line arguments to the program.
+- function call: println("Hello, World!")
+- takes arguments in parentheses.
+- Types: Java is a statically typed language, meaning types must be declared.
+- `System.out.println(...)`:
+- System is a built-in class.
+- out is a static member (a PrintStream) of System.
+- println is a method of PrintStream used to print output with a newline.
+- dot notation is used to access members of classes and objects, can be chained so a graph of objectis is implied.
+- Curly braces `{}`: define blocks (class and method bodies).
+- Semicolon ;: ends a statement.
+- Save the code in a file named HelloWorld.java.
+- Compile it using javac HelloWorld.java.
+- Run it using java HelloWorld.
+- The Java standard library (where System and println come from).
+- **String Literals**: The text "Hello, World!" is a string literal, and must be enclosed in double quotes in order to be recognized as a string. This is arguably the only text in the entire program that is strictly needed to print "Hello, World!" to the console. These characters therefore represent the "essential complexity" of the program, and everything else is "incidental complexit" --  boilerplate code that is required because of how Java is deisgned.
+
+The length of this list of concepts is a good indicator of the steep learning curve that Java presents to new programmers. Each of these concepts must be learned and understood in order to write even the simplest Java program. Often times when teaching Java to beginners, they will have questions about each of these concepts because they are curious and want to learn / undersand what they are doing. However, instructions have found that going through and explaining each concept at the level of detail needed to fully understand the program is too much for beginners to handle all at once. Therefore it is very common for instructors to tell students something like "don't worry about that for now, just know that it is required to make the program work." Obviously this is not ideal becaues it leaves students confused and frustrated, and with an impression that they are not actually expected to understand what they are doing.
+
+It's very unfortunate that Java has this learning curve and yet it is used as the introductory programming language for computer science students in the United States. This is because it is a language that is widely used in industry, and therefore students are expected to learn it in order to be employable. However, this means that students are often forced to learn a language that is difficult to understand and use, which can lead to frustration and disengagement, which we can observe when talking to students.
+
+(1.2) But what about Python?
+
+Python is often touted as a beginner-friendly programming language, and for good reason. Its syntax is clean and readable, which makes it easier for new programmers to understand. However, even Python has its own learning curve, especially when it comes to understanding concepts like indentation, dynamic typing, and the use of libraries. Python's learning curve extends
+
+```python
+print("Hello, World!")
+```
+
+Then you can add a main method:
+
+```python
+def main():
+    print("Hello, World!")
+```
+
+And then you can add a class:
+
+```python
+class HelloWorld:
+    def main(self):
+        print("Hello, World!")
+```
+
+
+2. Megman X
+-------------------------------------------------------------------------------
+
+Megman X was a platform game released in 1993 for the Super Nintendo Entertainment System (SNES). Megaman is a robot that can assume a number of different powers including the ability to shoot fire, ice, and other projectiles, which interact in various ways with the environment and enemies. While this makes for interesting and dynamic gameplay, it can also be overwhelming for new players to learn all the different abilities and how they interact with other game elements. A key gameplay element of Megaman is that abilities are introduced gradually, allowing players to learn and master each one before moving on to the next.
+
+(2.1) Starting the Game
+
+The story of Megaman X begins with the player controlling Megaman. In a cutscene, the player is shown that Megaman has a number of components including a helment, body armor, boots, and a buster arm that can be used as a weapon.
+
+![Megaman begins his quest.](clip1.gif)
+
+Many games start with an explicit tutorial level that instructs the player how to play the game (for example, Oblivion, in which the player is guided through a tutorial sewer where they encounter various opportunities to use weapons, magic, and remake choices before they are released into the full game world), but Megaman X drops the player directly into the action of the game world. Megaman initially only has a fiew powers available to him, and the player only has a few options on how to control megaman via the SNES controller. Even without instructions, the player can quickly learn how to move Megaman around the game world and interact with the environment. 
+
+Players quickly encounter their first enemey, which is easy to defeat and drops health for the player so that they are not penalized too heavily for making mistakes. Then the player is presented with increasingly difficult sceanrios including a gap they have to jup over, and a wall they have to climb. 
+
+![Megaman gets beaten and is saved by Zero.](clip2.gif)
+
+Eventually the player encounters their first boss, which quickly and easily defeats Megaman. However, what happens next is especially interesting -- a character names Zero appears to save Megaman. Zero is a more powerful version of Megaman, equipped with advanced armor and abilities that Megaman does not yet have. Zero defeats the boss and then tells Megaman that he too will be able to defeat bosses like that in the future, but first he must learn and master new abilities.
+
+This is important for a number of reasons. First, it establishes the story of Megaman as a character who is on a journey to become more powerful. His goal is clear: defeat that boss by learning new abilities. Moreover, it demonstrates those abilities by showing the playet what they will become. This motivates the player to stick with the game with the goal of being as cool and capable as Zero.
+
+(2.2) Playing the Game
+
+As the game progresses, the player is introduced to the main gameplay loop: do a level, defeat a boss, and gain a new ability demonstrated by the boss. For example, the first boss is Chill Penguin, who has the ability to shoot ice. After defeating Chill Penguin, Megaman gains the ability to shoot ice as well. This ability can then be used to defeat other bosses and enemies, as well as to access new areas of the game world that were previously inaccessible.
+
+Megaman can also gain new abilities by entering capsules that are hidden throughout the game world by Dr. Light. These capsules upgrade Megaman's armor, allowing him to take more damage and move faster, and break walls. Crucially, when Megaman gains these abilities, the game designes provide room for the player to practice them. For example, after gaining the ability to fast dash, Megaman is presented with a gap that he can jump over. Or when he gains the ability to break walls, he is presented with a wall that he can break. This allows the player to learn and master the new abilities in a controlled environment before they are put to the test in more difficult scenarios.
+
+(2.3) Beating the Game
+
+By the time Megaman faces all of the bosses at least once, he has gained enough powers that he rivals Zero. At the midway point in the game, Megaman meets Zero again, and this time they are more evenly matched.
+
+![Megaman is fully powered-up the next time he encounters Zero](clip6.gif)
+
+The gameplay changes from introducing new abilities systematically to allowing the player to use all of the abilities they have learned so far. Megaman X does this by requring the player to face the bosses he had already defeated again, but this time with all of the abilities they have learned so far. This allows the player to use their knowledge of the game mechanics and abilities to defeat the bosses in new and creative ways.
+
+![Late gameplay level difficulty increases and requires the player to use all acquired abilities](clip8.gif)
+
+The game culminates in a final boss fight, where Megaman faces off against the villain from before, who has now captured Zero. This is the opposite of the scenario before, where Megaman had to be saved by Zero. This scenario offers a resolution to situation encountered at the beginning of the game, where megaman was defeated.
+
+![Megaman is prepared to face the boss that beat him before.](clip7.gif)
+
+
+
+3. Game Design and Language Design
+-------------------------------------------------------------------------------
+
+So how does all this relate back to programming languages? Let's take a look at the key elements of game design in Megaman X and how they relate to programming language design:
+
+-(⚙️) Game Mechanics: The rules of the game, equivalent to semantics of a programming language.
+-(♟️) Game Pieces: How the game is represented to the player, equivalent to syntax of a programming language.
+-(♻️) Game Loop: How the game progresses from start to end, equivalent to the runtime of a programming language.
+-(🎮) Game Interface: How the player interacts with the game, equivalent the programmer's interface to a language.
+-(🎭) Game Narrative: The motivation for playing the game, equivalent to the programmer's purpose for using the language.
+-(🧙‍♂️) Game Master: Verifies the game rules are followed throughout gameplay, equivalent to the compiler of a programming language. 
+
+So games and programming languages are very similiar from this perspective. They are both systems that have complex rules that are meant to be followed, they both have human interfaces for users to interact with, and they both work by executing the rules iteratively until a goal is reached (game over, or program termination). Moreover, games and programming languages both have a learning curve, where users must learn the rules and how to interact with the system in order to be successful. And that learning curve cannot be too steep, because if it is, users will become frustrated and give up. Game designers have long thought about new ways to onboard new players to the rules, and the success of gaming especially with kinds shows that their techniques are effective. 
+
+
+Lessons we can learn from Megaman X and apply to programming language design:
+
+- **Gradual Introduction of Concepts**: Just as Megaman X introduces new abilities gradually, programming languages should introduce new concepts in a way that allows users to learn and master them before moving on to more complex ideas.
+- **Practice and Feedback**: Megaman X provides opportunities for players to practice new abilities in a controlled environment before facing more difficult challenges. Programming languages should also provide opportunities for users to practice new concepts and receive feedback on their understanding.
+- **Feature Synergy**: Megaman X allows players to combine abilities in creative ways, which leads to new strategies and solutions. Programming languages should also allow users to combine features in ways that lead to new possibilities and solutions.
+- **Motivation and Progression**: Megaman X motivates players by showing them what they can become and providing a clear progression path. Programming languages should also provide a sense of progression and achievement, so that users feel motivated to continue learning and improving their skills.
+- **Community and Support**: Megaman X has a community of players who share tips and strategies, which helps new players learn and improve. Programming languages should also have a supportive community that provides resources and assistance to new users.
+- **Iterative Design**: Megaman X is designed to be played multiple times, with each playthrough allowing players to learn and improve their skills. Programming languages should also be designed to be used iteratively, with users able to build on their knowledge and skills over time.
+- **Accessibility**: Megaman X is designed to be accessible to a wide range of players, with different difficulty levels and options for customization. Programming languages should also be designed to be accessible to a wide range of users, with options for customization and flexibility in how they are used.
+- **Engagement**: Megaman X is designed to be engaging and fun, with a focus on exploration and discovery. Programming languages should also be designed to be engaging and enjoyable to use, with a focus on creativity and problem-solving.
+- **Feedback Loops**: Megaman X provides feedback to players on their performance, which helps them learn and improve. Programming languages should also provide feedback to users on their code, so that they can learn from their mistakes and improve their skills.
+- **Clear Goals**: Megaman X provides clear goals for players to achieve, which helps them stay focused and motivated. Programming languages should also provide clear goals for users to achieve, so that they can see their progress and feel a sense of accomplishment.
+- **Iterative Learning**: Megaman X allows players to learn and improve their skills over time, with each playthrough providing new challenges and opportunities for growth. Programming languages should also allow users to learn and improve their skills iteratively, with each project providing new challenges and opportunities for growth.
+- **Exploration and Discovery**: Megaman X encourages players to explore the game world and discover new abilities and strategies. Programming languages should also encourage users to explore and discover new features and techniques, so that they can learn and grow as programmers.
+- **Community Engagement**: Megaman X has a community of players who share tips and strategies, which helps new players learn and improve. Programming languages should also have a supportive community that provides resources and assistance to new users.
+- **Narrative and Motivation**: Megaman X has a compelling narrative that motivates players to continue playing and improving their skills. Programming languages should also have a narrative or purpose that motivates users to learn and use the language, whether it's building a web application, creating a game, or solving a problem.
+
+
+4. Mech's Learning Curve
+--------------------------------------------------------------------------------
+
+How does Mech follow the megaman theory?
+
+- Local reasoning
+- Gradual introduction of new concepts
+- Everything is an expression
+- Pure functions (idempotent)
+- Literate Programming
+- Value semantics
+- Tight programming loop
+- Terse code
+- Composition
+- Feature Synergy
+- Create space to test features
+- Demonstrate how to use features
+- Make users feel safe to make mistakes.
+
+5. Other Games 
+-------------------------------------------------------------------------------
+
+Other games that have a similiar mechanic other than Megaman include:
+
+- **Castlevania: Symphony of the Night**: Players gain new abilities and weapons as they progress, allowing them to explore previously inaccessible areas.
+- **Metroid**: Players acquire new abilities that allow them to access new areas and defeat tougher enemies, with a focus on exploration and discovery.
+- **Hollow Knight**: Players gain new abilities that allow them to explore the world and defeat enemies, with a focus on exploration and discovery.
+- **Celeste**: Players gain new abilities that allow them to navigate the challenging platforming levels, with a focus on precision and timing.
+- **Ori and the Blind Forest**: Players gain new abilities that allow them to explore the world and defeat enemies, with a focus on exploration and discovery.
+
+![Thanks for reading!](clip9.gif)
