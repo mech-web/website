@@ -135,7 +135,7 @@ export function main() {
 }
 
 function __wbg_adapter_14(arg0, arg1) {
-    wasm._dyn_core__ops__function__Fn_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hbe7b7981b071693d(arg0, arg1);
+    wasm._dyn_core__ops__function__Fn_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h28d80c8bc90ae970(arg0, arg1);
 }
 
 const WasmMechFinalization = (typeof FinalizationRegistry === 'undefined')
@@ -298,7 +298,7 @@ function __wbg_get_imports() {
         const ret = typeof window === 'undefined' ? null : window;
         return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper354 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper352 = function(arg0, arg1, arg2) {
         const ret = makeClosure(arg0, arg1, 93, __wbg_adapter_14);
         return ret;
     };
