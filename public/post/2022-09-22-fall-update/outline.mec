@@ -98,7 +98,7 @@ When filtering a table using logical indexing, the resulting table's size depend
 
 In this case, the `#passed-students` table contains only the students with scores higher than `#threshold`. The size of this resulting table is determined during runtime, as it depends on the number of students meeting the specified condition, which can both be dynamic. Therefore the size of `#passed-students` can't be determiend at compile time.
 
-Dynamic tables can impact performance due to memory reallocations and the inability to optimize table sizes at compile time. Memory reallocations can be expensive if they occur frequently. Additionally, dynamic table sizes make it challenging to apply certain optimizations that rely on fixed-size data structures.
+Dynamic tables can impact performance due to memory reallocations and the inability to optimize table sizes at compile time. Memory reallocations can be expensive if they occur frequently. Additionally, dynamic table sizes make it challenging to apply certain optimizations that rely on fixed_size data structures.
 
 However, since tables are implemented using Rust vectors helps mitigate these performance concerns. Rust's exponential growth strategy for vector capacities minimizes the number of reallocations required, and the language's safety features reduce the likelihood of memory-related bugs.
 
