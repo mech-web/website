@@ -91,9 +91,17 @@ The story of Megaman X begins with the player controlling Megaman. In a cutscene
 
 ![Megaman begins his quest.](clip1.gif)
 
-Many games start with an explicit tutorial level that instructs the player how to play the game (for example, Oblivion, in which the player is guided through a tutorial sewer where they encounter various opportunities to use weapons, magic, and remake choices before they are released into the full game world), but Megaman X drops the player directly into the action of the game world. Megaman initially only has a fiew powers available to him, and the player only has a few options on how to control megaman via the SNES controller. Even without instructions, the player can quickly learn how to move Megaman around the game world and interact with the environment. 
+Many games start with an explicit tutorial level that instructs the player how to play the game (for example, Oblivion, in which the player is guided through a tutorial sewer where they encounter various opportunities to use weapons, magic, and remake choices before they are released into the full game world), but Megaman X drops the player directly into the action of the game world. Megaman initially only has a few powers available to him, and the player only has a few options on how to control Megaman via the SNES controller. This means that even without instructions, the player can quickly learn how to move Megaman around the game world and interact with the environment just by pressing buttons and observing the results.
 
-Players quickly encounter their first enemey, which is easy to defeat and drops health for the player so that they are not penalized too heavily for making mistakes. Then the player is presented with increasingly difficult sceanrios including a gap they have to jup over, and a wall they have to climb. 
+As the game starts, the player is exposed to various scenarios where they are required to use Megaman's abilities with increasing difficulty. Watch teh clip closely, here's what players are shown:
+
+- Megaman starts on a flat area with no obstacles or enemies, allowing the player to freely learn the basic movement controls without pressure or penalty.
+- Player movement is reinforced in two ways: 
+  1. The world moves with the player, giving a sense that there is more offscreen to explore and provides the player with a sense of direction, as well as a tacit goal to achieve (move to the right).
+  2. The first object that the player can interact with is a health capsule, which they acquire by moving over it. This teaches the player that they can interact with objects in the game world by moving into them, and that they can gain health by doing so.
+- Quickly after gaining that object, the player encounters their first enemy, a small robot that can be defeated by shooting it with Megaman's buster arm. This teaches the player that enemies can hurt the player, that they can be defeated by shooting them. The enemy also poses no real threat to the player, so even though it can damage them, the player isn't put in a situation where they can be defeated and therefore become frustrated and less motivated to continue playing.
+- Next, the player encounters a gap that Megaman must jump over. This asks the player to combine the movement and the jumping abilities, introducing the concept of a combo action.
+- After the gap, the player encounters a flying enemy that can only be defeated by shooting *and* jumping, demonstrating that not all enemies can be defeated in the same way, and that abilities can be combined in different ways to overcome challenges.
 
 ![Megaman gets beaten and is saved by Zero.](clip2.gif)
 

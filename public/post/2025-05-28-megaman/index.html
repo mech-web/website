@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+                  @import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+
+html {
+    scroll-behavior: auto;
+}
+
+.mech-program {
+    counter-reset: h2;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 700px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #2F353B;
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+}
+
+.mech-root {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#mech-output {
+    max-width: 700px;
+    min-width: 250px;
+    background-color: #171D21;
+    color: #f2ead9;
+    border-radius: 10px;
+}
+
+.mech-toc {
+    width: 250px;
+    min-width: 250px;
+    counter-reset: h2;
+    background-color: #171D21;
+    color: #f2ead9;
+    overflow-y: auto;
+    margin-right: 20px;
+    padding-right: 0px;
+    padding-left: 0px;
+    position: sticky; 
+    top: 0; 
+    height: 100vh;
+}
+
+.mech-toc h2 {
+    line-height: 23px;
+}
+
+.mech-toc::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.mech-toc::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+.mech-toc::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7); 
+    border-radius: 10px; 
+}
+
+.mech-toc::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9); 
+}
+
+/* For Firefox */
+.mech-toc {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-toc h1 {
+    visibility: hidden;
+    font-size: 12pt;
+}
+
+.mech-toc h2 {
+    font-size: 12pt;
+    padding-left: 15px;
+}
+
+h2.toc::before {
+    padding-right: 5px;
+}
+
+.mech-toc h2 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h2:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h2 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+h3.toc::before {
+    font-size: 12pt;
+    padding-right: 5px;
+    color: rgba(255, 255, 255, 0.55);
+}
+.mech-toc h3 {
+    line-height: 23px;
+}
+
+.mech-toc h3 {
+    font-size: 12pt;
+    padding-left: 30px;
+}
+
+.mech-toc h3 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h3:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h3 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+h4.toc::before {
+    font-size: 12pt;
+    padding-right: 5px;
+    color: rgba(255, 255, 255, 0.55);
+}
+.mech-toc h4 {
+    line-height: 23px;
+    font-size: 12pt;
+    padding-left: 60px;
+    margin: 10px;
+}
+
+.mech-toc h4 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h4:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h4 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+.mech-matrix {
+    display: inline-flex;
+}
+
+.mech-bracket.end {
+    align-self: flex-end;
+    margin-left: -10px;
+}
+
+.mech-slice-ref {
+    display: inline-flex;
+}
+
+.mech-matrix-column {
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
+.mech-variable-assign-op {
+    padding-left:  6px;
+    padding-right: 6px;
+    color: #ffd139;
+}
+
+.mech-transition-statement {
+    color: #ffd139;
+}
+
+.mech-transition-output {
+    color: #ffd139;
+}
+
+.mech-fsm-arm-last {
+    color: #ffd139;
+}
+
+.mech-term {
+    display: inline-flex;
+}
+
+.mech-formula-operator {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.mech-program .mech-program-title {
+    width: 900px;
+    font-family: 'FiraCodeRegular', monospace;
+    padding-bottom: 10px;
+    border-bottom: 4px dashed #d19710;
+    color: #f2ead9;
+    letter-spacing: 2px;
+    font-size: 22pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+    margin-left: -100px;
+}
+
+.mech-program h2 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h2 {
+    width: 850px;
+    font-family: 'FiraCodeRegular', monospace;
+    padding-bottom: 10px;
+    border-bottom: 3px dashed #d19710;
+    color: #f2ead9;
+    font-size: 16pt;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-left: -75px;
+}
+
+.mech-program h3 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h3 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 14pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    margin-left: -48px;
+}
+
+.mech-program h4 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h4 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.mech-program h4 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h4 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+h4.toc {
+    display: none;
+}
+
+.mech-variable-mutable {
+    color: #ada594;
+}
+
+.mech-section-element {
+}
+
+.mech-fsm-specification
+
+.mech-fsm-sigil{
+    display: inline-flex;
+}
+
+.mech-code-block {
+    background-color: #171D21;
+    color: #ada594;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 12pt;
+    line-height: 18px;
+    border-radius: 0px;
+    padding: 30px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.mech-code-block::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+.mech-code-block::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mech-code-block::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7);
+    border-radius: 10px;
+}
+
+.mech-code-block::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9);
+}
+
+/* Firefox */
+.mech-code-block {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-grammar {
+    background-color: #171D21;
+    color: #ada594;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 12pt;
+    line-height: 18px;
+    border-radius: 0px;
+    padding: 30px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.mech-grammar::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+.mech-grammar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mech-grammar::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7);
+    border-radius: 10px;
+}
+
+.mech-grammar::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9);
+}
+
+/* Firefox */
+.mech-grammar {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-grammar-identifier {
+    color: #ccbbc2;
+}
+
+.mech-grammar-definition {
+    color: #ccbbc2;
+}
+
+.mech-grammar-definition a {
+    color: #ccbbc2;
+    text-decoration: none;
+}
+
+.mech-grammar-definition a:hover {
+    color: #ccbbc2;
+    text-decoration: underline;
+}
+
+.mech-grammar-choice {
+    margin-left: 20px;
+}
+
+.mech-grammar-sequence {
+    margin-left: 20px;
+}
+
+
+.mech-grammar-terminal {
+    color: #ee6262;
+}
+
+
+.mech-code {
+}
+
+.mech-statement {
+}
+
+.mech-variable-define {
+    display: flex;
+}
+
+.mech-fsm-specification-header {
+    display: inline-flex;
+}
+
+.mech-variable-mutable {
+    color: #ffd139;
+}
+
+.mech-var-name {
+    color: #ccbbc2;
+}
+
+.mech-expression {
+}
+
+.mech-literal {
+}
+
+.mech-number {
+    color: #C7DCAE;
+}
+
+.mech-factor {
+    display: inline-flex;
+}
+
+.mech-term {
+}
+
+code {
+    margin: 0px;
+    padding: 0px;
+}
+
+.mech-inline-code {
+    background-color: #171D21;
+    color: #ada594;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 12pt;
+    padding: 3px;
+    margin: 0px;
+    border-radius: 5px;
+}
+
+.mech-inline-mech-code {
+    background-color: #171D21;
+    color: #C7DCAE;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 12pt;
+    padding: 3px;
+    margin: 0px;
+    border-radius: 5px;
+}
+
+
+.mech-formula-operator {
+    color: #ffd139;
+}
+
+.mech-op-assign-op {
+    color: #ffd139;
+}
+
+.mech-paragraph {
+    color: #f2ead9;
+    line-height: 25px;
+}
+
+.mech-paragraph a {
+    color: #F8D07A;
+    text-decoration: underline;
+}
+
+.mech-paragraph a:hover {
+    color: #f18181;
+    text-decoration: underline;
+}
+
+.mech-all {
+    color: #ffd139;
+}
+
+.mech-transpose-op {
+    color: #ffd139;
+}
+
+.mech-negate-op {
+    color: #ffd139;
+}
+
+.mech-record {
+    display: flex;
+}
+
+.mech-binding {
+    display: inline-flex;
+}
+
+.mech-function-call {
+    display: inline-flex;
+}
+
+.mech-slice {
+    display: inline-flex;
+}
+
+.mech-subscript {
+    display: inline-flex;
+}
+
+.mech-bracket {
+    display: inline-flex;
+    color: #A157B5
+}
+
+.mech-start-brace {
+    color: #a157b5
+}
+
+.mech-clickable:hover {
+    background-color: #2a2b34;
+    cursor: pointer;
+}
+
+.mech-end-brace {
+    color: #a157b5
+}
+
+.mech-dot {
+    color: #9cc7f3;
+}
+
+.mech-binding-colon-op {
+    padding-right: 6px;
+}
+
+.mech-right-paren {
+    color: #a157b5
+}
+
+.mech-left-paren {
+    color: #a157b5
+}
+
+.mech-binding-name {
+    color: #9cc7f3;
+    padding-left: 6px;
+}
+
+.mech-parenthetical {
+    color: #a157b5;
+}
+
+.mech-function-name {
+    color: #d8a5e4;
+}
+
+.mech-kind-annotation {
+    display: inline-flex;
+}
+
+.mech-kind {
+    color: #ec8e8e;
+    display: inline-flex;
+}
+
+.mech-fsm-define-op {
+    padding-left: 6px;
+}
+
+.mech-fsm-output { 
+    padding-left: 6px;
+    color: #ffd139;
+}
+
+.mech-fsm-input {
+    color: #ccbbc2;
+    display: inline-flex;
+}
+
+.mech-fsm-name {
+    color: #d8a5e4;
+}
+
+.mech-kind-annotation {
+    color: #ee6262;
+}
+
+.mech-kind .mech-literal .mech-number {
+    color: #ec8e8e;
+}
+
+.mech-fsm-state {
+    display: inline-flex;
+}
+
+.mech-fsm-states {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.mech-state-definition {
+    display: inline-flex;
+}
+
+.mech-fsm-arms {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mech-fsm-arm {
+    display: inline-flex;
+}
+
+.mech-fsm-implementation-header {
+    display: inline-flex;
+}
+
+.mech-tuple-struct {
+    display: inline-flex;
+    color: #ffd139;
+}
+
+.mech-fsm-sigil {
+    color: #ffd139;
+}
+
+.mech-fsm-state {
+    color: #ffd139;
+}
+
+.mech-tuple-struct-patterns {
+    display: inline-flex;
+}
+
+.mech-fsm-define-op {
+    padding-right: 6px;
+    color: #ffd139;
+}
+
+.mech-matrix.empty .end  {
+    margin-left: 0px;
+}
+
+.mech-fsm-implementation {
+    margin-top: 20px;
+}
+
+.mech-fsm-guards {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.mech-fsm-guard-arm {
+    color: #ffd139;
+    display: inline-flex;
+}
+
+.mech-guard-condition {
+    padding-left: 6px;
+}
+
+.mech-transition-output {
+    padding-left: 0px;
+}
+
+.mech-state-variables {
+    display: inline-flex;
+}
+
+.mech-transition-next {
+    padding-left: 0px;
+    color: #ffd139;
+}
+
+.mech-guard-condition {
+    display: inline-flex;
+    margin: 0px;
+}
+
+.mech-pattern-wildcard {
+    display: inline-flex;
+    color: #ee6262;
+}
+
+.mech-tuple-struct {
+    margin-right: 6px;
+}
+
+.mech-state-name {
+    color: #dbc3a5;
+}
+
+.mech-tuple-struct-name {
+    color: #dbc3a5;
+}
+
+.mech-code-block .mech-code:first-child .mech-comment {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.mech-comment {
+    color: #ef5f90;;
+    font-style: italic;
+    padding-top: 20px;
+}
+
+.mech-string {
+    color: #ee6262;
+}
+
+
+ul {
+    color: #F3B62D;
+    font-weight: bold;
+}
+
+ol {
+    color: #F3B62D;
+    font-weight: bold;
+}
+
+
+.mech-check-list {
+    list-style: none;
+    padding-left: 9px;
+    margin-top: 0.5em;
+}
+
+.mech-check-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+    margin: 0;
+    color: #dcd4c9;
+}
+
+.mech-check-list-item input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    border: 2px solid #777;
+    border-radius: 3px;
+    background-color: #171D21;
+    cursor: pointer;
+    position: relative;
+}
+
+.mech-check-list-item input[type="checkbox"]:checked {
+    background-color: #171D21;
+    border-color: #F3B62D;
+}
+
+.mech-check-list-item input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: #F3B62D;
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.mech-list-item-emoji {
+    list-style-type: none;
+    color: #ee6262;
+}
+
+.mech-list-item-emoji {
+    line-height: 0px;
+    color: #ee6262;
+}
+
+.mech-list-item-emoji::before {
+    content: attr(data-bullet); 
+    position: relative;         
+    font-size: 12pt;          
+    color: #ee6262;;    
+    right: 30px;
+    top: 13px;
+}
+
+.mech-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.mech-image {
+    max-width: 110%;
+}
+
+.mech-figure-label {
+    color: #F3B62D; 
+    font-size: 12pt;
+    min-width: 60px;
+    text-align: right;
+}
+
+.mech-figure-caption {
+    width: 110%;
+}
+
+.mech-float .mech-figure-caption {
+    width: 350px;
+}
+
+.mech-figure-caption {
+    margin-top: 1em;
+    color: #eadec2;
+    font-size: 12pt;
+    text-align: left;;
+    line-height: 1.4;
+    font-style: italic;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.mech-float .mech-figure {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mech-figure-caption p {
+    margin: 0;
+}
+
+li {
+    padding-left: 5px;
+}
+
+li p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-weight: normal;
+}
+
+.mech-table-header {
+    color: #dbc3a5;
+}
+
+.mech-table-rows {
+}
+
+.mech-table-row {
+}
+
+.mech-table {
+    border-collapse: collapse;
+    background-color: #2F353B;
+    color: #f2ead9; 
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.mech-table thead {
+    background-color: #171D21;
+}
+
+.mech-table .mech-table-header-cell {
+    color: #f2ead9; 
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #333; 
+}
+
+.mech-table .mech-table-row-even {
+    background-color: #232A30; 
+}
+
+.mech-table .mech-table-row-odd {
+    background-color: #171D21; 
+}
+
+.mech-table .mech-table-cell {
+    padding: 10px;
+    border-bottom: 1px solid #333; 
+    text-align: left;
+}
+
+.mech-table tbody tr:hover {
+    background-color: #3A4148; 
+}
+
+.mech-table a {
+    color: #F8D07A;
+    text-decoration: underline;
+}
+
+.mech-table a:hover {
+    color: #f18181;
+}
+
+.mech-block-quote {
+    width: 80%;
+    background-color: #232A30; 
+    border-left: 4px solid #F3B62D;; 
+    padding: 15px 20px;
+    color: #f2ead9; 
+    font-style: italic; 
+    margin: auto;
+    border-radius: 5px;
+}
+
+.mech-block-quote blockquote {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.mech-thematic-break {
+    border: 0;
+    border-top: 2px solid #7e8892;
+    margin: 30px 0;
+    width: 100%;
+    opacity: 0.7;
+}
+
+.mech-fenced-mech-block {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.mech-fenced-mech-block .mech-code-block {
+    background-color: #171D21;
+    border-radius: 10px 10px 0px 0px;  
+    border-bottom: 2px solid rgb(199, 220, 174);
+    margin-bottom: 0px;
+}
+
+.mech-block-output {
+    margin-top: 0px;
+    background-color: #222A30; 
+    color: #f2ead9;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 12pt;
+    padding: 20px;
+    border-radius: 0px 0px 10px 10px; /* Only bottom corners rounded */
+    overflow-x: auto;
+}
+
+.mech-block-output::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+.mech-block-output::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mech-block-output::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7);
+    border-radius: 10px;
+}
+
+.mech-block-output::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9);
+}
+
+/* Firefox */
+.mech-block-output {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-footnote {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75em;
+    margin-top: 1em;
+    font-size: 0.9em;
+    color: #ada594;
+}
+
+.mech-footnote-id {
+    color: #F3B62D;
+    font-weight: bold;
+    min-width: 2em;
+    text-align: right;
+    font-family: monospace;
+}
+
+.mech-footnote .mech-paragraph {
+    margin: 0;
+    line-height: 1.6;
+    color: #f2ead9;
+}
+
+a.mech-footnote-reference {
+    text-decoration: none;
+    font-size: 0.7em;
+    vertical-align: super;
+    margin-left: 0.1em;
+    color: #F8D07A;
+    font-weight: bold;
+    min-width: 2em;
+    text-align: right;
+    cursor: pointer;
+    font-family: monospace;
+    transition: color 0.2s;
+}
+
+.mech-footnote-reference:hover {
+    color: #f18181;
+    text-decoration: underline;
+}
+
+.mech-abstract {
+    background-color: #1f252a;
+    border: 1px solid #F3B62D;
+    padding: 2em 2em;
+    margin: 2em 2em;
+    border-radius: 8px;
+    color: #dcd4c9;
+}
+
+.mech-abstract p {
+    line-height: 25pt;
+    margin: 0px;
+    text-align: justify;
+}
+
+h2 {
+    counter-reset: h3;
+}
+
+h3 {
+    counter-reset: h4;
+}
+
+h2::before {
+    color: #F3B62D;
+    counter-increment: h2;
+    content: counter(h2) ". ";
+}
+
+h3::before {
+    color: #F3B62D;
+    counter-increment: h3;
+    content: counter(h2) "." counter(h3) " ";
+}
+
+h4::before {
+    color: #F3B62D;
+    counter-increment: h4;
+    content: counter(h2) "." counter(h3) "." counter(h4) " ";
+}
+
+.mech-program-subtitle.toc.active::before{
+    color: #d65858;
+}
+
+.mech-program-subtitle.toc.active a {
+    color: #ee6262;
+}
+
+.mech-program-section.toc.active{
+    background-color: #0d1013;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h2:hover a {
+    color: #f18181;
+}
+
+h3:hover a {
+    color: #f18181;
+}
+
+h4:hover a {
+    color: #f18181;
+}
+
+.mech-program-section {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mech-program-subtitle.toc.visible {
+    display: block;
+    visibility: visible;
+}
+
+.mech-equation {
+    text-align: center;
+    color: #f2ead9;
+}
+
+.mech-inline-equation {
+    font-size: 10pt;
+    color: #efe4cd;
+}
+
+mark {
+    background-color: #F3B62D;
+    color: #2F353B;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    margin: 0px 7px 0px 3px;
+}
+
+.mech-works-cited {
+    width: 100%;
+}
+
+.mech-citation {
+    display: flex;
+    align-items: baseline;
+    color: #f2ead9;
+}
+
+.mech-citation p {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.mech-citation-id {
+    color: #F3B62D;
+    font-family: 'FiraCodeRegular', monospace;
+    flex-shrink: 0;
+    padding: 5px 10px 5px 10px;
+}
+
+.mech-citation-link {
+    color: #F8D07A;
+    text-decoration: none;
+    word-break: break-all;
+    transition: color 0.2s ease;
+}
+
+.mech-citation-link:hover {
+    color: #f18181;
+    text-decoration: underline;
+}
+
+.mech-reference {
+    font-family: 'FiraCodeRegular', monospace;
+    align-items: baseline;
+    color: #F8D07A;
+}
+
+.mech-reference a:hover {
+    color: #f18181;
+}
+
+.mech-reference a {
+    color: #F8D07A;
+    text-decoration: none;
+}
+
+.mech-float.left {
+    float: left;
+    margin-right: 20px;
+    margin-left: -75px;
+}
+
+.mech-float.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: -75px;
+}
+
+        </style>
+    </head>
+    <body>
+      <div class="mech-root"><div class="mech-toc"><h1 class="mech-program-title">The Megaman Theory of Programming Language Design</h1><section class="mech-toc-sections"><section id="62148755752455977" section="9438622517866986" class="mech-program-section toc"><h2 id="56608460619959313" section="1.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#60353765979633089">The Programming Language Learning Curve Gap</a></h2><h3 id="39810635617857851" section="1.1" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#29780134750351711">Scratch's Learning Curve</a></h3><h3 id="16941378120099214" section="1.2" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#65896880075728696">Java's Learning Curve</a></h3><h3 id="12879972214703710" section="1.3" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#6881520551965324">But what about Python?</a></h3></section><section id="68428689749586615" section="16885191040256091" class="mech-program-section toc"><h2 id="14805168999861920" section="2.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#58967613070596961">Megman X</a></h2><h3 id="42424322191392280" section="2.1" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#15591962272414823">Starting the Game</a></h3><h3 id="35873328335306214" section="2.2" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#13691226949681987">Playing the Game</a></h3><h3 id="12181659621213062" section="2.3" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#18744957502102251">Beating the Game</a></h3></section><section id="35511651157512414" section="40687567824749606" class="mech-program-section toc"><h2 id="5810732653392051" section="3.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#70388055875599306">Game Design and Language Design</a></h2></section><section id="6645113166268276" section="21148124512303696" class="mech-program-section toc"><h2 id="35427761534528276" section="4.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#28851482782505548">Mech's Learning Curve</a></h2></section><section id="70945744559945550" section="36041201538744259" class="mech-program-section toc"><h2 id="16742009064936024" section="5.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#16152679160324879">Other Games </a></h2></section></section></div><div class="mech-program"><h1 class="mech-program-title">The Megaman Theory of Programming Language Design</h1><div class="mech-program-body"><section id="9438622517866986" section="9438622517866986" class="mech-program-section "><h2 id="60353765979633089" section="1.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#60353765979633089">The Programming Language Learning Curve Gap</a></h2><h3 id="29780134750351711" section="1.1" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#29780134750351711">Scratch's Learning Curve</a></h3><p class="mech-paragraph">Students are introduced to the Scratch programming language in elementary school, where they learn the basics of programming by dragging and dropping blocks to create programs. Scratch is designed to be easy to use and understand, with a focus on visual programming and interactive learning. The learning curve for Scratch is relatively shallow, allowing students to quickly grasp the concepts of programming without being overwhelmed by complex syntax or semantics.</p><p class="mech-paragraph">Scratch and Blockly both offer students a structured editing environment where they can create programs by dragging and dropping blocks. This approach allows students to focus on the logic of programming without getting bogged down by syntax errors or other complexities. The visual nature of Scratch and Blockly makes it easier for students to understand how different blocks interact with each other, and how they can be combined to create more complex programs.</p><h3 id="65896880075728696" section="1.2" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#65896880075728696">Java's Learning Curve</a></h3><p class="mech-paragraph">Java is a programming language that has a reputation for being difficult to learn, especially for beginners. This is due in part to its complex syntax and semantics, which can be overwhelming for new programmers.</p><p class="mech-paragraph">Consider the simplest program in Java, Hello World:</p><pre class="mech-code-block">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+</pre><p class="mech-paragraph">Even with this simple program, there are a number of concepts that must be understood to fully grok what's going on:</p><ul class="mech-unordered-list"><li class="mech-ul-list-item"><p class="mech-paragraph">Java file structure: one public class per file named the same as the class.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">What is a class? Understanding that Java is object-oriented and everything resides inside a class.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">What is a method? Methods contain code that performs tasks.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">main method as the entry point of a Java application.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">public: access modifier — means the method/class is visible to other classes.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">static: the method belongs to the class, not to an instance.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">void: return type — means the method does not return anything.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><code class="mech-inline-code">String[]</code>: array of strings</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">args - command-line arguments to the program.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">function call: println("Hello, World!")</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">takes arguments in parentheses.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Types: Java is a statically typed language, meaning types must be declared.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><code class="mech-inline-code">System.out.println(...)</code>:</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">System is a built-in class.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">out is a static member (a PrintStream) of System.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">println is a method of PrintStream used to print output with a newline.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">dot notation is used to access members of classes and objects, can be chained so a graph of objectis is implied.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Curly braces <code class="mech-inline-code">{}</code>: define blocks (class and method bodies).</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Semicolon ;: ends a statement.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Save the code in a file named HelloWorld.java.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Compile it using javac HelloWorld.java.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Run it using java HelloWorld.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">The Java standard library (where System and println come from).</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">String Literals</strong>: The text "Hello, World!" is a string literal, and must be enclosed in double quotes in order to be recognized as a string. This is arguably the only text in the entire program that is strictly needed to print "Hello, World!" to the console. These characters therefore represent the "essential complexity" of the program, and everything else is "incidental complexit" --  boilerplate code that is required because of how Java is deisgned.</p></li></ul><p class="mech-paragraph">The length of this list of concepts is a good indicator of the steep learning curve that Java presents to new programmers. Each of these concepts must be learned and understood in order to write even the simplest Java program. Often times when teaching Java to beginners, they will have questions about each of these concepts because they are curious and want to learn / undersand what they are doing. However, instructions have found that going through and explaining each concept at the level of detail needed to fully understand the program is too much for beginners to handle all at once. Therefore it is very common for instructors to tell students something like "don't worry about that for now, just know that it is required to make the program work." Obviously this is not ideal becaues it leaves students confused and frustrated, and with an impression that they are not actually expected to understand what they are doing.</p><p class="mech-paragraph">It's very unfortunate that Java has this learning curve and yet it is used as the introductory programming language for computer science students in the United States. This is because it is a language that is widely used in industry, and therefore students are expected to learn it in order to be employable. However, this means that students are often forced to learn a language that is difficult to understand and use, which can lead to frustration and disengagement, which we can observe when talking to students.</p><h3 id="6881520551965324" section="1.3" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#6881520551965324">But what about Python?</a></h3><p class="mech-paragraph">Python is often touted as a beginner-friendly programming language, and for good reason. Its syntax is clean and readable, which makes it easier for new programmers to understand. However, even Python has its own learning curve, especially when it comes to understanding concepts like indentation, dynamic typing, and the use of libraries. Python's learning curve extends</p><pre class="mech-code-block">print("Hello, World!")
+</pre><p class="mech-paragraph">Then you can add a main method:</p><pre class="mech-code-block">def main():
+    print("Hello, World!")
+</pre><p class="mech-paragraph">And then you can add a class:</p><pre class="mech-code-block">class HelloWorld:
+    def main(self):
+        print("Hello, World!")
+</pre></section><section id="16885191040256091" section="16885191040256091" class="mech-program-section "><h2 id="58967613070596961" section="2.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#58967613070596961">Megman X</a></h2><p class="mech-paragraph">Megman X was a platform game released in 1993 for the Super Nintendo Entertainment System (SNES). Megaman is a robot that can assume a number of different powers including the ability to shoot fire, ice, and other projectiles, which interact in various ways with the environment and enemies. While this makes for interesting and dynamic gameplay, it can also be overwhelming for new players to learn all the different abilities and how they interact with other game elements. A key gameplay element of Megaman is that abilities are introduced gradually, allowing players to learn and master each one before moving on to the next.</p><h3 id="15591962272414823" section="2.1" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#15591962272414823">Starting the Game</a></h3><p class="mech-paragraph">The story of Megaman X begins with the player controlling Megaman. In a cutscene, the player is shown that Megaman has a number of components including a helment, body armor, boots, and a buster arm that can be used as a weapon.</p><figure id="2463463142836185" class="mech-figure">
+        <img id="27385689846634090" class="mech-image" src="clip1.gif" />
+        <figcaption class="mech-figure-caption"><strong class="mech-figure-label">Fig 2.1</strong> <p class="mech-paragraph">Megaman begins his quest.</p></figcaption>
+      </figure><p class="mech-paragraph">Many games start with an explicit tutorial level that instructs the player how to play the game (for example, Oblivion, in which the player is guided through a tutorial sewer where they encounter various opportunities to use weapons, magic, and remake choices before they are released into the full game world), but Megaman X drops the player directly into the action of the game world. Megaman initially only has a fiew powers available to him, and the player only has a few options on how to control megaman via the SNES controller. Even without instructions, the player can quickly learn how to move Megaman around the game world and interact with the environment. </p><p class="mech-paragraph">Players quickly encounter their first enemey, which is easy to defeat and drops health for the player so that they are not penalized too heavily for making mistakes. Then the player is presented with increasingly difficult sceanrios including a gap they have to jup over, and a wall they have to climb. </p><figure id="11273405817443539" class="mech-figure">
+        <img id="58322427773162475" class="mech-image" src="clip2.gif" />
+        <figcaption class="mech-figure-caption"><strong class="mech-figure-label">Fig 2.2</strong> <p class="mech-paragraph">Megaman gets beaten and is saved by Zero.</p></figcaption>
+      </figure><p class="mech-paragraph">Eventually the player encounters their first boss, which quickly and easily defeats Megaman. However, what happens next is especially interesting -- a character names Zero appears to save Megaman. Zero is a more powerful version of Megaman, equipped with advanced armor and abilities that Megaman does not yet have. Zero defeats the boss and then tells Megaman that he too will be able to defeat bosses like that in the future, but first he must learn and master new abilities.</p><p class="mech-paragraph">This is important for a number of reasons. First, it establishes the story of Megaman as a character who is on a journey to become more powerful. His goal is clear: defeat that boss by learning new abilities. Moreover, it demonstrates those abilities by showing the playet what they will become. This motivates the player to stick with the game with the goal of being as cool and capable as Zero.</p><h3 id="13691226949681987" section="2.2" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#13691226949681987">Playing the Game</a></h3><p class="mech-paragraph">As the game progresses, the player is introduced to the main gameplay loop: do a level, defeat a boss, and gain a new ability demonstrated by the boss. For example, the first boss is Chill Penguin, who has the ability to shoot ice. After defeating Chill Penguin, Megaman gains the ability to shoot ice as well. This ability can then be used to defeat other bosses and enemies, as well as to access new areas of the game world that were previously inaccessible.</p><p class="mech-paragraph">Megaman can also gain new abilities by entering capsules that are hidden throughout the game world by Dr. Light. These capsules upgrade Megaman's armor, allowing him to take more damage and move faster, and break walls. Crucially, when Megaman gains these abilities, the game designes provide room for the player to practice them. For example, after gaining the ability to fast dash, Megaman is presented with a gap that he can jump over. Or when he gains the ability to break walls, he is presented with a wall that he can break. This allows the player to learn and master the new abilities in a controlled environment before they are put to the test in more difficult scenarios.</p><h3 id="18744957502102251" section="2.3" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#18744957502102251">Beating the Game</a></h3><p class="mech-paragraph">By the time Megaman faces all of the bosses at least once, he has gained enough powers that he rivals Zero. At the midway point in the game, Megaman meets Zero again, and this time they are more evenly matched.</p><figure id="62081580481924214" class="mech-figure">
+        <img id="35731166150506038" class="mech-image" src="clip6.gif" />
+        <figcaption class="mech-figure-caption"><strong class="mech-figure-label">Fig 2.3</strong> <p class="mech-paragraph">Megaman is fully powered-up the next time he encounters Zero</p></figcaption>
+      </figure><p class="mech-paragraph">The gameplay changes from introducing new abilities systematically to allowing the player to use all of the abilities they have learned so far. Megaman X does this by requring the player to face the bosses he had already defeated again, but this time with all of the abilities they have learned so far. This allows the player to use their knowledge of the game mechanics and abilities to defeat the bosses in new and creative ways.</p><figure id="37338014228236918" class="mech-figure">
+        <img id="41622046798985190" class="mech-image" src="clip8.gif" />
+        <figcaption class="mech-figure-caption"><strong class="mech-figure-label">Fig 2.4</strong> <p class="mech-paragraph">Late gameplay level difficulty increases and requires the player to use all acquired abilities</p></figcaption>
+      </figure><p class="mech-paragraph">The game culminates in a final boss fight, where Megaman faces off against the villain from before, who has now captured Zero. This is the opposite of the scenario before, where Megaman had to be saved by Zero. This scenario offers a resolution to situation encountered at the beginning of the game, where megaman was defeated.</p><figure id="48039153128452930" class="mech-figure">
+        <img id="34955674131700060" class="mech-image" src="clip7.gif" />
+        <figcaption class="mech-figure-caption"><strong class="mech-figure-label">Fig 2.5</strong> <p class="mech-paragraph">Megaman is prepared to face the boss that beat him before.</p></figcaption>
+      </figure></section><section id="40687567824749606" section="40687567824749606" class="mech-program-section "><h2 id="70388055875599306" section="3.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#70388055875599306">Game Design and Language Design</a></h2><p class="mech-paragraph">So how does all this relate back to programming languages? Let's take a look at the key elements of game design in Megaman X and how they relate to programming language design:</p><ul class="mech-unordered-list"><li data-bullet="⚙️" class="mech-list-item-emoji"><p class="mech-paragraph">Game Mechanics: The rules of the game, equivalent to semantics of a programming language.</p></li><li data-bullet="♟️" class="mech-list-item-emoji"><p class="mech-paragraph">Game Pieces: How the game is represented to the player, equivalent to syntax of a programming language.</p></li><li data-bullet="♻️" class="mech-list-item-emoji"><p class="mech-paragraph">Game Loop: How the game progresses from start to end, equivalent to the runtime of a programming language.</p></li><li data-bullet="🎮" class="mech-list-item-emoji"><p class="mech-paragraph">Game Interface: How the player interacts with the game, equivalent the programmer's interface to a language.</p></li><li data-bullet="🎭" class="mech-list-item-emoji"><p class="mech-paragraph">Game Narrative: The motivation for playing the game, equivalent to the programmer's purpose for using the language.</p></li><li data-bullet="🧙‍♂️" class="mech-list-item-emoji"><p class="mech-paragraph">Game Master: Verifies the game rules are followed throughout gameplay, equivalent to the compiler of a programming language. </p></li></ul><p class="mech-paragraph">So games and programming languages are very similiar from this perspective. They are both systems that have complex rules that are meant to be followed, they both have human interfaces for users to interact with, and they both work by executing the rules iteratively until a goal is reached (game over, or program termination). Moreover, games and programming languages both have a learning curve, where users must learn the rules and how to interact with the system in order to be successful. And that learning curve cannot be too steep, because if it is, users will become frustrated and give up. Game designers have long thought about new ways to onboard new players to the rules, and the success of gaming especially with kinds shows that their techniques are effective. </p><p class="mech-paragraph">Lessons we can learn from Megaman X and apply to programming language design:</p><ul class="mech-unordered-list"><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Gradual Introduction of Concepts</strong>: Just as Megaman X introduces new abilities gradually, programming languages should introduce new concepts in a way that allows users to learn and master them before moving on to more complex ideas.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Practice and Feedback</strong>: Megaman X provides opportunities for players to practice new abilities in a controlled environment before facing more difficult challenges. Programming languages should also provide opportunities for users to practice new concepts and receive feedback on their understanding.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Feature Synergy</strong>: Megaman X allows players to combine abilities in creative ways, which leads to new strategies and solutions. Programming languages should also allow users to combine features in ways that lead to new possibilities and solutions.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Motivation and Progression</strong>: Megaman X motivates players by showing them what they can become and providing a clear progression path. Programming languages should also provide a sense of progression and achievement, so that users feel motivated to continue learning and improving their skills.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Community and Support</strong>: Megaman X has a community of players who share tips and strategies, which helps new players learn and improve. Programming languages should also have a supportive community that provides resources and assistance to new users.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Iterative Design</strong>: Megaman X is designed to be played multiple times, with each playthrough allowing players to learn and improve their skills. Programming languages should also be designed to be used iteratively, with users able to build on their knowledge and skills over time.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Accessibility</strong>: Megaman X is designed to be accessible to a wide range of players, with different difficulty levels and options for customization. Programming languages should also be designed to be accessible to a wide range of users, with options for customization and flexibility in how they are used.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Engagement</strong>: Megaman X is designed to be engaging and fun, with a focus on exploration and discovery. Programming languages should also be designed to be engaging and enjoyable to use, with a focus on creativity and problem-solving.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Feedback Loops</strong>: Megaman X provides feedback to players on their performance, which helps them learn and improve. Programming languages should also provide feedback to users on their code, so that they can learn from their mistakes and improve their skills.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Clear Goals</strong>: Megaman X provides clear goals for players to achieve, which helps them stay focused and motivated. Programming languages should also provide clear goals for users to achieve, so that they can see their progress and feel a sense of accomplishment.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Iterative Learning</strong>: Megaman X allows players to learn and improve their skills over time, with each playthrough providing new challenges and opportunities for growth. Programming languages should also allow users to learn and improve their skills iteratively, with each project providing new challenges and opportunities for growth.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Exploration and Discovery</strong>: Megaman X encourages players to explore the game world and discover new abilities and strategies. Programming languages should also encourage users to explore and discover new features and techniques, so that they can learn and grow as programmers.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Community Engagement</strong>: Megaman X has a community of players who share tips and strategies, which helps new players learn and improve. Programming languages should also have a supportive community that provides resources and assistance to new users.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Narrative and Motivation</strong>: Megaman X has a compelling narrative that motivates players to continue playing and improving their skills. Programming languages should also have a narrative or purpose that motivates users to learn and use the language, whether it's building a web application, creating a game, or solving a problem.</p></li></ul></section><section id="21148124512303696" section="21148124512303696" class="mech-program-section "><h2 id="28851482782505548" section="4.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#28851482782505548">Mech's Learning Curve</a></h2><p class="mech-paragraph">How does Mech follow the megaman theory?</p><ul class="mech-unordered-list"><li class="mech-ul-list-item"><p class="mech-paragraph">Local reasoning</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Gradual introduction of new concepts</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Everything is an expression</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Pure functions (idempotent)</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Literate Programming</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Value semantics</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Tight programming loop</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Terse code</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Composition</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Feature Synergy</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Create space to test features</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Demonstrate how to use features</p></li><li class="mech-ul-list-item"><p class="mech-paragraph">Make users feel safe to make mistakes.</p></li></ul></section><section id="36041201538744259" section="36041201538744259" class="mech-program-section "><h2 id="16152679160324879" section="5.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#16152679160324879">Other Games </a></h2><p class="mech-paragraph">Other games that have a similiar mechanic other than Megaman include:</p><ul class="mech-unordered-list"><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Castlevania: Symphony of the Night</strong>: Players gain new abilities and weapons as they progress, allowing them to explore previously inaccessible areas.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Metroid</strong>: Players acquire new abilities that allow them to access new areas and defeat tougher enemies, with a focus on exploration and discovery.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Hollow Knight</strong>: Players gain new abilities that allow them to explore the world and defeat enemies, with a focus on exploration and discovery.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Celeste</strong>: Players gain new abilities that allow them to navigate the challenging platforming levels, with a focus on precision and timing.</p></li><li class="mech-ul-list-item"><p class="mech-paragraph"><strong class="mech-strong">Ori and the Blind Forest</strong>: Players gain new abilities that allow them to explore the world and defeat enemies, with a focus on exploration and discovery.</p></li></ul><figure id="55131960184456679" class="mech-figure">
+        <img id="59760703574817310" class="mech-image" src="clip9.gif" />
+        <figcaption class="mech-figure-caption"><strong class="mech-figure-label">Fig 5.1</strong> <p class="mech-paragraph">Thanks for reading!</p></figcaption>
+      </figure></section></div></div>
+      <div id = "mech-output"></div>
+    </div>
+    <script>
+
+let observer = null;
+let userScrolling = false;
+let scrollTimeout = null;
+let scrollLock = false;
+
+function isFullyVisible(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+document.querySelectorAll('.mech-program-subtitle.toc').forEach(entry => {
+  entry.addEventListener('click', () => {
+    scrollLock = true;
+    if (observer) observer.disconnect();
+    const id = entry.id;
+    const tag = entry.tagName; // H1, H2, H3, etc.
+
+
+    const headings = document.querySelectorAll(".mech-program-subtitle:not(.toc)");
+    const navItems = document.querySelectorAll(".mech-program-subtitle.toc");
+    const sections = document.querySelectorAll(".mech-program-section.toc");
+    const all_the_headers = Array.from(document.querySelectorAll('[section]'));
+
+    navItems.forEach(item => item.classList.remove("active"));
+    sections.forEach(item => item.classList.remove("active"));
+
+    const section = entry.closest("section");
+
+    if (section) {
+      if (!isFullyVisible(section)) {
+        section.scrollIntoView();
+      }
+      const matchingTocSection = Array.from(sections).find(item => item.id === section.id);
+      if (matchingTocSection) {
+        matchingTocSection.classList.add("active");
+      }
+
+      // Now grab the h2, h3, and h4 elements within that section
+      const h3s = Array.from(section.querySelectorAll('h3'));
+
+      if (tag === "H4") {
+        const closestH3 = h3s.reverse().find(h3 => h3.compareDocumentPosition(entry) & Node.DOCUMENT_POSITION_FOLLOWING);
+        const H3Nav = Array.from(navItems).find(item => {
+            const link = item.querySelector("a[href]");
+            return link && link.getAttribute("href") === `#${closestH3.id}`;
+        });
+        closestH3.classList.add("active");
+      }
+
+      // if tag is h3 then we want to add a "visible" class to all of the headings with the same section
+      if (tag === "H3") {
+        const h3_id = entry.getAttribute("section");
+        all_the_headers.forEach(item => {
+          const item_id = item.getAttribute("section");
+          if (item_id === h3_id) {
+            item.classList.add("visible");
+          } else {
+            item.classList.remove("visible");
+          }
+        });
+      }
+
+      const topLevelHeading = section.querySelector("h2");
+      topLevelHeading.classList.add("active");
+
+    }
+    entry.classList.add("active");
+    currentActiveTag = tag;
+    const link = entry.querySelector('a[href]');
+    if (link) {
+      window.location.hash = link.getAttribute('href');
+    }
+  });
+});
+
+function createObserver(rootMarginValue,scrolling_down) {
+  if (observer) observer.disconnect(); // Clean up old observer
+  const headings = document.querySelectorAll(".mech-program-subtitle:not(.toc)");
+  const navItems = document.querySelectorAll(".mech-program-subtitle.toc");
+  const sections = document.querySelectorAll(".mech-program-section.toc");
+  const all_the_headers = Array.from(document.querySelectorAll('[section]'));
+  observer = new IntersectionObserver((entries) => {
+
+
+entries
+  .slice() // Create a shallow copy to avoid mutating the original entries array
+  .sort((a, b) => {
+    // Sort entries based on scroll direction
+    return scrolling_down
+      ? a.boundingClientRect.top - b.boundingClientRect.top // Ascending for scrolling down
+      : b.boundingClientRect.top - a.boundingClientRect.top; // Descending for scrolling up
+  })
+  .forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const tag = entry.target.tagName; // H1, H2, H3, etc.
+
+        const activeNav = Array.from(navItems).find(item => {
+          const link = item.querySelector("a[href]");
+          return link && link.getAttribute("href") === `#${id}`;
+        });
+
+        if (!activeNav) return;
+
+        // Deactivate all TOC items
+        navItems.forEach(item => item.classList.remove("active"));
+        sections.forEach(item => item.classList.remove("active"));
+
+        // Activate the current section's top-level H2
+        const section = entry.target.closest("section");
+        if (section) {
+          const matchingTocSection = Array.from(sections).find(item => {
+            const toc_section_id = item.getAttribute("section");
+            const section_id = section.getAttribute("section");
+            if (toc_section_id && section_id) {
+              return toc_section_id === section_id;
+            }
+          });
+          if (matchingTocSection) {
+            matchingTocSection.classList.add("active");
+            const toc = document.querySelector(".mech-toc");
+
+            if (toc && matchingTocSection) {
+              const itemOffsetTop = matchingTocSection.offsetTop;
+              const itemHeight = matchingTocSection.offsetHeight;
+              const tocHeight = toc.clientHeight;
+              const scrollTop = toc.scrollTop;
+
+              // Center the item manually if it's out of view
+              const visibleTop = scrollTop;
+              const visibleBottom = scrollTop + tocHeight;
+
+              if (itemOffsetTop < visibleTop || itemOffsetTop + itemHeight > visibleBottom) {
+                toc.scrollTo({
+                  top: itemOffsetTop - tocHeight / 2 + itemHeight / 2,
+                  behavior: "smooth"
+                });
+              }
+            }
+          }
+
+          // Now grab the h2, h3, and h4 elements within that section
+          const h3s = Array.from(section.querySelectorAll('h3'));
+
+          if (tag === "H4") {
+            const closestH3 = h3s.reverse().find(h3 => h3.compareDocumentPosition(entry.target) & Node.DOCUMENT_POSITION_FOLLOWING);
+            const H3Nav = Array.from(navItems).find(item => {
+              const link = item.querySelector("a[href]");
+              return link && link.getAttribute("href") === `#${closestH3.id}`;
+            });
+            if (H3Nav) {
+              H3Nav.classList.add("active");
+              const h3_id = H3Nav.getAttribute("section");
+              all_the_headers.forEach(item => {
+                const item_id = item.getAttribute("section");
+                if (item_id === h3_id) {
+                  item.classList.add("visible");
+                } else {
+                  item.classList.remove("visible");
+                }
+              });
+            }
+          }
+
+          // if tag is h3 then we want to add a "visible" class to all of the headings with the same section
+          if (tag === "H3") {
+            const h3_id = entry.target.getAttribute("section");
+            all_the_headers.forEach(item => {
+              const item_id = item.getAttribute("section");
+              if (item_id === h3_id) {
+                item.classList.add("visible");
+              } else {
+                item.classList.remove("visible");
+              }
+            });
+          }
+
+          const topLevelHeading = section.querySelector("h2");
+          if (topLevelHeading) {
+            const topLevelNav = Array.from(navItems).find(item => {
+              const link = item.querySelector("a[href]");
+              return link && link.getAttribute("href") === `#${topLevelHeading.id}`;
+            });
+            if (topLevelNav) {
+              topLevelNav.classList.add("active");
+            }
+          }
+        }
+        activeNav.classList.add("active");
+        currentActiveTag = tag;
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: rootMarginValue,
+    threshold: 0
+  });
+  headings.forEach(heading => observer.observe(heading));
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  createObserver("0px 0px 0px 0px");
+  const elements = document.querySelectorAll(".mech-equation");
+  elements.forEach(el => {
+    const eq = el.getAttribute("equation");
+    if (eq) {
+      katex.render(eq, el, { throwOnError: false });
+    }
+  });
+  const inline_elements = document.querySelectorAll(".mech-inline-equation");
+  inline_elements.forEach(el => {
+    const eq = el.getAttribute("equation");
+    if (eq) {
+      katex.render(eq, el, { throwOnError: false });
+    }
+  });
+});
+
+let lastScrollY = window.scrollY;
+let scrolling_down = true;
+let margin = 10;
+
+function getScrollPercentage() {
+  const scrollTop = window.scrollY || window.pageYOffset;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+  if (docHeight === 0) return 0; // avoid division by zero on short pages
+  return scrollTop / docHeight;
+}
+
+window.addEventListener("scroll", () => {
+  if (scrollLock) {
+    scrollLock = false;
+    return;
+  }
+  
+  const percent = getScrollPercentage();
+  const currentScrollY = window.scrollY;
+  scrolling_down = currentScrollY > lastScrollY;
+
+  if (currentScrollY !== lastScrollY) {
+    lastScrollY = currentScrollY;
+  }
+
+  if (percent < 0.05) {
+    createObserver("0px 0px -90% 0px", scrolling_down);
+  } else if (percent < 0.2) {
+    createObserver("-0% 0px -90% 0px", scrolling_down);
+  } else if (percent < 0.3) {
+    createObserver("-10% 0px -80% 0px", scrolling_down);
+  } else if (percent < 0.4) {
+    createObserver("-20% 0px -70% 0px", scrolling_down);
+  } else if (percent < 0.5) {
+    createObserver("-30% 0px -60% 0px", scrolling_down);
+  } else if (percent < 0.6) {
+    createObserver("-40% 0px -50% 0px", scrolling_down);
+  } else if (percent < 0.7) {
+    createObserver("-50% 0px -40% 0px", scrolling_down);
+  } else if (percent < 0.8) {
+    createObserver("-60% 0px -30% 0px", scrolling_down);
+  } else if (percent < 0.9) {
+    createObserver("-70% 0px -20% 0px", scrolling_down);
+  } else if (percent <= 0.95) {
+    createObserver("-80% 0px 0% 0px", scrolling_down);
+  }
+});
+
+</script>
+    <script type="module">
+
+
+      import init, {WasmMech} from '/pkg/mech_wasm.js';
+      let wasm_core;
+      async function run() {
+        await init();
+        var code = `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`;
+        wasm_core = new WasmMech();
+        var xhr = new XMLHttpRequest();
+        var codeUrl = `/code${window.location.pathname}`;
+        xhr.open('GET', codeUrl, true);
+        xhr.onload = function (e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              var src = xhr.responseText;
+              wasm_core.run_program(src);
+              wasm_core.init();
+            } else {
+              console.error("Defaulting to included code");
+              wasm_core.run_program(code);
+              wasm_core.init();
+            }
+          }
+        };
+        xhr.onerror = function (e) {
+          console.error("I've been waiting for this error. Look me up in formatter.rs");
+          console.error(xhr.statusText);
+        };
+        xhr.send(null);        
+      }
+      run();
+    </script>
+  </body>
+</html>
