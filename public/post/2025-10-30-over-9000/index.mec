@@ -1,0 +1,58 @@
+
+Fall 2025 Progress Report
+===============================================================================
+
+
+
+1. Project Status
+-------------------------------------------------------------------------------
+
+By the numbers - Over 9000 commits!
+
+v0.2: 2913 commits, 2142 of those being since the last blog post, so there's a lot of new stuff to talk about here.
+
+version 0.2.64 as of October 2025, we've kept pace with weekly relases over the summer, and a longer but still frequent release cadance over the academic semesters. The last blog post was at v0.2.29. So again, lots to cover.
+
+AI Use in Mech
+
+As a solo developer, I have been using AI in the process of making mech and it has accelerated my output. You can see the effect of that in the commit history, where I have been able to make more frequent releases and implement more features in a shorter amount of time. I plan to write a blog post about my experience using AI in software development soon.
+
+Capstone Team
+
+Project team includes myself, and this year we have a capstone team of 4 computer science students from Lehigh University helping to build out the standard library. We'll have a follow up post about that.
+
+2. v0.2 Progress and Roadmap
+------------------------------------------------------------------------------
+
+(2.1) Mechdown
+
+(2.2) Docs and Spec
+
+(2.3) Complex and Rational Numbers
+
+(2.4) Formatter
+
+(2.5) Wasm Repl
+
+(2.6) Ecosystem
+
+(2.7) Remaining Work before v0.2 is complete
+
+3. v0.3 Preview
+-------------------------------------------------------------------------------
+
+(3.1) Bytecode Interpreter
+
+(3.2) Compiler
+
+4. What's Next?
+-------------------------------------------------------------------------------
+
+(4.1) v0.2 Completion
+
+(4.2) v0.3 Kickoff
+
+(4.3) Mech Labs
+
+
+
