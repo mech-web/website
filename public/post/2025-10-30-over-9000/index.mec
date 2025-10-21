@@ -2,44 +2,60 @@
 Fall 2025 Progress Report
 ===============================================================================
 
-
-
 1. Project Status
 -------------------------------------------------------------------------------
 
-By the numbers - Over 9000 commits!
+It's been a while since the last progress report, so I will begin with a quick summary of where we are right now.
 
-v0.2: 2913 commits, 2142 of those being since the last blog post, so there's a lot of new stuff to talk about here.
+(1.1) By the numbers - Over 9000 commits!
 
-version 0.2.64 as of October 2025, we've kept pace with weekly relases over the summer, and a longer but still frequent release cadance over the academic semesters. The last blog post was at v0.2.29. So again, lots to cover.
+After some preliminary work in 2014, Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e). Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
-AI Use in Mech
+Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to look at how to build various tools like time travel debugging and pausing the execution of running programs. Documentionation for Mech Alpha is [still live on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-As a solo developer, I have been using AI in the process of making mech and it has accelerated my output. You can see the effect of that in the commit history, where I have been able to make more frequent releases and implement more features in a shorter amount of time. I plan to write a blog post about my experience using AI in software development soon.
+Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a gui library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
 
-Capstone Team
+Today we are here to report progress on Mech `v0.2`, currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
-Project team includes myself, and this year we have a capstone team of 4 computer science students from Lehigh University helping to build out the standard library. We'll have a follow up post about that.
+This cycle will be considered "released" when we've finished writing documentation and tests. Work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
+
+(1.2) Capstone Team
+
+The project team includes myself, and this year we have a new team of 4 computer science students from Lehigh University helping to build out the standard library. They will have a follow-up blog post before the end of the year about their experience working on Mech.
 
 2. v0.2 Progress and Roadmap
 ------------------------------------------------------------------------------
 
+One thing in particular we said we would do in the last blog post was shift development to create things that were useful rather than foundational. For the last 9 months we have executed on that imperative, and here are some of the results. 
+
 (2.1) Mechdown
 
-(2.2) Docs and Spec
+The first and most obvious feature is Mechdown, which is being demonsrated on this blog post itself. Mechdown is a literate programming tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine. It can be used to create live documents and explanatory content.
+
+Mechdown is a dialect of Markdown, with unambiguous sytnax and additional features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring liveness to your documents with Mech scripts.
+
+For example, here is some Mech code that does a calculation on some matrix data:
+
+```mech
+x := [1 2 3] ** [4 5 6]'
+```
+
+This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. One thing that has frusted me about other literate programming tools is that they often offter substandard document generation experience in order to accomodate certain programming language semantics. For example, The original Web tool by Knuth was built around Pascal, which necessitated strange tangle/weave process that generated code and documents separately. At the other end of the spectrum, 
+
+
+
+(2.1.1) Docs and Spec
 
 (2.3) Complex and Rational Numbers
 
-(2.4) Formatter
+(2.4) Wasm Repl
 
-(2.5) Wasm Repl
-
-(2.6) Ecosystem
-
-(2.7) Remaining Work before v0.2 is complete
+(2.5) Ecosystem
 
 3. v0.3 Preview
 -------------------------------------------------------------------------------
+
+At the end of the v0.2 development cycle, the language became large enough that certain practices which worked well for small languages began to break down. In this case, we were loading the entire standard library into the runtime at startup, which made the repl slow to start and used a lot of memory. Therefore, we decided to invest some energy into writing the bytecode interpreter and compiler which was slated for v0.3. In this section, we will talk about the design and implementation of these components, which are available now, but should be considered "alpha" quality because they are not officially part of the v0.2 release.
 
 (3.1) Bytecode Interpreter
 
@@ -53,6 +69,8 @@ Project team includes myself, and this year we have a capstone team of 4 compute
 (4.2) v0.3 Kickoff
 
 (4.3) Mech Labs
+
+This is more like an announcement of an announcement, but I am working on formalizing the development of Mech into a collaborative research lab. 
 
 
 
