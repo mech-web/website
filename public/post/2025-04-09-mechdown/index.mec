@@ -265,12 +265,17 @@ WEB consists of three major components:
 
 So the workflow went like this:
 
-```
-filename.web ──► TANGLE ──► filename.pas ──► [Pascal Compiler]
-             └──► WEAVE  ──► filename.tex ──► [TeX Typesetting]
+```diagram
+flowchart TD
+  A{.web}
+  B[.pas]
+  C[.tex]
+  D[.pdf]
+  A --> |TANGLE| B 
+  A --> |WEAVE| C --> |Tex| D
 ```
 
-![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](C:\Users\cmont\mech-lang\web\website\public\post\2025-04-09-mechdown\web.png)
+![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](web.png)
 
 (2.2.3) Literate Haskell
 
