@@ -1,5 +1,5 @@
 
-Fall 2025 Progress Report
+Fall 2025 Progress Report - Mechdown, Datastructures, and Bytecode
 ===============================================================================
 
 1. Project Status
@@ -9,13 +9,15 @@ It's been a while since the last progress report, so I will begin with a quick s
 
 (1.1) By the numbers - Over 9000 commits!
 
-After some preliminary work in 2014, Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e). Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
+After some preliminary work in 2014, the first real implementation of Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the Eve project concluded. Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
+
+![What, over 9000?! That's impossible!](images/over9000.gif)
 
 Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to look at how to build various tools like time travel debugging and pausing the execution of running programs. Documentionation for Mech Alpha is [still live on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
 Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a gui library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
 
-Today we are here to report progress on Mech `v0.2`, currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
+Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
 This cycle will be considered "released" when we've finished writing documentation and tests. Work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
 
@@ -156,7 +158,14 @@ With Mech we do the same thing using the shim mentioned in the last section. Whe
 
 That's not all, we go one step further and we customize the runtime that's embedded into the binary to only include the functions that are needed for the program to run. By using the information from the precompilation phase, we know which features of the Mech compiler to disable and which to include. These savings are significant, because it means if we don't use a particular library or feature in our program, we don't have to pay for it in the final binary size / load times / memory consumption.
 
-The end result is extremely small binaries that are also fast to start up and execute fully compiled language like C or Rust, but compiletime is seconds, and if you don't want to compile the full executable that can be reduced to milliseconds by just interpreting the code.
+The end result is very small binaries that are also fast to start up and execute fully compiled language like C or Rust, but compiletime is seconds, and if you don't want to compile the full executable that can be reduced to milliseconds by just interpreting the code.
+
+(3.2.1) `mechc`
+
+To make this process easy for users, we have created a command-line tool called `mechc`, which is the standalone Mech compiler. This tool automates the two-phase compilation process, taking Mech source code as input, and producing a single-file executable as output. In `v0.3` when project manifests are specified, `mechc` will also download and compile the project dependency tree.
+
+We've implemented this tool in Rust, although it will be one of the first components of the project rewritten in Mech itself once state machines are define in `v0.3`.
+
 
 4. What's Next?
 -------------------------------------------------------------------------------
