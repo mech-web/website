@@ -19,7 +19,9 @@ Mech `v0.1` followed this effort and represented a refinement of some of the ini
 
 Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
-This cycle will be considered "released" when we've finished writing documentation and tests. Work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
+This cycle will be considered "released" when we've finished writing documentation and tests. We anticipate work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
+
+For a complete roadmap, see the [Mech Project Roadmap](https://docs.mech-lang.org/design/ROADMAP.mec).
 
 (1.2) Capstone Team
 
@@ -43,8 +45,6 @@ x := [1 2 3] ** [4 5 6]'
 ```
 
 This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. One thing that has frusted me about other literate programming tools is that they often offter substandard document generation experience in order to accomodate certain programming language semantics. For example, The original Web tool by Knuth was built around Pascal, which necessitated strange tangle/weave process that generated code and documents separately. At the other end of the spectrum, 
-
-
 
 (2.1.1) Docs and Spec
 
@@ -162,9 +162,20 @@ The end result is very small binaries that are also fast to start up and execute
 
 (3.2.1) `mechc`
 
-To make this process easy for users, we have created a command-line tool called `mechc`, which is the standalone Mech compiler. This tool automates the two-phase compilation process, taking Mech source code as input, and producing a single-file executable as output. In `v0.3` when project manifests are specified, `mechc` will also download and compile the project dependency tree.
+To make this process easy for users, we have created a command-line tool called `mechc`, which is the standalone Mech compiler. This tool automates the two-phase compilation process, taking Mech source code as input, and producing a single-file executable as output. In `v0.3` when project manifests will be specified and implemented, `mechc` will also download and compile the project dependency tree.
 
-We've implemented this tool in Rust, although it will be one of the first components of the project rewritten in Mech itself once state machines are define in `v0.3`.
+We've implemented this tool in Rust, although it will be one of the first components of the project rewritten in Mech itself once state machines are define in `v0.3`. The build process is as follows:
+
+1. The user runs `mechc <source-files>`
+2. `mechc` collects all files in the source directory and specefically looks for an `index.mpkg` file, which will be the name of the manifest for the project. If none is found it uses default settings, but if it finds one it will parse it immediately, extract all the project settings, and configure the build environment.
+3. Any dependencies specified in the manifest and their recursive dependencies are downloaded from the Mech package registry. Registered packages must have an `index.mpkg`.
+4. As packages are downloaded, their source is passed to the Mech compiler, which compiles each package into bytecode, and collects information about which functions are used. This compiler can work in parallel, so multiple packages can be compiled simultaneously.
+5. After all packages are compiled to bytecode, `mechc` configures a temporary Rust project that has only the Mech features necessary to run the project enabled.
+6. `Cargo` is invoked from `mechc` as a backend to compile the shim and the Mech interpreter. Cargo build artifacts are cached in the Mech project build directory to make subsequent builds faster.
+7. The project bytcode is zipped up and appended to the end of the compiled binary.
+8. The final single-file executable is output to the `build` directory.
+
+Since we are leveraging Rust and Cargo as a backend, we get cross-compilation to any platform that Rust supports for free. Therefore, users can build Mech programs for any target that Rust supports, including Windows, Linux, MacOS, and WebAssembly.
 
 
 4. What's Next?
