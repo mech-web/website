@@ -92,35 +92,17 @@ But literate programming didn't really take the world by storm, and it remained 
 
 So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literaye programming, new tools *and* languages that knew about those tools were needed.
 
-(2.2.3) Emacs Org-mode
-
-Whereas Literate Haskell is specific to the Haskell programming language, Emacs Org-mode [ORG] is a general-purpose markup language that can be used with any programming language. It was developed by Carsten Dominik, Bastien Guerry et al in 2003 as a way to organize notes, tasks, and projects in Emacs. Org-mode allows you to write documents in a plain text format, and then export them to various formats such as HTML, LaTeX, and PDF.
-
-Org-mode is so called because it's designed to help organizations use Emacs by giving it features that are useful for that kind of thing. Support for literate programming is an obvious win here, because what better way to help a team stay on top of a project than support for rich documentation?
-
-```
-* Data Analysis
-
-** Load Data
-#+BEGIN_SRC python :results output
-import pandas as pd
-data = pd.read_csv("data.csv")
-data.head()
-#+END_SRC
-
-** Plot Data
-#+BEGIN_SRC python :results file
-import matplotlib.pyplot as plt
-plt.plot(data['date'], data['temperature'])
-plt.savefig("plot.png")
-#+END_SRC
-
-[[./plot.png]]
-```
-
 (2.2.4) Notebook Programming Systems
 
-Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways.
+Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. The idea here is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
+
+Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
+
+(2.2.4.1) Emacs Org Mode
+
+Org Mode is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. Org Mode is written in "code blocks", which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. 
+
+(2.2.4.2) Jupyter Notebooks
 
 Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
 
@@ -128,7 +110,7 @@ Key Features of Jupyter Notebooks:
 
 - Markdown Cells: You can use Markdown to write explanatory text alongside your code.
 - Code Cells: Code is written in cells that can be executed independently.
-- Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
+- Interactive Output: The output of code, whether it's data, graphs, or text, is displayed directly below the code block.
 - Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
 - Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
 
