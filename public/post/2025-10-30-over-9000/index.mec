@@ -44,6 +44,8 @@ x := [1 2 3] ** [4 5 6]'
 
 This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
 
+If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
+
 In the rest of this section, we will talk about the history of literate programming practice and tools, and we will dive into the design and implementation of Mechdown itself.
 
 (2.1) A Brief History of Literate programming
@@ -64,7 +66,7 @@ Some of this can (and has) been solved with better language design; modern langu
 
 While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
 
-(2.2.1) WEB
+(2.1.1) WEB
 
 WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation.
 
@@ -80,7 +82,7 @@ So the workflow went like this:
 
 ![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](images/web.png)
 
-This worked well enough for Knugth to allow him to write his famous book series "The Art of Computer Programming" using WEB, which is a testament to the power of literate programming for creating complex and well-documented software.
+This worked well enough for Knugth to allow him to write his famous book series "The Art of Computer Programming" [TAOCP] using WEB, which is a testament to the power of literate programming for creating complex and well-documented software.
 
 But literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
 
@@ -92,32 +94,20 @@ But literate programming didn't really take the world by storm, and it remained 
 
 So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literaye programming, new tools *and* languages that knew about those tools were needed.
 
-(2.2.4) Notebook Programming Systems
+(2.1.2) Emacs Org Mode
 
 Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. The idea here is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
 
-Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
+Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
 
-(2.2.4.1) Emacs Org Mode
+Emacs Org Mode is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. To support the various semantics of the languages in a uniform way, code in Org Mode is written in code blocks, which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. Since the blocks are deliniated, the user can write freeform prose in a markup language similar to Markdown.
 
-Org Mode is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. Org Mode is written in "code blocks", which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. 
+Here's an example of an Org Mode document with a code block:
 
-(2.2.4.2) Jupyter Notebooks
-
-Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
-
-Key Features of Jupyter Notebooks:
-
-- Markdown Cells: You can use Markdown to write explanatory text alongside your code.
-- Code Cells: Code is written in cells that can be executed independently.
-- Interactive Output: The output of code, whether it's data, graphs, or text, is displayed directly below the code block.
-- Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
-- Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
-
-```
+```org
 * Data Analysis
-
 ** Load Data
+
 #+BEGIN_SRC python :results output
 import pandas as pd
 data = pd.read_csv("data.csv")
@@ -125,6 +115,7 @@ data.head()
 #+END_SRC
 
 ** Plot Data
+
 #+BEGIN_SRC python :results file
 import matplotlib.pyplot as plt
 plt.plot(data['date'], data['temperature'])
@@ -133,6 +124,83 @@ plt.savefig("plot.png")
 
 [[./plot.png]]
 ```
+
+In this example titled "Data Analysis", we have two sections: "Load Data" and "Plot Data". Each section contains a code block written in Python. The first block loads data from a CSV file and displays the first few rows, while the second block creates a plot and saves it as an image file. The results of each code block can be displayed directly in the document.
+
+Org Mode adopt's WEB's "tangle" and "weave" steps in the form of the `:tangle` hader argument:
+
+> In literate programming parlance, documents on creation are woven with code and documentation, and on export, the code is tangled for execution by a computer. Org facilitates weaving and tangling for producing, maintaining, sharing, and exporting literate programming documents. Org provides extensive customization options for extracting source code.
+When Org tangles code blocks, it expands, merges, and transforms them. Then Org recomposes them into one or more separate files, as configured through the options. [TANGLE]
+
+Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-screenshots.html) showcasing its versatility.
+
+(2.1.3) Jupyter Notebooks
+
+Although literate programming is a language agnostic idea, the design of some languages make them more ameniable to notebook programming than others. For example, dynamic languages like Python, R and Julia were designed for interactive use in a REPL enironment, so they translate nicely into a notebook environments like [Jupyter](https://jupyter.org), which is popular for data science and scientific computing. This is in contrast to AOT compiled langues like C++, for which notebook support does exist, but it involves twisting C++ into a more dynamic form by placing restrictsions on what features can be used (e.g. no static linking).
+
+In contrast to Org Mode, Jypyter is not used by writing a specialized markup langauge in plaintext, but instead users write their projects in the Jupyter IDE, which is kind of like a WYSIWYG for notebooks. 
+
+![Jupyter notebook is an interactive computing environment that allows users to create and share documents that contain live code, equations, visualizations, and narrative text. This particular notebook demonstrates the Lorenz Differential Equations using Python, renders rich text like equations, displays a graph of the Python program output, and allows the user to manipulate it with UI Form elements like sliders and buttons [JUPYTER].](images/jupyter.png)
+
+This editor saves files as a [JSON datastructure](https://nbformat.readthedocs.io/en/latest/format_description.html) for easy parsing and transmission. For example, the schema starts with a heading specifying the language kernel and project metadata:
+
+```json
+{
+  "metadata": {
+    "kernel_info": {
+      # if kernel_info is defined, its name field is required.
+      "name": "the name of the kernel"
+    },
+    "language_info": {
+      # if language_info is defined, its name field is required.
+      "name": "the programming language of the kernel",
+      "version": "the version of the language",
+      "codemirror_mode": "The name of the codemirror mode to use [optional]",
+    },
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "cells": [
+    # list of cell dictionaries, see below
+  ],
+}
+```
+
+Then it defines cells and code:
+
+```json
+{
+  "cell_type": "code",
+  "execution_count": 1,
+  "metadata": {
+    "collapsed": false,
+    "scrolled": false
+  },
+  "source": [
+    "import math\n",
+    "radius = 5\n",
+    "area = math.pi * radius ** 2\n",
+    "print(f'The area of a circle with radius {radius} is {area:.2f}')"
+  ],
+  "outputs": [
+    {
+      "output_type": "stream",
+      "name": "stdout",
+      "text": [
+        "The area of a circle with radius 5 is 78.54\n"
+      ]
+    }
+  ]
+}
+```
+
+(2.1.4) Eve
+
+Eve was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of Javascript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
+
+We we arrived at was a notebook programming environment that was based around a prolog-like database language called. It maintains the idea of a code blocks embedded in markdown-like prose, but the backing langauge was not imperative, but declarative relational[^2]. This meant that Eve solved one of the trickiest parts about Notebook programming, which is the notebook cells can be evaluated in any order, but the underlying languages assume imperative semantics (i.e. execution is expected to occur sequentially). Eve solved this by solving the program with a query engine that recursed until a set-point was reached, evaluating cells in any order as much as required.
+
+This language design opened up all kinds of new possibilities for literate programming.
 
 (2.3) Mechdown Design and Implementation
 
@@ -207,30 +275,37 @@ x := 1 + 2
 This compiles into the following bytecode:
 
 ```
-00000: 4d 45 43 48 01 3a 02 00 00 04 00 00 00 05 00 00  MECH.:..........
-00010: 00 02 00 00 00 81 00 00 00 00 00 00 00 01 00 00  ................
-00020: 00 95 00 00 00 00 00 00 00 04 00 00 00 a5 00 00  ................
-00030: 00 00 00 00 00 60 00 00 00 00 00 00 00 05 01 00  .....`..........
-00040: 00 00 00 00 00 20 00 00 00 00 00 00 00 0c 00 00  ..... ..........
-00050: 00 00 00 00 00 25 01 00 00 00 00 00 00 31 01 00  .....%.......1..
-00060: 00 00 00 00 00 39 00 00 00 00 00 00 00 6a 01 00  .....9.......j..
-00070: 00 00 00 00 00 0d 00 00 00 00 00 00 00 00 00 00  ................
-00080: 00 02 00 00 00 32 00 00 00 00 00 00 00 0c 00 00  .....2..........
-00090: 00 00 00 00 00 01 00 00 00 0c 00 00 00 01 00 00  ................
-000a0: 00 00 00 00 00 00 00 00 00 01 08 00 00 00 00 00  ................
-000b0: 00 00 00 00 00 08 00 00 00 00 00 00 00 00 00 00  ................
-000c0: 00 01 08 00 00 08 00 00 00 00 00 00 00 08 00 00  ................
-000d0: 00 00 00 00 00 00 00 00 00 01 08 00 00 10 00 00  ................
-000e0: 00 00 00 00 00 08 00 00 00 00 00 00 00 00 00 00  ................
-000f0: 00 01 08 00 00 18 00 00 00 00 00 00 00 08 00 00  ................
-00100: 00 00 00 00 00 00 00 00 00 00 00 08 40 00 00 00  ............@...
-00110: 00 00 00 f0 3f 00 00 00 00 00 00 00 40 00 00 00  ....?.......@...
-00120: 00 00 00 08 40 a3 de 9c 71 ad 11 03 00 03 00 00  ....@...q.......
-00130: 00 01 00 00 00 00 00 00 00 00 01 01 00 00 00 01  ................
-00140: 00 00 00 01 02 00 00 00 02 00 00 00 10 e8 ff dd  ................
-00150: bc 70 41 b5 00 00 00 00 00 01 00 00 00 02 00 00  .pA.............
-00160: 00 01 03 00 00 00 03 00 00 00 a3 de 9c 71 ad 11  .............q..
-00170: 03 00 01 00 00 00 78 d9 25 66 5c                 ......x.%f\
+000  4d 45 43 48 01 40 02 00  00 05 00 00 00 08 00 00 |MECH.@..........|
+010  00 05 00 00 00 81 00 00  00 00 00 00 00 03 00 00 |................|
+020  00 ad 00 00 00 00 00 00  00 06 00 00 00 d5 00 00 |................|
+030  00 00 00 00 00 90 00 00  00 00 00 00 00 65 01 00 |.............e..|
+040  00 00 00 00 00 26 00 00  00 00 00 00 00 00 00 00 |.....&..........|
+050  00 00 00 00 00 8b 01 00  00 00 00 00 00 8b 01 00 |................|
+060  00 00 00 00 00 60 00 00  00 00 00 00 00 eb 01 00 |.....`..........|
+070  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 |................|
+080  00 05 00 00 00 11 00 00  00 00 00 00 00 0c 00 00 |................|
+090  00 00 00 00 00 3c 00 00  00 00 00 00 00 10 00 00 |.....<..........|
+0a0  00 00 00 00 00 19 00 00  00 00 00 00 00 03 00 00 |................|
+0b0  00 0c 00 00 00 01 00 00  00 00 00 00 00 0f 00 00 |................|
+0c0  00 01 00 00 00 00 00 00  00 10 00 00 00 01 00 00 |................|
+0d0  00 00 00 00 00 00 00 00  00 01 08 00 00 00 00 00 |................|
+0e0  00 00 00 00 00 08 00 00  00 00 00 00 00 00 00 00 |................|
+0f0  00 01 08 00 00 08 00 00  00 00 00 00 00 08 00 00 |................|
+100  00 00 00 00 00 00 00 00  00 01 08 00 00 10 00 00 |................|
+110  00 00 00 00 00 08 00 00  00 00 00 00 00 00 00 00 |................|
+120  00 01 08 00 00 18 00 00  00 00 00 00 00 08 00 00 |................|
+130  00 00 00 00 00 01 00 00  00 01 01 00 00 20 00 00 |............. ..|
+140  00 00 00 00 00 05 00 00  00 00 00 00 00 02 00 00 |................|
+150  00 01 01 00 00 25 00 00  00 00 00 00 00 01 00 00 |.....%..........|
+160  00 00 00 00 00 00 00 00  00 00 00 08 40 00 00 00 |............@...|
+170  00 00 00 f0 3f 00 00 00  00 00 00 00 40 00 00 00 |....?.......@...|
+180  00 00 00 08 40 01 00 00  00 78 00 01 00 00 00 00 |....@....x......|
+190  00 00 00 00 01 01 00 00  00 01 00 00 00 01 02 00 |................|
+1a0  00 00 02 00 00 00 30 f3  86 84 68 77 2c 0a 00 00 |......0...hw,...|
+1b0  00 00 00 01 00 00 00 02  00 00 00 01 00 00 00 00 |................|
+1c0  03 00 00 00 01 03 00 00  00 04 00 00 00 01 04 00 |................|
+1d0  00 00 05 00 00 00 30 e7  55 b6 86 ad b6 23 00 00 |......0.U....#..|
+1e0  00 00 00 03 00 00 00 04  00 00 00 bc f2 d6 1f    |...............|
 ```
 
 Sections include:
@@ -267,7 +342,7 @@ Each instruction in Mech is one of the following variants:
 
 The Rust interface for the compiler consists of 2 main traits: [MechFunctionCompiler](https://github.com/mech-lang/mech/blob/main/src/core/src/functions.rs#L75) and [MechFunctionFactory](https://github.com/mech-lang/mech/blob/main/src/core/src/functions.rs#L64). The job of the compiler is to take the semi-compiled Mech functions and translate them into bytecode instructions, which is done by converting the function inputs and output into registers, and then emitting the appropriate op codes into the bytecode stream.
 
-On the other side is the bytecode interpreter. It decodes the bytecode instructions from the `*.mechb` file by reading the opcodes and mapping them to the corresponding function descriptors registered with the interpreter at startup. Function descriptors are paramaterized by the name of the function, as well as the types of the input and output arguments.
+On the other side is the bytecode interpreter. It decodes the bytecode instructions from the `*.mecb` file by reading the opcodes and mapping them to the corresponding function descriptors registered with the interpreter at startup. Function descriptors are paramaterized by the name of the function, as well as the types of the input and output arguments.
 
 What's nice about this is parsing bytecode is extremely fast compared to parsing source code, since everything has already been parsed and serialized already in Phase 1. Therefore we don't have to ship the parser or any code it requires with the runtime, which helpa keep it small and embeddable.
 
@@ -320,6 +395,8 @@ This is more like an announcement of an announcement, but I am working on formal
 
 [^1]: Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author [HOLON]. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. Towster's work can be found in his 1979 paper [TOWSTER].
 
+[^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime is responsible for determining how to satisfy these relationships, often using techniques like constraint solving or logic inference. This allows for a more high-level and expressive way of defining programs, as the programmer can focus on the "what" rather than the "how". Other relational langauges include Prolog and Datalog. SQL purports to be relational, but by allowind duplicate rows, it doesn't express set semantics and so it's not strictly a relational language. In eve if you want duplicate rows you have to make them distinct with an ID, otherwise they will be treated as the same row.
+
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
 [KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
 [LP]: https://en.wikipedia.org/wiki/Literate_programming
@@ -333,3 +410,6 @@ This is more like an announcement of an announcement, but I am working on formal
 [LATEX]: L. Lamport, LaTeX: A Document Preparation System, 2nd ed. Reading, MA: Addison-Wesley, 1994.
 [HOLON]: P.A. de Marneffe, Holon Programming: A Survey, Self Published, December 1973. [Online](https://github.com/holon-scribe/holon-programming)
 [TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data", IEEE Transactions on Software Engineering, vol. SE-5, no. 4, pp. 374-386, July 1979. [Online](https://ieeexplore.ieee.org/document/1702643).
+[TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
+[JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
+[TAOCP]: D. E. Knuth, The Art of Computer Programming, Volumes 1-4. Reading, MA: Addison-Wesley, 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html).
