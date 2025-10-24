@@ -27,14 +27,12 @@ For a complete roadmap, see the [Mech Project Roadmap](https://docs.mech-lang.or
 
 The project team includes myself, and this year we have a new team of 4 computer science students from Lehigh University helping to build out the standard library. They will have a follow-up blog post before the end of the year about their experience working on Mech.
 
-2. v0.2 Progress and Roadmap
+So let's take a look at what's new in Mech...
+
+2. Mechdown
 ------------------------------------------------------------------------------
 
-One thing in particular we said we would do in the last blog post was shift development to create things that were useful rather than foundational. For the last 9 months we have executed on that imperative, and here are some of the results. 
-
-(2.1) Mechdown
-
-The first and most obvious feature is Mechdown, which is being demonsrated on this blog post itself. Mechdown is a literate programming tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine. It can be used to create live documents and explanatory content.
+The first and most obvious feature is Mechdown, which is being demonsrated on this blog post itself. Mechdown is a literate programming tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live documents and explanatory content, but we also see potential for it to be used as a $$\LaTeX$$ replacement for scientific papers and reports.
 
 Mechdown is a dialect of Markdown, with unambiguous sytnax and additional features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring liveness to your documents with Mech scripts.
 
@@ -44,22 +42,167 @@ For example, here is some Mech code that does a calculation on some matrix data:
 x := [1 2 3] ** [4 5 6]'
 ```
 
-This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. One thing that has frusted me about other literate programming tools is that they often offter substandard document generation experience in order to accomodate certain programming language semantics. For example, The original Web tool by Knuth was built around Pascal, which necessitated strange tangle/weave process that generated code and documents separately. At the other end of the spectrum, 
+This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
 
-(2.1.1) Docs and Spec
+In the rest of this section, we will talk about the history of literate programming practice and tools, and we will dive into the design and implementation of Mechdown itself.
 
-(2.3) Complex and Rational Numbers
+(2.1) A Brief History of Literate programming
 
-(2.4) Wasm Repl
+Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
 
-(2.5) Ecosystem
+In his words:
 
-3. v0.3 Preview
+> The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author ... strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other [KNUTHLP].
+
+For example, at the time some languages required programmers to declare all variables before you any of them were used, like early Pascal, Fortran, and Algol. This was not a great feature ergonomically, because it forced the programmer to think about the program structure in a way that was not natural. But it was enforced because back then it was convenient for compiler developers to know all the variables up front so they could allocate memory and set up symbol tables before parsing the rest of the program.
+
+<<!["Literate Programming" by Donald Knuth, 1982 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+
+As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it.
+
+Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
+
+While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
+
+(2.2.1) WEB
+
+WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation.
+
+WEB consists of three components:
+
+- **Source File** (`.web`) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by a name reference.
+
+- **TANGLE** - This tool processes the `.web` file and extracts the code portions, assembling them into proper Pascal source code. The name reflects the idea of untangling the narrative to produce compilable code. It resolves named code sections into an order appropriate for compilation, and outputs a `.pas` file, which can be compiled by a Pascal compiler.
+
+- **WEAVE** - This tool turns the `.web` file into a typeset document using TeX. It organizes and formats both the prose and the code with syntax highlighting, cross-references, and indexing, generating high-quality documentation -- typically a `.tex` file for further processing into PDF.
+
+So the workflow went like this:
+
+![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](images/web.png)
+
+This worked well enough for Knugth to allow him to write his famous book series "The Art of Computer Programming" using WEB, which is a testament to the power of literate programming for creating complex and well-documented software.
+
+But literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
+
+1. It was hard to learn. Not only do you have to learn a programming language, but you also have to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
+
+2. For Knuth, he had a very clear motive to write in a literate style -- he was writing a book on programming, so interleaving code and prose mades sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on proramming. Which is most programmers.
+
+3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the documentation manually, which is error-prone and tedious.
+
+So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literaye programming, new tools *and* languages that knew about those tools were needed.
+
+(2.2.3) Emacs Org-mode
+
+Whereas Literate Haskell is specific to the Haskell programming language, Emacs Org-mode [ORG] is a general-purpose markup language that can be used with any programming language. It was developed by Carsten Dominik, Bastien Guerry et al in 2003 as a way to organize notes, tasks, and projects in Emacs. Org-mode allows you to write documents in a plain text format, and then export them to various formats such as HTML, LaTeX, and PDF.
+
+Org-mode is so called because it's designed to help organizations use Emacs by giving it features that are useful for that kind of thing. Support for literate programming is an obvious win here, because what better way to help a team stay on top of a project than support for rich documentation?
+
+```
+* Data Analysis
+
+** Load Data
+#+BEGIN_SRC python :results output
+import pandas as pd
+data = pd.read_csv("data.csv")
+data.head()
+#+END_SRC
+
+** Plot Data
+#+BEGIN_SRC python :results file
+import matplotlib.pyplot as plt
+plt.plot(data['date'], data['temperature'])
+plt.savefig("plot.png")
+#+END_SRC
+
+[[./plot.png]]
+```
+
+(2.2.4) Notebook Programming Systems
+
+Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways.
+
+Notebook Programming is a language-agnostic concept, but Python and Julia have particularly been used for notebook programming due to their prevalence in scientic and engineering fields, and the JuPyter project is a notebook for precisely these languages. The way it works is that the user writes prose in Markdown, and then writes Python or Julia code blocks behind a markdown code fence.
+
+Key Features of Jupyter Notebooks:
+
+- Markdown Cells: You can use Markdown to write explanatory text alongside your code.
+- Code Cells: Code is written in cells that can be executed independently.
+- Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
+- Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
+- Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
+
+```
+* Data Analysis
+
+** Load Data
+#+BEGIN_SRC python :results output
+import pandas as pd
+data = pd.read_csv("data.csv")
+data.head()
+#+END_SRC
+
+** Plot Data
+#+BEGIN_SRC python :results file
+import matplotlib.pyplot as plt
+plt.plot(data['date'], data['temperature'])
+plt.savefig("plot.png")
+#+END_SRC
+
+[[./plot.png]]
+```
+
+(2.3) Mechdown Design and Implementation
+
+Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
+
+- Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
+
+- Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
+- This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
+- But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
+
+- What does this buy us? A we can write naturally just as in markdown.
+- We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
+
+- Parsing generates a parse tree which we then pass on to the formatter
+
+** Formatting ** 
+
+- The formatter takes a parse tree and generates a HTML document from it. 
+- The HTML document is fully styled
+- The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated *inside* of the document, so that we don't have to reparse anything if we want to recover the source code. This work was done before the bytecode interpreter was implemented, so in the future we will be able to store bytecode in there instead of the parse tree, which will make things faster and smaller.
+
+- The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
+
+- The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
+- You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
+
+(2.4) Serving
+
+- mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
+
+- So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
+
+- After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
+
+(2.5)
+
+3. Other v0.2 Features
+-------------------------------------------------------------------------------
+
+(3.1) Complex and Rational Numbers
+
+(3.2) Wasm Repl
+
+(3.3) Ecosystem
+
+4. v0.3 Preview
 -------------------------------------------------------------------------------
 
 At the end of the v0.2 development cycle, the language became large enough that certain practices which worked well for small languages began to break down. In this case, we were loading the entire standard library into the runtime at startup, which made the repl slow to start and used a lot of memory. Therefore, we decided to invest some energy into writing the bytecode interpreter and compiler which was slated for v0.3. In this section, we will talk about the design and implementation of these components, which are available now, but should be considered "alpha" quality because they are not officially part of the v0.2 release.
 
-(3.1) Bytecode Interpreter and Compiler
+(4.1) Bytecode Interpreter and Compiler
 
 Mech right now is an interpreted language; the source code is parsed, and then the AST is run on the interpreter. Mech manages to be faster than other interpreted languages like Python because it is statically typed, so we can unbox many values at compiletime to reduce runtime work. Now, usually to get a really fast and portable language what I would have to do is write a compiler that targets LLVM or WebAssembly. If I were to go down the route, I would spend a lot of my time writing code that ultimately would mean Mech programs are a little faster or a little more portable. But the tradeoff is that it would take a lot of time and effort to implement, and I would have to maintain a lot of code that is not really core to the language itself. 
 
@@ -71,7 +214,7 @@ So instead we are taking a hybrid approach that should get most of the speed whi
 
 Let's take a look at how this is implemented today.
 
-(3.1) Mech Bytecode
+(4.2) Mech Bytecode
 
 This is version 1 of the Mech bytecode format. Consider the following Mech code:
 
@@ -148,7 +291,7 @@ What's nice about this is parsing bytecode is extremely fast compared to parsing
 
 Each function is implemented as a Rust function that takes input values from the registers, performs the operation, and writes the result back to the output register. By the time this interpreter is running the program, the previous phase has already verified types and precomputed as much as possible, so extraneous runtime work is minimized. This is the secret to making the bytecode interpreter fast.
 
-(3.2) Compiler
+(4.2) Compiler
 
 Now, having a bytecode format and an interpreter that reads it is great for portability and performance, but I want Mech to provide the easiest experience for users, which to me is embodied in the single-file executable that you can double click and run. It just doesn't get any easier than that.
 
@@ -160,7 +303,7 @@ That's not all, we go one step further and we customize the runtime that's embed
 
 The end result is very small binaries that are also fast to start up and execute fully compiled language like C or Rust, but compiletime is seconds, and if you don't want to compile the full executable that can be reduced to milliseconds by just interpreting the code.
 
-(3.2.1) `mechc`
+(4.2.1) `mechc`
 
 To make this process easy for users, we have created a command-line tool called `mechc`, which is the standalone Mech compiler. This tool automates the two-phase compilation process, taking Mech source code as input, and producing a single-file executable as output. In `v0.3` when project manifests will be specified and implemented, `mechc` will also download and compile the project dependency tree.
 
@@ -178,16 +321,33 @@ We've implemented this tool in Rust, although it will be one of the first compon
 Since we are leveraging Rust and Cargo as a backend, we get cross-compilation to any platform that Rust supports for free. Therefore, users can build Mech programs for any target that Rust supports, including Windows, Linux, MacOS, and WebAssembly.
 
 
-4. What's Next?
+5. What's Next?
 -------------------------------------------------------------------------------
 
-(4.1) v0.2 Completion
+(5.1) v0.2 Completion
 
-(4.2) v0.3 Kickoff
+(5.2) v0.3 Kickoff
 
-(4.3) Mech Labs
+(5.3) Mech Labs
 
 This is more like an announcement of an announcement, but I am working on formalizing the development of Mech into a collaborative research lab. 
 
 
 
+***
+
+[^1]: Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author [HOLON]. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. Towster's work can be found in his 1979 paper [TOWSTER].
+
+[KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
+[KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
+[LP]: https://en.wikipedia.org/wiki/Literate_programming
+[SRC]: https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads
+[HTML]: https://mech-lang.org/post/2025-04-09-mechdown/index.html
+[LHS]: [Literate Haskell](https://wiki.haskell.org/index.php?title=Literate_programming) - Offical Website
+[ORG]: [Emacs Org Mode](https://orgmode.org) - Official Website
+[KATEX]: [KaTeX](https://katex.org) - Official Website
+[TEXBOOK]: D. E. Knuth, The TeXbook. Reading, MA: Addison-Wesley, 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf).
+[LATEXPRJ]: [LaTeX Project](https://www.latex-project.org) - Official Website
+[LATEX]: L. Lamport, LaTeX: A Document Preparation System, 2nd ed. Reading, MA: Addison-Wesley, 1994.
+[HOLON]: P.A. de Marneffe, Holon Programming: A Survey, Self Published, December 1973. [Online](https://github.com/holon-scribe/holon-programming)
+[TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data", IEEE Transactions on Software Engineering, vol. SE-5, no. 4, pp. 374-386, July 1979. [Online](https://ieeexplore.ieee.org/document/1702643).
