@@ -1,6 +1,8 @@
 
-Fall 2025 Progress Report - Mechdown, Datastructures, and Bytecode
+Fall 2025 Progress Report - Mechdown and Bytecode
 ===============================================================================
+
+%% In this post we will review the progress made on the Mech programming language project so far this year, focusing on the beta implementation of the Mechdown literate programming tool, and the alpha implementation of the new bytecode interpreter and compiler. We will also provide a preview of features planned for Mech v0.3.
 
 1. Project Status
 -------------------------------------------------------------------------------
@@ -42,7 +44,7 @@ For example, here is some Mech code that does a calculation on some matrix data:
 x := [1 2 3] ** [4 5 6]'
 ```
 
-This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
+This code block is running Mech code that computes the value of {x[1]}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
 
 If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
 
@@ -134,7 +136,7 @@ When Org tangles code blocks, it expands, merges, and transforms them. Then Org 
 
 Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-screenshots.html) showcasing its versatility.
 
-(2.1.3) Jupyter Notebooks
+(2.1.3) Jupyter Notebook
 
 Although literate programming is a language agnostic idea, the design of some languages make them more ameniable to notebook programming than others. For example, dynamic languages like Python, R and Julia were designed for interactive use in a REPL enironment, so they translate nicely into a notebook environments like [Jupyter](https://jupyter.org), which is popular for data science and scientific computing. This is in contrast to AOT compiled langues like C++, for which notebook support does exist, but it involves twisting C++ into a more dynamic form by placing restrictsions on what features can be used (e.g. no static linking).
 
@@ -277,7 +279,125 @@ In terms of the implementation, the Mech parser and runtime were written in Rust
 
 The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019]. 
 
-(2.3) Mechdown Design and Implementation
+(2.3) Design and Implementation
+
+One of the key design philosophies behind Mech's syntax follows Markdown, in that it should be easy to read and write in plain text form, without requiring specialized editors or tools. This makes it accessible to a wide range of users, and allows for easy collaboration and version control using standard text-based tools. So in designing Mechdown we took all the best parts of Markdown, and extended it with features from dialects like GHFM (GitHub Flavored Markdown). In doing so, we had to make Markdown unambiguous, since the way it was [originally specified](https://daringfireball.net/projects/markdown) left room for interpretation between different parsers. Because of this, although Mechdown is inspired by Mardown, we don't try to maintain compatibility with Markdown or the CommonMark spec.
+
+As of v0.2, Mechdown has now matured into an actually useful documentation generator and literate programming tool. In this section we will talk about the design and implementation of Mechdown as it exists today. The document you are currently reading is demonstrating Mechdown by example, so you have already experienced many of the features first-hand such as:
+
+- Auto-generated table of contents
+- Auto-numbered figures with captions
+- References, links, and footnotes
+- Inline Mech code and code blocks
+- Abstract and quotation blocks
+- Ordered and unordered list
+
+Mechdown's grammar is defined in the Mech Programming Platform Specification [MECHDOWNSPEC]:
+
+```ebnf
+program := ws0, ?title, body, ws0 ;
+body := ws0, +(section, section-elements), ws0 ;
+section-element := +mech-code 
+      | list 
+      | footnote 
+      | citation 
+      | abstract 
+      | img 
+      | equation 
+      | markdown-table 
+      | float 
+      | block-quote 
+      | code-block 
+      | thematic-break 
+      | subtitle 
+      | paragraph ;
+section := ul-subtitle, *section-element ;
+section-elements := +(¬ul-subtitle, section-element) ;
+```
+
+**Note:** we use an extension of EBNF [defined in the Mech specification](https://docs.mech-lang.org/IV.design/specification.html#65359388826030746). Here, `ws0` denotes zero or more whitespace characters, `?` denotes an optional element, `+` denotes one or more repetitions, `*` operator zero or more repetitions, `¬` denotes negation.
+
+The key to how Mechdown integrates with Mech comes down to whitespace -- Mechdown is whitespace sensitive, meaning that whitespace is significant in the syntax and structure of the language. Take a nested list for instance:
+
+```
+- Item
+  - Subitem 1
+    - Subsubitem
+  - Subitem 2
+```
+
+This list is whitespace sensitive because the indentation level determines the hierarchy of the list items. Most languages cannot parse this without some kind code fence or comment block to indicate where the code starts and ends. The reason for this is that most mainstream programming languages are not whitespace sensitive (Python being the notable exception), so it's very common for parsers to strip out whitespace before parsing the code. If any whitespace needs to be preserved as in strings and comments, those can be handled in the lexer before parsing even happens; these elements are deliniated by quotes or comment markers, so full parser machinery isn't necessary to recognize them. Stripping out the whitespace simplifies the grammar and thereby the parser implementation.
+
+In Mechdown, we do not want to put prose or code behind any fences, so we have to fully parse the entire document including whitespace. This requires significantly more work in defining the grammar, becaues we have to account for all the different ways whitespace can appear in the document. But the opportunity is now that we have done this, code and prose are fully integrated. For example, we can define Matrix code blocks like this:
+
+```
+This is a matrix definition:
+
+y := 7 ^ 2
+x := 2 * [1 2 4
+          5 6 y]
+
+The third element of `x` is {x[3]}.
+```
+
+That isn't to say that Mech is fully whitespace sensitive though -- most whitespace sensitive grammar nodes offer an alternative that uses semicolons and commas to deliniate statements, so the above code block could also be written inline like this:
+
+```
+y:=7 ^ 2;x:=2 * [1,2,4;5,6,y]
+```
+
+**Note:** Mech requries spaces around operators, so we can support cool feartues like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also think it just makes formulas more readable. The commas in the inline form are a choice to allow for easier inline writing, since newlines are not available in that context.
+
+(2.3.1) Markup Features
+
+(2.3.1.1) Section Titles
+
+There are 6 levels of titles: the document title, section titles, and 4 levels of sub section titles.
+
+```
+Title
+========
+
+1. Section Title
+----------------
+
+(1.1) Sub Section Title
+
+(1.1.1) Sub Sub Section Title
+```
+
+The TOC is generated from these titles and can be styled with CSS. The opening, closing, and highlighting of sections that you see is handled by Javascript and CSS, so it's an example of how Mech and Javascript can still interoperate in this new version of Mech.
+
+(2.3.1.2) Sections
+
+A Mechdown document consists of one or more sections, each with an optional subtitle, section elements, and can contain nested subsections. The elements within the subsection correspond to the main elemments of the document body, such as paragraphs, code blocks, lists, images, tables, equations, and so on.
+
+(2.3.1.2) Lists
+
+Both ordered and unordered lists are supported, with support for nested lists as well.
+
+Here's a list of some of the features of lists:
+
+1. Bullet lists
+    - One
+    - Two
+    - Three
+2. Custom bullets
+    -(🦜) Four
+    -(🏴‍☠️) Five
+    -(🐷) Six
+3. Numbered lists
+    1. One
+    2. Two
+    3. Three
+4. Custom start number
+    7. Seven
+    8. Eight
+    9. Nine
+5. Check lists
+    -[ ] Task One
+    -[x] Task Two
+    -[ ] Task Three
 
 Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
 
@@ -303,7 +423,13 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 - The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
 - You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
 
-(2.4) Serving
+(2.3.2) Mech Extensions
+
+(2.4) Tooling
+
+(2.4.1) `mech format`
+
+(2.4.2) `mech serve`
 
 - mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
 
@@ -311,16 +437,7 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 
 - After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
 
-(2.5)
-
-3. Other v0.2 Features
--------------------------------------------------------------------------------
-
-(3.1) Complex and Rational Numbers
-
-(3.2) Wasm Repl
-
-(3.3) Ecosystem
+(2.4.3) `:docs`
 
 4. v0.3 Preview
 -------------------------------------------------------------------------------
@@ -462,9 +579,7 @@ Since we are leveraging Rust and Cargo as a backend, we get cross-compilation to
 
 (5.3) Mech Labs
 
-This is more like an announcement of an announcement, but I am working on formalizing the development of Mech into a collaborative research lab. 
-
-
+This is more like an announcement of an announcement, but I am working on formalizing the development of Mech into a collaborative research group. 
 
 ***
 
@@ -490,5 +605,6 @@ This is more like an announcement of an announcement, but I am working on formal
 [TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
 [JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
 [TAOCP]: D. E. Knuth; The Art of Computer Programming, Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html).
-[MECHALPHA]: Mech Alpha Documentation, v0.0.6-alpha, 2020. [Online](https://docs.mech-lang.org/alpha)
+[MECHALPHA]: Mech Alpha Documentation; v0.0.6-alpha; 2020. [Online](https://docs.mech-lang.org/alpha)
 [LIVE2019]: C. Montella; Mech - A Programming Language for Data Driven, Reactive Systems; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019. [Online](https://docs.mech-lang.org/alpha/#/live2019.mec)
+[MECHDOWNSPEC]: Mehdown; Mech Programming Platform Specification; v0.2-beta; 2025. [Online](https://docs.mech-lang.org/IV.design/specification.html#45036232896389885)
