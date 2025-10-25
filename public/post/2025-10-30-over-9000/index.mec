@@ -5,66 +5,34 @@ Fall 2025 Progress Report - Mechdown, Datastructures, and Bytecode
 1. Project Status
 -------------------------------------------------------------------------------
 
-It's been a while since the last progress report, so I will begin with a quick summary of where we are right now.
+n a w
 
-(1.1) By the numbers - Over 9000 commits!
+x := [1 2 3] ** [4 5 6]'
 
-After some preliminary work in 2014, the first real implementation of Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the Eve project concluded. Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
+
+
+If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
 ![What, over 9000?! That's impossible!](images/over9000.gif)
 
 Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to look at how to build various tools like time travel debugging and pausing the execution of running programs. Documentionation for Mech Alpha is [still live on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a gui library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
+Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a gui library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/ech-lang/mech/tree/v0.1) of the Mech repo.
 
 Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
-This cycle will be considered "released" when we've finished writing documentation and tests. We anticipate work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
+This cycle will be considered "released" when we've finished writing documentation and tests. We anticpate work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
 
-For a complete roadmap, see the [Mech Project Roadmap](https://docs.mech-lang.org/design/ROADMAP.mec).
+For a complete roadap, see the [Mech Project Roadmap](https://docs.mech-lang.org/design/ROADMAP.mec).
 
 (1.2) Capstone Team
 
-The project team includes myself, and this year we have a new team of 4 computer science students from Lehigh University helping to build out the standard library. They will have a follow-up blog post before the end of the year about their experience working on Mech.
+The project team includes myself, and this yer we have a new team of 4 computer science students from Lehigh University helping to build out the standard library. They will have a follow-up blog post before the end of the year about their experience working on Mech.
 
-So let's take a look at what's new in Mech...
+So let's tae a look at what's new in Mech...
 
 2. Mechdown
 ------------------------------------------------------------------------------
-
-The first and most obvious feature is Mechdown, which is being demonsrated on this blog post itself. Mechdown is a literate programming tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live documents and explanatory content, but we also see potential for it to be used as a $$\LaTeX$$ replacement for scientific papers and reports.
-
-Mechdown is a dialect of Markdown, with unambiguous sytnax and additional features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring liveness to your documents with Mech scripts.
-
-For example, here is some Mech code that does a calculation on some matrix data:
-
-```mech
-x := [1 2 3] ** [4 5 6]'
-```
-
-This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
-
-If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
-
-In the rest of this section, we will talk about the history of literate programming practice and tools, and we will dive into the design and implementation of Mechdown itself.
-
-(2.1) A Brief History of Literate programming
-
-Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
-
-In his words:
-
-> The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author ... strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other [KNUTHLP].
-
-For example, at the time some languages required programmers to declare all variables before you any of them were used, like early Pascal, Fortran, and Algol. This was not a great feature ergonomically, because it forced the programmer to think about the program structure in a way that was not natural. But it was enforced because back then it was convenient for compiler developers to know all the variables up front so they could allocate memory and set up symbol tables before parsing the rest of the program.
-
-<<!["Literate Programming" by Donald Knuth, 1982 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
-
-As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it.
-
-Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
-
-While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
 
 (2.1.1) WEB
 
@@ -88,11 +56,11 @@ But literate programming didn't really take the world by storm, and it remained 
 
 1. It was hard to learn. Not only do you have to learn a programming language, but you also have to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
 
-2. For Knuth, he had a very clear motive to write in a literate style -- he was writing a book on programming, so interleaving code and prose mades sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on proramming. Which is most programmers.
+2. For Knuth, he had a very clear motive to write in a literate style; he was writing a book on programming, so interleaving code and prose mades sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on proramming. Which is most programmers.
 
 3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the documentation manually, which is error-prone and tedious.
 
-So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literaye programming, new tools *and* languages that knew about those tools were needed.
+So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literate programming, new tools *and* languages that knew about those tools were needed.
 
 (2.1.2) Emacs Org Mode
 
@@ -196,11 +164,86 @@ Then it defines cells and code:
 
 (2.1.4) Eve
 
-Eve was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of Javascript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
+[Eve](https://witheve.com) was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of Javascript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
+
+![The Eve notebook editor, which was written mostly in Javascript and Typescript. It features a WYSIWYG prose editor integrated directly with the Eve language. The code output is rendered to the right of the code, and an outline of the source is rendered to the left. Various debugging tools exist within the editor, and can be used when the program is running. The application pictured is [FlappyEve](https://play.witheve.com/#/examples/flappy.eve). Visiting the link takes you to the Eve hosted editor, which is running entirely in the client's browser along with the Eve language runtime.](images/eve.png)
 
 We we arrived at was a notebook programming environment that was based around a prolog-like database language called. It maintains the idea of a code blocks embedded in markdown-like prose, but the backing langauge was not imperative, but declarative relational[^2]. This meant that Eve solved one of the trickiest parts about Notebook programming, which is the notebook cells can be evaluated in any order, but the underlying languages assume imperative semantics (i.e. execution is expected to occur sequentially). Eve solved this by solving the program with a query engine that recursed until a set-point was reached, evaluating cells in any order as much as required.
 
-This language design opened up all kinds of new possibilities for literate programming.
+For example, in the "FlappyEve" game, the first code block commits several records (facts) to the program database defining the game world:
+
+```eve
+commit
+  [#player #self name: "flappy" x: 25 y: 50 velocity: 0]
+  [#world screen: "menu" frame: 0 distance: 0 best: 0 gravity: -0.061]
+  [#obstacle gap: 55 offset: 0]
+  [#obstacle gap: 35 offset: -1]
+```
+
+A later block searches for the player record and draws it to the game at its x and y coordinates:
+
+```eve
+search @session @browser
+  svg = [#game-window]
+  player = [#player x y]
+
+bind @browser
+  sprite = [#image player | width: 10 height: 10 href: "http://i.imgur.com/sp68LtM.gif" sort: 8]
+  sprite.x := x - 5
+  sprite.y := y - 5
+  svg.children += sprite
+```
+
+The `@` sigil denotes a database, and the `#` sigil denotes a tagged record. Therefore
+
+```
+search @session @browser
+  svg = [#game-window]
+```
+
+will search the `@session` database for a record tagged `#game-window`, and bind it to the variable `svg`. Later `svg.children += sprite` binds a new record to the `children` field of the `svg` record in the `@browser` database.
+
+Because Eve is reactive, when the `y` value changes on the `#player` record (which in the case of this game will be every tick of the game timer), all dependent values are recomputed automatically, so the programmer operates purely on defining data associations rather than control flow as in typical imperative langauges.
+
+This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016.
+
+(2.1.4) Mech and Mechdown Alpha
+
+Which brings us back to Mech. After the [Eve project concluded](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ), I returned to working on Mech, which I had originally started in 2014 (I found out about Eve late in 2014 and I had applied to work on the project on the basis of my experience working with early Mech). The 2014 implementation was not very far along so I scrapped it, and wrote the first version of the current Mech lineage in 2018. By 2019 the first version of Mechdown was implmented in Mech v0.0.2-alpha. In this section I will review v0.0.6-alpha which is still running today.
+
+![Shown here is Mech Alpha, featuring the first version of Mechdown. The pictured program can be accessed at the [archived Mech alpha documentation](https://docs.mech-lang.org/alpha/#/examples/bouncing-balls.mec). The left panel contains a table of contents of the code in the central panel. On the right is the rendered output of the program. Clicking on a variable shows its value in a modal window, which updates live with the program. At the bottom of the screen are playback controls which can pause the program and scrub through its value history. [MECHALPHA]](images/mech-alpha.gif)
+
+The layout for the editor was inspired by what we had done with Eve, keeping the same three-pane layout with a table of contents on the left, code in the center, and output on the right. Mech had crucial difference from Eve though; principally it ditched the relational model and instead adopted a more Matlab-like matrix-based semantics. But, we still maintained the idea of orderless execuation by relying on dataflow analysis to determine dependencies between variables, and then executing them in an order that satisfied those dependencies.
+
+For example, this (legacy) Mech code defined a `#balls` table, where each row represented a ball in the simulation, and each column represented a property of the ball:
+
+```oldmech
+# Bouncing Balls
+
+Define the environment
+
+#ball = [|x y vx vy |
+          10 10 20 0]
+```
+
+This block would render as an `h1`, followed by a `p`, followed by a code block that defined the `#ball` table with columns `x`, `y`, `vx`, and `vy`, and a single row with initial values. Notice the code block doesn't need to be delimited by a fence -- this is because we designed Mechdown and Mech together, so the prose parser is aware of Mech syntax and knows how to parse it. Likewise, Mech syntax is designed not to clash with any of the Mechdown markup. Thus the two langauges can coexist and thereby the tangle/weave problem in Web/Org mode is solved; and we can back our code with a content-oriented document, rather than a data-oriented JSON format like Jupyter.
+
+Then in a separate block of code elsewhere in the program, we could react to the ball bouncing off the game area:
+
+```oldmech
+~ #ball.y                         -- execute this block only when #ball.y changes
+iy = #ball.y > #boundary.height   -- find all balls below the boundary
+#ball.y{iy} := #boundary.height   -- clamp their y position to the boundary
+#ball.vy{iy} := -#ball.vy * 0.80  -- reverse their velocity with some energy loss
+```
+
+The variables prefixed with the `#` sigil are not tags like in Eve, but global tables that can be accessed from any block in the program. Dataflow analysis is performed to determine that `#ball.y` depends on `#boundary.height`, so when the boundary height changes, the ball positions are updated automatically.
+
+Mechdown Alpha supported live Mech code execution, variable inspection, and time travel debugging, which allowed users to pause the program and scrub through its history to see how variables changed over time. This was a nice feature for understanding complex programs and debugging Heisenbugs[^3].
+
+In terms of the implementation, the Mech parser and runtime were written in Rust and compiled to `wasm32` for execution in the browser. The Mechdown editor was written in Javascript, and it interfaced with the Mech runtime via the [wasmbindgen toolchain](https://rustwasm.github.io/docs/wasm-bindgen), which provides interoperation between Rust and Javascript and an API to access the DOM via Rust.
+
+The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019]. 
 
 (2.3) Mechdown Design and Implementation
 
@@ -397,6 +440,8 @@ This is more like an announcement of an announcement, but I am working on formal
 
 [^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime is responsible for determining how to satisfy these relationships, often using techniques like constraint solving or logic inference. This allows for a more high-level and expressive way of defining programs, as the programmer can focus on the "what" rather than the "how". Other relational langauges include Prolog and Datalog. SQL purports to be relational, but by allowind duplicate rows, it doesn't express set semantics and so it's not strictly a relational language. In eve if you want duplicate rows you have to make them distinct with an ID, otherwise they will be treated as the same row.
 
+[^3]: In one very early version of Mech, I had written a bug into the standard library where certain values applied to the `sin` function caused an infinite result, which manifested as objects simply disappearing from the canvas at seemingly random times. Time travel debugging allowed me to pause the running program, rewind back to where the object blinks out, and find out exactly what it was when it did so. That the value was a momentary `NaN` made the fix obvious.
+
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
 [KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
 [LP]: https://en.wikipedia.org/wiki/Literate_programming
@@ -412,4 +457,493 @@ This is more like an announcement of an announcement, but I am working on formal
 [TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data", IEEE Transactions on Software Engineering, vol. SE-5, no. 4, pp. 374-386, July 1979. [Online](https://ieeexplore.ieee.org/document/1702643).
 [TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
 [JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
-[TAOCP]: D. E. Knuth, The Art of Computer Programming, Volumes 1-4. Reading, MA: Addison-Wesley, 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html).
+[TAOCP]: D. E. Knuth; The Art of Computer Programming, Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html).
+[MECHALPHA]: Mech Alpha Documentation, v0.0.6-alpha, 2020. [Online](https://docs.mech-lang.org/alpha)
+[LIVE2019]: C. Montella; Mech - A Programming Language for Data Driven, Reactive Systems; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019. [Online](https://docs.mech-lang.org/alpha/#/live2019.mec)h scripts.
+
+For example, here is some Mech code that does a calculation on some matrix data:
+
+```mech
+x := [1 2 3] ** [4 5 6]'
+```
+
+This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
+
+If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
+
+In the rest of this section, we will talk about the history of literate programming practice and tools, and we will dive into the design and implementation of Mechdown itself.
+
+(2.1) A Brief History of Literate programming
+
+Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
+
+In his words:
+
+> The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author ... strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other [KNUTHLP].
+
+For example, at the time some languages required programmers to declare all variables before you any of them were used, like early Pascal, Fortran, and Algol. This was not a great feature ergonomically, because it forced the programmer to think about the program structure in a way that was not natural. But it was enforced because back then it was convenient for compiler developers to know all the variables up front so they could allocate memory and set up symbol tables before parsing the rest of the program.
+
+<<!["Literate Programming" by Donald Knuth, 1982 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+
+As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it.
+
+Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
+
+While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
+
+(2.1.1) WEBFor example, here is some Mech code that does a calculation on some matrix data:
+
+```mech
+x := [1 2 3] ** [4 5 6]'
+```
+
+This code block is running Mech code that computes the value of {{x}}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
+
+If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
+
+In the rest of this section, we will talk about the history of literate programming practice and tools, and we will dive into the design and implementation of Mechdown itself.
+
+(2.1) A Brief History of Literate programming
+
+Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
+
+In his words:
+
+> The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style. Such an author ... strives for a program that is comprehensible because its concepts have been introduced in an order that is best for human understanding, using a mixture of formal and informal methods that reinforce each other [KNUTHLP].
+
+For example, at the time some languages required programmers to declare all variables before you any of them were used, like early Pascal, Fortran, and Algol. This was not a great feature ergonomically, because it forced the programmer to think about the program structure in a way that was not natural. But it was enforced because back then it was convenient for compiler developers to know all the variables up front so they could allocate memory and set up symbol tables before parsing the rest of the program.
+
+<<!["Literate Programming" by Donald Knuth, 1982 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+
+As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it.
+
+Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
+
+While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
+
+(2.1.1) WEB
+
+WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation.
+
+WEB consists of three components:
+
+- **Source File** (`.web`) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by a name reference.
+
+- **TANGLE** - This tool processes the `.web` file and extracts the code portions, assembling them into proper Pascal source code. The name reflects the idea of untangling the narrative to produce compilable code. It resolves named code sections into an order appropriate for compilation, and outputs a `.pas` file, which can be compiled by a Pascal compiler.
+
+- **WEAVE** - This tool turns the `.web` file into a typeset document using TeX. It organizes and formats both the prose and the code with syntax highlighting, cross-references, and indexing, generating high-quality documentation -- typically a `.tex` file for further processing into PDF.
+
+So the workflow went like this:
+
+![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](images/web.png)
+
+This worked well enough for Knugth to allow him to write his famous book series "The Art of Computer Programming" [TAOCP] using WEB, which is a testament to the power of literate programming for creating complex and well-documented software.
+
+But literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
+
+1. It was hard to learn. Not only do you have to learn a programming language, but you also have to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
+
+2. For Knuth, he had a very clear motive to write in a literate style; he was writing a book on programming, so interleaving code and prose mades sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on proramming. Which is most programmers.
+
+3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the documentation manually, which is error-prone and tedious.
+
+So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literate programming, new tools *and* languages that knew about those tools were needed.
+
+(2.1.2) Emacs Org Mode
+
+Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. The idea here is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
+
+Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
+
+Emacs Org Mode is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. To support the various semantics of the languages in a uniform way, code in Org Mode is written in code blocks, which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. Since the blocks are deliniated, the user can write freeform prose in a markup language similar to Markdown.
+
+Here's an example of an Org Mode document with a code block:
+
+```org
+* Data Analysis
+** Load Data
+
+#+BEGIN_SRC python :results output
+import pandas as pd
+data = pd.read_csv("data.csv")
+data.head()
+#+END_SRC
+
+** Plot Data
+
+#+BEGIN_SRC python :results file
+import matplotlib.pyplot as plt
+plt.plot(data['date'], data['temperature'])
+plt.savefig("plot.png")
+#+END_SRC
+
+[[./plot.png]]
+```
+
+In this example titled "Data Analysis", we have two sections: "Load Data" and "Plot Data". Each section contains a code block written in Python. The first block loads data from a CSV file and displays the first few rows, while the second block creates a plot and saves it as an image file. The results of each code block can be displayed directly in the document.
+
+Org Mode adopt's WEB's "tangle" and "weave" steps in the form of the `:tangle` hader argument:
+
+> In literate programming parlance, documents on creation are woven with code and documentation, and on export, the code is tangled for execution by a computer. Org facilitates weaving and tangling for producing, maintaining, sharing, and exporting literate programming documents. Org provides extensive customization options for extracting source code.
+When Org tangles code blocks, it expands, merges, and transforms them. Then Org recomposes them into one or more separate files, as configured through the options. [TANGLE]
+
+Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-screenshots.html) showcasing its versatility.
+
+(2.1.3) Jupyter Notebooks
+
+Although literate programming is a language agnostic idea, the design of some languages make them more ameniable to notebook programming than others. For example, dynamic languages like Python, R and Julia were designed for interactive use in a REPL enironment, so they translate nicely into a notebook environments like [Jupyter](https://jupyter.org), which is popular for data science and scientific computing. This is in contrast to AOT compiled langues like C++, for which notebook support does exist, but it involves twisting C++ into a more dynamic form by placing restrictsions on what features can be used (e.g. no static linking).
+
+In contrast to Org Mode, Jypyter is not used by writing a specialized markup langauge in plaintext, but instead users write their projects in the Jupyter IDE, which is kind of like a WYSIWYG for notebooks. 
+
+![Jupyter notebook is an interactive computing environment that allows users to create and share documents that contain live code, equations, visualizations, and narrative text. This particular notebook demonstrates the Lorenz Differential Equations using Python, renders rich text like equations, displays a graph of the Python program output, and allows the user to manipulate it with UI Form elements like sliders and buttons [JUPYTER].](images/jupyter.png)
+
+This editor saves files as a [JSON datastructure](https://nbformat.readthedocs.io/en/latest/format_description.html) for easy parsing and transmission. For example, the schema starts with a heading specifying the language kernel and project metadata:
+
+```json
+{
+  "metadata": {
+    "kernel_info": {
+      # if kernel_info is defined, its name field is required.
+      "name": "the name of the kernel"
+    },
+    "language_info": {
+      # if language_info is defined, its name field is required.
+      "name": "the programming language of the kernel",
+      "version": "the version of the language",
+      "codemirror_mode": "The name of the codemirror mode to use [optional]",
+    },
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "cells": [
+    # list of cell dictionaries, see below
+  ],
+}
+```
+
+Then it defines cells and code:
+
+```json
+{
+  "cell_type": "code",
+  "execution_count": 1,
+  "metadata": {
+    "collapsed": false,
+    "scrolled": false
+  },
+  "source": [
+    "import math\n",
+    "radius = 5\n",
+    "area = math.pi * radius ** 2\n",
+    "print(f'The area of a circle with radius {radius} is {area:.2f}')"
+  ],
+  "outputs": [
+    {
+      "output_type": "stream",
+      "name": "stdout",
+      "text": [
+        "The area of a circle with radius 5 is 78.54\n"
+      ]
+    }
+  ]
+}
+```
+
+(2.1.4) Eve
+
+[Eve](https://witheve.com) was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of Javascript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
+
+![The Eve notebook editor, which was written mostly in Javascript and Typescript. It features a WYSIWYG prose editor integrated directly with the Eve language. The code output is rendered to the right of the code, and an outline of the source is rendered to the left. Various debugging tools exist within the editor, and can be used when the program is running. The application pictured is [FlappyEve](https://play.witheve.com/#/examples/flappy.eve). Visiting the link takes you to the Eve hosted editor, which is running entirely in the client's browser along with the Eve language runtime.](images/eve.png)
+
+We we arrived at was a notebook programming environment that was based around a prolog-like database language called. It maintains the idea of a code blocks embedded in markdown-like prose, but the backing langauge was not imperative, but declarative relational[^2]. This meant that Eve solved one of the trickiest parts about Notebook programming, which is the notebook cells can be evaluated in any order, but the underlying languages assume imperative semantics (i.e. execution is expected to occur sequentially). Eve solved this by solving the program with a query engine that recursed until a set-point was reached, evaluating cells in any order as much as required.
+
+For example, in the "FlappyEve" game, the first code block commits several records (facts) to the program database defining the game world:
+
+```eve
+commit
+  [#player #self name: "flappy" x: 25 y: 50 velocity: 0]
+  [#world screen: "menu" frame: 0 distance: 0 best: 0 gravity: -0.061]
+  [#obstacle gap: 55 offset: 0]
+  [#obstacle gap: 35 offset: -1]
+```
+
+A later block searches for the player record and draws it to the game at its x and y coordinates:
+
+```eve
+search @session @browser
+  svg = [#game-window]
+  player = [#player x y]
+
+bind @browser
+  sprite = [#image player | width: 10 height: 10 href: "http://i.imgur.com/sp68LtM.gif" sort: 8]
+  sprite.x := x - 5
+  sprite.y := y - 5
+  svg.children += sprite
+```
+
+The `@` sigil denotes a database, and the `#` sigil denotes a tagged record. Therefore
+
+```
+search @session @browser
+  svg = [#game-window]
+```
+
+will search the `@session` database for a record tagged `#game-window`, and bind it to the variable `svg`. Later `svg.children += sprite` binds a new record to the `children` field of the `svg` record in the `@browser` database.
+
+Because Eve is reactive, when the `y` value changes on the `#player` record (which in the case of this game will be every tick of the game timer), all dependent values are recomputed automatically, so the programmer operates purely on defining data associations rather than control flow as in typical imperative langauges.
+
+This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016.
+
+(2.1.4) Mech and Mechdown Alpha
+
+Which brings us back to Mech. After the [Eve project concluded](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ), I returned to working on Mech, which I had originally started in 2014 (I found out about Eve late in 2014 and I had applied to work on the project on the basis of my experience working with early Mech). The 2014 implementation was not very far along so I scrapped it, and wrote the first version of the current Mech lineage in 2018. By 2019 the first version of Mechdown was implmented in Mech v0.0.2-alpha. In this section I will review v0.0.6-alpha which is still running today.
+
+![Shown here is Mech Alpha, featuring the first version of Mechdown. The pictured program can be accessed at the [archived Mech alpha documentation](https://docs.mech-lang.org/alpha/#/examples/bouncing-balls.mec). The left panel contains a table of contents of the code in the central panel. On the right is the rendered output of the program. Clicking on a variable shows its value in a modal window, which updates live with the program. At the bottom of the screen are playback controls which can pause the program and scrub through its value history. [MECHALPHA]](images/mech-alpha.gif)
+
+The layout for the editor was inspired by what we had done with Eve, keeping the same three-pane layout with a table of contents on the left, code in the center, and output on the right. Mech had crucial difference from Eve though; principally it ditched the relational model and instead adopted a more Matlab-like matrix-based semantics. But, we still maintained the idea of orderless execuation by relying on dataflow analysis to determine dependencies between variables, and then executing them in an order that satisfied those dependencies.
+
+For example, this (legacy) Mech code defined a `#balls` table, where each row represented a ball in the simulation, and each column represented a property of the ball:
+
+```oldmech
+# Bouncing Balls
+
+Define the environment
+
+#ball = [|x y vx vy |
+          10 10 20 0]
+```
+
+This block would render as an `h1`, followed by a `p`, followed by a code block that defined the `#ball` table with columns `x`, `y`, `vx`, and `vy`, and a single row with initial values. Notice the code block doesn't need to be delimited by a fence -- this is because we designed Mechdown and Mech together, so the prose parser is aware of Mech syntax and knows how to parse it. Likewise, Mech syntax is designed not to clash with any of the Mechdown markup. Thus the two langauges can coexist and thereby the tangle/weave problem in Web/Org mode is solved; and we can back our code with a content-oriented document, rather than a data-oriented JSON format like Jupyter.
+
+Then in a separate block of code elsewhere in the program, we could react to the ball bouncing off the game area:
+
+```oldmech
+~ #ball.y                         -- execute this block only when #ball.y changes
+iy = #ball.y > #boundary.height   -- find all balls below the boundary
+#ball.y{iy} := #boundary.height   -- clamp their y position to the boundary
+#ball.vy{iy} := -#ball.vy * 0.80  -- reverse their velocity with some energy loss
+```
+
+The variables prefixed with the `#` sigil are not tags like in Eve, but global tables that can be accessed from any block in the program. Dataflow analysis is performed to determine that `#ball.y` depends on `#boundary.height`, so when the boundary height changes, the ball positions are updated automatically.
+
+Mechdown Alpha supported live Mech code execution, variable inspection, and time travel debugging, which allowed users to pause the program and scrub through its history to see how variables changed over time. This was a nice feature for understanding complex programs and debugging Heisenbugs[^3].
+
+In terms of the implementation, the Mech parser and runtime were written in Rust and compiled to `wasm32` for execution in the browser. The Mechdown editor was written in Javascript, and it interfaced with the Mech runtime via the [wasmbindgen toolchain](https://rustwasm.github.io/docs/wasm-bindgen), which provides interoperation between Rust and Javascript and an API to access the DOM via Rust.
+
+The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019]. 
+
+(2.3) Mechdown Design and Implementation
+
+Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
+
+- Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
+
+- Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
+- This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
+- But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
+
+- What does this buy us? A we can write naturally just as in markdown.
+- We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
+
+- Parsing generates a parse tree which we then pass on to the formatter
+
+** Formatting ** 
+
+- The formatter takes a parse tree and generates a HTML document from it. 
+- The HTML document is fully styled
+- The formatter works by walking the tree and building an HTML tree, so really the HTML document can be thought of as another representation of the parse tree. This is neat becaues we can use Chrome's element inspector to inspect the parse tree, and we can use the Mechdown formatter to generate a new parse tree from the HTML document. Well, we could anyway, but what we actually do is we store a BASE64 encoded version of the parse tree from which the document was generated *inside* of the document, so that we don't have to reparse anything if we want to recover the source code. This work was done before the bytecode interpreter was implemented, so in the future we will be able to store bytecode in there instead of the parse tree, which will make things faster and smaller.
+
+- The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
+
+- The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
+- You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
+
+(2.4) Serving
+
+- mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
+
+- So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
+
+- After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
+
+(2.5)
+
+3. Other v0.2 Features
+-------------------------------------------------------------------------------
+
+(3.1) Complex and Rational Numbers
+
+(3.2) Wasm Repl
+
+(3.3) Ecosystem
+
+4. v0.3 Preview
+-------------------------------------------------------------------------------
+
+At the end of the v0.2 development cycle, the language became large enough that certain practices which worked well for small languages began to break down. In this case, we were loading the entire standard library into the runtime at startup, which made the repl slow to start and used a lot of memory. Therefore, we decided to invest some energy into writing the bytecode interpreter and compiler which was slated for v0.3. In this section, we will talk about the design and implementation of these components, which are available now, but should be considered "alpha" quality because they are not officially part of the v0.2 release.
+
+(4.1) Bytecode Interpreter and Compiler
+
+Mech right now is an interpreted language; the source code is parsed, and then the AST is run on the interpreter. Mech manages to be faster than other interpreted languages like Python because it is statically typed, so we can unbox many values at compiletime to reduce runtime work. Now, usually to get a really fast and portable language what I would have to do is write a compiler that targets LLVM or WebAssembly. If I were to go down the route, I would spend a lot of my time writing code that ultimately would mean Mech programs are a little faster or a little more portable. But the tradeoff is that it would take a lot of time and effort to implement, and I would have to maintain a lot of code that is not really core to the language itself. 
+
+So instead we are taking a hybrid approach that should get most of the speed while not being a crazy amount of work for one person to implement. This approach works in two phases:
+
+**Phase 1** In the first phase, we parse the Mech source code into an AST as before, and then we interpret it as much as we can in a precomputation stage. Langauges like Zig and Nim do something similar where they have a compile-time execution engine that can run code at compile time to generate code. Mech takes this idea further by trying to interpret as much of the program as possible at compile time, so that the runtime has less work to do. In this stage, the interpreter determines types of all variables and all features that are needed for the program to run, everything that can be precomputed is memoized into a constant, and the the program is compiled into a `*.mecb` Mech bytecode file.
+
+**Phase 2** In the second phase, the Mech compiler consumes the `.mecb` file, and a Rust shim, which is a small program that embeds the Mech bytecode interpreter, and runs the Mech runtime. It's job is to load the bytecode, set up the runtime environment, and execute the program. This shim can be compiled to any target that Rust supports, which means Mech programs can run anywhere Rust can run, including WebAssembly. The necessary Mech functions for the program can be packaged into the binary at compiletime (how it works now), or (as a possible feature) they can be downloaded by the shim and linked at runtime.
+
+Let's take a look at how this is implemented today.
+
+(4.2) Mech Bytecode
+
+This is version 1 of the Mech bytecode format. Consider the following Mech code:
+
+```mech:disabled
+x := 1 + 2
+```
+
+This compiles into the following bytecode:
+
+```
+000  4d 45 43 48 01 40 02 00  00 05 00 00 00 08 00 00 |MECH.@..........|
+010  00 05 00 00 00 81 00 00  00 00 00 00 00 03 00 00 |................|
+020  00 ad 00 00 00 00 00 00  00 06 00 00 00 d5 00 00 |................|
+030  00 00 00 00 00 90 00 00  00 00 00 00 00 65 01 00 |.............e..|
+040  00 00 00 00 00 26 00 00  00 00 00 00 00 00 00 00 |.....&..........|
+050  00 00 00 00 00 8b 01 00  00 00 00 00 00 8b 01 00 |................|
+060  00 00 00 00 00 60 00 00  00 00 00 00 00 eb 01 00 |.....`..........|
+070  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 |................|
+080  00 05 00 00 00 11 00 00  00 00 00 00 00 0c 00 00 |................|
+090  00 00 00 00 00 3c 00 00  00 00 00 00 00 10 00 00 |.....<..........|
+0a0  00 00 00 00 00 19 00 00  00 00 00 00 00 03 00 00 |................|
+0b0  00 0c 00 00 00 01 00 00  00 00 00 00 00 0f 00 00 |................|
+0c0  00 01 00 00 00 00 00 00  00 10 00 00 00 01 00 00 |................|
+0d0  00 00 00 00 00 00 00 00  00 01 08 00 00 00 00 00 |................|
+0e0  00 00 00 00 00 08 00 00  00 00 00 00 00 00 00 00 |................|
+0f0  00 01 08 00 00 08 00 00  00 00 00 00 00 08 00 00 |................|
+100  00 00 00 00 00 00 00 00  00 01 08 00 00 10 00 00 |................|
+110  00 00 00 00 00 08 00 00  00 00 00 00 00 00 00 00 |................|
+120  00 01 08 00 00 18 00 00  00 00 00 00 00 08 00 00 |................|
+130  00 00 00 00 00 01 00 00  00 01 01 00 00 20 00 00 |............. ..|
+140  00 00 00 00 00 05 00 00  00 00 00 00 00 02 00 00 |................|
+150  00 01 01 00 00 25 00 00  00 00 00 00 00 01 00 00 |.....%..........|
+160  00 00 00 00 00 00 00 00  00 00 00 08 40 00 00 00 |............@...|
+170  00 00 00 f0 3f 00 00 00  00 00 00 00 40 00 00 00 |....?.......@...|
+180  00 00 00 08 40 01 00 00  00 78 00 01 00 00 00 00 |....@....x......|
+190  00 00 00 00 01 01 00 00  00 01 00 00 00 01 02 00 |................|
+1a0  00 00 02 00 00 00 30 f3  86 84 68 77 2c 0a 00 00 |......0...hw,...|
+1b0  00 00 00 01 00 00 00 02  00 00 00 01 00 00 00 00 |................|
+1c0  03 00 00 00 01 03 00 00  00 04 00 00 00 01 04 00 |................|
+1d0  00 00 05 00 00 00 30 e7  55 b6 86 ad b6 23 00 00 |......0.U....#..|
+1e0  00 00 00 03 00 00 00 04  00 00 00 bc f2 d6 1f    |...............|
+```
+
+Sections include:
+
+1. Header
+  1. Magic number at the beginning `0x4d 45 43 48` spells "MECH".
+  2. Bytecode version
+  3. Mech Version
+  4. Flags
+  5. A whole bunch of offsets to read the various sections
+2. Feature flag array - indicates to the compiler what features to include
+3. Type array - interns types
+4. Constants
+  1. First a directory of constant entries 
+  2. Then a blob of constants
+5. Symbol table - mapping from symbol IDs to registers
+6. Instructions - the actual program to be executed. Each instruction is:
+  - Op code
+  - Array of input registers
+  - Output register
+7. Dictionary - A mapping from symbol IDs to strings. This section is optional and is only needed if human-readable IDs are required.
+8. Checksum
+
+If you'd like to see how these sections map to the above bytecode, you can see an example in the [v0.2.58 release noted](https://github.com/mech-lang/mech/releases/tag/v0.2.58-beta).
+
+Each instruction in Mech is one of the following variants: 
+
+- Nullary - instructions that have no input registers and one output register. Example: `io/print`
+- Unary - instructions that have one input and one output. Example: `math/negate`
+- Binary - instructions that take two inputs and one output. Example: `math/add`
+- Ternary - instructions that take three inputs and produce one output. Example: `access/range`
+- Quaternary - instructions that take four inputs and produce one output. Example: `matrix/horzcat/4`
+- Variadic - instructions that take a variable number of inputs and produce one output. Example: `matrix/horzcat/n`
+
+The Rust interface for the compiler consists of 2 main traits: [MechFunctionCompiler](https://github.com/mech-lang/mech/blob/main/src/core/src/functions.rs#L75) and [MechFunctionFactory](https://github.com/mech-lang/mech/blob/main/src/core/src/functions.rs#L64). The job of the compiler is to take the semi-compiled Mech functions and translate them into bytecode instructions, which is done by converting the function inputs and output into registers, and then emitting the appropriate op codes into the bytecode stream.
+
+On the other side is the bytecode interpreter. It decodes the bytecode instructions from the `*.mecb` file by reading the opcodes and mapping them to the corresponding function descriptors registered with the interpreter at startup. Function descriptors are paramaterized by the name of the function, as well as the types of the input and output arguments.
+
+What's nice about this is parsing bytecode is extremely fast compared to parsing source code, since everything has already been parsed and serialized already in Phase 1. Therefore we don't have to ship the parser or any code it requires with the runtime, which helpa keep it small and embeddable.
+
+Each function is implemented as a Rust function that takes input values from the registers, performs the operation, and writes the result back to the output register. By the time this interpreter is running the program, the previous phase has already verified types and precomputed as much as possible, so extraneous runtime work is minimized. This is the secret to making the bytecode interpreter fast.
+
+(4.2) Compiler
+
+Now, having a bytecode format and an interpreter that reads it is great for portability and performance, but I want Mech to provide the easiest experience for users, which to me is embodied in the single-file executable that you can double click and run. It just doesn't get any easier than that.
+
+To achieve this we drew some inspiration from [Lua Redbean](https://redbean.dev), which is a single-file executable that embeds a Lua interpreter and a web server. You can drop a Lua script into the redbean executable, and it zip it up and embed it into the binary itself, allowing you to distribute a single file that contains both the interpreter and your code.
+
+With Mech we do the same thing using the shim mentioned in the last section. When executed, the shim executes itself, and it reads a zip archive appended to the end of the binary, which contains the Mech bytecode file. The shim then extracts the bytecode from the zip archive, loads it into the embedded Mech bytecode interpreter, and runs it. To the user, the appears no different from running typical executables generated from C or Rust.
+
+That's not all, we go one step further and we customize the runtime that's embedded into the binary to only include the functions that are needed for the program to run. By using the information from the precompilation phase, we know which features of the Mech compiler to disable and which to include. These savings are significant, because it means if we don't use a particular library or feature in our program, we don't have to pay for it in the final binary size / load times / memory consumption.
+
+The end result is very small binaries that are also fast to start up and execute fully compiled language like C or Rust, but compiletime is seconds, and if you don't want to compile the full executable that can be reduced to milliseconds by just interpreting the code.
+
+(4.2.1) `mechc`
+
+To make this process easy for users, we have created a command-line tool called `mechc`, which is the standalone Mech compiler. This tool automates the two-phase compilation process, taking Mech source code as input, and producing a single-file executable as output. In `v0.3` when project manifests will be specified and implemented, `mechc` will also download and compile the project dependency tree.
+
+We've implemented this tool in Rust, although it will be one of the first components of the project rewritten in Mech itself once state machines are define in `v0.3`. The build process is as follows:
+
+1. The user runs `mechc <source-files>`
+2. `mechc` collects all files in the source directory and specefically looks for an `index.mpkg` file, which will be the name of the manifest for the project. If none is found it uses default settings, but if it finds one it will parse it immediately, extract all the project settings, and configure the build environment.
+3. Any dependencies specified in the manifest and their recursive dependencies are downloaded from the Mech package registry. Registered packages must have an `index.mpkg`.
+4. As packages are downloaded, their source is passed to the Mech compiler, which compiles each package into bytecode, and collects information about which functions are used. This compiler can work in parallel, so multiple packages can be compiled simultaneously.
+5. After all packages are compiled to bytecode, `mechc` configures a temporary Rust project that has only the Mech features necessary to run the project enabled.
+6. `Cargo` is invoked from `mechc` as a backend to compile the shim and the Mech interpreter. Cargo build artifacts are cached in the Mech project build directory to make subsequent builds faster.
+7. The project bytcode is zipped up and appended to the end of the compiled binary.
+8. The final single-file executable is output to the `build` directory.
+
+Since we are leveraging Rust and Cargo as a backend, we get cross-compilation to any platform that Rust supports for free. Therefore, users can build Mech programs for any target that Rust supports, including Windows, Linux, MacOS, and WebAssembly.
+
+
+5. What's Next?
+-------------------------------------------------------------------------------
+
+(5.1) v0.2 Completion
+
+(5.2) v0.3 Kickoff
+
+(5.3) Mech Labs
+
+This is more like an announcement of an announcement, but I am working on formalizing the development of Mech into a collaborative research lab. 
+
+
+
+***
+
+[^1]: Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author [HOLON]. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. Towster's work can be found in his 1979 paper [TOWSTER].
+
+[^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime is responsible for determining how to satisfy these relationships, often using techniques like constraint solving or logic inference. This allows for a more high-level and expressive way of defining programs, as the programmer can focus on the "what" rather than the "how". Other relational langauges include Prolog and Datalog. SQL purports to be relational, but by allowind duplicate rows, it doesn't express set semantics and so it's not strictly a relational language. In eve if you want duplicate rows you have to make them distinct with an ID, otherwise they will be treated as the same row.
+
+[^3]: In one very early version of Mech, I had written a bug into the standard library where certain values applied to the `sin` function caused an infinite result, which manifested as objects simply disappearing from the canvas at seemingly random times. Time travel debugging allowed me to pause the running program, rewind back to where the object blinks out, and find out exactly what it was when it did so. That the value was a momentary `NaN` made the fix obvious.
+
+[KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
+[KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
+[LP]: https://en.wikipedia.org/wiki/Literate_programming
+[SRC]: https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads
+[HTML]: https://mech-lang.org/post/2025-04-09-mechdown/index.html
+[LHS]: [Literate Haskell](https://wiki.haskell.org/index.php?title=Literate_programming) - Offical Website
+[ORG]: [Emacs Org Mode](https://orgmode.org) - Official Website
+[KATEX]: [KaTeX](https://katex.org) - Official Website
+[TEXBOOK]: D. E. Knuth, The TeXbook. Reading, MA: Addison-Wesley, 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf).
+[LATEXPRJ]: [LaTeX Project](https://www.latex-project.org) - Official Website
+[LATEX]: L. Lamport, LaTeX: A Document Preparation System, 2nd ed. Reading, MA: Addison-Wesley, 1994.
+[HOLON]: P.A. de Marneffe, Holon Programming: A Survey, Self Published, December 1973. [Online](https://github.com/holon-scribe/holon-programming)
+[TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data", IEEE Transactions on Software Engineering, vol. SE-5, no. 4, pp. 374-386, July 1979. [Online](https://ieeexplore.ieee.org/document/1702643).
+[TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
+[JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
+[TAOCP]: D. E. Knuth; The Art of Computer Programming, Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html).
+[MECHALPHA]: Mech Alpha Documentation, v0.0.6-alpha, 2020. [Online](https://docs.mech-lang.org/alpha)
+[LIVE2019]: C. Montella; Mech - A Programming Language for Data Driven, Reactive Systems; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019. [Online](https://docs.mech-lang.org/alpha/#/live2019.mec)
