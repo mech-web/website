@@ -470,9 +470,9 @@ First, the main thing that separates Mech code blocks from regular ones is there
 
 a := 1 + 1
 
-This line of code is parsed and executed by the Mech runtime, adding the variable {{a}} to the program's global scope with the value {a}.
+This line of code is parsed and executed by the Mech runtime, adding the variable {{a}} to the program's global scope with the value {a}. Syntax highlighting is achieved by walking the program AST and assigning AST nodes to HTML nodes. Thus the browser inspector can be used to see the parse tree of the code block.
 
-Then in a later block, we can reference `a` and use it in further calculations:
+In a later block, we can reference {{a}} and use it in further calculations:
 
 b := a * 3
 
@@ -499,20 +499,50 @@ e := d ^ 2
 
 In the future, the output should be configurable, so that we can display all variable values, or even custom output defined by the user, which was a feature we first explored in [Mechdown Alpha](https://docs.mech-lang.org/alpha/#/docs/math/sin.mec).
 
-() Syntax highlighting
-
-
 (4.2.2) Inline Mech Code
 
+You can bring Mech values into prose paragraphs using inline Mech code. This is done by wrapping Mech expressions in curly braces `{` and `}`. For example, `{a}` is rendered as {a} in the paragraph because that's the value in the runtime. If it changes, the runtime will update the display in the paragraph to keep the output in sync with the program state, making these documents reactive. When the Mech runtime isn't loaded (i.e. the code is saved to a raw `.html` file and opened directly in the browser), the inline code will simply render as the original expression, so `{a}` would render as `a`.
 
+It gets better though, we can write arbitrary Mech expressions inline, so `{a + b}` is parsed by the runtime and then executed. When the result is available, it is rendered in place: {a + b}.
 
-- Interactive variables
+Finally, if we want to parse mech code but not execute it, we have the inline Mech syntax element, denoted by `{{}}`. This is useful for documentation purposes, where we want to show the code itself rather than its result. For example, `{{a + (b * 2)}}` renders as {{a * (b + 2)}}.
 
-- Sub interpreters
+(4.2.3) Sub Interpreters
 
+As a final highlight, Mechdown supports sub interpreters, which allow for code blocks to be executed in isolated environments. This is useful for testing and experimentation, where we want to run code without affecting the global program state. I use sub interpreters extensilvely when I write tests and examples for the Mech standard library, so that each example can run independently without interfering with other examples.
+
+In Mech, once a variable is defined, it can't be redefined in the same scope. This is not a problem if we use a completely different interpreter though, which is supported with fenced code blocks. For example:
+
+```
+~~~mech:ex1
+x := 10
+~~~
+```
+Creates a block in the `ex1` sub interpreter where {{x}} is defined as 10. In a separate block, we can define {{x}} again in a different sub interpreter:
+
+```
+~~~mech:ex2
+x := 20
+~~~
+```
+```mech:ex1
+x := 10
+```
+```mech:ex2
+x := 20
+```
+The "FizzBuzz" example at the beginning of this document is defined to run in the `mech:fizzbuzz` sub interpreter, so it doesn't interfere with the rest of the program. We can access its variables by writing other blocks in the same sub interpreter:
+
+```mech:fizzbuzz
+x * 2
+```
 
 5. Tooling
 -------------------------------------------------------------------------------
+
+What you have read so far in this document was generated using the Mech compiler and toolchain, which includes features for Mechdown support. There is no separate utility for Mechdown as I don't see a real need for it. For starters, the utility is pretty small and self contained as it is, so it's not a realy burden to include the rest of Mech with it. And anyway, Mechdown is supposed to be a vector into Mech, so we want people to have Mech right there when they decide they need programming capabilities in ther Mechdown documents.
+
+In this section, we will look at all the tools we have built so far that support writing and building Mechdown documents.
 
 (5.1) `mech format`
 
