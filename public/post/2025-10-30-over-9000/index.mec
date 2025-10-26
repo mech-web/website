@@ -2,14 +2,30 @@
 Fall 2025 Progress Report - Mechdown and Bytecode
 ===============================================================================
 
-%% In this post we will review the progress made on the Mech programming language project so far this year, focusing on the beta implementation of the Mechdown literate programming tool, and the alpha implementation of the new bytecode interpreter and compiler. We will also provide a preview of features planned for Mech v0.3.
+%% In this post we will review the progress made on the Mech programming language project so far in 2025, focusing on the beta implementation of the Mechdown literate programming tool, and the alpha implementation of the new bytecode interpreter and compiler. This document is written in Mechdown, so it further serves as a demonstration of Mechdown itself.
 
-1. Project Status
+If you're not familiar with Mech, here is a quick taste which demos many features in just a few lines:
+
+```mech
+  x := 1..=10                -- A row vector of numbers from 1 to 10
+  ~out<[string]> := x       -- Convert `x` into mutable string vec
+  
+  ix2 := (x % 2) == 0       -- Indices for multiples of 2
+  ix3 := (x % 3) == 0       -- Indices for multiples of 3
+  
+  out[ix2] = "✨"           -- Set multiples of 2 to "✨"
+  out[ix3] = "🐝"           -- Set multiples of 3 to "🐝"
+  out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
+```
+
+This is the classic "FizzBuzz" program, written in Mech. It generates a vector of numbers from 1 to 10, and replaces multiples of 2 with a `✨`, multiples of 3 with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow; instead, it relies on Mech's matrix semantics like broadcasting operations and logical indexing. Code blocks are configured to display as output the value of the last line of the block.
+
+Anyway, you might want to grab a drink -- this is probably the longest and most significant blog update I've posted to date.
+
+1. By the numbers - Over 9000 commits!
 -------------------------------------------------------------------------------
 
 It's been a while since the last progress report, so I will begin with a quick summary of where we are right now.
-
-(1.1) By the numbers - Over 9000 commits!
 
 After some preliminary work in 2014, the first real implementation of Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the Eve project concluded. Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
@@ -25,10 +41,6 @@ This cycle will be considered "released" when we've finished writing documentati
 
 For a complete roadmap, see the [Mech Project Roadmap](https://docs.mech-lang.org/design/ROADMAP.mec).
 
-(1.2) Capstone Team
-
-The project team includes myself, and this year we have a new team of 4 computer science students from Lehigh University helping to build out the standard library. They will have a follow-up blog post before the end of the year about their experience working on Mech.
-
 So let's take a look at what's new in Mech...
 
 2. Mechdown
@@ -41,10 +53,10 @@ Mechdown is a dialect of Markdown, with unambiguous sytnax and additional featur
 For example, here is some Mech code that does a calculation on some matrix data:
 
 ```mech
-x := [1 2 3] ** [4 5 6]'
+s := [1 2 3] ** [4 5 6]'
 ```
 
-This code block is running Mech code that computes the value of {x[1]}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
+This code block is running Mech code that computes the value of {{s[1]}} is {s[1]}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
 
 If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
 
@@ -368,7 +380,25 @@ Title
 
 The TOC is generated from these titles and can be styled with CSS. The opening, closing, and highlighting of sections that you see is handled by Javascript and CSS, so it's an example of how Mech and Javascript can still interoperate in this new version of Mech.
 
-(2.3.1.2) Sections
+(2.3.1.2) Paragraphs
+
+The heart and soul of any literate programming document is the mighty paragraph. Mechdown supports all the standard paragraph features you would expect from a modern markup language, including:
+
+- **Bold Text**
+- *Italic Text*
+- __Underline Text__
+- ~~Strikethough Text~~
+- !!Highlighted Text!!
+- `Inline code snippets`
+- {{inline-mech := syntax + "highlighting"}}
+- $$inline-equation = mc^2$$
+- [Hyperlinks](#)
+- Autonumbered inline references [LP]
+- Autonumbered footnote references[^1]
+
+These elements can be added wherever paragraphs are used, including as section elements, in lists, figure captions, table cells, and even Mech code comments. That last one is particularly useful:
+
+z := 7 ^ 2 + 3 * 4 - 5 / 2  -- Evaluates to {z}
 
 A Mechdown document consists of one or more sections, each with an optional subtitle, section elements, and can contain nested subsections. The elements within the subsection correspond to the main elemments of the document body, such as paragraphs, code blocks, lists, images, tables, equations, and so on.
 
@@ -378,6 +408,7 @@ Both ordered and unordered lists are supported, with support for nested lists as
 
 Here's a list of some of the features of lists:
 
+```
 1. Bullet lists
     - One
     - Two
@@ -398,6 +429,16 @@ Here's a list of some of the features of lists:
     -[ ] Task One
     -[x] Task Two
     -[ ] Task Three
+```
+
+That last one is interesting because when rendered, those checkboses are interactive. e.g.:
+
+-[ ] Task One
+-[x] Task Two
+
+So, in theory, this opens up the possibility of writing interactive documents with Mechdown, where the user can check off tasks and the document can respond accordingly according to Mech code defined in the document itself. 
+
+
 
 Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
 
