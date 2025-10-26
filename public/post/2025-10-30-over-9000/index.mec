@@ -1,12 +1,13 @@
 
-Fall 2025 Progress Report - Mechdown and Bytecode
+Fall 2025 Progress Report - Mechdown
 ===============================================================================
 
-%% In this post we will review the progress made on the Mech programming language project so far in 2025, focusing on the beta implementation of the Mechdown literate programming tool, and the alpha implementation of the new bytecode interpreter and compiler. This document is written in Mechdown, so it further serves as a demonstration of Mechdown itself.
+%% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed to make it easy to work with large datasets, do numerical computing, and build interactive applications from user interfaces, games, and even robots.
+In this post we will review the progress so far in this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-30-over-9000/index.mec?ref_type=heads) and is served on the Mech platform, so everything you see here demonstrates the system's capabilities..
 
-If you're not familiar with Mech, here is a quick taste with many features demoed in just a few lines:
+If you're not familiar with Mech,  here is a quick taste with many features demoed in just a few lines:
 
-```mech
+```mech:fizzbuzz
   x := 1..=10               -- A row vector of numbers from 1 to 10
   ~out<[string]> := x       -- Convert `x` into mutable string vec
   
@@ -19,6 +20,8 @@ If you're not familiar with Mech, here is a quick taste with many features demoe
 ```
 
 This is the classic "FizzBuzz" program, written in Mech. It generates a vector of numbers from 1 to 10, and replaces multiples of 2 with a `✨`, multiples of 3 with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow; instead, it relies on Mech's matrix semantics like broadcasting operations and logical indexing. Code blocks are configured to display as output the value of the last line of the block.
+
+Click on the variables and you'll see their values echoed in the REPL to the right (if you don't see the REPL, that's because it's hidden when the window is too narrow -- view it on the desktop).
 
 Anyway, you might want to grab a snack -- this is probably the longest and most significant update to Mech I've posted to date.
 
@@ -35,20 +38,19 @@ Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments aroun
 
 Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
 
-Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
+Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
 This cycle will be considered "released" when we've finished writing documentation and tests. We anticipate work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
 
 For a complete roadmap, see the [Mech Project Roadmap](https://docs.mech-lang.org/design/ROADMAP.mec).
-
 So let's take a look at what's new in Mech...
 
 2. Mechdown
-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
-The first and most obvious feature is Mechdown, which is being demonsrated on this blog post itself. Mechdown is a literate programming tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live documents and explanatory content, but we also see potential for it to be used as a $$\LaTeX$$ replacement for scientific papers and reports.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live documents and explanatory content, but we also see potential for it to be used as a $$\LaTeX$$ replacement for scientific papers and reports. This blog post is a demonstration of Mechdown.
 
-Mechdown is a dialect of Markdown, with unambiguous sytnax and additional features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring liveness to your documents with Mech scripts.
+Mechdown is a dialect of Markdown, extending it with unambiguous sytnax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
 For example, here is some Mech code that does a calculation on some matrix data:
 
@@ -56,13 +58,14 @@ For example, here is some Mech code that does a calculation on some matrix data:
 s := [1 2 3] ** [4 5 6]'
 ```
 
-This code block is running Mech code that computes the value of {{s[1]}} is {s[1]}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
+This code block is attached to a Mech interpreter that computes the value of {{s[1]}} is {s[1]}. With this feature, Mech becomes a first-class literate programming language for creating live documents, reports, and presentations. 
 
 If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
 
-In the rest of this section, we will talk about the history of literate programming practice and tools, and we will dive into the design and implementation of Mechdown itself.
+In the rest of this doucment, we will review the history of literate programming languages, and then talk about the design and implementation of Mechdown as it exists today, and the various tools implemented so far to work with this new system. Finally, finally we will wrap up with some details on the plans for hte `v0.2` release, and the and also a sneak peek at what is coming in `v0.3`.
 
-(2.1) A Brief History of Literate programming
+3. A Brief History of Literate programming
+-------------------------------------------------------------------------------
 
 Literate programming is a programming paradigm introduced by Donald Knuth in 1984, when he introduced the WEB system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to explain his ideas more clearly. His insight was that programs should be written primarily for human understanding, not just machine execution.
 
@@ -80,7 +83,7 @@ Some of this can (and has) been solved with better language design; modern langu
 
 While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
 
-(2.1.1) WEB
+(3.1) WEB (1983)
 
 WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation.
 
@@ -108,7 +111,7 @@ But literate programming didn't really take the world by storm, and it remained 
 
 So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literate programming, new tools *and* languages that knew about those tools were needed.
 
-(2.1.2) Emacs Org Mode
+(3.2) Emacs Org Mode (2003)
 
 Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. The idea here is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
 
@@ -148,7 +151,7 @@ When Org tangles code blocks, it expands, merges, and transforms them. Then Org 
 
 Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-screenshots.html) showcasing its versatility.
 
-(2.1.3) Jupyter Notebook
+(3.3) Jupyter Notebook (2015)
 
 Although literate programming is a language agnostic idea, the design of some languages make them more ameniable to notebook programming than others. For example, dynamic languages like Python, R and Julia were designed for interactive use in a REPL enironment, so they translate nicely into a notebook environments like [Jupyter](https://jupyter.org), which is popular for data science and scientific computing. This is in contrast to AOT compiled langues like C++, for which notebook support does exist, but it involves twisting C++ into a more dynamic form by placing restrictsions on what features can be used (e.g. no static linking).
 
@@ -208,7 +211,7 @@ Then it defines cells and code:
 }
 ```
 
-(2.1.4) Eve
+(3.4) Eve (2016)
 
 [Eve](https://witheve.com) was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of Javascript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
 
@@ -253,7 +256,7 @@ Because Eve is reactive, when the `y` value changes on the `#player` record (whi
 
 This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016.
 
-(2.1.4) Mech and Mechdown Alpha
+(3.5) Mechdown Alpha (2019)
 
 Which brings us back to Mech. After the [Eve project concluded](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ), I returned to working on Mech, which I had originally started in 2014 (I found out about Eve late in 2014 and I had applied to work on the project on the basis of my experience working with early Mech). The 2014 implementation was not very far along so I scrapped it, and wrote the first version of the current Mech lineage in 2018. By 2019 the first version of Mechdown was implmented in Mech v0.0.2-alpha. In this section I will review v0.0.6-alpha which is still running today.
 
@@ -291,7 +294,17 @@ In terms of the implementation, the Mech parser and runtime were written in Rust
 
 The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019]. 
 
-(2.3) Design and Implementation
+(3.6) Other Systems
+
+Literate Haskell
+Typst https://typst.app
+marimo https://marimo.io
+R Markdown https://dl.acm.org/doi/abs/10.1145/3643991.3644931 https://rmarkdown.rstudio.com/index.html
+
+
+
+4. Design and Implementation
+-------------------------------------------------------------------------------
 
 One of the key design philosophies behind Mech's syntax follows Markdown, in that it should be easy to read and write in plain text form, without requiring specialized editors or tools. This makes it accessible to a wide range of users, and allows for easy collaboration and version control using standard text-based tools. So in designing Mechdown we took all the best parts of Markdown, and extended it with features from dialects like GHFM (GitHub Flavored Markdown). In doing so, we had to make Markdown unambiguous, since the way it was [originally specified](https://daringfireball.net/projects/markdown) left room for interpretation between different parsers. Because of this, although Mechdown is inspired by Mardown, we don't try to maintain compatibility with Markdown or the CommonMark spec.
 
@@ -360,11 +373,11 @@ y:=7 ^ 2;x:=2 * [1,2,4;5,6,y]
 
 **Note:** Mech requries spaces around operators, so we can support cool feartues like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also think it just makes formulas more readable. The commas in the inline form are a choice to allow for easier inline writing, since newlines are not available in that context.
 
-(2.3.1) Markup Features
+(4.1) Markup Features
 
-In this section well show off some more markdup features of Mechdown. You've already seen features such as the abstract block at the start of this document, images, figure captions, etc. Now let's look at a few more. If you'd like the full rundown, check out [the spec](https://docs.mech-lang.org/IV.design/specification.html#45036232896389885).
+In this section well show off some more markdup features of Mechdown. You've already seen features such as the abstract block at the start of this document, images, figure captions, etc. Now let's look at a few more.
 
-(2.3.1.1) Section Titles
+(4.1.1) Section Titles
 
 There are 6 levels of titles: the document title, section titles, and 4 levels of sub section titles.
 
@@ -382,29 +395,32 @@ Title
 
 The TOC is generated from these titles and can be styled with CSS. The opening, closing, and highlighting of sections that you see is handled by Javascript and CSS, so it's an example of how Mech and Javascript can still interoperate in this new version of Mech.
 
-(2.3.1.2) Paragraphs
+(4.1.2) Paragraphs
 
 The heart and soul of any literate programming document is the mighty paragraph. Mechdown supports all the standard paragraph features you would expect from a modern markup language, including:
 
-- **Bold Text**
-- *Italic Text*
-- __Underline Text__
-- ~~Strikethough Text~~
-- !!Highlighted Text!!
-- `Inline code snippets`
-- {{inline-mech := syntax + "highlighting"}}
-- $$inline-equation = mc^2$$
-- [Hyperlinks](#)
-- Autonumbered inline references [LP]
-- Autonumbered footnote references[^1]
+- Text Markup
+  - **Bold Text**
+  - *Italic Text*
+  - __Underline Text__
+  - ~~Strikethough Text~~
+  - !!Highlighted Text!!
+- Inline Elements
+  - `Inline code blocks`
+  - {{inline-mech := syntax + "highlighting"}}
+  - $$\pm\sqrt{inline^2 + equation^2}$$
+- Link Elements
+  - [Hyperlinks](#)
+  - Autonumbered inline references [KNUTHLP]
+  - Autonumbered footnote references[^1]
 
 These elements can be added wherever paragraphs are used, including as section elements, in lists, figure captions, table cells, and even Mech code comments. That last one is particularly useful:
 
 z := 7 ^ 2 + 3 * 4 - 5 / 2  -- Evaluates to {z}
 
-A Mechdown document consists of one or more sections, each with an optional subtitle, section elements, and can contain nested subsections. The elements within the subsection correspond to the main elemments of the document body, such as paragraphs, code blocks, lists, images, tables, equations, and so on.
+Here, the runtime value of `z` is computed and displayed inline in the comment, which is a nice way to document code behavior without having to run the program separately. It's like `println()` but supercharged because you don't even need.
 
-(2.3.1.2) Lists
+(4.1.3) Lists
 
 Both ordered and unordered lists are supported, with support for nested lists as well.
 
@@ -440,25 +456,65 @@ That last one is interesting because when rendered, those checkboses are interac
 
 So, in theory, this opens up the possibility of writing interactive documents with Mechdown, where the user can check off tasks and the document can respond accordingly according to Mech code defined in the document itself. But that will have to wait for `v0.3`.
 
-(2.3.2) Mech Extensions
+There are many more features -- if you'd like the full rundown, check out [the spec](https://docs.mech-lang.org/IV.design/specification.html#45036232896389885).
 
-(2.3.2.1) Mech Code Blocks
+(4.2) Mech Extensions
+
+I think even without Mech integration, Mechdown is already a very nice markup language, I already choose it over Markdown for my own purposes. But the real power comes from the Mech integration, so let's take a look at the Mech-specific features of Mechdown.
+
+(4.2.1) Mech Code Blocks
+
+You've already seen a few examples of Mech code block in action, but let's take a closer look at the syntax and features of Mech code blocks.
+
+First, the main thing that separates Mech code blocks from regular ones is there's no need to fence Mech code using backticks or tildes. Instead, Mechdown recognizes Mech syntax natively, so any indented block of Mech code is treated as a Mech code block. So when I write {{a := 1 + 1}} on a line by itself, Mechdown knows that is Mech code and will parse it accordingly:
+
+a := 1 + 1
+
+This line of code is parsed and executed by the Mech runtime, adding the variable {{a}} to the program's global scope with the value {a}.
+
+Then in a later block, we can reference `a` and use it in further calculations:
+
+b := a * 3
+
+which has the result {b}. In terms of parsing, blocks are defined as contiguous lines of Mech code, so if we want to include prose within code blocks we still have the option of using actual comments rather than Mechdown paragraphs. For example:
+
+c := [1 2 3] * b - 4 
+d := c / a  -- Divide c by a
+
+Semantically, all the code blocks in this section are part of the global prgram schope, so {{c}} and {{d}} being in the same block doesn't mean they are in a different scope from {{a}} and {{b}} defined earlier.
+
+Fenced blocks are also supported, and their default behavior is to display the last line of the block as the output of the block. For example:
+
+```
+~~~mech
+e := d ^ 2
+~~~
+```
+
+Renders as:
+
+```mech
+e := d ^ 2
+```
+
+In the future, the output should be configurable, so that we can display all variable values, or even custom output defined by the user, which was a feature we first explored in [Mechdown Alpha](https://docs.mech-lang.org/alpha/#/docs/math/sin.mec).
+
+() Syntax highlighting
 
 
-(2.3.2.2) Inline Mech Code
+(4.2.2) Inline Mech Code
 
 
 
-(2.3.2.3) REPL Docs
+- Interactive variables
+
+- Sub interpreters
 
 
+5. Tooling
+-------------------------------------------------------------------------------
 
-
-
-
-(2.4) Tooling
-
-(2.4.1) `mech format`
+(5.1) `mech format`
 
 ** Formatting ** 
 
@@ -471,7 +527,7 @@ So, in theory, this opens up the possibility of writing interactive documents wi
 - The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
 - You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
 
-(2.4.2) `mech serve`
+(5.2) `mech serve`
 
 - mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
 
@@ -482,149 +538,17 @@ So, in theory, this opens up the possibility of writing interactive documents wi
 - mechfs watches files and folders for changes, and when a change is detected, it recompiles the document and reloads the page in the browser. This makes for a nice live editing experience.
 
 
-(2.4.3) `:docs`
+(5.3) `:docs`
 
-4. v0.3 Preview
+
+
+6. What's Next?
 -------------------------------------------------------------------------------
 
-At the end of the v0.2 development cycle, the language became large enough that certain practices which worked well for small languages began to break down. In this case, we were loading the entire standard library into the runtime at startup, which made the repl slow to start and used a lot of memory. Therefore, we decided to invest some energy into writing the bytecode interpreter and compiler which was slated for v0.3. In this section, we will talk about the design and implementation of these components, which are available now, but should be considered "alpha" quality because they are not officially part of the v0.2 release.
+(6.1) Landing `v0.2` 🛬
 
-(4.1) Bytecode Interpreter and Compiler
+(6.2) Launching `v0.3` 🛫
 
-Mech right now is an interpreted language; the source code is parsed, and then the AST is run on the interpreter. Mech manages to be faster than other interpreted languages like Python because it is statically typed, so we can unbox many values at compiletime to reduce runtime work. Now, usually to get a really fast and portable language what I would have to do is write a compiler that targets LLVM or WebAssembly. If I were to go down the route, I would spend a lot of my time writing code that ultimately would mean Mech programs are a little faster or a little more portable. But the tradeoff is that it would take a lot of time and effort to implement, and I would have to maintain a lot of code that is not really core to the language itself. 
-
-So instead we are taking a hybrid approach that should get most of the speed while not being a crazy amount of work for one person to implement. This approach works in two phases:
-
-**Phase 1** In the first phase, we parse the Mech source code into an AST as before, and then we interpret it as much as we can in a precomputation stage. Langauges like Zig and Nim do something similar where they have a compile-time execution engine that can run code at compile time to generate code. Mech takes this idea further by trying to interpret as much of the program as possible at compile time, so that the runtime has less work to do. In this stage, the interpreter determines types of all variables and all features that are needed for the program to run, everything that can be precomputed is memoized into a constant, and the the program is compiled into a `*.mecb` Mech bytecode file.
-
-**Phase 2** In the second phase, the Mech compiler consumes the `.mecb` file, and a Rust shim, which is a small program that embeds the Mech bytecode interpreter, and runs the Mech runtime. It's job is to load the bytecode, set up the runtime environment, and execute the program. This shim can be compiled to any target that Rust supports, which means Mech programs can run anywhere Rust can run, including WebAssembly. The necessary Mech functions for the program can be packaged into the binary at compiletime (how it works now), or (as a possible feature) they can be downloaded by the shim and linked at runtime.
-
-Let's take a look at how this is implemented today.
-
-(4.2) Mech Bytecode
-
-This is version 1 of the Mech bytecode format. Consider the following Mech code:
-
-```mech:disabled
-x := 1 + 2
-```
-
-This compiles into the following bytecode:
-
-```
-000  4d 45 43 48 01 40 02 00  00 05 00 00 00 08 00 00 |MECH.@..........|
-010  00 05 00 00 00 81 00 00  00 00 00 00 00 03 00 00 |................|
-020  00 ad 00 00 00 00 00 00  00 06 00 00 00 d5 00 00 |................|
-030  00 00 00 00 00 90 00 00  00 00 00 00 00 65 01 00 |.............e..|
-040  00 00 00 00 00 26 00 00  00 00 00 00 00 00 00 00 |.....&..........|
-050  00 00 00 00 00 8b 01 00  00 00 00 00 00 8b 01 00 |................|
-060  00 00 00 00 00 60 00 00  00 00 00 00 00 eb 01 00 |.....`..........|
-070  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00 |................|
-080  00 05 00 00 00 11 00 00  00 00 00 00 00 0c 00 00 |................|
-090  00 00 00 00 00 3c 00 00  00 00 00 00 00 10 00 00 |.....<..........|
-0a0  00 00 00 00 00 19 00 00  00 00 00 00 00 03 00 00 |................|
-0b0  00 0c 00 00 00 01 00 00  00 00 00 00 00 0f 00 00 |................|
-0c0  00 01 00 00 00 00 00 00  00 10 00 00 00 01 00 00 |................|
-0d0  00 00 00 00 00 00 00 00  00 01 08 00 00 00 00 00 |................|
-0e0  00 00 00 00 00 08 00 00  00 00 00 00 00 00 00 00 |................|
-0f0  00 01 08 00 00 08 00 00  00 00 00 00 00 08 00 00 |................|
-100  00 00 00 00 00 00 00 00  00 01 08 00 00 10 00 00 |................|
-110  00 00 00 00 00 08 00 00  00 00 00 00 00 00 00 00 |................|
-120  00 01 08 00 00 18 00 00  00 00 00 00 00 08 00 00 |................|
-130  00 00 00 00 00 01 00 00  00 01 01 00 00 20 00 00 |............. ..|
-140  00 00 00 00 00 05 00 00  00 00 00 00 00 02 00 00 |................|
-150  00 01 01 00 00 25 00 00  00 00 00 00 00 01 00 00 |.....%..........|
-160  00 00 00 00 00 00 00 00  00 00 00 08 40 00 00 00 |............@...|
-170  00 00 00 f0 3f 00 00 00  00 00 00 00 40 00 00 00 |....?.......@...|
-180  00 00 00 08 40 01 00 00  00 78 00 01 00 00 00 00 |....@....x......|
-190  00 00 00 00 01 01 00 00  00 01 00 00 00 01 02 00 |................|
-1a0  00 00 02 00 00 00 30 f3  86 84 68 77 2c 0a 00 00 |......0...hw,...|
-1b0  00 00 00 01 00 00 00 02  00 00 00 01 00 00 00 00 |................|
-1c0  03 00 00 00 01 03 00 00  00 04 00 00 00 01 04 00 |................|
-1d0  00 00 05 00 00 00 30 e7  55 b6 86 ad b6 23 00 00 |......0.U....#..|
-1e0  00 00 00 03 00 00 00 04  00 00 00 bc f2 d6 1f    |...............|
-```
-
-Sections include:
-
-1. Header
-  1. Magic number at the beginning `0x4d 45 43 48` spells "MECH".
-  2. Bytecode version
-  3. Mech Version
-  4. Flags
-  5. A whole bunch of offsets to read the various sections
-2. Feature flag array - indicates to the compiler what features to include
-3. Type array - interns types
-4. Constants
-  1. First a directory of constant entries 
-  2. Then a blob of constants
-5. Symbol table - mapping from symbol IDs to registers
-6. Instructions - the actual program to be executed. Each instruction is:
-  - Op code
-  - Array of input registers
-  - Output register
-7. Dictionary - A mapping from symbol IDs to strings. This section is optional and is only needed if human-readable IDs are required.
-8. Checksum
-
-If you'd like to see how these sections map to the above bytecode, you can see an example in the [v0.2.58 release noted](https://github.com/mech-lang/mech/releases/tag/v0.2.58-beta).
-
-Each instruction in Mech is one of the following variants: 
-
-- Nullary - instructions that have no input registers and one output register. Example: `io/print`
-- Unary - instructions that have one input and one output. Example: `math/negate`
-- Binary - instructions that take two inputs and one output. Example: `math/add`
-- Ternary - instructions that take three inputs and produce one output. Example: `access/range`
-- Quaternary - instructions that take four inputs and produce one output. Example: `matrix/horzcat/4`
-- Variadic - instructions that take a variable number of inputs and produce one output. Example: `matrix/horzcat/n`
-
-The Rust interface for the compiler consists of 2 main traits: [MechFunctionCompiler](https://github.com/mech-lang/mech/blob/main/src/core/src/functions.rs#L75) and [MechFunctionFactory](https://github.com/mech-lang/mech/blob/main/src/core/src/functions.rs#L64). The job of the compiler is to take the semi-compiled Mech functions and translate them into bytecode instructions, which is done by converting the function inputs and output into registers, and then emitting the appropriate op codes into the bytecode stream.
-
-On the other side is the bytecode interpreter. It decodes the bytecode instructions from the `*.mecb` file by reading the opcodes and mapping them to the corresponding function descriptors registered with the interpreter at startup. Function descriptors are paramaterized by the name of the function, as well as the types of the input and output arguments.
-
-What's nice about this is parsing bytecode is extremely fast compared to parsing source code, since everything has already been parsed and serialized already in Phase 1. Therefore we don't have to ship the parser or any code it requires with the runtime, which helpa keep it small and embeddable.
-
-Each function is implemented as a Rust function that takes input values from the registers, performs the operation, and writes the result back to the output register. By the time this interpreter is running the program, the previous phase has already verified types and precomputed as much as possible, so extraneous runtime work is minimized. This is the secret to making the bytecode interpreter fast.
-
-(4.2) Compiler
-
-Now, having a bytecode format and an interpreter that reads it is great for portability and performance, but I want Mech to provide the easiest experience for users, which to me is embodied in the single-file executable that you can double click and run. It just doesn't get any easier than that.
-
-To achieve this we drew some inspiration from [Lua Redbean](https://redbean.dev), which is a single-file executable that embeds a Lua interpreter and a web server. You can drop a Lua script into the redbean executable, and it zip it up and embed it into the binary itself, allowing you to distribute a single file that contains both the interpreter and your code.
-
-With Mech we do the same thing using the shim mentioned in the last section. When executed, the shim executes itself, and it reads a zip archive appended to the end of the binary, which contains the Mech bytecode file. The shim then extracts the bytecode from the zip archive, loads it into the embedded Mech bytecode interpreter, and runs it. To the user, the appears no different from running typical executables generated from C or Rust.
-
-That's not all, we go one step further and we customize the runtime that's embedded into the binary to only include the functions that are needed for the program to run. By using the information from the precompilation phase, we know which features of the Mech compiler to disable and which to include. These savings are significant, because it means if we don't use a particular library or feature in our program, we don't have to pay for it in the final binary size / load times / memory consumption.
-
-The end result is very small binaries that are also fast to start up and execute fully compiled language like C or Rust, but compiletime is seconds, and if you don't want to compile the full executable that can be reduced to milliseconds by just interpreting the code.
-
-(4.2.1) `mechc`
-
-To make this process easy for users, we have created a command-line tool called `mechc`, which is the standalone Mech compiler. This tool automates the two-phase compilation process, taking Mech source code as input, and producing a single-file executable as output. In `v0.3` when project manifests will be specified and implemented, `mechc` will also download and compile the project dependency tree.
-
-We've implemented this tool in Rust, although it will be one of the first components of the project rewritten in Mech itself once state machines are define in `v0.3`. The build process is as follows:
-
-1. The user runs `mechc <source-files>`
-2. `mechc` collects all files in the source directory and specefically looks for an `index.mpkg` file, which will be the name of the manifest for the project. If none is found it uses default settings, but if it finds one it will parse it immediately, extract all the project settings, and configure the build environment.
-3. Any dependencies specified in the manifest and their recursive dependencies are downloaded from the Mech package registry. Registered packages must have an `index.mpkg`.
-4. As packages are downloaded, their source is passed to the Mech compiler, which compiles each package into bytecode, and collects information about which functions are used. This compiler can work in parallel, so multiple packages can be compiled simultaneously.
-5. After all packages are compiled to bytecode, `mechc` configures a temporary Rust project that has only the Mech features necessary to run the project enabled.
-6. `Cargo` is invoked from `mechc` as a backend to compile the shim and the Mech interpreter. Cargo build artifacts are cached in the Mech project build directory to make subsequent builds faster.
-7. The project bytcode is zipped up and appended to the end of the compiled binary.
-8. The final single-file executable is output to the `build` directory.
-
-Since we are leveraging Rust and Cargo as a backend, we get cross-compilation to any platform that Rust supports for free. Therefore, users can build Mech programs for any target that Rust supports, including Windows, Linux, MacOS, and WebAssembly.
-
-
-5. What's Next?
--------------------------------------------------------------------------------
-
-(5.1) v0.2 Completion
-
-(5.2) v0.3 Kickoff
-
-(5.3) Mech Labs
-
-This is more like an announcement of an announcement, but I am working on formalizing the development of Mech into a collaborative research group. 
 
 ***
 
@@ -636,7 +560,6 @@ This is more like an announcement of an announcement, but I am working on formal
 
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
 [KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
-[LP]: https://en.wikipedia.org/wiki/Literate_programming
 [SRC]: https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads
 [HTML]: https://mech-lang.org/post/2025-04-09-mechdown/index.html
 [LHS]: [Literate Haskell](https://wiki.haskell.org/index.php?title=Literate_programming) - Offical Website
