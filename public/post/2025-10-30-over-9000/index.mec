@@ -4,10 +4,10 @@ Fall 2025 Progress Report - Mechdown and Bytecode
 
 %% In this post we will review the progress made on the Mech programming language project so far in 2025, focusing on the beta implementation of the Mechdown literate programming tool, and the alpha implementation of the new bytecode interpreter and compiler. This document is written in Mechdown, so it further serves as a demonstration of Mechdown itself.
 
-If you're not familiar with Mech, here is a quick taste which demos many features in just a few lines:
+If you're not familiar with Mech, here is a quick taste with many features demoed in just a few lines:
 
 ```mech
-  x := 1..=10                -- A row vector of numbers from 1 to 10
+  x := 1..=10               -- A row vector of numbers from 1 to 10
   ~out<[string]> := x       -- Convert `x` into mutable string vec
   
   ix2 := (x % 2) == 0       -- Indices for multiples of 2
@@ -20,20 +20,20 @@ If you're not familiar with Mech, here is a quick taste which demos many feature
 
 This is the classic "FizzBuzz" program, written in Mech. It generates a vector of numbers from 1 to 10, and replaces multiples of 2 with a `✨`, multiples of 3 with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow; instead, it relies on Mech's matrix semantics like broadcasting operations and logical indexing. Code blocks are configured to display as output the value of the last line of the block.
 
-Anyway, you might want to grab a drink -- this is probably the longest and most significant blog update I've posted to date.
+Anyway, you might want to grab a snack -- this is probably the longest and most significant update to Mech I've posted to date.
 
 1. By the numbers - Over 9000 commits!
 -------------------------------------------------------------------------------
 
-It's been a while since the last progress report, so I will begin with a quick summary of where we are right now.
+It's been a while since the last progress report, so I will begin with a quick history of Mech, and summarize where we are right now.
 
-After some preliminary work in 2014, the first real implementation of Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the Eve project concluded. Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
+After some preliminary work in 2014, the first real implementation of Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) when the Eve project concluded. Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
 ![What, over 9000?! That's impossible!](images/over9000.gif)
 
-Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to look at how to build various tools like time travel debugging and pausing the execution of running programs. Documentionation for Mech Alpha is [still live on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
+Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to experiment with niche debugging tools like time travel debugging and reflecing runtime state into a live editor. Documentation and a live demonstration for Mech Alpha is [still on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a gui library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
+Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
 
 Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied 2913 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
@@ -362,6 +362,8 @@ y:=7 ^ 2;x:=2 * [1,2,4;5,6,y]
 
 (2.3.1) Markup Features
 
+In this section well show off some more markdup features of Mechdown. You've already seen features such as the abstract block at the start of this document, images, figure captions, etc. Now let's look at a few more. If you'd like the full rundown, check out [the spec](https://docs.mech-lang.org/IV.design/specification.html#45036232896389885).
+
 (2.3.1.1) Section Titles
 
 There are 6 levels of titles: the document title, section titles, and 4 levels of sub section titles.
@@ -436,22 +438,27 @@ That last one is interesting because when rendered, those checkboses are interac
 -[ ] Task One
 -[x] Task Two
 
-So, in theory, this opens up the possibility of writing interactive documents with Mechdown, where the user can check off tasks and the document can respond accordingly according to Mech code defined in the document itself. 
+So, in theory, this opens up the possibility of writing interactive documents with Mechdown, where the user can check off tasks and the document can respond accordingly according to Mech code defined in the document itself. But that will have to wait for `v0.3`.
+
+(2.3.2) Mech Extensions
+
+(2.3.2.1) Mech Code Blocks
+
+
+(2.3.2.2) Inline Mech Code
 
 
 
-Mechdown and Mech are tightly integrated, to the point that Mechdown is implemented in the Mech parser. Writing Mech code in the Mechdown dialect is idiomatic, but of course you can write Mech programs without writing any Mechdown at all.
+(2.3.2.3) REPL Docs
 
-- Mech programs are defined as a title with sections, each section has a optional subtitle and a body, the body can consist of section elements and that includes all the things we can render, as well as mech code.
 
-- Mech code is partially whitespace sensitive, so we don't strip out all white space intially.
-- This allows us to be very flexible about how we write code, because we don't have to rely on braces and brackets and semicolons to deliniate sections since we didn't blow away all the whitespace.
-- But it's not like python in that you indent to define blocks, because that gets problematic, so really everything is separated at the newline level.
 
-- What does this buy us? A we can write naturally just as in markdown.
-- We can then write code naturally, just as in a regular programming language. If you don't write any code, writing mech can feel a lot like writing matlab at this point.
 
-- Parsing generates a parse tree which we then pass on to the formatter
+
+
+(2.4) Tooling
+
+(2.4.1) `mech format`
 
 ** Formatting ** 
 
@@ -464,12 +471,6 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 - The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
 - You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
 
-(2.3.2) Mech Extensions
-
-(2.4) Tooling
-
-(2.4.1) `mech format`
-
 (2.4.2) `mech serve`
 
 - mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
@@ -477,6 +478,9 @@ Mechdown and Mech are tightly integrated, to the point that Mechdown is implemen
 - So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
 
 - After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
+
+- mechfs watches files and folders for changes, and when a change is detected, it recompiles the document and reloads the page in the browser. This makes for a nice live editing experience.
+
 
 (2.4.3) `:docs`
 
