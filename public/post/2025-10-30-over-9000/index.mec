@@ -5,7 +5,7 @@ Fall 2025 Progress Report - Mechdown
 %% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed to make it easy to work with large datasets, do numerical computing, and build interactive applications from user interfaces, games, and even robots.
 In this post we will review the progress so far in this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-30-over-9000/index.mec?ref_type=heads) and is served on the Mech platform, so everything you see here demonstrates the system's capabilities..
 
-If you're not familiar with Mech,  here is a quick taste with many features demoed in just a few lines:
+If you're not familiar with Mech, here is a quick taste with many features demoed in just a few lines:
 
 ```mech:fizzbuzz
   x := 1..=10               -- A row vector of numbers from 1 to 10
@@ -19,9 +19,9 @@ If you're not familiar with Mech,  here is a quick taste with many features demo
   out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
 ```
 
-This is the classic "FizzBuzz" program, written in Mech. It generates a vector of numbers from 1 to 10, and replaces multiples of 2 with a `✨`, multiples of 3 with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow; instead, it relies on Mech's matrix semantics like broadcasting operations and logical indexing. Code blocks are configured to display as output the value of the last line of the block.
+This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, and replaces multiples of {{2}} with a `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution ameniable to parallelization. Code blocks are configured to display as output the value of the last line of the block.
 
-Click on the variables and you'll see their values echoed in the REPL to the right (if you don't see the REPL, that's because it's hidden when the window is too narrow -- view it on the desktop).
+Click on the variables and you'll see their values echoed in the REPL to the right (if you don't see the REPL, that's because it's hidden when the window is too narrow -- trying viewing it on a desktop).
 
 Anyway, you might want to grab a snack -- this is probably the longest and most significant update to Mech I've posted to date.
 
@@ -40,15 +40,12 @@ Mech `v0.1` followed this effort and represented a refinement of some of the ini
 
 Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
-This cycle will be considered "released" when we've finished writing documentation and tests. We anticipate work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
-
-For a complete roadmap, see the [Mech Project Roadmap](https://docs.mech-lang.org/design/ROADMAP.mec).
 So let's take a look at what's new in Mech...
 
 2. Mechdown
 -------------------------------------------------------------------------------
 
-Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator which is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live documents and explanatory content, but we also see potential for it to be used as a $$\LaTeX$$ replacement for scientific papers and reports. This blog post is a demonstration of Mechdown.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$ replacement for scientific papers and reports. This blog post is written in Mechdown and serves to demonstrate its capabilties.
 
 Mechdown is a dialect of Markdown, extending it with unambiguous sytnax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
@@ -300,8 +297,7 @@ Literate Haskell
 Typst https://typst.app
 marimo https://marimo.io
 R Markdown https://dl.acm.org/doi/abs/10.1145/3643991.3644931 https://rmarkdown.rstudio.com/index.html
-
-
+Clerk: Moldable Live Programming for Clojure https://dl.acm.org/doi/abs/10.1145/3594671.3594682
 
 4. Design and Implementation
 -------------------------------------------------------------------------------
@@ -338,6 +334,8 @@ section-element := +mech-code
       | paragraph ;
 section := ul-subtitle, *section-element ;
 section-elements := +(¬ul-subtitle, section-element) ;
+mech-code := mech-code-alt, ("\n" | ";" | comment) ;
+mech-code-alt := fsm-specification | fsm-implementation | function-define | statement | expression | comment ;
 ```
 
 **Note:** we use an extension of EBNF [defined in the Mech specification](https://docs.mech-lang.org/IV.design/specification.html#65359388826030746). Here, `ws0` denotes zero or more whitespace characters, `?` denotes an optional element, `+` denotes one or more repetitions, `*` operator zero or more repetitions, `¬` denotes negation.
@@ -485,11 +483,12 @@ Semantically, all the code blocks in this section are part of the global prgram 
 
 Fenced blocks are also supported, and their default behavior is to display the last line of the block as the output of the block. For example:
 
-```
-~~~mech
-e := d ^ 2
 ~~~
+```mech
+e := d ^ 2
 ```
+~~~
+
 
 Renders as:
 
@@ -513,24 +512,30 @@ As a final highlight, Mechdown supports sub interpreters, which allow for code b
 
 In Mech, once a variable is defined, it can't be redefined in the same scope. This is not a problem if we use a completely different interpreter though, which is supported with fenced code blocks. For example:
 
-```
-~~~mech:ex1
-x := 10
 ~~~
-```
-Creates a block in the `ex1` sub interpreter where {{x}} is defined as 10. In a separate block, we can define {{x}} again in a different sub interpreter:
-
-```
-~~~mech:ex2
-x := 20
-~~~
-```
 ```mech:ex1
 x := 10
 ```
+~~~
+
+Creates a block in the `ex1` sub interpreter where {{x}} is defined as 10. In a separate block, we can define {{x}} again in a different sub interpreter:
+
+~~~
 ```mech:ex2
 x := 20
 ```
+~~~
+
+The preceeding two blocks render as:
+
+```mech:ex1
+x := 10
+```
+
+```mech:ex2
+x := 20
+```
+
 The "FizzBuzz" example at the beginning of this document is defined to run in the `mech:fizzbuzz` sub interpreter, so it doesn't interfere with the rest of the program. We can access its variables by writing other blocks in the same sub interpreter:
 
 ```mech:fizzbuzz
@@ -542,9 +547,57 @@ x * 2
 
 What you have read so far in this document was generated using the Mech compiler and toolchain, which includes features for Mechdown support. There is no separate utility for Mechdown as I don't see a real need for it. For starters, the utility is pretty small and self contained as it is, so it's not a realy burden to include the rest of Mech with it. And anyway, Mechdown is supposed to be a vector into Mech, so we want people to have Mech right there when they decide they need programming capabilities in ther Mechdown documents.
 
-In this section, we will look at all the tools we have built so far that support writing and building Mechdown documents.
+Mechdown is architected with a front-end and back-end, 
 
-(5.1) `mech format`
+ (5.1) Fontend - `mech format`
+
+-system starts the the mech compiler
+- written in rust, we can easily built it to wasm for hte browser. We get about 900kb (compressed) for the full mech runtime including the parser, interpreter, standard library, and mechdown formatter. That will be cut down in the future becaues we can strip out the parser now with the bytecode compiler. But also that represents the full mech runtime, which is not needed for all documents. We can make this thing substantially smaller by only compiling the parts of the runtime that are needed for a given document.
+- Uses wasmbindgen and web-sys to interface with the browser DOM. This means Mech essentially interoperates with javascript as an embedded langauge like lua, although we need to do work on the interface to make this as nice.
+- Centered around a datastructure `WasmMech` which hold an instance of the Mech runtime and exposes methods to load documents, execute code, and access variable values.
+- how it wokrs:
+  - run the program
+  - init
+  - render inline values
+  - render codeblock values
+  - attach a repl instance to the Interpreter
+
+The other part is the javascript shim, which exposes a div with id "mech-root", and another one with id "mech-repl", and a third labelled "mech-toc". JS shim also includes a CSS file for styling the document, so style is completely customizable, Mechdown only handles the structure and semantics of the document while providing classes and ids for all nodes so they can be refereenced.
+
+Here' the process
+1. parse the program
+2. start at the root ast node, and walk the tree
+3. for each node, generate the corresponding html node. 
+
+For example, here is `var()`
+
+```rust
+  pub fn var(&mut self, node: &Var) -> String {
+    let annotation = if let Some(kind) = &node.kind {
+      self.kind_annotation(&kind.kind)
+    } else {
+      "".to_string()
+    };
+    let name = &node.name.to_string();
+    let id = format!("{}:{}",hash_str(&name),self.interpreter_id);
+    if self.html {
+      format!("<span class=\"mech-var-name mech-clickable\" id=\"{}\">{}</span>{}", id, node.name.to_string(), annotation)
+    } else {
+      format!("{}{}", node.name.to_string(), annotation)
+    }
+  }
+```
+
+On the variable span, we mark the element as "mech-clickable", which registers that particlar element with the wasm runtime. It's also assigned an id of the form `hashed-variable-name:interpreter-id`, so that when the user clicked on that html element, the runtime can identify which variable in which interpreter this element corresponds to.
+
+Once the html tree is built, it's attached to the "mech-root" div in the document. The tree is also saved in the document, compressed and encoded in base64, so that when the wasm runtime starts up, it can recover the parse tree without having to reparse the document. This makes loading much faster. Although if we wanted, we could technically reparse the HTML document and get valid Mech code out of it. Howver, in a future version we won't need to store teh parse tree at all, just the program bytecode, which will be much smaller and faster to load.
+
+These `.html` files are static in the sense that they can be opened and viewed without a server or wasm runtime, so they stay small. If you want to make them live though, they have to run attached to a server becasue the wasm runtime needs to be loaded. But this way of running Mechdown is done entirely on the client side, so no server resources are needed to run Mech programs except to ship the `.html` and the `.wasm` files.
+
+
+There are two tools included in the `mech` toolchain that support Mechdown: `mech format` and `mech serve`.
+
+`mech format` takes as input a list of `.mec` source files or directories, and outputs a corresponding set of `.html` files that contain the formatted Mechdown documents. The output files can then be hosted on a static web server or viewed locally in a web browser.
 
 ** Formatting ** 
 
@@ -557,7 +610,7 @@ In this section, we will look at all the tools we have built so far that support
 - The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
 - You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
 
-(5.2) `mech serve`
+(5.2) Backend - `mech serve`
 
 - mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
 
@@ -577,7 +630,12 @@ In this section, we will look at all the tools we have built so far that support
 
 (6.1) Landing `v0.2` 🛬
 
+
+This cycle will be considered "released" when we've finished writing documentation and tests. We anticipate work on v0.3 will commence early in 2026 (although some foundational work has already begun). v0.3 will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. The major language feature for v0.3 will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027.
+
 (6.2) Launching `v0.3` 🛫
+
+
 
 
 ***
