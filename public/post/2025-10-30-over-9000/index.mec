@@ -551,9 +551,10 @@ Mechdown is architected with a front-end and back-end,
 
  (5.1) Fontend - `mech format`
 
--system starts the the mech compiler
+- system starts the the mech compiler
 - written in rust, we can easily built it to wasm for hte browser. We get about 900kb (compressed) for the full mech runtime including the parser, interpreter, standard library, and mechdown formatter. That will be cut down in the future becaues we can strip out the parser now with the bytecode compiler. But also that represents the full mech runtime, which is not needed for all documents. We can make this thing substantially smaller by only compiling the parts of the runtime that are needed for a given document.
 - Uses wasmbindgen and web-sys to interface with the browser DOM. This means Mech essentially interoperates with javascript as an embedded langauge like lua, although we need to do work on the interface to make this as nice.
+- `mech-wasm` depends on mech-core and mech-interpreter.
 - Centered around a datastructure `WasmMech` which hold an instance of the Mech runtime and exposes methods to load documents, execute code, and access variable values.
 - how it wokrs:
   - run the program
@@ -561,6 +562,7 @@ Mechdown is architected with a front-end and back-end,
   - render inline values
   - render codeblock values
   - attach a repl instance to the Interpreter
+- built into a `.wasm` file that can be loaded into the browser and a corresponding `.js` interface with wasm-pack and --web flag, although this can also build into a node module for node interop.
 
 The other part is the javascript shim, which exposes a div with id "mech-root", and another one with id "mech-repl", and a third labelled "mech-toc". JS shim also includes a CSS file for styling the document, so style is completely customizable, Mechdown only handles the structure and semantics of the document while providing classes and ids for all nodes so they can be refereenced.
 
@@ -607,22 +609,45 @@ There are two tools included in the `mech` toolchain that support Mechdown: `mec
 
 - The formatter can also include a CSS document to custom style the HTML. This makes it flexible and we can apply themes to alter the appearance or structure of the document. We include enough nodes in there that it should be possible to get a wide array of styles.
 
-- The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them.
+- The formatter can take a single .mec file or it can take a directory or multple files, and it will format an output directory of HTML files. IT can accept .mec files for now, but in the future it could accept .md and .html files and convert them into mechdown.
 - You can upload the result to a static webpage server, or you can include the Mech tool as a step in your CI build process, so that you just upload your .mec file, and then use mech format as to automatically generate the HTML documents.
 
 (5.2) Backend - `mech serve`
 
-- mech format gets you a nice document, but it's static until it's connected to a Mech runtime. What's cool about Mech is it compiles to web assembly, so we can fit the entire runtime in a 1.3MB (compressed) .wasm file that we can ship to a client browser, so the program can be executed right there on their machine. This is a big win over systems that need a server to execute client code.
+To get full liveness in documents, we can use `mech serve` to start a local web server that serves Mechdown documents with live editing capabilities. This tool watches for changes to the source `.mec` files and automatically recompiles and reloads the documents in the browser when changes are detected.
 
-- So how does this work, the html document loads the wasm file, which then starts a mech interpreter, which then gets the Base64 encoded tree, which then executes it and we get the result for every variable in the system.
+- supply mech serve with a directory or list of files to serve
+- a `MechFs` filesystem is started that reads the supplied files to form a directory tree. It takes special interest in the following file types:
 
-- After init, Mech goes through the document to any values that need to be reified, and we replace the expression with the result.
+- `.mec` - Mech source
+- `.mecb` - Mech bytecode
+- `.mdoc` - Mechdown source (not different from `.mec` but it helps to distinguish them)
+- `.mpkg` - Mech package configuration files
+- Website files: `.html`, `.htm`, `.md`, `.csv`, `.js`
+- Images: `.png`, `.jpg`, `.jpeg`, `.gif`, `.svg`
 
-- mechfs watches files and folders for changes, and when a change is detected, it recompiles the document and reloads the page in the browser. This makes for a nice live editing experience.
+Mech code (source, bytecode, etc.) is compile immediately and the resulting bytecode is stored in the filesystem memory. Website html is stored in a map along with images and so forth.
+
+Mech code is then formatted into static .html files. and stored in the map.
+
+This is so that when the a client requests a particular .html file, we can immeidately serve the result instead of having to parse and format on each request.
+
+- mechfs watches files and folders for changes, and when a change is detected, it recompiles the document and replaces the entry in the server. then when it's requested again by the client, it will be updated.
+
+- previous versions of Mechdown could be configured to establish and maintain a long-running websocket connection with the server when it requests the html file. This feature allowed for realtime communicaiton between client/server or peer to peer with other clients. It's not implemented yet currently in v0.2 but it will be coming back in v0.4.
 
 
 (5.3) `:docs`
 
+The final feature we will talk about today is the `:docs` command in the REPL. BEcause we've made it really nice to transmit mech document with mech programs embedded in them, we can summon those documents from the internet into our browser using the REPL. Try this in the REPL:
+
+```
+:docs math/sin
+```
+
+Or just click this link: [#:docs math/sin](#:docs math/sin) to run the command in it automatically. This will fetch the document from the math machine repository, whereever address is registered with the Mech machine registry. Or maybe we have a particular documentation registry like docs.rs, I don't know what the right move is there yet. Either way once we have it, we load into the REPL itself.
+
+You can see the document renderd as HTML, and all the Mech examples in the document are running live in sub interpreters, with their results displayed. This allows user to quickly integrate example code into their own programs by copying and pasting from the document, or even by importing the document as a Mech package if we support that in the future.
 
 
 6. What's Next?
@@ -644,7 +669,7 @@ This cycle will be considered "released" when we've finished writing documentati
 
 [^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime is responsible for determining how to satisfy these relationships, often using techniques like constraint solving or logic inference. This allows for a more high-level and expressive way of defining programs, as the programmer can focus on the "what" rather than the "how". Other relational langauges include Prolog and Datalog. SQL purports to be relational, but by allowind duplicate rows, it doesn't express set semantics and so it's not strictly a relational language. In eve if you want duplicate rows you have to make them distinct with an ID, otherwise they will be treated as the same row.
 
-[^3]: In one very early version of Mech, I had written a bug into the standard library where certain values applied to the `sin` function caused an infinite result, which manifested as objects simply disappearing from the canvas at seemingly random times. Time travel debugging allowed me to pause the running program, rewind back to where the object blinks out, and find out exactly what it was when it did so. That the value was a momentary `NaN` made the fix obvious.
+[^3]: In one very early version of Mech, I had written a bug into the standard library where certain values applied to the `sin` function caused an infinite result, which manifested as objects simply disappearing from the canvas at seemingly random times. Time travel debugging allowed me to pause the running program, rewind back to where the object blinks out, and find out exactly what it was when it did so. That the value was a momentary `NaN` made the fix obvious. You can still see this bug in [the first release of Mech alpha](https://mech-lang.org/post/2019-03-27-version-0-0-1), when the robot arm is set to just the right angle.
 
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
 [KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
