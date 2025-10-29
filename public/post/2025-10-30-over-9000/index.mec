@@ -645,9 +645,9 @@ The final feature we will talk about today is the `:docs` command in the REPL. B
 :docs math/sin
 ```
 
-Or just click this link: [#:docs math/sin](#:docs math/sin) to run the command in it automatically. This will fetch the document from the math machine repository, whereever address is registered with the Mech machine registry. Or maybe we have a particular documentation registry like docs.rs, I don't know what the right move is there yet. Either way once we have it, we load into the REPL itself.
+Or just click this link: [#:docs math/sin](#:docs math/sin) to run the command in the Repl automatically. This will fetch the document from the math machine repository, whereever address is registered with the Mech machine registry. Or maybe we have a particular documentation registry like docs.rs, I don't know what the right move is there yet. Either way once we have teh doc it, we load into the REPL itself.
 
-You can see the document renderd as HTML, and all the Mech examples in the document are running live in sub interpreters, with their results displayed. This allows user to quickly integrate example code into their own programs by copying and pasting from the document, or even by importing the document as a Mech package if we support that in the future.
+You can see the document renderd as HTML, and all the Mech examples in the document are running live in sub interpreters, with their results displayed. By running in subinterpreters, the doc code is isolated from the main program, so it won't interact or overwrite any variables, and all memory related to the doc page will be freed when the repl is cleared. This allows user to quickly integrate example code into their own programs by copying and pasting from the document, or even by importing the document as a Mech package if we support that in the future.
 
 
 6. What's Next?
