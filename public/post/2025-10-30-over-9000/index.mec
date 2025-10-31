@@ -293,11 +293,17 @@ The alpha implementation of Mechdown culminated in a digital paper written in Me
 
 (3.6) Other Systems
 
-Literate Haskell
-Typst https://typst.app
-marimo https://marimo.io
-R Markdown https://dl.acm.org/doi/abs/10.1145/3643991.3644931 https://rmarkdown.rstudio.com/index.html
-Clerk: Moldable Live Programming for Clojure https://dl.acm.org/doi/abs/10.1145/3594671.3594682
+After the Jupyter project popularized notebook programming, many other systems have emerged that explore similar ideas in literate programming and live coding environments. Here we will briefly review some of these systems, and compare them to Mechdown.
+
+R Markdown[RMD] brought executable documents to the R ecosystem, which combined R code with Markdown prose to create dynamic reports and presentations. The idea is to help researchers and data scientists create reproducible analyses that combine code, results, and narrative in a single document. R code is fenced wtihin `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it combines code and prose. Even though the documents *could* be executed, a large-scale study of almost 200k R Markdown documents located in public code repositories found that 64% were not executable. They determined this was primarily due to missing libraries, data, and incorrect code[REXE]. There is an opportunity here for Mechdown to improve on this by providing a more integrated environment where code and data are bundled together, and providing tools which will help programmers ensure documents remain executable. 
+
+Marimo[MARIMO] is a notebook environment for Python which is a lot like Jupyter, but it's backed by a native Python document instead of a JSON schema. Although, the Python code itself is written in a sort of schema constructed from `@app.cell` blocks which contain Python code and markdown, so Marimo documents aren't readable without the tooling like Mechdown.
+
+Typst[TYPST] is a new typesetting system that aims to be a modern alternative to LaTeX. Like Mechdown, it's written in Rust, so the performance is excellent compared to typical LaTeX systems, which are notorious for having long compile times. With Typst, the experience is more like live coding, where changes are reflected immediately in the rendered document. Typst also supports reactive documents with a custom dialect, but this is not designed to be a full language for programming like Mech, but rather to bring simple computations to documents, like calculating values for tables and plots.
+
+Clerk[CLERK] is a live notebook system for Clojure that combines code, prose, and rich visualizations in a single environment. Here's some [examples](https://github.clerk.garden/nextjournal/clerk-demo/commit/cb212b2edc64e762bcd1af56417ef9f6b2fde5b1). It allows Clojure code to be embedded in Markdown or namespace files, evaluates code live, and provides built-in viewers for tables, plots, TeX, HTML, and custom data. Computation is cached and paginated for performance, and users can extend the system with custom viewers or transformations. While Clerk shares Mechdown's focus on reactive, literate programming, it differs in that it relies on the host language semantics of Clojure, rather than having custom semantics that can support features like time-travel debugging.
+
+Mechdown is well positioned in this space. With Mech, we've already done the work of designing a language that is well suited for data-oriented programming. These other system rely on existing langauges that were not designed for notebook programming, so they have to make compromises in terms of syntax and semantics to fit the notebook model. Mechdown, on the other hand, is built from the ground up to support literate programming, with a syntax that is designed to be unambiguous and easy to read and write without any specialized tools.
 
 4. Design and Implementation
 -------------------------------------------------------------------------------
@@ -651,7 +657,7 @@ You can see the document renderd as HTML, and all the Mech examples in the docum
 
 The `v0.2` development cycle will be considered "done" when the following conditions are met: 
 
-1. all current [roadmap](https://docs.mech-lang.org/IV.design/roadmap.html) tasks for `v0.2` are at least at `🐤` (beta) status.
+1. All current [roadmap](https://docs.mech-lang.org/IV.design/roadmap.html) tasks for `v0.2` are at least at `🐤` (beta) status.
 2. The v0.2 specification and documentation is complete, including the stanard library.
 
 As far as condition 1, the two main work items blocking the release are the language server and the error system. Other tasks just need some work, but those two are going to require much more work. We anticipate to be done with `v0.2` by the end of the year.
@@ -675,20 +681,24 @@ The major language feature for `v0.3` will be the introduction of state machines
 [^4]: It's not implemented yet, but because of this 1-to-1 correspondence, technically we could parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST from it.
 
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
-[KNUTHBOOK]: D. E. Knuth, Literate Programming. Stanford, CA: Center for the Study of Language and Information, 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
-[SRC]: https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads
+[KNUTHBOOK]: D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
+[SRC]: Document Source; [Online](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads)
 [HTML]: https://mech-lang.org/post/2025-04-09-mechdown/index.html
-[LHS]: [Literate Haskell](https://wiki.haskell.org/index.php?title=Literate_programming) - Offical Website
-[ORG]: [Emacs Org Mode](https://orgmode.org) - Official Website
-[KATEX]: [KaTeX](https://katex.org) - Official Website
-[TEXBOOK]: D. E. Knuth, The TeXbook. Reading, MA: Addison-Wesley, 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf).
-[LATEXPRJ]: [LaTeX Project](https://www.latex-project.org) - Official Website
-[LATEX]: L. Lamport, LaTeX: A Document Preparation System, 2nd ed. Reading, MA: Addison-Wesley, 1994.
-[HOLON]: P.A. de Marneffe, Holon Programming: A Survey, Self Published, December 1973. [Online](https://github.com/holon-scribe/holon-programming)
-[TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data", IEEE Transactions on Software Engineering, vol. SE-5, no. 4, pp. 374-386, July 1979. [Online](https://ieeexplore.ieee.org/document/1702643).
+[ORG]: Emacs Org Mode; Official Website. [Online](https://orgmode.org)
+[KATEX]: KaTeX; Official Website. [Online](https://katex.org)
+[TEXBOOK]: D. E. Knuth, "The TeXbook"; Reading, MA; Addison-Wesley; 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf).
+[LATEXPRJ]: LaTeX Project; Official Website; [Online](https://www.latex-project.org)
+[LATEX]: L. Lamport, "LaTeX: A Document Preparation System"; 2nd ed.; Reading, MA; Addison-Wesley; 1994.
+[HOLON]: P.A. de Marneffe, "Holon Programming: A Survey"; Self Published; December 1973. [Online](https://github.com/holon-scribe/holon-programming)
+[TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data"; IEEE Transactions on Software Engineering; vol. SE-5; no. 4; pp. 374-386; July 1979. [Online](https://ieeexplore.ieee.org/document/1702643)
 [TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
 [JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
-[TAOCP]: D. E. Knuth; The Art of Computer Programming, Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html).
+[TAOCP]: D. E. Knuth; "The Art of Computer Programming", Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html)
 [MECHALPHA]: Mech Alpha Documentation; v0.0.6-alpha; 2020. [Online](https://docs.mech-lang.org/alpha)
-[LIVE2019]: C. Montella; Mech - A Programming Language for Data Driven, Reactive Systems; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019. [Online](https://docs.mech-lang.org/alpha/#/live2019.mec)
-[MECHDOWNSPEC]: Mehdown; Mech Programming Platform Specification; v0.2-beta; 2025. [Online](https://docs.mech-lang.org/IV.design/specification.html#45036232896389885)
+[LIVE2019]: C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019. [Online](https://docs.mech-lang.org/alpha/#/live2019.mec)
+[MECHDOWNSPEC]: Mechdown; Mech Programming Platform Specification; v0.2-beta; 2025. [Online](https://docs.mech-lang.org/IV.design/specification.html#45036232896389885)
+[RMD]: R Markdown; Official Website. [Online](https://rmarkdown.rstudio.com/docs)
+[REXE]: M.A. Islam, M. Asaduzzman, S. Wang, "On the Executability of R Markdown Files", in Proceedings of the 21st International Conference on Mining Software Repositories (MSR '24), July 2-3, 2024, Lisbon, Portugal. ACM, New York, NY, USA, 11 pages. [Online](https://dl.acm.org/doi/abs/10.1145/3643991.3644931). 
+[TYPST]: Typst; Official Website. [Online](https://typst.app)
+[MARIMO]: Marimo; Official Website; [Online](https://marimo.io)
+[CLERK]: M. Kavalar, P. Markovics, J. Rusher; "Clerk: Moldable Live Programming for Clojure";Proceedings of the 7th International Conference on the Art, Science, and Engineering of Programming (Programming '23); Montreal, QC, Canada; September 11-13, 2023. [Online](https://dl.acm.org/doi/10.1145/3594671.3594682)
