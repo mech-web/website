@@ -293,8 +293,6 @@ The alpha implementation of Mechdown culminated in a digital paper written in Me
 
 (3.6) Other Systems
 
-After the Jupyter project popularized notebook programming, many other systems have emerged that explore similar ideas in literate programming and live coding environments. Here we will briefly review some of these systems, and compare them to Mechdown.
-
 R Markdown[RMD] brought executable documents to the R ecosystem, which combined R code with Markdown prose to create dynamic reports and presentations. The idea is to help researchers and data scientists create reproducible analyses that combine code, results, and narrative in a single document. R code is fenced within `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it combines code and prose. Even though the documents *could* be executed, a large-scale study of almost 200k R Markdown documents located in public code repositories found that 64% were not executable. They determined this was primarily due to missing libraries, data, and incorrect code[REXE]. There is an opportunity here for Mechdown to improve on this by providing a more integrated environment where code and data are bundled together, and providing tools which will help programmers ensure documents remain executable. 
 
 Marimo[MARIMO] is a notebook environment for Python which is a lot like Jupyter, but it's backed by a native Python document instead of a JSON schema. Although, the Python code itself is written in a sort of schema constructed from `@app.cell` blocks which contain Python code and markdown, so Marimo documents aren't readable without the tooling like Mechdown.
@@ -554,7 +552,7 @@ What you have read so far in this document was generated using the Mech compiler
 
 Mechdown is architected with a front-end and back-end, 
 
-(5.1) Fontend - `mech format`
+(5.1) Fontend
 
 The frontend has two parts: a WebAssembly runtime which is served to the browser, and a JavaScript shim that interfaces the Mech `.wasm` runtime with the browser DOM.
 
