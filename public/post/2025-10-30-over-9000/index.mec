@@ -19,7 +19,7 @@ If you're not familiar with Mech, here is a quick taste with as many features as
   out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
 ```
 
-This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, and replaces multiples of {{2}} with a `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution ameniable to parallelization. Code blocks are configured to display as output the value of the last line of the block.
+This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, and replaces multiples of {{2}} with a `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution amenable to parallelization. Code blocks are configured to display as output the value of the last line of the block.
 
 Click on the variables and you'll see their values echoed in the REPL to the right (if you don't see the REPL, that's because it's hidden when the window is too narrow -- trying viewing it on a desktop).
 
@@ -34,20 +34,20 @@ After some preliminary work in 2014, the first real implementation of Mech [offi
 
 ![What, over 9000?! That's impossible!](images/over9000.gif)
 
-Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to experiment with niche debugging tools like time travel debugging and reflecing runtime state into a live editor. Documentation and a live demonstration for Mech Alpha is [still on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
+Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which tried to experiment with niche debugging tools like time travel debugging and reflection runtime state into a live editor. Documentation and a live demonstration for Mech Alpha is [still on the Internet](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the featrure set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
+Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
 
-Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification langauge for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has recevied >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
+Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
 So let's take a look at what's new in Mech...
 
 2. Mechdown
 -------------------------------------------------------------------------------
 
-Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilties.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with JavaScript and any other WASM-compliable language). Its main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
 
-Mechdown is a dialect of Markdown, extending it with unambiguous sytnax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
+Mechdown is a dialect of Markdown, extending it with unambiguous syntax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
 For example, here is some Mech code that does a calculation on some matrix data:
 
@@ -59,7 +59,7 @@ This code block is attached to a Mech interpreter that computes the value of {{s
 
 If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
 
-In the rest of this doucment, we will review the history of literate programming languages, and then talk about the design and implementation of Mechdown as it exists today, and the various tools implemented so far to work with this new system. Finally, finally we will wrap up with some details on the plans for hte `v0.2` release, and the and also a sneak peek at what is coming in `v0.3`.
+In the rest of this document, we will review the history of literate programming languages and then talk about the design and implementation of Mechdown as it exists today, and the various tools implemented so far to work with this new system. Finally, finally we will wrap up some details on the plans for the `v0.2` release, and the and also a sneak peek at what is coming in `v0.3`.
 
 3. A Brief History of Literate programming
 -------------------------------------------------------------------------------
@@ -74,15 +74,15 @@ For example, at the time some languages required programmers to declare all vari
 
 <<!["Literate Programming" by Donald Knuth, 1982 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
 
-As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be refferred to a distant section of the text. It shouldn't matter how the compiler feels about it.
+As a programmer, you would rather declare a variable where it makes narrative sense, so that the reader can see how it is used in context rather than be referred to a distant section of the text. It shouldn't matter how the compiler feels about it.
 
 Some of this can (and has) been solved with better language design; modern languages are much more free about where they allow you to declare variables. But the underlying point still remains -- the compiler shouldn't have any say in the order we write our program in just because it might be more conformant to the machine's representation of the program.
 
-While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implmentations of literate programming systems over the years, and how modern literate programming systems are used today.
+While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implementations of literate programming systems over the years, and how modern literate programming systems are used today.
 
 (3.1) WEB (1983)
 
-WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation[TEXBOOK].
+WEB was the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation[TEXBOOK].
 
 WEB consists of three components:
 
@@ -96,13 +96,13 @@ So the workflow went like this:
 
 ![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](images/web.png)
 
-This worked well enough for Knugth to allow him to write his famous book series "The Art of Computer Programming" [TAOCP] using WEB, which is a testament to the power of literate programming for creating complex and well-documented software.
+This worked well enough for Knuth to allow him to write his famous book series "The Art of Computer Programming" [TAOCP] using WEB, which is a testament to the power of literate programming for creating complex and well-documented software.
 
 But literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
 
 1. It was hard to learn. Not only do you have to learn a programming language, but you also have to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
 
-2. For Knuth, he had a very clear motive to write in a literate style; he was writing a book on programming, so interleaving code and prose mades sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on proramming. Which is most programmers.
+2. For Knuth, he had a very clear motive to write in a literate style; he was writing a book on programming, so interleaving code and prose makes sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on programming. Which is most programmers.
 
 3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the documentation manually, which is error-prone and tedious.
 
@@ -112,9 +112,9 @@ So while the concept was great, the actual tooling left a lot on the table in te
 
 Notebook programming is the most recent incarnation of literate programming, and possibly the most useful to date. The idea here is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
 
-Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
+Notebooks are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
 
-Emacs Org Mode[ORG] is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. To support the various semantics of the languages in a uniform way, code in Org Mode is written in code blocks, which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. Since the blocks are deliniated, the user can write freeform prose in a markup language similar to Markdown.
+Emacs Org Mode[ORG] is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. To support the various semantics of the languages in a uniform way, code in Org Mode is written in code blocks, which are delimited by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. Since the blocks are delineated, the user can write freeform prose in a markup language similar to Markdown.
 
 Here's an example of an Org Mode document with a code block:
 
@@ -141,7 +141,7 @@ plt.savefig("plot.png")
 
 In this example titled "Data Analysis", we have two sections: "Load Data" and "Plot Data". Each section contains a code block written in Python. The first block loads data from a CSV file and displays the first few rows, while the second block creates a plot and saves it as an image file. The results of each code block can be displayed directly in the document.
 
-Org Mode adopt's WEB's "tangle" and "weave" steps in the form of the `:tangle` hader argument:
+Org Mode adopts WEB's "tangle" and "weave" steps in the form of the `:tangle` header argument:
 
 > In literate programming parlance, documents on creation are woven with code and documentation, and on export, the code is tangled for execution by a computer. Org facilitates weaving and tangling for producing, maintaining, sharing, and exporting literate programming documents. Org provides extensive customization options for extracting source code.
 When Org tangles code blocks, it expands, merges, and transforms them. Then Org recomposes them into one or more separate files, as configured through the options. [TANGLE]
@@ -150,9 +150,9 @@ Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-scr
 
 (3.3) Jupyter Notebook (2015)
 
-Although literate programming is a language agnostic idea, the design of some languages make them more ameniable to notebook programming than others. For example, dynamic languages like Python, R and Julia were designed for interactive use in a REPL enironment, so they translate nicely into a notebook environments like [Jupyter](https://jupyter.org), which is popular for data science and scientific computing. This is in contrast to AOT compiled langues like C++, for which notebook support does exist, but it involves twisting C++ into a more dynamic form by placing restrictsions on what features can be used (e.g. no static linking).
+Although literate programming is a language agnostic idea, the design of some languages make them more amenable to notebook programming than others. For example, dynamic languages like Python, R and Julia were designed for interactive use in a REPL environment, so they translate nicely into a notebook environments like [Jupyter](https://jupyter.org), which is popular for data science and scientific computing. This is in contrast to AOT compiled languages like C++, for which notebook support does exist, but it involves twisting C++ into a more dynamic form by placing restrictions on what features can be used (e.g. no static linking).
 
-In contrast to Org Mode, Jypyter is not used by writing a specialized markup langauge in plaintext, but instead users write their projects in the Jupyter IDE, which is kind of like a WYSIWYG for notebooks. 
+In contrast to Org Mode, Jupyter is not used by writing a specialized markup language in plaintext, but instead users write their projects in the Jupyter IDE, which is kind of like a WYSIWYG for notebooks. 
 
 ![Jupyter notebook is an interactive computing environment that allows users to create and share documents that contain live code, equations, visualizations, and narrative text. This particular notebook demonstrates the Lorenz Differential Equations using Python, renders rich text like equations, displays a graph of the Python program output, and allows the user to manipulate it with UI Form elements like sliders and buttons [JUPYTER].](images/jupyter.png)
 
@@ -210,11 +210,11 @@ Then it defines cells and code:
 
 (3.4) Eve (2016)
 
-[Eve](https://witheve.com) was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of Javascript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
+[Eve](https://witheve.com) was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris had after his work on [Light Table](http://lighttable.com). Although many wanted him to keep working on Light Table, he had come to the realization that the features he wanted to implement were limited by the design of JavaScript. Therefore, he started the Eve project to fully realize what an IDE could be if it were built around a language designed without the restrictions of JS.
 
-![The Eve notebook editor, which was written mostly in Javascript and Typescript. It features a WYSIWYG prose editor integrated directly with the Eve language. The code output is rendered to the right of the code, and an outline of the source is rendered to the left. Various debugging tools exist within the editor, and can be used when the program is running. The application pictured is [FlappyEve](https://play.witheve.com/#/examples/flappy.eve). Visiting the link takes you to the Eve hosted editor, which is running entirely in the client's browser along with the Eve language runtime.](images/eve.png)
+![The Eve notebook editor, which was written mostly in JavaScript and Typescript. It features a WYSIWYG prose editor integrated directly with the Eve language. The code output is rendered to the right of the code, and an outline of the source is rendered to the left. Various debugging tools exist within the editor, and can be used when the program is running. The application pictured is [FlappyEve](https://play.witheve.com/#/examples/flappy.eve). Visiting the link takes you to the Eve hosted editor, which is running entirely in the client's browser along with the Eve language runtime.](images/eve.png)
 
-We we arrived at was a notebook programming environment that was based around a prolog-like database language called. It maintains the idea of a code blocks embedded in markdown-like prose, but the backing langauge was not imperative, but declarative relational[^2]. This meant that Eve solved one of the trickiest parts about Notebook programming, which is the notebook cells can be evaluated in any order, but the underlying languages assume imperative semantics (i.e. execution is expected to occur sequentially). Eve solved this by solving the program with a query engine that recursed until a set-point was reached, evaluating cells in any order as much as required.
+We arrived at was a notebook programming environment that was based around a prolog-like database language called. It maintains the idea of a code blocks embedded in markdown-like prose, but the backing language was not imperative, but declarative relational[^2]. This meant that Eve solved one of the trickiest parts about Notebook programming, which is the notebook cells can be evaluated in any order, but the underlying languages assume imperative semantics (i.e. execution is expected to occur sequentially). Eve solved this by solving the program with a query engine that recursed until a set-point was reached, evaluating cells in any order as much as required.
 
 For example, in the "FlappyEve" game, the first code block commits several records (facts) to the program database defining the game world:
 
@@ -249,17 +249,17 @@ search @session @browser
 
 will search the `@session` database for a record tagged `#game-window`, and bind it to the variable `svg`. Later `svg.children += sprite` binds a new record to the `children` field of the `svg` record in the `@browser` database.
 
-Because Eve is reactive, when the `y` value changes on the `#player` record (which in the case of this game will be every tick of the game timer), all dependent values are recomputed automatically, so the programmer operates purely on defining data associations rather than control flow as in typical imperative langauges.
+Because Eve is reactive, when the `y` value changes on the `#player` record (which in the case of this game will be every tick of the game timer), all dependent values are recomputed automatically, so the programmer operates purely on defining data associations rather than control flow as in typical imperative languages.
 
 This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016.
 
 (3.5) Mechdown Alpha (2019)
 
-Which brings us back to Mech. After the [Eve project concluded](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ), I returned to working on Mech, which I had originally started in 2014 (I found out about Eve late in 2014 and I had applied to work on the project on the basis of my experience working with early Mech). The 2014 implementation was not very far along so I scrapped it, and wrote the first version of the current Mech lineage in 2018. By 2019 the first version of Mechdown was implmented in Mech v0.0.2-alpha. In this section I will review v0.0.6-alpha which is still running today.
+Which brings us back to Mech. After the [Eve project concluded](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ), I returned to working on Mech, which I had originally started in 2014 (I found out about Eve late in 2014 and I had applied to work on the project on the basis of my experience working with early Mech). The 2014 implementation was not very far along so I scrapped it, and wrote the first version of the current Mech lineage in 2018. By 2019 the first version of Mechdown was implemented in Mech v0.0.2-alpha. In this section I will review v0.0.6-alpha which is still running today.
 
 ![Shown here is Mech Alpha, featuring the first version of Mechdown. The pictured program can be accessed at the [archived Mech alpha documentation](https://docs.mech-lang.org/alpha/#/examples/bouncing-balls.mec). The left panel contains a table of contents of the code in the central panel. On the right is the rendered output of the program. Clicking on a variable shows its value in a modal window, which updates live with the program. At the bottom of the screen are playback controls which can pause the program and scrub through its value history. [MECHALPHA]](images/mech-alpha.gif)
 
-The layout for the editor was inspired by what we had done with Eve, keeping the same three-pane layout with a table of contents on the left, code in the center, and output on the right. Mech had crucial difference from Eve though; principally it ditched the relational model and instead adopted a more Matlab-like matrix-based semantics. But, we still maintained the idea of orderless execuation by relying on dataflow analysis to determine dependencies between variables, and then executing them in an order that satisfied those dependencies.
+The layout for the editor was inspired by what we had done with Eve, keeping the same three-pane layout with a table of contents on the left, code in the center, and output on the right. Mech had crucial differences from Eve though; principally it ditched the relational model and instead adopted a more Matlab-like matrix-based semantics. But, we still maintained the idea of orderless execution by relying on dataflow analysis to determine dependencies between variables, and then executing them in an order that satisfied those dependencies.
 
 For example, this (legacy) Mech code defined a `#balls` table, where each row represented a ball in the simulation, and each column represented a property of the ball:
 
@@ -272,7 +272,7 @@ Define the environment
           10 10 20 0]
 ```
 
-This block would render as an `h1`, followed by a `p`, followed by a code block that defined the `#ball` table with columns `x`, `y`, `vx`, and `vy`, and a single row with initial values. Notice the code block doesn't need to be delimited by a fence -- this is because we designed Mechdown and Mech together, so the prose parser is aware of Mech syntax and knows how to parse it. Likewise, Mech syntax is designed not to clash with any of the Mechdown markup. Thus the two langauges can coexist and thereby the tangle/weave problem in Web/Org mode is solved; and we can back our code with a content-oriented document, rather than a data-oriented JSON format like Jupyter.
+This block would render as an `h1`, followed by a `p`, followed by a code block that defined the `#ball` table with columns `x`, `y`, `vx`, and `vy`, and a single row with initial values. Notice the code block doesn't need to be delimited by a fence -- this is because we designed Mechdown and Mech together, so the prose parser is aware of Mech syntax and knows how to parse it. Likewise, Mech syntax is designed not to clash with any of the Mechdown markup. Thus the two languages can coexist and thereby the tangle/weave problem in Web/Org mode is solved; and we can back our code with a content-oriented document, rather than a data-oriented JSON format like Jupyter.
 
 Then in a separate block of code elsewhere in the program, we could react to the ball bouncing off the game area:
 
@@ -287,7 +287,7 @@ The variables prefixed with the `#` sigil are not tags like in Eve, but global t
 
 Mechdown Alpha supported live Mech code execution, variable inspection, and time travel debugging, which allowed users to pause the program and scrub through its history to see how variables changed over time. This was a nice feature for understanding complex programs and debugging Heisenbugs[^3].
 
-In terms of the implementation, the Mech parser and runtime were written in Rust and compiled to `wasm32` for execution in the browser. The Mechdown editor was written in Javascript, and it interfaced with the Mech runtime via the [wasmbindgen toolchain](https://rustwasm.github.io/docs/wasm-bindgen), which provides interoperation between Rust and Javascript and an API to access the DOM via Rust.
+In terms of the implementation, the Mech parser and runtime were written in Rust and compiled to `wasm32` for execution in the browser. The Mechdown editor was written in JavaScript, and it interfaced with the Mech runtime via the [wasmbindgen toolchain](https://rustwasm.github.io/docs/wasm-bindgen), which provides interoperation between Rust and JavaScript and an API to access the DOM via Rust.
 
 The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019]. 
 
@@ -295,7 +295,7 @@ The alpha implementation of Mechdown culminated in a digital paper written in Me
 
 After the Jupyter project popularized notebook programming, many other systems have emerged that explore similar ideas in literate programming and live coding environments. Here we will briefly review some of these systems, and compare them to Mechdown.
 
-R Markdown[RMD] brought executable documents to the R ecosystem, which combined R code with Markdown prose to create dynamic reports and presentations. The idea is to help researchers and data scientists create reproducible analyses that combine code, results, and narrative in a single document. R code is fenced wtihin `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it combines code and prose. Even though the documents *could* be executed, a large-scale study of almost 200k R Markdown documents located in public code repositories found that 64% were not executable. They determined this was primarily due to missing libraries, data, and incorrect code[REXE]. There is an opportunity here for Mechdown to improve on this by providing a more integrated environment where code and data are bundled together, and providing tools which will help programmers ensure documents remain executable. 
+R Markdown[RMD] brought executable documents to the R ecosystem, which combined R code with Markdown prose to create dynamic reports and presentations. The idea is to help researchers and data scientists create reproducible analyses that combine code, results, and narrative in a single document. R code is fenced within `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it combines code and prose. Even though the documents *could* be executed, a large-scale study of almost 200k R Markdown documents located in public code repositories found that 64% were not executable. They determined this was primarily due to missing libraries, data, and incorrect code[REXE]. There is an opportunity here for Mechdown to improve on this by providing a more integrated environment where code and data are bundled together, and providing tools which will help programmers ensure documents remain executable. 
 
 Marimo[MARIMO] is a notebook environment for Python which is a lot like Jupyter, but it's backed by a native Python document instead of a JSON schema. Although, the Python code itself is written in a sort of schema constructed from `@app.cell` blocks which contain Python code and markdown, so Marimo documents aren't readable without the tooling like Mechdown.
 
@@ -303,12 +303,12 @@ Typst[TYPST] is a new typesetting system that aims to be a modern alternative to
 
 Clerk[CLERK] is a live notebook system for Clojure that combines code, prose, and rich visualizations in a single environment. Here's some [examples](https://github.clerk.garden/nextjournal/clerk-demo/commit/cb212b2edc64e762bcd1af56417ef9f6b2fde5b1). It allows Clojure code to be embedded in Markdown or namespace files, evaluates code live, and provides built-in viewers for tables, plots, TeX, HTML, and custom data. Computation is cached and paginated for performance, and users can extend the system with custom viewers or transformations. While Clerk shares Mechdown's focus on reactive, literate programming, it differs in that it relies on the host language semantics of Clojure, rather than having custom semantics that can support features like time-travel debugging.
 
-Mechdown is well positioned in this space. With Mech, we've already done the work of designing a language that is well suited for data-oriented programming. These other system rely on existing langauges that were not designed for notebook programming, so they have to make compromises in terms of syntax and semantics to fit the notebook model. Mechdown, on the other hand, is built from the ground up to support literate programming, with a syntax that is designed to be unambiguous and easy to read and write without any specialized tools.
+Mechdown is well positioned in this space. With Mech, we've already done the work of designing a language that is well suited for data-oriented programming. These other system rely on existing languages that were not designed for notebook programming, so they have to make compromises in terms of syntax and semantics to fit the notebook model. Mechdown, on the other hand, is built from the ground up to support literate programming, with a syntax that is designed to be unambiguous and easy to read and write without any specialized tools.
 
 4. Design and Implementation
 -------------------------------------------------------------------------------
 
-One of the key design philosophies behind Mech's syntax follows Markdown, in that it should be easy to read and write in plain text form, without requiring specialized editors or tools. This makes it accessible to a wide range of users, and allows for easy collaboration and version control using standard text-based tools. So in designing Mechdown we took all the best parts of Markdown, and extended it with features from dialects like GHFM (GitHub Flavored Markdown). In doing so, we had to make Markdown unambiguous, since the way it was [originally specified](https://daringfireball.net/projects/markdown) left room for interpretation between different parsers. Because of this, although Mechdown is inspired by Mardown, we don't try to maintain compatibility with Markdown or the CommonMark spec.
+One of the key design philosophies behind Mech's syntax follows Markdown, in that it should be easy to read and write in plain text form, without requiring specialized editors or tools. This makes it accessible to a wide range of users, and allows for easy collaboration and version control using standard text-based tools. So in designing Mechdown we took all the best parts of Markdown, and extended it with features from dialects like GHFM (GitHub Flavored Markdown). In doing so, we had to make Markdown unambiguous, since the way it was [originally specified](https://daringfireball.net/projects/markdown) left room for interpretation between different parsers. Because of this, although Mechdown is inspired by Markdown, we don't try to maintain compatibility with Markdown or the CommonMark spec.
 
 As of v0.2, Mechdown has now matured into an actually useful documentation generator and literate programming tool. In this section we will talk about the design and implementation of Mechdown as it exists today. The document you are currently reading is demonstrating Mechdown by example, so you have already experienced many of the features first-hand such as:
 
@@ -355,9 +355,9 @@ The key to how Mechdown integrates with Mech comes down to whitespace -- Mechdow
   - Subitem 2
 ```
 
-This list is whitespace sensitive because the indentation level determines the hierarchy of the list items. Most languages cannot parse this without some kind code fence or comment block to indicate where the code starts and ends. The reason for this is that most mainstream programming languages are not whitespace sensitive (Python being the notable exception), so it's very common for parsers to strip out whitespace before parsing the code. If any whitespace needs to be preserved as in strings and comments, those can be handled in the lexer before parsing even happens; these elements are deliniated by quotes or comment markers, so full parser machinery isn't necessary to recognize them. Stripping out the whitespace simplifies the grammar and thereby the parser implementation.
+This list is whitespace sensitive because the indentation level determines the hierarchy of the list items. Most languages cannot parse this without some kind code fence or comment block to indicate where the code starts and ends. The reason for this is that most mainstream programming languages are not whitespace sensitive (Python being the notable exception), so it's very common for parsers to strip out whitespace before parsing the code. If any whitespace needs to be preserved as in strings and comments, those can be handled in the lexer before parsing even happens; these elements are delimited by quotes or comment markers, so full parser machinery isn't necessary to recognize them. Stripping out the whitespace simplifies the grammar and thereby the parser implementation.
 
-In Mechdown, we do not want to put prose or code behind any fences, so we have to fully parse the entire document including whitespace. This requires significantly more work in defining the grammar, becaues we have to account for all the different ways whitespace can appear in the document. But the opportunity is now that we have done this, code and prose are fully integrated. For example, we can define Matrix code blocks like this:
+In Mechdown, we do not want to put prose or code behind any fences, so we have to fully parse the entire document including whitespace. This requires significantly more work in defining the grammar, because we have to account for all the different ways whitespace can appear in the document. But the opportunity is now that we have done this, code and prose are fully integrated. For example, we can define Matrix code blocks like this:
 
 ```
 This is a matrix definition:
@@ -375,11 +375,11 @@ That isn't to say that Mech is fully whitespace sensitive though -- most whitesp
 y:=7 ^ 2;x:=2 * [1,2,4;5,6,y]
 ```
 
-**Note:** Mech requries spaces around operators, so we can support cool feartues like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also think it just makes formulas more readable. The commas in the inline form are a choice to allow for easier inline writing, since newlines are not available in that context.
+**Note:** Mech requires spaces around operators, so we can support cool feartues like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also think it just makes formulas more readable. The commas in the inline form are a choice to allow for easier inline writing, since newlines are not available in that context.
 
 (4.1) Markup Features
 
-In this section well show off some more markdup features of Mechdown. You've already seen features such as the abstract block at the start of this document, images, figure captions, etc. Now let's look at a few more.
+In this section well show off some more markup features of Mechdown. You've already seen features such as the abstract block at the start of this document, images, figure captions, etc. Now let's look at a few more.
 
 (4.1.1) Section Titles
 
@@ -397,7 +397,7 @@ Title
 (1.1.1) Sub Sub Section Title
 ```
 
-The TOC is generated from these titles and can be styled with CSS. The opening, closing, and highlighting of sections that you see is handled by Javascript and CSS, so it's an example of how Mech and Javascript can still interoperate in this new version of Mech.
+The TOC is generated from these titles and can be styled with CSS. The opening, closing, and highlighting of sections that you see is handled by JavaScript and CSS, so it's an example of how Mech and JavaScript can still interoperate in this new version of Mech.
 
 (4.1.2) Paragraphs
 
@@ -453,7 +453,7 @@ Here's a list of some of the features of lists:
     -[ ] Task Three
 ```
 
-That last one is interesting because when rendered, those checkboses are interactive. e.g.:
+That last one is interesting because when rendered, those checkboxes are interactive. e.g.:
 
 -[ ] Task One
 -[x] Task Two
@@ -485,7 +485,7 @@ which has the result {b}. In terms of parsing, blocks are defined as contiguous 
 c := [1 2 3] * b - 4 
 d := c / a  -- Divide c by a
 
-Semantically, all the code blocks in this section are part of the global prgram schope, so {{c}} and {{d}} being in the same block doesn't mean they are in a different scope from {{a}} and {{b}} defined earlier.
+Semantically, all the code blocks in this section are part of the global program scope, so {{c}} and {{d}} being in the same block doesn't mean they are in a different scope from {{a}} and {{b}} defined earlier.
 
 Fenced blocks are also supported, and their default behavior is to display the last line of the block as the output of the block. For example:
 
@@ -494,7 +494,6 @@ Fenced blocks are also supported, and their default behavior is to display the l
 e := d ^ 2
 ```
 ~~~
-
 
 Renders as:
 
@@ -514,7 +513,7 @@ Finally, if we want to parse mech code but not execute it, we have the inline Me
 
 (4.2.3) Sub Interpreters
 
-As a final highlight, Mechdown supports sub interpreters, which allow for code blocks to be executed in isolated environments. This is useful for testing and experimentation, where we want to run code without affecting the global program state. I use sub interpreters extensilvely when I write tests and examples for the Mech standard library, so that each example can run independently without interfering with other examples.
+As a final highlight, Mechdown supports sub interpreters, which allow for code blocks to be executed in isolated environments. This is useful for testing and experimentation, where we want to run code without affecting the global program state. I use sub interpreters extensively when I write tests and examples for the Mech standard library, so that each example can run independently without interfering with other examples.
 
 In Mech, once a variable is defined, it can't be redefined in the same scope. This is not a problem if we use a completely different interpreter though, which is supported with fenced code blocks. For example:
 
@@ -532,7 +531,7 @@ x := 20
 ```
 ~~~
 
-The preceeding two blocks render as:
+The preceding two blocks render as:
 
 ```mech:ex1
 x := 10
@@ -557,7 +556,7 @@ Mechdown is architected with a front-end and back-end,
 
 (5.1) Fontend - `mech format`
 
-The frontend has two parts: a WebAssembly runtime which is served to the browser, and a Javascript shim that interfaces the Mech `.wasm` runtime with the browser DOM.
+The frontend has two parts: a WebAssembly runtime which is served to the browser, and a JavaScript shim that interfaces the Mech `.wasm` runtime with the browser DOM.
 
 Because we wrote the Mech compiler in Rust, we can easily compile to a `wasm32` target for running in the browser. This is important because Mechdown documents are intended to be live documents that can run in the browser without any server-side support. With WebAssembly, we can ship the Mech runtime to the client, and run Mech programs entirely on the client side. This has several advantages:
 
@@ -565,13 +564,13 @@ Because we wrote the Mech compiler in Rust, we can easily compile to a `wasm32` 
 - Responsiveness: running Mech programs on the client side allows for a more responsive user experience, since there is no need to wait for server round-trips to execute code and get results.
 - Offline support: since the Mech runtime is shipped to the client, users can run Mech programs even when they are offline or have a poor internet connection.
 
-The resulting binary is about 1MB (compressed) for the full Mech runtime including the parser, interpreter, standard library, and mechdown formatter. We can make this file substantially smaller (just a few hundred KB) by only compiling the parts of the runtime that are needed for a given document. We use `wasmbindgen` and `web-sys` and `js-sys` to interface with the browser DOM. This means Mech essentially interoperates with javascript as an embedded langauge like lua, although we need to do work on the interface to make this as nice.
+The resulting binary is about 1MB (compressed) for the full Mech runtime including the parser, interpreter, standard library, and Mechdown formatter. We can make this file substantially smaller (just a few hundred KB) by only compiling the parts of the runtime that are needed for a given document. We use `wasmbindgen` and `web-sys` and `js-sys` to interface with the browser DOM. This means Mech essentially interoperates with JavaScript as an embedded language like Lua, although we need to do work on the interface to make this as nice.
 
 (5.1.1) mech-wasm
 
 `mech-wasm` depends on `mech-syntax`, and `mech-interpreter`. `mech-syntax` is only needed if the client requires parsing capabilities; if the client is just executing compiled Mech bytecode, then we can omit the whole parser and just include the interpreter, which results in a much smaller wasm binary.
 
-This component is centered around a datastructure called `WasmMech`, which holds an instance of the Mech interpreter and exposes methods to load documents, execute code, and access system values. The `WasmMech` instance is presumed to live as long as the document. Here's how it works:
+This component is centered around a data structure called `WasmMech`, which holds an instance of the Mech interpreter and exposes methods to load documents, execute code, and access system values. The `WasmMech` instance is presumed to live as long as the document. Here's how it works:
 
 1. First, the Mechdown document is handed to the `WasmMech` instance as either raw source code or precompiled bytecode. If the program is source code, it is parsed into an AST and then loaded into the interpreter. If it is bytecode, parsing is skipped and the program is directly loaded.
 2. `init()` is called, which adds event listeners and renders the interpreted values into the Mechdown document, including inline values and code block outputs.
@@ -579,7 +578,7 @@ This component is centered around a datastructure called `WasmMech`, which holds
 
 (5.1.2) `mech format`
 
-The other part of the frontend is a HTML/Javascript shim, which exposes a div with id `mech-root`, another one with id `mech-repl`, and a third with id `mech-toc`. The shim also includes a CSS file for styling the document, so style is completely customizable -- Mechdown only handles the structure and semantics of the document while providing classes and ids for all nodes, so they can be referenced by the Mech runtime.
+The other part of the frontend is a HTML/JavaScript shim, which exposes a div with id `mech-root`, another one with id `mech-repl`, and a third with id `mech-toc`. The shim also includes a CSS file for styling the document, so style is completely customizable -- Mechdown only handles the structure and semantics of the document while providing classes and ids for all nodes, so they can be referenced by the Mech runtime.
 
 This shim is generated by the `mech` tool using the `format` [command](https://docs.mech-lang.org/I.getting-started/build-and-run.html#57362460444726725), and including the `--html` flag. The formatter takes as input a `.mec` source file, and outputs a `.html` file that contains the rendered Mechdown document. Here's the process
 
@@ -606,11 +605,11 @@ For example, here is `var()`
   }
 ```
 
-On the variable span, we mark the element as "mech-clickable", which registers that particlar element with the wasm runtime. It's also assigned an id of the form `hashed-variable-name:interpreter-id`, so that when the user clicked on that html element, the runtime can identify which variable in which interpreter this element corresponds to.
+On the variable span, we mark the element as "mech-clickable", which registers that particular element with the wasm runtime. It's also assigned an id of the form `hashed-variable-name:interpreter-id`, so that when the user clicked on that html element, the runtime can identify which variable in which interpreter this element corresponds to.
 
 ![This HTML tree corresponds to the Mech program {{x := 1 + 2}}. The tree is attached to the HTML shim at the node `mech-content`. Each node of the tree corresponds to a node in the Mech AST[^4], so classes are used to denote the type of AST node, while the HTML node type is used to express the semantics of the node. Nodes that correspond to specific Mech interpreter values are annotated with their value IDs.](images/inspector-tree.png)
 
-Once the html tree is built, it's attached to the "mech-content" div in the document. The tree is also serialized, compressed, and encoded in base64, for embedding into the document itself, so that when the wasm runtime starts up, it can recover the AST without having to reparse the document. This makes loading much faster. Although if we wanted, we could technically reparse the HTML document and get valid Mech code out of it. Howver, in a future version we won't need to store teh parse tree at all, just the program bytecode, which will be much smaller and faster to load.
+Once the html tree is built, it's attached to the "mech-content" div in the document. The tree is also serialized, compressed, and encoded in base64, for embedding into the document itself, so that when the wasm runtime starts up, it can recover the AST without having to reparse the document. This makes loading much faster. Although if we wanted, we could technically reparse the HTML document and get valid Mech code out of it. However, in a future version we won't need to store the parse tree at all, just the program bytecode, which will be much smaller and faster to load.
 
 These `.html` files are static in the sense that they can be opened and viewed without a server or runtime, so they stay small. If you want to make them live though, they have to run attached to a server because the runtime needs to be loaded. But this way of running Mechdown is done entirely on the client side, so no server resources are needed to run Mech programs except to ship the `.html` and the `.wasm` files.
 
@@ -630,25 +629,23 @@ From the `mech` tool, we can use the `serve` [command](https://docs.mech-lang.or
   - Images: `.png`, `.jpg`, `.jpeg`, `.gif`, `.svg`
 3. Mech code (source, bytecode, etc.) is compile immediately and the resulting bytecode is stored in the filesystem memory. Website HTML is stored in a map of URI paths to assets.
 
-4. Mech code is then formatted into static `.html` files. and stored in the map with the other served files. This is so that when the a client requests a particular `.html` file via the browser or a link, we can immeidately serve the result instead of having to parse and format on each request. Alternatively, the client can request a `.mec` file and we can serve the corresponding `.html` document.
+4. Mech code is then formatted into static `.html` files. and stored in the map with the other served files. This is so that when the a client requests a particular `.html` file via the browser or a link, we can immediately serve the result instead of having to parse and format on each request. Alternatively, the client can request a `.mec` file and we can serve the corresponding `.html` document.
 
 5. `MechFS` watches files and folders for changes; when a change is detected, it recompiles the document and replaces the entry in the server. Then when it's requested again by the client, it will already have been updated.
 
-Previous versions of Mechdown could be configured to establish and maintain a long-running websocket connection with the server when it requests the html file. This feature allowed for realtime communicaiton between client/server or peer to peer with other clients. It's not implemented yet currently in `v0.2` but it will be coming back in `v0.4`.
-
+Previous versions of Mechdown could be configured to establish and maintain a long-running websocket connection with the server when it requests the html file. This feature allowed for real time communication between client/server or peer to peer with other clients. It's not implemented yet currently in `v0.2` but it will be coming back in `v0.4`.
 
 (5.3) `:docs`
 
-The final feature we will talk about today is the `:docs` command in the REPL. BEcause we've made it really nice to transmit mech document with mech programs embedded in them, we can summon those documents from the internet into our browser using the REPL. Try this in the REPL:
+The final feature we will talk about today is the `:docs` command in the REPL. Because we've made it really nice to transmit mech document with mech programs embedded in them, we can summon those documents from the internet into our browser using the REPL. Try this in the REPL:
 
 ```
 :docs math/sin
 ```
 
-Or just click this link: [:docs math/sin](#:docs math/sin) to run the command in the Repl automatically. This will fetch the document from the math machine repository, whereever address is registered with the Mech machine registry. Or maybe we have a particular documentation registry like docs.rs, I don't know what the right move is there yet. Either way once we have teh doc it, we load into the REPL itself.
+Or just click this link: [:docs math/sin](#:docs math/sin) to run the command in the REPL automatically. This will fetch the document from the math machine repository, wherever address is registered with the Mech machine registry. Or maybe we have a particular documentation registry like docs.rs, I don't know what the right move is there yet. Either way once we have the doc it, we load into the REPL itself.
 
-You can see the document renderd as HTML, and all the Mech examples in the document are running live in sub interpreters, with their results displayed. By running in subinterpreters, the doc code is isolated from the main program, so it won't interact or overwrite any variables, and all memory related to the doc page will be freed when the repl is cleared. This allows user to quickly integrate example code into their own programs by copying and pasting from the document, or even by importing the document as a Mech package if we support that in the future.
-
+You can see the document rendered as HTML, and all the Mech examples in the document are running live in sub interpreters, with their results displayed. By running in sub-interpreters, the doc code is isolated from the main program, so it won't interact or overwrite any variables, and all memory related to the doc page will be freed when the REPL is cleared. This allows user to quickly integrate example code into their own programs by copying and pasting from the document, or even by importing the document as a Mech package if we support that in the future.
 
 6. What's Next?
 -------------------------------------------------------------------------------
@@ -666,15 +663,15 @@ As far as condition 1, the two main work items blocking the release are the lang
 
 We anticipate work on `v0.3` will commence early in 2026 (although some foundational work has already begun). This version will focus on program/package specification, including higher order functions, control flow, and building out the Mech compiler toolchain. 
 
-We have already started some of this work in the form of hte [bytecode compiler](https://gitlab.com/mech-lang/mech/-/tree/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/core/src/program) and the [build system](https://gitlab.com/mech-lang/mech/-/blob/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/bin/term.rs), but they are very early, so we won't be talking about them as part of `v0.2`.
+We have already started some of this work in the form of the [bytecode compiler](https://gitlab.com/mech-lang/mech/-/tree/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/core/src/program) and the [build system](https://gitlab.com/mech-lang/mech/-/blob/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/bin/term.rs), but they are very early, so we won't be talking about them as part of `v0.2`.
 
 The major language feature for `v0.3` will be the introduction of state machines. We anticipate that work to take the year at least and be ready at the end of 2026, or early 2027. Here's just a little teaser of what the build system looks like today:
 
 ***
 
-[^1]: Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author [HOLON]. The survey includes in the foreward a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. Towster's work can be found in his 1979 paper [TOWSTER].
+[^1]: Giving credit where it is due, Knuth claims his system is not all that new and is based on ideas that were generally floating around at the time. But he specifically mentions Pierre-Arnoul de Marneffe's Holon system, and "a somewhat similar system was independently created by Edwin Towster". You can read about the Holon programming in a survey compiled by the system's author [HOLON]. The survey includes in the foreword a letter Knuth had sent to de Marneffe complimenting him on his system, but also offering a critical take on its design. Towster's work can be found in his 1979 paper [TOWSTER].
 
-[^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime is responsible for determining how to satisfy these relationships, often using techniques like constraint solving or logic inference. This allows for a more high-level and expressive way of defining programs, as the programmer can focus on the "what" rather than the "how". Other relational langauges include Prolog and Datalog. SQL purports to be relational, but by allowind duplicate rows, it doesn't express set semantics and so it's not strictly a relational language. In eve if you want duplicate rows you have to make them distinct with an ID, otherwise they will be treated as the same row.
+[^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime is responsible for determining how to satisfy these relationships, often using techniques like constraint solving or logic inference. This allows for a more high-level and expressive way of defining programs, as the programmer can focus on the "what" rather than the "how". Other relational languages include Prolog and Datalog. SQL purports to be relational, but by allowing duplicate rows, it doesn't express set semantics and so it's not strictly a relational language. In eve if you want duplicate rows you have to make them distinct with an ID, otherwise they will be treated as the same row.
 
 [^3]: In one very early version of Mech, I had written a bug into the standard library where certain values applied to the `sin` function caused an infinite result, which manifested as objects simply disappearing from the canvas at seemingly random times. Time travel debugging allowed me to pause the running program, rewind back to where the object blinks out, and find out exactly what it was when it did so. That the value was a momentary `NaN` made the fix obvious. You can still see this bug in [the first release of Mech alpha](https://mech-lang.org/post/2019-03-27-version-0-0-1), when the robot arm is set to just the right angle.
 
