@@ -45,7 +45,7 @@ So let's take a look at what's new in Mech...
 2. Mechdown
 -------------------------------------------------------------------------------
 
-Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$ replacement for scientific papers and reports. This blog post is written in Mechdown and serves to demonstrate its capabilties.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is written in Mechdown and serves to demonstrate its capabilties.
 
 Mechdown is a dialect of Markdown, extending it with unambiguous sytnax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
@@ -82,7 +82,7 @@ While Knuth's tooling was cutting-edge in 1984, his work only just began to reve
 
 (3.1) WEB (1983)
 
-WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation.
+WEB was the the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation[TEXBOOK].
 
 WEB consists of three components:
 
@@ -114,7 +114,7 @@ Notebook programming is the most recent incarnation of literate programming, and
 
 Notebooks are are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on these ideas.
 
-Emacs Org Mode is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. To support the various semantics of the languages in a uniform way, code in Org Mode is written in code blocks, which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. Since the blocks are deliniated, the user can write freeform prose in a markup language similar to Markdown.
+Emacs Org Mode[ORG] is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, org mode supports a wide variety of programming languages. To support the various semantics of the languages in a uniform way, code in Org Mode is written in code blocks, which are deliniated by special markers. Each code block can be executed independently, and the results can be captured and displayed in the document. Since the blocks are deliniated, the user can write freeform prose in a markup language similar to Markdown.
 
 Here's an example of an Org Mode document with a code block:
 
@@ -683,13 +683,9 @@ The major language feature for `v0.3` will be the introduction of state machines
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
 [KNUTHBOOK]: D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
 [SRC]: Document Source; [Online](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads)
-[HTML]: https://mech-lang.org/post/2025-04-09-mechdown/index.html
 [ORG]: Emacs Org Mode; Official Website. [Online](https://orgmode.org)
-[KATEX]: KaTeX; Official Website. [Online](https://katex.org)
 [TEXBOOK]: D. E. Knuth, "The TeXbook"; Reading, MA; Addison-Wesley; 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf).
 [LATEXPRJ]: LaTeX Project; Official Website; [Online](https://www.latex-project.org)
-[LATEX]: L. Lamport, "LaTeX: A Document Preparation System"; 2nd ed.; Reading, MA; Addison-Wesley; 1994.
-[HOLON]: P.A. de Marneffe, "Holon Programming: A Survey"; Self Published; December 1973. [Online](https://github.com/holon-scribe/holon-programming)
 [TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data"; IEEE Transactions on Software Engineering; vol. SE-5; no. 4; pp. 374-386; July 1979. [Online](https://ieeexplore.ieee.org/document/1702643)
 [TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
 [JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
