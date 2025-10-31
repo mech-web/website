@@ -20,9 +20,21 @@ If you're not familiar with Mech, here is a quick taste with as many features as
   out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
 ```
 
-This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, and replaces multiples of {{2}} with `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution amenable to parallelization. Code blocks are configured to display the value of the last line of the block as output.
+This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, then replaces multiples of {{2}} with `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution amenable to parallelization. Code blocks are configured to display the value of the last line of the block as output.
 
 Click on the variables and you'll see their values echoed in the REPL to the right (if you don't see the REPL, that's because it's hidden when the window is too narrow; try viewing it on a desktop).
+
+Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning the semantics of operators like `%` and `==` are defined to work on entire arrays at once. Logical indexing is then used to select and update specific elements of the `out` vector based on the truth of corresponding elements in the index vectors `ix2` and `ix3`.
+
+The following imperative pseudocode is equivalent to {{out[ix2 && ix3] = "✨🐝"}}:
+
+```pseud
+for i in 1..=10 {
+  if (ix2[i] && ix[i]) == 0 {
+    out[i] = "✨🐝"
+  }
+}
+```
 
 Anyway, you might want to grab a snack -- this is probably the longest and most significant update to Mech we've posted to date!
 
@@ -41,7 +53,7 @@ Mech `v0.1` followed this effort and represented a refinement of some of the ini
 
 Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
-**Note**: Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're blanning to use Mech, !!bugs abound, there be dragons, use at your own risk, etc.!!
+**Note**: Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're blanning to use Mech, !!bugs abound, here be dragons, use at your own risk, etc.!! If you find any bugs, please [file an issue](https://github.com/mech-lang/mech/issues).
 
 With that out of the way, let's take a look at what's new in Mech...
 
