@@ -45,7 +45,7 @@ So let's take a look at what's new in Mech...
 2. Mechdown
 -------------------------------------------------------------------------------
 
-Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is written in Mechdown and serves to demonstrate its capabilties.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language, and features Mech as a scripting and code execution engine (although it also works with Javascript and any other WASM-compilable language). It's main function is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilties.
 
 Mechdown is a dialect of Markdown, extending it with unambiguous sytnax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
@@ -415,7 +415,7 @@ The heart and soul of any literate programming document is the mighty paragraph.
   - $$\pm\sqrt{inline^2 + equation^2}$$
 - Link Elements
   - [Hyperlinks](#)
-  - Autonumbered inline references [KNUTHLP]
+  - Autonumbered inline references
   - Autonumbered footnote references[^1]
 
 These elements can be added wherever paragraphs are used, including as section elements, in lists, figure captions, table cells, and even Mech code comments. That last one is particularly useful:
@@ -681,11 +681,11 @@ The major language feature for `v0.3` will be the introduction of state machines
 [^4]: It's not implemented yet, but because of this 1-to-1 correspondence, technically we could parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST from it.
 
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
-[KNUTHBOOK]: D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html).
-[SRC]: Document Source; [Online](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads)
+[KNUTHBOOK]: D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html)
 [ORG]: Emacs Org Mode; Official Website. [Online](https://orgmode.org)
-[TEXBOOK]: D. E. Knuth, "The TeXbook"; Reading, MA; Addison-Wesley; 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf).
+[TEXBOOK]: D. E. Knuth, "The TeXbook"; Reading, MA; Addison-Wesley; 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf)
 [LATEXPRJ]: LaTeX Project; Official Website; [Online](https://www.latex-project.org)
+[HOLON]: P.A. de Marneffe, "Holon Programming: A Survey"; Self Published; December 1973. [Online](https://github.com/holon-scribe/holon-programming)
 [TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data"; IEEE Transactions on Software Engineering; vol. SE-5; no. 4; pp. 374-386; July 1979. [Online](https://ieeexplore.ieee.org/document/1702643)
 [TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
 [JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
