@@ -2,8 +2,9 @@
 Fall 2025 Progress Report - Mechdown
 ===============================================================================
 
-%% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Applications include user interfaces, games, embedded systems, and especially robotics.
-In this post we will review our progress so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-30-over-9000/index.mec?ref_type=heads) and is served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+%% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Use cases include user interfaces, games, embedded systems, and especially robotics.
+In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-30-over-9000/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+
 
 If you're not familiar with Mech, here is a quick taste with as many features as we can demo in 7LOC:
 
@@ -34,11 +35,11 @@ After some preliminary work in 2014, the first real implementation of Mech [offi
 
 ![What, over 9000?! That's impossible!](images/over9000.gif)
 
-Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments around the language design, which experimented with niche debugging tools like time travel debugging and reflecting runtime state into a live editor. Documentation and a working demonstration for Mech Alpha is [still hosted on the docs](https://docs.mech-lang.org/alpha/#/docs/index.mec).
+Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments in language design, exploring niche debugging tools like time-travel debugging and reflecting runtime state in a live editor. Documentation and a working demonstration for Mech Alpha are [still hosted on the docs](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-Mech `v0.12` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
+Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
 
-Today we are here to report progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
+Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
 **Note**: Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're blanning to use Mech, !!bugs abound, there be dragons, use at your own risk, etc.!!
 
@@ -47,7 +48,7 @@ With that out of the way, let's take a look at what's new in Mech...
 2. Mechdown
 -------------------------------------------------------------------------------
 
-The headline feature of Mech `v0.2` is Mechdown, a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language. Mechdown uses Mech as a scripting and code execution engine (although it also works with JavaScript and any other WASM-compliable language). Its purpose is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written entirely in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
+The headline feature of Mech `v0.2` is Mechdown, a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language. Mechdown uses Mech (which is intended to be a general purpose language, not just for document scripting) as a scripting and code execution engine (although it also works with JavaScript and any other WASM-compliable language). Its purpose is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written entirely in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
 
 Mechdown is a dialect of Markdown, extending it with unambiguous syntax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
