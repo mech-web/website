@@ -5,7 +5,6 @@ Fall 2025 Progress Report - Mechdown
 %% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Use cases include user interfaces, games, embedded systems, and especially robotics.
 In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-30-over-9000/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
 
-
 If you're not familiar with Mech, here is a quick taste with as many features as we can demo in 7LOC:
 
 ```mech:fizzbuzz
@@ -43,7 +42,7 @@ Anyway, you might want to grab a snack -- this is probably the longest and most 
 
 It's been a while since the last progress report, so I will begin with a quick history of Mech, and summarize where we are right now.
 
-After some preliminary work in 2014, the first real implementation of Mech [officially started in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) when the Eve project concluded. Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
+After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
 ![What, over 9000?! That's impossible!](images/over9000.gif)
 
@@ -53,7 +52,7 @@ Mech `v0.1` followed this effort and represented a refinement of some of the ini
 
 Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
-**Note**: Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're blanning to use Mech, !!bugs abound, here be dragons, use at your own risk, etc.!! If you find any bugs, please [file an issue](https://github.com/mech-lang/mech/issues).
+**Note**: Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're planning to use Mech, !!bugs abound, here be dragons, use at your own risk, etc.!! If you find any bugs, please [file an issue](https://github.com/mech-lang/mech/issues).
 
 With that out of the way, let's take a look at what's new in Mech...
 
@@ -401,7 +400,7 @@ That said, Mech is not fully whitespace-sensitive; most whitespace-sensitive gra
 y:=7 ^ 2;x:=2 * [1,2,4;5,6,y]
 ```
 
-**Note:** Mech requires spaces around operators, which allows us to support features like `{{kebab-case}}` and `{{slashes/in/identifiers}}` without ambiguity. We also believe it makes formulas more readable. The commas in the inline form are used to facilitate easier inline writing, since newlines are not available in that context.
+**Note:** Mech requires spaces around operators, which allows us to support features like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also believe it makes formulas more readable. The commas in the inline form are used to facilitate easier inline writing, since newlines are not available in that context.
 
 (4.1) Markup Features
 
@@ -588,11 +587,11 @@ I think that even without Mech integration, Mechdown is already a very capable m
 
 You have already seen a few examples of Mech code blocks in action, but let's take a closer look at the syntax and features of Mech code blocks.
 
-First, the main difference between Mech code blocks and regular code blocks is that there is no need to fence Mech code with backticks or tildes. Mechdown recognizes Mech syntax natively, so any indented block of Mech code is treated as a Mech code block. For example, when you write `{{a := 1 + 1}}` on a line by itself, Mechdown knows it is Mech code and parses it accordingly:
+First, the main difference between Mech code blocks and regular code blocks is that there is no need to fence Mech code with backticks or tildes. Mechdown recognizes Mech syntax natively, so any indented block of Mech code is treated as a Mech code block. For example, when you write {{a := 1 + 1}} on a line by itself, Mechdown knows it is Mech code and parses it accordingly:
 
 a := 1 + 1
 
-This line of code is parsed and executed by the Mech runtime, adding the variable `{{a}}` to the program's global scope with the value `{a}`. Syntax highlighting is achieved by traversing the program's AST and mapping AST nodes to HTML elements. This allows the browser inspector to be used to view the parse tree of the code block.
+This line of code is parsed and executed by the Mech runtime, adding the variable {{a}} to the program's global scope with the value {a}. Syntax highlighting is achieved by traversing the program's AST and mapping AST nodes to HTML elements. This allows the browser inspector to be used to view the parse tree of the code block.
 
 In a later block, we can reference `{{a}}` and use it in further calculations:
 
@@ -603,7 +602,7 @@ which results in `{b}`. In terms of parsing, blocks are defined as contiguous li
 c := [1 2 3] * b - 4 
 d := c / a  -- Divide c by a
 
-Semantically, all the code blocks in this section belong to the global program scope. Therefore, `{{c}}` and `{{d}}` being in the same block does not place them in a different scope from `{{a}}` and `{{b}}` defined earlier.
+Semantically, all the code blocks in this section belong to the global program scope. Therefore, {{c}} and {{d}} being in the same block does not place them in a different scope from {{a}} and {{b}} defined earlier.
 
 Fenced blocks are also supported, but they differ semantically from non-fenced blocks -- the last line of a fenced block is displayed as the block's output. For example:
 
@@ -623,11 +622,11 @@ In the future, the output will be configurable, allowing us to display all varia
 
 (4.2.2) Inline Mech Code
 
-You can include Mech values in prose paragraphs using inline Mech code, by wrapping Mech expressions in curly braces `{` and `}`. For example, `{a}` is rendered as `{a}` in the paragraph because that is the current runtime value. If the value changes, the runtime automatically updates the display in the paragraph, keeping the output in sync with the program state and making the document reactive. When the Mech runtime is not loaded (e.g., the code is saved to a raw `.html` file and opened directly in a browser), the inline code renders as the original expression, so `{a}` would appear as `a`.
+You can include Mech values in prose paragraphs using inline Mech code, by wrapping Mech expressions in curly braces `{` and `}`. For example, `{a}` is rendered as {a} in the paragraph because that is the current runtime value. If the value changes, the runtime automatically updates the display in the paragraph, keeping the output in sync with the program state and making the document reactive. When the Mech runtime is not loaded (e.g., the code is saved to a raw `.html` file and opened directly in a browser), the inline code renders as the original expression, so `{a}` would appear as `a`.
 
-It gets better -- we can write arbitrary Mech expressions inline. For example, `{a + b}` is parsed by the runtime and executed, and when the result is available, it is rendered in place: `{a + b}`.
+It gets better -- we can write arbitrary Mech expressions inline. For example, `{a + b}` is parsed by the runtime and executed, and when the result is available, it is rendered in place: {a + b}.
 
-Finally, if we want to parse Mech code without executing it, we can use the inline Mech syntax element denoted by `{{}}`. This is useful for documentation, where we want to display the code itself rather than its result. For example, `{{a + (b * 2)}}` renders as `{{a + (b * 2)}}`.
+Finally, if we want to parse Mech code without executing it, we can use the inline Mech syntax element denoted by `{{}}`. This is useful for documentation, where we want to display the code itself rather than its result. For example, `{{a + (b * 2)}}` renders as {{a + (b * 2)}}.
 
 (4.2.3) Sub Interpreters
 
@@ -755,7 +754,7 @@ Previous versions of Mechdown could establish and maintain a long-running WebSoc
 
 (5.3) `:docs`
 
-The final feature we’ll cover today is the `:docs` command in the REPL. Since Mech makes it easy to transmit documents with embedded Mech programs, we can fetch those documents from the internet directly into the browser using the REPL. Try this in the REPL:
+The final feature we'll cover today is the `:docs` command in the REPL. Since Mech makes it easy to transmit documents with embedded Mech programs, we can fetch those documents from the internet directly into the browser using the REPL. Try this in the REPL:
 
 ```
 :docs math/sin
@@ -783,7 +782,26 @@ We anticipate work on `v0.3` will begin early in 2026, although some foundationa
 
 Some of this work is already underway in the form of the [bytecode compiler](https://gitlab.com/mech-lang/mech/-/tree/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/core/src/program) and the [build system](https://gitlab.com/mech-lang/mech/-/blob/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/bin/term.rs), but these are still in early stages and are not part of `v0.2`.
 
-The major language feature for `v0.3` will be the introduction of state machines. We expect this work to take at least a year, targeting completion by the end of 2026 or early 2027. Here’s a small teaser of what the build system looks like today:
+The major language feature for `v0.3` will be the introduction of state machines. We expect this work to take at least a year, targeting completion by the end of 2026 or early 2027.
+
+Here's the broad-view roadmap:
+
+-(☑️) [v0.1](https://github.com/mech-lang/mech/tree/v0.1-beta) - proof of concept system - minimum viable language implementation
+-(📍) [v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta) - data specification - formulas, defining and manipulating data
+-(☐) v0.3 - program specification - functions, modules, state machines
+-(☐) v0.4 - system specification - tools, distributed programs, capabilities
+
+(6.2) Getting Involved
+
+If you'd like to get involved with the devolopment of Mech, the best way to do that right now is by writing Mech code and filing bug reports. Right now Mech is "Open source closed development" by necessity, but we are almost ready to open the project to outside contributions. We'll have more to say about that in the new year, but until then you can reach out or follow along with the project in the following places:
+
+-(👾) [Discord](https://discord.gg/asqP25NNTH) - for live chat
+-(🐙) [GitHub](https://github.com/mech-lang) - for code and issues
+-(📺) [YouTube](https://www.youtube.com/@MechLang) - for video tutorials
+-(🛸) [Reddit](https://www.reddit.com/r/mechlang/) - for help and general discussion
+-(📧) [Mailing List](https://groups.google.com/g/mechtalk) - for dev discussion
+
+Thanks for reading!
 
 ***
 
