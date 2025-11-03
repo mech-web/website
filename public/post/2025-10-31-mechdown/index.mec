@@ -3,7 +3,7 @@ Fall 2025 Progress Report - Mechdown
 ===============================================================================
 
 %% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Use cases include user interfaces, games, embedded systems, and especially robotics.
-In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-30-over-9000/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-31-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
 
 If you're not familiar with Mech, here is a quick taste with as many features as we can demo in 7LOC:
 
@@ -136,7 +136,7 @@ Notebook programming is the most recent incarnation of literate programming, and
 
 Notebooks are very close to what Mechdown is, but Mechdown improves on them in important ways. So let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on their ideas.
 
-Emacs Org Mode (Org) is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, Org Mode supports a wide variety of programming languages. To handle the different semantics of these languages in a consistent way, code in Org Mode is written within code blocks delimited by special markers. Each code block can be executed independently, and its results can be captured and displayed in the document. Since the blocks are clearly delineated, users can also write freeform prose in a markup language similar to Markdown.
+Emacs Org Mode [ORG] is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, Org Mode supports a wide variety of programming languages. To handle the different semantics of these languages in a consistent way, code in Org Mode is written within code blocks delimited by special markers. Each code block can be executed independently, and its results can be captured and displayed in the document. Since the blocks are clearly delineated, users can also write freeform prose in a markup language similar to Markdown.
 
 Here's an example of an Org Mode document with a code block:
 
@@ -563,7 +563,7 @@ Renders the following table:
 | Two         | Five         | {2 * 3}     |
 | Three       | Six          | {3 * 6}     |
 
-We call these "Markdown tables" instead of just "tables" to distinguish them from Mech's native table data structure. They are defined a little differently:
+We call these "Mechdown tables" instead of just "tables" to distinguish them from Mech's native table data structure. They are defined a little differently:
 
 ```
 q := | x&ltf32&gt  y&ltbool&gt | 
@@ -579,7 +579,7 @@ q := | x<f32>    y<bool> |
      |  1 + .3   3 > 4   |
 ```
 
-Despite being a matrix-oriented language, Mech has robust table facilities which are out of scope for this document. Check out the [table docs](https://docs.mech-lang/org/reference/tables.html) for more examples and information on Mech tables.
+If you'd like to learn more about the table data structure, consult the [table docs](https://docs.mech-lang/org/reference/tables.html).
 
 (4.2) Mech Extensions
 
@@ -792,7 +792,7 @@ Here's the broad-view roadmap:
 
 -(☑️) [v0.1](https://github.com/mech-lang/mech/tree/v0.1-beta) - proof of concept system - minimum viable language implementation
 -(📍) [v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta) - data specification - formulas, defining and manipulating data
--(☐) v0.3 - program specification - functions, modules, state machines
+-(☐) v0.3 - program specification - functions, modules, state machines, build system
 -(☐) v0.4 - system specification - tools, distributed programs, capabilities
 
 (6.2) Getting Involved
