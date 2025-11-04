@@ -63,7 +63,7 @@ The headline feature of Mech `v0.2` is Mechdown, a [literate programming](https:
 
 Mechdown is a dialect of Markdown, extending it with unambiguous syntax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
 
-For example, here is some Mech code that does a calculation on some matrix data:
+For example, this Mech code computes the matrix product of two vectors:
 
 ```mech
 s := [1 2 3] ** [4 5 6]'
@@ -671,7 +671,7 @@ x * 2
 
 All you have read so far in this document was generated using the Mech compiler and toolchain, which includes support for Mechdown. There is no separate utility for Mechdown, as it is not really necessary. The toolchain is small and self-contained, so including the rest of Mech is not a burden. Moreover, Mechdown is intended as a gateway into Mech, so we want users to have Mech readily available when they decide they need programming capabilities in their Mechdown documents.
 
-Mechdown is architected with a front-end and back-end -- the front-end is responsible for rendering the Mechdown document in the browser; while the back-end handles parsing, interpreting, and executing Mech code.
+Mechdown is architected with a front-end and back-end -- the front-end is responsible for rendering the Mechdown document in the browser; while the back-end handles parsing, interpreting, and executing Mech code. This backend can either be served to the client or it can exist serverside. If the back-end is not available, the document falls back to static rendering without any live execution.
 
 ![Architecture diagram of Mechdown, showing the front-end (top) and back-end (bottom) components. The front-end consists of a WebAssembly runtime and a JavaScript shim that interfaces with the browser DOM. The back-end is served from the `mech` tool, which is built on the Mech parser, interpreter, and standard library. The back-end serves a `.wasm` Mech runtime, and a shim `.html` file to the client. The client uses these to render and evaluate Mechdown documents locally, so there's no latency or server load when executing Mech code.](images/architecture.png){width: "75%"}
 
