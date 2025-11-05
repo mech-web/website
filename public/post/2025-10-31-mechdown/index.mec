@@ -19,13 +19,13 @@ out[ix3] = "🐝"           -- Set multiples of 3 to "🐝"
 out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
 ```
 
-This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, then replaces multiples of {{2}} with `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution amenable to parallelization. Code blocks are configured to display the value of the last line of the block as output.
+This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, then replaces multiples of {{2}} with `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. This code block is configured to display the value of the last line as output.
 
 Click on the variables and you'll see their values echoed in the REPL to the right (if you don't see the REPL, that's because it's hidden when the window is too narrow; try viewing it on a desktop).
 
 Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning the semantics of operators like `%` and `==` are defined to work on entire arrays at once. Logical indexing is then used to select and update specific elements of the `out` vector based on the truth of corresponding elements in the index vectors `ix2` and `ix3`.
 
-The following imperative pseudocode is equivalent to {{out[ix2 && ix3] = "✨🐝"}}:
+The Mech code {{out[ix2 && ix3] = "✨🐝"}} is equivalent to the following imperative pseudocode:
 
 ```
 for i in 1..=10 {
@@ -42,15 +42,15 @@ Anyway, you might want to grab a snack -- this is probably the longest and most 
 
 Let's begin with a quick history of Mech:
 
-After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
+After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, the project has grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
 ![What, over 9000?! That's impossible!](images/over9000.gif)
 
-Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments in language design, exploring niche debugging tools like time-travel debugging and reflecting runtime state in a live editor. Documentation and a working demonstration for Mech Alpha are [still hosted on the docs](https://docs.mech-lang.org/alpha/#/docs/index.mec).
+Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments in language design, exploring niche debugging tools like time-travel debugging and reflecting runtime state in a live editor. Documentation and a working demonstration for Mech Alpha are [still available](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo.
+Mech `v0.1` followed this effort and represented a refinement of some of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo, but there's no documentation for this version.
 
-Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a full release. This version, focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
+Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing an actual release. Work this cycle focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on Jul 16 2024, and this version has received >2900 commits so far. Today we will be talking about progress as of `v0.2.64-beta`.
 
 **Note**: Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're planning to use Mech, !!bugs abound, here be dragons, use at your own risk, etc.!! If you find any bugs, please [file an issue](https://github.com/mech-lang/mech/issues).
 
@@ -59,9 +59,9 @@ With that out of the way, let's take a look at what's new in Mech...
 2. Mechdown
 -------------------------------------------------------------------------------
 
-The headline feature of Mech `v0.2` is Mechdown, a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language. Mechdown uses Mech (which is intended to be a general purpose language, not just for document scripting) as a scripting and code execution engine (although it also works with JavaScript and any other WASM-compliable language). Its purpose is to create live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written entirely in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-04-09-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator that is built around the Mech programming language. Mechdown is the first tool we are delievering that uses Mech as a backend, and is itself a useful thing irrespective of Mech being unfinished. It uses Mech (which is intended to be a general purpose language, not just for document scripting) as a scripting and code execution engine (although it theoretically works with JavaScript and any other WASM-compliable language). Its purpose is to be a tool for creating live programs and documents, and explanatory content, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written entirely in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-31-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
 
-Mechdown is a dialect of Markdown, extending it with unambiguous syntax and features like tables, diagrams, and executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, links, plus the ability to bring running code to your documents with Mech scripts.
+Mechdown is a dialect of Markdown, extending it with unambiguous syntax and features like tables, diagrams, and especially executable inline code blocks powered by Mech. So you get all the nice markup features of Markdown like section headings, lists, and links, plus the ability to bring running code to your documents with Mech scripts.
 
 For example, this Mech code computes the matrix product of two vectors:
 
@@ -73,20 +73,20 @@ This code block is attached to a Mech interpreter that computes the value of {{s
 
 If you want to jump to an extended example of a Mech program written in Mechdown, check out the [N-body Simulation](https://docs.mech-lang.org/V.examples/n-body.html) or the [Extended Kalman Filter](https://docs.mech-lang.org/V.examples/ekf.html) examples in the Mech documentation.
 
-Mechdown is unique because nearly all literate systems (WEB, Org, Jupyter, R Markdown, Literate Haskell, etc.) rely on an external layer of markup to separate code from prose. Systems like Smalltalk or Forth get close -- but they rely on runtime interpretation where you choose what to execute, or undefined words are ignored. There's no real parsing intelligence distinguishing prose from code in the source itself.
+Mechdown is unique because nearly all literate systems (WEB, Org, Jupyter, R Markdown, Literate Haskell, etc.) rely on an external layer of markup to separate code from prose, whereas with MEchdown, Mech does is embedded directly into the prose without the need for code fences or othe explicit delimiters. Systems like Smalltalk or Forth get close -- but they rely on runtime interpretation where you choose what to execute, or undefined words are ignored. There's no real parsing intelligence distinguishing prose from code in the source itself as with Mechdown.
 
 Because we've built Mechdown alongside Mech, we've created a system that:
 
 - lets prose and code share the same source file, and is readable (not encoded in JSON or language expressions)
-- doesn't use any explicit or implicit boundary markers
-- executes code sections automatically, not via manual selection
+- doesn't use any explicit or implicit boundary markers (although they are available and provide unqiue semantics)
+- executes code blocks automatically, not via manual selection
 
-In the rest of this document, we will review the history of literate programming languages (§3) and then talk about the design and implementation of Mechdown as it exists today (§4), and the various tools implemented so far to work with this new system (§5). Finally, finally we will wrap up some details on the plans for the `v0.2` release, and the and also a sneak peek at what is coming in `v0.3` (§6).
+In the rest of this document, we will review the history of literate programming languages (§3) and then talk about the design and implementation of Mechdown as it exists today (§4), and the various tools implemented so far to work with this new system (§5). Finally, we will wrap up with some details on the plans for the `v0.2` release, and the and also a sneak peek at what is coming in `v0.3` (§6).
 
-3. A Brief History of Literate programming
+3. A Brief History of Literate Programming
 -------------------------------------------------------------------------------
 
-Literate programming is a programming paradigm introduced by Donald Knuth in 1983, when he introduced the WEB system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. The goal was to write code in a way that was more natural and readable to express his ideas more clearly. Knuth's insight was that programs should be written primarily for human understanding, not just machine execution.
+Literate programming is a programming paradigm introduced by Donald Knuth in 1983, when he released the WEB literate programming system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. His goal was to write code in a way that was more natural and readable to express his ideas more clearly. Knuth's insight was that programs should be written primarily for human understanding, not just machine execution.
 
 In his words:
 
@@ -96,25 +96,23 @@ For example, some languages of that time required programmers to declare all var
 
 <<!["Literate Programming" by Donald Knuth, 1992 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
 
-But as a programmer, you would rather declare a variable where it makes  sense in the program, to allow the reader reader to see how it is used in context, rather than be referred to a distant section of the text. It shouldn't matter how the compiler developer feels about it, because where as the compiler devloper's frustration is felt only at the time the compiler is written, the user's frustration is felt every time a program in the language is written or read, which occurs much more frequently.
+But as a programmer, you would rather declare a variable where it makes sense in the program, to allow the reader to see how it is used in context, rather than be referred to a distant section of the text for its definition. It shouldn't matter how the compiler developer feels about it, because where as the compiler devloper's frustration is felt only at the time the compiler is written, the user's frustration is felt every time a program in the language is written or read, which occurs much more frequently.
 
-Some of this can (and has) been addressed through better language design -- modern languages are far more flexible about where variables can be declared. But other elements, like functions, modules, and classes, are still restricted by the compiler's expectations about program structure. The underlying point remains: the compiler shouldn't dictate the order in which we write our programs simply because a different order happens to align better with the machine's internal representation.
+Some of this can (and has) been addressed through better language design and tooling; modern languages are far more flexible about where variables can be declared, and language servers can help with symbol resolution and document navigation. But other elements, like functions, modules, and classes, are still restricted by the compiler's expectations about program structure. Some languages even restrict how files can be named and organized. So the underlying point remains: the compiler shouldn't dictate the order in which we write our programs simply because a different order happens to align better with the machine's internal representation.
 
-While Knuth's tooling was cutting-edge in 1984, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implementations of literate programming systems over the years, and how modern literate programming systems are used today.
+While Knuth's tooling was cutting-edge in 1983, his work only just began to reveal the potential of literate programming. Let's take a look at some of the different implementations of literate programming systems over the years, and how modern literate programming systems are used today.
 
 (3.1) WEB (1983)
 
 WEB was the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation[TEXBOOK].
 
-WEB consists of three components:
+WEB consisted of three components:
 
-- **Source File** (`.web`) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by a name reference.
+- **Source File** (`.web`) - This is the document written by the programmer. It contains both documentation and code, interwoven in sections. Each section is like a small story fragment that may include prose followed by code, which can reference or expand other sections by an identifier.
 
 - **TANGLE** - This tool processes the `.web` file and extracts the code portions, assembling them into proper Pascal source code. The name reflects the idea of untangling the narrative to produce compilable code. It resolves named code sections into an order appropriate for compilation, and outputs a `.pas` file, which can be compiled by a Pascal compiler.
 
 - **WEAVE** - This tool turns the `.web` file into a typeset document using TeX. It organizes and formats both the prose and the code with syntax highlighting, cross-references, and indexing, generating high-quality documentation -- typically a `.tex` file for further processing into PDF.
-
-So the workflow went like this:
 
 ![The example program from Knuth's paper "Literate Programming". (a) The literate program is written in .web format. (b) The TANGLE process transforms it into a .pas PASCAL program. (c) The WEAVE process transforms the .web file into a .tex document, which is then processed into a PDF by TeX (d).](images/web.png)
 
@@ -122,11 +120,11 @@ This worked well enough for Knuth to allow him to write his famous book series "
 
 But literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
 
-1. It was hard to learn. Not only do you have to learn a programming language, but you also have to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
+1. It was hard to learn. Not only did you have to learn a programming language, but you also had to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
 
 2. For Knuth, he had a very clear motive to write in a literate style; he was writing a book on programming, so interleaving code and prose makes sense for his use case. But not many programs make their way to the typesetter, so the incentive to learn the system was low for anyone not looking to publish a book on programming. Which is most programmers.
 
-3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the documentation manually, which is error-prone and tedious.
+3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the `.web` manually, which is error-prone and tedious.
 
 So while the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literate programming, new tools *and* languages that integrated with those tools would be needed.
 
@@ -786,7 +784,7 @@ Regarding condition 1, the two main work items blocking the release are the lang
 
 We anticipate work on `v0.3` will begin early in 2026, although some foundational work has already started. This version will focus on program and package specification, including higher-order functions, control flow, and expanding the Mech compiler toolchain.
 
-Some of this work is already underway in the form of the [bytecode compiler](https://gitlab.com/mech-lang/mech/-/tree/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/core/src/program) and the [build system](https://gitlab.com/mech-lang/mech/-/blob/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/bin/term.rs), but these are still in early stages and are not part of `v0.2`.
+Some of this work is already underway in the form of the [bytecode compiler](https://gitlab.com/mech-lang/mech/-/tree/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/core/src/program) and the [build system](https://gitlab.com/mech-lang/mech/-/blob/f24c29479ae6ae5718c7a410b25f8cdb8180b8ee/src/bin/term.rs), but these are still in early stages, so we are not including them officially in the `v0.2` release.
 
 The major language feature for `v0.3` will be the introduction of state machines. We expect this work to take at least a year, targeting completion by the end of 2026 or early 2027.
 
