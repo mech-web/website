@@ -8,15 +8,15 @@ In this post, we review our progress on Mech so far this year, focusing on the b
 If you're not familiar with Mech, here is a quick taste with as many features as we can demo in 7LOC:
 
 ```mech:fizzbuzz
-  x := 1..=10               -- A row vector of numbers from 1 to 10
-  ~out<[string]> := x       -- Convert `x` into mutable string vec
-  
-  ix2 := (x % 2) == 0       -- Indices for multiples of 2
-  ix3 := (x % 3) == 0       -- Indices for multiples of 3
-  
-  out[ix2] = "✨"           -- Set multiples of 2 to "✨"
-  out[ix3] = "🐝"           -- Set multiples of 3 to "🐝"
-  out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
+x := 1..=10               -- A row vector of numbers from 1 to 10
+~out<[string]> := x       -- Convert `x` into mutable string vec
+
+ix2 := (x % 2) == 0       -- Indices for multiples of 2
+ix3 := (x % 3) == 0       -- Indices for multiples of 3
+
+out[ix2] = "✨"           -- Set multiples of 2 to "✨"
+out[ix3] = "🐝"           -- Set multiples of 3 to "🐝"
+out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
 ```
 
 This solution to the classic "FizzBuzz" problem is expressed in Mech using array operations and logical indexing. It generates a vector of numbers from {{1}} to {{10}}, then replaces multiples of {{2}} with `✨`, multiples of {{3}} with a `🐝`, and multiples of both with `✨🐝`. You'll notice the program is written without any explicit loops or control flow, which makes this solution amenable to parallelization. Code blocks are configured to display the value of the last line of the block as output.
@@ -27,7 +27,7 @@ Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning the sem
 
 The following imperative pseudocode is equivalent to {{out[ix2 && ix3] = "✨🐝"}}:
 
-```pseud
+```
 for i in 1..=10 {
   if (ix2[i] && ix[i]) == 0 {
     out[i] = "✨🐝"
@@ -40,7 +40,7 @@ Anyway, you might want to grab a snack -- this is probably the longest and most 
 1. By the numbers - Over 9000 commits!
 -------------------------------------------------------------------------------
 
-It's been a while since the last progress report, so I will begin with a quick history of Mech, and summarize where we are right now.
+Let's begin with a quick history of Mech:
 
 After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, the project has steadily grown and evolved, with the current version representing over 9000 commits (9274 as of the writing of this post) from 14 different contributors, most of whom are students working on Mech with me as part of their coursework or capstone projects.
 
@@ -279,7 +279,7 @@ Unfortunately, the Eve project concluded in 2018 due to funding constraints, and
 
 (3.5) Mechdown Alpha (2019)
 
-Which brings us back to Mech. After the [Eve project concluded](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ), I returned to working on Mech, which I had originally started in 2014 (I learned about Eve late in 2014 and applied to work on the project based on my experience with early Mech). The 2014 implementation was not very far along, so I scrapped it and wrote the first version of the current Mech lineage in 2018. By 2019, the first version of Mechdown was implemented in Mech v0.0.2-alpha. In this section, I will review v0.0.6-alpha, which is still running today.
+Which brings us back to Mech. After the Eve project concluded, I returned to working on Mech, which I had originally started in 2014 (I learned about Eve late in 2014 and applied to work on the project based on my experience with early Mech). The 2014 implementation was not very far along, so I scrapped it and wrote the first version of the current Mech lineage in 2018. By 2019, the first version of Mechdown was implemented in Mech v0.0.2-alpha. In this section, I will review v0.0.6-alpha, which is still running today.
 
 ![Shown here is Mech Alpha, featuring the first version of Mechdown. The pictured program can be accessed at the [archived Mech Alpha documentation](https://docs.mech-lang.org/alpha/#/examples/bouncing-balls.mec). The left panel contains a table of contents for the code in the central panel. On the right is the rendered output of the program. Clicking on a variable shows its value in a modal window, which updates live with the program. At the bottom of the screen are playback controls that can pause the program and scrub through its value history. [MECHALPHA]](images/mech-alpha.gif)
 
@@ -669,15 +669,15 @@ x * 2
 5. Tooling
 -------------------------------------------------------------------------------
 
-All you have read so far in this document was generated using the Mech compiler and toolchain, which includes support for Mechdown. There is no separate utility for Mechdown, as it is not really necessary. The toolchain is small and self-contained, so including the rest of Mech is not a burden. Moreover, Mechdown is intended as a gateway into Mech, so we want users to have Mech readily available when they decide they need programming capabilities in their Mechdown documents.
+Everything you have seen so far in this document was generated using the `mech` compiler and toolchain, which includes support for Mechdown. There is no separate utility for Mechdown, as it is not really necessary. The toolchain is small and self-contained, so including the rest of Mech with Mechdown is not a burden. Moreover, Mechdown is intended as a gateway into Mech, so we want users to have the full platform readily available when they decide they need fuller programming capabilities in their Mechdown documents than simple scripts.
 
-Mechdown is architected with a front-end and back-end -- the front-end is responsible for rendering the Mechdown document in the browser; while the back-end handles parsing, interpreting, and executing Mech code. This backend can either be served to the client or it can exist serverside. If the back-end is not available, the document falls back to static rendering without any live execution.
+Mechdown is architected as a frontend and backend. The frontend is responsible for rendering and styling the Mechdown document in the browser; while the backend handles parsing, executing, and updating Mech code. This backend is served to the client as a `.wasm` binary, enabling full client-side execution, although there is potential to execute code on the server and deliver the results to a connected client via websockets (this was one of the tests we did in Mech `v0.1`, and we intend to bring that back in `v0.4`). If the backend is not available, the document falls back to static rendering without any live execution.
 
-![Architecture diagram of Mechdown, showing the front-end (top) and back-end (bottom) components. The front-end consists of a WebAssembly runtime and a JavaScript shim that interfaces with the browser DOM. The back-end is served from the `mech` tool, which is built on the Mech parser, interpreter, and standard library. The back-end serves a `.wasm` Mech runtime, and a shim `.html` file to the client. The client uses these to render and evaluate Mechdown documents locally, so there's no latency or server load when executing Mech code.](images/architecture.png){width: "75%"}
+![Architecture diagram of Mechdown, showing the frontend (top) and backend (bottom) components. The frontend consists of a WebAssembly runtime and a JavaScript shim that interfaces with the browser DOM. The backend is served from the `mech` tool, which is built on the Mech parser, interpreter, and standard library. The backend serves a `.wasm` Mech runtime, and a shim `.html` file to the client. The client uses these to render and evaluate Mechdown documents locally, so there's no latency or server load when executing Mech code.](images/architecture.png){width: "75%"}
 
 (5.1) Fontend
 
-The front-end has two components: a WebAssembly runtime, which is served to the browser, and a JavaScript shim that interfaces the Mech `.wasm` runtime with the browser DOM.
+The frontend has two components: a WebAssembly runtime, which is served to the browser, and a JavaScript shim that interfaces the Mech `.wasm` runtime with the browser DOM.
 
 Because the Mech compiler is written in Rust, it can be compiled to the `wasm32` target for execution in the browser. This is important because Mechdown documents are intended to be live, running entirely in the browser without any server-side support. With WebAssembly, the Mech runtime can be shipped to the client, allowing Mech programs to execute entirely client-side. This provides several advantages:
 
@@ -699,7 +699,7 @@ This component is centered around a data structure called `WasmMech`, which hold
 
 (5.1.2) `mech format`
 
-The other part of the front-end is an HTML/JavaScript shim, which provides a `div` with the ID `mech-root`, another with the ID `mech-repl`, and a third with the ID `mech-toc`. The shim also includes a CSS file for styling the document, allowing complete customization. Mechdown handles only the structure and semantics of the document while providing classes and IDs for all nodes, so they can be referenced by the Mech runtime.
+The other part of the frontend is an HTML/JavaScript shim, which provides a `div` with the ID `mech-root`, another with the ID `mech-repl`, and a third with the ID `mech-toc`. The shim also includes a CSS file for styling the document, allowing complete customization. Mechdown handles only the structure and semantics of the document while providing classes and IDs for all nodes, so they can be referenced by the Mech runtime.
 
 This shim is generated by the `mech` tool using the `format` [command](https://docs.mech-lang.org/I.getting-started/build-and-run.html#57362460444726725) with the `--html` flag. The formatter takes a `.mec` source file as input and outputs a `.html` file containing the rendered Mechdown document. Here's the process:
 
@@ -710,27 +710,29 @@ This shim is generated by the `mech` tool using the `format` [command](https://d
 For example, here is `var()`
 
 ```rust
-  pub fn var(&mut self, node: &Var) -> String {
-    let annotation = if let Some(kind) = &node.kind {
-      self.kind_annotation(&kind.kind)
-    } else {
-      "".to_string()
-    };
-    let name = &node.name.to_string();
-    let id = format!("{}:{}",hash_str(&name),self.interpreter_id);
-    if self.html {
-      format!("<span class=\"mech-var-name mech-clickable\" id=\"{}\">{}</span>{}", id, node.name.to_string(), annotation)
-    } else {
-      format!("{}{}", node.name.to_string(), annotation)
-    }
+pub fn var(&mut self, node: &Var) -> String {
+  let annotation = if let Some(kind) = &node.kind {
+    self.kind_annotation(&kind.kind)
+  } else {
+    "".to_string()
+  };
+  let name = &node.name.to_string();
+  let id = format!("{}:{}",hash_str(&name),self.interpreter_id);
+  if self.html {
+    format!("<span class=\"mech-var-name mech-clickable\" id=\"{}\">{}</span>{}", id, node.name.to_string(), annotation)
+  } else {
+    format!("{}{}", node.name.to_string(), annotation)
   }
+}
 ```
 
 On the variable span, we mark the element as "mech-clickable", registering it with the WASM runtime. It's also given an ID in the format `hashed-variable-name:interpreter-id`, so when the user clicks the element, the runtime knows which variable in which interpreter it corresponds to.
 
 This HTML tree corresponds to the Mech program {{x := 1 + 2}}. It is attached to the HTML shim at the node `mech-content`. Each tree node maps to a node in the Mech AST[^4], with classes indicating the AST node type and the HTML node type reflecting the node's semantics. Nodes representing specific Mech interpreter values are annotated with their value IDs.
 
-Once the HTML tree is built, it's attached to the `mech-content` div. The tree is also serialized, compressed, and base64-encoded for embedding in the document, allowing the WASM runtime to recover the AST without reparsing, which speeds up loading. Technically, we could still reparse the HTML to get valid Mech code. In a future version, we'll store only the program bytecode, which will be smaller and faster to load.
+Once the HTML tree is built, it's time to finalize the output html document. This consists of taking in the shim, and replacing any templated sections with generated content. For example, the template `{{TOC}}` will be replaced with the generated table of contents for the document. Mechdown supports various templates including `{{STYLESHEET}}`, `TOC`, `CONTENT`, `CODE`, and `TITLE`. 
+
+The `CODE` template is important for executing documents; the document AST is serialized, compressed, and base64-encoded for embedding wherever the `CODE` template is included. This allows the Webassembly runtime to recover the program AST without reparsing the document, which speeds up loading. In a future version, we'll store only the program bytecode, which will be smaller and even faster to load.
 
 These `.html` files are static in that they can be opened and viewed without a server or runtime, which keeps them small. To make them live, however, they need to run on a server so the runtime can be loaded. Even so, this approach runs Mechdown entirely on the client side, so no server resources are required to execute Mech programs beyond serving the `.html` and `.wasm` files.
 
