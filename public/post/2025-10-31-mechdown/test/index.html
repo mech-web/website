@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blueprint Grid Layout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-blue: #0d1b2a;
+      --line-blue: #3a506b;
+      --text-blue: #dddfe1;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Fira Code', monospace;
+      background-color: var(--bg-blue);
+      color: var(--text-blue);
+      overflow: hidden;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    }
+
+    .blueprint {
+      display: grid;
+      font-size: 10pt;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: 30px repeat(5, 1fr);
+      grid-template-rows: 30px repeat(3, 1fr);
+      position: relative;
+      border-top: 1px solid var(--line-blue);
+      border-left: 1px solid var(--line-blue);
+    }
+
+    /* draw true grid lines */
+    .blueprint > * {
+      border-right: 1px solid var(--line-blue);
+      border-bottom: 1px solid var(--line-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    /* top-left corner */
+    .corner {
+      grid-column: 1;
+      grid-row: 1;
+      font-weight: bold;
+    }
+
+		.corner img {
+			width: 20px;
+			height: auto;
+			object-fit: contain;
+		}
+
+
+    /* column headers */
+    .col-header {
+      font-weight: bold;
+    }
+    .col-A { grid-column: 2; grid-row: 1; }
+    .col-B { grid-column: 3; grid-row: 1; }
+    .col-C { grid-column: 4; grid-row: 1; }
+    .col-D { grid-column: 5; grid-row: 1; }
+    .col-E { grid-column: 6; grid-row: 1; }
+
+    /* row headers */
+    .row-1 { grid-column: 1; grid-row: 2; font-weight: bold; }
+    .row-2 { grid-column: 1; grid-row: 3; font-weight: bold; }
+    .row-3 { grid-column: 1; grid-row: 4; font-weight: bold; }
+
+    /* content examples */
+    .project-desc {
+      grid-column: 2;
+      grid-row: 2;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 1em;
+    }
+
+    /* info table spans C–E (columns 4–6) in row 4 */
+    .info-table {
+      grid-column: 4 / 7;
+      grid-row: 4;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      padding: 1em;
+    }
+
+    .info-table h3 {
+      margin: 0 0 10px;
+      border-bottom: 1px solid var(--line-blue);
+      width: 100%;
+      text-align: left;
+    }
+
+    .table-grid {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .left div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      font-size: 0.9em;
+    }
+
+    .logo-box {
+      border: 1px solid var(--line-blue);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* faint background grid (for blueprint style only, not the structure) */
+    /*.blueprint::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(65,90,119,0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(65,90,119,0.15) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }*/
+
+    .blueprint > * { position: relative; z-index: 1; }
+
+.drawing {
+	position: absolute;
+	top: 4%;
+	left: 18%;
+  width: 70%;
+  height: auto;
+  object-fit: contain; /* keeps aspect ratio */
+  opacity: 0.9;
+  filter: brightness(0) invert(1); /* blueprint-style white lines */
+}
+
+    @media (max-width: 768px) {
+      .blueprint {
+        display: flex;
+        flex-direction: column;
+      }
+      .corner, .col-header, .row-header {
+        display: none;
+      }
+      .info-table, .project-desc {
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img class="drawing" src="drawing.png"/>
+  <div class="blueprint">
+
+    <div class="corner"><img src="smlogo.png"/></div>
+
+    <div class="col-header col-A">A</div>
+    <div class="col-header col-B">B</div>
+    <div class="col-header col-C">C</div>
+    <div class="col-header col-D">D</div>
+    <div class="col-header col-E">E</div>
+
+    <div class="row-header row-1">1</div>
+    <div class="row-header row-2">2</div>
+    <div class="row-header row-3">3</div>
+
+
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+
+    <div class="info-table">
+      <h3>Drawing Info</h3>
+      <div class="table-grid">
+        <div class="left">
+          <div><span>Author:</span><span>John Doe</span></div>
+          <div><span>Date:</span><span>Nov 2025</span></div>
+          <div><span>Version:</span><span>1.0</span></div>
+          <div><span>Checked By:</span><span>Jane Smith</span></div>
+        </div>
+        <div class="right">
+          <div class="logo-box">LOGO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
