@@ -13,6 +13,16 @@
       --text-white: #dddfe1;
     }
 
+    /* we need to make links hover lighter and they should all have a dotted underline */
+    a {
+      color: var(--text-blue);
+      text-decoration: underline dotted;
+    }
+
+    a:hover {
+      color: var(--text-white);
+    }
+
     html, body {
       margin: 0;
       width: 100%;
@@ -88,6 +98,7 @@
 
     /* info table spans C–E (columns 4–6) in row 4 */
     .info-table {
+      text-transform: uppercase;
       grid-column: 5 / 7;
       grid-row: 5;
       align-items: flex-start;
@@ -117,10 +128,19 @@
       margin: 0 0 0px;
       border-bottom: 1px solid var(--line-blue);
       width: 100%;
-      font-size: 1.7em;
+      font-size: 1.5em;
       padding: 20px 20px 20px;
       text-align: left;
       font-weight: normal;
+    }
+
+    .info-table h4 {
+      margin: 0px;
+      width: 100%;
+      font-size: 1.3em;
+      text-align: center;
+      font-weight: normal;
+      font-style: italic;
     }
 
     .table-grid {
@@ -137,6 +157,12 @@
 
     .right {
       width: 100%;
+      font-size: 0.9em;
+    }
+
+    .right p {
+      padding: 0px 20px 0px;
+      line-height: 2em;
     }
 
     .left div {
@@ -150,7 +176,7 @@
     }
 
     .logo-box {
-      margin-left: auto;
+      margin: auto;
       padding: 20px;
       max-width: 300px;
       min-width: 150px;
@@ -164,12 +190,28 @@
     }
 
     canvas {
+      pointer-events: none;
       width: 100%;
       height: 100%;
       position: fixed;
       top: 40px;
       right: 10px;
     }
+
+    .social-links {
+      list-style: none;      
+      padding: 0;            
+      display: flex;         
+      gap: 1rem;   
+      justify-content: center;          
+    }
+
+    .ack {
+      margin-top: 30px;
+      font-size: 1.2em;
+      text-align: center;
+    }
+
 </style>
 </head>
 <body>
@@ -199,12 +241,22 @@
       <div class="table-grid">
         <div class="left">
           <div><span>AUTHOR:</span><span>MECH LABS</span></div>
-          <div><span>VERSION:</span><span>0.2.65-BETA</span></div>
+          <div><span>VERSION:</span><span><a href="https://github.com/mech-lang/mech/releases/latest">0.2.65-BETA</a></span></div>
           <div><span>DATE:</span><span>2025-11-08</span></div>
-          <div><span>LICENSE:</span><span>APACHE 2.0</span></div>
+          <div><span>LICENSE:</span><span><a href="https://github.com/mech-lang/mech?tab=Apache-2.0-1-ov-file#readme">APACHE 2.0</a></span></div>
+          <p class="ack"><a href="#">Acknowledgements</a></p>
+        
         </div>
         <div class="right">
           <div class="logo-box"><img src="logo.png"></div>
+          <h4>PROGRAM YOUR DATA</h4>
+          <ul class="social-links">
+            <li><a href="https://discord.gg/asqP25NNTH">Discord</a></li>
+            <li><a href="https://github.com/mech-lang">GitHub</a></li>
+            <li><a href="https://www.youtube.com/@MechLang">YouTube</a></li>
+            <li><a href="https://www.reddit.com/r/mechlang/">Reddit</a></li>
+            <li><a href="https://groups.google.com/g/mechtalk">Mailing List</a></li>
+          </ul>
         </div>
       </div>
     </div>
