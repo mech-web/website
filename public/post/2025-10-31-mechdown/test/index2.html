@@ -4,62 +4,175 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Blueprint Rectangular Solid (corrected a)</title>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0d1b2a;
-    --grid-line: rgba(255,255,255,0.04);
-    --stroke: #9fe3ff;
-  }
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-blue: #0d1b2a;
+      --line-blue: #3a506b;
+      --text-blue: #dddfe1;
+    }
 
-  html,body{
-    height:100%;
-    margin:0;
-    font-family:'Fira Code', monospace;
-    background:var(--bg);
-    color: #dff7ff;
-  }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Fira Code', monospace;
+      background-color: var(--bg-blue);
+      color: var(--text-blue);
+      overflow: hidden;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    }
 
-  /* full-viewport canvas */
-  canvas {
-    width:100%;
-    height:100vh;
-    display:block;
-    background:
-      repeating-linear-gradient(
-        0deg,
-        var(--grid-line) 0px,
-        var(--grid-line) 1px,
-        transparent 1px,
-        transparent 40px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        var(--grid-line) 0px,
-        var(--grid-line) 1px,
-        transparent 1px,
-        transparent 40px
-      ),
-      var(--bg);
-  }
+    .blueprint {
+      display: grid;
+      font-size: 10pt;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: 30px repeat(5, 1fr);
+      grid-template-rows: 30px repeat(4, 1fr);
+      position: relative;
+      border-top: 1px solid var(--line-blue);
+      border-left: 1px solid var(--line-blue);
+    }
 
-  h1 {
-    position:absolute;
-    top:18px;
-    left:22px;
-    margin:0;
-    color:rgb(223, 247, 255);
-    font-size:16px;
-    pointer-events:none;
-  }
+    /* draw true grid lines */
+    .blueprint > * {
+      border-right: 1px solid var(--line-blue);
+      border-bottom: 1px solid var(--line-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
 
-  /* small responsive tweak so canvas fills on mobile */
-  @media (max-width:600px){
-    h1 { left:12px; font-size:14px; }
-  }
+    /* top-left corner */
+    .corner {
+      grid-column: 1;
+      grid-row: 1;
+      font-weight: bold;
+    }
+
+		.corner img {
+			width: 20px;
+			height: auto;
+			object-fit: contain;
+		}
+
+
+    /* column headers */
+    .col-header {
+      font-weight: bold;
+    }
+    .col-A { grid-column: 2; grid-row: 1; }
+    .col-B { grid-column: 3; grid-row: 1; }
+    .col-C { grid-column: 4; grid-row: 1; }
+    .col-D { grid-column: 5; grid-row: 1; }
+    .col-E { grid-column: 6; grid-row: 1; }
+
+    /* row headers */
+    .row-1 { grid-column: 1; grid-row: 2; font-weight: bold; }
+    .row-2 { grid-column: 1; grid-row: 3; font-weight: bold; }
+    .row-3 { grid-column: 1; grid-row: 4; font-weight: bold; }
+    .row-4 { grid-column: 1; grid-row: 5; font-weight: bold; }
+
+    /* content examples */
+    .project-desc {
+      grid-column: 2;
+      grid-row: 2;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 1em;
+    }
+
+    /* info table spans C–E (columns 4–6) in row 4 */
+    .info-table {
+      grid-column: 4 / 7;
+      grid-row: 4;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+      padding: 1em;
+    }
+
+    .info-table h3 {
+      margin: 0 0 10px;
+      border-bottom: 1px solid var(--line-blue);
+      width: 100%;
+      text-align: left;
+    }
+
+    .table-grid {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 20px;
+    }
+
+    .left div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      font-size: 0.9em;
+    }
+
+    .logo-box {
+      border: 1px solid var(--line-blue);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 40px;
+      right: 10px;
+    }
 </style>
 </head>
 <body>
+
+  <div class="blueprint">
+    <div class="corner"><img src="smlogo.png"/></div>
+
+    <div class="col-header col-A">A</div>
+    <div class="col-header col-B">B</div>
+    <div class="col-header col-C">C</div>
+    <div class="col-header col-D">D</div>
+    <div class="col-header col-E">E</div>
+
+    <div class="row-header row-1">1</div>
+    <div class="row-header row-2">2</div>
+    <div class="row-header row-3">3</div>
+    <div class="row-header row-4">4</div>
+
+
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div><div></div>
+
+    <!--
+    <div class="info-table">
+      <h3>Drawing Info</h3>
+      <div class="table-grid">
+        <div class="left">
+          <div><span>Author:</span><span>John Doe</span></div>
+          <div><span>Date:</span><span>Nov 2025</span></div>
+          <div><span>Version:</span><span>1.0</span></div>
+          <div><span>Checked By:</span><span>Jane Smith</span></div>
+        </div>
+        <div class="right">
+          <div class="logo-box">LOGO</div>
+        </div>
+      </div>
+    </div>
+-->
+  </div>
   <canvas id="blueprint"></canvas>
 
 <script>
@@ -93,47 +206,7 @@
   function add3(u, v, w){ return add(add(u,v), w); }
   function scaleVec(v, s){ return { x: v.x * s, y: v.y * s }; }
 
-  function drawAxesGuide(scale){
-    ctx.save();
-    ctx.lineWidth = 0.01;
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(a.x*scale, -a.y*scale); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(b.x*scale, -b.y*scale); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(c.x*scale, -c.y*scale); ctx.stroke();
-    ctx.restore();
-  }
-
-  function adjustVertexForSeam(v, faceName, seams) {
-    // seams = { left: 0.05, right: 0.05, top: 0.02, bottom: 0.02 }
-    // v = original vertex
-    // returns new vertex adjusted for the face seams
-
-    let offset = { x: 0, y: 0 };
-
-    if (faceName === 'front' || faceName === 'back') {
-      // extend along width (b-axis)
-      if (seams.fillSeamLeft && v === leftVertex) offset = scaleVec(b, -seams.fillSeamLeft);
-      if (seams.fillSeamRight && v === rightVertex) offset = scaleVec(b, seams.fillSeamRight);
-      // optionally extend height
-      if (seams.fillSeamTop && v === topVertex) offset = scaleVec(c, seams.fillSeamTop);
-      if (seams.fillSeamBottom && v === bottomVertex) offset = scaleVec(c, -seams.fillSeamBottom);
-    }
-
-    // similarly handle 'top', 'bottom', 'left', 'right' faces if needed
-
-    return add(v, offset);
-  }
-
-
   let scale, cx, cy; // make these global within the closure
-
-  function drawLine(p1, p2, opts = {}) {
-    ctx.beginPath();
-    ctx.moveTo(p1.x, -p1.y);
-    ctx.lineTo(p2.x, -p2.y);
-    ctx.setLineDash(opts.dashed ? [5, 6] : []);
-    ctx.stroke();
-  }
 
   function drawSmallCube(row, col, faces, faceStyles, faceEdgeStyles) {
     ctx.save();
@@ -222,22 +295,7 @@
     ctx.restore();
   }
 
-
-  function createDotPattern(color = '#dddfe1', spacing = 3, radius = 1) {
-    const patternCanvas = document.createElement('canvas');
-    patternCanvas.width = spacing;
-    patternCanvas.height = spacing;
-    const pctx = patternCanvas.getContext('2d');
-
-    pctx.fillStyle = color;
-    pctx.beginPath();
-    pctx.arc(spacing / 2, spacing / 2, radius, 0, Math.PI * 2);
-    pctx.fill();
-
-    return ctx.createPattern(patternCanvas, 'repeat');
-  }
-
-  function drawRectangle(startRow, startCol, width, height, faces, faceStyles, faceEdgeStyles) {
+  function drawLongCube(startRow, startCol, width, height, faces, faceStyles, faceEdgeStyles) {
     ctx.save();
     ctx.translate(cx, cy);
 
@@ -330,55 +388,31 @@
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.save();
 
-    cx = canvas.width * 0.48;
-    cy = canvas.height * 0.48;
-    ctx.translate(0, 0);
+    let aspect_ratio = canvas.width / canvas.height;
+    
+    const w = canvas.width;
+    const h = canvas.height;
+    const k = 3;       // how many "width pixels" one height pixel equals; tune this
+    const tau = 80;    // softness; smaller => closer to true min
 
-    const base = Math.min(canvas.width, canvas.height);
-    scale = base / 6.8; // assign, not redeclare
-/*
-    drawAxesGuide(scale);
-
-    const A = scaleVec(a, scale);
-    const B = scaleVec(b, scale);
-    const C = scaleVec(c, scale);
-
-    const V0 = {x:0,y:0};
-    const V1 = A;
-    const V2 = B;
-    const V3 = C;
-    const V4 = add(A, B);
-    const V5 = add(A, C);
-    const V6 = add(B, C);
-    const V7 = add3(A, B, C);
-
-    const edges = [
-      //[V0,V1],[V0,V2],[V0,V3],
-      //[V1,V4],[V1,V5],
-      //[V2,V4],[V2,V6],
-      //[V3,V5],[V3,V6],
-      //[V4,V7],[V5,V7],[V6,V7]
-    ];
-
-    ctx.lineCap = 'round';
-    const edgesWithDepth = edges.map(e => {
-      const midY = ((e[0].y + e[1].y) / 2);
-      return { e, midY };
-    }).sort((p, q) => p.midY - q.midY);
-
-    for (let item of edgesWithDepth) {
-      const [p1, p2] = item.e;
-      const mid = (p1.y + p2.y) / 2;
-      const isBack = mid < 0;
-      ctx.strokeStyle = isBack ? 'rgba(159,227,255,1)' : 'rgba(159,227,255,1)';
-      ctx.lineWidth = isBack ? Math.max(1, scale * 0.007) : Math.max(1, scale * 0.007);
-      drawLine(p1, p2);
+    function smin(a,b,t){
+      return -t * Math.log(Math.exp(-a/t) + Math.exp(-b/t));
     }
 
-    ctx.fillStyle = 'rgba(159,227,255,0.85)';
-    ctx.beginPath();
-    ctx.arc(0, 0, Math.max(2, scale * 0.007), 0, Math.PI * 2);
-    ctx.fill();*/
+    const weff = smin(w, k * h, tau);
+
+    function S(x){ return 1 / (1 + Math.exp(-x)); }
+
+    scale = 55
+      + 15 * S((weff - 1300) / 50)
+      + 30 * S((weff - 1400) / 100)
+      + 50 * S((weff - 1800) / 100);
+    cx = canvas.width - scale * 9;
+    cy = 0 + scale * 3;
+    ctx.translate(0, 0);
+
+    const base = 1;
+
 
     ctx.restore();
 
@@ -392,7 +426,7 @@
 
     function drawWordWithDepth(word, startX = 0, startY = 0, letterSpacing = 6) {
       ctx.save();
-      ctx.translate(startX, startY);
+      ctx.translate(startX + letterSpacing * (word.length - 1), startY);
 
       // Iterate over letters in reverse to get correct z-order
       for (let i = word.length - 1; i >= 0; i--) {
@@ -414,12 +448,9 @@
       ctx.restore();
     }
 
-
-    drawWordWithDepth("MECH", 1100, 0, scale * 2);
-
     function drawH() {
       // H
-      drawRectangle(1, 5, 1, 5, ["front","top","right"],       
+      drawLongCube(1, 5, 1, 5, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -443,7 +474,7 @@
         }
       );
       
-      drawRectangle(3, 4, 1, 1, ["front","top","right"],       
+      drawLongCube(3, 4, 1, 1, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -467,7 +498,7 @@
         }
       );    
 
-      drawRectangle(1, 2, 1, 5, ["front","top","right"],       
+      drawLongCube(1, 2, 1, 5, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -493,7 +524,7 @@
     }
 
     function drawC() {
-      drawRectangle(1, 5, 1, 5, ["front","top","right"],       
+      drawLongCube(1, 5, 1, 5, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -517,7 +548,7 @@
         }
       );
 
-      drawRectangle(5, 2, 3, 1, ["front","top","right"],       
+      drawLongCube(5, 2, 3, 1, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -541,7 +572,7 @@
         }
       );
 
-      drawRectangle(1, 2, 2, 1, ["front","top","right"],       
+      drawLongCube(1, 2, 2, 1, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -565,7 +596,7 @@
         }
       );
 
-      drawRectangle(4, 2, 1, 2, ["front","top","right"],       
+      drawLongCube(4, 2, 1, 2, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -589,7 +620,7 @@
         }
       );
 
-      drawRectangle(1, 2, 1, 2, ["front","top","right"],       
+      drawLongCube(1, 2, 1, 2, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -617,7 +648,7 @@
 
     // E
     function drawE() {
-      drawRectangle(3, 5, 1, 5, ["front","top","right"],       
+      drawLongCube(3, 5, 1, 5, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -641,7 +672,7 @@
         }
       );
 
-      drawRectangle(5, 2, 3, 1, ["front","top","right"],       
+      drawLongCube(5, 2, 3, 1, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -665,7 +696,7 @@
         }
       );
 
-      drawRectangle(3, 2, 3, 1, ["front","top","right"],       
+      drawLongCube(3, 2, 3, 1, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -689,7 +720,7 @@
         }
       );
 
-      drawRectangle(1, 2, 4, 1, ["front","top","right"],       
+      drawLongCube(1, 2, 4, 1, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -717,7 +748,7 @@
 
     // M
     function drawM() {
-      drawRectangle(3, 5, 1, 3, ["front","top","right"],       
+      drawLongCube(3, 5, 1, 3, ["front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor },
         {
           front: [
@@ -741,7 +772,7 @@
         }
       );
 
-      drawRectangle(1, 3, 1, 5, ["left","front","right"],       
+      drawLongCube(1, 3, 1, 5, ["left","front","right"],       
         { front: dotPattern, right: bgcolor, left: bgcolor },
         {
           front: [
@@ -765,7 +796,7 @@
         }
       );
 
-      drawRectangle(3, 1, 1, 3, ["left","front","top","right"],       
+      drawLongCube(3, 1, 1, 3, ["left","front","top","right"],       
         { front: dotPattern, right: bgcolor, top: bgcolor, left: bgcolor },
         {
           front: [
@@ -795,7 +826,7 @@
         }
       );
 
-      drawRectangle(1, 4, 2, 1, ["top","front"],       
+      drawLongCube(1, 4, 2, 1, ["top","front"],       
         { top: bgcolor, front: dotPattern },
         {
           front: [
@@ -832,7 +863,7 @@
       );
 
       
-      drawRectangle(1, 1, 2, 1, ["right","top","front"],       
+      drawLongCube(1, 1, 2, 1, ["right","top","front"],       
         { right: bgcolor, top: bgcolor, front: dotPattern },
         {
           front: [
@@ -858,10 +889,10 @@
         }
       );
     }
-
+    drawWordWithDepth("MECH", 0, 0, scale * 2.2);
 
   }
-
+  
   resize();
 })();
 </script>
