@@ -268,14 +268,14 @@ The `@` sigil denotes a database, and the `#` sigil denotes a tagged record. The
 search @session @browser
   svg = [#game-window]
 ```
-
 will search the `@session` database for a record tagged `#game-window`, and bind it to the variable `svg`. Later `svg.children += sprite` binds a new record to the `children` field of the `svg` record in the `@browser` database.
 
 Because Eve is reactive, when the `y` value changes on the `#player` record (which, in this game, occurs every tick of the game timer), all dependent values are automatically recomputed. This allows the programmer to focus solely on defining data associations rather than managing control flow, as is typical in imperative languages.
 
-This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016. One feature in particular was the inspector, which allowed the user to turn their cursor int a probe that could provide information as the the provenance (the origin and history) of any value in the program. This made it easy to understand how values were computed, and trace bugs back to their source. Another feature related to literate programming was the ability to restructure the narrative of the program by querying it e.g. the user could ask for all code related to the generation of a particular UI element, and Eve would extract only those sections and present it in a new view. This solved the problem of having to write the code in narrative form, as the user could create any narrative they wanted, and then extract the relevant code later.
+<<![A demonstration of reordering code blocks in Eve. Building the language atop a database allows the user to query the program for related code blocks, and extract them into a new view.](images/elision.gif){width: "400px"}
 
-<<!["Literate Programming" by Donald Knuth, 1992 [KNUTHBOOK]](images/elision.gif){width: 5%}
+
+This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016. One feature in particular was the inspector, which allowed the user to turn their cursor int a probe that could provide information as the the provenance (the origin and history) of any value in the program. This made it easy to understand how values were computed, and trace bugs back to their source. Another feature related to literate programming was the ability to restructure the narrative of the program by querying it e.g. the user could ask for all code related to the generation of a particular UI element, and Eve would extract only those sections and present it in a new view. This solved the problem of having to write the code in narrative form, as the user could create any narrative they wanted, and then extract the relevant code later.
 
 We even had a [chat interface](https://incidentalcomplexity.com/2015/10/15/jul-sept) usable from a phone, as well as a [natural language interface](https://incidentalcomplexity.com/2016/06/14/nlqp) where you could ask it questions posed as English sentences about the program state.
 
