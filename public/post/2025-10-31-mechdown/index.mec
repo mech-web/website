@@ -44,9 +44,9 @@ Anyway, you might want to grab a snack -- this is probably the longest and most 
 
 Let's begin with a quick history of Mech:
 
-After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, Mech has grown and evolved through several versions representing over 9000 commits (9274 as of the writing of this post) from [14 contributors](https://github.com/mech-lang/mech/graphs/contributors), most of whom are students working on Mech with me as part of their capstone projects.
+After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, Mech has grown and evolved through several versions representing [over 9000](https://www.youtube.com/watch?v=SiMHTK15Pik) commits (9274 as of the writing of this post) from [14 contributors](https://github.com/mech-lang/mech/graphs/contributors), most of whom are students working on Mech with me as part of their capstone projects.
 
-![What, over 9000?!](images/over9000.gif)
+![[A history of commits](https://github.com/mech-lang/mech/graphs/contributors) to Mech since the last update was posted. Mech is developed on an "academic calendar", meaning when school is in session, development slows. Then when the semester ends, development accelerates.](images/commits.png)
 
 Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments in language design, exploring niche debugging tools like time-travel debugging and reflecting runtime state in a live editor. Documentation and a working demonstration for Mech Alpha are [still available](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
