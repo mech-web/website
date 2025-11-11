@@ -272,7 +272,7 @@ will search the `@session` database for a record tagged `#game-window`, and bind
 
 Because Eve is reactive, when the `y` value changes on the `#player` record (which, in this game, occurs every tick of the game timer), all dependent values are automatically recomputed. This allows the programmer to focus solely on defining data associations rather than managing control flow, as is typical in imperative languages.
 
->>![A demonstration of reordering code blocks in Eve. Building the language atop a database allows the user to query the program for related code blocks, and extract them into a new view.](images/elision.gif){width: "400px"}
+>>![[A demonstration](https://play.witheve.com/#/examples/CRM.eve) of reordering code blocks in Eve. Building the language atop a database allows the user to query the program for related code blocks, and extract them into a new view.](images/elision.gif){width: "400px"}
 
 This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016. One feature in particular was the inspector, which allowed the user to turn their cursor int a probe that could provide information as the the provenance (the origin and history) of any value in the program. This made it easy to understand how values were computed, and trace bugs back to their source. Another feature related to literate programming was the ability to restructure the narrative of the program by querying it e.g. the user could ask for all code related to the generation of a particular UI element, and Eve would extract only those sections and present it in a new view. This solved the problem of having to write the code in narrative form, as the user could create any narrative they wanted, and then extract the relevant code later.
 
@@ -373,7 +373,7 @@ mech-code := mech-code-alt, ("\n" | ";" | comment) ;
 mech-code-alt := fsm-specification | fsm-implementation | function-define | statement | expression | comment ;
 ```
 
-(!)> We use an extension of EBNF [defined in the Mech specification](https://docs.mech-lang.org/IV.design/specification.html#65359388826030746). Here, `ws0` denotes zero or more whitespace characters, `?` denotes an optional element, `+` denotes one or more repetitions, `*` denotes zero or more repetitions, and `¬` denotes negation.
+(?)> We use an extension of EBNF [defined in the Mech specification](https://docs.mech-lang.org/IV.design/specification.html#65359388826030746). Here, `ws0` denotes zero or more whitespace characters, `?` denotes an optional element, `+` denotes one or more repetitions, `*` denotes zero or more repetitions, and `¬` denotes negation.
 
 The key to how Mechdown integrates with Mech comes down to whitespace; Mechdown is whitespace-sensitive, meaning that whitespace is significant in the syntax and structure of the language. For example, consider a nested list:
 
@@ -405,7 +405,7 @@ That said, Mech is not fully whitespace-sensitive; most whitespace-sensitive gra
 y:=7 ^ 2;x:=2 * [1,2,4;5,6,y]
 ```
 
-(!)> Mech requires spaces around operators, which allows us to support features like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also believe it makes formulas more readable. The commas in the inline form are used to facilitate easier inline writing, since newlines are not available in that context.
+(?)> Mech requires spaces around operators, which allows us to support features like {{kebab-case}} and {{slashes/in/identifiers}} without ambiguity. We also believe it makes formulas more readable. The commas in the inline form are used to facilitate easier inline writing, since newlines are not available in that context.
 
 (4.1) Markup Features
 
