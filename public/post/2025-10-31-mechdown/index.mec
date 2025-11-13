@@ -26,7 +26,7 @@ out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to "✨🐝"
 
 This solution to the classic "FizzBuzz" problem is expressed in Mech using vector operations. It generates a vector of numbers from {{1}} to {{10}}, converts it to a string vector, then replaces multiples of {{2}} with `✨`, multiples of {{3}} with `🐝`, and multiples of both with `✨🐝`. This code block is configured to display the value of the last line as output.
 
-Click on the variables and you'll see their values echoed in the REPL to the right (if the REPL is closed, you'll se a modal popup near the click-site, which can be dismissed by clicking on it).
+Click on the variables and you'll see their values echoed in the REPL to the right (if the REPL is closed, you'll see a modal popup, which can be dismissed by clicking on it. You can open the REPL by pressing `\``).
 
 Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning operators like `%` and `==` are defined to work on entire arrays at once. Logical indexing is then used to select and update specific elements of the `out` vector based on the truth of corresponding elements in the index vectors `ix2` and `ix3`.
 
