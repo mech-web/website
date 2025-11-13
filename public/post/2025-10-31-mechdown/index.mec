@@ -326,7 +326,7 @@ The alpha implementation of Mechdown culminated in a digital paper written in Me
 
 R Markdown [RMD] brought executable documents to the R ecosystem, combining R code with Markdown prose to create dynamic reports and presentations. The goal is to help researchers and data scientists produce reproducible analyses that integrate code, results, and narrative in a single document. R code is fenced within `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it merges code and prose. 
 
-However, even though the documents *could* be executed, a large-scale study of nearly 200,000 R Markdown documents in public code repositories found that 64% were not executable. The primary causes were missing libraries, missing data, and incorrect code [REXE]. This highlights an opportunity for Mechdown to improve on R Markdown by providing a more integrated environment where code and data are bundled together, along with tools to help programmers ensure documents remain executable.
+However, although the documents *could* be executed, a large-scale study of nearly 200,000 R Markdown documents in public code repositories found that 64% were not executable. The primary causes were missing libraries, missing data, and incorrect code [REXE]. This highlights an opportunity for Mechdown to improve on R Markdown by providing a more integrated environment where code and data are bundled together, along with tools to help programmers ensure documents remain executable.
 
 Marimo [MARIMO] is a notebook environment for Python, similar to Jupyter, but backed by a native Python document rather than a JSON schema. Unlike Jupyter, Marimo is a reactive notebook -- whenever a cell that defines a global variable is run, Marimo automatically recaclulates every cell that depeneds on it -- which places it more in line with how Mechdown. However, the Python code is structured using `@app.cell` blocks, which contain both Python code and Markdown. As a result, Marimo documents are not easily readable without the accompanying tooling, similar to Mechdown.
 
@@ -692,7 +692,7 @@ Because the Mech compiler is written in Rust, it can be compiled to the `wasm32`
 - **Responsiveness:** Running Mech programs on the client side allows for a more responsive user experience, as there is no need to wait for server round-trips to execute code and receive results.  
 - **Offline support:** Because the Mech runtime is shipped to the client, users can run Mech programs even when offline or with a poor internet connection.
 
-The resulting binary is about 1 MB (compressed) for the full Mech runtime, including the parser, interpreter, standard library, and Mechdown formatter. The file size can be reduced to just a few hundred KB by compiling only the parts of the runtime needed for a given document. We use `wasmbindgen` along with `web-sys` and `js-sys` to interface with the browser DOM. This allows Mech to interoperate with JavaScript as an embedded language, similar to Lua, although additional work is needed to refine the interface.
+The resulting binary is about 1 MB (compressed) for the full Mech runtime, including the parser, interpreter, standard library, and Mechdown formatter. The file size can be reduced to just a few hundred KB by compiling only the parts of the runtime needed for a given document[^4]. We use `wasmbindgen` along with `web-sys` and `js-sys` to interface with the browser DOM. This allows Mech to interoperate with JavaScript as an embedded language, similar to Lua, although additional work is needed to refine the interface.
 
 (5.1.1) mech-wasm
 
@@ -735,7 +735,7 @@ pub fn var(&mut self, node: &Var) -> String {
 
 On the variable span, we mark the element as "mech-clickable", registering it with the WASM runtime. It's also given an ID in the format `hashed-variable-name:interpreter-id`, so when the user clicks the element, the runtime knows which variable in which interpreter it corresponds to.
 
-This HTML tree corresponds to the Mech program {{x := 1 + 2}}. It is attached to the HTML shim at the node `mech-content`. Each tree node maps to a node in the Mech AST[^4], with classes indicating the AST node type and the HTML node type reflecting the node's semantics. Nodes representing specific Mech interpreter values are annotated with their value IDs.
+This HTML tree corresponds to the Mech program {{x := 1 + 2}}. It is attached to the HTML shim at the node `mech-content`. Each tree node maps to a node in the Mech AST[^5], with classes indicating the AST node type and the HTML node type reflecting the node's semantics. Nodes representing specific Mech interpreter values are annotated with their value IDs.
 
 Once the HTML tree is built, it's time to finalize the output html document. This consists of taking in the shim, and replacing any templated sections with generated content. For example, the template `{{TOC}}` will be replaced with the generated table of contents for the document. Mechdown supports various templates including `{{STYLESHEET}}`, `TOC`, `CONTENT`, `CODE`, and `TITLE`. 
 
@@ -824,7 +824,9 @@ Thanks for reading!
 
 [^3]: In an early version of Mech, I accidentally introduced a bug in the standard library where certain inputs to the `sin` function produced an infinite result, causing objects to disappear from the canvas at seemingly random times. Time-travel debugging allowed me to pause the program, rewind to the moment the object vanished, and inspect its state. Discovering that the value was a momentary `NaN` made the fix straightforward. This bug can still be seen in [the first release of Mech alpha](https://mech-lang.org/post/2019-03-27-version-0-0-1) when the robot arm is set to just the right angle.
 
-[^4]: Although not yet implemented, the 1-to-1 correspondence means we could, in principle, parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST.
+[^4]: Right now the Mechdown `.wasm` binary is 30MB uncompressed, &lt1MB compressed. This is mainly because we are shipping a copy of every function in the standard library, even those not used by the document. Code elimination will reduce this size significantly in future versions. A bigger problem though is we are shipping a parser and the serde serialization framework, which are quite heavy. This will be fixed by including the bytecode compiler and shipping only bytecode to the client, which does not require the parser or serde. We expect this will reduce the size significantly, but for now it's necessarily bloated.
+
+[^5]: Although not yet implemented, the 1-to-1 correspondence means we could, in principle, parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST.
 
 [KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
 [KNUTHBOOK]: D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html)
