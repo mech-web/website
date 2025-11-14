@@ -1,233 +1,3032 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<head>
 
-  <title>Blog</title>
-  <meta property="og:title" content="Blog" />
-  <meta name="twitter:title" content="Blog" />
-  <meta name="author" content="Corey Montella"/>
-  <link href='https://mech-lang.org/img/favicon.ico' rel='icon' type='image/x-icon'/>
-  <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://mech-lang.org/blog/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="The Mech Programming Language" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="generator" content="Hugo 0.54.0" />
-  <link rel="canonical" href="https://mech-lang.org/blog/" />
-  <link rel="alternate" href="https://mech-lang.org/index.xml" type="application/rss+xml" title="The Mech Programming Language">
-  <link rel="stylesheet" href="https://mech-lang.org/css/main.css"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
-  <link rel="stylesheet" href="https://mech-lang.org/css/pygment_highlights.css" />
-  <link rel="stylesheet" href="https://mech-lang.org/css/highlight.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
 
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-120731667-1', 'auto');
-	
-	ga('send', 'pageview');
+  <title>Mech Blog Posts</title>
+  <link rel="icon" href="https://gitlab.com/mech-lang/assets/-/raw/main/images/favicon.ico" type="image/x-icon" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  </style>
+  <style>
+    @import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+
+:root {
+  --op-color: #73b997;
+  --bracket-color: rgb(177, 187, 196);
+  --sidebar-width: 300px;
 }
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
+html {
+    scroll-behavior: auto;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #0d1013;
+    font-weight:300;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.mech-document {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none;       
+    -ms-overflow-style: none;
+}
+
+.mech-root {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.mech-content {
+    counter-reset: h2 equation;
+    margin-top: 50px;
+}
+
+.mech-toc.hidden {
+  display: none;
+}
+
+.mech-toc.hidden ~ .mech-content {
+  margin-left: 0;
+}
+
+.super.compact .mech-content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+
+.mech-toc {
+    max-width: 250px;
+    position: absolute;
+    counter-reset: h2;
+    color: #f2ead9;
+    overflow-y: auto;
+    overflow-x: hidden;
+    top: 0px;
+    margin-left: calc(50% - 350px - 250px - 150px);
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */         
+    height: calc(100vh - 60px);   
+    margin-top: 60px;  
+}
+
+.mech-program {
+    max-width: 700px;
+    margin: auto;
+}
+
+#mech-output {
+
+}
+
+.compact .mech-program h1 {
+    width: 100%;
+    margin-left: 0px;
+}
+.compact .mech-program h2 {
+    width: 100%;
+    margin-left: 0px;
+}
+.compact .mech-program h3 {
+    margin-left: 0px;
+}
+
+
+.super.compact .mech-content {
+        max-width: 100%;
+        min-width: 300px;
+        margin: 10px;
+    }
+
+.super.compact .mech-program {
+        max-width: 100%;
+        min-width: 0px;
+    }
+
+.super.compact .mech-program h1 {
+        width: 100%;
+        margin-left: 0px;
+    }
+.super.compact .mech-program h2 {
+        width: 100%;
+        margin-left: 0px;
+    }
+.super.compact .mech-program h3 {
+        margin-left: 0px;
+    }
+    
+.super.compact .mech-program-section {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+.super.compact .mech-table {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+.super.compact .mech-statement {
+        min-width: fit-content;
+    }
+
+
+#mech-output::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Edge */
+}
+
+.repl-line {
+    margin-top: 10px;
+}
+
+.repl-prompt {
+    color: #F3B62D;
+    width: 20px;
+}
+
+.repl-result .mech-output-value {
+    margin-top: 10px;
+}
+
+.repl-result .mech-output-value {
+    overflow-x: auto;
+    scrollbar-width: none;     /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.repl-result .mech-output-value::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Edge */
+}
+
+.repl-result {
+    margin-top: 10px;
+}
+
+.repl-input,
+.repl-code {
+  display: block;
+  font-family: 'FiraCodeLight', monospace;
+  font-size: 1em;
+  min-height: 1.2em;
+  line-height: 1.2em;
+  color: #f2ead9;
+  padding: 0;
+  margin: 0;
+  padding-left: 25px;
+  border: none;
+  outline: none;
+  position: relative;
+  background: transparent;
+  width: calc(100% - 25px);
+  white-space: pre-wrap;   /* preserve spacing and wrap */
+  word-wrap: break-word;   /* break long words */
+  overflow-wrap: break-word; 
+  resize: none;            /* prevent user resizing */
+}
+
+.repl-code::before, 
+.repl-input::before {
+    content: ">:";
+    color: #F3B62D;
+    margin-left: -25px;
+    position: absolute;
+    pointer-events: none;
+}
+
+.mech-toc h2 {
+    line-height: 23px;
+}
+
+.mech-toc::-webkit-scrollbar {
+  display: none;               /* Chrome, Safari, Edge */
+}
+
+.mech-toc h1 {
+    visibility: hidden;
+    font-size: 1rem;
+}
+
+.mech-toc h2 {
+    font-size: 1rem;
+    padding-left: 13px;
+}
+
+h2.toc::before {
+    padding-right: 3px;
+}
+
+.mech-toc h2 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h2:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h2 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+h3.toc::before {
+    font-size: 1rem;
+    padding-right: 3px;
+    color: rgba(255, 255, 255, 0.55);
+}
+.mech-toc h3 {
+    line-height: 23px;
+}
+
+.mech-toc h3 {
+    font-size: 1rem;
+    padding-left: 30px;
+}
+
+.mech-toc h3 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h3:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h3 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+h4.toc::before {
+    font-size: 1rem;
+    padding-right: 3px;
+    color: rgba(255, 255, 255, 0.55);
+}
+.mech-toc h4 {
+    line-height: 23px;
+    font-size: 1rem;
+    padding-left: 60px;
+    margin: 10px;
+}
+
+.mech-toc h4 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h4:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h4 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+h5.toc::before {
+    font-size: 1rem;
+    padding-right: 3px;
+    color: rgba(255, 255, 255, 0.55);
+}
+.mech-toc h5 {
+    line-height: 23px;
+    font-size: 1rem;
+    padding-left: 90px;
+    margin: 10px;
+}
+
+.mech-toc h5 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-toc h5:hover::before {
+    color: #f18181;
+}
+
+.mech-toc h5 a:hover {
+    color: #f18181;
+    text-decoration: none;
+}
+
+.mech-matrix {
+    display: inline-flex;
+}
+
+.mech-bracket.end {
+    align-self: flex-end;
+    margin-left: -10px;
+}
+
+.mech-slice-ref {
+    display: inline-flex;
+}
+
+.mech-matrix-column {
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
+.mech-variable-assign-op {
+    padding-left:  6px;
+    padding-right: 6px;
+    color: var(--op-color);
+}
+
+.mech-kind-define-op {
+    padding-left:  6px;
+    padding-right: 6px;
+    color: var(--op-color);
+}
+
+.mech-range-operator {
+    color: var(--op-color);
+}
+
+.mech-assign-op {
+    color: var(--op-color);
+}
+
+.mech-transition-statement {
+    color: var(--op-color);
+}
+
+.mech-transition-output {
+    color: var(--op-color);
+}
+
+.mech-fsm-arm-last {
+    color: var(--op-color);
+}
+
+.mech-term {
+    display: inline-flex;
+}
+
+.mech-formula-operator {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.mech-program h1 {
+    width: 900px;
+    font-family: 'FiraCodeRegular', monospace;
+    padding-bottom: 10px;
+    border-bottom: 4px dashed #d19710;
+    color: #f2ead9;
+    letter-spacing: 2px;
+    font-size: 1.83rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+    margin-left: -100px;
+}
+
+.mech-program h2 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h2 {
+    width: 850px;
+    font-family: 'FiraCodeRegular', monospace;
+    padding-bottom: 10px;
+    border-bottom: 3px dashed #d19710;
+    color: #f2ead9;
+    font-size: 1.33rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-left: -73px;
+}
+
+.mech-program h3 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h3 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 1.17rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    margin-left: -48px;
+}
+
+.mech-program h4 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h4 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.mech-program h5 a {
+    color: #f2ead9;
+    text-decoration: none;
+}
+
+.mech-program h5 {
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+
+h4.toc {
+    display: none;
+}
+
+h5.toc {
+    display: none;
+}
+
+.mech-variable-mutable {
+    color: #ada594;
+}
+
+.mech-section-element {
+}
+
+.mech-fsm-specification
+
+.mech-fsm-sigil{
+    display: inline-flex;
+}
+
+.mech-modal {
+    display: block;
+    background-color: #171D21;
+    color: #e6dac2;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    line-height: 18px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #888f92;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 1);
+    z-index:1000;
+}
+
+.mech-code-block {
+    display: block;
+    background-color: #171D21;
+    color: #e6dac2;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    line-height: 18px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #888f92;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mech-code-block::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+.mech-code-block::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mech-code-block::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7);
+    border-radius: 10px;
+}
+
+.mech-code-block::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9);
+}
+
+/* Firefox */
+.mech-code-block {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-grammar {
+    display: block;
+    background-color: #171D21;
+    color: #ada594;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    line-height: 18px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #888f92;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mech-grammar::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+.mech-grammar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mech-grammar::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7);
+    border-radius: 10px;
+}
+
+.mech-grammar::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9);
+}
+
+/* Firefox */
+.mech-grammar {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-grammar-identifier {
+    color: #ccbbc2;
+}
+
+.mech-grammar-definition {
+    color: #ccbbc2;
+}
+
+.mech-grammar-definition a {
+    color: #ccbbc2;
+    text-decoration: none;
+}
+
+.mech-grammar-definition a:hover {
+    color: #ccbbc2;
+    text-decoration: underline;
+}
+
+.mech-grammar-choice {
+    margin-left: 20px;
+}
+
+.mech-grammar-sequence {
+    margin-left: 20px;
+}
+
+
+.mech-grammar-terminal {
+    color: #ee6262;
+}
+
+
+.mech-code {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    line-height: 24px;
+}
+
+.mech-code .mech-comment {
+    margin: 0px;
+    padding: 0px;
+}
+
+.mech-code .mech-comment p {
+    line-height: inherit;
+}
+
+.mech-statement {
+    min-width: 225px;
+}
+
+.mech-inline-mech-code-formatted  .mech-statement {
+    min-width:fit-content;
+}
+
+.mech-variable-define {
+    display: flex;
+}
+
+.mech-fsm-specification-header {
+    display: inline-flex;
+}
+
+.mech-variable-mutable {
+    color: var(--op-color);
+}
+
+.mech-var-name {
+    color: #eddaf1;
+    font-style: bold;
+}
+
+.mech-output-kind {
+    margin-bottom: 10px;
+}
+
+.mech-boolean {
+    color: #C7DCAE;
+}
+
+.mech-atom {
+    color: #C7DCAE;
+}
+
+.mech-empty {
+    color: #C7DCAE;
+}
+
+.mech-grammar-define-op {
+    padding-right: 12px;
+}
+
+.mech-literal {
+}
+
+.mech-number {
+    color: #9ccdf4;
+}
+
+.mech-factor {
+    display: inline-flex;
+}
+
+.mech-term {
+}
+
+code {
+    margin: 0px;
+    padding: 0px;
+}
+
+.mech-inline-code {
+    background-color: #171D21;
+    border: 1px solid #777;
+    color: #eddaf1;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    padding: 0px 6px 0px 6px;
+    margin: 0px 2px 0px 2px;
+    border-radius: 3px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.7);
+}
+
+.mech-inline-mech-code-formatted .mech-code-block {
+    display: inline-flex;
+    vertical-align: middle;
+    background-color: #171D21;
+    border: 1px solid #777;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    padding: 0px 6px 0px 6px;
+    margin: 0px 2px 0px 2px;
+    border-radius: 3px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.7);
+}
+
+.mech-inline-mech-code {
+    background-color: #171D21;
+    border: 1px solid #777;
+    color: #9ccdf4;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    padding: 0px 6px 0px 6px;
+    margin: 0px 2px 0px 2px;
+    border-radius: 3px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.7);
+}
+
+
+.mech-formula-operator {
+    color: var(--op-color);
+}
+
+.mech-op-assign-op {
+    padding-left: 6px;
+    padding-right: 6px;
+    color: var(--op-color);
+}
+
+.mech-paragraph {
+    color: #fffbf3;
+    line-height: 25px;
+}
+
+.mech-paragraph a {
+    color: #F8D07A;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+}
+
+.mech-paragraph a:hover {
+    color: #f18181;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.mech-all {
+    color: var(--op-color);
+}
+
+.mech-transpose-op {
+    color: var(--op-color);
+}
+
+.mech-negate-op {
+    color: var(--op-color);
+}
+
+.mech-record {
+    display: flex;
+}
+
+.mech-binding {
+    display: inline-flex;
+}
+
+.mech-function-call {
+    display: inline-flex;
+}
+
+.mech-slice {
+    display: inline-flex;
+}
+
+.mech-subscript {
+    display: inline-flex;
+}
+
+.mech-bracket {
+    display: inline-flex;
+    color: #A157B5
+}
+
+.mech-start-brace {
+    color: #a157b5
+}
+
+.mech-clickable:hover {
+    background-color: #2a2b34;
+    cursor: pointer;
+}
+
+.mech-end-brace {
+    color: #a157b5
+}
+
+.mech-dot {
+    color: #9cc7f3;
+}
+
+.mech-binding-colon-op {
+    padding-right: 6px;
+}
+
+.mech-right-paren {
+    color: #a157b5
+}
+
+.mech-left-paren {
+    color: #a157b5
+}
+
+.mech-binding-name {
+    color: #9cc7f3;
+    padding-left: 6px;
+}
+
+.mech-parenthetical {
+    color: #a157b5;
+}
+
+.mech-function-name {
+    color: #d8a5e4;
+}
+
+.mech-kind-annotation {
+    display: inline-flex;
+}
+
+.mech-kind {
+    color: #ec8e8e;
+    display: inline-flex;
+}
+
+.mech-fsm-define-op {
+    padding-left: 6px;
+}
+
+.mech-fsm-output { 
+    padding-left: 6px;
+    color: var(--op-color);
+}
+
+.mech-fsm-input {
+    color: #ccbbc2;
+    display: inline-flex;
+}
+
+.mech-fsm-name {
+    color: #d8a5e4;
+}
+
+.mech-kind-annotation {
+    color: #ee6262;
+}
+
+.mech-kind .mech-literal .mech-number {
+    color: #ec8e8e;
+}
+
+.mech-fsm-state {
+    display: inline-flex;
+}
+
+.mech-fsm-states {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.mech-state-definition {
+    display: inline-flex;
+}
+
+.mech-fsm-arms {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mech-fsm-arm {
+    display: inline-flex;
+}
+
+.mech-fsm-implementation-header {
+    display: inline-flex;
+}
+
+.mech-tuple-struct {
+    display: inline-flex;
+    color: var(--op-color);
+}
+
+.mech-fsm-sigil {
+    color: var(--op-color);
+}
+
+.mech-fsm-state {
+    color: var(--op-color);
+}
+
+.mech-tuple-struct-patterns {
+    display: inline-flex;
+}
+
+.mech-fsm-define-op {
+    padding-right: 6px;
+    color: var(--op-color);
+}
+
+.mech-matrix.empty .end  {
+    margin-left: 0px;
+}
+
+.mech-fsm-implementation {
+    margin-top: 20px;
+}
+
+.mech-fsm-guards {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.mech-fsm-guard-arm {
+    color: var(--op-color);
+    display: inline-flex;
+}
+
+.mech-guard-condition {
+    padding-left: 6px;
+}
+
+.mech-transition-output {
+    padding-left: 0px;
+}
+
+.mech-state-variables {
+    display: inline-flex;
+}
+
+.mech-transition-next {
+    padding-left: 0px;
+    color: var(--op-color);
+}
+
+.mech-guard-condition {
+    display: inline-flex;
+    margin: 0px;
+}
+
+.mech-pattern-wildcard {
+    display: inline-flex;
+    color: #ee6262;
+}
+
+.mech-tuple-struct {
+    margin-right: 6px;
+}
+
+.mech-state-name {
+    color: #dbc3a5;
+}
+
+.mech-tuple-struct-name {
+    color: #dbc3a5;
+}
+
+.mech-code-block .mech-code:first-child .mech-comment {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.mech-comment {
+    color: #5c6467;
+    font-style: italic;
+    padding-top: 20px;
+    display: flex; /* align contents horizontally */
+    gap: 4px;
+}
+
+.mech-comment p {
+    margin: 0;
+    color: #939a9e;
+    display: inline;
+}
+
+.mech-comment-sigil {
+    white-space: nowrap;
+}
+
+.mech-string {
+    color: #ee6262;
+}
+
+
+ul {
+    color: #F3B62D;
+}
+
+ol {
+    color: #F3B62D;
+}
+
+
+.mech-check-list {
+    list-style: none;
+    padding-left: 9px;
+    margin-top: 0.5em;
+}
+
+.mech-check-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;
+    margin: 0;
+    color: #dcd4c9;
+}
+
+.mech-check-list-item input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    border: 2px solid #777;
+    border-radius: 3px;
+    background-color: #171D21;
+    cursor: pointer;
+    position: relative;
+}
+
+.mech-check-list-item input[type="checkbox"]:checked {
+    background-color: #171D21;
+    border-color: #F3B62D;
+}
+
+.mech-check-list-item input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: #F3B62D;
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.mech-list-item-emoji {
+    list-style-type: none;
+    color: #ee6262;
+}
+
+.mech-list-item-emoji {
+    line-height: 0px;
+    color: #ee6262;
+}
+
+.mech-list-item-emoji::before {
+    content: attr(data-bullet); 
+    position: relative;         
+    font-size: 1rem;          
+    color: #ee6262;;    
+    right: 30px;
+    top: 13px;
+}
+
+.mech-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.mech-image {
+    max-width: 110%;
+}
+
+.mech-figure-label {
+    color: #F3B62D; 
+    font-size: 1rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+.mech-figure-caption {
+    width: 110%;
+}
+
+.mech-float .mech-figure-caption {
+    width: 350px;
+}
+
+.mech-figure-caption {
+    margin-top: 1em;
+    color: #eadec2;
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.4;
+    font-style: italic;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}
+
+.mech-float .mech-figure {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mech-figure-caption p {
+    margin: 0;
+}
+
+li {
+    padding-left: 3px;
+}
+
+li p {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.mech-table-header {
+    color: #dbc3a5;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #888f92;
+}
+
+.mech-table-cell.left {
+    text-align: left;
+}
+
+.mech-table-cell.right {
+    text-align: right;
+}
+
+.mech-table-cell.center {
+    text-align: center;
+}
+
+.mech-table .mech-table-header-cell {
+    text-align: center;
+}
+
+.mech-table-rows {
+}
+
+.mech-table-row {
+}
+
+.mech-table {
+    background-color: #2F353B;
+    color: #f2ead9; 
+    margin-bottom: 20px;
+    padding: 0px;
+    border-collapse: collapse;
+    border: 1px solid #888f92;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mech-output-value .mech-table:last-child {
+  margin-bottom: 0;
+}
+
+.mech-code-block .mech-table:last-child {
+  margin-bottom: 0;
+}
+
+.mech-table th,
+.mech-table td {
+  padding: 5px;
+}
+
+.mech-table thead {
+    background-color: #171D21;
+}
+
+.mech-table .mech-table-header-cell {
+    padding: 10px;
+}
+
+.mech-table .mech-table-row-even {
+    background-color: #232A30; 
+}
+
+.mech-table .mech-table-row-odd {
+    background-color: #171D21; 
+}
+
+.mech-table .mech-table-cell {
+    padding: 20px 10px 20px 10px;
+    border-bottom: 1px solid #888f92; 
+}
+
+.mech-table tbody tr:hover {
+    background-color: #3A4148; 
+}
+
+.mech-table a {
+    color: #F8D07A;
+    text-decoration: underline;
+}
+
+.mech-table a:hover {
+    color: #f18181;
+}
+
+.mech-block-quote {
+    width: 80%;
+    background-color: #1d2227; 
+    border-left: 4px solid #F3B62D;
+    padding: 40px 30px;
+    margin: 40px auto;
+    color: #f2ead9; 
+    border-radius: 3px;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    position: relative;
+}
+
+.mech-block-quote::before,
+.mech-block-quote::after {
+    color: #F3B62D;
+    font-size: 32pt;
+    font-family: 'Georgia', serif;
+    position: absolute;
+}
+
+.mech-block-quote::before {
+    content: "“";
+    left: 15px;
+    top: 5px;
+}
+
+.mech-block-quote::after {
+    content: "”";
+    right: 15px;
+    bottom: -17px;
+}
+
+.mech-block-quote p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 14pt;
+}
+
+
+.mech-info-block {
+    width: 80%;
+    background-color: #1d2227;
+    border-left: 4px solid #f18181;
+    padding: 20px 20px 20px 50px;
+    margin: 20px auto;
+    color: #f2ead9;
+    border-radius: 3px;
+    font-family: 'Georgia', serif;
+    position: relative;
+    font-style: normal;
+}
+
+.mech-info-block::before {
+    content: "!";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #f18181;
+    color: #1d2227;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.mech-info-block p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 12pt;
+}
+
+.mech-question-block {
+    width: 80%;
+    background-color: #1d2227;
+    border-left: 4px solid #6ca8ff;
+    padding: 20px 20px 20px 50px;
+    margin: 20px auto;
+    color: #f2ead9;
+    border-radius: 3px;
+    font-family: 'Georgia', serif;
+    position: relative;
+    font-style: normal;
+}
+
+.mech-question-block::before {
+    content: "?";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #6ca8ff;
+    color: #1d2227;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
+.mech-question-block p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 12pt;
+}
+
+.mech-thematic-break {
+    border: 0;
+    border-top: 2px solid #7e8892;
+    margin: 30px 0;
+    width: 100%;
+    opacity: 0.7;
+}
+
+.mech-fenced-mech-block {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.mech-code-block.hidden {
+    display: none;
+}
+
+.mech-fenced-mech-block .mech-code-block {
+    background-color: #171D21;
+    border-radius: 10px 10px 0px 0px;  
+    border-bottom: 2px solid rgb(199, 220, 174);
+    margin-bottom: 0px;
+}
+
+.mech-block-output {
+    margin-top: 0px;
+    background-color: #222A30; 
+    color: #f2ead9;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    padding: 20px;
+    border: 1px solid #888f92;
+    border-radius: 0px 0px 10px 10px; /* Only bottom corners rounded */
+    overflow-x: auto;
+}
+
+.mech-block-output::-webkit-scrollbar {
+    height: 8px; /* Horizontal scrollbar height */
+}
+
+.mech-block-output::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mech-block-output::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.7);
+    border-radius: 10px;
+}
+
+.mech-block-output::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.9);
+}
+
+/* Firefox */
+.mech-block-output {
+    scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+    scrollbar-width: thin;
+}
+
+.mech-footnote {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75em;
+    margin-top: 1em;
+    font-size: 0.9em;
+    color: #ada594;
+}
+
+.mech-footnote-id {
+    color: #F3B62D;
+    font-weight: bold;
+    min-width: 2em;
+    text-align: right;
+    font-family: monospace;
+}
+
+.mech-footnote .mech-paragraph {
+    margin: 0;
+    line-height: 1.6;
+    color: #f2ead9;
+}
+
+a.mech-footnote-reference {
+    text-decoration: none;
+    font-size: 0.7em;
+    vertical-align: super;
+    margin-left: 0.1em;
+    color: #F8D07A;
+    font-weight: bold;
+    min-width: 2em;
+    text-align: right;
+    cursor: pointer;
+    font-family: monospace;
+    transition: color 0.2s;
+}
+
+.mech-footnote-reference:hover {
+    color: #f18181;
+    text-decoration: underline;
+}
+
+.mech-abstract {
+    background-color: #1f252a;
+    border: 1px solid #F3B62D;
+    padding: 2em 2em;
+    margin: 2em 2em;
+    border-radius: 8px;
+    color: #dcd4c9;
+}
+
+.mech-abstract p {
+    line-height: 25pt;
+    margin: 0px;
+    text-align: justify;
+}
+
+#mech-output {
+    counter-reset: h2;
+}
+
+#mech-output h2 {
+    counter-reset: h3;
+}
+
+#mech-output h2 {
+    counter-reset: h3;
+}
+
+
+.mech-content h2 {
+    counter-reset: h3;
+}
+
+.mech-content h3 {
+    counter-reset: h4;
+}
+
+.mech-content h4 {
+    counter-reset: h5;
+}
+
+.mech-toc h2 {
+    counter-reset: h3;
+}
+
+.mech-toc h3 {
+    counter-reset: h4;
+}
+
+.mech-toc h4 {
+    counter-reset: h5;
+}
+
+
+h2::before {
+    color: #F3B62D;
+    counter-increment: h2;
+    content: counter(h2) ". ";
+}
+
+h3::before {
+    color: #F3B62D;
+    counter-increment: h3;
+    content: counter(h2) "." counter(h3) " ";
+}
+
+h4::before {
+    color: #F3B62D;
+    counter-increment: h4;
+    content: counter(h2) "." counter(h3) "." counter(h4) " ";
+}
+
+h5::before {
+    color: #F3B62D;
+    counter-increment: h5;
+    content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " ";
+}
+
+
+.mech-program-subtitle.toc.active::before{
+    color: #d65858;
+}
+
+.mech-program-subtitle.toc.active a {
+    color: #ee6262;
+}
+
+.mech-program-section.toc.active{
+    background-color: #0d1013;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left: 4px solid #d65858;
+}
+
+h2:hover a {
+    color: #f18181;
+}
+
+h3:hover a {
+    color: #f18181;
+}
+
+h4:hover a {
+    color: #f18181;
+}
+
+h5:hover a {
+    color: #f18181;
+}
+
+h6:hover a {
+    color: #f18181;
+}
+
+.mech-program-section {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mech-program-subtitle.toc.visible {
+    display: block;
+    visibility: visible;
+}
+
+.mech-equation {
+    counter-increment: equation;
+    text-align: center;
+    color: #efd5cd;
+}
+
+.mech-equation::after {
+    content: "Eq. " counter(equation); 
+    font-style: italic;
+    float: right;
+    color: #F8D07A;
+    font-size: 10pt;
+    line-height: 1.4;
+    font-style: italic;
+    gap: 0.5em;
+}
+
+.mech-inline-equation {
+    font-size: 10pt;
+    color: #efd5cd;
+}
+
+mark {
+    background-color: #F3B62D;
+    border: 1px solid #ffe4a4;
+    color: #5a4105;
+    font-weight: 400;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    margin: 0px 7px 0px 3px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.7);
+}
+
+.mech-works-cited {
+    width: 100%;
+}
+
+.mech-citation {
+    display: flex;
+    align-items: baseline;
+    color: #f2ead9;
+}
+
+.mech-citation p {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.mech-citation-id {
+    color: #F3B62D;
+    font-family: 'FiraCodeRegular', monospace;
+    flex-shrink: 0;
+    padding: 3px 10px 3px 10px;
+}
+
+.mech-citation-link {
+    color: #F8D07A;
+    text-decoration: none;
+    word-break: break-all;
+    transition: color 0.2s ease;
+}
+
+.mech-citation-link:hover {
+    color: #f18181;
+    text-decoration: underline;
+}
+
+.mech-reference {
+    font-family: 'FiraCodeRegular', monospace;
+    align-items: baseline;
+    color: #F8D07A;
+}
+
+.mech-reference a:hover {
+    color: #f18181;
+}
+
+.mech-reference a {
+    color: #F8D07A;
+    text-decoration: none;
+}
+
+.mech-float.left {
+    float: left;
+    margin-right: 20px;
+    margin-left: -73px;
+}
+
+.mech-float.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: -73px;
+}
+
+.mech-output-value .mech-matrix {
+    margin: 5px;
+}
+
+.mech-output-value .mech-matrix td {
+    max-width: 150px;
+    overflow: hidden;
+    padding: 5px 10px 5px 10px;
+}
+
+.mech-output-value {
+    padding-left: 10px;
+}
+
+.mech-matrix-outer{
+    width: fit-content;
+    position:relative;
+    border-left: 3px solid var(--bracket-color);
+    border-right: 3px solid var(--bracket-color);
+}
+.mech-matrix-outer:after{
+    content:'';
+    position:absolute;
+    height:3px;
+    width: 3px;
+    right:0;
+    border-top: 3px solid var(--bracket-color);
+}
+.mech-matrix-outer:before{
+      content:'';
+    position:absolute;
+    height:3px;
+    width: 3px;
+    border-top: 3px solid var(--bracket-color);
+}
+.mech-matrix-inner:before{
+      content:'';
+    position:absolute;
+    height:3px;
+    width: 3px;
+    bottom:0;
+    border-bottom: 3px solid var(--bracket-color);
+}
+.mech-matrix-inner:after {
+      content:'';
+    position:absolute;
+    height:3px;
+    width: 3px;
+    bottom:0; right:0;
+    border-bottom: 3px solid var(--bracket-color);
+}
+
+.mech-output-kind {
+    color: #ec8e8e;
+    font-weight: bold;
+    font-family: 'FiraCodeRegular', monospace;
+    margin-bottom: 10px;
+}
+
+.mech-table-cell .mech-paragraph {
+    margin: 0;
+    padding: 0;
+}
+
+#mech-output li {
+    color: #f2ead9;
+}
+
+#mech-output li::marker {
+    color: #F3B62D;
+    font-weight: bold;
+}
+
+.mech-help th {
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.mech-help tr {
+    vertical-align: top;
+}
+
+.mech-help td {
+    padding-bottom: 10px;
+}
+
+
+.repl-result .mech-table td { 
+    padding: 10px;
+}
+
+.repl-result .mech-table th { 
+    padding: 10px;
+}
+
+.mech-text-logo {
+    white-space: pre;
+    color: rgb(246,192,78);
+    text-align: center;
+    margin: 20px auto;
+}
+
+#mech-output a {
+    color: #F8D07A;
+    text-decoration: underline;
+}
+
+#mech-output a:hover {
+    color: #f18181;
+    text-decoration: underline;
+}
+
+#mech-output.hidden {
+    display: none;
+    width: 0px;
+}
+
+#resizer.hidden {
+    display: none;
+    width: 0px;
+}
+
+.mech-command {
+    background-color: #171D21;
+    border: 1px solid #777;
+    color: #eddaf1;
+    font-family: 'FiraCodeLight', monospace;
+    font-size: 1rem;
+    padding: 0px 6px 0px 6px;
+    margin: 0px 2px 0px 2px;
+    border-radius: 3px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.7);
+}
+
+.mech-version {
+    text-align: center;
+}
+
+#mech-output .mech-content {
+    max-width: 100%;
+    min-width: 300px;
+    margin: 10px;
+}
+
+#mech-output .mech-abstract {
+    margin: 10px auto;
+    padding: 10px;
+}
+
+#mech-output .mech-abstract p {
+    line-height: 25pt;
+    margin: 0px;
+    text-align: justify;
+}
+
+#mech-output h1 {
+    width: 100%;
+    margin: auto;
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-weight: bold;
+    border-bottom: none;
+    font-size: 1rem;
+}
+
+#mech-output h2 {
+    width: 100%;
+    margin: auto;
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-weight: bold;
+    border-bottom: none;
+    font-size: 1rem;
+}
+
+#mech-output h3 {
+    width: 100%;
+    margin: auto;
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+#mech-output h4 {
+    width: 100%;
+    margin: auto;
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-weight: bold;
+    border-bottom: none;
+    font-size: 1rem;
+}
+
+#mech-output h5 {
+    width: 100%;
+    margin: auto;
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-weight: bold;
+    border-bottom: none;
+    font-size: 1rem;
+}
+
+#mech-output h6 {
+    width: 100%;
+    margin: auto;
+    font-family: 'FiraCodeRegular', monospace;
+    color: #f2ead9;
+    font-weight: bold;
+    border-bottom: none;
+    font-size: 1rem;
+}
+
+#mech-output h2 a {
+    text-decoration: none;
+}
+
+#mech-output h3 a {
+    text-decoration: none;
+}
+
+#mech-output h4 a {
+    text-decoration: none;
+}
+
+#mech-output h5 a {
+    text-decoration: none;
+}
+
+#mech-output h6 a {
+    text-decoration: none;
+}
+
+#mech-output p {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+#mech-output .mech-code-block {
+    padding: 10px;
+}
+
+#mech-output td {
+    padding: 10px;
+}
+
+#mech-output .mech-equation {
+    margin-bottom: 10px;
+}
+
+#mech-output th p {
+    margin-bottom: 0px;
+}
+
+.mech-float.right .mech-figure-caption {
+    text-align: left;
+}
+
+@media (max-width: 1650px) {
+    .mech-program h1 {
+        width: 700px;
+        margin-left: 0px;
+    }
+    .mech-program h2 {
+        width: 700px;
+        margin-left: -10px;
+    }
+    .mech-program h3 {
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 1150px) {
+    .mech-toc {
+        display: none;
+    }
+    .mech-content {
+        margin: auto;
+    }
+    #mech-output {
+        display: none;
+    }
+        .mech-figure {
+        margin: 0px auto;
+    }
+    .mech-image {
+        max-width: 100%;
+    }
+    .mech-float .mech-figure-caption {
+        width: 100%;
+    }    
+    .mech-figure-label {
+        color: #F3B62D; 
+        font-size: 1rem;
+        min-width: 60px;
+        text-align: right;
+    }
+    .mech-float.left {
+        float: left;
+        margin-right: 20px;
+        margin-left: 0px;
+    }
+    .mech-float.right {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0px;
+    }
+}
+
+@media (max-width: 900px) {
+    .mech-content {
+        max-width: 100%;
+        min-width: 300px;
+        margin: 10px;
+    }
+
+    .mech-program {
+        max-width: 100%;
+        min-width: 0px;
+    }
+
+    .mech-program h1 {
+        width: 100%;
+        margin-left: 0px;
+    }
+    .mech-program h2 {
+        width: 100%;
+        margin-left: 0px;
+    }
+    .mech-program h3 {
+        margin-left: 0px;
+    }
+    
+    .mech-program-section {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .mech-table {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .mech-statement {
+        min-width: fit-content;
+    }
+
+}
+
+.mech-strong {
+    font-weight: 900;
+    color: #fef2d4;
+}
+
+.mech-diagram {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.mech-diagram .node rect {
+  fill: #ef5f90 !important;
+  stroke: #ef5f90 !important;
+}
+
+.mech-diagram .edgePath path {
+  stroke: #0077cc !important;
+  stroke-width: 2px !important;
+}
+
+.mech-diagram .edgePath marker,
+.mech-diagram marker {
+  fill: #34c510 !important; 
+}
+
+.mech-diagram .edgeLabel {
+  background-color: transparent !important;
+  color: #ebdede !important;
+  fill: #dc9f9f !important;
+  font-size: 14px !important;
+}
+
+.mech-diagram .edgeLabel p {
+    background-color: transparent !important;
+}
+
+.mech-diagram .edgeLabel rect {
+  fill: transparent !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+}
+
+.mech-diagram .labelBkg {
+  text-shadow: 0px 0px 4px #000000 !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mech-diagram .edgePath path {
+  stroke: #00bfa5 !important;
+  stroke-width: 2.5px !important;
+  fill: none !important;
+}
+.mech-diagram .edgePath marker,
+.mech-diagram marker {
+  fill: #00bfa5 !important;
+  stroke: #00bfa5 !important;
+}
+
+.mech-diagram .flowchart-link {
+  stroke: #00bfa5 !important;
+  stroke-width: 2.5px !important;
+}
+
+
+/* Style the nodes (bars) */
+.mermaid .node rect {
+}
+
+/* Style the links (paths) */
+.mermaid .link path {
+  stroke-opacity: 1 !important;
+  stroke: #37252e !important; /* Default link stroke color */
+}
+
+.mermaid .link {
+    mix-blend-mode: normal !important;
+}
+
+/* Style labels */
+.mermaid text {
+  font-weight: 600;
+  fill: #ffffff;
+  opacity: 1 !important;
+}
+
+/* Change colors per node by their position or content */
+.mermaid .node:nth-child(6) rect { fill: #44d627 !important; stroke: #44d627 !important; }  /* Site Visit Qualified */
+.mermaid .node:nth-child(7) rect { fill: #d62728 !important; stroke: #d62728 !important; }  /* Semifinalists */
+
+.mermaid .link:nth-child(8) path { fill: #44d627 !important; stroke: #44d627 !important; }  /* Semifinalists */
+
+
+
+  </style>
+
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      background-color: #0d1013;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);  /* Change from height: 100% */
+      width: 100%;
+    }
+
+    .content {
+      min-width: 0px;
+      width: 0%;  
+      background-color: #0d1013;
+      color: #f2ead9;
+      padding: 0px;
+      margin: 0px;
+      flex-grow: 1;
+      min-height: 0;
+      overflow-y: auto;  /* Make sure this is here */
+
+    }
+
+    .resizer {
+      width: 3px;
+      margin-left:10px;
+      background: #35393d;
+      cursor: col-resize;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .toggle-button {
+      position: absolute;
+      top: 50%;
+      height: 50px;
+      width: 11px;
+      left: -4px;
+      transform: translateY(-50%);
+      background: rgb(246,192,78);
+      border: 2px solid rgb(195, 146, 39);
+      color: #35393d;
+      padding: 2px 6px;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 2px;
+      padding: 0px;
+      user-select: none;
+      box-shadow: 0 0px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .toggle-button:focus {
+      outline: none;
+    }
+
+    .sidebar {
+      font-family: 'FiraCodeLight', monospace;
+      font-size: 1rem;
+      background-color: #040608;
+      color: #f2ead9;
+      padding: 1rem;
+      overflow: auto;
+      height: 100%;
+      flex-shrink: 0;
+      transition: width 0.2s ease;
+      width: clamp(300px, 33%, 100%);
+    }
+
+    .sidebar.hidden {
+      transform: translateX(100%);
+      width: 0 !important;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body.resizing .sidebar {
+      transition: none !important; 
+    }
+
+    body.resizing {
+      cursor: col-resize;
+      user-select: none;
+    }
+
+    body::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background: rgba(128, 128, 128, 0.7);
+        border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background: rgba(128, 128, 128, 0.7);
+    }
+
+    body {
+        scrollbar-color: rgba(128, 128, 128, 0.7) transparent;
+        scrollbar-width: thin;
+    }
+    .toggle-button.edge-left:hover,
+    .toggle-button.edge-right:hover {
+
+    }
+
+    #header {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      background-color: #0d1013;
+      background: linear-gradient(90deg, #0d1013, #1a1f24); /* Add gradient */
+      padding: 0 3rem; /* Bring content in from edges */
+      height: 60px;
+      border-bottom: 1px solid #35393d;
+      font-family: 'FiraCodeLight', monospace;
+      color: #f2ead9;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 4px 10px rgba(0,0,0,1);
+      gap: 2rem;
+    }
+
+  #logo {
+    padding-left: 1rem; /* Extra space on logo side */
+  }
+
+  /* Logo */
+  #logo img {
+    height: 40px; /* scale to fit header */
+  }
+
+  /* Nav container */
+  #nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem; /* spacing between nav items */
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding-right: 1rem;
+  }
+
+  /* Nav links */
+  #nav a {
+    color: #f2ead9;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  #nav a:hover {
+    color: rgb(246,192,78); /* highlight hover in yellow like logo */
+  }
+
+  /* Optional: add colon motif before links for terminal feel */
+  #nav span::before {
+    content: ":";
+    margin-right: 0.25rem;
+    letter-spacing: -0.5ch;
+    color: rgb(246,192,78);
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  #nav span.active::before {
+    content: ">:";
+    margin-right: 0.25rem;
+    letter-spacing: -0.5ch;
+    color: rgb(246,192,78);
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  /* compress the header if the view is small */
+  @media (max-width: 768px) {
+    #header {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 0px 1rem;
+      height: auto;
+      padding-top: 3px;
+      gap: 1rem;
+    }
+    #logo img {
+      height: 25px;
+    }
+    #nav {
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.9rem;
+      padding-top: 0px;
+    }
+  }
+  </style>
 </head>
-
-  <body>
-    <div class="black-bar">
-•
-</div>
-<nav class="navbar">
-
-  <div class="navbar-header">
-      
-        <a class="navbar-brand" href="https://mech-lang.org"><img class="logo-nav" src="https://mech-lang.org/img/logo.png" /></a>
-      
+<body>
+  <header id="header">
+    <div id="logo">
+      <a href="https://mech-lang.org">
+        <img src="https://mech-lang.org/img/logo.png" alt="MECH Logo" height="40">
+      </a>
+    </div>
+    <div id="nav">
+      <span><a href="https://about.mech-lang.org">About</a></span>
+      <span class="active"><a href="https://mech-lang.org/blog">Blog</a></span>
+      <span><a href="https://mech-lang.org/community">Community</a></span>
+      <span><a href="https://docs.mech-lang.org">Docs</a></span>
+      <span><a href="https://try.mech-lang.org">Explore</a></span>
+    </div>
+  </header>
+  <div class="container mech-root" mech-interpreter-id=0>
+    <div class="mech-toc"><h1 class="mech-program-title">Mech Blog Posts</h1><section class="mech-toc-sections"><section id="62148755752455977" section="9438622517866986" class="mech-program-section toc"><h2 id="34240521106211779" section="1.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#64696996597075978">Fall 2025 Progress Report - Mechdown Beta</a></h2></section><section id="68428689749586615" section="16885191040256091" class="mech-program-section toc"><h2 id="18138157161525304" section="2.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#26222977729876424">LLMs Won't Replace Programming Languages </a></h2></section><section id="35511651157512414" section="40687567824749606" class="mech-program-section toc"><h2 id="70503598624291544" section="3.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#24669159030462258">Fall 2022 Update - Functions, Matrix Math and the Road to v0.1</a></h2></section><section id="6645113166268276" section="21148124512303696" class="mech-program-section toc"><h2 id="21578087965193309" section="4.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#58054068114627774">Spring 2022 Update</a></h2></section><section id="70945744559945550" section="36041201538744259" class="mech-program-section toc"><h2 id="6181505871362114" section="5.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#21169210282291409">Mech in 2021 - A Year (or Two) in Review</a></h2></section><section id="57708879349905966" section="41994694464121956" class="mech-program-section toc"><h2 id="71523119693619334" section="6.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#26828514545883822">Forward Robotics</a></h2></section><section id="5466351771887542" section="33297481345570144" class="mech-program-section toc"><h2 id="36392276657662300" section="7.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#39198869339111417">Version 0.0.2 - Documentation, Views, and the Inspector</a></h2></section><section id="26679187831787523" section="18127898168814241" class="mech-program-section toc"><h2 id="27973774211937757" section="8.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#4320844263841328">Version 0.0.1</a></h2></section><section id="16625364363377023" section="28651407777332579" class="mech-program-section toc"><h2 id="2909411642445781" section="9.0" class="mech-program-subtitle toc"><a class="mech-program-subtitle-link toc" href="#54242405078052413">Hello World</a></h2></section></section></div>
+    <div class="content" id="left-pane">
+        <div class="mech-content"><div class="mech-program"><h1 class="mech-program-title">Mech Blog Posts</h1><div class="mech-program-body"><section id="9438622517866986" section="9438622517866986" class="mech-program-section "><h2 id="64696996597075978" section="1.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#64696996597075978">Fall 2025 Progress Report - Mechdown Beta</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> November 12, 2025  </span></p><p class="mech-paragraph"><span class="mech-text">Today we are reporting progress on </span><a href="https://github.com/mech-lang/mech/tree/v0.2-beta" class="mech-hyperlink">Mech v0.2</a><span class="mech-text">, currently wrapping up development and nearing an actual release. Work this cycle focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of </span><code class="mech-inline-code">v0.2</code><span class="mech-text"> was on July 16 2024, and this version has received >2900 commits so far. Today we will be covering progress as of </span><code class="mech-inline-code">v0.2.66-beta</code><span class="mech-text">.</span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2025-11-12-mechdown/" class="mech-hyperlink">Read More</a></p></section><section id="16885191040256091" section="16885191040256091" class="mech-program-section "><h2 id="26222977729876424" section="2.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#26222977729876424">LLMs Won't Replace Programming Languages </a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> January 9, 2025  </span></p><p class="mech-paragraph"><span class="mech-text">Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2025-01-09-programming-chatgpt/" class="mech-hyperlink">Read More</a></p></section><section id="40687567824749606" section="40687567824749606" class="mech-program-section "><h2 id="24669159030462258" section="3.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#24669159030462258">Fall 2022 Update - Functions, Matrix Math and the Road to v0.1</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> September 22, 2022  </span></p><p class="mech-paragraph"><span class="mech-text">We share the progress made on Mech, highlighting improvements such as smaller binaries, new machines, syntax updates, and faster parsing. We also discuss Mech's involvement in educational outreach programs, our summer research group's efforts, and the roadmap for the upcoming v0.1-beta release, targeting a Fall deadline.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2022-09-21-fall-update/" class="mech-hyperlink">Read More</a></p></section><section id="21148124512303696" section="21148124512303696" class="mech-program-section "><h2 id="58054068114627774" section="4.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#58054068114627774">Spring 2022 Update</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> May 20, 2022  </span></p><p class="mech-paragraph"><span class="mech-text">We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 year's worth of work, so I guess that goes to show how much has been done this year so far!  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2022-05-20-spring-update/" class="mech-hyperlink">Read More</a></p></section><section id="36041201538744259" section="36041201538744259" class="mech-program-section "><h2 id="21169210282291409" section="5.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#21169210282291409">Mech in 2021 - A Year (or Two) in Review</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> January 1, 2022  </span></p><p class="mech-paragraph"><span class="mech-text">Hello everyone and Happy New Year! Mech changed a lot in 2021 -- so much that it's almost ready for its first beta release in 2022.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2022-01-01-happy-new-year/" class="mech-hyperlink">Read More</a></p></section><section id="41994694464121956" section="41994694464121956" class="mech-program-section "><h2 id="26828514545883822" section="6.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#26828514545883822">Forward Robotics</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> August 6, 2020  </span></p><p class="mech-paragraph"><span class="mech-text">Mech as a language is taking steps towards the dynamic future of programming. But the future depends on today's youth. Forward Robotics is an extracurricular program for middle school students that will empower future programmers, doctors, and chefs alike.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2020-08-06-forward-robotics/" class="mech-hyperlink">Read More</a></p></section><section id="33297481345570144" section="33297481345570144" class="mech-program-section "><h2 id="39198869339111417" section="7.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#39198869339111417">Version 0.0.2 - Documentation, Views, and the Inspector</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> June 12, 2019  </span></p><p class="mech-paragraph"><span class="mech-text">Today we're happy to release Mech v0.0.2. This release has improvements for the language itself, but the focus was on documentation and notebook features.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2019-06-23-docs/" class="mech-hyperlink">Read More</a></p></section><section id="18127898168814241" section="18127898168814241" class="mech-program-section "><h2 id="4320844263841328" section="8.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#4320844263841328">Version 0.0.1</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> March 27, 2019  </span></p><p class="mech-paragraph"><span class="mech-text">Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version, but it represents the first time we can show off features like time-travel debugging and rendering Mech code to browser elements.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2019-03-27-version-0-0-1/" class="mech-hyperlink">Read More</a></p></section><section id="28651407777332579" section="28651407777332579" class="mech-program-section "><h2 id="54242405078052413" section="9.0" class="mech-program-subtitle "><a class="mech-program-subtitle-link " href="#54242405078052413">Hello World</a></h2><p class="mech-paragraph"><strong class="mech-strong"><span class="mech-text">Date:</span></strong><span class="mech-text"> June 7, 2018  </span></p><p class="mech-paragraph"><span class="mech-text">Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go.  </span></p><p class="mech-paragraph"><a href="https://mech-lang.org/post/2018-06-07-hello-world/" class="mech-hyperlink">Read More</a></p></section></div></div></div>
+    </div>
+    <div class="resizer hidden" id="resizer">
+      <button class="toggle-button" id="toggle-repl">|</button>
+    </div>
+    <div class="sidebar mech-repl hidden" id="mech-output"></div>
   </div>
-  <div class="spacer"></div>
-  <div class="collapse navbar-collapse" id="main-navbar">
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <a title="Community" href="https://mech-lang.org/page/community/">Community</a>
-      </li>
-      <li>
-        <a title="Learn" href="http://docs.mech-lang.org">Learn</a>
-      </li>
-      <li>
-        <a title="Blog" href="https://mech-lang.org/blog/">Blog</a>
-      </li>
-      <li>
-        <a title="Try" href="http://try.mech-lang.org">Try</a>
-      </li>
-    </ul>
-  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contentPane = document.getElementById('left-pane');
+      const tocLinks = document.querySelectorAll('a.toc[href^="#"]');
+      const contentLinks = document.querySelectorAll('.content a[href^="#"]'); // Add this
 
-</nav>
-
-
-
-
-    
-  
-  
-  
-
-
-
-
-  
-
-
-
-    
-  <div class="container posts-list">
-    
-
-    
-
-    <article class="post-preview">
-      <a href="https://mech-lang.org/post/2025-01-09-programming-chatgpt/">
-        <h2 class="post-title">LLMs Won't Replace Programming Languages</h2>
-      </a>
-      <span class="post-meta">
-        January 9, 2025
-      </span>
-      <div class="post-entry">
-        Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.       
-        <a href="https://mech-lang.org/post/2025-01-09-programming-chatgpt/" class="post-read-more">[Read More]</a>
-      </div>
-    </article>
-
-    <article class="post-preview">
-      <a href="https://mech-lang.org/post/2022-09-22-fall-update/">
-        <h2 class="post-title">Fall 2022 Update - Functions, Matrix Math and the road to v0.1</h2>
-      </a>
-      <span class="post-meta">
-        September 22, 2022
-      </span>
-      <div class="post-entry">
-        We share the progress made on Mech, highlighting improvements such as smaller binaries, new machines, syntax updates, and faster parsing. We also discuss Mech's involvement in educational outreach programs, our summer research group's efforts, and the roadmap for the upcoming v0.1-beta release, targeting an Fall deadline.        <a href="https://mech-lang.org/post/2022-09-21-fall-update/" class="post-read-more">[Read More]</a>
-      </div>
-    </article>
-
-    <article class="post-preview">
-      <a href="https://mech-lang.org/post/2022-05-20-spring-update/">
-        <h2 class="post-title">Spring 2022 Update</h2>
-      </a>
-      <span class="post-meta">
-        May 20, 2022
-      </span>
-      <div class="post-entry">
-        We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 year's worth of work, so I guess that goes to show how much has been done this year so far! Let's dive into all the new enhancements that were added to Mech since January.
-        <a href="https://mech-lang.org/post/2022-05-20-spring-update/" class="post-read-more">[Read More]</a>
-      </div>
-    </article>
-
-    <article class="post-preview">
-      <a href="https://mech-lang.org/post/2022-01-01-happy-new-year/">
-        <h2 class="post-title">Mech in 2021 - A year (or two) in review</h2>
-      </a>
-      <span class="post-meta">
-        January 1, 2022
-      </span>
-      <div class="post-entry">
-        Hello everyone and Happy New Year! Mech changed a lot in 2021 -- so much that it's almost ready for its first beta release in 2022.
-        <a href="https://mech-lang.org/post/2022-01-01-happy-new-year/" class="post-read-more">[Read More]</a>
-      </div>
-    </article>
-
-    <article class="post-preview">
-      <a href="https://mech-lang.org/post/2020-08-06-forward-robotics/">
-        <h2 class="post-title">Forward Robotics</h2>
-      </a>
-      <span class="post-meta">
-        August 6, 2020
-      </span>
-      <div class="post-entry">
-        Mech as a language is taking steps towards the dynamic future of programming. But the future depends on today's youth. Forward Robotics is an extracirricular program for middle school students that will empower future programmers, doctors, and chefs alike.
-        <a href="https://mech-lang.org/post/2020-08-06-forward-robotics/" class="post-read-more">[Read More]</a>
-      </div>
-    </article>
-
-    <article class="post-preview">
-      <a href="https://mech-lang.org/#/blog/2019-06-12-docs.mec">
-        <h2 class="post-title">Version 0.0.2 - Documentation, Views, and the Inspector</h2>
-      </a>
-      <span class="post-meta">
-        June 12, 2019
-      </span>
-      <div class="post-entry">
-        Today we're happy to release Mech v0.0.2. This release has improvements for the language itself, but the focus was on documentation and notebook features. First, we've overhauled the notebook interface so that most components are rendered in Rust wasm instead of Javascript. Eventually we will move over to an interface entirely written in Mech. Second, we've rendered Mech documents in HTML, rather than plain text. This necessitated finishing the formatter for syntax highlighting. Finally, we have included a couple tools like an inspector and block views that will help programmers. Let's look at each of these new features.
-        <a href="https://mech-lang.org/post/2019-06-23-docs/" class="post-read-more">[Read More]</a>
-      </div>
-    </article>
-
-      <article class="post-preview">
-        <a href="https://mech-lang.org/post/2019-03-27-version-0-0-1/">
-          <h2 class="post-title">Version 0.0.1</h2>
+      // Handle TOC links
+      tocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
           
-        </a>
-
-        <span class="post-meta">
-  March 27, 2019
-
-  </span>
-
-
-        <div class="post-entry">
+          const targetId = link.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
           
-            Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version of Mech, but it represents the first time we can show off some features like time-travel debugging and rendering the output of Mech code to arbitrary browser elements. Although this release has some useful features, they aren't yet documented; we'll focus on that in the next release. For now though, we'll go over what's included in v0.0.1, and introduce you to some of the unique features of the Mech programming language.
-            <a href="https://mech-lang.org/post/2019-03-27-version-0-0-1/" class="post-read-more">[Read More]</a>
+          if (targetElement && contentPane.contains(targetElement)) {
+            const contentRect = contentPane.getBoundingClientRect();
+            const targetRect = targetElement.getBoundingClientRect();
+            const scrollOffset = targetRect.top - contentRect.top + contentPane.scrollTop;
+            
+            contentPane.scrollTop = scrollOffset;
+          }
+        });
+      });
+
+      // Handle content links
+      contentLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
           
-        </div>
+          const targetId = link.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement && contentPane.contains(targetElement)) {
+            const contentRect = contentPane.getBoundingClientRect();
+            const targetRect = targetElement.getBoundingClientRect();
+            const scrollOffset = targetRect.top - contentRect.top + contentPane.scrollTop;
+            
+            contentPane.scrollTop = scrollOffset;
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    const left_pane = document.getElementById('left-pane');
+    const resizer = document.getElementById('resizer');
+    const sidebar = document.getElementById('mech-output');
+    const toggleButton = document.getElementById('toggle-repl');
+    const toc = document.querySelector('.mech-toc');
 
-        
-      </article>
+    let isDragging = false;
+    let replVisible = true;
+    let replFull = false;
+    let lastSidebarWidth = Math.max(sidebar.offsetWidth, 300);
 
+    const updateTocMargin = (toc_width) => {
+      if (!content || !sidebar || !toc) return;
+      const contentRect = content.getBoundingClientRect();
+      const offset = 350 + toc_width + 150;
+      const left = contentRect.left + contentRect.width / 2 - offset;
+      if (left < 0) {
+        toc.style.marginLeft = `0px`;
+      } else {
+        toc.style.marginLeft = `${left}px`;
+      }
+    };
+
+
+    // Add an observer to monitor sidebar width changes
+    const resize_observer = new ResizeObserver(entries => {
+      const sidebarWidth = entries[0].contentRect.width;
+
+      // count the number of children the TOC has. Zero h2 means zero toc
+      const h2Count = toc.querySelectorAll('h2').length;
+      const empty_toc = h2Count == 0;
+
+      const content_width = window.innerWidth - sidebarWidth;
+      const toc_width = toc.offsetWidth + 50;
+
+      if (content_width < 1400) {
+        left_pane.classList.add('compact');
+        if (!empty_toc) {
+          left_pane.style.marginLeft = `${toc_width}px`;
+        }
+      } else {
+        left_pane.classList.remove('compact');
+        left_pane.style.marginLeft = `auto`;
+      }
+
+      if (content_width < 900) {
+        left_pane.classList.add('super');
+        if (!empty_toc) {
+          left_pane.style.marginLeft = `auto`;
+        }
+      } else {
+        left_pane.classList.remove('super');
+      }
+
+      if (!empty_toc) {
+        if (window.innerWidth - sidebarWidth < 900) {
+          toc.classList.add('hidden');
+        } else {
+          toc.classList.remove('hidden');
+        }
+      }
+
+      const remainingSpace = window.innerWidth - sidebarWidth - toc_width;
+
+    if (!empty_toc) {
+      if (remainingSpace < 700) {
+        toc.classList.add('fixed');
+      } else {
+        updateTocMargin(toc_width);
+        toc.classList.remove('fixed');
+      }
+    }
+    });
+    resize_observer.observe(sidebar);
+
+    const content = document.querySelector('.mech-content');
+
+    function focusContent() {
+      content.classList.add('focused');
+    }
+    function blurContent() {
+      content.classList.remove('focused');
+    }
+
+    // focus when clicked, scrolled, or hovered
+    content.addEventListener('mouseenter', focusContent);
+    content.addEventListener('mousemove', focusContent);
+    content.addEventListener('wheel', focusContent);
+    content.addEventListener('focusin', focusContent);
+
+    // blur when user moves outside
+    content.addEventListener('mouseleave', blurContent);
+    content.addEventListener('focusout', blurContent);
+
+    resizer.addEventListener('mousedown', () => {
+      if (!replVisible) return;
+      isDragging = true;
+      document.body.classList.add('resizing');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+
+      const container = document.querySelector('.container');
+      const containerWidth = container.offsetWidth;
+      const minWidth = 370;
+      const edgeThreshold = 2; // px near screen edges
+
+      const newWidth = containerWidth - e.clientX;
+
+      const nearLeftEdge = e.clientX <= edgeThreshold;
+      const nearRightEdge = e.clientX >= containerWidth - edgeThreshold;
+
+      if (nearLeftEdge) {
+        fullscreen_repl()
+        return;
+      }
+
+      if (nearRightEdge) {
+        fullscreen_content()
+        return;
+      }
+      // Normal drag within range
+      const maxWidth = containerWidth * 0.8;
+      const clampedWidth = Math.min(Math.max(newWidth, minWidth), maxWidth);
+
+      sidebar.style.width = clampedWidth + 'px';
+      lastSidebarWidth = clampedWidth;
+      sidebar.classList.remove('hidden');
+      replVisible = true;
+      replFull = false;
+
+      left_pane.style.display = 'block';
+      resizer.style.marginLeft = '10px';
+      resizer.style.width = '3px';
+      toggleButton.style.left = `-4px`;
+      sidebar.style.width = lastSidebarWidth + 'px';
+      sidebar.style.marginLeft = `0px`;
+    });
+
+    function fullscreen_repl() {
+      replFull = true;
+      replVisible = true;
+      sidebar.style.width = "100%";
+      left_pane.style.display = 'none';
+      resizer.style.marginLeft = '0px';
+      resizer.style.width = '0px';
+      toggleButton.style.left = `-8px`;
+      toggleButton.classList.add('edge-left');
+      toggleButton.classList.remove('edge-right');
+    } 
+
+    function fullscreen_content() {
+      replVisible = false;
+      replFull = false;
+      sidebar.classList.add('hidden');
+      left_pane.style.display = 'block';
+      sidebar.style.width = '0';
+      sidebar.style.marginLeft = `-4px`;
+      toggleButton.classList.add('edge-right');
+      toggleButton.classList.remove('edge-left');
+    }
+
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        document.body.classList.remove('resizing');
+      }
+    });
+
+    toggleButton.addEventListener('click', () => {
+      if (!replVisible) {
+        replVisible = true;
+        sidebar.classList.remove('hidden');
+        const restoredWidth = Math.max(lastSidebarWidth, 300); // Ensure minimum 300px
+        sidebar.style.width = restoredWidth + 'px';
+        sidebar.style.marginLeft = `0px`;
+        toggleButton.innerHTML = '|';
+        toggleButton.style.left = `-4px`;
+        toggleButton.style.width = `11px`;
+        toggleButton.style.textAlign = `center`;
+        toggleButton.classList.remove('edge-left', 'edge-right');
+      }
+    });
+
+    toggleButton.addEventListener('dblclick', () => {
+      if (replVisible && !replFull) {
+        fullscreen_content()
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '`' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault();
+
+        if (replVisible) {
+          fullscreen_content();
+        } else {
+          toggleButton.click();
+        }
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+
+      function renderEquations(root = document) {
+        const blockElements = root.querySelectorAll(".mech-equation");
+        blockElements.forEach(el => {
+          if (!el.getAttribute("data-rendered")) {
+            const eq = el.getAttribute("equation");
+            if (eq) {
+              katex.render(eq, el, { throwOnError: false });
+              el.setAttribute("data-rendered", "true");
+            }
+          }
+        });
+
+        const inlineElements = root.querySelectorAll(".mech-inline-equation");
+        inlineElements.forEach(el => {
+          if (!el.getAttribute("data-rendered")) {
+            const eq = el.getAttribute("equation");
+            if (eq) {
+              katex.render(eq, el, { throwOnError: false });
+              el.setAttribute("data-rendered", "true");
+            }
+          }
+        });
+      }
+
+      renderEquations();
+
+      // Set up a MutationObserver to watch for new elements
+      const mutationobserver = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              renderEquations(node);
+            }
+          }
+        }
+      });
+      mutationobserver.observe(document.body, { childList: true, subtree: true });
+
+    });
     
-      <article class="post-preview">
-        <a href="https://mech-lang.org/post/2018-06-07-hello-world/">
-          <h2 class="post-title"># Hello World</h2>
-          
-        </a>
+  </script>
+  <script>
+    let observer = null;
+    let userScrolling = false;
+    let scrollTimeout = null;
+    let scrollLock = false;
 
-        <span class="post-meta">
-  June 7, 2018
-  
-</span>
+    function isFullyVisible(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+
+    document.querySelectorAll('.mech-program-subtitle.toc').forEach(entry => {
+    entry.addEventListener('click', () => {
+      scrollLock = true; // prevent observer from firing during this scroll
+
+      const tag = entry.tagName; // H1, H2, H3, etc.
+      const navItems = document.querySelectorAll(".mech-program-subtitle.toc");
+      const sections = document.querySelectorAll(".mech-program-section.toc");
+      const all_headers = Array.from(document.querySelectorAll('[section]'));
+
+      // Clear previous active states
+      navItems.forEach(item => item.classList.remove("active"));
+      sections.forEach(item => item.classList.remove("active"));
+
+      const section = entry.closest("section");
+      if (section) {
+        // Scroll the section into view if not fully visible
+        //if (!isFullyVisible(section)) {
+        //  section.scrollIntoView({ behavior: "smooth" });
+        //}
+
+        // Activate matching TOC section
+        const matchingTocSection = Array.from(sections).find(item => item.id === section.id);
+        if (matchingTocSection) matchingTocSection.classList.add("active");
+
+        // Grab subheadings
+        const h3s = Array.from(section.querySelectorAll('h3'));
+        const h4s = Array.from(section.querySelectorAll('h4'));
+        const h5s = Array.from(section.querySelectorAll('h5'));
+
+        // Handle H5 → activate closest H4
+        if (tag === "H5") {
+          const closestH4 = h4s.reverse().find(h4 => h4.compareDocumentPosition(entry) & Node.DOCUMENT_POSITION_FOLLOWING);
+          if (closestH4) closestH4.classList.add("active");
+        }
+
+        // Handle H4 or H5 → activate closest H3
+        if (tag === "H4" || tag === "H5") {
+          const closestH3 = h3s.reverse().find(h3 => h3.compareDocumentPosition(entry) & Node.DOCUMENT_POSITION_FOLLOWING);
+          if (closestH3) closestH3.classList.add("active");
+        }
+
+        // H3 → mark visible H4s within this section
+        if (tag === "H3") {
+          const h3_id = entry.getAttribute("section");
+          all_headers.forEach(item => {
+            const item_id = item.getAttribute("section");
+            if (item_id && item_id.startsWith(h3_id) && item.tagName === "H4") {
+              item.classList.add("visible");
+            } else {
+              item.classList.remove("visible");
+            }
+          });
+        }
+
+        // Activate top-level H2
+        const topLevelHeading = section.querySelector("h2");
+        if (topLevelHeading) topLevelHeading.classList.add("active");
+      }
+
+      // Activate clicked TOC entry
+      entry.classList.add("active");
+      currentActiveTag = tag;
+
+      // Update URL without triggering hashchange
+      const link = entry.querySelector('a[href]');
+      if (link) {
+        history.replaceState(null, '', link.getAttribute('href'));
+      }
+
+      // Release the scroll lock after smooth scrolling finishes
+      setTimeout(() => {
+        scrollLock = false;
+      }, 300); // adjust timing if needed
+    });
+    });
+
+    function createObserver(rootMarginValue,scrolling_down) {
+      if (observer) observer.disconnect(); // Clean up old observer
+      const headings = document.querySelectorAll(".mech-program-subtitle:not(.toc)");
+      const navItems = document.querySelectorAll(".mech-program-subtitle.toc");
+      const sections = document.querySelectorAll(".mech-program-section.toc");
+      const all_the_headers = Array.from(document.querySelectorAll('[section]'));
+      observer = new IntersectionObserver((entries) => {
+        if (scrollLock) return;
+        entries
+          .slice() // Create a shallow copy to avoid mutating the original entries array
+          .sort((a, b) => {
+            // Sort entries based on scroll direction
+            return scrolling_down
+              ? a.boundingClientRect.top - b.boundingClientRect.top // Ascending for scrolling down
+              : b.boundingClientRect.top - a.boundingClientRect.top; // Descending for scrolling up
+          })
+          .forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                const tag = entry.target.tagName; // H1, H2, H3, etc.
+
+                const activeNav = Array.from(navItems).find(item => {
+                  const link = item.querySelector("a[href]");
+                  return link && link.getAttribute("href") === `#${id}`;
+                });
+
+                if (!activeNav) return;
+
+                // Deactivate all TOC items
+                navItems.forEach(item => item.classList.remove("active"));
+                sections.forEach(item => item.classList.remove("active"));
+
+                // Activate the current section's top-level H2
+                const section = entry.target.closest("section");
+                if (section) {
+                  const matchingTocSection = Array.from(sections).find(item => {
+                    const toc_section_id = item.getAttribute("section");
+                    const section_id = section.getAttribute("section");
+                    if (toc_section_id && section_id) {
+                      return toc_section_id === section_id;
+                    }
+                  });
+                  if (matchingTocSection) {
+                    matchingTocSection.classList.add("active");
+                    const toc = document.querySelector(".mech-toc");
+
+                    if (toc && matchingTocSection) {
+                      const itemOffsetTop = matchingTocSection.offsetTop;
+                      const itemHeight = matchingTocSection.offsetHeight;
+                      const tocHeight = toc.clientHeight;
+                      const scrollTop = toc.scrollTop;
+
+                      // Center the item manually if it's out of view
+                      const visibleTop = scrollTop;
+                      const visibleBottom = scrollTop + tocHeight;
+
+                      if (itemOffsetTop < visibleTop || itemOffsetTop + itemHeight > visibleBottom) {
+                        toc.scrollTo({
+                          top: itemOffsetTop - tocHeight / 2 + itemHeight / 2,
+                          behavior: "smooth"
+                        });
+                      }
+                    }
+                  }
+
+                  // Now grab the h3, h4, h5 elements within that section
+                  const h3s = Array.from(section.querySelectorAll('h3'));
+                  const h4s = Array.from(section.querySelectorAll('h4'));
+                  const h5s = Array.from(section.querySelectorAll('h5'));
+
+                  if (tag === "H5") {
+                    const closestH4 = h4s.reverse().find(h4 => h4.compareDocumentPosition(entry.target) & Node.DOCUMENT_POSITION_FOLLOWING);
+                    const H4Nav = Array.from(navItems).find(item => {
+                        const link = item.querySelector("a[href]");
+                        return link && link.getAttribute("href") === `#${closestH4.id}`;
+                    });
+                    if (H4Nav) {
+                      H4Nav.classList.add("active");
+                      const h4_id = H4Nav.getAttribute("section");
+                      all_the_headers.forEach(item => {
+                        const item_id = item.getAttribute("section");
+                        if (item_id && item_id.startsWith(h4_id) && item.tagName === "H4") {
+                        } else {
+                          item.classList.remove("visible");
+                        }
+                      });
+                    }
+                  }
+
+                  if (tag === "H4" || tag == "H5") {
+                    const entry_section = entry.target.getAttribute("section");
+                    const closestH3 = h3s.reverse().find(h3 => h3.compareDocumentPosition(entry.target) & Node.DOCUMENT_POSITION_FOLLOWING);
+                    const H3Nav = Array.from(navItems).find(item => {
+                      const link = item.querySelector("a[href]");
+                      return link && link.getAttribute("href") === `#${closestH3.id}`;
+                    });
+                    if (H3Nav) {
+                      H3Nav.classList.add("active");
+                      const h3_id = H3Nav.getAttribute("section");
+                      all_the_headers.forEach(item => {
+                        const item_id = item.getAttribute("section");
+                        // Check if the item_id starts with the h3_id and is an H4, if so, add "visible", if not, remove "visible"
+                        if (item_id && item_id.startsWith(h3_id) && item.tagName === "H4") {
+                          item.classList.add("visible");
+                        } else {
+                          item.classList.remove("visible");
+                        }
+                      });
+                    }
+                  }
+
+                  // if tag is h3 then we want to add a "visible" class to all of the headings with the same section
+                  if (tag === "H3") {
+                    const h3_id = entry.target.getAttribute("section");
+                    all_the_headers.forEach(item => {
+                      const item_id = item.getAttribute("section");
+                      // Check if the item_id starts with the h3_id and is an H4, if so, add "visible", if not, remove "visible"
+                      if (item_id && item_id.startsWith(h3_id) && item.tagName === "H4") {
+                        item.classList.add("visible");
+                      } else {
+                        item.classList.remove("visible");
+                      }
+                    });
+                  }
+
+                  const topLevelHeading = section.querySelector("h2");
+                  if (topLevelHeading) {
+                    const topLevelNav = Array.from(navItems).find(item => {
+                      const link = item.querySelector("a[href]");
+                      return link && link.getAttribute("href") === `#${topLevelHeading.id}`;
+                    });
+                    if (topLevelNav) {
+                      topLevelNav.classList.add("active");
+                    }
+                  }
+                }
+                activeNav.classList.add("active");
+                currentActiveTag = tag;
+            }
+          });
+      }, {
+        root: null,
+        rootMargin: rootMarginValue,
+        threshold: 0
+      });
+      headings.forEach(heading => observer.observe(heading));
+    }
 
 
-        <div class="post-entry">
-          
-            Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I&rsquo;ll be taking it in the near future. You can also follow Mech&rsquo;s development on Twitter (@MechLang) or by signing up for the mailing list.
-What&rsquo;s Mech? I&rsquo;m developing Mech as a domain specific language for a project I&rsquo;m working on, the essence of which I hope will map to problems people would like to solve in general.
-            <a href="https://mech-lang.org/post/2018-06-07-hello-world/" class="post-read-more">[Read More]</a>
-          
-        </div>
+    window.addEventListener("DOMContentLoaded", () => {
+      createObserver("0px 0px 0px 0px");
 
-        
-      </article>
+      function renderEquations(root = document) {
+        const blockElements = root.querySelectorAll(".mech-equation");
+        blockElements.forEach(el => {
+          if (!el.getAttribute("data-rendered")) {
+            const eq = el.getAttribute("equation");
+            if (eq) {
+              katex.render(eq, el, { throwOnError: false });
+              el.setAttribute("data-rendered", "true");
+            }
+          }
+        });
+
+        const inlineElements = root.querySelectorAll(".mech-inline-equation");
+        inlineElements.forEach(el => {
+          if (!el.getAttribute("data-rendered")) {
+            const eq = el.getAttribute("equation");
+            if (eq) {
+              katex.render(eq, el, { throwOnError: false });
+              el.setAttribute("data-rendered", "true");
+            }
+          }
+        });
+
+        document.querySelectorAll(".mermaid svg").forEach(svg => {
+          const labels = svg.querySelector(".node-labels");
+          if (labels && svg.lastElementChild !== labels) {
+            svg.appendChild(labels); // Move labels to end = on top
+          }
+        });
+      }
+
+      renderEquations();
+
+      // Set up a MutationObserver to watch for new elements
+      const observer = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              renderEquations(node);
+            }
+          }
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    });
+
+
+  let lastScrollY = window.scrollY;
+  let scrolling_down = true;
+  let margin = 10;
+
+  function getScrollPercentage() {
+    const contentPane = document.getElementById('left-pane');
+    const scrollTop = contentPane.scrollTop;
+    const docHeight = contentPane.scrollHeight - contentPane.clientHeight;
+
+    if (docHeight === 0) return 0;
+    return scrollTop / docHeight;
+  }
+
+  document.getElementById('left-pane').addEventListener("scroll", () => {
+    if (scrollLock) {
+      scrollLock = false;
+      return;
+    }
     
-  </div>
+    const percent = getScrollPercentage();
+    const currentScrollY = window.scrollY;
+    scrolling_down = currentScrollY > lastScrollY;
 
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://mech-lang.org/js/main.js"></script>
-<script src="https://mech-lang.org/js/highlight.min.js"></script>
-<script> hljs.initHighlightingOnLoad(); </script>
-<script> renderMathInElement(document.body); </script>
+    if (currentScrollY !== lastScrollY) {
+      lastScrollY = currentScrollY;
+    }
 
+    if (percent < 0.05) {
+      createObserver("0px 0px -90% 0px", scrolling_down);
+    } else if (percent < 0.2) {
+      createObserver("-0% 0px -90% 0px", scrolling_down);
+    } else if (percent < 0.3) {
+      createObserver("-10% 0px -80% 0px", scrolling_down);
+    } else if (percent < 0.4) {
+      createObserver("-20% 0px -70% 0px", scrolling_down);
+    } else if (percent < 0.5) {
+      createObserver("-30% 0px -60% 0px", scrolling_down);
+    } else if (percent < 0.6) {
+      createObserver("-40% 0px -50% 0px", scrolling_down);
+    } else if (percent < 0.7) {
+      createObserver("-50% 0px -40% 0px", scrolling_down);
+    } else if (percent < 0.8) {
+      createObserver("-60% 0px -30% 0px", scrolling_down);
+    } else if (percent < 0.9) {
+      createObserver("-70% 0px -20% 0px", scrolling_down);
+    } else if (percent <= 0.95) {
+      createObserver("-80% 0px 0% 0px", scrolling_down);
+    }
+  });
 
+  </script>
+  <script type="module">
+    /*import init, { WasmMech, help_html } from '/pkg/mech_wasm.js';
 
+    let wasm_core;
 
-
-  </body>
+    async function initializeWasm() {
+      await init();
+      wasm_core = new WasmMech();
+      wasm_core.init();
+      wasm_core.attach_repl("sidebar");
+      let help = help_html();
+      document.getElementById("left-pane").innerHTML = help;
+      const sidebar = document.getElementById('sidebar');
+    }
+    initializeWasm();*/
+  </script>
+  <script type="module">
+    import init, {WasmMech} from '/pkg/mech_wasm.js';
+    let wasm_core;
+    async function run() {
+      await init();
+      var code = `G4UPABwFbmvz8TjnUQhkC5qtTsr9uZ/eS1JI+lPEFJBTIGEH7ICF2YzatNrOg7Dxzdwb0xFfgdfBZSrdFs4KqyBnLOeTzbb9SAajHdcPufuJEPSj5Tu7P8Xv2TSQSIRtZwQo+d7OLNfTi6L3uVMBFUmpMrh8GUmVTTqyCZcvTGzQqN7tVlhZDpd505SY1aeOjwNY6bIms4ENqFINLQQ7ZtqIb8RPwFjSJ0/pSAlhKzL9RidPffnWgA1GTToFJabjWpO8b8DADGGrQZPxuMT1fglyvVXpLKZvnweawEAT+R+9qKQjSUtQmTXqbdfsmy7DvlldYW4oy/fykMnz8JtysPrz8xV6okkF0IQqTsXU8afoWtSNBO/h03MkTYdkUecIoYAktAGN1tgW4sfvxLiKwHFbTemgKwBMG2iJE6+SWQZ2RKpUJISYEQd4aaljIgt9O0Y3o6P9w+Pzp/PqbJxIgtBFdT7+uq/rcU0+om8JNKSfjluFp/zlBFcCSvMNFXHf91GT6X3v/0KhFhW5AIRVoaLqW2enjuQsqpvxc+97QFuNKnr9s/oBqn5Bk1Ci6g+o+gcrYKBxL1Rnu2sBMROU+cAQn9IAGSEPWW0RMV+tCU+MWoUzyidb/2C/v1P8v5VTPwq+Ndxi5OzcZcKLiRVbK3vktX5zOsHKrEErrKnaqmcz4+3nL9248qf1KgpyEowohpKHCkfSgUUiXJZ+idWHhRW72+xOaiw37Av8CiWWf7T9KBggukKAk7kfv2KW5cpfWV79MtoxZrgCWeFBHGrWzC3c1Coju72VpNCvC4p+SWYItY3kf9j8iL5chcMOdlWnst9EjlQ9F70aDVKQG1X0SN36cJM7VgSvRzKs1KDnjfl7SNxyd+odD/q3UMWK2O+0twJnPy/imnFB4sXexuV2ziS1q9Ool3kjPVmgOCZyPmZpzqxP2qkub/mTahSIF/vzjIUcl/pMSNmfpspdOhRPAwYRayV462zadwtLHeB/H3JCS/7+t5wqylatyoUkoomsbc5XbecCy2o8cjpZlbbF4yOmzfrZE7WYOfBc1/pzQCozufx5PIJeCtxGakEBY7IKfcEPfrVgDb+FAilquS7LCaGSS4OfS+EWD4xZorTXhLPnz3dIyE3mREyKixZxOB1+rRJ4VDDh6x1Nn7o+9MQ5zf2MXmUFA5xiO1CnfY6FFgdEhelUYUctrqIOOQuNvSR+OsbpmiOhuWnnW1G/CPAuwCvL5bA0rCrNu2olysBkrza2Lwx2c821KJ1mrPRRKMMM3cajskAiUVZOFfUsoYMECjbYRFUouFgSacZreDnd9cbgHiEZ/JGiQA61D8Qgpo5J7w8n4uka7p1N2Dp6Hjnk8WmRkVfTLAHBZSO+9ITyyNmtw59Xe/7ZYBB+fkySBZZ4PWMZuV/HzysZltkW70WC2uKDdcnNpJ7zS8iYAlns6SuP1qdnrijWBE0OCHEqjigX4wOtTCQ/6BAKRw5yH4jzlxP5dM2cr2j7XjJS9g1BLoWXPD/DXGWtUcqa+Adzrmaq6MRQUrFKZYvcFS8PLkcqrBJYVQg0xYaC1kMS7G+GDK2zLMaqVTV2zh/iA+uXdDSAFP+QS33rTP4MOGPRIIcZeDfn3SM5LKJJnOgQZdMR9qktZ8onb1oSYPuhCT6JyEKXb1cKmmpHX6hBTWG29imqp2i7vNDXuYJdP2ccOJfC9KzLbdWOJB4clTLkZl448FmsdL50JdqWKf38BWn2SZl0rJNbe2SajmudZlxCh3X8h+rTrKPwYz+JyohqnsOMYwUt/SwyfGuoxFbsJzgo0d1m9FLM0XY1B/hJcGR09XJfQA96X/j171D/7PPTnMtXk43C5hq+4/0OTk/h+/mToQ1TyQRPKltfGnX7ODJhk8DLfl0aroepuwKXdWt5Lg3uhvkC16+lB8m4tgzpbsbD6mhq3OFYIg2rOYns3bBVhS8EfvFlpQkGM3pQ1q5OWTQrx0eiHwFSS/hY3E6g/TwzmP35b2ieruH23AdovmEiRIifb3wupUuTKGWblM9/kMUq9pM1XpcWHg0PrkfWbO3b/Wp3Ax+Ps1BXd44eNZz0uEHAlPloeLP7jebK6I5raNr7NCyX0dVyHMUVahsAW9i+ocLfoF2KmmtfiBhJKoxlfCm84bsx`;
+      wasm_core = new WasmMech();
+      var xhr = new XMLHttpRequest();
+      var codeUrl = `/code${window.location.pathname}`;
+      xhr.open('GET', codeUrl, true);
+      xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var src = xhr.responseText;
+            wasm_core.run_program(src);
+            wasm_core.init();
+            wasm_core.render_inline_values();
+            wasm_core.render_codeblock_output_values();
+            wasm_core.attach_repl("mech-output");
+          } else {
+            console.error("Defaulting to included program");
+            wasm_core.run_program(code);
+            wasm_core.init();
+            wasm_core.render_inline_values();
+            wasm_core.render_codeblock_output_values();
+            wasm_core.attach_repl("mech-output");
+          }
+        }
+      };
+      xhr.onerror = function (e) {
+        console.error("I've been waiting for this error. Look me up in formatter.rs");
+        console.error(xhr.statusText);
+      };
+      xhr.send(null);        
+    }
+    run();
+  </script>
+</body>
 </html>
-

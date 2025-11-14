@@ -1,0 +1,75 @@
+Mech Blog Posts
+===============================================================================
+
+10. Fall 2025 Progress Report - Mechdown Beta
+-------------------------------------------------------------------------------
+
+**Date:** November 12, 2025  
+
+Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing an actual release. Work this cycle focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on July 16 2024, and this version has received >2900 commits so far. Today we will be covering progress as of `v0.2.66-beta`.
+[Read More](https://mech-lang.org/post/2025-11-12-mechdown/)
+
+
+9. LLMs Won't Replace Programming Languages 
+-------------------------------------------------------------------------------
+
+**Date:** January 9, 2025  
+
+Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.  
+[Read More](https://mech-lang.org/post/2025-01-09-programming-chatgpt/)
+
+7. Fall 2022 Update - Functions, Matrix Math and the Road to v0.1
+-------------------------------------------------------------------------------
+
+**Date:** September 22, 2022  
+
+We share the progress made on Mech, highlighting improvements such as smaller binaries, new machines, syntax updates, and faster parsing. We also discuss Mech's involvement in educational outreach programs, our summer research group's efforts, and the roadmap for the upcoming v0.1-beta release, targeting a Fall deadline.  
+[Read More](https://mech-lang.org/post/2022-09-21-fall-update/)
+
+6. Spring 2022 Update
+-------------------------------------------------------------------------------
+
+**Date:** May 20, 2022  
+
+We're just about at the halfway point on our schedule to launch the beta in October, so I think it's an appropriate time for an update, especially as we have some new eyeballs on the project. Somehow this post is longer than the last one which summarized 2 year's worth of work, so I guess that goes to show how much has been done this year so far!  
+[Read More](https://mech-lang.org/post/2022-05-20-spring-update/)
+
+5. Mech in 2021 - A Year (or Two) in Review
+-------------------------------------------------------------------------------
+
+**Date:** January 1, 2022  
+
+Hello everyone and Happy New Year! Mech changed a lot in 2021 -- so much that it's almost ready for its first beta release in 2022.  
+[Read More](https://mech-lang.org/post/2022-01-01-happy-new-year/)
+
+4. Forward Robotics
+-------------------------------------------------------------------------------
+
+**Date:** August 6, 2020  
+
+Mech as a language is taking steps towards the dynamic future of programming. But the future depends on today's youth. Forward Robotics is an extracurricular program for middle school students that will empower future programmers, doctors, and chefs alike.  
+[Read More](https://mech-lang.org/post/2020-08-06-forward-robotics/)
+
+3. Version 0.0.2 - Documentation, Views, and the Inspector
+-------------------------------------------------------------------------------
+
+**Date:** June 12, 2019  
+
+Today we're happy to release Mech v0.0.2. This release has improvements for the language itself, but the focus was on documentation and notebook features.  
+[Read More](https://mech-lang.org/post/2019-06-23-docs/)
+
+2. Version 0.0.1
+-------------------------------------------------------------------------------
+
+**Date:** March 27, 2019  
+
+Today we are releasing the first version of Mech - v0.0.1. This is an extremely early alpha version, but it represents the first time we can show off features like time-travel debugging and rendering Mech code to browser elements.  
+[Read More](https://mech-lang.org/post/2019-03-27-version-0-0-1/)
+
+1. Hello World
+-------------------------------------------------------------------------------
+
+**Date:** June 7, 2018  
+
+Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go.  
+[Read More](https://mech-lang.org/post/2018-06-07-hello-world/)
