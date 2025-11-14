@@ -55,7 +55,7 @@ After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-ro
 
 Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments in language design, exploring niche debugging tools like time-travel debugging and reflecting runtime state in a live editor. Documentation and a working demonstration for Mech Alpha are [still available](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
-Mech `v0.1` followed this effort as a refinement of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1) of the Mech repo, but there is no documentation for this version.
+Mech `v0.1` followed this effort as a refinement of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1-beta) of the Mech repo, but there is no documentation for this version.
 
 Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing an actual release. Work this cycle focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on July 16 2024, and this version has received >2900 commits so far. Today we will be covering progress as of `v0.2.66-beta`.
 
@@ -70,7 +70,7 @@ With that out of the way, let's take a look at what's new in `v0.2`...
 2. Mechdown Beta
 -------------------------------------------------------------------------------
 
-Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator built around the Mech programming language. Mechdown is the first tool we are delievering that uses Mech as a backend, and is itself a useful thing irrespective of Mech being unfinished -- at its most basic level it's a tool like [Hugo](https://gohugo.io). But, it uses Mech (which is intended to be a general purpose language, not just for document scripting) as a scripting and code execution engine (although it theoretically works with JavaScript and any other WASM-compliable language), so Mechdown documents can be dynamic. Its purpose is to be a tool for creating live programs and documents, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written entirely in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-10-31-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
+Mechdown is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) tool and documentation generator built around the Mech programming language. Mechdown is the first tool we are delievering that uses Mech as a backend, and is itself a useful thing irrespective of Mech being unfinished -- at its most basic level it's a tool like [Hugo](https://gohugo.io). But, it uses Mech (which is intended to be a general purpose language, not just for document scripting) as a scripting and code execution engine (although it theoretically works with JavaScript and any other WASM-compliable language), so Mechdown documents can be dynamic. Its purpose is to be a tool for creating live programs and documents, with potential as a $$\LaTeX$$[LATEXPRJ] replacement for scientific papers and reports. This blog post is [written entirely in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and serves to demonstrate its capabilities.
 
 Mechdown is a dialect of Markdown[MD], with unambiguous syntax, and common extensions such as tables, and diagrams. What's unique about Mechdown is executable code blocks powered by Mech, which has been purpose-built for integration with Mechdown. So you get all the nice markup features of Markdown like section headings, lists, and links, plus the ability to bring running code to your documents with Mech scripts.
 
@@ -382,7 +382,7 @@ mech-code := mech-code-alt, ("\n" | ";" | comment) ;
 mech-code-alt := fsm-specification | fsm-implementation | function-define | statement | expression | comment ;
 ```
 
-(?)> We use an extension of EBNF [defined in the Mech specification](https://docs.mech-lang.org/design/specification.html#65359388826030746). Here, `ws0` denotes zero or more whitespace characters, `?` denotes an optional element, `+` denotes one or more repetitions, `*` denotes zero or more repetitions, and `¬` denotes negation.
+(?)> We use an extension of EBNF [defined in the Mech specification](https://docs.mech-lang.org/design/specification.html#57591005646444229). Here, `ws0` denotes zero or more whitespace characters, `?` denotes an optional element, `+` denotes one or more repetitions, `*` denotes zero or more repetitions, and `¬` denotes negation.
 
 The key to how Mechdown integrates with Mech comes down to whitespace; Mechdown is whitespace-sensitive, meaning that whitespace is significant in the syntax and structure of the language. For example, consider a nested list:
 
@@ -515,7 +515,7 @@ Which will render as:
 
 The last feature is notable because the checkboxes are interactive when rendered. This opens the possibility of creating interactive documents with Mechdown, where users can check off tasks and the document can respond according to Mech code defined within it. However, this feature will have to wait for `v0.3`.
 
-There are many more features—if you'd like the full rundown, check out [the specification](https://docs.mech-lang.org/design/specification.html#45036232896389885).
+There are many more features—if you'd like the full rundown, check out [the specification](https://docs.mech-lang.org/design/specification.html#24738341931264987).
 
 (4.1.3) Tables
 
@@ -591,7 +591,7 @@ q := | x<f32>    y<bool> |
      |  1 + .3   3 > 4   |
 ```
 
-If you'd like to learn more about the table data structure, consult the [table docs](https://docs.mech-lang.org/reference/tables.html).
+If you'd like to learn more about the table data structure, consult the [table docs](https://docs.mech-lang.org/reference/table.html).
 
 (4.2) Mech Extensions
 
