@@ -168,7 +168,7 @@ So Mech v0.2 onward will be built in this way. Unfortunately it means we have to
     <figcaption>After restarting development in May, we shipped 27 weekly releases. We look forward to shipping more code in 2025!</figcaption>
 </figure>
 
-Mech development was restarted in May 2024 with renewed vigor. By July, we began shipping regular weekly releases of the language toolchain, with the latest [released on Monday (1/6/25)](https://github.com/mech-lang/mech/releases/tag/v0.2.29-beta). I'll be posting more regular updates on the blog about these releases, and I'll also have a post in the future detailing the changes in Mech to date, of which there are many. To start, you may want to check out the document ["Learn Mech in Fifteen Minutes"](https://gitlab.com/mech-lang/docs/-/raw/v0.2-beta/III.guides/MechFifteen.mec?ref_type=heads) for an overview of what has changed in the language so far, particularly the new data types.
+Mech development was restarted in May 2024 with renewed vigor. By July, we began shipping regular weekly releases of the language toolchain, with the latest [released on Monday (1/6/25)](https://github.com/mech-lang/mech/releases/tag/v0.2.29-beta). I'll be posting more regular updates on the blog about these releases, and I'll also have a post in the future detailing the changes in Mech to date, of which there are many. To start, you may want to check out the document ["Learn Mech in Fifteen Minutes"](https://gitlab.com/mech-lang/docs/-/raw/v0.2-beta/guides/MechFifteen.mec?ref_type=heads) for an overview of what has changed in the language so far, particularly the new data types.
 
 
 (a) 2025 Roadmap
