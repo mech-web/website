@@ -24,7 +24,7 @@ Welcome to 2025! It's been a while since the last blog post so this will be a pa
 **Date:** September 22, 2022  
 
 We share the progress made on Mech, highlighting improvements such as smaller binaries, new machines, syntax updates, and faster parsing. We also discuss Mech's involvement in educational outreach programs, our summer research group's efforts, and the roadmap for the upcoming v0.1-beta release, targeting a Fall deadline.  
-[Read More](https://mech-lang.org/post/2022-09-21-fall-update/)
+[Read More](https://mech-lang.org/post/2022-09-22-fall-update/)
 
 6. Spring 2022 Update
 -------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Mech as a language is taking steps towards the dynamic future of programming. Bu
 **Date:** June 12, 2019  
 
 Today we're happy to release Mech v0.0.2. This release has improvements for the language itself, but the focus was on documentation and notebook features.  
-[Read More](https://mech-lang.org/post/2019-06-23-docs/)
+[Read More](https://mech-lang.org/post/2019-06-12-docs/)
 
 2. Version 0.0.1
 -------------------------------------------------------------------------------
