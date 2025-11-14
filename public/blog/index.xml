@@ -1,26 +1,84 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Blog on The Mech Programming Language</title>
-    <link>https://mech-lang.org/blog/</link>
-    <description>Recent content in Blog on The Mech Programming Language</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>cmontella@live.com (Corey Montella)</managingEditor>
-    <webMaster>cmontella@live.com (Corey Montella)</webMaster>
-    <lastBuildDate>Thu, 07 Jun 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://mech-lang.org/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Hello World</title>
-      <link>https://mech-lang.org/post/2018-06-07-hello-world/</link>
-      <pubDate>Thu, 07 Jun 2018 00:00:00 +0000</pubDate>
-      <author>cmontella@live.com (Corey Montella)</author>
-      <guid>https://mech-lang.org/post/2018-06-07-hello-world/</guid>
-      <description>Welcome to the inaugural post of the Mech language blog, where I will be documenting my work on the language as I go. In this first post, I will just talk a little about what the language is for, and where I&amp;rsquo;ll be taking it in the near future. You can also follow Mech&amp;rsquo;s development on Twitter (@MechLang) or by signing up for the mailing list.
-What&amp;rsquo;s Mech? I&amp;rsquo;m developing Mech as a domain specific language for a project I&amp;rsquo;m working on, the essence of which I hope will map to problems people would like to solve in general.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Mech Blog</title>
+  <id>https://mech-lang.org/</id>
+  <updated>2025-01-09T00:00:00Z</updated>
+  <link href="https://mech-lang.org/" rel="alternate"/>
+  <link href="https://mech-lang.org/atom.xml" rel="self"/>
+
+  <entry>
+    <title>Fall 2025 Progress Report - Mechdown Beta</title>
+    <id>https://mech-lang.org/post/2025-11-12-fall-2025-update/</id>
+    <link href="https://mech-lang.org/post/2025-11-12-mechdown"/>
+    <updated>2025-11-12T00:00:00Z</updated>
+    <summary>
+      Progress on Mech v0.2, nearing release. This cycle focused on the data specification language, the standard library, and tooling. v0.2 began on July 16 2024 and now includes more than 2900 commits. This report covers progress up to v0.2.66-beta.
+    </summary>
+  </entry>
+
+  <entry>
+    <title>LLMs Won't Replace Programming Languages</title>
+    <id>https://mech-lang.org/post/2025-01-09-programming-chatgpt/</id>
+    <link href="https://mech-lang.org/post/2025-01-09-programming-chatgpt/"/>
+    <updated>2025-01-09T00:00:00Z</updated>
+    <summary>Welcome to 2025! It's been a while since the last blog post so this will be a packed update. Development has hit highs and lows over the past couple years so in this post I will cover all of it, including a discussion on the future of Mech and programming languages generally in a world of generative AI.</summary>
+  </entry>
+
+  <entry>
+    <title>Fall 2022 Update - Functions, Matrix Math and the Road to v0.1</title>
+    <id>https://mech-lang.org/post/2022-09-22-fall-update/</id>
+    <link href="https://mech-lang.org/post/2022-09-22-fall-update/"/>
+    <updated>2022-09-22T00:00:00Z</updated>
+    <summary>Progress on Mech, highlighting improvements such as smaller binaries, new machines, syntax updates, and faster parsing, plus educational outreach and the roadmap to v0.1-beta.</summary>
+  </entry>
+
+  <entry>
+    <title>Spring 2022 Update</title>
+    <id>https://mech-lang.org/post/2022-05-20-spring-update/</id>
+    <link href="https://mech-lang.org/post/2022-05-20-spring-update/"/>
+    <updated>2022-05-20T00:00:00Z</updated>
+    <summary>An update at the halfway point to the October beta launch, covering progress made in early 2022 and new interest in the project.</summary>
+  </entry>
+
+  <entry>
+    <title>Mech in 2021 - A Year (or Two) in Review</title>
+    <id>https://mech-lang.org/post/2022-01-01-happy-new-year/</id>
+    <link href="https://mech-lang.org/post/2022-01-01-happy-new-year/"/>
+    <updated>2022-01-01T00:00:00Z</updated>
+    <summary>A recap of Mech’s evolution throughout 2021 and its preparations for the first beta release in 2022.</summary>
+  </entry>
+
+  <entry>
+    <title>Forward Robotics</title>
+    <id>https://mech-lang.org/post/2020-08-06-forward-robotics/</id>
+    <link href="https://mech-lang.org/post/2020-08-06-forward-robotics/"/>
+    <updated>2020-08-06T00:00:00Z</updated>
+    <summary>An overview of Forward Robotics, an extracurricular program for middle school students aimed at preparing future programmers, doctors, and chefs using Mech.</summary>
+  </entry>
+
+  <entry>
+    <title>Version 0.0.2 - Documentation, Views, and the Inspector</title>
+    <id>https://mech-lang.org/post/2019-06-23-docs/</id>
+    <link href="https://mech-lang.org/post/2019-06-23-docs/"/>
+    <updated>2019-06-12T00:00:00Z</updated>
+    <summary>Release of Mech v0.0.2, focusing on documentation and notebook features alongside language improvements.</summary>
+  </entry>
+
+  <entry>
+    <title>Version 0.0.1</title>
+    <id>https://mech-lang.org/post/2019-03-27-version-0-0-1/</id>
+    <link href="https://mech-lang.org/post/2019-03-27-version-0-0-1/"/>
+    <updated>2019-03-27T00:00:00Z</updated>
+    <summary>The first alpha release of Mech, introducing time-travel debugging and browser-rendered Mech code.</summary>
+  </entry>
+
+  <entry>
+    <title>Hello World</title>
+    <id>https://mech-lang.org/post/2018-06-07-hello-world/</id>
+    <link href="https://mech-lang.org/post/2018-06-07-hello-world/"/>
+    <updated>2018-06-07T00:00:00Z</updated>
+    <summary>The inaugural post of the Mech language blog, documenting ongoing development.</summary>
+  </entry>
+
+</feed>
