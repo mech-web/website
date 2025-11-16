@@ -6,7 +6,8 @@ Mech Blog Posts
 
 **Date:** November 12, 2025  
 
-Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing an actual release. Work this cycle focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on July 16 2024, and this version has received >2900 commits so far. Today we will be covering progress as of `v0.2.66-beta`.
+In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+
 [Read More](https://mech-lang.org/post/2025-11-12-mechdown/)
 
 
