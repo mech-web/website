@@ -115,7 +115,7 @@ While Knuth's tooling was cutting-edge in 1983, his work only just began to reve
 
 (3.1) WEB (1983)
 
-WEB was the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation[TEXBOOK].
+WEB (and later CWEB [CWEB]) was the foundational tool for literate programming developed by Knuth in the 80s. It was designed to interleave Pascal code with documentation formatted by TeX, a typesetting tool of Knuth's own creation[TEXBOOK].
 
 WEB consisted of three components:
 
@@ -129,7 +129,9 @@ WEB consisted of three components:
 
 This worked well enough for Knuth to write his famous book series "The Art of Computer Programming" [TAOCP] using WEB, which is a testament to the power of literate programming as a tool for producing high-quality technical writing.
 
-But literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
+In 1989, Norman Ramsey released his Noweb system [NOWEB], which generalized the WEB concept to support multiple programming languages beyond Pascal. Noweb introduced a more flexible syntax for code sections, allowing programmers to use any programming language they desired, making it more accessible to a wider audience.
+
+However, literate programming didn't really take the world by storm, and it remained a niche practice for decades. There are a few reasons for this:
 
 1. It was hard to learn. Not only did you have to learn a programming language, but you also had to learn TeX, and the WEB markup system that composes the two. This is a lot to ask of new users, and the value proposition wasn't exactly clear to them at the time. 
 
@@ -138,6 +140,88 @@ But literate programming didn't really take the world by storm, and it remained 
 3. There was no real integration between the code and the documentation. Once the code was tangled out into a Pascal file, there was no way to keep the two in sync. If you changed the code, you had to remember to update the `.web` manually, which is error-prone and tedious.
 
 Although the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literate programming, new tools *and* languages that integrated with those tools would be needed.
+
+(3.2) Literate Haskell (1991)
+
+Haskell was one of the first languages to provide native support for literate programming [LHS]. In Haskell, a literate program is one with the suffix `.lhs` rather than the typical `.hs` extension. This file would be executed by the typical Haskell compiler, GHC, omitting any sections not marked as code.
+
+For example:
+
+```haskell
+This literate program prompts the user for a number
+and prints the factorial of that number:
+
+> main :: IO ()
+
+> main = do putStr "Enter a number: "
+>           l <- readLine
+>           putStr "n!= "
+>           print (fact (read l))
+          
+This is the factorial function.
+
+> fact :: Integer -> Integer
+> fact 0 = 1
+> fact n = n * fact (n-1)
+```
+
+It's kind of an inversion of the typical code/comment syntax; whereas as in typical languages you normally write code and use special sigils to denote comments, in literate haskell you normally write comments and use special sigils to denote code. Obviously this will become noisy if you have a lot of code to write, so Haskell also allows you surround lines of code with `\begin{code}` and `\end{code}`. This is a little more verbose, but it allows you to write code in a more natural way.
+
+When fed into a Haskell compiler like GHC, only the lines prefixed with `>` will be compiled, while the rest are treated like comments. When fed into a documentation generator though all lines are parsed into rich documents in the target format.
+
+Here's another example wher LaTex is used to format the prose with a section header and a code block.
+
+```
+\documentstyle{article}
+
+\begin{document}
+
+\section{Introduction}
+
+This is a trivial program that prints the first 20 factorials.
+
+\begin{code}
+main :: IO ()
+main =  print [ (n, product [1..n]) | n <- [1..20]]
+\end{code}
+
+\end{document}
+```
+
+(3.2) Perldoc (1994)
+
+In 1994, Larry Wall significantly enhanced Perldoc [PERLDOC] with Perl 5's [Plain Old Documentation](https://perldoc.perl.org/perlpod) syntax, which brought a more lightweight approach to literate programming compared to the tangle/weave approach of WEB. Perldoc allows programmers to write documentation directly within their Perl source code using specially formatted comments. This documentation can then be extracted and formatted into readable documents using the `perldoc` command.
+
+Here's an example of a Perl script with embedded documentation:
+
+```perl
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+=head1 INTRODUCTION
+In this short example, we demonstrate a very simple Perl function
+that generates a greeting for a given name.
+=cut
+
+# Define a simple function
+sub greet {
+  my ($name) = @_;
+  # Return a greeting string
+  return "Hello, $name!\n";
+}
+
+=head1 USAGE
+Once the function is defined, we can call it with any name.
+=cut
+
+# Call the function
+print greet("Alice");
+```
+
+In this example, the documentation is written using POD. The `=head1` directive indicates a section heading, and the `=cut` directive marks the end of the documentation block. 
+
+From here, these docs can be rendered into various formats, such as HTML or man pages, using the `perldoc` command. The documents themselves are exectuable Perl programs -- the Perl interpreter ignores the POD comments when executing the code. This was a marked improvement over WEB, because it allowed the code and documentation to coexist in the same file without the need for separate tangling and weaving steps, helping keep them in sync.
 
 (3.2) Emacs Org Mode (2003)
 
@@ -856,3 +940,7 @@ Thanks for reading!
 [GHFM]: GitHub Flavored Markdown; Specification; Version 0.29-gfm (2019-04-06). [Online](https://github.github.com/gfm/)
 [PLUTO]: Pluto.jl; Official Website. [Online](https://plutojl.org)
 [MD]: Markdown; John Gruber's Original Specification. [Online](https://daringfireball.net/projects/markdown/syntax)
+[PERLDOC]: Perl Documentation System; Official Website. [Online](https://perldoc.perl.org/perldoc)
+[CWEB]: D. E. Knuth and S. Levy; "The CWEB System of Structured Documentation"; Reading, MA; Addison-Wesley; 1993. [Online](https://cs.stanford.edu/~knuth/cweb.html)
+[LHS]: Literate Haskell; Official Website. [Online](https://wiki.haskell.org/index.php?title=Literate_programming)
+[NOWEB]: N. Ramsey; "Noweb: A Simple, Flexible Tool for Literate Programming"; 1989-2024. [Online](https://www.cs.tufts.edu/~nr/noweb/)
