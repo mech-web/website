@@ -360,7 +360,7 @@ Key Features of Jupyter Notebooks:
 
 - Markdown Cells: You can use Markdown to write explanatory text alongside your code.
 - Code Cells: Code is written in cells that can be executed independently.
-- Interactive Output: The output of code, whether it’s data, graphs, or text, is displayed directly below the code block.
+- Interactive Output: The output of code, whether it's data, graphs, or text, is displayed directly below the code block.
 - Reproducibility: Code and results can be saved together in the notebook, ensuring that others can reproduce the work.
 - Support for Multiple Languages: While Jupyter originally supported Python, it now supports dozens of languages, including Julia, R, and even JavaScript.
 
