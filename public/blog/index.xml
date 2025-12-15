@@ -13,7 +13,7 @@
     <link href="https://mech-lang.org/post/2025-11-12-mechdown"/>
     <updated>2025-11-12T00:00:00Z</updated>
     <summary>
-      Progress on Mech v0.2, nearing release. This cycle focused on the data specification language, the standard library, and tooling. v0.2 began on July 16 2024 and now includes more than 2900 commits. This report covers progress up to v0.2.68-beta.
+      Progress on Mech v0.2, nearing release. This cycle focused on the data specification language, the standard library, and tooling. v0.2 began on July 16 2024 and now includes more than 2900 commits. This report covers progress up to v0.2.66-beta.
     </summary>
   </entry>
 
