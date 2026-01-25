@@ -1,0 +1,59 @@
+Programming Language Mascots
+===============================================================================
+
+
+1. History of mascots in computing
+-------------------------------------------------------------------------------
+
+Computing used to be an academic, business, and military endeavor and therefore serious in nature. As the field grew and diversified, and also commercialized, the need for branding and user engagement led to the adoption of mascots. Moreover, programming languages began to form communities of users around them, and mascots served as a way to foster a sense of identity to help the community bond and express their shared identity under the language's banner.
+
+REDDit USER ASKS WHY DO PROGRAMMING LANGUAGES HAVE MASCOTS?
+
+Good question! 
+
+- Branding and Marketing: Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options.
+- Community Building: Mascots can foster a sense of community and belonging among users of a programming language, helping to create a shared identity.
+- Engagement and Fun: Mascots add an element of fun and personality to a programming language, making it more approachable and engaging for users.
+- Differentiation: In a crowded market of programming languages, mascots help differentiate one language from another, making it stand out.
+- Cultural Significance: Mascots can embody the values, philosophy, or characteristics of a programming language, reflecting its design principles or intended use cases.
+
+But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in forms like logos, merchandise, and documentation.
+
+So let's take a look at the history of programming language mascots and some of the most iconic ones out there!
+
+The idea of applying mascot branding to computing products dates back to 1976 when BSD Unix adopted the BSD Daemon, also known as Beastie, as its mascot [BEASTIE]. The character was created by artist Marshall Kirk McKusick and has since become one of the most recognizable symbols in the Unix community.
+
+Designed by:
+
+Phil Foglio
+Mike O'Brien
+John Lasseter
+
+
+
+In this case the mascot is a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the operating system, although as we'll see the origin stories and meanings behind them can have varying levels of depth. 
+
+Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others.
+
+2. Early programming language mascots
+
+So when did programming languages start getting mascots of their own?
+
+The first programming language mascot is arguably the Logo Turtle, which was introduced in the late 1960s as part of the Logo programming language. 
+
+https://youtu.be/cwnMhI9XjO8?si=FV8zG9Tj6PHoqrjg&t=614
+
+Originally, the turtle was a physical robot that could be programmed to move around and draw shapes, but it later evolved into a graphical representation on computer screens called Turtle Graphics, which is what most people think of when they recall Logo [TURTLE]. The idea behind Logo was that it was designed to be more accessible to children by taking advantage of their natural ability to understand spatial relationships and movement. Whereas most languages of the time (and still today really) expected a level of abstract reasoning that was beyond the level of children, logo sought to meet them at their level by providing a visual and interactive way to learn programming concepts.
+
+
+
+The turtle was essentially their avatar in their programming environment, giving them a tangible way to see the results of their code, and allowed them to debug by putting themselves in the turtle's shoes and reasoning from its perspective. This design allowed Logo to be used by children as young as four years old, making it one of the earliest examples of a programming language designed specifically for educational purposes.
+
+The turtle got its name from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
+
+
+
+
+[BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
+[LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
+[TURTLE]: https://el.media.mit.edu/logo-foundation/what_is_logo/history.html
