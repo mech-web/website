@@ -47,6 +47,8 @@ In this case the mascot is a daemon as an allusion to the idea of a background p
 
 Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others.
 
+(?)> Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called OS-tans, anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
+
 2. Early programming language mascots
 -------------------------------------------------------------------------------
 
@@ -67,7 +69,19 @@ The turtle was essentially the programmer's avatar in the programming environmen
 The turtle got its name from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
 
 
+(2.2) Perl
 
+- "Programming perl" came out with the camel on the cover
+- It became associated with Perl
+- The camel is an unofficial mascot for Perl due to the association but O'Reilly has control over it and grants permission to the community to use it
+- There is no symbolic meaning behind the camel really, it was chosen for the book cover becasue the rights were available and it matched the style O'Reilly used at the time of having engravings of animals on their book covers. It could have easily been any other animal.
+- However, you'll still see the camel used in Perl-related contexts, such as conferences and merchandise, as a nod to the language's history and culture.
+- Which is unfortunate because OCaml has a much clearer association to camels.
+- Moreover, the Perl foundation uses an Onion as their logo. That and the control O'Reilly has over the camel means that Perl doesn't really have a true community mascot.
+
+(2.3) Java - Duke
+
+It wasn't until 1
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
