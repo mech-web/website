@@ -81,15 +81,19 @@ The turtle got its name from the physical turtle robots used in the early implem
 
 (2.3) Java - Duke
 
-Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. 
+Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. Duke was created by Joe Palrang, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
 
 > Duke was the interactive host that enabled a new type of user interface that went beyond the buttons, mice, and pop-up menus of the desktop computing world - Sharat Chander, Director, Java SE Product Management
 
-This marks a turning point in the history of programming language mascots, where they began to be used not just for community building and fun, but also as part of a broader marketing strategy to promote the language and its ecosystem. Duke didn't represent any particular feature of Java per se, but rather embodied the traits of a good mascot first: friendly, approachable, and versatile, and since Java targeted a broad range of customers, not objectionable to the sensibilities of any particular group. He follows the trend of mascots like Clippy from Microsoft Office, who was designed to be a helpful assistant to users use Office applications. You can think of 
+This marks a new moment in the history of programming language mascots, the first time they began to be used not just for community building and fun, but also as part of a broader marketing strategy to promote the language and its ecosystem. Duke didn't represent any particular feature of Java per se, but rather embodied the traits of a good mascot first: friendly, approachable, and versatile, and since Java targeted a broad range of customers, not objectionable to the sensibilities of any particular group.
 
-Duke was created by Joe Palrang, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
+It's not quite clear what Duke actually *is*, which was kind of the trend at the time in all kinds of media [^2]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be put in various contexts and situations. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
 
-Although, it's not quite clear what Duke actually *is*, which was kind of the trend at the time in all kinds of media [^2]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be adapted to various contexts and situations. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
+Dukes started out being owned entirely by Sun Microsystems, but when Oracle acquired Sun in 2010, they inherited the rights to Duke as well. However, recognizing the importance of Duke to the Java community, Oracle decided to "open source" Duke, making available for public use under certain conditions. Which really is what a mascot should be -- community representation.
+
+
+
+
 
 
 
