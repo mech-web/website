@@ -45,9 +45,9 @@ John Lasseter
 
 In this case the mascot is a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the operating system, although as we'll see the origin stories and meanings behind them can have varying levels of depth. 
 
-Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others.
+Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others [^1].
 
-(?)> Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called OS-tans, anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
+
 
 2. Early programming language mascots
 -------------------------------------------------------------------------------
@@ -81,9 +81,24 @@ The turtle got its name from the physical turtle robots used in the early implem
 
 (2.3) Java - Duke
 
-It wasn't until 1
+Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. 
+
+> Duke was the interactive host that enabled a new type of user interface that went beyond the buttons, mice, and pop-up menus of the desktop computing world - Sharat Chander, Director, Java SE Product Management
+
+This marks a turning point in the history of programming language mascots, where they began to be used not just for community building and fun, but also as part of a broader marketing strategy to promote the language and its ecosystem. Duke didn't represent any particular feature of Java per se, but rather embodied the traits of a good mascot first: friendly, approachable, and versatile, and since Java targeted a broad range of customers, not objectionable to the sensibilities of any particular group. He follows the trend of mascots like Clippy from Microsoft Office, who was designed to be a helpful assistant to users use Office applications. You can think of 
+
+Duke was created by Joe Palrang, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
+
+Although, it's not quite clear what Duke actually *is*, which was kind of the trend at the time in all kinds of media [^2]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be adapted to various contexts and situations. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
+
+
+
+[^1]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called OS-tans, anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
+
+[^2]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
 [TURTLE]: https://el.media.mit.edu/logo-foundation/what_is_logo/history.html
+[CHANDER]: https://blogs.oracle.com/java/java-and-the-new-duke-personality
 
