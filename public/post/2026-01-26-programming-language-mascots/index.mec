@@ -47,29 +47,26 @@ In this case the mascot is a daemon as an allusion to the idea of a background p
 
 Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others [^1].
 
-
-
 2. Early programming language mascots
 -------------------------------------------------------------------------------
 
-(1.1) The Original PL Mascot -- The Logo Turtle
+(1.1) Logo's Turtle -- The First Programming Language Mascot
 
 So when did programming languages start getting mascots of their own?
 
-The first programming language mascot is arguably the Logo Turtle, which was introduced in the late 1960s as part of the Logo programming language. 
+The first programming language mascot is arguably the Logo turtle, which was introduced in the late 1960s as part of the Logo programming language. 
 
 https://youtu.be/cwnMhI9XjO8?si=FV8zG9Tj6PHoqrjg&t=614
 
+Before Logo, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians. Languages like Fortran (1957), COBOL (1959), and LISP (1958) were created to solve specific problems in their respective domains, and they lacked the playful and approachable elements that mascots would later bring to langauges, even the corporate ones.
+
 Originally, the turtle was a physical robot that could be programmed to move around and draw shapes, but it later evolved into a graphical representation on computer screens called Turtle Graphics, which is what most people think of when they recall Logo [TURTLE]. The idea behind Logo was that it was designed to be more accessible to children by taking advantage of their natural ability to understand spatial relationships and movement. Whereas most languages of the time (and still today really) expected a level of abstract reasoning that was beyond the level of children, logo sought to meet them at their level by providing a visual and interactive way to learn programming concepts.
-
-
 
 The turtle was essentially the programmer's avatar in the programming environment, giving them a tangible way to see the results of their code, and allowed them to debug by putting themselves in the turtle's shoes and reasoning from its perspective. This design allowed Logo to be used by children as young as four years old, making it one of the earliest examples of a programming language designed specifically for educational purposes.
 
-The turtle got its name from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
+The turtle got its name[^2] from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
 
-
-(2.2) Perl
+(2.2) Perl's Camel
 
 - "Programming perl" came out with the camel on the cover
 - It became associated with Perl
@@ -79,7 +76,7 @@ The turtle got its name from the physical turtle robots used in the early implem
 - Which is unfortunate because OCaml has a much clearer association to camels.
 - Moreover, the Perl foundation uses an Onion as their logo. That and the control O'Reilly has over the camel means that Perl doesn't really have a true community mascot.
 
-(2.3) Java - Duke
+(2.3) Java's Duke
 
 Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. Duke was created by Joe Palrang, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
 
@@ -87,19 +84,64 @@ Java's Duke mascot was the first programming language mascot to get the full cor
 
 This marks a new moment in the history of programming language mascots, the first time they began to be used not just for community building and fun, but also as part of a broader marketing strategy to promote the language and its ecosystem. Duke didn't represent any particular feature of Java per se, but rather embodied the traits of a good mascot first: friendly, approachable, and versatile, and since Java targeted a broad range of customers, not objectionable to the sensibilities of any particular group.
 
-It's not quite clear what Duke actually *is*, which was kind of the trend at the time in all kinds of media [^2]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be put in various contexts and situations. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
+It's not quite clear what Duke actually *is*, which was kind of the trend at the time in all kinds of media [^3]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be put in various contexts and situations. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
 
 Dukes started out being owned entirely by Sun Microsystems, but when Oracle acquired Sun in 2010, they inherited the rights to Duke as well. However, recognizing the importance of Duke to the Java community, Oracle decided to "open source" Duke, making available for public use under certain conditions. Which really is what a mascot should be -- community representation.
 
+(*)> There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. However, this is not an official mascot and more of a physical manifestation of C++'s spirit.
+
+3. Modern programming language Mascots
+-------------------------------------------------------------------------------
+
+(3.1) Go's Gopher
+
+(3.2) Rust's Ferris
+
+(3.5) Other Notable Mascots
+
+(3.5.1) The Lisp and Javascript aliens
+
+4. Indie Mascots
+-------------------------------------------------------------------------------
+
+Ziggy Ziguana
+
+Nim's Nimble the Squirrel
+
+Odin Raven
+
+
+5. Introucing Mika, the Mech Mascot!
+-------------------------------------------------------------------------------
+
+genesis
+
+personality
+
+scenarios
+
+mech merch
+
+6. Who Didn't Make The Cut?
+-------------------------------------------------------------------------------
+
+(6.1) Python
+
+You could possibly consider the pythons to be the Python language, but there's really no canonical Python character that's associated with Python except the python branding. Indeed, the Python name doesn't even refer to the snake, but rather to Monty Python, the British comedy troupe. So while snakes are often used in Python branding and logos, there isn't a specific mascot character that represents the language in the same way as other languages.
 
 
 
 
 
+
+
+***
 
 [^1]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called OS-tans, anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
 
-[^2]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
+[^2]: The Logo turtle doesn't actually have a proper name, but if I had to pick one I would choose Plato.
+
+[^3]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
