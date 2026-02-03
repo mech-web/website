@@ -88,8 +88,6 @@ It's not quite clear what Duke actually *is*, which was kind of the trend at the
 
 Dukes started out being owned entirely by Sun Microsystems, but when Oracle acquired Sun in 2010, they inherited the rights to Duke as well. However, recognizing the importance of Duke to the Java community, Oracle decided to "open source" Duke, making available for public use under certain conditions. Which really is what a mascot should be -- community representation.
 
-(*)> There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. However, this is not an official mascot and more of a physical manifestation of C++'s spirit.
-
 3. Modern programming language Mascots
 -------------------------------------------------------------------------------
 
@@ -99,22 +97,23 @@ Dukes started out being owned entirely by Sun Microsystems, but when Oracle acqu
 
 (3.5) Other Notable Mascots
 
-(3.5.1) The Lisp and Javascript aliens
-
 4. Indie Mascots
 -------------------------------------------------------------------------------
 
-Ziggy Ziguana
+(4.1) Zig's Ziggy Ziguana
 
-Nim's Nimble the Squirrel
+(4.2) Odin's Raven
 
-Odin Raven
 
 
 5. Introucing Mika, the Mech Mascot!
 -------------------------------------------------------------------------------
 
-genesis
+Following in this tradition, today we are introducing a Mascot for Mech.
+
+Meet Mika the mech:
+
+
 
 personality
 
@@ -127,13 +126,23 @@ mech merch
 
 (6.1) Python
 
-You could possibly consider the pythons to be the Python language, but there's really no canonical Python character that's associated with Python except the python branding. Indeed, the Python name doesn't even refer to the snake, but rather to Monty Python, the British comedy troupe. So while snakes are often used in Python branding and logos, there isn't a specific mascot character that represents the language in the same way as other languages.
+You could possibly consider a snake to be mascot of the Python language, but there's really no canonical character that's associated with Python. 
 
+Indeed, the Python name doesn't even refer to a kind of snake[^4], but rather to Monty Python, the British comedy troupe. Because of this, for a long time Python eschewed having a snake mascot. It wasn't until 2005 that the Python Software Foundation held a contest to design an official mascot for the language, which resulted in several snake-themed designs. However, none of these designs were ever officially adopted as the language's mascot.
 
+So while snakes are often used in Python branding -- logos and various supporting tools and packages (e.g. Anaconda) -- there isn't a specific python character that represents the Python language in the same way as Duke represents Java or Ferris represents Rust.
 
+(6.2) The Lisp and Javascript aliens
 
+Lisp and Javascript both have unofficial alien mascots that have been used in various contexts, but neither has an official mascot that is widely recognized by the community. Instead, they seem to be more of a meme or inside joke within their respective communities rather than a formal mascot.
 
+(6.3) C++'s Keith the Diseased Rat
 
+There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. 
+
+Part of the rumor is that it was created by GNU founder Richard Stallman as a way to criticize C++ for its complexity and potential for misuse.
+
+However, this is not true; Keith is not an official mascot, but more of a physical manifestation of C++'s spirit on in our material realm.
 
 ***
 
@@ -142,6 +151,8 @@ You could possibly consider the pythons to be the Python language, but there's r
 [^2]: The Logo turtle doesn't actually have a proper name, but if I had to pick one I would choose Plato.
 
 [^3]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
+
+[^4]: This is confusing much in the same way that the name Rust does not actually refer to oxidized iron, but rather to a fungus that grows on apples. Mirroring the same situation in Python, there are many Rust crates that are themed after industrial or metallic concepts (e.g. Iron the web framework), but not really any mold-themed crates of note.
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
