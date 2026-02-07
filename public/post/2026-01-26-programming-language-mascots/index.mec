@@ -41,16 +41,30 @@ Phil Foglio
 Mike O'Brien
 John Lasseter
 
-
+https://en.wikipedia.org/wiki/Tux_(mascot)
 
 In this case the mascot is a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the operating system, although as we'll see the origin stories and meanings behind them can have varying levels of depth. 
 
 Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others [^1].
 
-2. Early programming language mascots
+2. Proto Mascots
 -------------------------------------------------------------------------------
 
-(1.1) Logo's Turtle -- The First Programming Language Mascot
+Mascots were not always a feature in programming languages. In the early days of computing, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians, and they lacked the playful and approachable elements that mascots would later bring to languages.
+
+The earliest programming language names were acronyms or abbreviations that described their purpose or functionality, such as Fortran (Formula Translation), COBOL (Common Business-Oriented Language), and LISP (LISt Processing). These names were often chosen for their technical accuracy rather than their marketability or appeal to a broader audience. Even the first langauge Plankalkül, created by Konrad Zuse in the 1940s, simply described what it was -- a plan calculus. It wasn't until lthe Logo language that names began to represent more than just technical functionality, but instead aimed to evoke a philosophy or even just a feeling embodied by the language.
+
+It's not a coincidence then that that Logo introduced what can be reasonably construed as the first programming langauge mascot: the Logo turtle. Now, at this time I'd like to create a brief taxonomy for mascots, because there are really two distinct types of mascots that we'll see throughout programming language history. 
+
+The first is the "proper-mascot", which is what we all think of when we think of a mascot: it's a distinct character with a name, a personality, it usually has a backstory, and is used consistently and officially by the language's community or creators. Examples include Java's Duke, Rust's Ferris, and the Go Gopher.
+
+The second variety we will call "quasi-mascots", which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot. They may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them true mascots.
+
+What we see in the history of programming langauges is that the earliest mascots were quasi-mascots, and over time as the culture of programming languages evolved, proper mascots began to emerge as these quasi-mascots became more developed and popular ways to represent programming langauge communities.
+
+(1.1) Logo's Turtle (1967)
+
+"body syntonic reasoning." William Gray Walter 
 
 So when did programming languages start getting mascots of their own?
 
@@ -66,7 +80,9 @@ The turtle was essentially the programmer's avatar in the programming environmen
 
 The turtle got its name[^2] from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
 
-(2.2) Perl's Camel
+https://www.alancsmith.co.uk/logo/
+
+(2.2) Perl's Camel (1987)
 
 - "Programming perl" came out with the camel on the cover
 - It became associated with Perl
@@ -76,7 +92,17 @@ The turtle got its name[^2] from the physical turtle robots used in the early im
 - Which is unfortunate because OCaml has a much clearer association to camels.
 - Moreover, the Perl foundation uses an Onion as their logo. That and the control O'Reilly has over the camel means that Perl doesn't really have a true community mascot.
 
-(2.3) Java's Duke
+https://perlfoundation.org
+https://web.archive.org/web/20180425080044/http://archive.oreilly.com/pub/a/oreilly/perl/usage
+
+3. Age of Mascots
+-------------------------------------------------------------------------------
+
+Just as programming language names evolved from technical acronyms to more playful and evocative names, programming language mascots also evolved from simple symbols to more fully developed characters with personalities and backstories. This shift was driven by the growing importance of branding and marketing in the software industry to differentiate programming languages in a crowded market and to foster a sense of community among developers. 
+
+The 1990s marked the first true programming language mascot, Duke, which was followed by a wave of mascots in the 2000s and 2010s as programming languages became more mainstream and commercialized. In this section, we'll take a look at some of the most iconic programming language mascots that emerged during this period, including Java's Duke, Go's Gopher, Rust's Ferris, and Scratch's ScratchCat. If your favoriate mascot is not listed in this section, don't worry we try to be more comprehensive in (§6).
+
+(2.3) Java's Duke (1992)
 
 Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. Duke was created by Joe Palrang, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
 
@@ -84,47 +110,102 @@ Java's Duke mascot was the first programming language mascot to get the full cor
 
 This marks a new moment in the history of programming language mascots, the first time they began to be used not just for community building and fun, but also as part of a broader marketing strategy to promote the language and its ecosystem. Duke didn't represent any particular feature of Java per se, but rather embodied the traits of a good mascot first: friendly, approachable, and versatile, and since Java targeted a broad range of customers, not objectionable to the sensibilities of any particular group.
 
-It's not quite clear what Duke actually *is*, which was kind of the trend at the time in all kinds of media [^3]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be put in various contexts and situations. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
+It's not quite clear what Duke actually *is* though, which was kind of the trend at the time in all kinds of media [^3]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be put in various contexts and situations. Although in one of the comics he is called a "tooth" which he says he hates as people mistake him for one all the time.
+
+Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot.
 
 Dukes started out being owned entirely by Sun Microsystems, but when Oracle acquired Sun in 2010, they inherited the rights to Duke as well. However, recognizing the importance of Duke to the Java community, Oracle decided to "open source" Duke, making available for public use under certain conditions. Which really is what a mascot should be -- community representation.
 
-3. Modern programming language Mascots
--------------------------------------------------------------------------------
+https://devm.io/java/duke-the-java-mascot-explained-118397
+https://github.com/jcp-org/jcp-ec/blob/master/files/AmazingAdventuresOfDuke.pdf
+https://wiki.openjdk.org/spaces/duke/pages/51282071/Gallery
 
-(3.1) Go's Gopher
+(3.1) Go's Gopher (2009)
 
-(3.2) Rust's Ferris
+https://9p.io/plan9/glenda.html
+https://go.dev/blog/gopher
+https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjMCbxo40IUxdRq_YBHpKRokKgB1UGDR
 
-(3.5) Other Notable Mascots
+(3.2) Rust's Ferris (2016)
+
+(3.3) Scratch's ScratchCat (2007)
+
+https://scratch.mit.edu/users/ScratchCat/
 
 4. Indie Mascots
 -------------------------------------------------------------------------------
 
 (4.1) Zig's Ziggy Ziguana
 
+https://github.com/ziglang/logo?tab=readme-ov-file#zero-the-ziguana
+
 (4.2) Odin's Raven
 
+https://github.com/odin-lang/odin-lang.org/tree/master/static/images/mascot
 
+(4.3) LDPL's Ldplsaur
 
-5. Introucing Mika, the Mech Mascot!
+https://www.ldpl-lang.org
+https://www.teepublic.com/user/lartu
+https://www.reddit.com/r/ProgrammingLanguages/comments/awr3th/i_made_a_programming_language_based_on_cobol/
+https://lartu.net
+
+(4.4) Gleam's Starfish
+
+https://gleam.run/branding/
+
+5. Introducing Mika, the Mech Mascot!
 -------------------------------------------------------------------------------
 
-Following in this tradition, today we are introducing a Mascot for Mech.
+Following in this tradition, today we are introducing a mascot for Mech.
 
-Meet Mika the mech:
-
-
+Meet Mika:
 
 personality
 
 scenarios
 
-mech merch
+mech merch: stickers, pins, plushies, t-shirts, mugs, etc.
 
-6. Who Didn't Make The Cut?
+6. The Mascot Catalog
 -------------------------------------------------------------------------------
 
-(6.1) Python
+We aim to curate a comprehensive catalog of programming language mascots, both proper and quasi, to serve as a resource for the community and to celebrate the diversity and creativity of programming language branding. Here, the mascots are listed in alphabetical order by language. If we've missed one, or if there's any information here that's not please make a pull request.  here: 
+
+(!)> Reminder: We are concerned just with programming language mascots, not operating system mascots, or other tech-related mascots. So for example, while the BSD Daemon is a very important mascot in computing history, BSD is not a programming language and therefore is out of scope for this catalog.
+Also we are mainly concerned with official or community-recognized mascots, so while there may be many unofficial or fan-created mascots for various languages, we will focus on those that have some level of recognition or endorsement from the language's community or creators.
+
+(6.1) Ada's Ada Lovelace
+(6.5) C#'s Andy
+https://x.com/AnsonHorton/status/1340560021390729218
+https://image4.slideserve.com/8841667/introduction-to-c-l.jpg
+https://pbs.twimg.com/media/EATYNWWUEAEVlUt.jpg
+(6.7) D's Dman
+
+https://web.archive.org/web/20130719055943/http://w148.de:80/~mmartin/d/logo.html
+
+(6.3) Dart's Dash
+https://docs.flutter.dev/dash
+https://flutter.dev/events
+(6.10) Elm's Tangrams
+(6.8) Kotlin's Kodee
+
+https://kotlinlang.org/docs/images/mascot-main.png
+https://blog.jetbrains.com/kotlin/2023/04/the-kotlin-mascot-returns/
+https://blog.jetbrains.com/kotlin/2021/10/introducing-the-kotlin-mascot/
+
+(6.2) Lisp and Javascript's Aliens
+
+https://www.lisperati.com/logo.html
+https://github.com/javascript-mascot/javascript-mascot.github.io?tab=readme-ov-file
+
+Lisp and Javascript both have unofficial alien mascots that have been used in various contexts, but neither has an official mascot that is widely recognized by the community. Instead, they seem to be more of a meme or inside joke within their respective communities rather than a formal mascot.
+
+(6.13) OCaml's Camel
+(6.12) PHP's ElePHPant
+http://www.elroubio.net
+https://archive.is/ncqI
+(6.1) Python's Python
 
 You could possibly consider a snake to be mascot of the Python language, but there's really no canonical character that's associated with Python. 
 
@@ -132,21 +213,29 @@ Indeed, the Python name doesn't even refer to a kind of snake[^4], but rather to
 
 So while snakes are often used in Python branding -- logos and various supporting tools and packages (e.g. Anaconda) -- there isn't a specific python character that represents the Python language in the same way as Duke represents Java or Ferris represents Rust.
 
-(6.2) The Lisp and Javascript aliens
+https://www.thecodingforums.com/threads/proposed-python-logo.356848/
+https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 
-Lisp and Javascript both have unofficial alien mascots that have been used in various contexts, but neither has an official mascot that is widely recognized by the community. Instead, they seem to be more of a meme or inside joke within their respective communities rather than a formal mascot.
+(6.14) Raku's Butterfly
+https://raku.org/nav/1/community
+(6.11) SWI Prolog's Owl
+https://www.swi-prolog.org
+(6.4) Swift's Swift
 
-(6.3) C++'s Keith the Diseased Rat
 
-There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. 
 
-Part of the rumor is that it was created by GNU founder Richard Stallman as a way to criticize C++ for its complexity and potential for misuse.
+(6.6) .Net Bot
 
-However, this is not true; Keith is not an official mascot, but more of a physical manifestation of C++'s spirit on in our material realm.
+The .Net Bet is a mascot for the entire .Net ecosystem[^6], which includes multiple programming languages such as C#, F#, and VB.Net. The .Net Bot was created by Microsoft as a way to represent the .Net platform and its various components, including the programming languages that run on it. The bot is often depicted as a friendly and approachable character, designed to make the .Net ecosystem more accessible and engaging for developers. While the .Net Bot is not specific to any one programming language, it serves as a unifying mascot for the entire .Net community. 
+
+https://github.com/dotnet-bot
+https://mod-dotnet-bot.net/create-your-bot/
+https://learn.microsoft.com/en-us/shows/one-dev-minute/what-is-the-dotnet-bot--one-dev-question
+https://github.com/dotnet/runtime/commits?author=dotnet-bot&since=2014-11-07&until=2014-11-08
 
 ***
 
-[^1]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called OS-tans, anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
+[^1]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called [OS-tans](https://en.wikipedia.org/wiki/OS-tan), anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
 
 [^2]: The Logo turtle doesn't actually have a proper name, but if I had to pick one I would choose Plato.
 
@@ -154,8 +243,21 @@ However, this is not true; Keith is not an official mascot, but more of a physic
 
 [^4]: This is confusing much in the same way that the name Rust does not actually refer to oxidized iron, but rather to a fungus that grows on apples. Mirroring the same situation in Python, there are many Rust crates that are themed after industrial or metallic concepts (e.g. Iron the web framework), but not really any mold-themed crates of note.
 
+[^5]: C++'s Keith the Diseased Rat
+There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. 
+Part of the rumor is that it was created by GNU founder Richard Stallman as a way to criticize C++ for its complexity and potential for misuse.
+However, this is not true; Keith is not an official mascot, but more of a physical manifestation of C++'s spirit on in our material realm.
+https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-named-keith
+
+[^6]: I almost didn't include the .Net Bot because it's more of a general mascot for the .Net ecosystem, and we did say this list was specifically for programming languages. However, since Mika, being a round mechanical thing with arms and legs, vaguely resembles the .Net Bot, I thought it would be worth including as a point of comparison. Also to note specifically Mika is based on a sketch of a tattoo a friend had drawn for me many years ago, so the resemblance is purely coincidental.
+
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
 [TURTLE]: https://el.media.mit.edu/logo-foundation/what_is_logo/history.html
 [CHANDER]: https://blogs.oracle.com/java/java-and-the-new-duke-personality
 
+
+
+
+
+Rank: https://www.reddit.com/r/ProgrammerHumor/comments/160emjc/programmingmascotstierlist/
