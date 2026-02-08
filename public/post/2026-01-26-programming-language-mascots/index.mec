@@ -41,11 +41,9 @@ Phil Foglio
 Mike O'Brien
 John Lasseter
 
-https://en.wikipedia.org/wiki/Tux_(mascot)
-
 In this case the mascot is a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the operating system, although as we'll see the origin stories and meanings behind them can have varying levels of depth. 
 
-Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's Tux the penguin, Glenda the Plan 9 bunny, the Android robot, and many others [^1].
+Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^1].
 
 2. Proto Mascots
 -------------------------------------------------------------------------------
@@ -81,6 +79,26 @@ The turtle was essentially the programmer's avatar in the programming environmen
 The turtle got its name[^2] from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
 
 https://www.alancsmith.co.uk/logo/
+
+(1.2) CAML / OCaml's Camel (1985 / 2005)
+
+CAML (Categorical Abstract Machine Language) was developed in the mid-1980s as a functional programming language with an emphasis on strong typing and type inference. The CAML language was designed to be a practical implementation of the ML (Meta Language) family of languages, which were originally developed for theorem proving and symbolic computation.
+
+> Some more details about Objective Caml: the roots of Objective Caml are Caml Light and Caml, which in turn builds both on [ML](https://en.wikipedia.org/wiki/ML_(programming_language)) (Meta Language) and [CAM](https://en.wikipedia.org/wiki/Categorical_abstract_machine) (the categorical abstract machine).
+
+This union is reflected in the original CAML logo
+
+
+http://lambda-the-ultimate.org/classic/message8652.html
+
+
+original ocaml logo (2 humps)
+https://web.archive.org/web/20051218214230/http://usuarios.lycos.es/DrNotrix/images/ocaml.png
+
+Confusion: 
+https://discuss.ocaml.org/t/perls-new-ocaml-logo/16143/2
+two humps: caml
+one hump: perl
 
 3. Age of Mascots
 -------------------------------------------------------------------------------
@@ -188,7 +206,7 @@ Lisp and Javascript both have unofficial alien mascots that have been used in va
 
 https://perlfoundation.org
 https://web.archive.org/web/20180425080044/http://archive.oreilly.com/pub/a/oreilly/perl/usage
-
+https://www.perl.org/camel.html
 
 (5.7) PHP's ElePHPant
 
