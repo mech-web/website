@@ -133,6 +133,16 @@ https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjM
 
 (3.2) Rust's Ferris (2016)
 
+Yes, the term rustacean came first.
+
+Later, Karen Rustad Tölva drew Ferris as an illustration of that, people liked it, and it sort of became an unofficial mascot.
+
+https://rustacean.net
+
+https://rustacean.net/fan-art.html#fanart
+
+https://doc.rust-lang.org/book/ch00-00-introduction.html
+
 (3.3) Scratch's ScratchCat (2007)
 
 https://scratch.mit.edu/users/ScratchCat/
@@ -162,10 +172,9 @@ https://gleam.run/branding/
 5. The Mascot Catalog
 -------------------------------------------------------------------------------
 
-We aim to curate a comprehensive catalog of programming language mascots, both proper and quasi, to serve as a resource for the community and to celebrate the diversity and creativity of programming language branding. Here, the mascots are listed in alphabetical order by language. If we've missed one, or if there's any information here that's not please make a pull request.  here: 
+We aim to curate a comprehensive catalog of programming language mascots, both proper and quasi, to serve as a resource for the community and to celebrate the diversity and creativity of programming language branding. Here, the mascots are listed in alphabetical order by language. If we've missed one, or if there's any information here that's not correct, please make a pull request here: 
 
-(!)> Reminder: We are concerned just with programming language mascots, not operating system mascots, or other tech-related mascots. So for example, while the BSD Daemon is a very important mascot in computing history, BSD is not a programming language and therefore is out of scope for this catalog.
-Also we are mainly concerned with official or community-recognized mascots, so while there may be many unofficial or fan-created mascots for various languages, we will focus on those that have some level of recognition or endorsement from the language's community or creators.
+(!)> Reminder: We are concerned just with *programming language* mascots, not other tech-related mascots like operating systems or databases. So for example, while the BSD Daemon is a very important mascot in computing history, BSD is not a programming language and therefore it is out of scope for this catalog.
 
 (5.1) C#'s Andy
 
@@ -193,6 +202,18 @@ https://www.lisperati.com/logo.html
 https://github.com/javascript-mascot/javascript-mascot.github.io?tab=readme-ov-file
 
 Lisp and Javascript both have unofficial alien mascots that have been used in various contexts, but neither has an official mascot that is widely recognized by the community. Instead, they seem to be more of a meme or inside joke within their respective communities rather than a formal mascot.
+
+(5.6) Mojo's Flame (2023)
+
+Mojo is a new programming language that was announced in 2023 by Modular, a company founded by Chris Lattner, the creator of Swift. Mojo is designed to be a high-performance language for AI and machine learning applications. Mojo's branding dictates that the name is actually Mojo🔥, with the flame included. They even support a `.🔥` file extension. 
+
+Modular has used an anthropomorphized flame as the mascot for Mojo, which is often depicted in a cute and friendly style. The flame doesn't appear to have a name, although it has been called "Mojo the Fireball" in a comic book released by Modular. The comic book also features the characters Ava the engineer and Max in the "inference optimizer", which is a nod to their MAX framework. Max is also featured in various marketing and community contexts, including their blog. 
+
+https://www.modular.com/mojo
+
+https://comic.modular.com
+
+https://www.modular.com/blog/modular-2025-year-in-review
 
 (5.6) Perl's Camel (1991)
 
@@ -227,6 +248,8 @@ https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 (5.9) Raku's Butterfly
 
 https://raku.org/nav/1/community
+
+https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt
 
 (5.10) SWI Prolog's Owl
 
