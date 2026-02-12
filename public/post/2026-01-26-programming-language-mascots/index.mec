@@ -5,7 +5,7 @@ Programming Language Mascots
 
 ***
 
-I've looked around, I can't find any good articles on the history of programming language mascots. So I thought I'd write one!
+Although I've looked around, I can't find any good articles on the history of programming language mascots. So I've decided to write the article I was hoping to have found.
 
 This article tries to cover the past present and future of programming language mascots, exploring their origins, significance, and impact on the programming community.
 
@@ -17,36 +17,42 @@ This kind of topic collects knowledge that may only be contained in scattered bl
 1. History of mascots in computing
 -------------------------------------------------------------------------------
 
-Computing used to be a largely academic, business, and military endeavor and therefore serious in nature. But that of course never stopped people and subcultures within computing from having fun and expressing themselves creatively, and sometime even in silly ways. As the field grew and diversified -- and also commercialized -- the need for branding and user engagement led to the widespread adoption of mascots. Moreover, programming languages began to form communities of users around them, and mascots served as a way to foster a sense of identity to help the community bond and express their shared identity under the language's banner.
+Computing has always been a field where fun, creativity, and experimentation are paramount. However, the culture of computing has often been viewed as a largely academic, business, and military endeavor and therefore serious in nature. And looking at early computing history there is certainly truth to that -- when a single computing machine is the size of a room and costs millions of dollars, you don't want to be frivolous with it or be perceived as such. Therefore early projects often assumed a very serious posture, both to assure funders and to establish credibility in the eyes of the public.
+
+But that of course never stopped people and subcultures within computing from having fun and expressing themselves creatively, and sometime even in silly ways. As the field grew and diversified -- and also commercialized -- the need for branding and user engagement led to the widespread adoption of mascots. Moreover, programming languages began to form communities of users around them, and mascots served as a way to foster a sense of identity to help the community bond and express their shared identity under the language's banner.
 
 REDDit USER ASKS WHY DO PROGRAMMING LANGUAGES HAVE MASCOTS?
 
-Good question! 
+Good question! After all, programming languages are simply tools -- does your hammer need a mascot? Why does a programming langauge?
+
+In a sense, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, some researchers are coming around to the idea that programming languages are much more than just mathematical systems for instructing computers, but are also social and cultural phenomena that shape and are shaped by the communities that use them. In this context, mascots can be seen as a way to represent and personify the identity and culture of a programming language, making it more relatable and engaging for its users. 
+
+Mascots can serve several purposes in the context of programming languages:
 
 - Branding and Marketing: Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options.
-- Community Building: Mascots can foster a sense of community and belonging among users of a programming language, helping to create a shared identity.
-- Engagement and Fun: Mascots add an element of fun and personality to a programming language, making it more approachable and engaging for users.
-- Differentiation: In a crowded market of programming languages, mascots help differentiate one language from another, making it stand out.
+- Community Building: Mascots can foster a sense of community and belonging among users of a programming language, helping to create a shared identity. Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
+- Engagement: Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
 - Cultural Significance: Mascots can embody the values, philosophy, or characteristics of a programming language, reflecting its design principles or intended use cases.
+- Fundraising: No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
 
 But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in forms like logos, merchandise, and documentation.
 
 So let's take a look at the history of programming language mascots and some of the most iconic ones out there!
 
-The idea of applying mascot branding to computing products dates back to 1976 when BSD Unix adopted the BSD Daemon, also known as Beastie, as its mascot [BEASTIE]. The character was created by artist Marshall Kirk McKusick and has since become one of the most recognizable symbols in the Unix community.
+***
 
-Designed by:
+The first conceivable even tangential appearance of a mascot used with a computer was in 1956, when Warner Brothers released the cartoon "To Hare is Human" directed by Chuck Jones[HARE], in which Wile E. Coyote uses a [UNIVAC computer](https://en.wikipedia.org/wiki/UNIVAC) to generate ideas on how to catch Bugs Bunny[^HARE]. 
 
-Phil Foglio
-Mike O'Brien
-John Lasseter
+I can't find any character or mascot or anything associated with computing before this instance, probably because computers before 1956 did not exist outside of research labs and military installations. I leave open the possibility there is some internal mascot I cannot find on the general Internet, but this cartoon would seem to be the first public depiction of a branded computer system with any kind of personality or character.
 
-In this case the mascot is a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the operating system, although as we'll see the origin stories and meanings behind them can have varying levels of depth. 
+It wouldn't be until 1976 that the idea of using a mascot to represent a computing product would be adopted by the industry, when BSD Unix adopted as a mascot Beastie the BSD Daemon, created by Phil Foglio, Mike O'Brien, and John Lasseter [BEASTIE]. In this case the mascot being a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the computing system, although as we'll see the origin stories and meanings behind them can have varying levels of depth.
 
-Since the introduction of the BSD Daemon, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^1].
+Since the introduction of Beastie, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^OSTAN].
 
-2. Proto Mascots
+2. Programming Langauge Proto Mascots
 -------------------------------------------------------------------------------
+
+Turning to programming languages, we can trace the history of mascots back even further than Beastie, to what we call "proto mascots" -- not official mascots with names, likenesses, and/or personalities, but rather symbols or icons that were associated with a programming language and served as a kind of hook for the community to rally around.
 
 Mascots were not always a feature in programming languages. In the early days of computing, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians, and they lacked the playful and approachable elements that mascots would later bring to languages.
 
@@ -284,7 +290,10 @@ mech merch: stickers, pins, plushies, t-shirts, mugs, etc.
 
 ***
 
-[^1]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called [OS-tans](https://en.wikipedia.org/wiki/OS-tan), anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
+[^HARE]: In this very prescient cartoon, Wile E. Coyote uses a UNIVAC computer to generate ideas on how to catch Bugs Bunny. The UNIVAC is depicted as a machine which takes a sort of structured language input and then generates a natural language response, which is essentially what we now call a large language model. The cartoon was released in 1956, which is decades before the advent of modern computing let alone AI. 
+In the end, it turns out that Bugs Bunny was covertly writing the output of the UNIVAC all along, a warning from the past that relying on computers can be dangrous, especially if your adversaries are directing their output against you. This is a real and present danger with AI systems today, 70 years after this cartoon aired.
+
+[^OSTAN]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called [OS-tans](https://en.wikipedia.org/wiki/OS-tan), anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
 
 [^2]: The Logo turtle doesn't actually have a proper name, but if I had to pick one I would choose Plato.
 
@@ -304,6 +313,7 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
 [TURTLE]: https://el.media.mit.edu/logo-foundation/what_is_logo/history.html
 [CHANDER]: https://blogs.oracle.com/java/java-and-the-new-duke-personality
+[HARE]: https://en.wikipedia.org/wiki/To_Hare_Is_Human
 
 
 
