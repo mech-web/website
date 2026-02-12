@@ -1,15 +1,15 @@
 Programming Language Mascots
 ===============================================================================
 
-%% Programming language mascots have become an integral part of the programming community, serving as symbols of identity, culture, and fun for various languages. From the historic Logo Turtle to Ferris the crab for Rust, these mascots not only represent their respective languages but also foster a sense of community among developers. In this article, we will explore the history, significance, and impact of programming language mascots, highlighting some of the most iconic ones and their contributions to the programming world. We'll cover their origins, design inspirations, and the role they play in marketing and community building.
+%% Programming language mascots have become an integral part of many programming language communities, serving as symbols of identity, culture, and fun. From the early days of computing to the present, mascots have evolved from simple symbols to fully developed characters with personalities and backstories. In this article, we will explore the history of programming language mascots, their significance in the programming community, and look at some of the most iconic mascots that have emerged over the years. We also introduce Mech's new mascot, Mika the mech, a friendly and little character designed to represent the Mech programming language and its community.
 
 ***
 
-Although I've looked around, I can't find any good articles on the history of programming language mascots. So this is the article I was hoping to find -- we cover the past present and future of programming language mascots, exploring their origins, significance, and impact on the programming community and culture as a whole.
+Although I've looked around, I can't find any comprehensive articles on the history of programming language mascots. So this is the article I was hoping to find -- we cover the past, present, and future of programming language mascots, exploring their origins, significance, and impact on the programming community and culture as a whole.
 
 We'll look at the most iconic mascots, their design inspirations, and the artists behind them. We'll also look at some newer mascots, trends in mascot design, as well as the role of mascots in marketing and community building.
 
-This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, please let me know by making a pull request.
+This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, please let me know by making a pull request. Also this should be a living document, so as new mascots emerge, please create a pull request to add them to the catalog in (§5).
 
 
 1. History of Mascots in General Computing
@@ -17,27 +17,7 @@ This kind of topic collects knowledge that may only be contained in scattered bl
 
 Computing has always been a field where fun, creativity, silliness are paramount. However, early computing products were not designed to be sold and marketed in a commerical marketplace, but rather resembeled military hardware or custom-built research equiment, which doesn't lend itself to the kind of branding and marketing that is common in consumer products.
 
-But that of course never stopped people and subcultures within computing from having fun and expressing themselves creatively, and sometime even in ridiculous ways. As the field grew and diversified -- and also commercialized -- the need for branding and user engagement led to the widespread adoption of mascots. Moreover, programming languages began to form communities of users around them, and mascots served as a way to foster a sense of identity to help the community bond and express their shared identity under the language's banner.
-
-REDDit USER ASKS WHY DO PROGRAMMING LANGUAGES HAVE MASCOTS?
-
-Good question! After all, programming languages are simply tools -- does your hammer need a mascot? No! Then why should a programming langauge?
-
-But really, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, researchers are talking about how programming languages are much more than just mathematical systems for instructing computers, but are also social and cultural phenomena that shape and are shaped by the communities that use them. In this context, mascots can be seen as a way to represent and personify the identity and culture of a programming language community, making it more relatable and engaging for its users. 
-
-Mascots can serve several purposes in the context of programming languages:
-
-- Branding and Marketing: Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options.
-- Community Building: Mascots can foster a sense of community and belonging among users of a programming language, helping to create a shared identity. Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
-- Engagement: Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
-- Cultural Significance: Mascots can embody the values, philosophy, or characteristics of a programming language, reflecting its design principles or intended use cases.
-- Fundraising: No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
-
-But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in forms like logos, merchandise, and documentation.
-
-So let's take a look at the history of programming language mascots and some of the most iconic ones out there!
-
-***
+But that of course never stopped people and subcultures within computing from having fun and expressing themselves creatively, and sometime even in ridiculous ways. As the field grew and diversified -- and also commercialized -- the need for branding and user engagement led to the widespread adoption of marketing tools like mascots.
 
 The first even tangential appearance of a mascot used with a computer was in 1956, when Warner Brothers released the Looney Tunes cartoon "To Hare is Human" directed by Chuck Jones[HARE], in which Wile E. Coyote uses a [UNIVAC computer](https://en.wikipedia.org/wiki/UNIVAC) to generate ideas on how to catch Bugs Bunny, who turns out to be conducting a MITM attack on the UNIVAC output[^HARE].
 
@@ -49,6 +29,26 @@ Since the introduction of Beastie, the open source community has frequently used
 
 2. Programming Langauge Proto Mascots
 -------------------------------------------------------------------------------
+
+REDDit USER ASKS WHY DO PROGRAMMING LANGUAGES HAVE MASCOTS?
+
+Good question! After all, programming languages are simply tools -- does your hammer need a mascot? No! Then why should a programming langauge?
+
+But really, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, researchers are talking about how programming languages are much more than just mathematical systems for instructing computers, but are also social and cultural phenomena that shape and are shaped by the communities that use them [AJK16]. In this context, mascots can be seen as a way to represent and personify the identity and culture of a programming language community, making it more relatable and engaging for its users.
+
+Some other reasons why mascots are used in programming languages include:
+
+- Branding and Marketing: Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options.
+- Community Building: Mascots can foster a sense of community and belonging among users of a programming language, helping to create a shared identity. Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
+- Engagement: Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
+- Cultural Significance: Mascots can embody the values, philosophy, or characteristics of a programming language, reflecting its design principles or intended use cases.
+- Fundraising: No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
+
+But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in logos, documentation, and websites.
+
+So let's take a look at the history of programming language mascots and some of the most iconic ones out there!
+
+--
 
 Mascots were not always a feature in programming languages. In the early days of computing, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians, and they lacked the playful and approachable elements that mascots would later bring to languages.
 
@@ -314,7 +314,7 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 [TURTLE]: https://el.media.mit.edu/logo-foundation/what_is_logo/history.html
 [CHANDER]: https://blogs.oracle.com/java/java-and-the-new-duke-personality
 [HARE]: https://en.wikipedia.org/wiki/To_Hare_Is_Human
-
+[AJK16]: https://medium.com/bits-and-behavior/my-splash-2016-keynote-81cc802f5f6e
 
 
 
