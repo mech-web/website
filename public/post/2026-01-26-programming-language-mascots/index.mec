@@ -21,9 +21,9 @@ But that of course never stopped people and subcultures within computing from ha
 
 REDDit USER ASKS WHY DO PROGRAMMING LANGUAGES HAVE MASCOTS?
 
-Good question! After all, programming languages are simply tools -- does your hammer need a mascot? Why does a programming langauge?
+Good question! After all, programming languages are simply tools -- does your hammer need a mascot? No! Then why should a programming langauge?
 
-In a sense, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, some researchers are coming around to the idea that programming languages are much more than just mathematical systems for instructing computers, but are also social and cultural phenomena that shape and are shaped by the communities that use them. In this context, mascots can be seen as a way to represent and personify the identity and culture of a programming language, making it more relatable and engaging for its users. 
+But really, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, researchers are talking about how programming languages are much more than just mathematical systems for instructing computers, but are also social and cultural phenomena that shape and are shaped by the communities that use them. In this context, mascots can be seen as a way to represent and personify the identity and culture of a programming language community, making it more relatable and engaging for its users. 
 
 Mascots can serve several purposes in the context of programming languages:
 
@@ -39,28 +39,28 @@ So let's take a look at the history of programming language mascots and some of 
 
 ***
 
-The first even tangential appearance of a mascot used with a computer was in 1956, when Warner Brothers released the cartoon "To Hare is Human" directed by Chuck Jones[HARE], in which Wile E. Coyote uses a [UNIVAC computer](https://en.wikipedia.org/wiki/UNIVAC) to generate ideas on how to catch Bugs Bunny[^HARE]. 
+The first even tangential appearance of a mascot used with a computer was in 1956, when Warner Brothers released the Looney Tunes cartoon "To Hare is Human" directed by Chuck Jones[HARE], in which Wile E. Coyote uses a [UNIVAC computer](https://en.wikipedia.org/wiki/UNIVAC) to generate ideas on how to catch Bugs Bunny, who turns out to be conducting a MITM attack on the UNIVAC output[^HARE].
 
-I can't find any character or mascot or anything associated with computing before this instance, probably because computers before 1956 did not exist outside of research labs and military installations. I leave open the possibility there is some internal mascot I cannot find on the general Internet, but this cartoon would seem to be the first public depiction of a branded computer system with any kind of personality or character.
+I can't find any character or mascot associated in any way with a computing product before this instance, probably because computers before 1956 did not exist outside of research labs and military installations. I leave open the possibility there is some internal mascot I cannot find on the general Internet, but this cartoon would seem to be the first public depiction of a branded computer system with any kind of personality or character.
 
-It wouldn't be until 1976 that the idea of using a mascot to represent a computing product would be adopted by the industry, when BSD Unix adopted as a mascot Beastie the BSD Daemon, created by Phil Foglio, Mike O'Brien, and John Lasseter [BEASTIE]. In this case the mascot being a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the computing system, although as we'll see the origin stories and meanings behind them can have varying levels of depth.
+It wasn't until 1976 that the idea of using a mascot to represent a computing product was adopted by industry, when BSD Unix adopted as a mascot Beastie the BSD Daemon, created by Phil Foglio, Mike O'Brien, and John Lasseter [BEASTIE]. In this case the mascot being a daemon as an allusion to the idea of a background process in Unix systems, which are often referred to as "daemons." This started the tradition of using the mascot to represent and personify features of the computing system, although as we'll see the origin stories and meanings behind them can have varying levels of depth.
 
-Since the introduction of Beastie, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^OSTAN].
+Since the introduction of Beastie, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^OSTAN]. Mascots have also become an important part of commerical software products, such as Microsoft's Clippy. More recently large tech companies have even introdiced AI assistants like Cortant, Siri, and Alexa, which serve the role of mascots for their respective platforms [^CORTANA].
 
 2. Programming Langauge Proto Mascots
 -------------------------------------------------------------------------------
 
-Turning to programming languages, we can trace the history of mascots back even further than Beastie, to what we call "proto mascots" -- not official mascots with names, likenesses, and/or personalities, but rather symbols or icons that were associated with a programming language and served as a kind of hook for the community to rally around.
-
 Mascots were not always a feature in programming languages. In the early days of computing, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians, and they lacked the playful and approachable elements that mascots would later bring to languages.
 
-The earliest programming language names were acronyms or abbreviations that described their purpose or functionality, such as Fortran (Formula Translation), COBOL (Common Business-Oriented Language), and LISP (LISt Processing). These names were often chosen for their technical accuracy rather than their marketability or appeal to a broader audience. Even the first langauge Plankalkül, created by Konrad Zuse in the 1940s, simply described what it was -- a plan calculus. It wasn't until lthe Logo language that names began to represent more than just technical functionality, but instead aimed to evoke a philosophy or even just a feeling embodied by the language.
+The earliest programming language names were acronyms or abbreviations that described their purpose or functionality, such as Fortran (Formula Translation), COBOL (Common Business-Oriented Language), and LISP (LISt Processing). These names were often chosen for their technical accuracy rather than their marketability or appeal to a broader audience. Even the first langauge Plankalkül, created by Konrad Zuse in the 1940s, simply described what it was -- a plan calculus. 
+
+It wasn't until the Logo language that names began to represent more than just technical functionality, but instead aimed to evoke a philosophy or even just a feeling embodied by the language.
 
 It's not a coincidence then that that Logo introduced what can be reasonably construed as the first programming langauge mascot: the Logo turtle. Now, at this time I'd like to create a brief taxonomy for mascots, because there are really two distinct types of mascots that we'll see throughout programming language history. 
 
 The first is the "proper-mascot", which is what we all think of when we think of a mascot: it's a distinct character with a name, a personality, it usually has a backstory, and is used consistently and officially by the language's community or creators. Examples include Java's Duke, Rust's Ferris, and the Go Gopher.
 
-The second variety we will call "quasi-mascots", which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot. They may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them true mascots.
+The second variety we will call "quasi-mascots", which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot -- they may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them true mascots.
 
 What we see in the history of programming langauges is that the earliest mascots were quasi-mascots, and over time as the culture of programming languages evolved, proper mascots began to emerge as these quasi-mascots became more developed and popular ways to represent programming langauge communities.
 
@@ -306,6 +306,8 @@ However, this is not true; Keith is not an official mascot, but more of a physic
 https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-named-keith
 
 [^6]: I almost didn't include the .Net Bot because it's more of a general mascot for the .Net ecosystem, and we did say this list was specifically for programming languages. However, since Mika, being a round mechanical thing with arms and legs, vaguely resembles the .Net Bot, I thought it would be worth including as a point of comparison. Also to note specifically Mika is based on a sketch of a tattoo a friend had drawn for me many years ago, so the resemblance is purely coincidental.
+
+[^CORTANA]: Microsoft's Cortana is actually a character from the Halo video game series, where she is an AI assistant to the protagonist, Master Chief.
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
