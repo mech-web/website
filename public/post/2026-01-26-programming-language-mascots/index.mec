@@ -5,19 +5,17 @@ Programming Language Mascots
 
 ***
 
-Although I've looked around, I can't find any good articles on the history of programming language mascots. So I've decided to write the article I was hoping to have found.
+Although I've looked around, I can't find any good articles on the history of programming language mascots. So this is the article I was hoping to find -- we cover the past present and future of programming language mascots, exploring their origins, significance, and impact on the programming community and culture as a whole.
 
-This article tries to cover the past present and future of programming language mascots, exploring their origins, significance, and impact on the programming community.
+We'll look at the most iconic mascots, their design inspirations, and the artists behind them. We'll also look at some newer mascots, trends in mascot design, as well as the role of mascots in marketing and community building.
 
-We'll look at the most iconic mascots, their design inspirations, and how they contribute to the identity and culture of programming languages. We'll also look at some newer mascots and trends in mascot design, as well as the role of mascots in marketing and community building.
-
-This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, let me know, I'd like this post to be accurate and authoritative for this topic.
+This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, please let me know by making a pull request.
 
 
-1. History of mascots in computing
+1. History of Mascots in General Computing
 -------------------------------------------------------------------------------
 
-Computing has always been a field where fun, creativity, and experimentation are paramount. However, the culture of computing has often been viewed as a largely academic, business, and military endeavor and therefore serious in nature. And looking at early computing history there is certainly truth to that -- when a single computing machine is the size of a room and costs millions of dollars, you don't want to be frivolous with it or be perceived as such. Therefore early projects often assumed a very serious posture, both to assure funders and to establish credibility in the eyes of the public.
+Computing has always been a field where fun, creativity, and experimentation are paramount. However, it wasn't always the case that this playful nature was reflected in the branding and marketing of computing products. In the early days of computing, the focus was primarily on functionality and performance, and there was little emphasis on creating a fun or engaging user experience, because the users were largely limited to scientists, engineers, and military personnel who were more concerned with getting the job done than with having fun. Early computing resources were massive investments of public and private money, and the stakes were high, so there was a strong incentive to present a serious and professional image to government funders and the public. Especially in the 1950
 
 But that of course never stopped people and subcultures within computing from having fun and expressing themselves creatively, and sometime even in silly ways. As the field grew and diversified -- and also commercialized -- the need for branding and user engagement led to the widespread adoption of mascots. Moreover, programming languages began to form communities of users around them, and mascots served as a way to foster a sense of identity to help the community bond and express their shared identity under the language's banner.
 
@@ -106,7 +104,7 @@ https://discuss.ocaml.org/t/perls-new-ocaml-logo/16143/2
 two humps: caml
 one hump: perl
 
-3. Age of Mascots
+3. Age of PL Mascots
 -------------------------------------------------------------------------------
 
 Just as programming language names evolved from technical acronyms to more playful and evocative names, programming language mascots also evolved from simple symbols to more fully developed characters with personalities and backstories. This shift was driven by the growing importance of branding and marketing in the software industry to differentiate programming languages in a crowded market and to foster a sense of community among developers. 
@@ -153,7 +151,7 @@ https://doc.rust-lang.org/book/ch00-00-introduction.html
 
 https://scratch.mit.edu/users/ScratchCat/
 
-4. Indie Mascots
+4. Indie PL Mascots
 -------------------------------------------------------------------------------
 
 (4.1) Zig's Ziggy Ziguana
@@ -275,7 +273,7 @@ https://mod-dotnet-bot.net/create-your-bot/
 https://learn.microsoft.com/en-us/shows/one-dev-minute/what-is-the-dotnet-bot--one-dev-question
 https://github.com/dotnet/runtime/commits?author=dotnet-bot&since=2014-11-07&until=2014-11-08
 
-6. Introducing Mika, the Mech Mascot!
+6. Introducing Mech's Mascot -- Mika the mech!
 -------------------------------------------------------------------------------
 
 Following in this tradition, today we are introducing a mascot for Mech.
