@@ -111,7 +111,7 @@ Just as programming language names evolved from technical acronyms to more playf
 
 The 1990s marked the first true programming language mascot, Duke, which was followed by a wave of mascots in the 2000s and 2010s as programming languages became more mainstream and commercialized. In this section, we'll take a look at some of the most iconic programming language mascots that emerged during this period, including Java's Duke, Go's Gopher, Rust's Ferris, and Scratch's ScratchCat. If your favoriate mascot is not listed in this section, don't worry we try to be more comprehensive in (§6).
 
-(2.3) Java's Duke (1992)
+(3.1) Java's Duke (1992)
 
 Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. Duke was created by *Joe Palrang*, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
 
@@ -129,13 +129,17 @@ https://devm.io/java/duke-the-java-mascot-explained-118397
 https://github.com/jcp-org/jcp-ec/blob/master/files/AmazingAdventuresOfDuke.pdf
 https://wiki.openjdk.org/spaces/duke/pages/51282071/Gallery
 
-(3.1) Go's Gopher (2009)
+(3.2) Scratch's ScratchCat (2007)
+
+https://scratch.mit.edu/users/ScratchCat/
+
+(3.3) Go's Gopher (2009)
 
 https://9p.io/plan9/glenda.html
 https://go.dev/blog/gopher
 https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjMCbxo40IUxdRq_YBHpKRokKgB1UGDR
 
-(3.2) Rust's Ferris (2016)
+(3.4) Rust's Ferris (2016)
 
 Yes, the term rustacean came first.
 
@@ -146,10 +150,6 @@ https://rustacean.net
 https://rustacean.net/fan-art.html#fanart
 
 https://doc.rust-lang.org/book/ch00-00-introduction.html
-
-(3.3) Scratch's ScratchCat (2007)
-
-https://scratch.mit.edu/users/ScratchCat/
 
 4. Indie PL Mascots
 -------------------------------------------------------------------------------
