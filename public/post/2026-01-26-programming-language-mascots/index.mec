@@ -9,7 +9,7 @@ Although I've looked around, I can't find any comprehensive articles on the hist
 
 We'll look at the most iconic mascots, their design inspirations, and the artists behind them. We'll also look at some newer mascots, trends in mascot design, as well as the role of mascots in marketing and community building.
 
-This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, please let me know by making a pull request. Also this should be a living document, so as new mascots emerge, please create a pull request to add them to the catalog in (§5).
+This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, please let me know by making a pull request. Also this should be a living compendium, so as new mascots emerge, please create a pull request to add them to the catalog in (§5).
 
 
 1. History of Mascots in General Computing
@@ -46,41 +46,45 @@ Some other reasons why mascots are used in programming languages include:
 
 But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in logos, documentation, and websites.
 
+But what is a mascot exactly? I'd like to introduce a brief taxonomy for mascots, because there are really two distinct types of mascots that we'll see throughout programming language history, and it's useful to draw a distinction between them for the purposes of this catalog.
+
+The first category is the "proper-mascot", which is what we all think of when we imagine a mascot: a distinct character with a name, a personality, it usually has a backstory, and is used consistently and officially by the language's community or creators. Examples include Java's Duke, Rust's Ferris, and Go's Gopher.
+
+The second variety we will call "quasi-mascots", which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot -- they may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them true mascots.
+
+What we see in the history of programming langauges is that the earliest mascots were quasi-mascots, and over time as the culture of programming languages evolved, proper mascots began to emerge as these quasi-mascots became more developed and popular ways to represent programming langauge communities.
+
 So let's take a look at the history of programming language mascots and some of the most iconic ones out there!
 
 --
 
 Mascots were not always a feature in programming languages. In the early days of computing, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians, and they lacked the playful and approachable elements that mascots would later bring to languages.
 
-The earliest programming language names were acronyms or abbreviations that described their purpose or functionality, such as Fortran (Formula Translation), COBOL (Common Business-Oriented Language), and LISP (LISt Processing). These names were often chosen for their technical accuracy rather than their marketability or appeal to a broader audience. Even the first langauge Plankalkül, created by Konrad Zuse in the 1940s, simply described what it was -- a plan calculus. 
+The earliest programming language names were acronyms or abbreviations that described their purpose or functionality, such as Fortran (Formula Translation, 1957), COBOL (Common Business-Oriented Language, 1960), and LISP (LISt Processing, 1960). These names were often chosen for their technical accuracy rather than their marketability or appeal to a broader audience. Even the first langauge Plankalkül, created by Konrad Zuse in the 1940s, simply described what it was -- a plan calculus. 
 
-It wasn't until the Logo language that names began to represent more than just technical functionality, but instead aimed to evoke a philosophy or even just a feeling embodied by the language.
+It wasn't until the ISWIM language by Landin in 1966 that we see the first programming language name that evokes a philosophy or feeling rather than just technical functionality [ISWIM]. ISWIM stands for If You See What I Mean, reflecting the idea that programming should be about expressing ideas in a way that is easy to understand and reason about.
 
-It's not a coincidence then that that Logo introduced what can be reasonably construed as the first programming langauge mascot: the Logo turtle. Now, at this time I'd like to create a brief taxonomy for mascots, because there are really two distinct types of mascots that we'll see throughout programming language history. 
-
-The first is the "proper-mascot", which is what we all think of when we think of a mascot: it's a distinct character with a name, a personality, it usually has a backstory, and is used consistently and officially by the language's community or creators. Examples include Java's Duke, Rust's Ferris, and the Go Gopher.
-
-The second variety we will call "quasi-mascots", which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot -- they may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them true mascots.
-
-What we see in the history of programming langauges is that the earliest mascots were quasi-mascots, and over time as the culture of programming languages evolved, proper mascots began to emerge as these quasi-mascots became more developed and popular ways to represent programming langauge communities.
+But it is the Logo langauge from 1967 designed by Feurzeig, Papert, and Solomon that can be reasonably construed as having the first instance of a programming langauge mascot: the Logo turtle. 
 
 (1.1) Logo's Turtle (1967)
 
-"body syntonic reasoning." William Gray Walter 
+The first programming language mascot is arguably the Logo turtle, which was introduced in 1967 as part of the Logo programming language developed by Wally Feurzeig, Seymour Papert, and Cynthia Solomon. What makes the turtle particularly significant in the history of programming language mascots is that it wasn't just a marketing afterthought or a cute symbol slapped onto an existing language -- the turtle was integral to Logo's entire design philosophy and pedagogical approach.
 
-So when did programming languages start getting mascots of their own?
+The inspiration for the turtle came from the work of neurophysiologist William Grey Walter, who in the late 1940s built a series of autonomous robots called "tortoises" that could navigate their environment and respond to light. These early robots, named Elmer and Elsie, were designed to demonstrate that complex behavior could emerge from simple rules -- a concept that deeply influenced Papert's thinking about how children could learn about mathematics and computation.
 
-The first programming language mascot is arguably the Logo turtle, which was introduced in the late 1960s as part of the Logo programming language. 
+When Logo was developed at BBN (Bolt, Beranek and Newman) in Cambridge, Massachusetts, the turtle started as a physical robot -- a small wheeled device with a pen that could be raised or lowered. Children could program this robot to move forward, backward, and turn at various angles, leaving behind a trail of ink as it traced geometric patterns across large sheets of paper spread on the floor. The dome-shaped shell that covered the robot's electronics gave it its turtle-like appearance, and the name stuck.
 
-https://youtu.be/cwnMhI9XjO8?si=FV8zG9Tj6PHoqrjg&t=614
+What made the turtle revolutionary was Papert's concept of "body syntonic reasoning" -- the idea that children could learn abstract mathematical concepts by putting themselves in the turtle's position and thinking about how they themselves would move to create a particular shape. Instead of thinking about coordinate geometry in the abstract Cartesian way that adults had learned for centuries, a child could think "if I want to draw a square, I walk forward, turn 90 degrees, walk forward, turn 90 degrees..." This made programming accessible to children as young as four or five years old, something that was unthinkable for Logo's contemporaries.
 
-Before Logo, programming languages were primarily designed for professional use by scientists, engineers, and mathematicians. Languages like Fortran (1957), COBOL (1959), and LISP (1958) were created to solve specific problems in their respective domains, and they lacked the playful and approachable elements that mascots would later bring to langauges, even the corporate ones.
+As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics -- a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs.
 
-Originally, the turtle was a physical robot that could be programmed to move around and draw shapes, but it later evolved into a graphical representation on computer screens called Turtle Graphics, which is what most people think of when they recall Logo [TURTLE]. The idea behind Logo was that it was designed to be more accessible to children by taking advantage of their natural ability to understand spatial relationships and movement. Whereas most languages of the time (and still today really) expected a level of abstract reasoning that was beyond the level of children, logo sought to meet them at their level by providing a visual and interactive way to learn programming concepts.
+The turtle doesn't have a proper name in the same way that later mascots like Duke or Ferris do[^2], and it doesn't have an elaborate backstory or personality. In this sense, it fits more into our category of quasi-mascots rather than proper mascots. But what it lacks in character development, it more than makes up for in pedagogical significance and cultural impact. The turtle became so synonymous with Logo that the very concept of "turtle graphics" is now used generically to describe any programming environment where you control a cursor that draws as it moves.
 
-The turtle was essentially the programmer's avatar in the programming environment, giving them a tangible way to see the results of their code, and allowed them to debug by putting themselves in the turtle's shoes and reasoning from its perspective. This design allowed Logo to be used by children as young as four years old, making it one of the earliest examples of a programming language designed specifically for educational purposes.
+ROS TURTLE BOT AND TURTLE TUTORIAL GRAPHIC HERE
 
-The turtle got its name[^2] from the physical turtle robots used in the early implementations of the Logo language, some of which featured a dome-like enclosure that resembled a turtle's shell. The turtle mascot has since become an iconic symbol of the Logo programming language and is often used in educational materials and programming environments that support Logo. Even the Turtle robot has lived on in the Open Robotics Initiative, which has released a TurtleBot series of robots for education and research.
+The legacy of the Logo turtle extends far beyond the Logo language itself. The idea of learning to program by controlling a simple avatar influenced countless educational programming environments that followed, from [Karel the Robot](https://compedu.stanford.edu/karel-reader/docs/python/en/chapter1.html) to modern tools like Scratch. Even today, Python's built-in [turtle](https://docs.python.org/3/library/turtle.html) module pays homage to Logo's groundbreaking approach to making programming accessible and visual.
+
+Even the physical The physical turtle robots themselves have had surprising longevity. The Open Robotics Initiative has released multiple generations of TurtleBot robots for education and research, carrying forward the spirit of those original dome-shelled robots from the 1960s. In a field where technologies become obsolete within years, the turtle has remained relevant for over half a century -- a testament to the power of good design and pedagogical insight.
 
 https://www.alancsmith.co.uk/logo/
 
@@ -92,6 +96,17 @@ CAML (Categorical Abstract Machine Language) was developed in the mid-1980s as a
 
 This union is reflected in the original CAML logo
 
+- "Programming perl" came out with the camel on the cover
+- It became associated with Perl
+- The camel is an unofficial mascot for Perl due to the association but O'Reilly has control over it and grants permission to the community to use it
+- There is no symbolic meaning behind the camel really, it was chosen for the book cover becasue the rights were available and it matched the style O'Reilly used at the time of having engravings of animals on their book covers. It could have easily been any other animal.
+- However, you'll still see the camel used in Perl-related contexts, such as conferences and merchandise, as a nod to the language's history and culture.
+- Which is unfortunate because OCaml has a much clearer association to camels.
+- Moreover, the Perl foundation uses an Onion as their logo. That and the control O'Reilly has over the camel means that Perl doesn't really have a true community mascot.
+
+https://perlfoundation.org
+https://web.archive.org/web/20180425080044/http://archive.oreilly.com/pub/a/oreilly/perl/usage
+https://www.perl.org/camel.html
 
 http://lambda-the-ultimate.org/classic/message8652.html
 
@@ -219,20 +234,6 @@ https://comic.modular.com
 
 https://www.modular.com/blog/modular-2025-year-in-review
 
-(5.6) Perl's Camel (1991)
-
-- "Programming perl" came out with the camel on the cover
-- It became associated with Perl
-- The camel is an unofficial mascot for Perl due to the association but O'Reilly has control over it and grants permission to the community to use it
-- There is no symbolic meaning behind the camel really, it was chosen for the book cover becasue the rights were available and it matched the style O'Reilly used at the time of having engravings of animals on their book covers. It could have easily been any other animal.
-- However, you'll still see the camel used in Perl-related contexts, such as conferences and merchandise, as a nod to the language's history and culture.
-- Which is unfortunate because OCaml has a much clearer association to camels.
-- Moreover, the Perl foundation uses an Onion as their logo. That and the control O'Reilly has over the camel means that Perl doesn't really have a true community mascot.
-
-https://perlfoundation.org
-https://web.archive.org/web/20180425080044/http://archive.oreilly.com/pub/a/oreilly/perl/usage
-https://www.perl.org/camel.html
-
 (5.7) PHP's ElePHPant
 
 http://www.elroubio.net
@@ -293,7 +294,7 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 
 [^OSTAN]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called [OS-tans](https://en.wikipedia.org/wiki/OS-tan), anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
 
-[^2]: The Logo turtle doesn't actually have a proper name, but if I had to pick one I would choose Plato.
+[^2]: Although Logo turtle doesn't actually have a proper name, if I had to pick one I would choose Plato.
 
 [^3]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
 
@@ -315,7 +316,7 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 [CHANDER]: https://blogs.oracle.com/java/java-and-the-new-duke-personality
 [HARE]: https://en.wikipedia.org/wiki/To_Hare_Is_Human
 [AJK16]: https://medium.com/bits-and-behavior/my-splash-2016-keynote-81cc802f5f6e
-
+[ISWIM]: https://en.wikipedia.org/wiki/ISWIM
 
 
 
