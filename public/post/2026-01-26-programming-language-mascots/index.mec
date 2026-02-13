@@ -90,11 +90,13 @@ https://www.alancsmith.co.uk/logo/
 
 (1.2) CAML / OCaml's Camel (1985 / 2005)
 
+Given there are many kinds of animals but relatively few programming langauges, it's odd then that two completely different langauges would end up with the same animal as their mascot, and that both would be camels, but that's what happened with CAML and Perl.
+
 (1.2.2) CAML / OCaml's Camel
 
-CAML (Categorical Abstract Machine Language), developed in the 1985 at INRIA in France, was designed as a practical implementation of the ML (Meta Language) family of languages, combining ML's functional programming approach with the categorical abstract machine (CAM) as its computational model. The name CAML was thus an acronym combining CAM and ML. This represents the first time a programming language was named after an animal, and they used this fact in one of their original logos, which featured a two-hump (Bactrian) camel.
+CAML (Categorical Abstract Machine Language), developed in the 1985 at INRIA in France, was designed as a practical implementation of the ML (Meta Language) family of languages, combining ML's functional programming approach with the categorical abstract machine (CAM) as its computational model. The name CAML was thus an acronym combining CAM and ML. As far as I can tell, this represents the first time a programming language was named after an animal, and the authors used this fact in one of their original logos, which featured a two-hump (Bactrian) camel.
 
-Since then, CAML's descendant OCaml, developed in 1996, has continued to use the camel as its mascot, with the two-hump camel evolving into a more stylized and modern design. Despite the associate with camels, this mascot is still really a quasi mascot as you don't find it anyhwere except the logo, it doesn't have a name or personality, but you still see camels used in shirts and merchandise, and the OCaml community has embraced the camel as a symbol of the language using camel and desert imagery in names of packages and tooling e.g. the [Dune package manager](https://github.com/ocaml/dune).
+Since then, CAML's descendant OCaml, developed in 1996, has continued to use the camel as its mascot, in particular the two-hump variety. Today it's evolved into a more stylized and modern design. Despite CAML/OCaml's associate with camels, this mascot is still really a quasi mascot for those languages as you don't find it anyhwere except the logo -- it doesn't have a name or personality, but you still see camels used in shirts and merchandise, and the OCaml community has embraced the camel as a symbol of the language using camel and desert imagery in names of packages and tooling *e.g.* the [Dune package manager](https://github.com/ocaml/dune).
 
 (1.2.1) Perl's Camel
 
@@ -351,8 +353,6 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 [^CORTANA]: Microsoft's Cortana is actually a character from the Halo video game series, where she is an AI assistant to the protagonist, Master Chief.
 
 [^PROGRAMMINGPERL]: The third edition of "Programming Perl" includes a colophon describing the dromedary camel but doesn't explain why it was chosen for the cover. The book's introduction (p. 4) offers a tongue-in-cheek explanation: "We often joke that a camel is a horse designed by a committee, but if you think about it, the camel is self-sufficient. (On the other hand, the camel has not evolved to smell good. Neither has Perl.) This is one of the many strange reasons we picked the camel to be Perl's mascot." However, O'Reilly's typical process was for editors or artists to select animals from Dover's catalog based on availability rather than symbolic meaning, so the camel was likely chosen before any justification was invented [PERLMONKS].
-
-
 
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
