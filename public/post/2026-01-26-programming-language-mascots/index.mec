@@ -90,33 +90,29 @@ https://www.alancsmith.co.uk/logo/
 
 (1.2) CAML / OCaml's Camel (1985 / 2005)
 
-Given there are many kinds of animals but relatively few programming langauges, it's odd then that two completely different langauges would end up with the same animal as their mascot, and that both would be camels, but that's what happened with CAML and Perl.
+Given there are many kinds of animals but relatively few programming langauges, it's odd then that two completely different langauges would end up with the same animal as their mascot. As far as I can tell, it's mostly an accident of history.
 
 (1.2.2) CAML / OCaml's Camel
 
-CAML (Categorical Abstract Machine Language), developed in the 1985 at INRIA in France, was designed as a practical implementation of the ML (Meta Language) family of languages, combining ML's functional programming approach with the categorical abstract machine (CAM) as its computational model. The name CAML was thus an acronym combining CAM and ML. As far as I can tell, this represents the first time a programming language was named after an animal, and the authors used this fact in one of their original logos, which featured a two-hump (Bactrian) camel.
+CAML (Categorical Abstract Machine Language), developed in the 1985 at INRIA in France, was designed as a practical implementation of the ML (Meta Language) family of languages, combining ML's functional programming approach with the categorical abstract machine (CAM) as its computational model. The name CAML was thus an acronym combining "CAM" and "ML". This represents the first instance in a long history of a programming language being named after an animal. The authors played into this in one of their original logos, which featured a two-hump (Bactrian) camel.
 
-Since then, CAML's descendant OCaml, developed in 1996, has continued to use the camel as its mascot, in particular the two-hump variety. Today it's evolved into a more stylized and modern design. Despite CAML/OCaml's associate with camels, this mascot is still really a quasi mascot for those languages as you don't find it anyhwere except the logo -- it doesn't have a name or personality, but you still see camels used in shirts and merchandise, and the OCaml community has embraced the camel as a symbol of the language using camel and desert imagery in names of packages and tooling *e.g.* the [Dune package manager](https://github.com/ocaml/dune).
+Since then, CAML's descendant OCaml, developed in 1996, has continued to use the Bactrian camel as its mascot, although today it's evolved into a more stylized and modern design. Despite CAML/OCaml's association with camels, this mascot is still really a quasi mascot for those languages as you don't find it anyhwere except the logo -- it doesn't have a name or personality, but you still see camels used in shirts and merchandise, and the OCaml community has embraced the camel as a symbol of the language using camel and desert imagery in names of packages and tooling *e.g.* the [Dune package manager](https://github.com/ocaml/dune).
 
 (1.2.1) Perl's Camel
 
-Few mascot stories in programming language history are as wonderfully tangled as the tale of the camel, which managed to become the quasi-mascot for two completely different languages through a series of accidents, coincidences, and corporate copyright complications. This is a story about how a programming language can get stuck with a mascot it has no real claim to, and how another language with a perfect nominal connection to that same animal has to fight for recognition.
+Designed by Larry Wall, Perl was released a few years after CAML in 1987. In fact, Perl got its name because while Wall wanted to name the language Pearl, it already existed at the time as the PEARL (Process and experiment automation realtime language) language[^PERL]. It strikes me as odd then that a camel or onion would be associated with Perl instead of a clam, which would make sense given the name. Or even an actual pearl. Here's the story of how it happened.
 
-The camel's entry into programming language iconography began in 1991 with the publication of O'Reilly's "Programming Perl" by Larry Wall, the creator of Perl. O'Reilly Media had a distinctive house style at the time: all their technical books featured 19th-century engravings of animals on their covers. These weren't chosen for any deep symbolic meaning -- the O'Reilly staff would simply go through Dover Publications' pictorial archives and pick whatever animal images were available and hadn't been used yet. For "Programming Perl," they chose a dromedary camel. It's not clear exactly why a camel was chosen who who actually chose it, whether it was Larry Wall himself or an O'Reilly editor [^PROGRAMMINGPERL].
+The camel's entry into programming language iconography began in 1991 with the publication of O'Reilly's "Programming Perl" by Larry Wall, the creator of Perl [^BENTLEY]. O'Reilly Media had a distinctive house style at the time: all their technical books featured 19th-century engravings of animals on their covers due to their lapsed copyright protections. These weren't chosen for any deep symbolic meaning -- the O'Reilly staff would just go through Dover Publications' pictorial archives and pick whatever animal images were available and hadn't been used yet. For "Programming Perl," they chose a dromedary (one hump) camel. It's not clear exactly *why* a camel in particular was chosen, or who actually chose it -- whether it was Larry Wall himself or an O'Reilly editor [^PROGRAMMINGPERL].
 
-What's interesting about the genesis of the camel is that having published the book, O'Reilly Media owned the copyright to that camel image, not the Perl community. The company has been generous about granting permission for the community to use it at conferences, on merchandise, and in other Perl-related contexts, but it remains O'Reilly's intellectual property, and they do maintain restrictionst that no other programming books about Perl can use a camel on the cover. This has led to an odd situation where Perl's most recognizable symbol isn't actually controlled by the language's community or foundation. In fact, the the Perl Foundation, recognizing this limitation, adopted an onion as their official logo. But decades of association mean that when most people think of Perl, they still picture that O'Reilly camel, not an onion.
+Either way, as Programming Perl was many users' first introduction to the language, the camel quickly became associated with Perl in the minds of many developers. But unfortunately, the genesis of the camel imagery having gone through a publisher meant that O'Reilly Media owned the copyright to that camel image, not the Perl community.
 
-The OCaml community naturally embraced the camel as their symbol. Early OCaml logos featured a Bactrian camel -- a two-humped camel -- which made perfect sense given that "CAML" has four letters and could be visualized as two humps. But here's where the confusion truly blossoms: Perl's O'Reilly camel was a dromedary with one hump, while OCaml's was a Bactrian with two humps.
+Despite their ownership, O'Reilly has been generous about granting permission for the community to use it at conferences, on merchandise, and in other Perl-related contexts. But it remains O'Reilly's intellectual property, and they do still maintain a restrictions that no other programming books about Perl can use a camel on the cover. 
 
-This led to an informal convention in some circles: one hump for Perl, two humps for OCaml. It's a neat distinction, but it doesn't solve the fundamental problem that both languages were using the same animal, and Perl -- despite having no meaningful connection to camels whatsoever -- had gotten there first and had the weight of O'Reilly's publishing empire behind its camel imagery.
+This has led to an odd situation where Perl's most recognizable symbol isn't actually controlled by the language's community or foundation. In fact, the the Perl Foundation, recognizing this limitation, adopted an onion as their official logo. But decades of association mean that when most people think of Perl, they still picture that O'Reilly camel, not an onion.
 
-The situation is almost tragic for OCaml. Here you have a language whose very name suggests a camel, a perfect example of nominal determinism in programming language mascots, and yet it has to share the camel with a language that acquired the symbol entirely by accident. It's like if someone named "Bear" had to share the bear as a personal symbol with someone named "Smith" who just happened to live near a zoo.
+So now there are two programming languages associated with camel imagery. How do they handle this without causing confusion? The first answer is that they don't, it's very confusing. But to the extent that they try, there is an informal convention in some circles: one hump camels for Perl, two hump camels for OCaml. It's a neat distinction, but it doesn't solve the fundamental problem that both languages were using the same animal.
 
-The OCaml community has largely made peace with this, continuing to use camel imagery while being aware of the Perl precedent. Modern OCaml branding features stylized camels, and the language's documentation and community materials embrace the connection. But the dual-camel situation remains one of the stranger quirks in the history of programming language mascots -- a reminder that sometimes branding is more about historical accident than logical connection.
-
-Neither the Perl camel nor the OCaml camel is really a proper mascot in our taxonomy. Neither has a name, a personality, or a backstory beyond "we needed a book cover" and "it's literally in our name." They're quintessential quasi-mascots: symbols that have taken on mascot-like roles in their communities without ever developing into full characters. And in Perl's case, it's a quasi-mascot that the community doesn't even own.
-
-The whole affair serves as a cautionary tale about mascot selection: if you're going to adopt an animal as your language's symbol, it helps to have it mean something, and it really helps to own the rights to it.
+Either way, neither the Perl camel nor the OCaml camel is really a proper mascot in our taxonomy -- neither has a name, a personality, or a backstory beyond "we needed a book cover" and "it's literally just our name." And we will see the same in other languages named after anmials -- like Python and Swift -- where they don't have an actual mascot character, but rather just the animal itself as a symbol of the language.
 
 http://lambda-the-ultimate.org/classic/message8652.html
 https://web.archive.org/web/20051218214230/http://usuarios.lycos.es/DrNotrix/images/ocaml.png
@@ -124,13 +120,6 @@ https://discuss.ocaml.org/t/perls-new-ocaml-logo/16143/2
 https://perlfoundation.org
 https://web.archive.org/web/20180425080044/http://archive.oreilly.com/pub/a/oreilly/perl/usage
 https://www.perl.org/camel.html
-
-
-
-
-
-
-
 
 CAML (Categorical Abstract Machine Language) was developed in the mid-1980s as a functional programming language with an emphasis on strong typing and type inference. The CAML language was designed to be a practical implementation of the ML (Meta Language) family of languages, which were originally developed for theorem proving and symbolic computation.
 
@@ -151,7 +140,6 @@ https://web.archive.org/web/20180425080044/http://archive.oreilly.com/pub/a/orei
 https://www.perl.org/camel.html
 
 http://lambda-the-ultimate.org/classic/message8652.html
-
 
 original ocaml logo (2 humps)
 https://web.archive.org/web/20051218214230/http://usuarios.lycos.es/DrNotrix/images/ocaml.png
@@ -335,6 +323,10 @@ mech merch: stickers, pins, plushies, t-shirts, mugs, etc.
 In the end, it turns out that Bugs Bunny was covertly writing the output of the UNIVAC all along, a warning from the past that relying on computers can be dangrous, especially if your adversaries are directing their output against you. This is a real and present danger with AI systems today, 70 years after this cartoon aired.
 
 [^OSTAN]: Why doesn't Windows have a mascot, you might be wondering? Well, there *are* several unofficial Windows mascots created by fans called [OS-tans](https://en.wikipedia.org/wiki/OS-tan), anime anthropomorphizations of the various Windows operating systems that have been popular in fringe internet culture. It started when users of Windows ME started drawing anthropomorphized characters to represent the operating system, often portraying it as a girl with a somewhat unstable personality, which is supposed to reflect the reputation Windows ME had for being buggy and unreliable. I had started looking into this but it gets very weird very fast, so I'll leave it as an exercise for the reader to delve into that rabbit hole.
+
+[^PERL]: It's often said that Perl stands for "Practical Extraction and Reporting Language", but this is actually a backronym that was created after the fact.
+
+[^BENTLEY]: Programming Perl is not to be confused with [Programming Pearls, by Jon Bentley](https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880), which was released in 1999 and has nothing to do with Perl.
 
 [^2]: Although Logo turtle doesn't actually have a proper name, if I had to pick one I would choose Plato.
 
