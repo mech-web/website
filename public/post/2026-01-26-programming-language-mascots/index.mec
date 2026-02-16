@@ -92,13 +92,13 @@ https://www.alancsmith.co.uk/logo/
 
 Given there are many kinds of animals but relatively few programming langauges, it's odd then that two completely different langauges would end up with the same animal as their mascot. As far as I can tell, it's mostly an accident of history.
 
-(1.2.2) CAML / OCaml's Camel
+(1.2.1) CAML / OCaml's Camel
 
 CAML (Categorical Abstract Machine Language), developed in the 1985 at INRIA in France, was designed as a practical implementation of the ML (Meta Language) family of languages, combining ML's functional programming approach with the categorical abstract machine (CAM) as its computational model. The name CAML was thus an acronym combining "CAM" and "ML". This represents the first instance in a long history of a programming language being named after an animal. The authors played into this in one of their original logos, which featured a two-hump (Bactrian) camel.
 
 Since then, CAML's descendant OCaml, developed in 1996, has continued to use the Bactrian camel as its mascot, although today it's evolved into a more stylized and modern design. Despite CAML/OCaml's association with camels, this mascot is still really a quasi mascot for those languages as you don't find it anyhwere except the logo -- it doesn't have a name or personality, but you still see camels used in shirts and merchandise, and the OCaml community has embraced the camel as a symbol of the language using camel and desert imagery in names of packages and tooling *e.g.* the [Dune package manager](https://github.com/ocaml/dune).
 
-(1.2.1) Perl's Camel
+(1.2.2) Perl's Camel
 
 Designed by Larry Wall, Perl was released a few years after CAML in 1987. In fact, Perl got its name because while Wall wanted to name the language Pearl, it already existed at the time as the PEARL (Process and experiment automation realtime language) language[^PERL]. It strikes me as odd then that a camel or onion would be associated with Perl instead of a clam, which would make sense given the name. Or even an actual pearl. Here's the story of how it happened.
 
@@ -107,6 +107,8 @@ The camel's entry into programming language iconography began in 1991 with the p
 Either way, as Programming Perl was many users' first introduction to the language, the camel quickly became associated with Perl in the minds of many developers. But unfortunately, the genesis of the camel imagery having gone through a publisher meant that O'Reilly Media owned the copyright to that camel image, not the Perl community.
 
 Despite their ownership, O'Reilly has been generous about granting permission for the community to use it at conferences, on merchandise, and in other Perl-related contexts. But it remains O'Reilly's intellectual property, and they do still maintain a restrictions that no other programming books about Perl can use a camel on the cover. 
+
+(1.2.3) Camel vs. Camel
 
 This has led to an odd situation where Perl's most recognizable symbol isn't actually controlled by the language's community or foundation. In fact, the the Perl Foundation, recognizing this limitation, adopted an onion as their official logo. But decades of association mean that when most people think of Perl, they still picture that O'Reilly camel, not an onion.
 
@@ -175,6 +177,39 @@ https://github.com/jcp-org/jcp-ec/blob/master/files/AmazingAdventuresOfDuke.pdf
 https://wiki.openjdk.org/spaces/duke/pages/51282071/Gallery
 
 (3.2) Scratch's ScratchCat (2007)
+
+If Duke represents the rise of mascots as instruments of corporate branding, ScratchCat marks a fundamentally different development: the fusion of mascot, programmable agent, and social unit of sharing, emerging directly from the pedagogical lineage of the Logo turtle.
+
+Scratch was released in 2007 by the Lifelong Kindergarten Group at MIT, inheriting Seymour Papert’s constructionist insight that children learn computation most effectively by controlling an embodied agent in a microworld. In Logo this agent was the turtle; in Scratch it becomes the cat. But Scratch extends this idea beyond individual cognition into networked creativity. ScratchCat is therefore not merely a successor to the turtle as a programmable cursor, but the central figure through which programs are created, exchanged, and remixed across a global community.
+
+This shift is inseparable from Scratch’s structured, block-based editor. By eliminating syntax errors and representing programs as composable visual blocks, Scratch enables even very young users to produce complete, interactive artifacts. These artifacts are typically organized around animated sprites—most iconically ScratchCat itself. As a result, creative expression, executable program, and visible character collapse into a single object that can be shared online with one click.
+
+Within the Scratch platform, sharing occurs not in abstract source files but in projects centered on ScratchCat-like agents: games, stories, tutorials, and animations. Community discourse reflects this structure. Users speak of ScratchCat games, ScratchCat animations, or how to make ScratchCat move, treating the character as the natural container of computational ideas. Remixing—one of Scratch’s defining features—operates by copying and modifying these agent-centered projects, allowing ScratchCat to function as a kind of circulating cultural avatar. Code spreads through the community in the form of variations on the cat.
+
+In this sense, ScratchCat unifies roles that were historically separate:
+
+like the Logo turtle, it is the learner’s embodied point of control;
+
+like a logo, it is the visual identity of the platform;
+
+like a mascot, it represents the community;
+
+but uniquely, it is also the primary vehicle of remix and exchange.
+
+Earlier language symbols—the camels of Perl and OCaml, or even Java’s Duke—remained external representations of a language. ScratchCat exists inside both the editor and the social network surrounding it, making it less a promotional character than a piece of pedagogical and communal infrastructure.
+
+For millions of learners, the first act of programming is making ScratchCat move. The second is sharing that moving cat with others. Through this cycle of creation and remix, Scratch carries Logo’s embodied learning model into the age of online communities, establishing ScratchCat not simply as a mascot, but as the living medium through which programming knowledge circulates.
+
+
+
+
+
+
+
+
+
+
+
 
 https://scratch.mit.edu/users/ScratchCat/
 
