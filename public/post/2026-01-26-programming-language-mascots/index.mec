@@ -1,3 +1,5 @@
+HERO IMAGE OF ALL THE MASCOTS AT A LAN PARTY
+
 A Compendium of Programming Language Mascots
 ===============================================================================
 
@@ -5,12 +7,13 @@ A Compendium of Programming Language Mascots
 
 ***
 
-Although I've looked around, I can't find any comprehensive articles on the history of programming language mascots. So this is the article I was hoping to find -- we cover the past, present, and future of programming language mascots, exploring their origins, significance, and impact on the programming community and culture as a whole.
+Although I've looked around, I can't find any comprehensive articles on the history of programming language mascots. So this is the article I was hoping to find -- we cover the past, present, and future of programming language mascots, exploring their origins, culture, and impact on the programming community as a whole.
 
-We'll look at the most iconic mascots, their design inspirations, and the artists behind them. We'll also look at some newer mascots, trends in mascot design, as well as the role of mascots in marketing and community building.
+I'm not exactly sure why programming languaeg mascot have not receieved this treatmen yet, but having looked into the history it might be that *right now* is actually the exact right time to start looking backwards; as you'll see, the history of mascots in programming langauges is still very recent and rapidly evolving as we speak.
 
-This kind of topic collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. If I've gotten any of the history wrong, please let me know by making a pull request. Also this should be a living compendium, so as new mascots emerge, please create a pull request to add them to the catalog in (§5).
+So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, and the artists behind them. We'll also look at some newer mascots, trends in mascot design, as well as the role of mascots in marketing and community building.
 
+This post collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. I was not around for much of this history, so if I've gotten any facts or timelines wrong, please let me know by making a pull request. Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the catalog in (§5).
 
 1. History of Mascots
 -------------------------------------------------------------------------------
@@ -19,17 +22,19 @@ This kind of topic collects knowledge that may only be contained in scattered bl
 
 (1.1) Generally
 
-The word "mascot" comes from the Provençal word "mascoto", which was adopted into French as "mascotte" in the late 19th century. The term originally referred to a talisman or charm that was believed to bring good luck, and it was often associated with animals that were thought to have protective or auspicious qualities. For example, albatrosses were considered good luck for sailors [^ALBATROSS], and rabbits' feet were believed to bring good fortune. The idea of a mascot as a symbol of good luck and protection was common in many cultures around the world, and it was often used in sports, military units, and businesses to represent their identity and bring good fortune.
+The word "mascot" comes from the Provençal word "mascoto", which was adopted into French as "mascotte" in the late 19th century. The term originally referred to a talisman or charm that was believed to bring good luck, and it was often associated with animals, objects, or people that were thought to have protective or auspicious qualities. For example, albatrosses were considered good luck for sailors [^ALBATROSS], and rabbits' feet and are still widely believed to bring good fortune. The idea of a mascot transcends specific cultures and has been present in various forms throughout history, from ancient civilizations to modern times.
 
-By the 19th century, mascots had found their way into sports and business culture. In sports, the first mascot was a bat boy name Chic who the team said brought them good luck. This idea has since evolved into insitutions like the Philly Phanatic, who has his own following as big as the team itself. In business, the first mascott could be considered the Quaker Oats Man, who was introduced in 1877. Since then most companies have adopted some kind of mascot to represent their brand and connect with customers, to the point where entire brands are built around just the mascots, such as the Geico Gecko.
-
-By the time computers came around in the mid 20th century, the idea of a mascot was already well-established in popular culture with mascots everywhere including Mickey Mouse, the Michelin Man, and the Pillsbury Doughboy appearing on TV, in movies, and in advertising. The concept of a mascot as a symbol of identity and good luck was deeply ingrained in the culture, and it was only a matter of time before mascots found their way into the world of computing.
+By the 19th century, mascots had found their way into sports and business culture. In sports, the first mascot was a bat boy name Chic who the team said brought them good luck. The first living animal mascot was Handsom Dan, a bulldog who became the official mascot of Yale University in 1889. Since then the idea has since evolved into insitutions like the Philly Phanatic, who has his own following as big as the team itself. In business, the first mascott could be considered the Quaker Oats Man, who was introduced in 1877. Since then most companies have adopted some kind of mascot to represent their brand and connect with customers, to the point where entire brands are built around just the mascots, such as the Geico Gecko [^GENERAL].
 
 https://www.theculturecrush.com/feature/mascots
 
 https://grapheine.com/en/magazine/a-history-of-mascots/
 
+https://news.yale.edu/2019/07/03/handsome-dan-130-year-old-legacy
+
 (1.2) In Computing
+
+By the time computers came around in the mid 20th century, the idea of a mascot was already well-established in popular culture with mascots everywhere including Mickey Mouse, the Michelin Man, and the Pillsbury Doughboy appearing in all forms of media. With the concept of a mascot as a symbol of identity and good luck so deeply ingrained in the culture, it was only a matter of time before mascots found their way into the world of computing.
 
 Computing has always been a field where fun, creativity, silliness are paramount. However, early computing products were not designed to be sold and marketed in a commerical marketplace, but rather resembeled military hardware or custom-built research equiment, which doesn't lend itself to the kind of branding and marketing that is common in consumer products.
 
@@ -203,39 +208,13 @@ https://www.oracle.com/javaone/community/
 
 Scratch is a programming language for education and creativity developed by the Lifelong Kindergarten Group at MIT, and it has become one of the most popular programming languages for children and beginners. Scratch's mascot, ScratchCat, is a cute and friendly cat character that serves as the face of the Scratch community and brand. Being an educational language, it has roots that trace back to the Logo language and its turtle mascot, so it makes sense that Scratch would also have an engaging mascot for its young users.
 
-ScratchCat was introduced in 2004, in one of the first versions of Scratch, and has since become an iconic symbol of the Scratch community. He's often depicted as a smiling orange cat walking on two legs and waving to the user. Before he was a mascot he can first be seen as a default sprite in the Scratch editor as a top down view of a cat loaf. But the first actualy depiction of ScratchCat as a character was in the beta version circa 2004, depicted here.
+Before they (ScratchCat's gender is unknown but they are described using they/them pronouns by one of the creators of Scratch, so we will describe them thusly) were a mascot tey can first be seen as a default sprite in the Scratch editor as a top down view of a cat loaf. But the first actualy depiction of ScratchCat as a character was in the beta version circa 2004, depicted here.
 
-ScratchCat is often depicted in various poses and scenarios, showcasing its playful and creative nature. The character is designed to be approachable and friendly, making it appealing to children and beginners who are just starting to learn programming.
+ScratchCat is often depicted in various poses and scenarios, showcasing their playful and creative nature. The character is designed to be approachable and friendly, making it appealing to children and beginners who are just starting to learn programming.
 
 But Scratch extends this idea beyond individual cognition into networked creativity. ScratchCat is therefore not merely a successor to the turtle as a programmable cursor, but the central figure through which programs are created, exchanged, and remixed across a global community.
 
-This shift is inseparable from Scratch’s structured, block-based editor. By eliminating syntax errors and representing programs as composable visual blocks, Scratch enables even very young users to produce complete, interactive artifacts. These artifacts are typically organized around animated sprites—most iconically ScratchCat itself. As a result, creative expression, executable program, and visible character collapse into a single object that can be shared online with one click.
-
-Within the Scratch platform, sharing occurs not in abstract source files but in projects centered on ScratchCat-like agents: games, stories, tutorials, and animations. Community discourse reflects this structure. Users speak of ScratchCat games, ScratchCat animations, or how to make ScratchCat move, treating the character as the natural container of computational ideas. Remixing—one of Scratch’s defining features—operates by copying and modifying these agent-centered projects, allowing ScratchCat to function as a kind of circulating cultural avatar. Code spreads through the community in the form of variations on the cat.
-
-In this sense, ScratchCat unifies roles that were historically separate:
-
-like the Logo turtle, it is the learner’s embodied point of control;
-
-like a logo, it is the visual identity of the platform;
-
-like a mascot, it represents the community;
-
-but uniquely, it is also the primary vehicle of remix and exchange.
-
-Earlier language symbols—the camels of Perl and OCaml, or even Java’s Duke—remained external representations of a language. ScratchCat exists inside both the editor and the social network surrounding it, making it less a promotional character than a piece of pedagogical and communal infrastructure.
-
-For millions of learners, the first act of programming is making ScratchCat move. The second is sharing that moving cat with others. Through this cycle of creation and remix, Scratch carries Logo’s embodied learning model into the age of online communities, establishing ScratchCat not simply as a mascot, but as the living medium through which programming knowledge circulates.
-
-
-
-
-
-
-
-
-
-
+Becasue the thing about scratch is that it's not just a programming language, but an editor, and a whole community for sharing programs. Scratchat is therefore used in ways that other languages can't, where he's a literal avatar in the editor, meaning that h'es probably been remixed and used more than any other programming language mascot in history. ScratchCat is the most widely used programming language mascot of all time, with millions of users creating and sharing projects featuring ScratchCat on the Scratch website. Despite Duke's massive marketing budget and ubiquitous nature, you can still find Java users all over who have no idea Java even has a mascot. Thats because you can use JAva without ever seeing Duke onece. But Scratch cat is omnipresent, they're all over scratch, there's no way to avoid them, and so their mindshare is much higher amongst scratch users than Duke's is among Java users.
 
 https://youtu.be/HiWnyeajOLk?si=eoEAwg88Mkb6xK9o&t=61
 https://youtu.be/HiWnyeajOLk?si=Wj_n68cgVMD3u6h5&t=87
@@ -320,7 +299,7 @@ Lisp and Javascript both have unofficial alien mascots that have been used in va
 
 Mojo is a new programming language that was announced in 2023 by Modular, a company founded by Chris Lattner, the creator of Swift. Mojo is designed to be a high-performance language for AI and machine learning applications. Mojo's branding dictates that the name is actually Mojo🔥, with the flame included. They even support a `.🔥` file extension. 
 
-Modular has used an anthropomorphized flame as the mascot for Mojo, which is often depicted in a cute and friendly style. The flame doesn't appear to have a name, although it has been called "Mojo the Fireball" in a comic book released by Modular. The comic book also features the characters Ava the engineer and Max in the "inference optimizer", which is a nod to their MAX framework. Max is also featured in various marketing and community contexts, including their blog. 
+Modular has used an anthropomorphized flame as the mascot for Mojo, which is often depicted in a cute and friendly style. The flame doesn't appear to have a name, although it has been called "Mojo the Fireball" in a comic book released by Modular. The comic book also features the characters Ava the engineer and Max in the "inference optimizer", which is a nod to their MAX framework. Max is also featured in various marketing and community contexts, including their blog. However, I cannot find Ava outside of the comic book, so she doesn't appear to be a mascot for Modular, but rather just a character for the comic.
 
 https://www.modular.com/mojo
 
@@ -368,6 +347,13 @@ https://mod-dotnet-bot.net/create-your-bot/
 https://learn.microsoft.com/en-us/shows/one-dev-minute/what-is-the-dotnet-bot--one-dev-question
 https://github.com/dotnet/runtime/commits?author=dotnet-bot&since=2014-11-07&until=2014-11-08
 
+(5.13) C++'s Keith the Diseased Rat
+
+There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. 
+Part of the rumor is that it was created by GNU founder Richard Stallman as a way to criticize C++ for its complexity and potential for misuse.
+However, this is not true; Keith is not an official mascot, but more of a physical manifestation of C++'s spirit on in our material realm.
+https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-named-keith
+
 6. Introducing Mech's Mascot -- Mika the mech!
 -------------------------------------------------------------------------------
 
@@ -394,17 +380,13 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 
 [^BENTLEY]: Programming Perl is not to be confused with [Programming Pearls, by Jon Bentley](https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880), which was released in 1999 and has nothing to do with Perl.
 
+[^GENERAL]: There's an interesting story here about General Insurance, who found that they were failing because people did not trust their computer generated general mascot, whose rendering was primitive compared to the Geico Gecko, leading people to distruct the company. So what they had to do was reboot their advertising, they gave the General mascot a high resolution makeover, and they also hired Shaq to give endorsements. So what's the lesson here for programming langauges? Obviously that celebrity endorsements are coming next! Lo and behold, it's already happening! HEADLINE: Linus Torvalds is using Antigravity!
+
 [^2]: Although Logo turtle doesn't actually have a proper name, if I had to pick one I would choose Plato.
 
 [^3]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
 
 [^4]: This is confusing much in the same way that the name Rust does not actually refer to oxidized iron, but rather to a fungus that grows on apples. Mirroring the same situation in Python, there are many Rust crates that are themed after industrial or metallic concepts (e.g. Iron the web framework), but not really any mold-themed crates of note.
-
-[^5]: C++'s Keith the Diseased Rat
-There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. 
-Part of the rumor is that it was created by GNU founder Richard Stallman as a way to criticize C++ for its complexity and potential for misuse.
-However, this is not true; Keith is not an official mascot, but more of a physical manifestation of C++'s spirit on in our material realm.
-https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-named-keith
 
 [^6]: I almost didn't include the .Net Bot because it's more of a general mascot for the .Net ecosystem, and we did say this list was specifically for programming languages. However, since Mika, being a round mechanical thing with arms and legs, vaguely resembles the .Net Bot, I thought it would be worth including as a point of comparison. Also to note specifically Mika is based on a sketch of a tattoo a friend had drawn for me many years ago, so the resemblance is purely coincidental.
 
