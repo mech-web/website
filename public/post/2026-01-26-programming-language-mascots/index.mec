@@ -158,17 +158,21 @@ Just as programming language names evolved from technical acronyms to more playf
 
 The 1990s marked the first true programming language mascot, Duke, which was followed by a wave of mascots in the 2000s and 2010s as programming languages became more mainstream and commercialized. In this section, we'll take a look at some of the most iconic programming language mascots that emerged during this period, including Java's Duke, Go's Gopher, Rust's Ferris, and Scratch's ScratchCat. If your favoriate mascot is not listed in this section, don't worry we try to be more comprehensive in (§6).
 
-(3.1) Java's Duke (1992)
+(3.1) Java's Duke (1995)
 
-Java's Duke mascot was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and its platform [CHANDER]. Duke was created by *Joe Palrang*, an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator. 
+The Java programming language was introduced by Sun Microsystems in 1995, and it quickly became one of the most popular programming languages in the world. Sun's strategy in making it popular focused around freely offering the binaries and even the source code of key Java components over the Internet to generate broad interest and acceptance among developers, in contrast to other languages which has proprietary implementations that were only available for purchase. This strategy was successful, and Java quickly gained a large and active community of developers.
+
+Part of that broad-appeal strategy was a marketing effort which was closer to a consumer product marketing strategy than B2B, which emphasized playfulness and approachability. And a mid 90s consumer marketing strategy would not be complete without a corporate mascot.
+
+Duke was the first programming language mascot to get the full corporate makeover. Introduced in 1995 by Sun Microsystems, Duke was designed to represent the Java programming language and platform [CHANDER]. Duke was created by [Joe Palrang](https://www.imdb.com/name/nm0658804/), an animator who went on to work at Dreamworks on movies like Shrek. So of course Duke is exactly the kind of character you'd expect from a professional animator.
 
 > Duke was the interactive host that enabled a new type of user interface that went beyond the buttons, mice, and pop-up menus of the desktop computing world - Sharat Chander, Director, Java SE Product Management
 
 This marks a new moment in the history of programming language mascots, the first time they began to be used not just for community building and fun, but also as part of a broader marketing strategy to promote the language and its ecosystem. Duke didn't represent any particular feature of Java per se, but rather embodied the traits of a good mascot first: friendly, approachable, and versatile, and since Java targeted a broad range of customers, not objectionable to the sensibilities of any particular group.
 
-It's not quite clear what Duke actually *is* though, which was kind of the trend at the time in all kinds of media [^3]. His form is a two-toend triangular body, a big red nose, and two hands. His nondescript appearance was meant to be simple and versatile, allowing him to be put in various contexts and situations. Although in one of the comics he is called a "tooth" which he says he hates as people mistake him for one all the time.
+It's not quite clear what Duke actually *is* though, which was kind of a trend in mascots in all kinds of media [^3]. His form is a two-toend triangular body, a big red nose, and two hands. Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot. Java users would enounter him in tutorials, documentation, and marketing materials, where he would often be shown performing various tasks or demonstrating Java's capabilities. 
 
-Duke was often depicted in various poses and scenarios, showcasing his versatility and adaptability, which is what you want in a good mascot. They even released a comic at one point in which Duke is misteaken as the culprit of a theft of "JIT Cola", but it turns out it's his evil twin brother "Fang" (further giving credence to the idea that Duke is some kind of tooth), who attempts to murder him.
+Sun even released a comic at one point in which Duke is mistaken as the culprit of a theft of "JIT Cola", but it turns out it's his evil twin brother "Fang" (further giving credence to the idea that Duke is some kind of tooth), who attempts to murder him.
 
 Although Duke started out owned entirely by Sun Microsystems, when Oracle acquired Sun in 2010, they inherited the rights to Duke. Recognizing the importance of Duke to the Java community, Oracle decided to "open source" Duke, making his likeness available for public use under certain conditions. Which really is what a mascot should be -- community representation.
 
@@ -176,7 +180,15 @@ https://devm.io/java/duke-the-java-mascot-explained-118397
 https://github.com/jcp-org/jcp-ec/blob/master/files/AmazingAdventuresOfDuke.pdf
 https://wiki.openjdk.org/spaces/duke/pages/51282071/Gallery
 
+Today, Java users and programmers encounter Duke in all kinds of context, from documentation and tutorials, to marketing and community websites, and merchandise, swag, and countless otehr iterations.
+Last year in 2025, Duke turned 30 and various celebrations were held to honor him and his legacy. Of course Duke with a grand party and of course Duke attended as a full mascot in a costume, the final stage of evolution all programming language mascots aspire toward.
+
+https://www.oracle.com/javaone/community/
+
 (3.2) Scratch's ScratchCat (2007)
+
+Scratch
+
 
 If Duke represents the rise of mascots as instruments of corporate branding, ScratchCat marks a fundamentally different development: the fusion of mascot, programmable agent, and social unit of sharing, emerging directly from the pedagogical lineage of the Logo turtle.
 
@@ -244,6 +256,7 @@ https://github.com/odin-lang/odin-lang.org/tree/master/static/images/mascot
 
 (4.3) LDPL's Ldplsaur
 
+https://www.ldpl-lang.org/media.html
 https://www.ldpl-lang.org
 https://www.teepublic.com/user/lartu
 https://www.reddit.com/r/ProgrammingLanguages/comments/awr3th/i_made_a_programming_language_based_on_cobol/
