@@ -1,4 +1,4 @@
-A Compendium of Programming Language Mascots
+The Compendium of Programming Language Mascots
 ===============================================================================
 
 HERO IMAGE OF ALL THE MASCOTS AT A LAN PARTY
@@ -24,7 +24,9 @@ The paper is organized as follows. We first present a brief history of mascots i
 
 (1.1) In Popular Culture
 
-The word "mascot" comes from the Provençal word "mascoto", which was adopted into French as "mascotte" in the late 19th century. The term originally referred to a talisman or charm that was believed to bring good luck, and it was often associated with animals, objects, or people that were thought to have protective or auspicious qualities. For example, albatrosses were considered good luck for sailors [^ALBATROSS], and rabbits' feet and are still widely believed to bring good fortune. The idea of a mascot transcends specific cultures and has been present in various forms throughout history, from ancient civilizations to modern times.
+The word "mascot" comes from the Provençal word "mascoto", which was adopted into French as "mascotte" in the late 19th century loosely translating to "lucky charm". The term originally referred to a talisman that was believed to bring good fortune or ward off bad spirits, and it was often associated with animals, objects, or people that were thought to have protective or auspicious qualities. For example, albatrosses were considered good luck for sailors [^ALBATROSS], and rabbits' feet and are still widely believed to bring good fortune. The idea of a mascot transcends specific cultures and has been present in various forms throughout history, from ancient civilizations to modern times. 
+
+MORE SPECIFICS HERE
 
 By the 19th century, mascots had found their way into sports and business culture. In sports, the first mascot was a bat boy named Chic who the team said brought them good luck. The first living animal mascot was Handsom Dan, a bulldog who became the official mascot of Yale University in 1889. Since then the idea has since evolved into the modern vision of a mascot with characters like the Philly Phanatic, who has his own following as big as the team itself. In business, the first mascot could be considered the Quaker Oats Man, who was introduced in 1877 to help sell oatmeal. Today, most companies have adopted some kind of mascot to represent their brand and connect with customers, to the point where entire brands are built around just mascots alone, such as the Geico Gecko[^GENERAL].
 
@@ -71,7 +73,7 @@ But what is a mascot exactly? I'd like to introduce a brief taxonomy for mascots
 
 The first category is the **"proper-mascot"**, which is what we all think of when we imagine a mascot: a distinct character with a name, a personality, it usually has a backstory, and is used consistently and officially by the language's community or creators. Examples include Java's Duke, Rust's Ferris, and Go's Gopher.
 
-The second variety we will call **"quasi-mascots"**, which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot -- they may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them true mascots.
+The second variety we will call **"quasi-mascots"**, which are more like symbols or logos that have taken on a mascot-like role in the community, but lack the full characteristics of a proper mascot -- they may not have a name, personality, or backstory, and their use may be more informal or unofficial. Examples include Python's python, Perl's camel, and Swift's swift. These are icons of the langauge, but they they lack that certain personality and consistency that makes them the kind of full character mascots we recognize today.
 
 What we see in the history of programming langauges is that the earliest mascots were quasi-mascots, and over time as the culture of programming languages evolved, proper mascots began to emerge as these quasi-mascots became more developed and popular ways to represent programming langauge communities.
 
@@ -109,9 +111,9 @@ Even the physical The physical turtle robots themselves have had surprising long
 
 https://www.alancsmith.co.uk/logo/
 
-(1.2) CAML / OCaml / Perl's Camels (1985 / 1987 / 2005)
+(1.2) CAML / Perl / OCaml's Camels (1985 / 1987 / 2005)
 
-Given there are many kinds of animals but relatively few programming langauges (especially in the 80s), it's odd then that two completely different langauges would end up with the same animal as their mascot. As far as I can tell, it's mostly an accident of history.
+Given there are many kinds of animals but relatively few programming langauges (especially in the 80s), it's odd then that two completely different langauges would end up with the same animal as their mascot. But it's true, both CAML and Perl both ended up with camels as their mascots, which has caused a lot of confusion over the years, but the complete story is an interesting chapter in the history of langauge mascots.
 
 (1.2.1) CAML / OCaml's Camels
 
@@ -177,7 +179,7 @@ one hump: perl
 
 Just as programming language names evolved from technical acronyms to more playful and evocative names, programming language mascots also evolved from simple symbols to more fully developed characters with personalities and backstories. This shift was driven by the growing importance of branding and marketing in the software industry to differentiate programming languages in a crowded market and to foster a sense of community among developers. 
 
-The 1990s marked the first true programming language mascot, Duke, which was followed by a wave of mascots in the 2000s and 2010s as programming languages became more mainstream and commercialized. In this section, we'll take a look at some of the most iconic programming language mascots that emerged during this period, including Java's Duke, Go's Gopher, Rust's Ferris, and Scratch's ScratchCat. If your favoriate mascot is not listed in this section, don't worry we try to be more comprehensive in (§6).
+The 1990s marked the first true programming language mascot, Duke, which was followed by a wave of mascots in the 2000s and 2010s as programming languages became more mainstream and commercialized. In this section, we'll take a look at some of the most iconic programming language mascots that emerged during this period, including Java's Duke, Go's Gopher, Rust's Ferris, and Scratch's ScratchCat. If your favoriate mascot is not listed in this section, don't worry we try to be more comprehensive in §6.
 
 (3.1) Java's Duke (1995)
 
@@ -203,6 +205,7 @@ https://devm.io/java/duke-the-java-mascot-explained-118397
 https://github.com/jcp-org/jcp-ec/blob/master/files/AmazingAdventuresOfDuke.pdf
 https://wiki.openjdk.org/spaces/duke/pages/51282071/Gallery
 https://www.oracle.com/javaone/community/
+https://x.com/dukecommunity
 
 (3.2) Scratch's ScratchCat (2004)
 
@@ -238,6 +241,8 @@ https://rustacean.net/fan-art.html#fanart
 
 https://doc.rust-lang.org/book/ch00-00-introduction.html
 
+https://x.com/Ferrisonsol
+
 4. Indie Mascots
 -------------------------------------------------------------------------------
 
@@ -260,6 +265,25 @@ https://lartu.net
 (4.4) Gleam's Starfish
 
 https://gleam.run/branding/
+
+(4.5) Luau's Hina the Seal
+
+https://rfcs.luau.org/luau-mascot.html
+
+(4.6) Hy's Cuddles the Cuttlefish
+
+https://hylang.org
+https://hylang.org/hy/doc/v1.2.0
+https://hylang.org/yeehy.png
+
+(4.7) Pipefish's René the Pipefish
+
+https://github.com/tim-hardcastle/Pipefish/blob/main/README.md
+
+(4.8) Juvix's Tara the Tardigrade
+
+https://x.com/TaraTardigrade
+https://juvix.org
 
 5. The Mascot Catalog
 -------------------------------------------------------------------------------
