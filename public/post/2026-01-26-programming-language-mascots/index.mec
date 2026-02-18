@@ -1,19 +1,19 @@
-HERO IMAGE OF ALL THE MASCOTS AT A LAN PARTY
-
 A Compendium of Programming Language Mascots
 ===============================================================================
+
+HERO IMAGE OF ALL THE MASCOTS AT A LAN PARTY
 
 %% Programming language mascots have become an integral part of many programming language communities, serving as symbols of identity, culture, and fun. From the early days of computing to the present, mascots have evolved from simple symbols to fully developed characters with personalities and backstories. In this article, we will explore the history of programming language mascots, their significance in the programming community, and look at some of the most iconic mascots that have emerged over the years. We also introduce Mech's new mascot, Mika the mech, a friendly and little character designed to represent the Mech programming language and its community.
 
 ***
 
-Although I've looked around, I can't find any comprehensive articles on the history of programming language mascots. So this is the article I was hoping to find -- we cover the past, present, and future of programming language mascots, exploring their origins, culture, and impact on the programming community as a whole.
+Although I've looked around, I can't find any comprehensive articles on the history and state of the art of programming language mascots. So this is the article I was hoping to find -- we cover the past, present, and future of programming language mascots, exploring their origins, cultures, and impacts on the programming community as a whole.
 
-I'm not exactly sure why programming languaeg mascot have not receieved this treatmen yet, but having looked into the history it might be that *right now* is actually the exact right time to start looking backwards; as you'll see, the history of mascots in programming langauges is still very recent (beginning in just 1967) and rapidly evolving.
+Having now looked into the history, *right now* is actually the exact right time to start looking backwards at mascot over the years; as you'll see, the history of mascots in programming languages is still very recent (beginning in just 1967) and rapidly evolving. With AI lowering barriers to language development, we are likely to see an explosion of new programming languages and associated mascots in the coming years, making it a good time to take stock of where we are and how we got here.
 
-So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, and the artists behind them. We'll also look at some newer mascots, trends in mascot design, as well as the role of mascots in marketing and community building.
+So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, the artists behind them, and the impact they've had on the programming community. We'll also look at some newer mascots, trends in mascot design, and where mascots might go in the future.
 
-This post collects knowledge that may only be contained in scattered blog posts, forum discussions, and social media threads, so I hope this article serves as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. I was not around for much of this history, so if I've gotten any facts or timelines wrong, please let me know by making a pull request. Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the catalog in (§5).
+Information about mascots can be hard to find -- this article collects knowledge that may only be contained in scattered blogs, forum discussions, and social media threads. But in compiling it all in one place, I hope the article can serve as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. Please, if anyone finds mistakes, has facts to add, or citations to include, let me know by making a [pull request](https://github.com/mech-web/website). Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the catalog in §5.
 
 1. History of Mascots
 -------------------------------------------------------------------------------
@@ -61,8 +61,7 @@ Some other reasons why mascots are used in programming languages include:
 - **Community Building:** Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
 - **Engagement:** Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
 - **Fundraising:** No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
-
-But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in logos, documentation, and websites.
+- **Fun:** Sometimes there doesn't have to be a purpose to a thing except to have fun with it. 
 
 But what is a mascot exactly? I'd like to introduce a brief taxonomy for mascots, because there are really two distinct types of mascots that we'll see throughout programming language history, and it's useful to draw a distinction between them for the purposes of this catalog.
 
