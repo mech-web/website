@@ -53,15 +53,14 @@ REDDit USER ASKS WHY DO PROGRAMMING LANGUAGES HAVE MASCOTS?
 
 Good question! After all, programming languages are simply tools -- does your hammer need a mascot? No! Then why should a programming langauge?
 
-But really, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, researchers are talking about how programming languages are much more than just mathematical systems for instructing computers, but are also social and cultural phenomena that shape and are shaped by the communities that use them [AJK16]. In this context, mascots can be seen as a way to represent and personify the identity and culture of a programming language community, making it more relatable and engaging for its users.
+But really, programming languages are more than just tools -- they are also communities, cultures, and ecosystems. Today, researchers are talking about how programming languages are social and cultural phenomena that shape and are shaped by the communities that use them, not just tools or mathematical systems, which is the dominant perspective [AJK16]. In this context, mascots can be seen as a way to represent and personify the culture of a programming language community, making it more relatable and engaging for its users.
 
 Some other reasons why mascots are used in programming languages include:
 
-- Branding and Marketing: Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options.
-- Community Building: Mascots can foster a sense of community and belonging among users of a programming language, helping to create a shared identity. Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
-- Engagement: Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
-- Cultural Significance: Mascots can embody the values, philosophy, or characteristics of a programming language, reflecting its design principles or intended use cases.
-- Fundraising: No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
+- **Branding and Marketing:** Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options. Along with a logo, brand colors, and a good name [^GOODNAME], a mascot can be an important part of a modern programming language's identity and marketing strategy.
+- **Community Building:** Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
+- **Engagement:** Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
+- **Fundraising:** No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
 
 But when it comes down to it, they're just fun. Programming languages are abstract concepts, and mascots give them a tangible, relatable form that can make them more representable in logos, documentation, and websites.
 
@@ -391,6 +390,8 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 [^CORTANA]: Microsoft's Cortana is actually a character from the Halo video game series, where she is an AI assistant to the protagonist, Master Chief.
 
 [^PROGRAMMINGPERL]: The third edition of "Programming Perl" includes a colophon describing the dromedary camel but doesn't explain why it was chosen for the cover. The book's introduction (p. 4) offers a tongue-in-cheek explanation: "We often joke that a camel is a horse designed by a committee, but if you think about it, the camel is self-sufficient. (On the other hand, the camel has not evolved to smell good. Neither has Perl.) This is one of the many strange reasons we picked the camel to be Perl's mascot." However, O'Reilly's typical process was for editors or artists to select animals from Dover's catalog based on availability rather than symbolic meaning, so the camel was likely chosen before any justification was invented [PERLMONKS].
+
+[^GOODNAME]: "The most important thing in the programming language is the name. A language will not succeed without a good name. I have recently invented a very good name and now I am looking for a suitable language." -- Donald Knuth
 
 
 [BEASTIE]: https://en.wikipedia.org/wiki/BSD_Daemon
