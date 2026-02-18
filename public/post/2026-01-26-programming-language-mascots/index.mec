@@ -13,14 +13,16 @@ Having now looked into the history, *right now* is actually the exact right time
 
 So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, the artists behind them, and the impact they've had on the programming community. We'll also look at some newer mascots, trends in mascot design, and where mascots might go in the future.
 
-Information about mascots can be hard to find -- this article collects knowledge that may only be contained in scattered blogs, forum discussions, and social media threads. But in compiling it all in one place, I hope the article can serve as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. Please, if anyone finds mistakes, has facts to add, or citations to include, let me know by making a [pull request](https://github.com/mech-web/website). Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the catalog in §5.
+Information about mascots can be hard to find; this article collects knowledge that may only be contained in scattered blogs, forum discussions, and social media threads -- certainly not academic journals. By compiling it all in one place, I hope the article can serve as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. Also, if anyone finds mistakes, has facts to add, or citations to include, let me know by making a [pull request](https://github.com/mech-web/website). Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the compendium.
+
+The paper is organized as follows. We first present a brief history of mascots in popular culture and in the field of computing generally in §1. In §2, we look at the earliest instances of programming language mascots, which were mostly "quasi-mascots" that served as symbols or logos for their languages. Then in §3, we look at the emergence of fully developed characters with names, personalities, and backstories. Indie and recent mascots are covered in in §4. Finally, in §5, we present a comprehensive catalog of programming language mascots which we hope will be expanded over time as new mascots emerge.
 
 1. History of Mascots
 -------------------------------------------------------------------------------
 
 > mascot - an object, an animal or a lucky person, who wards off bad luck by their mere presence [GRAPHEINE].
 
-(1.1) Generally
+(1.1) In Popular Culture
 
 The word "mascot" comes from the Provençal word "mascoto", which was adopted into French as "mascotte" in the late 19th century. The term originally referred to a talisman or charm that was believed to bring good luck, and it was often associated with animals, objects, or people that were thought to have protective or auspicious qualities. For example, albatrosses were considered good luck for sailors [^ALBATROSS], and rabbits' feet and are still widely believed to bring good fortune. The idea of a mascot transcends specific cultures and has been present in various forms throughout history, from ancient civilizations to modern times.
 
@@ -105,11 +107,11 @@ Even the physical The physical turtle robots themselves have had surprising long
 
 https://www.alancsmith.co.uk/logo/
 
-(1.2) CAML / OCaml's Camel (1985 / 2005)
+(1.2) CAML / OCaml / Perl's Camels (1985 / 1987 / 2005)
 
-Given there are many kinds of animals but relatively few programming langauges, it's odd then that two completely different langauges would end up with the same animal as their mascot. As far as I can tell, it's mostly an accident of history.
+Given there are many kinds of animals but relatively few programming langauges (especially in the 80s), it's odd then that two completely different langauges would end up with the same animal as their mascot. As far as I can tell, it's mostly an accident of history.
 
-(1.2.1) CAML / OCaml's Camel
+(1.2.1) CAML / OCaml's Camels
 
 CAML (Categorical Abstract Machine Language), developed in the 1985 at INRIA in France, was designed as a practical implementation of the ML (Meta Language) family of languages, combining ML's functional programming approach with the categorical abstract machine (CAM) as its computational model. The name CAML was thus an acronym combining "CAM" and "ML". This represents the first instance in a long history of a programming language being named after an animal. The authors played into this in one of their original logos, which featured a two-hump (Bactrian) camel.
 
