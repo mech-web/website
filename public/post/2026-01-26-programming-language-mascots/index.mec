@@ -441,23 +441,25 @@ Heroes include: Voltron, the mech from Aliens, G.I. Robot, The Iron Giant, and O
 Like the Raku Butterfly, Mika also has a minimal design, only 9 bytes long, which allows him to be easily rendered in the terminal and used in various contexts without taking up too much space. He's also very expressive, with different poses and variations that can be used to convey different emotions and actions.
 
 ```
-╭⦿╮   -- Idle
+╭⦿╮     -- Idle
    
-╭⦿─   -- Pointing
+╭⦿─     -- Pointing
 
-╭⦿╯   -- Waving
+╭⦿╯     -- Waving
 
-╰⦿╯   -- Cheering
+╰⦿╯     -- Cheering
 
-╭⊕╮   -- Behind
+╭⊕╮     -- Behind
 
-╭◯╮   -- Off
+╭◯╮     -- Off
 
-╭⦿─‹  -- Gripper
+╭⦿─‹    -- Gripper
 
-⸸⦿ᗢ   -- Knight
+›─⦿─‹   -- Big Hug
 
-·¬⦿⌐· -- Matrix
+⸸⦿ᗢ     -- Knight
+
+·¬⦿⌐·    -- Matrix
 ```
 
 Inline Mika can also be animated:
