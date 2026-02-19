@@ -455,7 +455,7 @@ Heroes include: Voltron, the mech from Aliens, G.I. Robot, The Iron Giant, and O
 
 ⸸⦿ᗢ   -- Knight
 
-·¬⦿⌐· -- Pew Pew
+·¬⦿⌐· -- Matrix
 ```
 
 We can even animate him:
@@ -472,6 +472,12 @@ We can even animate him:
 
 -- Focus
 ╭⦿╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦿╮ 
+
+-- Waving
+╭⦿╮ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╮
+
+-- Gripping
+╭⦿─‹ -> ╭⦿─- -> ╭⦿─‹ 
 ```
 
 ***
