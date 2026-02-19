@@ -48,7 +48,7 @@ The first even tangential appearance of a mascot used with a computer was in 195
 
 I can't find any character or mascot associated in any way with a computing product before this instance, probably because computers before 1956 did not exist outside of research labs and military installations. I leave open the possibility there is some internal mascot I cannot find on the general Internet, but this cartoon would seem to be the first public depiction of a branded computer system with any kind of personality or character.
 
-It wasn't until 1976 that the idea of using a mascot to represent a computing product was adopted by industry, when BSD Unix adopted Beastie the BSD Daemon as a mascot. Beastie was created by Phil Foglio, Mike O'Brien, and John Lasseter [BEASTIE], who intended Beastie's demonic form to evoke the idea of a background process in Unix systems, which are often referred to as "daemons". This started the tradition of using the mascot to represent and personify features of the computing system -- although as we'll see the origin stories and meanings behind them can have varying levels of depth and sincerity.
+It wasn't until 1976 that the idea of using a mascot to represent a computing product was adopted by industry, when BSD Unix adopted Beastie the BSD Daemon as a mascot. Beastie was created by Phil Foglio, Mike O'Brien, and John Lasseter [BEASTIE], who intended Beastie's demonic form to evoke the idea of a background process in Unix systems, which are often referred to as "daemons". This started the tradition of using the mascot to represent and personify features of the computing system in figurative ways -- although as we'll see the origin stories and meanings behind them can have varying levels of depth and sincerity.
 
 Since the introduction of Beastie, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^OSTAN]. Mascots have also become an important part of commerical software products, such as Microsoft's Clippy. More recently large tech companies have even introdiced AI assistants like Cortant, Siri, and Alexa, which serve the role of mascots for their respective platforms [^CORTANA].
 
@@ -222,6 +222,7 @@ Becasue the thing about scratch is that it's not just a programming language, bu
 https://youtu.be/HiWnyeajOLk?si=eoEAwg88Mkb6xK9o&t=61
 https://youtu.be/HiWnyeajOLk?si=Wj_n68cgVMD3u6h5&t=87
 https://scratch.mit.edu/users/ScratchCat/
+https://en.scratch-wiki.info/wiki/Scratch_Cat
 
 (3.3) Go's Gopher (2009)
 
@@ -246,15 +247,26 @@ https://x.com/Ferrisonsol
 4. Indie Mascots
 -------------------------------------------------------------------------------
 
-(4.1) Zig's Ziggy Ziguana
+In this section we look at some of the more recent and indie programming language mascots that have emerged in the last few years. These mascots often have a more grassroots origin story, being created by members of the community rather than by a corporate marketing team, and they often have a more playful and irreverent tone than the more established mascots. In many cases, the mascots were introduced very early in the language's development, sometimes even before the language itself was fully fleshed out. A consistent theme for these languages is a cute mascot is sufficient to gain a small following in a langauge's early days, which can be crucial for building a community around a new language.
 
-https://github.com/ziglang/logo?tab=readme-ov-file#zero-the-ziguana
+(4.1) Gleam's Starfish
 
-(4.2) Odin's Raven
+https://gleam.run/branding/
 
-https://github.com/odin-lang/odin-lang.org/tree/master/static/images/mascot
+(4.2) Hy's Cuddles the Cuttlefish
 
-(4.3) LDPL's Ldplsaur
+https://hylang.org
+https://hylang.org/hy/doc/v1.2.0
+https://hylang.org/yeehy.png
+
+
+(4.3) Juvix's Tara the Tardigrade
+
+https://x.com/TaraTardigrade
+https://juvix.org
+
+
+(4.4) LDPL's Ldplsaur
 
 https://www.ldpl-lang.org/media.html
 https://www.ldpl-lang.org
@@ -262,28 +274,24 @@ https://www.teepublic.com/user/lartu
 https://www.reddit.com/r/ProgrammingLanguages/comments/awr3th/i_made_a_programming_language_based_on_cobol/
 https://lartu.net
 
-(4.4) Gleam's Starfish
-
-https://gleam.run/branding/
-
 (4.5) Luau's Hina the Seal
 
 https://rfcs.luau.org/luau-mascot.html
 
-(4.6) Hy's Cuddles the Cuttlefish
 
-https://hylang.org
-https://hylang.org/hy/doc/v1.2.0
-https://hylang.org/yeehy.png
+(4.6) Odin's Raven
+
+https://github.com/odin-lang/odin-lang.org/tree/master/static/images/mascot
+
 
 (4.7) Pipefish's René the Pipefish
 
 https://github.com/tim-hardcastle/Pipefish/blob/main/README.md
 
-(4.8) Juvix's Tara the Tardigrade
+(4.8) Zig's Ziggy Ziguana
 
-https://x.com/TaraTardigrade
-https://juvix.org
+https://github.com/ziglang/logo?tab=readme-ov-file#zero-the-ziguana
+
 
 5. The Mascot Catalog
 -------------------------------------------------------------------------------
