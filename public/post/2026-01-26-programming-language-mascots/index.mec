@@ -1,17 +1,15 @@
-The Compendium of Programming Language Mascots
+A Compendium of Programming Language Mascots
 ===============================================================================
 
-HERO IMAGE OF ALL THE MASCOTS AT A LAN PARTY
+![](/images/mascotlan.png)
 
 %% Programming language mascots have become an integral part of many programming language communities, serving as symbols of identity, culture, and fun. From the early days of computing to the present, mascots have evolved from simple symbols to fully developed characters with personalities and backstories. In this article, we will explore the history of programming language mascots, their significance in the programming community, and look at some of the most iconic mascots that have emerged over the years. We also introduce Mech's new mascot, Mika the mech, a friendly and little character designed to represent the Mech programming language and its community.
 
 ***
 
-Although I've looked around, I can't find any comprehensive articles on the history and state of the art of programming language mascots. So this is the article I was hoping to find -- we cover the past, present, and future of programming language mascots, exploring their origins, cultures, and impacts on the programming community as a whole.
+Although I've looked around, I can't find any comprehensive articles on the history and state of the art of programming language mascots. So this is the article I was hoping to find. Having now done the deep dive into this topic, I can say *right now* is the exact right time to start looking backwards at programming language mascots over the years; as you'll see, the history of mascots in programming languages is still very recent (beginning in just 1967) and is rapidly evolving. With AI lowering barriers to language development, we are likely to see an explosion of new programming languages and associated mascots in the coming years, making it a good time to take stock of where we are and how we got here.
 
-Having now looked into the history, *right now* is actually the exact right time to start looking backwards at mascot over the years; as you'll see, the history of mascots in programming languages is still very recent (beginning in just 1967) and rapidly evolving. With AI lowering barriers to language development, we are likely to see an explosion of new programming languages and associated mascots in the coming years, making it a good time to take stock of where we are and how we got here.
-
-So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, the artists behind them, and the impact they've had on the programming community. We'll also look at some newer mascots, trends in mascot design, and where mascots might go in the future.
+So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, the artists behind them, and the impact they've had on the programming community as a whole. We'll also look at some newer mascots, trends in mascot design, and where mascots might take us in the future.
 
 Information about mascots in programming languages can be hard to find; this article collects knowledge that may only be contained in scattered blogs, forum discussions, and social media threads -- certainly not academic journals. By compiling it all in one place, I hope the article can serve as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. Also, if anyone finds mistakes, has facts to add, or citations to include, let me know by making a [pull request](https://github.com/mech-web/website). Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the compendium.
 
@@ -398,6 +396,44 @@ personality
 scenarios
 
 mech merch: stickers, pins, plushies, t-shirts, mugs, etc.
+
+Inline text form to represent in the terminal:
+
+```
+╭⦿╮   -- Idle
+   
+╭⦿─   -- Pointing
+
+╭⦿╯   -- Waving
+
+╰⦿╯   -- Cheering
+
+╭⊕╮   -- Behind
+
+╭◯╮   -- Off
+
+╭⦿─‹  -- Gripper
+
+⸸⦿ᗢ   -- Knight
+
+·¬⦿⌐· -- Pew Pew
+```
+
+We can even animate him:
+
+```
+-- Sleep
+╭⦿╯ -> ╭⦿╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭◯╮  
+
+-- Wake
+╭◯╮ -> ╭⊙╮ ->  ╭⊚╮ -> ╭⦿╮ -> ╭⦿╯ 
+
+-- Blink
+╭⦿╮ -> ╭⊖╮ -> ╭⦿╮
+
+-- Focus
+╭⦿╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦿╮ 
+```
 
 ***
 
