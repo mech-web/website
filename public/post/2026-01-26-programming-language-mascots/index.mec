@@ -181,6 +181,12 @@ The 1990s marked the first true programming language mascot, Duke, which was fol
 
 (3.1) Java's Duke (1995)
 
+USE THE PHRASE "conference theater" IN THIS SECTION TO DESCRIBE HIS ROLE
+
+"Java (a commissioned character with long-running conference theater). Duke is one of the clearest examples of an institutionally created language mascot: Oracle’s Java mascot page locates Duke in Sun’s Green Project Star7 demo as an interactive UI host and credits Joe Palrang as the graphic artist who created him. 
+ Duke’s “open source” era is unusually explicit: the OpenJDK Duke project records that Sun open-sourced Duke under the New BSD license on Nov 13, 2006, creating a sanctioned space for designers/developers to create new Duke variants. 
+ This institutional support also mapped into event culture: Oracle notes Duke’s physical presence at JavaOne/Oracle developer events, illustrating how mascots can become literal stagecraft for community identity. "
+
 The Java programming language was introduced by Sun Microsystems in 1995, and it quickly became one of the most popular programming languages in the world. Sun's strategy in making it popular focused around freely offering the binaries and even the source code of key Java components over the Internet to generate broad interest and acceptance among developers, in contrast to other languages which has proprietary implementations that were only available for purchase. This strategy was successful, and Java quickly gained a large and active community of developers.
 
 Part of that broad-appeal strategy was a marketing effort which was closer to a consumer product marketing strategy than B2B, which emphasized playfulness and approachability. And a mid 90s consumer marketing strategy would not be complete without a corporate mascot.
@@ -247,7 +253,9 @@ https://x.com/Ferrisonsol
 
 In this section we look at some of the more recent and indie programming language mascots that have emerged in the last few years. These mascots often have a more grassroots origin story, being created by members of the community rather than by a corporate marketing team, and they often have a more playful and irreverent tone than the more established mascots. In many cases, the mascots were introduced very early in the language's development, sometimes even before the language itself was fully fleshed out. A consistent theme for these languages is a cute mascot is sufficient to gain a small following in a langauge's early days, which can be crucial for building a community around a new language.
 
-(4.1) Gleam's Starfish
+(4.1) Gleam's Lucy the Starfish
+
+Talk about political controversy here and trans branding and representation.
 
 https://gleam.run/branding/
 
@@ -277,16 +285,24 @@ https://lartu.net
 https://rfcs.luau.org/luau-mascot.html
 
 
-(4.6) Odin's Raven
+(4.6) Mech's Mika the Mech
+
+Direct reader to that section.
+
+(4.7) Odin's Raven
 
 https://github.com/odin-lang/odin-lang.org/tree/master/static/images/mascot
 
 
-(4.7) Pipefish's René the Pipefish
+(4.8) Pipefish's René the Pipefish
 
 https://github.com/tim-hardcastle/Pipefish/blob/main/README.md
 
-(4.8) Zig's Ziggy Ziguana
+(4.9) PURRTRAN's Hex the Cat
+
+Esolang mascot-driven language, there's actually no language to speak of it's just a joke and commentary.
+
+(4.10) Zig's Ziggy Ziguana
 
 https://github.com/ziglang/logo?tab=readme-ov-file#zero-the-ziguana
 
@@ -339,6 +355,9 @@ https://www.modular.com/blog/modular-2025-year-in-review
 
 (5.7) PHP's ElePHPant
 
+PHP (pun-driven mascot → plush culture). php.net’s official elePHPant page recognizes the mascot as the “adorable” elephantine symbol of PHP and explicitly warns about imitators, noting that “official stuffed toy elePHPants” designed by Vincent Pontier are occasionally made available. 
+ Pontier’s own site asserts the concept was created in 1998 and later adopted by the community in the 2000s, aligning with the common pattern where a grassroots graphic spreads first and becomes “official” through repeated community use rather than formal announcement. 
+
 http://www.elroubio.net
 https://archive.is/ncqI
 
@@ -358,6 +377,20 @@ https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 https://raku.org/nav/1/community
 
 https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt
+
+https://developers.slashdot.org/story/16/07/14/1349207/the-slashdot-interview-with-larry-wall
+
+https://imgur.com/a/I6ICz7a
+
+https://imgur.com/3lFSZsR
+
+logo for girls: https://www.youtube.com/watch?v=PK9UnAmrxsA&t=1h6m
+
+discussion: https://www.nntp.perl.org/group/perl.perl6.language/2009/03/msg31263.html -> https://www.nntp.perl.org/group/perl.perl6.language/2009/03/msg31300.html
+
+Details of her design: https://developers.slashdot.org/story/16/07/14/1349207/the-slashdot-interview-with-larry-wall
+
+Why a butterfly: https://www.youtube.com/watch?v=_wJNPOs-Q20&index=9&t=5m&list=PLRuESFRW2Fa77XObvk7-BYVFwobZHdXdK
 
 (5.10) SWI Prolog's Owl
 
