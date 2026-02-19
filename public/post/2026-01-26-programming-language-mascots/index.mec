@@ -314,17 +314,20 @@ We aim to curate a comprehensive catalog of programming language mascots, both p
 
 (!)> Reminder: We are concerned just with *programming language* mascots, not other tech-related mascots like operating systems or databases. So for example, while the BSD Daemon is a very important mascot in computing history, BSD is not a programming language and therefore it is out of scope for this catalog.
 
-(5.1) C#'s Andy
+(5.1) C#'s Andy th Engineer
+
+sort of a Dilbert ripoff let's be honest.
 
 https://x.com/AnsonHorton/status/1340560021390729218
 https://image4.slideserve.com/8841667/introduction-to-c-l.jpg
 https://pbs.twimg.com/media/EATYNWWUEAEVlUt.jpg
 
-(5.2) D's Dman
+(5.2) D's Dman the letter D
 
 https://web.archive.org/web/20130719055943/http://w148.de:80/~mmartin/d/logo.html
 
-(5.3) Dart's Dash
+(5.3) Dart's Dash the Hummingbird
+
 https://docs.flutter.dev/dash
 https://flutter.dev/events
 
@@ -341,7 +344,7 @@ https://github.com/javascript-mascot/javascript-mascot.github.io?tab=readme-ov-f
 
 Lisp and Javascript both have unofficial alien mascots that have been used in various contexts, but neither has an official mascot that is widely recognized by the community. Instead, they seem to be more of a meme or inside joke within their respective communities rather than a formal mascot.
 
-(5.6) Mojo's Flame (2023)
+(5.6) Mojo's Flame
 
 Mojo is a new programming language that was announced in 2023 by Modular, a company founded by Chris Lattner, the creator of Swift. Mojo is designed to be a high-performance language for AI and machine learning applications. Mojo's branding dictates that the name is actually Mojo🔥, with the flame included. They even support a `.🔥` file extension. 
 
@@ -353,7 +356,7 @@ https://comic.modular.com
 
 https://www.modular.com/blog/modular-2025-year-in-review
 
-(5.7) PHP's ElePHPant
+(5.7) PHP's ElePHPant the Elephant
 
 PHP (pun-driven mascot → plush culture). php.net’s official elePHPant page recognizes the mascot as the “adorable” elephantine symbol of PHP and explicitly warns about imitators, noting that “official stuffed toy elePHPants” designed by Vincent Pontier are occasionally made available. 
  Pontier’s own site asserts the concept was created in 1998 and later adopted by the community in the 2000s, aligning with the common pattern where a grassroots graphic spreads first and becomes “official” through repeated community use rather than formal announcement. 
@@ -372,7 +375,7 @@ So while snakes are often used in Python branding -- logos and various supportin
 https://www.thecodingforums.com/threads/proposed-python-logo.356848/
 https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 
-(5.9) Raku's Butterfly
+(5.9) Raku's Camelia the Butterfly
 
 https://raku.org/nav/1/community
 
@@ -417,71 +420,140 @@ Part of the rumor is that it was created by GNU founder Richard Stallman as a wa
 However, this is not true; Keith is not an official mascot, but more of a physical manifestation of C++'s spirit on in our material realm.
 https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-named-keith
 
-6. Introducing Mech's Mascot -- Mika the mech!
+6. Designing a new Mascot - Mika the Mech
 -------------------------------------------------------------------------------
 
 Following in this tradition, today we are introducing a mascot for Mech.
 
 Meet Mika:
 
-personality
+Pronounced :Me-kah
 
-scenarios
+Designed by me, Corey Montella
 
-mech merch: stickers, pins, plushies, t-shirts, mugs, etc.
+personality: friendly, playful, loves dress up and adventuure, but mostly she loves to help people automate things with Mech code.
 
-Inline text form to represent in the terminal:
+pronouns: she/her/he/his/they/them/it; Mika is a mech -- a robot -- she doesn't have gender. 
 
-Designed by: Corey Montella
+One mystery thoug is: who pilots Mika? (It's Ferris's cousin)
 
 Engineered and Built by: Dr. Ransac
 
-Heroes include: Voltron, the mech from Aliens, G.I. Robot, The Iron Giant, and Optimus Prime.
+Heroes include: Voltron, G.I. Robot, The Iron Giant, Optimus Prime, and the mech from Aliens.
+
+Dislikes: Static documentation, 
+
+Tabs or Space: Both.
+
+(6.1) Inspiration and Design
+
+As we've seen in PL mascot history, a good mascot should be simple, memorable, and versatile.
+
+Mech wasn't always called Mech there were alternatives, and if those were chosen, Mika would have been a very different character. For example, if we had gone with the name "Hyda", we might have ended up with a mascot that was more aquatic-themed, perhaps a friendly octopus or a playful dolphin. But since we went with Mech, we wanted to create a mascot that embodied the spirit of mechanization and automation, which led us to the idea of a cute and approachable mech character.
+
+So then what about the actual design. This was part accident and intent, there's a tatoo someone drew for me I never got but I had liked, and I wanted to use that as a starting point for the design of the mascot. But we used AI in the process of creating the character and allowed it to generate a lot of different examples before choosing one that resembled what I had in mind. So while Mika's design was intended the specific features were an accident of the AI. However, we've refined Mika's design since the original generation to the point where her character.
+
+Since the initial generation in 2023, AI generators have gotten good enough to recreate Mika in avariety of poses just given the original image, even to the point we can generate different perspectibes on Mika, pose her in different ways, and place her in different scenarios.
+
+With gen aI we can even generate *different* mechs like Mika, who have their own distinct personalities and can increase the diversity of the Mech mascot family, even a whole town of characters.
+
+(6.2) Versatility
+
+mech merch: stickers, pins, plushies, knits, t-shirts, mugs, etc.
+
+wallpapers
+
+different expressions
+
+In docs
+
+(6.3) Inline Mika
 
 Like the Raku Butterfly, Mika also has a minimal design, only 9 bytes long, which allows him to be easily rendered in the terminal and used in various contexts without taking up too much space. He's also very expressive, with different poses and variations that can be used to convey different emotions and actions.
 
 ```
-╭⦿╮     -- Idle
+╭⦿╮        -- Idle
    
-╭⦿─     -- Pointing
+╭⦿─        -- Pointing
 
-╭⦿╯     -- Waving
+╭⦿╯        -- Waving
 
-╰⦿╯     -- Cheering
+╰⦿╯        -- Cheering
 
-╭⊕╮     -- Behind
+-◡⦿◡-     -- Shrug
 
-╭◯╮     -- Off
+╭⊕╮        -- Behind
 
-╭⦿─‹    -- Gripper
+╭◯╮        -- Off
 
-›─⦿─‹   -- Big Hug
+╭⦿─‹       -- Gripper
 
-⸸⦿ᗢ     -- Knight
+›⌣⦿⌣‹     -- Big Hug
 
-·¬⦿⌐·    -- Matrix
+⸸⦿ᗢ        -- Knight
+
+·¬⦿⌐·       -- Matrix
+
+~⦿~         -- Dancing
 ```
 
 Inline Mika can also be animated:
 
 ```
 -- Sleep
-╭⦿╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭◯╮
+╭⦿╮ -> ╭⦾╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭◯╮
 
 -- Wake
-╭◯╮ -> ╭⊙╮ ->  ╭⊚╮ -> ╭⦿╮
+╭◯╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦾╮ -> -> ╭⦿╮
 
 -- Blink
 ╭⦿╮ -> ╭⊖╮ -> ╭⦿╮
 
--- Focus
-╭⦿╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦿╮
+-- Pulse
+╭⦿╮ -> ╭⦾╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦾╮ -> ╭⦿╮
 
 -- Waving
 ╭⦿╮ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╯ -> ╭⦿╮
 
 -- Gripping
 ╭⦿─‹ -> ╭⦿─- -> ╭⦿─‹
+```
+
+We can even represent Mika as a closeup using the folloing base characters:
+
+```
+(·◯·)   -- Normal Face
+(^◯^)   -- Content
+(>◯>)   -- Glare
+(Ͼ◯Ͽ)   -- Tired
+(o◯o)   -- Scared
+(-◯-)   -- Sleeping
+(*◯*)   -- Dazed
+(◕◯◕)  -- Looking around
+(◉◯◉)  -- Wired
+(>◯<)   -- Angry
+(×◯×)   -- Dead
+```
+
+We can add arms for the purpose of gesturing:
+
+```
+Ɔ=(·◯·)=C   -- Gesture Wide
+(=C·◯·)=C   -- Gesture Right
+Ɔ=(·◯·Ɔ=)   -- Gesture Left
+```
+
+Various expressions and animations are possible:
+
+```
+-- Pulse
+(·◯·) -> (·⊙·) -> (·⊝·) -> (·⦵·) -> (·⊝·) -> (·⊙·) -> (·◯·)
+
+-- Talking
+(·⊝·) -> (·⊜·) -> (·⊝·)
+
+-- Spin
+(·⊕·) -> (·⊗·) -> (·⊕·)
 ```
 
 7. Conclusion
