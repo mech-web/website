@@ -522,38 +522,42 @@ Inline Mika can also be animated:
 We can even represent Mika as a closeup using the folloing base characters:
 
 ```
-(·◯·)   -- Normal Face
+(°◯°)   -- Normal Face
 (^◯^)   -- Content
-(>◯>)   -- Glare
-(Ͼ◯Ͽ)   -- Tired
 (o◯o)   -- Scared
 (-◯-)   -- Sleeping
 (*◯*)   -- Dazed
 (◕◯◕)  -- Looking around
+(Ͼ◯Ͽ)   -- Tired
 (◉◯◉)  -- Wired
-(>◯<)   -- Angry
+(>◯<)   -- Eyes Shut
 (×◯×)   -- Dead
+(ㆆ◯ㆆ)  -- Glare
+(╥◯╥)   -- Crying
+(⌐■◯■)  -- Shades
+(⚆◯⚆) -- look right
+(☉◯☉) -- look straight
 ```
 
 We can add arms for the purpose of gesturing:
 
 ```
-Ɔ=(·◯·)=C   -- Gesture Wide
-(=C·◯·)=C   -- Gesture Right
-Ɔ=(·◯·Ɔ=)   -- Gesture Left
+Ɔ=(°◯°)=C   -- Gesture Wide
+(=C°◯°)=C   -- Gesture Right
+Ɔ=(°◯°Ɔ=)   -- Gesture Left
 ```
 
 Various expressions and animations are possible:
 
 ```
 -- Pulse
-(·◯·) -> (·⊙·) -> (·⊝·) -> (·⦵·) -> (·⊝·) -> (·⊙·) -> (·◯·)
+(°◯°) -> (°⊙°) -> (°⊝°) -> (°⦵°) -> (°⊝°) -> (°⊙°) -> (°◯°)
 
 -- Talking
-(·⊝·) -> (·⊜·) -> (·⊝·)
+(°⊝°) -> (°⊜°) -> (°⊝°)
 
 -- Spin
-(·⊕·) -> (·⊗·) -> (·⊕·)
+(°⊕°) -> (°⊗°) -> (°⊕°)
 ```
 
 7. Conclusion
