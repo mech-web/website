@@ -528,13 +528,13 @@ Inline Mika can also be animated:
 We can even represent Mika as a closeup using the folloing base characters:
 
 ```
-(°◯°)       -- Normal Face
-(^◯^)       -- Content
-(o◯o)       -- Scared
+(˙◯˙)       -- Normal
+(ˆ◯ˆ)       -- Content
+(°◯°)       -- Surprised
+(❛◯❛)        -- Scowl
 (-◯-)       -- Sleeping
 (*◯*)       -- Dazed
-(◕◯◕)      -- Looking around
-(Ͼ◯Ͽ)       -- Tired
+(Ͼ◯Ͽ)       -- Scared
 (◉◯◉)      -- Wired
 (>◯<)       -- Eyes Shut
 (×◯×)       -- Dead
@@ -543,28 +543,31 @@ We can even represent Mika as a closeup using the folloing base characters:
 (⌐◍◯◍)     -- Shades
 (⚆◯⚆)      -- Look right
 (☉◯☉)      -- Look straight
+(◕◯◕)      -- Look up left
 (≖◯≖)      -- Squint
+(◡̀◯◡́)ᕤ    -- Resolved
+(◞◯◟)      -- Sad
 ```
 
 We can add arms for the purpose of gesturing:
 
 ```
-Ɔ∞(°◯°)∞C   -- Gesture Wide
-(∞C°◯°)∞C   -- Gesture Right
-Ɔ∞(°◯°Ɔ∞)   -- Gesture Left
+Ɔ∞(˙◯˙)∞C   -- Gesture Wide
+(∞C˙◯˙)∞C   -- Gesture Right
+Ɔ∞(˙◯˙Ɔ∞)   -- Gesture Left
 ```
 
 Various expressions and animations are possible:
 
 ```
 -- Pulse
-(°◯°) -> (°⊙°) -> (°⊝°) -> (°⦵°) -> (°⊝°) -> (°⊙°) -> (°◯°)
+(˙◯˙) -> (˙⊙˙) -> (˙⊝˙) -> (˙⦵˙) -> (˙⊝˙) -> (˙⊙˙) -> (˙◯˙)
 
 -- Talking
-(°⊝°) -> (°⊜°) -> (°⊝°)
+(˙⊝˙) -> (˙⊜˙) -> (˙⊝˙)
 
 -- Spin
-(°⊕°) -> (°⊗°) -> (°⊕°)
+(˙⊕˙) -> (˙⊗˙) -> (˙⊕˙)
 ```
 
 7. Conclusion
