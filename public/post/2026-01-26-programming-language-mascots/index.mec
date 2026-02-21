@@ -248,6 +248,11 @@ https://doc.rust-lang.org/book/ch00-00-introduction.html
 
 https://x.com/Ferrisonsol
 
+https://crates.io/crates/ferris-says (cowsay for ferris)
+
+https://crates.io/crates/ferris-actor (show ferris in an ascii pose)
+various poses https://docs.rs/crate/ferris-actor/0.2.5/source/src/act/actor.rs
+
 4. Indie Mascots
 -------------------------------------------------------------------------------
 
@@ -576,10 +581,16 @@ Various expressions and animations are possible:
 (˙⏺˙)
 ```
 
+Here is where we make an actual contribution. Beyond just being little ascii art characters, these guys actually are encoded in the programming language itself. We can parse thema and actually use them in code. They represent comment from AI so normally we have comments that we write yeah? So we need to distirnguish those from comments AI writes and so they AI uses this little guy and can pose him to point things out in the code. He acts as a sigil to the parser indicating a comment when the code is run, but he's obviously written by AI no human woould write him.
+
+╰⦿╮ ⸢Hello, I'm Mika, your AI coding assitant!⸥
+
 7. Conclusion
 --------------------------------------------------------------------------------
 
+This page will have to be amdended as more mascots are created in the futrue. For example, here's a recent page where Scala community members are discussing a potential mascot, so maybe it's just a matter of time until Scla finds its way to hte compendium.
 
+https://contributors.scala-lang.org/t/scala-still-in-need-of-a-mascot/5247/55?page=3
 
 ***
 
