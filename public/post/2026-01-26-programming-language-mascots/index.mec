@@ -258,26 +258,30 @@ various poses https://docs.rs/crate/ferris-actor/0.2.5/source/src/act/actor.rs
 
 In this section we look at some of the more recent and indie programming language mascots that have emerged in the last few years. These mascots often have a more grassroots origin story, being created by members of the community rather than by a corporate marketing team, and they often have a more playful and irreverent tone than the more established mascots. In many cases, the mascots were introduced very early in the language's development, sometimes even before the language itself was fully fleshed out. A consistent theme for these languages is a cute mascot is sufficient to gain a small following in a langauge's early days, which can be crucial for building a community around a new language.
 
-(4.1) Gleam's Lucy the Starfish
+(4.1) Coi's Coi Fish
+
+https://github.com/coi/coi
+
+(4.2) Gleam's Lucy the Starfish
 
 Talk about political controversy here and trans branding and representation.
 
 https://gleam.run/branding/
 
-(4.2) Hy's Cuddles the Cuttlefish
+(4.3) Hy's Cuddles the Cuttlefish
 
 https://hylang.org
 https://hylang.org/hy/doc/v1.2.0
 https://hylang.org/yeehy.png
 
 
-(4.3) Juvix's Tara the Tardigrade
+(4.4) Juvix's Tara the Tardigrade
 
 https://x.com/TaraTardigrade
 https://juvix.org
 
 
-(4.4) LDPL's Ldplsaur
+(4.5) LDPL's Ldplsaur
 
 https://www.ldpl-lang.org/media.html
 https://www.ldpl-lang.org
@@ -285,29 +289,29 @@ https://www.teepublic.com/user/lartu
 https://www.reddit.com/r/ProgrammingLanguages/comments/awr3th/i_made_a_programming_language_based_on_cobol/
 https://lartu.net
 
-(4.5) Luau's Hina the Seal
+(4.6) Luau's Hina the Seal
 
 https://rfcs.luau.org/luau-mascot.html
 
 
-(4.6) Mech's Mika the Mech
+(4.7) Mech's Mika the Mech
 
 Direct reader to that section.
 
-(4.7) Odin's Raven
+(4.8) Odin's Raven
 
 https://github.com/odin-lang/odin-lang.org/tree/master/static/images/mascot
 
 
-(4.8) Pipefish's René the Pipefish
+(4.9) Pipefish's René the Pipefish
 
 https://github.com/tim-hardcastle/Pipefish/blob/main/README.md
 
-(4.9) PURRTRAN's Hex the Cat
+(4.10) PURRTRAN's Hex the Cat
 
 Esolang mascot-driven language, there's actually no language to speak of it's just a joke and commentary.
 
-(4.10) Zig's Ziggy Ziguana
+(4.11) Zig's Ziggy Ziguana
 
 https://github.com/ziglang/logo?tab=readme-ov-file#zero-the-ziguana
 
@@ -432,7 +436,9 @@ Following in this tradition, today we are introducing a mascot for Mech.
 
 Meet Mika:
 
-Pronounced :Me-kah
+The genuinely novel contribution you can stake a flag on: Mika is the first PL mascot that is a semantic element of the language, not a cultural artifact around it. That distinction — mascot-as-branding vs mascot-as-grammar — is a clean thesis that the historical survey sets up and that no one can dispute you on because you built it.
+
+Pronounced :Mea-kah
 
 Designed by me, Corey Montella
 
@@ -583,7 +589,46 @@ Various expressions and animations are possible:
 
 Here is where we make an actual contribution. Beyond just being little ascii art characters, these guys actually are encoded in the programming language itself. We can parse thema and actually use them in code. They represent comment from AI so normally we have comments that we write yeah? So we need to distirnguish those from comments AI writes and so they AI uses this little guy and can pose him to point things out in the code. He acts as a sigil to the parser indicating a comment when the code is run, but he's obviously written by AI no human woould write him.
 
-╰⦿╮ ⸢Hello, I'm Mika, your AI coding assitant!⸥
+╰⦿╮ ⸢Hello, I'm Mika, your AI Mech coding assitant!⸥
+
+Mika can suggest code as well:
+
+╭⦿⌣ ⸢Here is the filtered matrix as requested:
+x := y[y > 3]⸥
+
+Or Mika can update code and point to it
+
+z := x ** x' ─⦿╮ ⸢I added the transpose here to make this compile otherwise the dimensions don't match.⸥
+
+preserved in AST,
+
+participate in tooling (auditing, trust boundaries),
+
+and can be referenced by language mechanisms (e.g., “disallow Mika-authored code in safety-critical modules”),
+“Introduce Capabilities Tied to Authorship Regions”
+
+If Mika authorship:
+
+Is preserved
+
+Can be statically queried
+
+Can affect compilation outcomes
+
+Then it is not reducible to typed holes with comments.
+
+Because typed holes don’t introduce an authority dimension.
+
+You are adding:
+
+A provenance-aware effect system.
+
+That’s much stronger.
+
+
+Give the zoombinis angle, the mix and match society diversity angle, the idea of a mascot family, the idea of a town of mascots, the idea of a whole world of mascots, and the idea that Mika is just one character in a whole universe of characters that can be generated and used in different contexts. example octocat the new thing is not just a mascot but a whole family of mascots or a whole universe of mascots.
+
+
 
 7. Conclusion
 --------------------------------------------------------------------------------
