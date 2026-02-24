@@ -230,11 +230,25 @@ https://en.scratch-wiki.info/wiki/Scratch_Cat
 
 (3.3) Go's Gopher (2009)
 
+>>![Gopher is adept at multitasking, serving many requests at once.](/images/HQ_Gopher.png){width: "250px"}
+
+Go is a programming language developed by Google in 2009, and it has become one of the most popular programming languages for systems programming and cloud computing. Go's mascot, Gopher, is a cute and friendly gopher character that represents the Go language and its community. Gopher is often depicted in various poses and scenarios, showcasing his playful and creative nature.
+
+It is not entirely clear how Gopher came to be the mascot of Go, but it is believed that the name "Go" was chosen because it was short, easy to remember, and had a positive connotation. The gopher mascot was likely chosen as a playful and approachable symbol for the language, and it has become an iconic figure in the Go community. Gopher was designed by Renée French, an artist and illustrator known for her whimsical and surreal style, who was commissioned by Google to create the character. Gopher's design is simple and cute, with a round body, big eyes, and a friendly smile. The character has become an important part of the Go community, appearing in documentation, tutorials, and merchandise, and it has become a beloved symbol of the language and its culture.
+
 https://9p.io/plan9/glenda.html
 https://go.dev/blog/gopher
 https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjMCbxo40IUxdRq_YBHpKRokKgB1UGDR
 
 (3.4) Rust's Ferris (2016)
+
+<<![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
+
+Ferris is the official mascot of the Rust programming language, and he has become an iconic figure in the Rust community. Ferris is a friendly and approachable crab character that represents the Rust language's focus on safety, performance, and concurrency. He is often depicted in various poses and scenarios, showcasing his playful and creative nature. 
+
+The interesting thing about Ferris is that he was not created as part of a corporate marketing strategy like Duke, but rather emerged organically from the Rust community. The term "rustacean" was coined by the Rust community to refer to Rust users and enthusiasts, and it quickly became a popular way to describe the community.
+
+In the early days of Rust, there was no official mascot or character associated with the language. However, as the community grew and became more active, the idea of having a mascot to represent Rust and its values started to gain traction. That was when the term "rustacean" was coined, and it quickly became a popular way to refer to Rust users and enthusiasts. The term was meant to evoke the idea of a hardy and resilient creature that could thrive in harsh environments, which is a fitting metaphor for the Rust language's focus on safety and performance.
 
 Yes, the term rustacean came first.
 
@@ -432,6 +446,8 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 6. Designing a new Mascot - Mika the Mech
 -------------------------------------------------------------------------------
 
+>>![Mika is can summon copies of herself](/images/HQ_Mika.png){width: "250px"}
+
 Following in this tradition, today we are introducing a mascot for Mech.
 
 Meet Mika:
@@ -538,7 +554,7 @@ Inline Mika can also be animated:
 
 We can even represent Mika as a closeup using the folloing base characters:
 
-```mec
+```
 (˙◯˙)       -- Normal
 (ˆ◯ˆ)       -- Content
 (°◯°)       -- Surprised
@@ -562,8 +578,9 @@ We can even represent Mika as a closeup using the folloing base characters:
 
 We can add arms for the purpose of gesturing:
 
-```mec
+```
 Ɔ∞(˙◯˙)∞C   -- Gesture Wide
+(∞C˙◯˙Ɔ∞)   -- Gesture Close
 (∞C˙◯˙)∞C   -- Gesture Right
 Ɔ∞(˙◯˙Ɔ∞)   -- Gesture Left
 ```
@@ -575,10 +592,10 @@ Various expressions and animations are possible:
 (˙◯˙) -> (˙⊙˙) -> (˙⊝˙) -> (˙⦵˙) -> (˙⊝˙) -> (˙⊙˙) -> (˙◯˙)
 
 -- Talking
-(˙⊝˙) -> (˙⊜˙) -> (˙⊝˙)
+(˙⊝˙) -> (˙⊜˙)
 
 -- Spin
-(˙⊕˙) -> (˙⊗˙) -> (˙⊕˙)
+(˙⊕˙) -> (˙⊗˙)
 
 -- Error
 (˙⊗˙)
@@ -587,7 +604,11 @@ Various expressions and animations are possible:
 (˙⏺˙)
 ```
 
-Here is where we make an actual contribution. Beyond just being little ascii art characters, these guys actually are encoded in the programming language itself. We can parse thema and actually use them in code. They represent comment from AI so normally we have comments that we write yeah? So we need to distirnguish those from comments AI writes and so they AI uses this little guy and can pose him to point things out in the code. He acts as a sigil to the parser indicating a comment when the code is run, but he's obviously written by AI no human woould write him.
+```
+
+Here is where we make an actual contribution. This idea started as a joke language I wrote called PURRTRAN, which features an AI cat mascot that (un)helpfully assists the user in writing cdoe. But when it was posted on Hacker News, some people though it might be a good idea if it were not a joke, so here we are!
+
+Beyond just being little ascii art characters, these guys actually are encoded in the programming language itself. We can parse thema and actually use them in code, and they evaluate to atomic values in the Mech langauge. They represent comment from AI so normally we have comments that we write yeah? So we need to distirnguish those from comments AI writes and so they AI uses this little guy and can pose him to point things out in the code. He acts as a sigil to the parser indicating a comment when the code is run, but he's obviously written by AI no human woould write him. This can provide some provenance information about the code, include little IDs which can trace back to AI conversations which generated the resulting comment and code additions. Furthermore, this makes the code auditable and can potentially be used to impact compilation outcomes or runtime behavior. For example since MEch supports capabilities, we could have a capability that disallows AI generated code in certain contexts, and the presence of Mika in the code would be a signal to the compiler that this code was generated by AI and therefore should be subject to that capability. Or we caould have a flag that disallows AI generated code in safety critical modules, and the presence of Mika would be a signal to the compiler that this code was generated by AI and therefore should be disallowed in those modules. wHen integrated with source and version control, this could even be used to track the percentage of AI generated code in a codebase over time and where it came from, which could be useful for auditing and understanding the provenance of code in a codebase. WHy can't this just be done with version control and having the AI bot be a user? Well, you could do that, but then the AI generated code would be indistinguishable from human generated code, which means you wouldn't be able to easily query for it or have it impact compilation outcomes or runtime behavior. By having a specific sigil in the code that indicates it's AI generated, you can easily query for it and have it impact compilation outcomes or runtime behavior in a way that is not possible if it's just mixed in with human generated code in version control.
 
 ╰⦿╮ ⸢Hello, I'm Mika, your AI Mech coding assitant!⸥
 
@@ -627,13 +648,15 @@ That’s much stronger.
 
 
 Give the zoombinis angle, the mix and match society diversity angle, the idea of a mascot family, the idea of a town of mascots, the idea of a whole world of mascots, and the idea that Mika is just one character in a whole universe of characters that can be generated and used in different contexts. example octocat the new thing is not just a mascot but a whole family of mascots or a whole universe of mascots.
-
+```
 
 
 7. Conclusion
 --------------------------------------------------------------------------------
 
 This page will have to be amdended as more mascots are created in the futrue. For example, here's a recent page where Scala community members are discussing a potential mascot, so maybe it's just a matter of time until Scla finds its way to hte compendium.
+
+Notably there are no array languages here.
 
 https://contributors.scala-lang.org/t/scala-still-in-need-of-a-mascot/5247/55?page=3
 
