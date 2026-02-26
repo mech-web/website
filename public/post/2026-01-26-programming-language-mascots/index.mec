@@ -40,7 +40,7 @@ By the time computers came around in the mid 20th century, the idea of a mascot 
 
 Computing has always been a field where fun, creativity, and silliness are paramount. However, early computing products were designed and marketed as military hardware or custom-built research equiment, industries which didn't lend to the fun, silly, and creative branding and marketing that is common in consumer products. But that of course never stopped people and subcultures within computing from having fun and expressing themselves creatively, even sometimes in ridiculous ways. As the computing industry grew and diversified -- and of course commercialized -- the need for branding and user engagement led to the widespread adoption of marketing tools like mascots.
 
-![Wile E. Coyote operate the UNIVAC "electronic brain", which feeds him ideas on how to capture Bugs Bunny. The twist of the episode is that Bugs Bunny is hiding inside the UNIVAC the entire time, sabotaging the coyote's plans.](/images/univac.png)
+![Wile E. Coyote operate the UNIVAC "electronic brain", which feeds him ideas on how to capture Bugs Bunny. The twist of the episode is that Bugs Bunny is hiding inside the UNIVAC the entire time, sabotaging the coyote's plans.](/images/wb_univac.png)
 
 The first even tangential appearance of a mascot used with a computer was in 1956, when Warner Brothers released the Looney Tunes cartoon ["To Hare is Human"](https://www.supercartoons.net/cartoon/to-hare-is-human/) directed by Chuck Jones[HARE]. In the cartoon, Wile E. Coyote uses a [UNIVAC computer](https://en.wikipedia.org/wiki/UNIVAC) to generate ideas on how to catch Bugs Bunny, who is later revealed to be intercepting the UNIVAC output to sabotage Wile E. Coyote[^GENAI].
 
@@ -108,6 +108,8 @@ The legacy of the Logo turtle extends far beyond the Logo language itself. The i
 Even the physical The physical turtle robots themselves have had surprising longevity. The Open Robotics Initiative has released multiple generations of TurtleBot robots for education and research, carrying forward the spirit of those original dome-shelled robots from the 1960s. In a field where technologies become obsolete within years, the turtle has remained relevant for over half a century -- a testament to the power of good design and pedagogical insight.
 
 https://www.alancsmith.co.uk/logo/
+
+https://staff.informatics.buu.ac.th/~krisana/logo/Logo-jFuller/logo1.htm
 
 (1.2) CAML / Perl / OCaml's Camels (1985 / 1987 / 2005)
 
