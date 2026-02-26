@@ -89,6 +89,8 @@ But it is the Logo langauge from 1967 designed by Feurzeig, Papert, and Solomon 
 
 (1.1) Logo's Turtle (1967)
 
+<<![The Logo turtle is a small, dome-shaped robot with a pen attached to its underside. It can move forward, backward, and turn at various angles, leaving behind a trail of ink as it traces geometric patterns across large sheets of paper spread on the floor.](/images/HQ_Logo.png){width: "250px"}
+
 The first programming language mascot is arguably the Logo turtle, which was introduced in 1967 as part of the Logo programming language developed by Wally Feurzeig, Seymour Papert, and Cynthia Solomon. What makes the turtle particularly significant in the history of programming language mascots is that it wasn't just a marketing afterthought or a cute symbol slapped onto an existing language -- the turtle was integral to Logo's entire design philosophy and pedagogical approach.
 
 The inspiration for the turtle came from the work of neurophysiologist William Grey Walter, who in the late 1940s built a series of autonomous robots called "tortoises" that could navigate their environment and respond to light. These early robots, named Elmer and Elsie, were designed to demonstrate that complex behavior could emerge from simple rules -- a concept that deeply influenced Papert's thinking about how children could learn about mathematics and computation.
@@ -214,6 +216,8 @@ https://www.oracle.com/javaone/community/
 https://x.com/dukecommunity
 
 (3.2) Scratch's ScratchCat (2004)
+
+<<![ScratchCat is a playful and creative character that represents the fun and educational nature of the Scratch programming language.](/images/HQ_ScratchCat.png){width: "250px"}
 
 Scratch is a programming language for education and creativity developed by the Lifelong Kindergarten Group at MIT, and it has become one of the most popular programming languages for children and beginners. Scratch's mascot, ScratchCat, is a cute and friendly cat character that serves as the face of the Scratch community and brand. Being an educational language, it has roots that trace back to the Logo language and its turtle mascot, so it makes sense that Scratch would also have an engaging mascot for its young users.
 
@@ -448,7 +452,7 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 6. Designing a new Mascot - Mika the Mech
 -------------------------------------------------------------------------------
 
->>![Mika is can summon copies of herself](/images/HQ_Mika.png){width: "250px"}
+![Mika is can summon copies of herself](/images/HQ_Mika.png){width: "350px"}
 
 Following in this tradition, today we are introducing a mascot for Mech.
 
