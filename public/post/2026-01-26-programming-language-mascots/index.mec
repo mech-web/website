@@ -9,6 +9,12 @@ A Compendium of Programming Language Mascots
 
 Although I've looked around, I can't find any comprehensive articles on the history and state of the art of programming language mascots. So this is the article I was hoping to find. Having now done the deep dive into this topic, I can say *right now* is the exact right time to start looking backwards at programming language mascots over the years; as you'll see, the history of mascots in programming languages is still very recent (beginning in just 1967) and is rapidly evolving. With AI lowering barriers to language development, we are likely to see an explosion of new programming languages and associated mascots in the coming years, making it a good time to take stock of where we are and how we got here.
 
+Most people in the PL community think of programming languages first as tools, math, systems, or contracts. But programming  languages are also languages -- they are communities of people who use them, and they are cultures that have developed around them. In this context, mascots can be seen as a way to represent and personify the culture of a programming language community, making it more relatable and engaging for its users. So while it's true that programming languages are tools that's not the whole story. One of hte key problems in programming language design and development is how to build these communities, and the hope seems to be amongst most language designers over the years that the features and promise of better abstractions and programs will be enough to attract new users. Moreover, the problem of funding the community has become increasigly dire. The situation today is that no one will actually pay for compilers outside a few niche cases, and certainly no one will pay for a compiler that no one uses. This chicken and egg problem has vexed language designers for ages, but there seems to be a solution to this, and that is to lean into the human side of programming languages. Mascots are part of the answer of how to attract users to programming langauges and to build coehsion, engagement, and identity in programming language communities. They help with evangelism, build mindshare (it's hard to think of what an interpreter looks like but it's very easy to imagine a snake and call that the interpreter), and they can even be a source of revenue for the community through merchandise -- people will pay $0 for a compiler but they will pay $20 for a t-shirt with a mascot for a compiler on it. This brings me to me corrolarry to the famous quote about having a good name for a and needing a programming language to go along with it attribute to Knuth quote
+
+> The most important thing in the programming language is the name. A language will not succeed without a good name. I have recently invented a very good name and now I am looking for a suitable language. -- Donald Knuth
+
+We have to define what "success" actually means here. To me, the bar is low. It doesn't mean your language has to be in the TIOBE index. I think success when it comes to languages is that it has a community, and *maybe even* users, but not necessarily. The ultimate *realistic* success for a langauge again should be to attain broad adoption, although I'm sure that would be welcome, but instead that the ideas of the language live on beyond the community, whether in the general public or as features adopted in other languages. In that sense, I think that "success" can be attained in many ways, and a mascot can be a powerful tool in both regards.
+
 So in this article we'll look at the most iconic mascots in programming language history, their design inspirations, the artists behind them, and the impact they've had on the programming community as a whole. We'll also look at some newer mascots, trends in mascot design, and where mascots might take us in the future.
 
 Information about mascots in programming languages can be hard to find; this article collects knowledge that may only be contained in scattered blogs, forum discussions, and social media threads -- certainly not academic journals. By compiling it all in one place, I hope the article can serve as a comprehensive resource for anyone interested in the fascinating world of programming language mascots. Also, if anyone finds mistakes, has facts to add, or citations to include, let me know by making a [pull request](https://github.com/mech-web/website). Also this article should be a living compendium, so as new mascots emerge, please create a pull request to add them to the compendium.
@@ -234,7 +240,19 @@ https://youtu.be/HiWnyeajOLk?si=Wj_n68cgVMD3u6h5&t=87
 https://scratch.mit.edu/users/ScratchCat/
 https://en.scratch-wiki.info/wiki/Scratch_Cat
 
-(3.3) Go's Gopher (2009)
+(3.3) Python's Python (2005)
+
+You could possibly consider a snake to be mascot of the Python language, but there's really no canonical character that's associated with Python. 
+
+Indeed, the Python name doesn't even refer to a kind of snake[^4], but rather to Monty Python, the British comedy troupe. Because of this, for a long time Python eschewed having a snake mascot. It wasn't until 2005 that the Python Software Foundation held a contest to design an official mascot for the language, which resulted in several snake-themed designs. However, none of these designs were ever officially adopted as the language's mascot.
+
+So while snakes are often used in Python branding -- logos and various supporting tools and packages (e.g. Anaconda) -- there isn't a specific python character that represents the Python language in the same way as Duke represents Java or Ferris represents Rust.
+
+https://www.thecodingforums.com/threads/proposed-python-logo.356848/
+https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
+
+
+(3.4) Go's Gopher (2009)
 
 >>![Gopher is adept at multitasking, serving many requests at once.](/images/HQ_Gopher.png){width: "250px"}
 
@@ -246,7 +264,7 @@ https://9p.io/plan9/glenda.html
 https://go.dev/blog/gopher
 https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjMCbxo40IUxdRq_YBHpKRokKgB1UGDR
 
-(3.4) Rust's Ferris (2016)
+(3.5) Rust's Ferris (2014)
 
 <<![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
 
@@ -255,6 +273,10 @@ Ferris is the official mascot of the Rust programming language, and he has becom
 The interesting thing about Ferris is that he was not created as part of a corporate marketing strategy like Duke, but rather emerged organically from the Rust community. The term "rustacean" was coined by the Rust community to refer to Rust users and enthusiasts, and it quickly became a popular way to describe the community.
 
 In the early days of Rust, there was no official mascot or character associated with the language. However, as the community grew and became more active, the idea of having a mascot to represent Rust and its values started to gain traction. That was when the term "rustacean" was coined, and it quickly became a popular way to refer to Rust users and enthusiasts. The term was meant to evoke the idea of a hardy and resilient creature that could thrive in harsh environments, which is a fitting metaphor for the Rust language's focus on safety and performance.
+
+> In late 2014, I had a bunch of friends involved in open source software and activism who lived in a group house in San Francisco. They had an IRC channel slash virtual living room–#ptopology on Freenode, requiescat in pace—that I hung out in. A couple of people in the channel were working on pre-1.0 Rust at Mozilla and mentioned one day that they called themselves “Rustaceans,” in the same vein as e.g. “pythonistas” for Python. I thought that was adorable so I took an hour or two to draw them a cute red-orange crab with the Rust sprocket for a back. Figured a crab would be easier to make visually appealing than a lobster or a prawn.
+I do not remember who in the channel suggested naming it “Ferris”. In fact, I didn’t notice the pun (a play on the word “ferrous”—a reference to iron, which is a metal that rusts) till YEARS later! I just liked the name and that it was fairly gender-neutral.
+Anyway, these Rust developers asked if they could share it in #rust; I, of course, said yes! At the time, it was just a one-off piece of fan art that I thought might make my friends happy. I had no idea Ferris would spread so far and wide!
 
 Yes, the term rustacean came first.
 
@@ -272,6 +294,8 @@ https://crates.io/crates/ferris-says (cowsay for ferris)
 
 https://crates.io/crates/ferris-actor (show ferris in an ascii pose)
 various poses https://docs.rs/crate/ferris-actor/0.2.5/source/src/act/actor.rs
+
+https://rustfoundation.org/media/celebrating-rusts-birthday-with-karen-tolva-creator-of-ferris-the-rustacean/
 
 4. Indie Mascots
 -------------------------------------------------------------------------------
@@ -393,16 +417,6 @@ PHP (pun-driven mascot → plush culture). php.net’s official elePHPant page r
 http://www.elroubio.net
 https://archive.is/ncqI
 
-(5.8) Python's Python
-
-You could possibly consider a snake to be mascot of the Python language, but there's really no canonical character that's associated with Python. 
-
-Indeed, the Python name doesn't even refer to a kind of snake[^4], but rather to Monty Python, the British comedy troupe. Because of this, for a long time Python eschewed having a snake mascot. It wasn't until 2005 that the Python Software Foundation held a contest to design an official mascot for the language, which resulted in several snake-themed designs. However, none of these designs were ever officially adopted as the language's mascot.
-
-So while snakes are often used in Python branding -- logos and various supporting tools and packages (e.g. Anaconda) -- there isn't a specific python character that represents the Python language in the same way as Duke represents Java or Ferris represents Rust.
-
-https://www.thecodingforums.com/threads/proposed-python-logo.356848/
-https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 
 (5.9) Raku's Camelia the Butterfly
 
