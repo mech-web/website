@@ -242,6 +242,8 @@ https://en.scratch-wiki.info/wiki/Scratch_Cat
 
 (3.3) Python's Python (2005)
 
+>>![Python is very zen, and tries to strike a balance between powerful and yet very learnable and approachable.](/images/HQ_Python.png){width: "250px"}
+
 You could possibly consider a snake to be mascot of the Python language, but there's really no canonical character that's associated with Python. 
 
 Indeed, the Python name doesn't even refer to a kind of snake[^4], but rather to Monty Python, the British comedy troupe. Because of this, for a long time Python eschewed having a snake mascot. It wasn't until 2005 that the Python Software Foundation held a contest to design an official mascot for the language, which resulted in several snake-themed designs. However, none of these designs were ever officially adopted as the language's mascot.
@@ -254,7 +256,7 @@ https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 
 (3.4) Go's Gopher (2009)
 
->>![Gopher is adept at multitasking, serving many requests at once.](/images/HQ_Gopher.png){width: "250px"}
+<<![Gopher is adept at multitasking, serving many requests at once.](/images/HQ_Gopher.png){width: "250px"}
 
 Go is a programming language developed by Google in 2009, and it has become one of the most popular programming languages for systems programming and cloud computing. Go's mascot, Gopher, is a cute and friendly gopher character that represents the Go language and its community. Gopher is often depicted in various poses and scenarios, showcasing his playful and creative nature.
 
@@ -266,9 +268,9 @@ https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjM
 
 (3.5) Rust's Ferris (2014)
 
-<<![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
+>>![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
 
-Ferris is the official mascot of the Rust programming language, and he has become an iconic figure in the Rust community. Ferris is a friendly and approachable crab character that represents the Rust language's focus on safety, performance, and concurrency. He is often depicted in various poses and scenarios, showcasing his playful and creative nature. 
+Ferris is the unofficial mascot of the Rust programming language, and he has become an iconic figure in the Rust community. Ferris is a friendly and approachable crab character that represents the Rust language's focus on safety, performance, and concurrency. He is often depicted in various poses and scenarios, showcasing his playful and creative nature. 
 
 The interesting thing about Ferris is that he was not created as part of a corporate marketing strategy like Duke, but rather emerged organically from the Rust community. The term "rustacean" was coined by the Rust community to refer to Rust users and enthusiasts, and it quickly became a popular way to describe the community.
 
@@ -466,7 +468,7 @@ https://lunduke.locals.com/post/5111104/no-the-c-mascot-is-not-a-diseased-rat-na
 6. Designing a new Mascot - Mika the Mech
 -------------------------------------------------------------------------------
 
-![Mika is can summon copies of herself](/images/HQ_Mika.png){width: "350px"}
+![Mika is can summon copies of herself](/images/HQ_Mika.png){width: "400px"}
 
 Following in this tradition, today we are introducing a mascot for Mech.
 
@@ -596,7 +598,7 @@ We can even represent Mika as a closeup using the folloing base characters:
 (◞◯◟)      -- Sad
 ```
 
-We can add arms for the purpose of gesturing:
+We can add arms for gesturing:
 
 ```
 Ɔ∞(˙◯˙)∞C   -- Gesture Wide
@@ -724,3 +726,14 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 
 
 Rank: https://www.reddit.com/r/ProgrammerHumor/comments/160emjc/programmingmascotstierlist/
+
+Language	⚔️ Performance	🛡 Safety	❤️ Heart	🧠 Expressiveness	Total
+Logo	    1	3	3	3	10
+Perl	    2	1	3	4	10
+OCaml	    3	3	2	2	10
+Java	    2	2	4	2	10
+Python	    2	2	3	3	10
+Rust	    4	3	2	1	10
+Scratch	    1	4	3	2	10
+Go	        3	3	3	1	10
+Mech        3   3   0   4   10
