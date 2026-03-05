@@ -225,15 +225,32 @@ https://x.com/dukecommunity
 
 <<![ScratchCat is a playful and creative character that represents the fun and educational nature of the Scratch programming language.](/images/HQ_ScratchCat.png){width: "250px"}
 
-Scratch is a programming language for education and creativity developed by the Lifelong Kindergarten Group at MIT, and it has become one of the most popular programming languages for children and beginners. Scratch's mascot, ScratchCat, is a cute and friendly cat character that serves as the face of the Scratch community and brand. Being an educational language, it has roots that trace back to the Logo language and its turtle mascot, so it makes sense that Scratch would also have an engaging mascot for its young users.
+Scratch is a programming language for education and creativity developed by the [Lifelong Kindergarten Group](https://www.media.mit.edu/groups/lifelong-kindergarten/overview/) at MIT, and it has since become one of the most popular programming languages for children and beginners. Scratch's mascot, ScratchCat, is a cute orange cat character that serves as the face of the Scratch community and brand. Being an educational language, it has roots that trace back to the Logo language and its turtle mascot, so it makes sense that Scratch would also have an engaging mascot for its young users.
 
-Before they (ScratchCat's gender is unknown but they are described using they/them pronouns by one of the creators of Scratch, so we will describe them thusly) were a mascot tey can first be seen as a default sprite in the Scratch editor as a top down view of a cat loaf. But the first actualy depiction of ScratchCat as a character was in the beta version circa 2004, depicted here.
+Before they (ScratchCat's gender is unknown but they are described using they/them pronouns by one of the creators of Scratch, so we will describe them thusly) were a mascot they can first be seen as a default sprite in the Scratch editor as a top down view of a cat loaf. But the first actual depiction of ScratchCat as a character I can find was in the beta version circa 2004, depicted here.
 
-ScratchCat is often depicted in various poses and scenarios, showcasing their playful and creative nature. The character is designed to be approachable and friendly, making it appealing to children and beginners who are just starting to learn programming.
+ScratchCat is often depicted in various poses and scenarios, showcasing the playful and creative nature of Scratch the language. The character is designed to be approachable and friendly, making it appealing to children and beginners who are just starting to learn programming.
 
-But Scratch extends this idea beyond individual cognition into networked creativity. ScratchCat is therefore not merely a successor to the turtle as a programmable cursor, but the central figure through which programs are created, exchanged, and remixed across a global community.
+But Scratch extends this idea beyond individual cognition into networked creativity. Becasue the thing about Scratch is that it's not just a programming language, but an programming environment and structured editor, as well as a whole community for sharing programs. Scratchat is therefore used in ways that other languages can't, where he's a literal avatar in the editor, meaning that h'es probably been remixed and used more than any other programming language mascot in history. Despite Duke's massive marketing budget and ubiquitous nature, you can still find Java users all over who have no idea Java even has a mascot. Thats because you can use JAva without ever seeing Duke onece. But Scratch cat is omnipresent, they're all over scratch, there's no way to avoid them, and so their mindshare is much higher amongst scratch users than Duke's is among Java users.
 
-Becasue the thing about scratch is that it's not just a programming language, but an editor, and a whole community for sharing programs. Scratchat is therefore used in ways that other languages can't, where he's a literal avatar in the editor, meaning that h'es probably been remixed and used more than any other programming language mascot in history. ScratchCat is the most widely used programming language mascot of all time, with millions of users creating and sharing projects featuring ScratchCat on the Scratch website. Despite Duke's massive marketing budget and ubiquitous nature, you can still find Java users all over who have no idea Java even has a mascot. Thats because you can use JAva without ever seeing Duke onece. But Scratch cat is omnipresent, they're all over scratch, there's no way to avoid them, and so their mindshare is much higher amongst scratch users than Duke's is among Java users.
+
+ScratchCat is therefore not merely a successor to the turtle as a programmable cursor, but the central figure through which programs are created, exchanged, and remixed across a global community. This means ScratchCat is not just a mascot but an actor within the Scratch ecosystem -- not quite built into the language, but omnipresent in the Scratch community and culture. This means every scratch user has their own personal relationship with ScratchCat.
+
+But Scratch goes beyond just ScratchCat and other languages of the past; Scratch introduced the idea of a mascot family, where there are multiple characters that have relationships with ScratchCat. So with Scratch it's not just a mascot selling the language but a whole universe within the ecosystem of mascots with relationships, personalities, and backstories, inspiring all kinds of creations in the language which aren't actually programs. For example, here's a web series a Scratch user made about ScratchCat and their friends: https://scratch.mit.edu/studios/29038917
+
+Scratch Cat's friends are included as Sprites in the default Scratch editor, and they include:
+
+- Gobo: https://en.scratch-wiki.info/wiki/gobo
+- Pico: https://en.scratch-wiki.info/wiki/Gobo%27s_Friends#Pico
+- Tera: https://en.scratch-wiki.info/wiki/Gobo%27s_Friends#Tera
+- Nano: https://en.scratch-wiki.info/wiki/Gobo%27s_Friends#Nano
+- Giga: https://en.scratch-wiki.info/wiki/Gobo%27s_Friends#Giga
+
+Used in server errors:
+
+https://en.scratch-wiki.info/w/images/InternalServerError3.0.png
+https://en.scratch-wiki.info/wiki/File:500.png
+
 
 https://youtu.be/HiWnyeajOLk?si=eoEAwg88Mkb6xK9o&t=61
 https://youtu.be/HiWnyeajOLk?si=Wj_n68cgVMD3u6h5&t=87
@@ -244,15 +261,47 @@ https://en.scratch-wiki.info/wiki/Scratch_Cat
 
 >>![Python is very zen, and tries to strike a balance between powerful and yet very learnable and approachable.](/images/HQ_Python.png){width: "250px"}
 
-You could possibly consider a snake to be mascot of the Python language, but there's really no canonical character that's associated with Python. 
-
-Indeed, the Python name doesn't even refer to a kind of snake[^4], but rather to Monty Python, the British comedy troupe. Because of this, for a long time Python eschewed having a snake mascot. It wasn't until 2005 that the Python Software Foundation held a contest to design an official mascot for the language, which resulted in several snake-themed designs. However, none of these designs were ever officially adopted as the language's mascot.
+Python has been around since 1996, but its mascot story is a little more complicated than "It's named Python so they chose a snake", because the Python name doesn't even refer to a kind of snake[^MOLD], but rather to Monty Python, the British comedy troupe. For a long time inventor and BDFL Guido van Rossum was opposed to the idea of a snake mascot, so the snake association didn't come much later in the langauge's life.
 
 So while snakes are often used in Python branding -- logos and various supporting tools and packages (e.g. Anaconda) -- there isn't a specific python character that represents the Python language in the same way as Duke represents Java or Ferris represents Rust.
 
 https://www.thecodingforums.com/threads/proposed-python-logo.356848/
 https://groups.google.com/g/comp.lang.python/c/rh7qT7lQWys/m/ypoPn8QdQ9wJ
 
+Before the Python logo we all know and love, Python had been officially represented by a dot matrix word mark:
+
+https://en.wikipedia.org/wiki/History_of_Python#/media/File:Python_logo_1990s.svg
+
+But some snake imagery can be found, such as here: https://web.archive.org/web/19980526010423/http://www.python.org/windows/pywin14.html
+
+These icons were created by Mark Hammond:
+
+https://commons.wikimedia.org/wiki/Category:Python_icons_by_Mark_Hammond
+
+The modern logo was released with version 2.5
+
+> English: Icons created by Mark Hammond for the Windows port of CPython and for the PythonWin IDE. Used in Python for Windows builds from Python.org until the current Python logo was introduced in 2006, when icons for all platforms were revised to include it, taking effect in Python 2.5. Accordingly, this is the de facto logo of Python for Windows versions 1.3 through 2.4.
+
+
+They moved away from this one: https://www.python.org/psf/trademarks-faq/
+
+Usage: https://www.python.org/psf/trademarks-faq/
+
+> Hsu: But why Python rather than Monty?
+> Van Rossum: That’s a good question. I don’t think I knew what Monty meant. I still don’t, so—and Monty
+Python in full was too long and I guess I wanted it to be somewhat unobvious where the name came from
+although I’ve always resisted the—the snake thing.
+
+https://archive.computerhistory.org/resources/access/text/2018/07/102738719-05-01-acc.pdf?utm_source=chatgpt.com
+
+if you go back to that logo, I mean, that was back when there was a little pixelated snake as the icon, I think Windows was it, So we were already kind of going with it at that point.
+
+https://talkpython.fm/episodes/show/513/stories-from-python-history?utm_source=chatgpt.com
+
+Oreilly comes back into the picture here and wated a snake on the cover of the Python book but the story is that Guido resisted due fearing a negative association with snakes, but I mean the language was already named after a snake..
+
+
+So the lesson of Python is that sometiems your mascot is destiny. You can name your langauge one thing, and try to avoid associations, but even as a benevolent dictator the community's will is going to find a way. You can't call your langauge Python and expect people to not associate it with Pythons. Also if you want to associate your langauge with some thing make sure it's not copyrighted.
 
 (3.4) Go's Gopher (2009)
 
@@ -708,7 +757,7 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 
 [^3]: Remember Izzy, the mascot of the 1996 Atlanta Olympics? What the heck was that even?
 
-[^4]: This is confusing much in the same way that the name Rust does not actually refer to oxidized iron, but rather to a fungus that grows on apples. Mirroring the same situation in Python, there are many Rust crates that are themed after industrial or metallic concepts (e.g. Iron the web framework), but not really any mold-themed crates of note.
+[^MOLD]: This is confusing much in the same way that the name Rust does not actually refer to oxidized iron, but rather to a fungus that grows on apples. Mirroring the same situation in Python, there are many Rust crates that are themed after industrial or metallic concepts (e.g. Iron the web framework), but not really any mold-themed crates of note.
 
 [^6]: I almost didn't include the .Net Bot because it's more of a general mascot for the .Net ecosystem, and we did say this list was specifically for programming languages. However, since Mika, being a round mechanical thing with arms and legs, vaguely resembles the .Net Bot, I thought it would be worth including as a point of comparison. Also to note specifically Mika is based on a sketch of a tattoo a friend had drawn for me many years ago, so the resemblance is purely coincidental.
 
