@@ -54,7 +54,7 @@ I can't find any character or mascot associated in any way with a computing prod
 
 It wasn't until 1976 that the idea of using a mascot to represent a computing product was adopted by industry, when BSD Unix adopted Beastie the BSD Daemon as a mascot. Beastie was created by Phil Foglio, Mike O'Brien, and John Lasseter [BEASTIE], who intended Beastie's demonic form to evoke the idea of a background process in Unix systems, which are often referred to as "daemons". This started the tradition of using the mascot to represent and personify features of the computing system in figurative ways -- although as we'll see the origin stories and meanings behind them can have varying levels of depth and sincerity.
 
-Since the introduction of Beastie, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^OSTAN]. Mascots have also become an important part of commerical software products, such as Microsoft's Clippy. More recently large tech companies have even introdiced AI assistants like Cortant, Siri, and Alexa, which serve the role of mascots for their respective platforms [^CORTANA].
+Since the introduction of Beastie, the open source community has frequently used mascots to represent various projects and movements including the GNU Project's GNU (a wildebeest), Linux's [Tux the penguin](https://en.wikipedia.org/wiki/Tux_(mascot)), Glenda the Plan 9 bunny, the Android robot, and many others [^OSTAN]. Mascots have also become an important part of commerical software products, such as Microsoft's Clippy. More recently large tech companies have even introdiced AI assistants like Cortana, Siri, and Alexa, which serve the role of mascots for their respective platforms [^CORTANA].
 
 2. Proto Mascots
 -------------------------------------------------------------------------------
@@ -70,6 +70,7 @@ Some other reasons why mascots are used in programming languages include:
 - **Branding and Marketing:** Mascots help create a memorable image for a programming language, making it easier for developers to recognize and remember it among many options. Along with a logo, brand colors, and a good name [^GOODNAME], a mascot can be an important part of a modern programming language's identity and marketing strategy.
 - **Community Building:** Many mascots are licensed to be used by the community, so they can be used legitimately in user groups, conferences, and other community events. Other mascots are community designed and driven, which further strengthens the bond between the language and its users.
 - **Engagement:** Mascots add an element of personality to a programming language, making it more approachable and engaging for users. It's common for the mascot to be an avatar which guides new users through tutorials and documentation.
+- **Pedagogy:** Mascots can be used as educational tools to help teach programming concepts.
 - **Fundraising:** No one wants to pay money for a compiler, even people who like and use it. Plenty of people are willing to pay money for a plushie or t-shirt with a cute character on it.
 - **Fun:** Sometimes there doesn't have to be a purpose to a thing except to have fun with it. 
 
@@ -198,6 +199,8 @@ Just as programming language names evolved from technical acronyms to more playf
 The 1990s marked the first true programming language mascot, Duke, which was followed by a wave of mascots in the 2000s and 2010s as programming languages became more mainstream and commercialized. In this section, we'll take a look at some of the most iconic programming language mascots that emerged during this period, including Java's Duke, Go's Gopher, Rust's Ferris, and Scratch's ScratchCat. If your favoriate mascot is not listed in this section, don't worry we try to be more comprehensive in §6.
 
 (3.1) Java's Duke (1995)
+
+>>![Bold and stalwart, Duke's mission is to spread Java to all corners of the world.](/images/HQ_Duke.png){width: "250px"}
 
 USE THE PHRASE "conference theater" IN THIS SECTION TO DESCRIBE HIS ROLE
 
@@ -611,113 +614,79 @@ Like the Raku Butterfly, Mika also has a minimal design, only 9 bytes long, whic
 
 (6.3.1) MicroMika
 
-```
-╭⦿╮        -- Idle
-   
-╭⦿─        -- Pointing
 
-╭⦿╯        -- Waving
-
-╰⦿╯        -- Cheering
-
--◡⦿◡-     -- Shrug
-
-╭⊕╮        -- Behind
-
-╭◯╮        -- Off
-
-╭⦿─‹       -- Gripper
-
-›⌣⦿⌣‹     -- Big Hug
-
-⸸⦿ᗢ        -- Knight
-
-·¬⦿⌐·       -- Matrix
-
-~⦿~         -- Dancing
-```
+| Pose       | Sigil |
+|-----------:|------------|
+| Idle       | `╭⦿╮`     |
+| Pointing   | `╭⦿─`     |
+| Waving     | `╭⦿╯`     |
+| Cheering   | `╰⦿╯`     |
+| Shrug      | `-◡⦿◡-`   |
+| Behind     | `╭⊕╮`     |
+| Off        | `╭◯╮`     |
+| Gripper    | `╭⦿─‹`    |
+| Big Hug    | `›⌣⦿⌣‹`   |
+| Knight     | `⸸⦿ᗢ`     |
+| Matrix     | `·¬⦿⌐·`   |
+| Dancing    | `~⦿~`     |
 
 Inline Mika can also be animated:
 
-```
--- Sleep
-╭⦿╮ -> ╭⦾╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭◯╮
-
--- Wake
-╭◯╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦾╮ -> ╭⦿╮
-
--- Blink
-╭⦿╮ -> ╭⊖╮ -> ╭⦿╮
-
--- Pulse
-╭⦿╮ -> ╭⦾╮ -> ╭⊚╮ -> ╭⊙╮ -> ╭⊚╮ -> ╭⦾╮ -> ╭⦿╮
-
--- Waving
-╭⦿╮ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╯ -> ╭⦿─ -> ╭⦿╮
-
--- Raise arms
-╭⦿╮ -> ─⦿─ -> ╰⦿╯
-
--- Flapping
-╭⦿╮ -> ─⦿─ -> ╰⦿╯ -> ─⦿─ -> ╭⦿╮
-
--- Gripping
-╭⦿─‹ -> ╭⦿─- -> ╭⦿─‹
-```
+| Animation | Frames |
+|-----------:|--------|
+| Sleep | `╭⦿╮` → `╭⦾╮` → `╭⊚╮` → `╭⊙╮` → `╭◯╮` |
+| Wake | `╭◯╮` → `╭⊙╮` → `╭⊚╮` → `╭⦾╮` → `╭⦿╮` |
+| Blink | `╭⦿╮` → `╭⊖╮` → `╭⦿╮` |
+| Pulse | `╭⦿╮` → `╭⦾╮` → `╭⊚╮` → `╭⊙╮` → `╭⊚╮` → `╭⦾╮` → `╭⦿╮` |
+| Waving | `╭⦿╮` → `╭⦿╯` → `╭⦿─` → `╭⦿╯` → `╭⦿─` → `╭⦿╮` |
+| Raise arms | `╭⦿╮` → `─⦿─` → `╰⦿╯` |
+| Flapping | `╭⦿╮` → `─⦿─` → `╰⦿╯` → `─⦿─` → `╭⦿╮` |
+| Gripping | `╭⦿─‹` → `╭⦿─-` → `╭⦿─‹` |
 
 (6.3.2) MiniMika
 
 We can even represent Mika as a closeup using the folloing base characters:
 
-```
-(˙◯˙)       -- Normal
-(ˆ◯ˆ)       -- Content
-(°◯°)       -- Surprised
-(❛◯❛)        -- Scowl
-(-◯-)       -- Sleeping
-(⋇◯⋇)       -- Dazed
-(Ͼ◯Ͽ)       -- Scared
-(◉◯◉)      -- Wired
-(≻◯≺)       -- Eyes Shut
-(✖◯✖)       -- Dead
-(ㆆ⍜ㆆ)      -- Glaring
-(╥◯╥)       -- Crying
-(⌐▰◯▰)     -- Shades
-(⚆◯⚆)      -- Peer right
-(☉◯☉)      -- Peer straight
-(◕◯◕)      -- Rolling eyes
-(≖◯≖)       -- Squinting
-(◡̀◯◡́)ᕤ     -- Resolved
-(◞◯◟)      -- Sad
-```
+| Mood | Expression |
+|------:|:----------:|
+| Normal | `(˙◯˙)` |
+| Content | `(ˆ◯ˆ)` |
+| Surprised | `(°◯°)` |
+| Scowl | `(❛◯❛)` |
+| Sleeping | `(-◯-)` |
+| Dazed | `(⋇◯⋇)` |
+| Scared | `(Ͼ◯Ͽ)` |
+| Wired | `(◉◯◉)` |
+| Eyes Shut | `(≻◯≺)` |
+| Dead | `(✖◯✖)` |
+| Glaring | `(ㆆ⍜ㆆ)` |
+| Crying | `(╥◯╥)` |
+| Shades | `(⌐▰◯▰)` |
+| Peer right | `(⚆◯⚆)` |
+| Peer straight | `(☉◯☉)` |
+| Rolling eyes | `(◕◯◕)` |
+| Squinting | `(≖◯≖)` |
+| Resolved | `(◡̀◯◡́)ᕤ` |
+| Sad | `(◞◯◟)` |
 
 We can add arms for gesturing:
 
-```
-Ɔ∞(˙◯˙)∞C   -- Gesture Wide
-(∞C˙◯˙Ɔ∞)   -- Gesture Close
-(∞C˙◯˙)∞C   -- Gesture Right
-Ɔ∞(˙◯˙Ɔ∞)   -- Gesture Left
-```
+| Gesture | Expression |
+|--------:|:----------:|
+| Wide | `Ɔ∞(˙◯˙)∞C` |
+| Close | `(∞C˙◯˙Ɔ∞)` |
+| Right | `(∞C˙◯˙)∞C` |
+| Left | `Ɔ∞(˙◯˙Ɔ∞)` |
 
 Various expressions and animations are possible:
 
-```
--- Pulse
-(˙◯˙) -> (˙⊙˙) -> (˙⊝˙) -> (˙⦵˙) -> (˙⊝˙) -> (˙⊙˙) -> (˙◯˙)
-
--- Talking
-(˙⊝˙) -> (˙⊜˙)
-
--- Spin
-(˙⊕˙) -> (˙⊗˙)
-
--- Error
-(˙⊗˙)
-
--- Filled Nose
-(˙⏺˙)
-```
+| Animation | Frames |
+|-----------|--------|
+| Pulse | `(˙◯˙)` → `(˙⊙˙)` → `(˙⊝˙)` → `(˙⦵˙)` → `(˙⊝˙)` → `(˙⊙˙)` → `(˙◯˙)` |
+| Talking | `(˙⊝˙)` → `(˙⊜˙)` |
+| Spin | `(˙⊕˙)` → `(˙⊗˙)` |
+| Error | `(˙⊗˙)` |
+| Filled Nose | `(˙⏺˙)` |
 
 
 7. Conclusion
@@ -728,6 +697,11 @@ This page will have to be amdended as more mascots are created in the futrue. Fo
 Notably there are no array languages here.
 
 https://contributors.scala-lang.org/t/scala-still-in-need-of-a-mascot/5247/55?page=3
+
+
+Where do mascots go from here? 
+
+My guess is they are going to answer the question of what programming langauges become if AI start writing all the code. If the language is just a tool for humans to write code, then maybe the mascot is just a fun branding element. But if the language becomes a tool for AI to write code, then maybe the mascot becomes a sort of avatar for the AI itself, a way for the AI to represent itself and its relationship to the language and its users. The coding fades into the background and your interaction with the langauge isn't interacting with "claude" it's interacting with Mika, or whatever agents interacting with a cluster of Mikas, agents of Mech.
 
 ***
 
