@@ -102,13 +102,22 @@ The first programming language mascot is arguably the Logo turtle, which was int
 
 The inspiration for the turtle came from the work of neurophysiologist William Grey Walter, who in the late 1940s built a series of autonomous robots called "tortoises" that could navigate their environment and respond to light. These early robots, named Elmer and Elsie, were designed to demonstrate that complex behavior could emerge from simple rules -- a concept that deeply influenced Papert's thinking about how children could learn about mathematics and computation.
 
+TURTLE GRAPHICS IMAGE HERE
+
 When Logo was developed at BBN (Bolt, Beranek and Newman) in Cambridge, Massachusetts, the turtle started as a physical robot -- a small wheeled device with a pen that could be raised or lowered. Children could program this robot to move forward, backward, and turn at various angles, leaving behind a trail of ink as it traced geometric patterns across large sheets of paper spread on the floor. The dome-shaped shell that covered the robot's electronics gave it its turtle-like appearance, and the name stuck.
 
 What made the turtle revolutionary was Papert's concept of "body syntonic reasoning" -- the idea that children could learn abstract mathematical concepts by putting themselves in the turtle's position and thinking about how they themselves would move to create a particular shape. Instead of thinking about coordinate geometry in the abstract Cartesian way that adults had learned for centuries, a child could think "if I want to draw a square, I walk forward, turn 90 degrees, walk forward, turn 90 degrees..." This made programming accessible to children as young as four or five years old, something that was unthinkable for Logo's contemporaries.
 
-As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics -- a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs.
+This put the turtle into a cateogory Papert called "objects-to-think-with" -- physical or virtual objects that embody knowledge and can be used to facilitate learning and creativity.
 
-The turtle doesn't have a proper name in the same way that later mascots like Duke or Ferris do[^2], and it doesn't have an elaborate backstory or personality. In this sense, it fits more into our category of quasi-mascots rather than proper mascots. But what it lacks in character development, it more than makes up for in pedagogical significance and cultural impact. The turtle became so synonymous with Logo that the very concept of "turtle graphics" is now used generically to describe any programming environment where you control a cursor that draws as it moves.
+> The central role of the Turtle in this book... is to serve as a model for other objects, yet to be invented. My interest is in the process of invention of "objects-to-think-with," objects in which there is an intersection of cultural presence, embedded knowledge, and the possibility for personal identification.
+> The Turtle is a computer-controlled cybernetic animal. It exists within the cognitive minicultures of the "LOGO environment," LOGO being the computer language in which communication with the Turtle takes place. The Turtle serves no other purpose than of being good to program and good to think with. Some Turtles are abstract objects that live on computer screens. Others, like the floor Turtles... are physical objects [MINDSTORMS].
+
+As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics -- a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs. This advancement helped the turtle concept reach a much wider audience, because although the physical robot had come down in proce, the graphical representation was still more affordable and accessible for schools and individuals.
+
+The turtle doesn't have a proper name in the same way that later mascots do[^2], and it doesn't have an elaborate backstory or personality. Intead, "turtles" represent a class of possible teaching and pedagogical aides. Still, many distributes do have a mascot-like turtle character.
+
+In this sense, it fits more into our category of quasi-mascots rather than proper mascots. But what it lacks in character development, it more than makes up for in pedagogical significance and cultural impact. The turtle became so synonymous with Logo that the very concept of "turtle graphics" is now used generically to describe any programming environment where you control a cursor that draws as it moves.
 
 ROS TURTLE BOT AND TURTLE TUTORIAL GRAPHIC HERE
 
