@@ -90,38 +90,44 @@ Mascots were not always a feature in programming languages. In the early days of
 
 The earliest programming language names were acronyms or abbreviations that described their purpose or functionality, such as Fortran (Formula Translation, 1957), COBOL (Common Business-Oriented Language, 1960), and LISP (LISt Processing, 1960). These names were often chosen for their technical accuracy rather than their marketability or appeal to a broader audience. Even the first langauge Plankalkül, created by Konrad Zuse in the 1940s, simply described what it was -- a plan calculus. 
 
-It wasn't until the ISWIM language by Landin in 1966 that we see the first programming language name that evokes a philosophy or feeling rather than just technical functionality [ISWIM]. ISWIM stands for If You See What I Mean, reflecting the idea that programming should be about expressing ideas in a way that is easy to understand and reason about.
+It wasn't until the ISWIM (If You See What I Mean) language by Landin in 1966 that we see the first programming language name that evokes a philosophy or feeling rather than just technical functionality. That same year APL (A Programming Language) by Iverson was introduced, which stands for "A Programming Language", which is playfully tautological.
 
-But it is the Logo langauge from 1967 designed by Feurzeig, Papert, and Solomon that can be reasonably construed as having the first instance of a programming langauge mascot: the Logo turtle. 
+But it is the Logo langauge from 1967 that can be reasonably construed as having the first instance of a programming langauge mascot: the Logo Turtle. 
 
 (1.1) Logo's Turtle (1967)
 
-<<![The Logo turtle is a small, dome-shaped robot with a pen attached to its underside. It can move forward, backward, and turn at various angles, leaving behind a trail of ink as it traces geometric patterns across large sheets of paper spread on the floor.](/images/HQ_Logo.png){width: "250px"}
+<<![Logo's Turtle comes in many forms including a physical robot and a graphics package.](/images/HQ_Logo.png){width: "250px"}
 
-The first programming language mascot is the Logo turtle, which was introduced in 1967 as part of the Logo programming language developed by Wally Feurzeig, Seymour Papert, and Cynthia Solomon. [LOGO]
+The earliest programming language mascot is Logo's Turtle, which was introduced in 1967 as part of the Logo programming language developed by Wally Feurzeig, Seymour Papert, and Cynthia Solomon [LOGO].
 
-The inspiration for the turtle came from the work of neurophysiologist William Grey Walter, who in the late 1940s built a series of [simple autonomous robots called "tortoises"](https://youtu.be/lLULRlmXkKo?si=u8n4xfuJvp-5G2sO) that could navigate their environment and respond to light. [WALTER][RUTHERFORD]. These early robots were designed to demonstrate that complex behavior could emerge from simple rules — a concept that deeply influenced Papert's thinking about how children could learn about mathematics and computation.
+The inspiration for the Turtle came from the work of neurophysiologist William Grey Walter, who in the late 1940s built a series of [simple autonomous robots](https://youtu.be/lLULRlmXkKo?si=u8n4xfuJvp-5G2sO) called "tortoises" that could navigate their environment and respond to light, touch, and sound [WALTER]. These early robots were designed to demonstrate that complex and even learned behavior could emerge from simple rules [RUTHERFORD]. Walter would attach a light to the tortoises and, using a long-exposure camera, record them moving. This would produce pictures of the trails the robots took, revealing complicated ossilcating behaviors. 
+
+Papert took the next step and attached a marker to the tortoises, which could be raised and lowered on command from the Logo language, so that the robot would draw whereever it went as long as the pen was down.
 
 [IMAGE: Turtle Graphics — TURTLE GRAPHICS IMAGE HERE]
 
-When Logo was developed at BBN (Bolt, Beranek and Newman) in Cambridge, Massachusetts, the turtle started as a physical robot — a small wheeled device with a pen that could be raised or lowered.[CHINNASARN] Children could program this robot to move forward, backward, and turn at various angles, [leaving behind a trail of ink](https://www.youtube.com/watch?v=KeFhFPNO8hc) as it traced geometric patterns across large sheets of paper spread on the floor. The dome-shaped shell that covered the robot's electronics was reminiscent of a turtle's shell, which is how the robot got its name.
+When Logo was developed at BBN (Bolt, Beranek and Newman) in Cambridge, Massachusetts, the turtle started as a physical robot — a small wheeled device with a pen that could be raised or lowered. Using Logo, children could program this robot to move forward, backward, and turn at various angles, [leaving behind a trail of ink](https://www.youtube.com/watch?v=KeFhFPNO8hc) as it traced geometric patterns across large sheets of paper spread on the floor.
 
-What made the turtle revolutionary was Papert's concept of "body syntonic reasoning" — the idea that children could learn abstract mathematical concepts by putting themselves in the turtle's position and thinking about how they themselves would move to create a particular shape. Instead of thinking about coordinate geometry in the abstract Cartesian way that adults had learned for centuries, a child could think "if I want to draw a square, I walk forward, turn 90 degrees, walk forward, turn 90 degrees..." This made programming accessible to children as young as four or five years old, something that was unthinkable for Logo's contemporaries.
+What made the turtle revolutionary was Papert's concept of "body syntonic reasoning" — the idea that children could learn abstract mathematical concepts by putting themselves in the turtle's position and thinking about how they themselves would move to create a particular shape. This took the act of programming from abstract reasoning, a task for which young minds are underdeveloped; to physical reasoning, for which young minds are especially well suited [MINDSTORMS].
+
+Instead of thinking about coordinate geometry in the abstract Cartesian way that adults had learned for centuries, a child could think "If I want to walk in a square, I walk forward, turn 90 degrees, walk forward, turn 90 degrees, *etc.*, then I would have walked in a square. I can give these instructions to the Turtle to get the Turtle to move in a square!" Thus the young programming "embodies" the turtle -- they put themselves in the turtle's shoes -- and write the program from the Turtle's perspective. Shifting from abstract to physical reasoning places the task within the cognitive abilities of the programmer, and that's what makes it possible for them to achieve success with Logo -- other contemporary langauges like APL force abstract reasoning which is better suited for mature brains according to cognitive science [MINDSTORMS]. 
+
+Logo desmonstrated that programming could be a physical, embodied experience, and that this could make it more intuitive and accessible for learners as young as four years old, something that was unheard of at the time with other langauges [MINDSTORMS].
 
 This put the turtle into a category Papert called "objects-to-think-with" — physical or virtual objects that embody knowledge and can be used to facilitate learning and creativity:
 
 > The central role of the Turtle in this book... is to serve as a model for other objects, yet to be invented. My interest is in the process of invention of "objects-to-think-with," objects in which there is an intersection of cultural presence, embedded knowledge, and the possibility for personal identification.
 > The Turtle is a computer-controlled cybernetic animal. It exists within the cognitive minicultures of the "LOGO environment," LOGO being the computer language in which communication with the Turtle takes place. The Turtle serves no other purpose than of being good to program and good to think with. Some Turtles are abstract objects that live on computer screens. Others, like the floor Turtles... are physical objects.[MINDSTORMS]
 
-As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics — a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs. This advancement helped the turtle concept reach a much wider audience, because although the physical robot had come down in price, the graphical representation was still more affordable and accessible for schools and individuals.[VALIANT-TURTLE][TERRAPIN-LOGO]
+As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics — a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs. This advancement helped the turtle concept reach a much wider audience, because although the physical robot had come down in price, the graphical representation was still more affordable and accessible for schools and individuals.[VALIANT-TURTLE]
 
-The turtle doesn't have a proper name in the same way that later mascots do,1 and it doesn't have an elaborate backstory or personality. Instead, "turtles" represent a class of possible teaching and pedagogical aides. Still, many distributions do have a mascot-like turtle character.
+The Logo turtle doesn't have a proper name in the same way that later mascots do, and it doesn't have an elaborate backstory or personality, although, many distributions do have a mascot-like turtle character [TERRAPIN-LOGO]. Instead, "turtles" represent a class of possible teaching and pedagogical aides. 
 
 In this sense, it fits more into our category of quasi-mascots rather than proper mascots. But what it lacks in character development, it more than makes up for in pedagogical significance and cultural impact. The turtle became so synonymous with Logo that the very concept of "turtle graphics" is now used generically to describe any programming environment where you control a cursor that draws as it moves.
 
 [IMAGE: ROS TurtleBot and Turtle Tutorial graphic — ROS TURTLE BOT AND TURTLE TUTORIAL GRAPHIC HERE]
 
-The legacy of the Logo turtle extends far beyond the Logo language itself. The idea of learning to program by controlling a simple avatar influenced countless educational programming environments that followed, from Karel the Robot to modern tools like Scratch. Even today, Python's built-in turtle module pays homage to Logo's groundbreaking approach to making programming accessible and visual.
+The legacy of the Logo turtle extends far beyond the Logo language itself, which today has fallen out of favor in educational settings, so usage has dropped off considerably since its heyday[^CSE262]. The idea of learning to program by controlling a simple avatar influenced countless educational programming environments that followed, from Karel the Robot to modern tools like Scratch. Even today, Python's built-in turtle module pays homage to Logo's groundbreaking approach to making programming accessible and visual.
 
 The physical turtle robots themselves have had surprising longevity. The Open Robotics Initiative has released multiple generations of TurtleBot robots for education and research, carrying forward the spirit of those original dome-shelled robots from the 1960s. In a field where technologies become obsolete within years, the turtle has remained relevant for over half a century — a testament to the power of good design and pedagogical insight.
 
@@ -131,6 +137,10 @@ The physical turtle robots themselves have had surprising longevity. The Open Ro
 [RUTHERFORD]: Boden, Margaret. "Grey Walter’s Anticipatory Tortoises". The Rutherford Journal. Vol 2. 2006. [Online](https://www.rutherfordjournal.org/article020101.html)
 [TERRAPIN-LOGO]: Abelson, Hal, et al. Terrapin Logo. MIT. https://resources.terrapinlogo.com/weblogo/index
 [TURTLE-1969]: "1969 Logo Floor Turtle." YouTube. https://www.youtube.com/watch?v=KeFhFPNO8hc
+
+***
+
+[^CSE262]: I ask my students every year in my programming langauges class since I started teaching in 2019, and only one student has ever said he was taught Logo as a child. He was from Greece (fittingly), so apparently there are places in the world still teaching Logo to young learners.
 
 (1.2) CAML / Perl / OCaml's Camels (1985 / 1987 / 2005)
 
