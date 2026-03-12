@@ -104,7 +104,7 @@ The inspiration for the Turtle came from the work of neurophysiologist William G
 
 Papert took the next step and attached a marker to the tortoises, which could be raised and lowered on command from the Logo language, so that the robot would draw whereever it went as long as the pen was down.
 
-[IMAGE: Turtle Graphics — TURTLE GRAPHICS IMAGE HERE]
+IMAGE: Turtle Graphics — TURTLE GRAPHICS IMAGE HERE
 
 When Logo was developed at BBN (Bolt, Beranek and Newman) in Cambridge, Massachusetts, the turtle started as a physical robot — a small wheeled device with a pen that could be raised or lowered. Using Logo, children could program this robot to move forward, backward, and turn at various angles, [leaving behind a trail of ink](https://www.youtube.com/watch?v=KeFhFPNO8hc) as it traced geometric patterns across large sheets of paper spread on the floor.
 
@@ -119,13 +119,13 @@ This put the turtle into a category Papert called "objects-to-think-with" — ph
 > The central role of the Turtle in this book... is to serve as a model for other objects, yet to be invented. My interest is in the process of invention of "objects-to-think-with," objects in which there is an intersection of cultural presence, embedded knowledge, and the possibility for personal identification.
 > The Turtle is a computer-controlled cybernetic animal. It exists within the cognitive minicultures of the "LOGO environment," LOGO being the computer language in which communication with the Turtle takes place. The Turtle serves no other purpose than of being good to program and good to think with. Some Turtles are abstract objects that live on computer screens. Others, like the floor Turtles... are physical objects.[MINDSTORMS]
 
-As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics — a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs. This advancement helped the turtle concept reach a much wider audience, because although the physical robot had come down in price, the graphical representation was still more affordable and accessible for schools and individuals.[VALIANT-TURTLE]
+As computers became more capable of handling graphics in the 1970s, the physical turtle robot evolved into Turtle Graphics — a graphical representation on a computer screen that could draw lines as it moved. This is what most people think of when they remember Logo from their childhood computer labs. This advancement helped the turtle concept reach a much wider audience, because although the physical robot had come down in price, the graphical representation was still more affordable and accessible for schools and individuals.[VALIANTTURTLE]
 
-The Logo turtle doesn't have a proper name in the same way that later mascots do, and it doesn't have an elaborate backstory or personality, although, many distributions do have a mascot-like turtle character [TERRAPIN-LOGO]. Instead, "turtles" represent a class of possible teaching and pedagogical aides. 
+The Logo turtle doesn't have a proper name in the same way that later mascots do, and it doesn't have an elaborate backstory or personality, although, many distributions do have a mascot-like turtle character [TERRAPINLOGO]. Instead, "turtles" represent a class of possible teaching and pedagogical aides. 
 
 In this sense, it fits more into our category of quasi-mascots rather than proper mascots. But what it lacks in character development, it more than makes up for in pedagogical significance and cultural impact. The turtle became so synonymous with Logo that the very concept of "turtle graphics" is now used generically to describe any programming environment where you control a cursor that draws as it moves.
 
-[IMAGE: ROS TurtleBot and Turtle Tutorial graphic — ROS TURTLE BOT AND TURTLE TUTORIAL GRAPHIC HERE]
+IMAGE: ROS TurtleBot and Turtle Tutorial graphic — ROS TURTLE BOT AND TURTLE TUTORIAL GRAPHIC HERE
 
 The legacy of the Logo turtle extends far beyond the Logo language itself, which today has fallen out of favor in educational settings, so usage has dropped off considerably since its heyday[^CSE262]. The idea of learning to program by controlling a simple avatar influenced countless educational programming environments that followed, from Karel the Robot to modern tools like Scratch. Even today, Python's built-in turtle module pays homage to Logo's groundbreaking approach to making programming accessible and visual.
 
@@ -135,8 +135,8 @@ The physical turtle robots themselves have had surprising longevity. The Open Ro
 [MINDSTORMS]: Papert, Seymour. "Mindstorms: Children, Computers, and Powerful Ideas". Basic Books. 1980.
 [LOGO]: https://en.wikipedia.org/wiki/Logo_(programming_language)
 [RUTHERFORD]: Boden, Margaret. "Grey Walter’s Anticipatory Tortoises". The Rutherford Journal. Vol 2. 2006. [Online](https://www.rutherfordjournal.org/article020101.html)
-[TERRAPIN-LOGO]: Abelson, Hal, et al. Terrapin Logo. MIT. https://resources.terrapinlogo.com/weblogo/index
-[TURTLE-1969]: "1969 Logo Floor Turtle." YouTube. https://www.youtube.com/watch?v=KeFhFPNO8hc
+[TERRAPINLOGO]: Abelson, Hal, et al. Terrapin Logo. MIT. https://resources.terrapinlogo.com/weblogo/index
+[TURTLE1969]: "1969 Logo Floor Turtle." YouTube. https://www.youtube.com/watch?v=KeFhFPNO8hc
 
 ***
 
