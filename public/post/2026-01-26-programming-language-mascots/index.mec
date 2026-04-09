@@ -96,7 +96,7 @@ But it is the Logo langauge from 1967 that can be reasonably construed as having
 
 (1.1) Logo's Turtle (1967)
 
-<<![Logo's Turtle comes in many forms including a physical robot and a graphics package.](/images/HQ_Logo.png){width: "250px"}
+<<:![Logo's Turtle comes in many forms including a physical robot and a graphics package.](/images/HQ_Logo.png){width: "250px"}
 
 The earliest programming language mascot is Logo's Turtle, which was introduced in 1967 as part of the Logo programming language developed by Wally Feurzeig, Seymour Papert, and Cynthia Solomon [LOGO].
 
@@ -214,7 +214,7 @@ The 1990s marked the first true programming language mascot, Duke, which was fol
 
 (3.1) Java's Duke (1995)
 
->>![Bold and stalwart, Duke's mission is to spread Java to all corners of the world.](/images/HQ_Duke.png){width: "250px"}
+:>>![Bold and stalwart, Duke's mission is to spread Java to all corners of the world.](/images/HQ_Duke.png){width: "250px"}
 
 USE THE PHRASE "conference theater" IN THIS SECTION TO DESCRIBE HIS ROLE
 
@@ -248,7 +248,7 @@ https://x.com/dukecommunity
 
 (3.2) Scratch's ScratchCat (2004)
 
-<<![ScratchCat is a playful and creative character that represents the fun and educational nature of the Scratch programming language.](/images/HQ_ScratchCat.png){width: "250px"}
+<<:![ScratchCat is a playful and creative character that represents the fun and educational nature of the Scratch programming language.](/images/HQ_ScratchCat.png){width: "250px"}
 
 Scratch is a programming language for education and creativity developed by the [Lifelong Kindergarten Group](https://www.media.mit.edu/groups/lifelong-kindergarten/overview/) at MIT, and it has since become one of the most popular programming languages for children and beginners. Scratch's mascot, ScratchCat, is a cute orange cat character that serves as the face of the Scratch community and brand. Being an educational language, it has roots that trace back to the Logo language and its turtle mascot, so it makes sense that Scratch would also have an engaging mascot for its young users.
 
@@ -284,7 +284,7 @@ https://en.scratch-wiki.info/wiki/Scratch_Cat
 
 (3.3) Python's Python (2005)
 
->>![Python is very zen, and tries to strike a balance between powerful and yet very learnable and approachable.](/images/HQ_Python.png){width: "250px"}
+:>>![Python is very zen, and tries to strike a balance between powerful and yet very learnable and approachable.](/images/HQ_Python.png){width: "250px"}
 
 Python has been around since 1996, but its mascot story is a little more complicated than "It's named Python so they chose a snake", because the Python name doesn't even refer to a kind of snake[^MOLD], but rather to Monty Python, the British comedy troupe. For a long time inventor and BDFL Guido van Rossum was opposed to the idea of a snake mascot, so the snake association didn't come much later in the langauge's life.
 
@@ -330,7 +330,7 @@ So the lesson of Python is that sometiems your mascot is destiny. You can name y
 
 (3.4) Go's Gopher (2009)
 
-<<![Gopher is adept at multitasking, serving many requests at once.](/images/HQ_Gopher.png){width: "250px"}
+<<:![Gopher is adept at multitasking, serving many requests at once.](/images/HQ_Gopher.png){width: "250px"}
 
 Go is a programming language developed by Google in 2009, and it has become one of the most popular programming languages for systems programming and cloud computing. Go's mascot, Gopher, is a cute and friendly gopher character that represents the Go language and its community. Gopher is often depicted in various poses and scenarios, showcasing his playful and creative nature.
 
@@ -342,7 +342,7 @@ https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjM
 
 (3.5) Rust's Ferris (2014)
 
->>![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
+:>>![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
 
 Ferris is the unofficial mascot of the Rust programming language, but he has become so iconic that many people believe he's the official mascot. Ferris is a friendly and approachable crab character that represents the Rust language's focus on safety, performance, and concurrency. He's used in the documentation a guide for new users, directing them toward important information; and he's also featured in various community events and merchandise.
 
@@ -756,3 +756,7 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 [ISWIM]: https://en.wikipedia.org/wiki/ISWIM
 [PERLMONKS]: https://www.perlmonks.org/?node_id=257313
 [GRAPHEINE]: https://grapheine.com/en/magazine/a-history-of-mascots/
+
+
+
+TODO: NOTE extending this to add a new dimension it's a technical dimension but how does it integrate with AI?? https://tomasp.net/techdims/
