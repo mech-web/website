@@ -463,6 +463,14 @@ https://web.archive.org/web/20130719055943/http://w148.de:80/~mmartin/d/logo.htm
 https://docs.flutter.dev/dash
 https://flutter.dev/events
 
+(5.4) Gren's Robin the Robin
+
+https://gren-lang.org
+sourceL: "Robin, Gren's Mascot"
+https://gren-lang.org/book/appendix/faq/
+
+"The bird is a robin, which happens to be the name of Gren’s founder. The robin is placed within the G, which is meant to symbolize that it is sitting on a G(ren), which is the norwegian word for branch."
+
 (5.4) Kotlin's Kodee
 
 https://kotlinlang.org/docs/images/mascot-main.png
@@ -765,3 +773,5 @@ In the end, it turns out that Bugs Bunny was covertly writing the output of the 
 
 
 TODO: NOTE extending this to add a new dimension it's a technical dimension but how does it integrate with AI?? https://tomasp.net/techdims/
+
+TODO: copyright washing, the code can be copyright washed by learning off of LLM and then rewriting all the source. But mascots cannot be washed, if it's too similar this is apparent and violation of copyright law, if it's different then who cares the reputation is with the mascot itself that can't be laundered with AI. So the mascot becomes a sort of anchor for the identity of the language that can't be washed away by AI, which is a new and interesting role for mascots in the age of AI.
