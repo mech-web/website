@@ -1,0 +1,269 @@
+Mech v0.3 — Program Specification
+===============================================================================
+Corey Montella • April 15, 2026
+===============================================================================
+
+We've reached a milestone that's been years in the making.
+
+When I laid out the Mech roadmap back at the beginning of 2025, I described four major phases:
+
+- **v0.2 — Data specification:** formulas, matrices, all the data structures you need to describe a dataset.
+- **v0.3 — Program specification:** functions, modules, state machines, control flow. A real programming language.
+- **v0.4 — System specification:** distributed computation, capabilities, heterogeneous computing.
+
+v0.2 shipped last year. At the time, I noted honestly that it wasn't Turing complete — more of a powerful, MATLAB-style calculator than a programming language proper. That was the plan. We built the foundation before we started on the walls.
+
+Today, we are shipping v0.3. **Mech is now Turing complete.** You can write functions, express control flow, model stateful processes, and sort a list. Let's talk about what that looks like.
+
+1. Version 0.2 Wrap-Up
+-------------------------------------------------------------------------------
+
+Version 0.2-beta was completed at the end of 2025, but we didn't post a formal announcement at the time since we immediately moved on to v0.3 development. 
+
+
+
+
+
+
+
+1. User-Defined Functions
+--------------------------------------------------------------------------------
+
+The most obvious thing a programming language needs is functions, and v0.3 has them. Functions in Mech use a pattern-matching style that should feel familiar to anyone who has used Haskell, Elixir, or Rust.
+
+```mech
+factorial(x<u64>) -> <u64>
+  | 0 -> 1
+  | n -> n * factorial(n - 1<u64>).
+
+factorial(6<u64>) -- 720
+```
+
+The `|` arms are match guards — the first one that matches is taken. You can pattern-match on multiple arguments too:
+
+max(x<u64>, y<u64>) -> <u64>
+  ├ (0, y) -> y
+  ├ (x, 0) -> x
+  └ (x, y) -> max(x - 1<u64>, y - 1<u64>) + 1<u64>.
+
+max(4<u64>, 7<u64>) -- {ans}
+
+The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured, especially for multiple arguments. Both styles are supported and you can mix them as needed.
+
+Functions can also broadcast automatically over matrices. If a scalar function is applied to a matrix argument, Mech applies it element-wise without any extra syntax on the call site.
+
+(1.1) Patterns
+
+Pattern matching is been generalized across the entire language. The same machinery works in user functions, state machine transitions, and standalone match expressions. Array patterns are particularly expressive:
+
+```mech
+head(xs<[u64]:1,3>) => <u64>
+  | [x ...] => x
+  | * => 0u64.
+```
+
+The `[x ... y]` syntax binds the first element, any middle elements, and the last element. `[a, b | rest]` binds the first two elements and the tail. These patterns work uniformly across function arms, FSM transitions, and match expressions.
+
+(1.2) Tail-Call Optimization
+
+Recursive functions that call themselves in tail position are now optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
+
+```
+fib(n<u64>) => <u64>
+└ n => fib-acc(n, 0<u64>, 1<u64>).
+
+fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
+├ (0<u64>, a, *) => a
+└ (n, a, b) => fib-acc(n - 1<u64>, b, a + b).
+```
+
+The accumulator pattern above runs in constant stack space.
+
+2. State Machines
+--------------------------------------------------------------------------------
+
+This is the headline feature of v0.3, and it's worth explaining why we built the language around it.
+
+In v0.2, Mech couldn't express ordered computation. It was a great data manipulation tool — you could describe datasets, run matrix operations, etc. — but you couldn't loop, couldn't conditionally branch, couldn't model anything that had *phases*. State machines fill that gap. They give Mech explicit control flow while preserving the dataflow properties that make Mech easy to reason about.
+
+A state machine in Mech has two parts: a *specification* that declares the states and their types, and an *implementation* that defines transitions.
+
+Here's a simple countdown:
+
+```mech
+#Counter(n<u64>) => <u64>
+  ├ :Count(n<u64>)
+  └ :Done(n<u64>).
+
+#Counter(n<u64>) -> :Count(n)
+  :Count(n)
+    ├ n > 0u64 -> :Count(n - 1u64)
+    └ n == 0u64 -> :Done(0u64)
+  :Done(n) => n.
+
+#Counter(5u64) -- 0u64
+```
+
+State arguments can be arrays too, with pattern matching in the transitions:
+
+```mech
+#VecFsm(n<u64>) => <u64>
+  ├ :Scan(xs<[u64]:1,3>)
+  └ :Done(out<u64>).
+
+#VecFsm(n<u64>) -> :Scan([1u64 2u64 3u64])
+  :Scan([x ... y]) -> :Done(x + y)
+  :Done(out) => out.
+
+#VecFsm(0u64) -- 4u64
+```
+
+(2.1) Bubble Sort
+
+The best way to see state machines in action is with a real algorithm. Here is bubble sort implemented as a Mechdown document — a live, literate program that both explains and executes the algorithm.
+
+Bubble sort works by repeatedly stepping through a list, comparing adjacent elements, and swapping them when they're out of order. We model each phase of the algorithm as a state.
+
+```mech
+#bubble-sort(arr<[u64]>) ⇒ <[u64]> :=
+  ├ :Start(arr<[u64]>)
+  ├ :Pass(arr<[u64]>, acc<[u64]>, swaps<u64>)
+  ├ :Next(arr<[u64]>, swaps<u64>)
+  ├ :Reverse(arr<[u64]>, acc<[u64]>, swaps<u64>)
+  └ :Done(arr<[u64]>).
+
+#bubble-sort(arr) → :Start(arr)
+  -- Initialize first pass
+  :Start(arr) → :Pass(arr, [], 0)
+  -- Pass: compare adjacent elements and rebuild list in acc
+  :Pass([a, b | tail], acc, swaps)
+    ├ a > b → :Pass([a | tail], [b | acc], swaps + 1)
+    └ *     → :Pass([b | tail], [a | acc], swaps)
+  :Pass([x], acc, swaps) → :Next([x | acc], swaps)
+  :Pass([], acc, swaps)  → :Next(acc, swaps)
+  -- After a pass, reverse the accumulator to restore order
+  :Next(arr, swaps) → :Reverse(arr, [], swaps)
+  :Reverse([x | tail], acc, swaps) → :Reverse(tail, [x | acc], swaps)
+  :Reverse([], acc, 0)     → :Done(acc)
+  :Reverse([], acc, swaps) → :Pass(acc, [], 0)
+  -- Return the sorted array
+  :Done(arr) ⇒ arr.
+```
+
+The beauty here is that the state machine makes the algorithm's structure explicit. `:Pass` walks the list and collects a reversed accumulator. `:Reverse` corrects that reversal. `:Next` decides whether another pass is needed by checking the swap count. `:Done` terminates and returns the result.
+
+To run it:
+
+```mech
+a<[u64]> := [4 2 1 3]
+sorted := #bubble-sort(a)
+-- [1 2 3 4]
+```
+
+This is the kind of program that Mech v0.2 couldn't express at all. v0.3 makes it natural.
+
+The runtime validates state machine transition targets at compile time — if you reference a state that isn't declared in the specification, you get an error before execution. A `--trace` CLI flag is also available to print step-by-step transition traces while debugging.
+
+3. Comprehensions
+--------------------------------------------------------------------------------
+
+We've added comprehensions to the langauge, which are a way to construct new matrices and sets from existing ones using generators and optional guards. This is useful for when you want to create something like a filtered or transformed version of an existing dataset.
+
+Matrix and set comprehensions are now fully implemented, with generators and guards:
+
+```mech
+[ x * x | x <- [1 2 3 4], (x % 2) == 0 ] -- [4 16]
+```
+
+Set comprehensions work the same way, and they compose well with table joins to express relational queries concisely:
+
+```mech
+pairs := {(1,2), (1,3), (2,8), (3,5), (3,9)}
+user := 1
+{fof | (u,f) <- pairs, (f,fof) <- pairs, u ⩵ user} -- {5, 9, 8}
+```
+
+This is friends-of-friends in four lines. Anyone who has written this query in SQL knows how much ceremony that normally requires.
+
+3. Table Joins
+--------------------------------------------------------------------------------
+
+Speaking of relational queries: v0.3 ships the full set of relational join operators, each available as both a Unicode symbol and an ASCII word alias:
+
+- `⋈` / `table/join` — inner join
+- `⟕` / `table/left-outer-join`
+- `⟖` / `table/right-outer-join`
+- `⟗` / `table/full-outer-join`
+- `⋉` / `table/left-semi-join`
+- `▷` / `table/left-anti-join`
+
+```mech
+A := |id<u64> a<u64>| 1 10 | 2 20 | 3 30 |
+B := |id<u64> b<u64>| 2 200 | 3 300 | 4 400 |
+J := A ⋈ B
+
+J -- |id<u64> a<u64> b<u64>| 2 20 200 | 3 30 300 |
+```
+
+Full outer joins preserve optional kinds for columns that may be absent:
+
+```mech
+J2 := table/full-outer-join(A, B)
+-- |id<u64> a<u64> b<u64>| 1 10 _ | 2 20 200 | 3 30 300 | 4 _ 400 |
+```
+
+4. Enums and Tagged Unions
+--------------------------------------------------------------------------------
+
+Mech now has a proper enum and tagged-union system:
+
+```mech
+<color> := :red | :green | :blue
+x<color> := :red
+```
+
+Tagged unions can carry payloads:
+
+```mech
+<r> := :ok(<u64>) | :err(<u64>)
+<option> := :some<r> | :none
+x<option> := :some(:ok(42u64))
+
+x?
+  | :some(:ok(n))  => n
+  | :some(:err(e)) => e
+  | :none          => 0
+  | *              => 0.
+```
+
+The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
+
+5. Mika the Mech
+--------------------------------------------------------------------------------
+
+v0.3 also introduces **Mika** `╭⦿╮`, Mech's mascot and soon-to-be AI code assistant. She's now built into the grammar and lives in the REPL. In the current release she appears in a few spots as a compact text character — MicroMika (`╭⦿╮`) in the REPL prompt, and MiniMika (`(˙◯˙)`) for fuller expressions.
+
+The plan is for Mika to serve as the interface for an AI assistant built into Mech in the current v0.3 release cycle. More on that soon.
+
+
+6. Mechdown Figures
+-----------------------------------------------------------------------------------
+
+v0.3 adds a new kind of Mechdown figure: the **diagram**. Diagrams are rendered using the [Mermaid](https://mermaid-js.github.io/mermaid/#/) syntax, which supports flowcharts, sequence diagrams, class diagrams, and more.
+
+## What's Next
+
+v0.3 is shipping now and development continues. The roadmap items still ahead in this release cycle include a module system, a build system, and the AI code assistant (Mika's starring role). After that, v0.4 moves into system specification — distributed programs, capability permissions, and heterogeneous computing, recovering the features that were present in v0.1 and then some.
+
+If you want to follow along:
+
+- **Try Mech:** [try.mech-lang.org](https://try.mech-lang.org)
+- **Docs:** [docs.mech-lang.org](https://docs.mech-lang.org)
+- **GitHub:** [github.com/mech-lang/mech](https://github.com/mech-lang/mech)
+- **Discord:** [discord.gg/asqP25NNTH](https://discord.gg/asqP25NNTH)
+- **Reddit:** [r/mechlang](https://www.reddit.com/r/mechlang/)
+- **YouTube:** [@MechLang](https://www.youtube.com/@MechLang)
+
+Thanks for following along. We'll have a lot more to say as the rest of v0.3 comes together.
+
+`╭◉╯`
