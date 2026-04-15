@@ -21,11 +21,6 @@ Today, we are shipping v0.3. **Mech is now Turing complete.** You can write func
 Version 0.2-beta was completed at the end of 2025, but we didn't post a formal announcement at the time since we immediately moved on to v0.3 development. 
 
 
-
-
-
-
-
 1. User-Defined Functions
 --------------------------------------------------------------------------------
 
@@ -251,7 +246,11 @@ The plan is for Mika to serve as the interface for an AI assistant built into Me
 
 v0.3 adds a new kind of Mechdown figure: the **diagram**. Diagrams are rendered using the [Mermaid](https://mermaid-js.github.io/mermaid/#/) syntax, which supports flowcharts, sequence diagrams, class diagrams, and more.
 
-## What's Next
+7. Roadmap to v0.4
+-----------------------------------------------------------------------------------
+
+
+
 
 v0.3 is shipping now and development continues. The roadmap items still ahead in this release cycle include a module system, a build system, and the AI code assistant (Mika's starring role). After that, v0.4 moves into system specification — distributed programs, capability permissions, and heterogeneous computing, recovering the features that were present in v0.1 and then some.
 
