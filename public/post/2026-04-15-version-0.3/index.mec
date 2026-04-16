@@ -1,6 +1,6 @@
 Mech v0.3 — Program Specification
 ===============================================================================
-Corey Montella • April 15, 2026
+Corey Montella ∙ April 15, 2026
 ===============================================================================
 
 MEch has finally reached a milestone that's been years in the making!
@@ -14,14 +14,14 @@ At the beginning of 2025, I described four major phases:
 
 Today we are entering Phase 3: program specification. This is the point where Mech becomes a real programming language, with user-defined functions, explicit control flow, and the ability to model processes that have phases, all of which were missing in `v0.2`.
 
-Today, we are announcing the development of v0.3. Mech is now Turing complete, meaning you can write any computable function in it. The main features of v0.3 include:
+Today, we are announcing the development of `v0.3`. Mech is now Turing complete, meaning you can write any computable function in it. The main features of `v0.3` include:
 
 - **User-defined functions** with pattern matching and recursion
 - **State machines** for modeling ordered computation and processes with phases
 - **Comprehensions** for constructing new matrices and sets from existing ones
 - **Relational table joins** for powerful data manipulation
 - **Enums and tagged unions** for modeling categorical data and optional values
-- **Mika the Mech**, our mascot and soon-to-be AI code assistant
+- **Mika the mech**, Mech's mascot and soon-to-be AI code assistant with `synth` and `gen` operators.
 
 Before we get into all that, let's first look at how `v0.2` landed.
 
@@ -34,12 +34,12 @@ We spent an inordinate amount of time on the `v0.2` data model, partly because i
 
 The declarative data model for Mech has landed at the following set of features:
 
-- Data types and structures: numbers, strings, [`atoms`](https://docs.mech-lang.org/reference/atom.html), maps, matrices, records, sets, tables, tuples.
-- Expression broadcasting: applying operations over data structures without explicit loops.
-- Indexing and slicing: accessing elements within data structures using logical masks.
-- Operators and built-in functions: arithmetic, logical, comparison, set, matrix etc.
+- Data types and structures: [`number`](https://docs.mech-lang.org/reference/number.html), [`string`](https://docs.mech-lang.org/reference/string.html), [`atom`](https://docs.mech-lang.org/reference/atom.html), [`map`](https://docs.mech-lang.org/reference/map.html), [`matrix`](https://docs.mech-lang.org/reference/matrix.html), [`record`](https://docs.mech-lang.org/reference/record.html), [`set`](https://docs.mech-lang.org/reference/set.html), [`table`](https://docs.mech-lang.org/reference/table.html), [`tuple`](https://docs.mech-lang.org/reference/tuple.html).
+- [Expression broadcasting](https://docs.mech-lang.org/reference/broadcasting.html): applying operations over data structures without explicit loops.
+- [Indexing and slicing](https://docs.mech-lang.org/reference/indexing.html): accessing elements within data structures using logical masks.
+- [Operators](https://docs.mech-lang.org/reference/operators.html) and [standard library functions](https://docs.mech-lang.org/stdlib/index.html): arithmetic, logical, comparison, set, matrix etc.
 
-You can click on any of those links and see the full documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of what the language can do.
+You can click on any of those links and see the full documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of what the language could do as of `v0.2`.
 
 Of course there were strict limitations on the kinds of programs you can write with that set of features, so today we are launching `v0.3` with a whole new set of control flow mechanisms that make Mech a real programming language.
 
@@ -70,7 +70,7 @@ This is similar to other langauges with atoms like Elixir.
 
 Tagged unions can carry payloads:
 
-```
+```mech:pattern-matching
 <result> := :ok<u64> | :err<u64>
 <option> := :some<result> | :none
 x<option> := :some(:ok(42u64))
@@ -78,10 +78,11 @@ x<option> := :some(:ok(42u64))
 
 (1.2) Pattern Matching
 
-The `?` operator has been added to match
+The `?` operator has been added as a match operator for all values, including optional values and enum variants, arrays, tuples, and more. This construct takes the role of if statements, switch statements, and destructuring patterns in one operator. If a pattern is non-exhaustive, the compiler reports the missing cases as a hard error until they are covered. Wildcard patterns (`*`) can be usedas a catch-all for any unmatched cases.
 
+Consider x from the previous example. We can match on it like this:
 
-```
+```mech:pattern-matching
 code := x?
   | :some(:ok(n))  => n
   | :some(:err(e)) => e
@@ -91,6 +92,16 @@ code := x?
 
 The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
 
+Moreover, we can pattern match on arrays:
+
+```mech:pattern-array
+arr := [1 2 3]
+code := arr?
+  ├ [1 2 3] => "exact match"
+  ├ [1 | tail] => "starts with 1"
+  ├ [x y z] => "three elements"
+  └ * => "other"
+```
 
 1. User-Defined Functions
 --------------------------------------------------------------------------------
@@ -102,10 +113,10 @@ factorial(x<u64>) => <u64>
   | 0 => 1
   | n => n * factorial(n - 1<u64>).
 
-factorial(6<u64>) -- 720
+factorial(6<u64>) -- {ans}
 ```
 
-The `|` arms are match guards, where the first one that matches is taken. You can pattern-match on multiple arguments too:
+The `|` arms are match guards; the first one that matches is evaluated and returned as the result of the function. You can pattern-match on multiple arguments too:
 
 ```
 max(x<u64>, y<u64>) => <u64>
