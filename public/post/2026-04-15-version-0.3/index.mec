@@ -3,65 +3,133 @@ Mech v0.3 — Program Specification
 Corey Montella • April 15, 2026
 ===============================================================================
 
-We've reached a milestone that's been years in the making.
+MEch has finally reached a milestone that's been years in the making!
 
-When I laid out the Mech roadmap back at the beginning of 2025, I described four major phases:
+At the beginning of 2025, I described four major phases:
 
-- **v0.2 — Data specification:** formulas, matrices, all the data structures you need to describe a dataset.
-- **v0.3 — Program specification:** functions, modules, state machines, control flow. A real programming language.
-- **v0.4 — System specification:** distributed computation, capabilities, heterogeneous computing.
+-(☑️) **v0.1** proof of concept system - minimum viable language implementation
+-(☑️) **v0.2** data specification - formulas, defining and manipulating data
+-(📍) **v0.3** program specification - functions, modules, state machines, Mika
+-(☐) **v0.4** system specification - tools, distributed programs, capabilities
 
-v0.2 shipped last year. At the time, I noted honestly that it wasn't Turing complete — more of a powerful, MATLAB-style calculator than a programming language proper. That was the plan. We built the foundation before we started on the walls.
+Today we are entering Phase 3: program specification. This is the point where Mech becomes a real programming language, with user-defined functions, explicit control flow, and the ability to model processes that have phases, all of which were missing in `v0.2`.
 
-Today, we are shipping v0.3. **Mech is now Turing complete.** You can write functions, express control flow, model stateful processes, and sort a list. Let's talk about what that looks like.
+Today, we are announcing the development of v0.3. Mech is now Turing complete, meaning you can write any computable function in it. The main features of v0.3 include:
+
+- **User-defined functions** with pattern matching and recursion
+- **State machines** for modeling ordered computation and processes with phases
+- **Comprehensions** for constructing new matrices and sets from existing ones
+- **Relational table joins** for powerful data manipulation
+- **Enums and tagged unions** for modeling categorical data and optional values
+- **Mika the Mech**, our mascot and soon-to-be AI code assistant
+
+Before we get into all that, let's first look at how `v0.2` landed.
 
 1. Version 0.2 Wrap-Up
 -------------------------------------------------------------------------------
 
-Version 0.2-beta was completed at the end of 2025, but we didn't post a formal announcement at the time since we immediately moved on to v0.3 development. 
+Version `v0.2-beta` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development.
+
+We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought. By refusing to add more features until it became paintful, we had to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness, user defined functions, or explicit control flow, and I think the result is quite encouraging -- we were able to write programs like Kalman filters, linear regression, and even a simple physics engine without any of those features. 
+
+The declarative data model for Mech has landed at the following set of features:
+
+- Data types and structures: numbers, strings, [`atoms`](https://docs.mech-lang.org/reference/atom.html), maps, matrices, records, sets, tables, tuples.
+- Expression broadcasting: applying operations over data structures without explicit loops.
+- Indexing and slicing: accessing elements within data structures using logical masks.
+- Operators and built-in functions: arithmetic, logical, comparison, set, matrix etc.
+
+You can click on any of those links and see the full documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of what the language can do.
+
+Of course there were strict limitations on the kinds of programs you can write with that set of features, so today we are launching `v0.3` with a whole new set of control flow mechanisms that make Mech a real programming language.
+
+1. Enums, Tagged Unions, and Pattern Matching
+--------------------------------------------------------------------------------
+
+Mech now has a proper enum and tagged-union system:
+
+```mech:enums
+<color> := :red | :green | :blue
+x<color> := :red
+```
+
+An enum is a defined kind with a fixed set of variants. Each variant is tagged with an atom, and can optionally carry a payload of any kind. In the example above, `color` is an enum kind with three variants: `:red`, `:green`, and `:blue`. The variable `x` has the kind `color` and is assigned the value `:red`.
+
+The variants are themselves valid atom values, which are global constants that can be used as tags or identifiers. Because of this, `:red` is both a variant of the `color` enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
+
+- Allowing variants to be atoms means we don't need a separate syntax for defining and using enums, which keeps the language simpler and more uniform.
+- However, because atoms exist in a shared global space, reusing a value like `:blue` across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
+
+```
+y<color> := :color/red
+```
+
+This is similar to other langauges with atoms like Elixir.
+
+(1.1) Tagged Unions
+
+Tagged unions can carry payloads:
+
+```
+<result> := :ok<u64> | :err<u64>
+<option> := :some<result> | :none
+x<option> := :some(:ok(42u64))
+```
+
+(1.2) Pattern Matching
+
+The `?` operator has been added to match
+
+
+```
+code := x?
+  | :some(:ok(n))  => n
+  | :some(:err(e)) => e
+  | :none          => 0
+  | *              => 0.
+```
+
+The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
 
 
 1. User-Defined Functions
 --------------------------------------------------------------------------------
 
-The most obvious thing a programming language needs is functions, and v0.3 has them. Functions in Mech use a pattern-matching style that should feel familiar to anyone who has used Haskell, Elixir, or Rust.
+Functions in Mech use a pattern-matching style that should feel familiar to anyone who has used functional programming languages like Haskell or Elm.
 
-```mech
-factorial(x<u64>) -> <u64>
-  | 0 -> 1
-  | n -> n * factorial(n - 1<u64>).
+```
+factorial(x<u64>) => <u64>
+  | 0 => 1
+  | n => n * factorial(n - 1<u64>).
 
 factorial(6<u64>) -- 720
 ```
 
-The `|` arms are match guards — the first one that matches is taken. You can pattern-match on multiple arguments too:
+The `|` arms are match guards, where the first one that matches is taken. You can pattern-match on multiple arguments too:
 
-max(x<u64>, y<u64>) -> <u64>
-  ├ (0, y) -> y
-  ├ (x, 0) -> x
-  └ (x, y) -> max(x - 1<u64>, y - 1<u64>) + 1<u64>.
-
+```
+max(x<u64>, y<u64>) => <u64>
+  ├ (0, y) => y
+  ├ (x, 0) => x
+  └ (x, y) => max(x - 1<u64>, y - 1<u64>) + 1<u64>.
 max(4<u64>, 7<u64>) -- {ans}
+```
 
-The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured, especially for multiple arguments. Both styles are supported and you can mix them as needed.
+The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured. Both styles are supported.
 
 Functions can also broadcast automatically over matrices. If a scalar function is applied to a matrix argument, Mech applies it element-wise without any extra syntax on the call site.
 
-(1.1) Patterns
+```
+inc(x<u64>) => <u64>
+  | x => x + 1.
 
-Pattern matching is been generalized across the entire language. The same machinery works in user functions, state machine transitions, and standalone match expressions. Array patterns are particularly expressive:
-
-```mech
-head(xs<[u64]:1,3>) => <u64>
-  | [x ...] => x
-  | * => 0u64.
+m := [1 2 3]
+inc(m) -- [2 3 4]
 ```
 
-The `[x ... y]` syntax binds the first element, any middle elements, and the last element. `[a, b | rest]` binds the first two elements and the tail. These patterns work uniformly across function arms, FSM transitions, and match expressions.
+(1.1) Tail-Call Optimization
 
-(1.2) Tail-Call Optimization
-
-Recursive functions that call themselves in tail position are now optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
+Recursive functions that call themselves in tail position are optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
 
 ```
 fib(n<u64>) => <u64>
@@ -72,7 +140,11 @@ fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
 └ (n, a, b) => fib-acc(n - 1<u64>, b, a + b).
 ```
 
-The accumulator pattern above runs in constant stack space.
+The accumulator pattern above runs in constant stack space, so we can do:
+
+```
+fib(100000u64) -- {ans}
+```
 
 2. State Machines
 --------------------------------------------------------------------------------
@@ -149,7 +221,7 @@ The beauty here is that the state machine makes the algorithm's structure explic
 
 To run it:
 
-```mech
+```
 a<[u64]> := [4 2 1 3]
 sorted := #bubble-sort(a)
 -- [1 2 3 4]
@@ -166,13 +238,13 @@ We've added comprehensions to the langauge, which are a way to construct new mat
 
 Matrix and set comprehensions are now fully implemented, with generators and guards:
 
-```mech
+```
 [ x * x | x <- [1 2 3 4], (x % 2) == 0 ] -- [4 16]
 ```
 
 Set comprehensions work the same way, and they compose well with table joins to express relational queries concisely:
 
-```mech
+```
 pairs := {(1,2), (1,3), (2,8), (3,5), (3,9)}
 user := 1
 {fof | (u,f) <- pairs, (f,fof) <- pairs, u ⩵ user} -- {5, 9, 8}
@@ -185,53 +257,31 @@ This is friends-of-friends in four lines. Anyone who has written this query in S
 
 Speaking of relational queries: v0.3 ships the full set of relational join operators, each available as both a Unicode symbol and an ASCII word alias:
 
-- `⋈` / `table/join` — inner join
-- `⟕` / `table/left-outer-join`
-- `⟖` / `table/right-outer-join`
-- `⟗` / `table/full-outer-join`
-- `⋉` / `table/left-semi-join`
-- `▷` / `table/left-anti-join`
+- `⋈` `table/join` — inner join
+- `⟕` `table/left-outer-join`
+- `⟖` `table/right-outer-join`
+- `⟗` `table/full-outer-join`
+- `⋉` `table/left-semi-join`
+- `▷` `table/left-anti-join`
 
 ```mech
-A := |id<u64> a<u64>| 1 10 | 2 20 | 3 30 |
-B := |id<u64> b<u64>| 2 200 | 3 300 | 4 400 |
-J := A ⋈ B
+A := |id<u64> a<u64>| 
+     | 1      10    | 
+     | 2      20    | 
+     | 3      30    |
 
-J -- |id<u64> a<u64> b<u64>| 2 20 200 | 3 30 300 |
+B := |id<u64> b<u64>| 
+     | 2      200   | 
+     | 3      300   | 
+     | 4      400   |
+A ⋈ B
 ```
 
 Full outer joins preserve optional kinds for columns that may be absent:
 
 ```mech
-J2 := table/full-outer-join(A, B)
--- |id<u64> a<u64> b<u64>| 1 10 _ | 2 20 200 | 3 30 300 | 4 _ 400 |
+A ⟗ B
 ```
-
-4. Enums and Tagged Unions
---------------------------------------------------------------------------------
-
-Mech now has a proper enum and tagged-union system:
-
-```mech
-<color> := :red | :green | :blue
-x<color> := :red
-```
-
-Tagged unions can carry payloads:
-
-```mech
-<r> := :ok(<u64>) | :err(<u64>)
-<option> := :some<r> | :none
-x<option> := :some(:ok(42u64))
-
-x?
-  | :some(:ok(n))  => n
-  | :some(:err(e)) => e
-  | :none          => 0
-  | *              => 0.
-```
-
-The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
 
 5. Mika the Mech
 --------------------------------------------------------------------------------
