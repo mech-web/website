@@ -14,14 +14,14 @@ At the beginning of 2025, I described four major phases:
 
 Today we are entering Phase 3: program specification. This is the point where Mech becomes a real programming language, with user-defined functions, explicit control flow, and the ability to model processes that have phases, all of which were missing in `v0.2`.
 
-Today, we are announcing the development of `v0.3`. Mech is now Turing complete, meaning you can write any computable function in it. The main features of `v0.3` include:
+Today, we are announcing Mech `v0.3`, which is now Turing complete due to the following new features:
 
-- **User-defined functions** with pattern matching and recursion
-- **State machines** for modeling ordered computation and processes with phases
-- **Comprehensions** for constructing new matrices and sets from existing ones
-- **Relational table joins** for powerful data manipulation
-- **Enums and tagged unions** for modeling categorical data and optional values
-- **Mika the mech**, Mech's mascot and soon-to-be AI code assistant with `synth` and `gen` operators.
+- **Enums and tagged unions** for modeling categorical data and optional values (§2)
+- **User-defined functions** with pattern matching and recursion (§3)
+- **State machines** for modeling ordered computation and processes with phases (§4)
+- **Comprehensions** for constructing new matrices and sets from existing ones (§5)
+- **Relational table joins** for powerful data manipulation (§6)
+- **Mika the mech**, Mech's mascot and soon-to-be AI code assistant with `synth` and `gen` operators. (§7)
 
 Before we get into all that, let's first look at how `v0.2` landed.
 
@@ -39,11 +39,11 @@ The declarative data model for Mech has landed at the following set of features:
 - [Indexing and slicing](https://docs.mech-lang.org/reference/indexing.html): accessing elements within data structures using logical masks.
 - [Operators](https://docs.mech-lang.org/reference/operators.html) and [standard library functions](https://docs.mech-lang.org/stdlib/index.html): arithmetic, logical, comparison, set, matrix etc.
 
-You can click on any of those links and see the full documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of what the language could do as of `v0.2`.
+You can visit any of those links to read the full documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the `v0.2` data model.
 
-Of course there were strict limitations on the kinds of programs you can write with that set of features, so today we are launching `v0.3` with a whole new set of control flow mechanisms that make Mech a real programming language.
+Of course there are strict limitations on the kinds of programs you can write with that set of features, so today we are launching Mech `v0.3` with a whole new set of control flow mechanisms that make Mech more capable.
 
-1. Enums, Tagged Unions, and Pattern Matching
+2. Enums, Tagged Unions, and Pattern Matching
 --------------------------------------------------------------------------------
 
 Mech now has a proper enum and tagged-union system:
@@ -60,13 +60,13 @@ The variants are themselves valid atom values, which are global constants that c
 - Allowing variants to be atoms means we don't need a separate syntax for defining and using enums, which keeps the language simpler and more uniform.
 - However, because atoms exist in a shared global space, reusing a value like `:blue` across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
 
-```
+```mech:enums
 y<color> := :color/red
 ```
 
 This is similar to other langauges with atoms like Elixir.
 
-(1.1) Tagged Unions
+(2.1) Tagged Unions
 
 Tagged unions can carry payloads:
 
@@ -76,7 +76,7 @@ Tagged unions can carry payloads:
 x<option> := :some(:ok(42u64))
 ```
 
-(1.2) Pattern Matching
+(2.2) Pattern Matching
 
 The `?` operator has been added as a match operator for all values, including optional values and enum variants, arrays, tuples, and more. This construct takes the role of if statements, switch statements, and destructuring patterns in one operator. If a pattern is non-exhaustive, the compiler reports the missing cases as a hard error until they are covered. Wildcard patterns (`*`) can be usedas a catch-all for any unmatched cases.
 
@@ -103,7 +103,7 @@ code := arr?
   └ * => "other"
 ```
 
-1. User-Defined Functions
+3. User-Defined Functions
 --------------------------------------------------------------------------------
 
 Functions in Mech use a pattern-matching style that should feel familiar to anyone who has used functional programming languages like Haskell or Elm.
@@ -138,7 +138,7 @@ m := [1 2 3]
 inc(m) -- [2 3 4]
 ```
 
-(1.1) Tail-Call Optimization
+(3.1) Tail-Call Optimization
 
 Recursive functions that call themselves in tail position are optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
 
@@ -157,7 +157,7 @@ The accumulator pattern above runs in constant stack space, so we can do:
 fib(100000u64) -- {ans}
 ```
 
-2. State Machines
+4. State Machines
 --------------------------------------------------------------------------------
 
 This is the headline feature of v0.3, and it's worth explaining why we built the language around it.
@@ -196,7 +196,7 @@ State arguments can be arrays too, with pattern matching in the transitions:
 #VecFsm(0u64) -- 4u64
 ```
 
-(2.1) Bubble Sort
+(4.1) Bubble Sort
 
 The best way to see state machines in action is with a real algorithm. Here is bubble sort implemented as a Mechdown document — a live, literate program that both explains and executes the algorithm.
 
@@ -242,7 +242,7 @@ This is the kind of program that Mech v0.2 couldn't express at all. v0.3 makes i
 
 The runtime validates state machine transition targets at compile time — if you reference a state that isn't declared in the specification, you get an error before execution. A `--trace` CLI flag is also available to print step-by-step transition traces while debugging.
 
-3. Comprehensions
+5. Comprehensions
 --------------------------------------------------------------------------------
 
 We've added comprehensions to the langauge, which are a way to construct new matrices and sets from existing ones using generators and optional guards. This is useful for when you want to create something like a filtered or transformed version of an existing dataset.
@@ -263,7 +263,7 @@ user := 1
 
 This is friends-of-friends in four lines. Anyone who has written this query in SQL knows how much ceremony that normally requires.
 
-3. Table Joins
+6. Table Joins
 --------------------------------------------------------------------------------
 
 Speaking of relational queries: v0.3 ships the full set of relational join operators, each available as both a Unicode symbol and an ASCII word alias:
@@ -294,7 +294,7 @@ Full outer joins preserve optional kinds for columns that may be absent:
 A ⟗ B
 ```
 
-5. Mika the Mech
+7. Mika the Mech
 --------------------------------------------------------------------------------
 
 v0.3 also introduces **Mika** `╭⦿╮`, Mech's mascot and soon-to-be AI code assistant. She's now built into the grammar and lives in the REPL. In the current release she appears in a few spots as a compact text character — MicroMika (`╭⦿╮`) in the REPL prompt, and MiniMika (`(˙◯˙)`) for fuller expressions.
@@ -302,16 +302,13 @@ v0.3 also introduces **Mika** `╭⦿╮`, Mech's mascot and soon-to-be AI code 
 The plan is for Mika to serve as the interface for an AI assistant built into Mech in the current v0.3 release cycle. More on that soon.
 
 
-6. Mechdown Figures
+8. Mechdown Figures
 -----------------------------------------------------------------------------------
 
 v0.3 adds a new kind of Mechdown figure: the **diagram**. Diagrams are rendered using the [Mermaid](https://mermaid-js.github.io/mermaid/#/) syntax, which supports flowcharts, sequence diagrams, class diagrams, and more.
 
-7. Roadmap to v0.4
+9. Roadmap to v0.4
 -----------------------------------------------------------------------------------
-
-
-
 
 v0.3 is shipping now and development continues. The roadmap items still ahead in this release cycle include a module system, a build system, and the AI code assistant (Mika's starring role). After that, v0.4 moves into system specification — distributed programs, capability permissions, and heterogeneous computing, recovering the features that were present in v0.1 and then some.
 
