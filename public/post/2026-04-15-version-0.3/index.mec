@@ -110,92 +110,98 @@ code := arr?
 
 Functions in Mech use a pattern-matching style that should feel familiar to anyone who has used functional programming languages like Haskell or Elm.
 
-```
 factorial(x<u64>) => <u64>
   | 0 => 1
   | n => n * factorial(n - 1<u64>).
 
 factorial(6<u64>) -- {ans}
-```
 
 The `|` arms are match guards; the first one that matches is evaluated and returned as the result of the function. You can pattern-match on multiple arguments too:
 
-```
 max(x<u64>, y<u64>) => <u64>
   ├ (0, y) => y
   ├ (x, 0) => x
   └ (x, y) => max(x - 1<u64>, y - 1<u64>) + 1<u64>.
 max(4<u64>, 7<u64>) -- {ans}
-```
 
 The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured. Both styles are supported.
 
-Functions can also broadcast automatically over matrices. If a scalar function is applied to a matrix argument, Mech applies it element-wise without any extra syntax on the call site.
 
-```
+(3.1) Implicit broadcasting
+
+Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax:
+
 inc(x<u64>) => <u64>
   | x => x + 1.
 
 m := [1 2 3]
-inc(m) -- [2 3 4]
-```
+inc(m) -- {ans}
+
+Implicit broadcasting only applies to functions with scalar inputs and outputs. But the rule is simple: 
+
+- If any one is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
+- If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, you get a compile-time error. 
+
+We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix, which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less error-prone.
+
+However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where some functions broadcast and others don't, which is a common source of confusion and bugs. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
 (3.1) Tail-Call Optimization
 
 Recursive functions that call themselves in tail position are optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
 
-```
+```mech:fib-tco
 fib(n<u64>) => <u64>
-└ n => fib-acc(n, 0<u64>, 1<u64>).
+  └ n => fib-acc(n, 0<u64>, 1<u64>).
 
 fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
-├ (0<u64>, a, *) => a
-└ (n, a, b) => fib-acc(n - 1<u64>, b, a + b).
+  ├ (0<u64>, a, *) => a
+  └ (n, a, b) => fib-acc(n - 1<u64>, b, a + b).
 ```
 
 The accumulator pattern above runs in constant stack space, so we can do:
 
+```mech:fib-tco
+fib(100000u64)
 ```
-fib(100000u64) -- {ans}
-```
+
+Without tail-call optimization, this call would have blown up the stack.
 
 4. State Machines
 --------------------------------------------------------------------------------
-
-This is the headline feature of v0.3, and it's worth explaining why we built the language around it.
-
-In v0.2, Mech couldn't express ordered computation. It was a great data manipulation tool — you could describe datasets, run matrix operations, etc. — but you couldn't loop, couldn't conditionally branch, couldn't model anything that had *phases*. State machines fill that gap. They give Mech explicit control flow while preserving the dataflow properties that make Mech easy to reason about.
 
 A state machine in Mech has two parts: a *specification* that declares the states and their types, and an *implementation* that defines transitions.
 
 Here's a simple countdown:
 
 ```mech
+-- Define the state machine input, outputs, and states.
 #Counter(n<u64>) => <u64>
   ├ :Count(n<u64>)
   └ :Done(n<u64>).
 
+-- Define state transitions and initial state.
 #Counter(n<u64>) -> :Count(n)
   :Count(n)
     ├ n > 0u64 -> :Count(n - 1u64)
     └ n == 0u64 -> :Done(0u64)
   :Done(n) => n.
-
-#Counter(5u64) -- 0u64
+-- Run the state machine with a specific input .
+#Counter(5u64)
 ```
 
 State arguments can be arrays too, with pattern matching in the transitions:
 
 ```mech
-#VecFsm(n<u64>) => <u64>
+#FirstLast(x<[u64]>) => <u64>
   ├ :Scan(xs<[u64]:1,3>)
   └ :Done(out<u64>).
 
-#VecFsm(n<u64>) -> :Scan([1u64 2u64 3u64])
+#FirstLast(x<[u64]>) -> :Scan(x)
   :Scan([x ... y]) -> :Done(x + y)
   :Done(out) => out.
 
-#VecFsm(0u64) -- 4u64
+#FirstLast([1u64 2u64 3u64])
 ```
 
 (4.1) Bubble Sort
@@ -204,7 +210,6 @@ The best way to see state machines in action is with a real algorithm. Here is b
 
 Bubble sort works by repeatedly stepping through a list, comparing adjacent elements, and swapping them when they're out of order. We model each phase of the algorithm as a state.
 
-```mech
 #bubble-sort(arr<[u64]>) ⇒ <[u64]> :=
   ├ :Start(arr<[u64]>)
   ├ :Pass(arr<[u64]>, acc<[u64]>, swaps<u64>)
@@ -228,13 +233,12 @@ Bubble sort works by repeatedly stepping through a list, comparing adjacent elem
   :Reverse([], acc, swaps) → :Pass(acc, [], 0)
   -- Return the sorted array
   :Done(arr) ⇒ arr.
-```
 
 The beauty here is that the state machine makes the algorithm's structure explicit. `:Pass` walks the list and collects a reversed accumulator. `:Reverse` corrects that reversal. `:Next` decides whether another pass is needed by checking the swap count. `:Done` terminates and returns the result.
 
 To run it:
 
-```
+```mech
 a<[u64]> := [4 2 1 3]
 sorted := #bubble-sort(a)
 ```
