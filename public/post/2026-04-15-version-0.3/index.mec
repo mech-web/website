@@ -127,6 +127,8 @@ max(4<u64>, 7<u64>) -- {ans}
 
 The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured. Both styles are supported.
 
+(i)> The value with the small yellow arrow in the above block is a new feature that allows you to print the return value of a line by putting `{ans}` in a comment on that line. Also, click the arrow to send the value to the console, if it's open. You can inspect the value as usual with the builtin variable {{ans}}, which is loaded as part of the REPL environment.
+
 (3.1) Implicit broadcasting
 
 Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax:
@@ -154,20 +156,18 @@ Recursive functions that call themselves in tail position are optimized through 
 
 ```mech:fib-tco{output:false}
 fib(n<u64>) => <u64>
-  └ n => fib-acc(n, 0<u64>, 1<u64>).
+  └ n => fib-acc(n, 0u64, 1u64).
 
 fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
-  ├ (0<u64>, a, *) => a
-  └ (n, a, b) => fib-acc(n - 1<u64>, b, a + b).
+  ├ (0u64, a, *) => a
+  └ (n, a, b) => fib-acc(n - 1u64, b, a + b).
 ```
 
 The accumulator pattern above runs in constant stack space, so we can do:
 
 ```mech:fib-tco
-fib(100000u64)
+fib(28u64)
 ```
-
-Without tail-call optimization, this call would have blown up the stack.
 
 4. State Machines
 --------------------------------------------------------------------------------
@@ -239,35 +239,34 @@ Tracing instrumentation is behind a feature flag, so it can be turned off as nee
 
 The best way to see state machines in action is with a real algorithm. Here is bubble sort implemented as a state machine in Mech:
 
+```mech:bubble-sort{output:false}
 #bubble-sort(arr<[u64]>) ⇒ <[u64]> :=
-  ├ :Start(arr<[u64]>)
   ├ :Pass(arr<[u64]>, acc<[u64]>, swaps<u64>)
   ├ :Next(arr<[u64]>, swaps<u64>)
   ├ :Reverse(arr<[u64]>, acc<[u64]>, swaps<u64>)
   └ :Done(arr<[u64]>).
 
-#bubble-sort(arr) → :Start(arr)
-  -- Initialize first pass
-  :Start(arr) → :Pass(arr, [], 0)
+#bubble-sort(arr) → :Pass(arr, [], 0)
   -- Pass: compare adjacent elements and rebuild list in acc
   :Pass([a, b | tail], acc, swaps)
-    ├ a > b → :Pass([a | tail], [b | acc], swaps + 1)
-    └ *     → :Pass([b | tail], [a | acc], swaps)
-  :Pass([x], acc, swaps) → :Next([x | acc], swaps)
+    ├ a > b → :Pass([a tail], [b acc], swaps + 1)
+    └ *     → :Pass([b tail], [a acc], swaps)
+  :Pass([x], acc, swaps) → :Next([x acc], swaps)
   :Pass([], acc, swaps)  → :Next(acc, swaps)
   -- After a pass, reverse the accumulator to restore order
   :Next(arr, swaps) → :Reverse(arr, [], swaps)
-  :Reverse([x | tail], acc, swaps) → :Reverse(tail, [x | acc], swaps)
+  :Reverse([x | tail], acc, swaps) → :Reverse(tail, [x acc], swaps)
   :Reverse([], acc, 0)     → :Done(acc)
   :Reverse([], acc, swaps) → :Pass(acc, [], 0)
   -- Return the sorted array
   :Done(arr) ⇒ arr.
+```
 
 Bubble sort works by repeatedly stepping through a list, comparing adjacent elements, and swapping them when they're out of order. We model each phase of the algorithm as a state.
 
 To run it:
 
-```mech
+```mech:bubble-sort
 a<[u64]> := [4 2 1 3]
 sorted := #bubble-sort(a)
 ```
@@ -326,7 +325,7 @@ Speaking of relational queries: v0.3 ships the full set of relational join opera
 - `⋉` `table/left-semi-join`
 - `▷` `table/left-anti-join`
 
-```mech
+```mech:table-joins
 A := |id<u64> a<u64>| 
      | 1      10    | 
      | 2      20    | 
@@ -341,29 +340,151 @@ A ⋈ B
 
 Full outer joins preserve optional kinds for columns that may be absent:
 
-```mech
-A ⟗ B
+```mech:table-joins
+C := A ⟗ B
 ```
+
+The `a` column in the second row of the output is now optional because that column is missing for the row with `id=4`. This means that valaues accessed from that column will be wrapped and cannot be accessed without unwrapping them with the `?` operator: 
+
+```mech:table-joins
+unwrapped := C.a?
+  | x => x
+  | * => 0.
+```
+
+Unwrapping the optional value with `?` allows us to provide a default value of `0` for any rows where the `a` column is missing. Also, because {{C.a}} returns a {{<[u64?]>}}, the unwrap is broadcast over the entire column, yielding a {{<[u64]>}}.
 
 7. Mika the Mech
 --------------------------------------------------------------------------------
 
-v0.3 also introduces **Mika** `╭⦿╮`, Mech's mascot and soon-to-be AI code assistant. She's now built into the grammar and lives in the REPL. In the current release she appears in a few spots as a compact text character — MicroMika (`╭⦿╮`) in the REPL prompt, and MiniMika (`(˙◯˙)`) for fuller expressions.
+The last new feature from `v0.3` I want to talk about is not a traditional language feature, but it's still a big part of the release and the Mech project generally: meet Mika the mech, Mechlang's mascot. 
 
-The plan is for Mika to serve as the interface for an AI assistant built into Mech in the current v0.3 release cycle. More on that soon.
+![Mika the mech is the Mech programming language mascot. Here she is welcoming you to joing the Mech community!](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-hello_hd.png?ref_type=heads){width: "500px" }
+
+There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity, but I hadn't fully committed to the idea because there are so many other things to work on. 
+
+But then I wrote a [joke about a AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of AI language mascot could be more than just a joke if it were done properly. We already see it with the rise of general AI assistants, and the way people have started to personify and anthropomorphize their tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make it more approachable and relatable. 
+
+So it seems natural that Mech's mascot could evolve into an AI assistant that lives in the REPL and helps you write code, answer questions, and generally be a helpful companion while programming in Mech. 
+
+(7.1) Character Design
+
+Mascots are particularly useful in programming langauge communities because programming langauges are such abstract things; what does a compiler look like anyway? How can you imagine it and describe it to someone else? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users.
+
+So a good mascot requires certain design considerations: 
+
+- Visually appealing and memorable, so that people will want to share it and put it on stickers and t-shirts.
+- Embodies the values and personality of the brand it represents, so that it resonates with the community and reflects the spirit of the language. 
+- Representable in various poses and expressions, so that it can be used in different contexts and convey different emotions. 
+- Possible to simplify the mascot into just a few lines and colors. So in many ways, a good mascot and a good logo share similar design goals.
+
+Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's branding. The name "Mika" is short and alliterates with Mech, which makes it catchy and easy to remember.
+
+Here's a showcase of Mika in various poses and scenes to demonstrate her flexibility as a character:
+
+| ![Mika the mech idle pose.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-idle.png?ref_type=heads) | ![Back detail](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-back.png?ref_type=heads) | ![Two thumbs up!](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-heeeey.png?ref_type=heads) |
+| ![A winter scene featuring Mika building a snowman.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-winter.png?ref_type=heads) | ![Mika planting a garden.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-spring.png?ref_type=heads) |
+| ![Pointing at something.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-point.png?ref_type=heads) | ![Running somewhere.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-running.png?ref_type=heads) | ![Mika offers her hand.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-handout.png?ref_type=heads) |
+
+You can find more Mika art in the [Mika folder of the Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is Copyright 2026 by me and licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the art for non-commercial purposes as long as you give appropriate credit to the original creator. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall:
+
+> Good taste and positive connotations are encouraged, but cannot of course be required.
+
+(7.2) Minimika and Micromika
+
+Minimika (`(˙◯˙)`) and Micromika (`╭⦿╮`) are two simplified versions of Mika that are designed to be used as compact text characters in places where space is limited, for example in the REPL environment where Micromika reports errors.
+
+But beyond that, these forms also integrated into the grammar, which means you can use them in your code and they will be parsed and integrated into the AST. I believe this is a genuinely novel idea that hasn't been done before in the field of programming languages. The closest thing I have found is that Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way.
+
+So how is Mika's integration into the langauge meaningful just beyond decoration? That's where Mikablocks come in:
+
+╭⦿╯ ⸢Hello, I'm Micromika!⸥
+
+In the source code they look like this:
+
+```
+╭⦿╯ ⸢Hello, I'm Micromika!⸥
+```
+
+The idea is that Mika will eventually serve as the interface for an AI code assistant built into Mech, which will be able to understand and generate Mech code, answer questions about the language and the standard library, and generally be a helpful companion while programming in Mech. These Mikablocks represent the AI responses to programmer queries, which can be embedded directly into the source code as a kind of live documentation or interactive comment that is distinguised from regular comments and code. 
+
+The AI assistant will be able to generate these blocks in response to queries, and they will be parsed and integrated into the AST, so they can be accessed and manipulated programmatically as part of the code. Any valid Mech code can be embedded inside a Mikablock, which means the AI can generate code snippets that are directly executable as part of the program. For example:
+
+╭⦿─ ⸢You had asked about how to filter a list, here's how we can do that:
+
+```mech:filter-mikablock
+x := [1 2 3 4 5]
+threshold := 3
+mask := x > threshold
+```
+
+Then you can use the mask to filter the original list:
+
+```mech:filter-mikablock
+x[mask]
+```
+
+Only the elements where mask is true will be included in the output.
 
 
-8. Mechdown Figures
+Let me know if you need any more examples!⸥
+
+This idea is a rcognitiong of the growing importance of AI assistants in programming, and an attempt to integrate that functionality directly into the language in a way that is seamless and natural. It might be that in the future, AI is mostly writing Mech code, so the way you really interact with ta codebase is through Mika. This opens up a lot of interesting possibilities in HCI and HAI (human-AI interaction) research, and it also raises a lot of questions about how to design and implement such an assistant in a way that is useful, trustworthy, and aligned with the needs of programmers. Hopefully we'll have more answers with the next post.
+
+8. Roadmap to v0.4
 -----------------------------------------------------------------------------------
 
-v0.3 adds a new kind of Mechdown figure: the **diagram**. Diagrams are rendered using the [Mermaid](https://mermaid-js.github.io/mermaid/#/) syntax, which supports flowcharts, sequence diagrams, class diagrams, and more.
+Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candiate near Octoer.
 
-9. Roadmap to v0.4
------------------------------------------------------------------------------------
+| Icon | Status | Description |
+|------|:--------:|-------------|
+| 💭 | Concept | Just an idea, no implementation |
+| 🥚 | Proof of Concept | Hacked implementation sketch |
+| 🐣 | Alpha Implementation | Missing features, many bugs, undocumented |
+| 🐤 | Beta Implementation | Completed, with bugs, some tests and docs |
+| 🐓 | Feature Complete | Fully implemented, tested, documented |
+| 🍗 | Deprecated | Removed from specification, should not be used |
 
-v0.3 is shipping now and development continues. The roadmap items still ahead in this release cycle include a module system, a build system, and the AI code assistant (Mika's starring role). After that, v0.4 moves into system specification — distributed programs, capability permissions, and heterogeneous computing, recovering the features that were present in v0.1 and then some.
+-(💭) synth/gen
+-(💭) introspection
+-(💭) higher order functions
+-(💭) new types (dec64, currency, email addresses, dates)
+-(💭) Integrations
+  -(💭) Godot
+  -(💭) Python
+  -(💭) C/C++
+  -(🐣) Rust
+  -(🐣) Javascript
+-(🥚) async
+-(🥚) automatic differentiation
+-(🥚) language server
+-(🥚) physical units with dimension checking
+-(🥚) file/parameter server
+-(🥚) time travel debugging
+-(🥚) modules revamp
+-(🥚) database revamp
+-(🐣) state machines
+-(🐣) match expressions
+-(🐣) patterns
+-(🐣) mika
+-(🐣) matrix comprehension
+-(🐣) set comprehension
+-(🐣) self-contained binary executables
+-(🐣) bytecode interpreter
+-(🐣) build system
+-(🐣) user defined functions
+  -(🐣) recursive functions
+-(🐣) tests
+-(🐣) profiler
+-(🐣) gui
+-(🐣) live coding
 
-If you want to follow along:
+9. Conclusion
+--------------------------------------------------------------------------------
+
+Thanks for reading this far and following along with the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. The `v0.3` release is a major milestone for us, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my students who have contributed to this work in various ways, espcially the 2024 Mech Senior Capstone team, who was foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
+
+If you like what you see and you'd like to follow along, join the community and check out the resources below:
 
 - **Try Mech:** [try.mech-lang.org](https://try.mech-lang.org)
 - **Docs:** [docs.mech-lang.org](https://docs.mech-lang.org)
@@ -374,4 +495,3 @@ If you want to follow along:
 
 Thanks for following along. We'll have a lot more to say as the rest of v0.3 comes together.
 
-`╭◉╯`
