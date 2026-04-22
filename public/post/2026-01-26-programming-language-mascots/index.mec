@@ -471,25 +471,37 @@ https://gren-lang.org/book/appendix/faq/
 
 "The bird is a robin, which happens to be the name of Gren’s founder. The robin is placed within the G, which is meant to symbolize that it is sitting on a G(ren), which is the norwegian word for branch."
 
-(5.4) Kotlin's Kodee
+(5.5) Inko's Konni the Cyber Parrot
+
+https://inko-lang.org/news/hello-world/
+
+https://inko-lang.org/foo
+
+author: https://tysontan.com 
+
+https://gitlab.com/inko-lang/inko/-/work_items/72
+
+"A programming language will only be as popular as its mascot is cute."
+
+(5.6) Kotlin's Kodee
 
 https://kotlinlang.org/docs/images/mascot-main.png
 https://blog.jetbrains.com/kotlin/2023/04/the-kotlin-mascot-returns/
 https://blog.jetbrains.com/kotlin/2021/10/introducing-the-kotlin-mascot/
 
-(5.5) Lean's Nael the Hexapus
+(5.7) Lean's Nael the Hexapus
 
 https://lean-lang.org/community/
 https://leanprover-community.github.io/archive/stream/113488-general/topic/Hexapus.html
 
-(5.6) Lisp and Javascript's Aliens
+(5.8) Lisp and Javascript's Aliens
 
 https://www.lisperati.com/logo.html
 https://github.com/javascript-mascot/javascript-mascot.github.io?tab=readme-ov-file
 
 Lisp and Javascript both have unofficial alien mascots that have been used in various contexts, but neither has an official mascot that is widely recognized by the community. Instead, they seem to be more of a meme or inside joke within their respective communities rather than a formal mascot.
 
-(5.7) Mojo's Flame
+(5.9) Mojo's Flame
 
 Mojo is a new programming language that was announced in 2023 by Modular, a company founded by Chris Lattner, the creator of Swift. Mojo is designed to be a high-performance language for AI and machine learning applications. Mojo's branding dictates that the name is actually Mojo🔥, with the flame included. They even support a `.🔥` file extension. 
 
@@ -501,7 +513,7 @@ https://comic.modular.com
 
 https://www.modular.com/blog/modular-2025-year-in-review
 
-(5.8) PHP's ElePHPant the Elephant
+(5.10) PHP's ElePHPant the Elephant
 
 PHP (pun-driven mascot → plush culture). php.net’s official elePHPant page recognizes the mascot as the “adorable” elephantine symbol of PHP and explicitly warns about imitators, noting that “official stuffed toy elePHPants” designed by Vincent Pontier are occasionally made available. 
  Pontier’s own site asserts the concept was created in 1998 and later adopted by the community in the 2000s, aligning with the common pattern where a grassroots graphic spreads first and becomes “official” through repeated community use rather than formal announcement. 
@@ -510,7 +522,7 @@ http://www.elroubio.net
 https://archive.is/ncqI
 
 
-(5.9) Raku's Camelia the Butterfly
+(5.11) Raku's Camelia the Butterfly
 
 https://raku.org/nav/1/community
 
@@ -530,16 +542,16 @@ Details of her design: https://developers.slashdot.org/story/16/07/14/1349207/th
 
 Why a butterfly: https://www.youtube.com/watch?v=_wJNPOs-Q20&index=9&t=5m&list=PLRuESFRW2Fa77XObvk7-BYVFwobZHdXdK
 
-(5.10) SWI Prolog's Owl
+(5.12) SWI Prolog's Owl
 
 https://www.swi-prolog.org
 
-(5.11) Swift's Swift
+(5.13) Swift's Swift
 
 https://www.youtube.com/watch?v=OAaQhW4ifu0
 https://www.hackingwithswift.com/interviews/chris-lattner-how-and-when-did-swift-get-its-name
 
-(5.12) .Net Bot
+(5.14) .Net Bot
 
 The .Net Bet is a mascot for the entire .Net ecosystem[^6], which includes multiple programming languages such as C#, F#, and VB.Net. The .Net Bot was created by Microsoft as a way to represent the .Net platform and its various components, including the programming languages that run on it. The bot is often depicted as a friendly and approachable character, designed to make the .Net ecosystem more accessible and engaging for developers. While the .Net Bot is not specific to any one programming language, it serves as a unifying mascot for the entire .Net community. 
 
@@ -548,7 +560,7 @@ https://mod-dotnet-bot.net/create-your-bot/
 https://learn.microsoft.com/en-us/shows/one-dev-minute/what-is-the-dotnet-bot--one-dev-question
 https://github.com/dotnet/runtime/commits?author=dotnet-bot&since=2014-11-07&until=2014-11-08
 
-(5.13) C++'s Keith the Diseased Rat
+(5.15) C++'s Keith the Diseased Rat
 
 There's an urban legends that C++'s mascot is a diseased rat named Keith who blew his leg off with a shotgun, referring to the tendancy for C++ users to "shoot themselves in the foot" due to the language's complexity and potential for errors. 
 Part of the rumor is that it was created by GNU founder Richard Stallman as a way to criticize C++ for its complexity and potential for misuse.
