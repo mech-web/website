@@ -386,33 +386,46 @@ Here's a showcase of Mika in various poses and scenes to demonstrate her flexibi
 | ![A winter scene featuring Mika building a snowman.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-winter.png?ref_type=heads) | ![Mika planting a garden.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-spring.png?ref_type=heads) |
 | ![Pointing at something.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-point.png?ref_type=heads) | ![Running somewhere.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-running.png?ref_type=heads) | ![Mika offers her hand.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-handout.png?ref_type=heads) |
 
-You can find more Mika art in the [Mika folder of the Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is Copyright 2026 by me and licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the art for non-commercial purposes as long as you give appropriate credit to the original creator. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall:
+You can find more Mika art in the [Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the art (and Mika's likeness) for non-commercial purposes as long as you give appropriate credit. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall:
 
 > Good taste and positive connotations are encouraged, but cannot of course be required.
 
 (7.2) Minimika and Micromika
 
-Minimika (`(˙◯˙)`) and Micromika (`╭⦿╮`) are two simplified versions of Mika that are designed to be used as compact text characters in places where space is limited, for example in the REPL environment where Micromika reports errors.
+Minimika (`(˙◯˙)`) and Micromika (`╭⦿╮`) are two simplified versions of Mika that are designed to be used as compact representations in places where space is limited. For example, Mika is already integrated into the REPL prompt when some error messages are reported to the user. Each representation has different expressions, gesures, and poses that can be used to convey different emotions and messages. 
 
-But beyond that, these forms also integrated into the grammar, which means you can use them in your code and they will be parsed and integrated into the AST. I believe this is a genuinely novel idea that hasn't been done before in the field of programming languages. The closest thing I have found is that Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way.
+For example, here are some expressions and poses for Minimika and Micromika:
 
-So how is Mika's integration into the langauge meaningful just beyond decoration? That's where Mikablocks come in:
+| Mood       | Minimika | Pose     | Micromika |
+|-----------:|:--------:|---------:|:---------:|
+| Normal     | `(˙◯˙)` | Idle     | `╭⦿╮`    |
+| Content    | `(ˆ◯ˆ)` | Pointing | `╭⦿─`    |
+| Surprised  | `(°◯°)` | Waving   | `╭⦿╯`    |
+| Scowl      | `(❛◯❛)`  | Shrug    | `-◡⦿◡-` |
+| Sleeping   | `(-◯-)` | Gripper  | `╭⦿─‹`   |
+| Dazed      | `(⋇◯⋇)` | Big Hug  | `›⌣⦿⌣‹` |
+
+These forms have been integrated into Mech's grammar, which means you can write them in your source code and they will be parsed and factored into the AST! 
+
+(*)> The closest thing I have found to Mika is when Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!
+
+These characters are mostly just cosmetic. How is Mika's integration into the langauge meaningful beyond mere decoration? That's where synthblocks come in:
 
 ╭⦿╯ ⸢Hello, I'm Micromika!⸥
 
-In the source code they look like this:
+In source they look like this:
 
 ```
 ╭⦿╯ ⸢Hello, I'm Micromika!⸥
 ```
 
-The idea is that Mika will eventually serve as the interface for an AI code assistant built into Mech, which will be able to understand and generate Mech code, answer questions about the language and the standard library, and generally be a helpful companion while programming in Mech. These Mikablocks represent the AI responses to programmer queries, which can be embedded directly into the source code as a kind of live documentation or interactive comment that is distinguised from regular comments and code. 
+The idea is that Mika will eventually serve as the interface for an AI code assistant, integrated into Mech down to the source level, which will be able to understand and generate Mech code, answer questions about the language and libraries, help with debugging, and so forth. These synthblocks represent the AI responses to programmer queries, which can be embedded directly into the source code as a kind of live documentation or interactive comment that is distinguised from regular comments and code. 
 
-The AI assistant will be able to generate these blocks in response to queries, and they will be parsed and integrated into the AST, so they can be accessed and manipulated programmatically as part of the code. Any valid Mech code can be embedded inside a Mikablock, which means the AI can generate code snippets that are directly executable as part of the program. For example:
+The AI assistant will be able to generate these blocks in response to queries, and they will be parsed and integrated into the AST, so they can be accessed and manipulated programmatically as part of the code. Any valid Mech code can be embedded inside a synthblock, which means the AI can generate code snippets that are directly executable as part of the program. For example:
 
 ╭⦿─ ⸢You had asked about how to filter a list, here's how we can do that:
 
-```mech:filter-mikablock
+```mech:filter-example
 x := [1 2 3 4 5]
 threshold := 3
 mask := x > threshold
@@ -420,30 +433,21 @@ mask := x > threshold
 
 Then you can use the mask to filter the original list:
 
-```mech:filter-mikablock
+```mech:filter-example
 x[mask]
 ```
-
 Only the elements where mask is true will be included in the output.
-
 
 Let me know if you need any more examples!⸥
 
-This idea is a rcognitiong of the growing importance of AI assistants in programming, and an attempt to integrate that functionality directly into the language in a way that is seamless and natural. It might be that in the future, AI is mostly writing Mech code, so the way you really interact with ta codebase is through Mika. This opens up a lot of interesting possibilities in HCI and HAI (human-AI interaction) research, and it also raises a lot of questions about how to design and implement such an assistant in a way that is useful, trustworthy, and aligned with the needs of programmers. Hopefully we'll have more answers with the next post.
+Then the user can reply to the AI with another query. This transforms a typical AI chat into an interactive code document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source. Everything is stored as plain text, readable without running code or using external tools, and can be version-controlled and diffed like any other source file.
+
+What you see here is all that's been implemented so far, but the vision presented will be part of the `v0.3` release when it's done.
 
 8. Roadmap to v0.4
 -----------------------------------------------------------------------------------
 
 Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candiate near Octoer.
-
-| Icon | Status | Description |
-|------|:--------:|-------------|
-| 💭 | Concept | Just an idea, no implementation |
-| 🥚 | Proof of Concept | Hacked implementation sketch |
-| 🐣 | Alpha Implementation | Missing features, many bugs, undocumented |
-| 🐤 | Beta Implementation | Completed, with bugs, some tests and docs |
-| 🐓 | Feature Complete | Fully implemented, tested, documented |
-| 🍗 | Deprecated | Removed from specification, should not be used |
 
 -(💭) synth/gen
 -(💭) introspection
@@ -478,6 +482,8 @@ Although we've shown off a number of new and working features in this post, this
 -(🐣) profiler
 -(🐣) gui
 -(🐣) live coding
+
+See the full [ROADMAP](https://docs.mech-lang.org/design/ROADMAP.html) for the plan through `0.4`.
 
 9. Conclusion
 --------------------------------------------------------------------------------
