@@ -3,32 +3,23 @@ Mech v0.3 — Program Specification
 Corey Montella ∙ April 15, 2026
 ===============================================================================
 
-Mech has finally reached a milestone that's been years in the making!
-
-At the beginning of 2025, we anticipated four major milestones in the development of Mech, which we called "phases". Each phase corresponds to a major category of language features that we needed to implement in order to reach our vision for Mech:
-
--(☑️) **v0.1** proof of concept system - minimum viable language implementation
--(☑️) **v0.2** data specification - types, structures, formulas, defining and transforming data
--(📍) **v0.3** program specification - functions, modules, state machines, Mika
--(☐) **v0.4** system specification - tools, distributed programs, capabilities
-
-Today, we are announcing Mech `v0.3`, which is now Turing complete and has the following new features.
+Today, we are announcing Mech `v0.3`, which has the following new features:
 
 - **Enums and tagged unions** for modeling categorical data and optional values (§2)
 - **User-defined functions** with pattern matching and recursion (§3)
 - **State machines** for modeling ordered computation and processes with phases (§4)
 - **Comprehensions** for constructing new matrices and sets from existing ones (§5)
-- **Relational table joins** for powerful data manipulation (§6)
-- **Mika the mech**, Mech's mascot and soon-to-be AI code assistant with `synth` and `gen` operators. (§7)
+- **Relational table joins** for combining tables based on common keys (§6)
+- **Mika the mech** Mech's mascot. (§7)
 
 Before we get into all that, let's first look at how `v0.2` landed.
 
 1. Version 0.2 Wrap-Up
 -------------------------------------------------------------------------------
 
-Version `v0.2-beta` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development.
+Version `v0.2-beta` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development, and that work was much more interesting.
 
-We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness -- leaving out core features like user defined functions, or explicit control flow -- and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing any of those features. The data model express a surprising amount of logic on its own. 
+We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness -- leaving out core features like user defined functions, or explicit control flow -- and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing a full Turing complete language; the data model expresses a surprising amount of logic on its own.
 
 The declarative data model for Mech has landed at the following set of features:
 
@@ -37,7 +28,7 @@ The declarative data model for Mech has landed at the following set of features:
 - [Indexing and slicing](https://docs.mech-lang.org/reference/indexing.html): accessing elements within data structures using logical masks.
 - [Operators](https://docs.mech-lang.org/reference/operators.html) and [standard library functions](https://docs.mech-lang.org/stdlib/index.html): arithmetic, logical, comparison, set, matrix etc.
 
-You can visit any of those links to read the full documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the `v0.2` data model.
+You can visit any of those links to read the full[^1] documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the `v0.2` data model.
 
 Of course there are strict limitations on the kinds of programs you can write with that set of features, so today we are launching Mech `v0.3` with a whole new set of control flow mechanisms that make Mech more capable.
 
@@ -51,12 +42,12 @@ Mech now has a proper enum and tagged-union system:
 x<color> := :red
 ```
 
-An enum is a defined kind with a fixed set of variants. Each variant is tagged with an atom, and can optionally carry a payload of any kind. In the example above, `color` is an enum kind with three variants: `:red`, `:green`, and `:blue`. The variable `x` has the kind `color` and is assigned the value `:red`.
+An enum is a defined kind with a fixed set of variants. Each variant is tagged with an atom, and can optionally carry a payload of any kind. In the example above, `color` is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable `x` has the kind `color` and is assigned the value {{:red}}.
 
-The variants are themselves valid atom values, which are global constants that can be used as tags or identifiers. Because of this, `:red` is both a variant of the `color` enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
+The variants are themselves valid atom values, which are global constants that can be used as tags or identifiers. Because of this, {{:red}} is both a variant of the `color` enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
 
 - Allowing variants to be atoms means we don't need a separate syntax for defining and using enums, which keeps the language simpler and more uniform.
-- However, because atoms exist in a shared global space, reusing a value like `:blue` across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
+- However, because atoms exist in a shared global space, reusing a value like {{:blue}} across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
 
 ```mech:enums
 y<color> := :color/red
@@ -166,8 +157,10 @@ fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
 The accumulator pattern above runs in constant stack space, so we can do:
 
 ```mech:fib-tco
-fib(28u64)
+fib(10_000u64)
 ```
+
+(i)> The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a `u64`. Mech does support `u128` but not in the `wasm` target yet.
 
 4. State Machines
 --------------------------------------------------------------------------------
@@ -271,14 +264,12 @@ a<[u64]> := [4 2 1 3]
 sorted := #bubble-sort(a)
 ```
 
-This is the kind of program that Mech v0.2 couldn't express at all. v0.3 makes it natural.
-
-The runtime validates state machine transition targets at compile time — if you reference a state that isn't declared in the specification, you get an error before execution. A `--trace` CLI flag is also available to print step-by-step transition traces while debugging.
+The runtime validates state machine transition targets at compiletime, and raises an error if you reference a state that isn't declared in the specification, or if you forget to handle a state.
 
 5. Comprehensions
 --------------------------------------------------------------------------------
 
-We've added comprehensions to the Mech, which are a way to construct new data structures from existing ones using generators and optional guards. They come in two variants: matrix comprehensions and set comprehensions, which work the same but produce different kinds of output. This is useful for when you want to create something like a filtered or transformed version of an existing dataset. 
+We've added comprehensions to Mech, which are a way to construct new data structures from existing ones using generators and optional guards. They come in two variants: matrix comprehensions and set comprehensions, which work the same but produce different kinds of output. This is useful for when you want to create something like a filtered or transformed version of an existing dataset. 
 
 (5.1) Matrix Comprehensions
 
@@ -447,7 +438,14 @@ What you see here is all that's been implemented so far, but the vision presente
 8. Roadmap to v0.4
 -----------------------------------------------------------------------------------
 
-Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candiate near Octoer.
+The Mech roadmap is organized into four major milestones, each representing a broad phase of development with a specific focus and set of features. The milestones are designed to build upon each other, with each one adding new capabilities and expanding the expressiveness of the language.
+
+-(☑️) **v0.1** proof of concept system - minimum viable language implementation
+-(☑️) **v0.2** data specification - types, structures, formulas, defining and transforming data
+-(📍) **v0.3** program specification - functions, modules, state machines, Mika
+-(☐) **v0.4** system specification - tools, distributed programs, capabilities
+
+Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candiate near October.
 
 -(💭) synth/gen
 -(💭) introspection
@@ -501,3 +499,4 @@ If you like what you see and you'd like to follow along, join the community and 
 
 Thanks for following along. We'll have a lot more to say as the rest of v0.3 comes together.
 
+[^1]: For small measures of "full"; the documentation is still a work in progress. `-◡⦿◡-`
