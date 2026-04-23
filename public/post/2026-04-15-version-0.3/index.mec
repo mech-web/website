@@ -19,7 +19,7 @@ Before we get into all that, let's first look at how `v0.2` landed.
 
 Version `v0.2-beta` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development, and that work was much more interesting.
 
-We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness -- leaving out core features like user defined functions, or explicit control flow -- and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing a full Turing complete language; the data model expresses a surprising amount of logic on its own.
+We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought or cargo culted. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness -- leaving out core features like user defined functions, or explicit control flow -- and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing a full Turing complete language; the data model expresses a surprising amount of logic on its own.
 
 The declarative data model for Mech has landed at the following set of features:
 
