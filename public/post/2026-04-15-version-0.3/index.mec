@@ -35,14 +35,14 @@ Of course there are strict limitations on the kinds of programs you can write wi
 2. Enums, Tagged Unions, and Pattern Matching
 --------------------------------------------------------------------------------
 
-Mech now has a proper [`enum`](/reference/enum.html) and tagged-union system:
+Mech now has an [`enum`](/reference/enum.html) and tagged-union system:
 
 ```mech:enums
 <color> := :red | :green | :blue
 x<color> := :red
 ```
 
-An enum is a defined kind with a fixed set of variants. Each variant is tagged with an [`atom`](/reference/atom.html) which can optionally carry a payload of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable `x` has the kind {{<color>}} and is assigned the value {{:red}}.
+An enum is a defined kind with a fixed set of variants. Each variant is an [`atom`](/reference/atom.html) which can optionally carry a payload (tag) of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable {{x}} has the kind {{<color>}} and is assigned the value {{:red}}.
 
 Because the variants are themselves valid atom values (which are program-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
 
@@ -83,11 +83,10 @@ The `?` operator is the match operator for optional values and enum variants. If
 
 If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
 
-```mech:pattern-matching
+```mech:enums
 result := x?
-  | :some(:ok(n))  => n
-  | :some(:err(e)) => e.
--- forgot to cover {{:none}} case, so this doesn't compile
+  | :red  => 0xFF0000.
+-- forgot to cover {{:blue}} and {{:green}} case, so this doesn't compile
 ```
 
 We can also pattern match on arrays:
