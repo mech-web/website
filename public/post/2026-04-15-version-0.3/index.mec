@@ -65,11 +65,13 @@ Tagged unions can carry payloads:
 x<option> := :some(:ok(42u64))
 ```
 
+In this example, two enums are defined: {{<result>}} with variants {{:ok}} and {{:err}}, each carrying a {{<u64>}} payload; and {{<option>}} with variants {{:some}} carrying a {{<result>}} payload, and {{:none}} carrying no payload. The variable {{x}} has the kind {{<option>}} and is assigned the value {{:some(:ok(42u64))}}, which demonstrates tagged union nesting.
+
 (2.2) Pattern Matching
 
-Values wrapped inside tagged unions cannot be used directly. For this, we've added a [`match`](/reference/match.html) expression using the `?` operator, which allows you to match on the structure of values and extract data from them. This construct wraps `if` statements, `switch` statements, and destructuring patterns in one.
+Values wrapped inside tagged unions cannot be used directly, so we've added a [`match`](/reference/match.html) expression using the `?` operator. Match allows you to destructure data by matching them to patterns, which covers the purpose of `if` and `switch` statements in other languages.
 
-Consider {{x}} from the previous example. We can match on it like this:
+Consider the variable {{x<option>}} from the previous example. We can match on it like this:
 
 ```mech:pattern-matching
 code := x?
@@ -81,14 +83,6 @@ code := x?
 
 The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
 
-If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
-
-```mech:enums
-result := x?
-  | :red  => 0xFF0000.
--- forgot to cover {{:blue}} and {{:green}} case, so this doesn't compile
-```
-
 We can also pattern match on arrays:
 
 ```mech:pattern-array
@@ -99,7 +93,27 @@ code := arr?
   ├ [x y z] => "three elements"
   └ * => "other"
 ```
+(2.3) Validation
 
+If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
+
+```mech:enums
+result := x?
+  | :red  => 0xFF0000.
+-- Forgot to cover {{:blue}} and {{:green}} cases, so this won't compile.
+```
+
+Also, match arms arm return values must have the same kind, so you can't accidentally return different types from different arms.
+
+```mech:mismatched-arms
+<status> := :running | :pending | :stopped;
+x := :running;
+code := x?
+  | :running => 1
+  | :pending => "pending"
+  | :stopped => 0.
+-- This will not compile until the second arm is fixed to return a {{<f64>}} instead of a {{<string>}}.
+```
 
 3. User-Defined Functions
 --------------------------------------------------------------------------------
@@ -136,18 +150,18 @@ Implicit broadcasting is also supported in user-defined functions. If you call a
 For example, because {{factorial()}} was defined as `factorial(x<f64>) => <f64>`, we can call it with a {{<[f64]>}}, and it will return a matrix of the same shape with the factorial applied to each element:
 
 ```mech:factorial
-m := [1 2 3 4]
+m := [1 2; 3 4]
 factorial(m)
 ```
 
 Implicit broadcasting only applies to functions with scalar inputs and outputs. But the rule is simple: 
 
-- If any one is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
-- If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, you get a compile-time error. 
+- If any one argument is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
+- If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, the compiler will return an error.
 
-We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix, which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less error-prone.
+We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix like Julia and Matlab, which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less error-prone.
 
-However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where some functions broadcast and others don't, which is a common source of confusion and bugs. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
+However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
 (3.1) Tail-Call Optimization
 
@@ -356,15 +370,17 @@ Unwrapping the optional value with `?` allows us to provide a default value of `
 7. Mika the Mech
 --------------------------------------------------------------------------------
 
-The last new feature from `v0.3` I want to talk about is not a traditional language feature, but it's still a big part of the release and the Mech project generally: meet Mika the mech, Mechlang's mascot. 
+The last new feature from `v0.3` I want to talk about is not a traditional language feature, but it's still a big part of the release and the Mech project generally. 
+
+Meet Mika the mech, Mechlang's first mascot:
 
 ![Mika the mech is the Mech programming language mascot. Here she is welcoming you to joing the Mech community!](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-hello_hd.png?ref_type=heads){width: "500px" }
 
-There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity, but I hadn't fully committed to the idea because there are so many other things to work on. 
+There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity, but I hadn't fully committed to the idea of a mascot because there are so many other things to work on. 
 
-But then I wrote a [joke about a AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of AI language mascot could be more than just a joke if it were done properly. We already see it with the rise of general AI assistants, and the way people have started to personify and anthropomorphize their tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make it more approachable and relatable. 
+But then I wrote [a joke about a AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
 
-So it seems natural that Mech's mascot could evolve into an AI assistant that lives in the REPL and helps you write code, answer questions, and generally be a helpful companion while programming in Mech. 
+So it seems natural that Mech's mascot could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answers questions, or debug programs.
 
 (7.1) Character Design
 
@@ -373,11 +389,11 @@ Mascots are particularly useful in programming langauge communities because prog
 So a good mascot requires certain design considerations: 
 
 - Visually appealing and memorable, so that people will want to share it and put it on stickers and t-shirts.
-- Embodies the values and personality of the brand it represents, so that it resonates with the community and reflects the spirit of the language. 
-- Representable in various poses and expressions, so that it can be used in different contexts and convey different emotions. 
+- Embodies the values and personality of the brand it represents, so that it resonates with the community and reflects the spirit of the language.
+- Representable in various poses and expressions, so that it can be used in different contexts and convey different messages. 
 - Possible to simplify the mascot into just a few lines and colors. So in many ways, a good mascot and a good logo share similar design goals.
 
-Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's branding. The name "Mika" is short and alliterates with Mech, which makes it catchy and easy to remember.
+Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is short and alliterates with Mech, which makes it fun to say.
 
 Here's a showcase of Mika in various poses and scenes to demonstrate her flexibility as a character:
 
