@@ -1,6 +1,6 @@
-Mech v0.3 — Program Specification
+Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
-Corey Montella ∙ April 15, 2026
+Corey Montella ∙ April 27, 2026
 ===============================================================================
 
 Today, we are announcing Mech `v0.3`, which has the following new features:
@@ -17,9 +17,9 @@ Before we get into all that, let's first look at how `v0.2` landed.
 1. Version 0.2 Wrap-Up
 -------------------------------------------------------------------------------
 
-Version `v0.2-beta` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development, and that work was much more interesting.
+Version `v0.2` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development, and that work was much more interesting.
 
-We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought or cargo culted. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness -- leaving out core features like user defined functions, or explicit control flow -- and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing a full Turing complete language; the data model expresses a surprising amount of logic on its own.
+We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought or otherwise cargo culted. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing completeness — leaving out core features like user defined functions, or explicit control flow — and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing a full Turing complete language; the data model expresses a surprising amount of logic on its own.
 
 The declarative data model for Mech has landed at the following set of features:
 
@@ -35,16 +35,16 @@ Of course there are strict limitations on the kinds of programs you can write wi
 2. Enums, Tagged Unions, and Pattern Matching
 --------------------------------------------------------------------------------
 
-Mech now has a proper enum and tagged-union system:
+Mech now has a proper [`enum`](/reference/enum.html) and tagged-union system:
 
 ```mech:enums
 <color> := :red | :green | :blue
 x<color> := :red
 ```
 
-An enum is a defined kind with a fixed set of variants. Each variant is tagged with an atom, and can optionally carry a payload of any kind. In the example above, `color` is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable `x` has the kind `color` and is assigned the value {{:red}}.
+An enum is a defined kind with a fixed set of variants. Each variant is tagged with an [`atom`](/reference/atom.html) which can optionally carry a payload of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable `x` has the kind {{<color>}} and is assigned the value {{:red}}.
 
-The variants are themselves valid atom values, which are global constants that can be used as tags or identifiers. Because of this, {{:red}} is both a variant of the `color` enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
+Because the variants are themselves valid atom values (which are program-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
 
 - Allowing variants to be atoms means we don't need a separate syntax for defining and using enums, which keeps the language simpler and more uniform.
 - However, because atoms exist in a shared global space, reusing a value like {{:blue}} across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
@@ -53,7 +53,7 @@ The variants are themselves valid atom values, which are global constants that c
 y<color> := :color/red
 ```
 
-This is similar to other langauges with atoms like Elixir.
+This is similar to other langauges with atoms like Elixir, so Mech might have to adopt some of the same best practices around naming and organization to avoid confusion.
 
 (2.1) Tagged Unions
 
@@ -67,9 +67,7 @@ x<option> := :some(:ok(42u64))
 
 (2.2) Pattern Matching
 
-Values wrapped inside tagged unions cannot be used directly. For this, we've added pattern matching with the `?` operator, which allows you to match on the structure of values and extract data from them. This construct wraps `if` statements, `switch` statements, and destructuring patterns in one.
-
-If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
+Values wrapped inside tagged unions cannot be used directly. For this, we've added a [`match`](/reference/match.html) expression using the `?` operator, which allows you to match on the structure of values and extract data from them. This construct wraps `if` statements, `switch` statements, and destructuring patterns in one.
 
 Consider {{x}} from the previous example. We can match on it like this:
 
@@ -83,7 +81,16 @@ code := x?
 
 The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
 
-Moreover, we can pattern match on arrays:
+If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
+
+```mech:pattern-matching
+result := x?
+  | :some(:ok(n))  => n
+  | :some(:err(e)) => e.
+-- forgot to cover {{:none}} case, so this doesn't compile
+```
+
+We can also pattern match on arrays:
 
 ```mech:pattern-array
 arr := [1 2 3]
@@ -94,16 +101,19 @@ code := arr?
   └ * => "other"
 ```
 
+
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
-Functions in Mech use a pattern-matching style that should feel familiar to anyone who has used functional programming languages like Haskell or Elm.
+[`Functions`](/reference/function.html) in Mech are pure and idempotent mappings from input values to output values. They support pattern matching, recursion, tail-call optimization, and kind annotations. They also support implicit broadcasting over matrices, which means you can write a function that operates on scalars, and it will automatically apply element-wise when given matrices.
+
+The pattern-matching style that should feel familiar to anyone who has used functional programming languages like Haskell or Elm:
 
 ```mech:factorial{output:false}
-factorial(x<u64>) => <u64>
+factorial(x<f64>) => <f64>
   | 0 => 1
-  | n => n * factorial(n - 1<u64>).
-factorial(6<u64>) -- {ans}
+  | n => n * factorial(n - 1).
+factorial(6<f64>) -- {ans}
 ```
 
 The `|` arms are match guards; the first one that matches is evaluated and returned as the result of the function. You can pattern-match on multiple arguments too:
@@ -112,8 +122,8 @@ The `|` arms are match guards; the first one that matches is evaluated and retur
 max(x<u64>, y<u64>) => <u64>
   ├ (0, y) => y
   ├ (x, 0) => x
-  └ (x, y) => max(x - 1<u64>, y - 1<u64>) + 1<u64>.
-max(4<u64>, 7<u64>) -- {ans}
+  └ (x, y) => max(x - 1u64, y - 1u64) + 1u64.
+max(4u64, 7u64) -- {ans}
 ```
 
 The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured. Both styles are supported.
@@ -122,14 +132,13 @@ The tree syntax (`├`, `└`) is an alternative to pipes that is more visually 
 
 (3.1) Implicit broadcasting
 
-Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax:
+Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax.
 
-```mech:broadcast{output:false}
-inc(x<u64>) => <u64>
-  | x => x + 1.
+For example, because {{factorial()}} was defined as `factorial(x<f64>) => <f64>`, we can call it with a {{<[f64]>}}, and it will return a matrix of the same shape with the factorial applied to each element:
 
-m := [1 2 3]
-inc(m) -- {ans}
+```mech:factorial
+m := [1 2 3 4]
+factorial(m)
 ```
 
 Implicit broadcasting only applies to functions with scalar inputs and outputs. But the rule is simple: 
@@ -165,7 +174,7 @@ fib(10_000u64)
 4. State Machines
 --------------------------------------------------------------------------------
 
-A state machine in Mech has two parts: a *specification* that declares the states and their types, and an *implementation* that defines transitions.
+A [`state machine`](/reference/state-machine.html) in Mech has two parts: a *specification* that declares the states and their types, and an *implementation* that defines transitions.
 
 We'll use a simple counting state machine as an example -- you give it a number and it counts down to zero. The specification looks like this:
 
@@ -269,7 +278,7 @@ The runtime validates state machine transition targets at compiletime, and raise
 5. Comprehensions
 --------------------------------------------------------------------------------
 
-We've added comprehensions to Mech, which are a way to construct new data structures from existing ones using generators and optional guards. They come in two variants: matrix comprehensions and set comprehensions, which work the same but produce different kinds of output. This is useful for when you want to create something like a filtered or transformed version of an existing dataset. 
+A [`comprehension`](/reference/comprehension.html) is a construct for creating new data structures from existing ones using generators and optional guards. They come in two variants: matrix comprehensions and set comprehensions, which work the same but produce different kinds of output. This is useful for when you want to create something like a filtered or transformed version of an existing dataset. 
 
 (5.1) Matrix Comprehensions
 
@@ -280,7 +289,7 @@ n := 4
 identity<[u8]:4,4> := [ x | i <- 0..n, j <- 0..n, x := i == j ]
 ```
 
-This works by looping over each of the generated index pairs `(i, j)`, evaluating the expression `x := i == j` for each pair, and then collecting the results into a new matrix. The result is a 4x4 matrix where the diagonal elements are `1` (true) and the off-diagonal elements are `0` (false). The size of the output matrix is determined by the ranges of the generators, so in this case we get a 4x4 matrix because both `i` and `j` range from `0` to `4`, so the resulting matrix is size `1 x 16`, which is then reshaped to `4 x 4` based on the specified output type.
+This works by looping over each of the generated index pairs `(i, j)`, evaluating the expression {{x := i == j}} for each pair, and then collecting the results into a new matrix. The result is a 4x4 matrix where the diagonal elements are `1` (true) and the off-diagonal elements are `0` (false). The size of the output matrix is determined by the ranges of the generators, so in this case we get a 4x4 matrix because both `i` and `j` range from `0` to `4`, so the resulting matrix is size `1 x 16`, which is then reshaped to `4 x 4` based on the specified output type.
 
 (5.2) Set Comprehensions
 
