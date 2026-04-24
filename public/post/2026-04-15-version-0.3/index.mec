@@ -3,6 +3,8 @@ Mech v0.3 — State Machines, Match, and Mika the Mech
 Corey Montella ∙ April 27, 2026
 ===============================================================================
 
+![](images/hero.png)
+
 Today, we are announcing Mech `v0.3`, which has the following new features:
 
 - **Enums and tagged unions** for modeling categorical data and optional values (§2)
@@ -143,7 +145,7 @@ The tree syntax (`├`, `└`) is an alternative to pipes that is more visually 
 
 (i)> The value with the small yellow arrow in the above block is a new feature that allows you to print the return value of a line by putting `{ans}` in a comment on that line. Also, click the arrow to send the value to the console, if it's open. You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment.
 
-(3.1) Implicit broadcasting
+(3.1) Implicit Broadcasting
 
 Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax.
 
@@ -189,7 +191,7 @@ fib(10_000u64)
 
 A [`state machine`](/reference/state-machine.html) in Mech has two parts: a *specification* that declares the states and their types, and an *implementation* that defines transitions.
 
-We'll use a simple counting state machine as an example -- you give it a number and it counts down to zero. The specification looks like this:
+We'll use a simple counting state machine as an example that counts down from a supplied number to zero. The specification looks like this:
 
 ```mech:counter{output:false}
 -- Define the state machine input, outputs, and states.
@@ -326,6 +328,8 @@ bind
 
 Where the `search` block generates pairs of users and their friends, and then pairs of friends and their friends-of-friends, and the `bind` block extracts the friends-of-friends. The Mech comprehension syntax is a bit more compact, but it achieves the same result.
 
+In a future release, we plan on adding support for table and record comprehensions, which will allow you to construct new tables and records from existing ones using a similar generator and guard syntax.
+
 6. Table Joins
 --------------------------------------------------------------------------------
 
@@ -420,7 +424,7 @@ For example, here are some expressions and poses for Minimika and Micromika:
 | Sleeping   | `(-◯-)` | Gripper  | `╭⦿─‹`   |
 | Dazed      | `(⋇◯⋇)` | Big Hug  | `›⌣⦿⌣‹` |
 
-These forms have been integrated into Mech's grammar, which means you can write them in your source code and they will be parsed and factored into the AST!
+These forms have been [integrated into Mech's grammar](https://github.com/mech-lang/mech/blob/bb977c6056dd7af11ec4a0ba7e70606b68cfd202/src/syntax/src/mika.rs), which means you can write them in your source code and they will be parsed and factored into the AST!
 
 (*)> The closest thing I have found to Mika is when Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!
 
