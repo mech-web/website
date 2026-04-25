@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Docs + Console Layout Demo</title>
+  <style>
+    :root {
+      --bg: #050b15;
+      --panel: #07101f;
+      --border: #1a2436;
+      --text: #e6e8ee;
+      --muted: #9ba3b4;
+      --accent: #f5c84c;
+      --violet: #c78eff;
+      --console-width: 440px;
+      --console-min: 320px;
+      --console-max: 760px;
+      --toc-width: 280px;
+      --header-h: 64px;
+      --radius: 12px;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      height: var(--header-h);
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 11, 21, 0.95);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0 1rem;
+    }
+
+    .logo { font-weight: 800; letter-spacing: .08em; color: var(--accent); font-size: 1.6rem; }
+
+    .nav { display: flex; gap: .8rem; }
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      padding: .55rem .75rem;
+      border-radius: 8px;
+      opacity: .85;
+    }
+    .nav a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+      border-radius: 0;
+    }
+
+    .header-search {
+      margin-left: auto;
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      background: #0a1324;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .5rem .75rem;
+      color: var(--muted);
+      min-width: 240px;
+    }
+
+    .header-actions button {
+      border: 1px solid var(--border);
+      background: #0a1324;
+      color: var(--text);
+      border-radius: 8px;
+      padding: .45rem .6rem;
+      cursor: pointer;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: var(--toc-width) minmax(0, 1fr) 8px minmax(var(--console-min), var(--console-width));
+      min-height: calc(100vh - var(--header-h));
+    }
+
+    .toc {
+      border-right: 1px solid var(--border);
+      padding: 1rem;
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      overflow: auto;
+      background: linear-gradient(180deg, rgba(8, 14, 26, 0.95), rgba(6, 11, 20, 0.9));
+    }
+
+    .toc h2 {
+      font-size: .78rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      margin: 1rem 0 .4rem;
+      text-transform: uppercase;
+    }
+
+    .toc-list,
+    .toc-sub {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .toc-list > li { margin-bottom: .3rem; }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: #d4d8e2;
+      padding: .35rem .45rem;
+      border-radius: 8px;
+      transition: .16s ease;
+    }
+
+    .toc .active > a,
+    .toc a.active {
+      background: rgba(245, 200, 76, 0.12);
+      color: var(--accent);
+    }
+
+    .toc-sub {
+      margin-left: .75rem;
+      border-left: 1px solid #28354f;
+      padding-left: .55rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .25s ease;
+    }
+
+    .toc-list > li.expanded > .toc-sub { max-height: 400px; }
+
+    .content {
+      padding: 2rem clamp(1rem, 2vw, 2.4rem) 4rem;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .breadcrumbs { color: var(--muted); font-size: .86rem; letter-spacing: .03em; }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: .5rem; }
+    h2, h3 { scroll-margin-top: calc(var(--header-h) + 18px); }
+    h2 { margin-top: 2.2rem; color: #f3f4f7; }
+
+    .lead { color: #c6ccda; max-width: 70ch; line-height: 1.65; }
+
+    .code-block {
+      margin: 1.2rem 0;
+      background: #070c17;
+      border: 1px solid #263248;
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #a7d5ff;
+      overflow: auto;
+    }
+
+    .alert {
+      border: 1px solid #7a2d46;
+      color: #ffc0d3;
+      background: rgba(122, 45, 70, 0.16);
+      border-radius: var(--radius);
+      padding: .95rem 1rem;
+      margin-top: .8rem;
+    }
+
+    .resizer {
+      width: 8px;
+      background: transparent;
+      cursor: col-resize;
+      position: relative;
+    }
+
+    .resizer::after {
+      content: "";
+      width: 4px;
+      border-radius: 8px;
+      height: 72px;
+      background: var(--accent);
+      position: absolute;
+      left: 2px;
+      top: calc(50% - 36px);
+      opacity: .9;
+    }
+
+    .console {
+      border-left: 1px solid var(--border);
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      background: #060c18;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: var(--console-min);
+    }
+
+    .console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding: .75rem .9rem;
+      gap: .7rem;
+    }
+
+    .tabs { display: flex; gap: .4rem; }
+    .tab {
+      border: 0;
+      background: transparent;
+      color: #a4abc0;
+      padding: .35rem .5rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      text-transform: uppercase;
+      font-size: .8rem;
+      letter-spacing: .05em;
+    }
+
+    .tab.active {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .console-body {
+      overflow: auto;
+      padding: 1rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+
+    .line-prompt { color: var(--violet); }
+    .line-cmd { color: var(--accent); }
+    .line-type { color: #c78eff; }
+    .line-val { color: #7dd2ff; }
+
+    .pane { display: none; }
+    .pane.active { display: block; }
+
+    .console-max .toc,
+    .console-max .content,
+    .console-max .resizer {
+      display: none;
+    }
+
+    .console-max .app {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    @media (max-width: 1200px) {
+      .app {
+        grid-template-columns: var(--toc-width) minmax(0, 1fr);
+      }
+      .console,
+      .resizer { display: none; }
+    }
+
+    @media (max-width: 900px) {
+      .app { grid-template-columns: minmax(0, 1fr); }
+      .toc { display: none; }
+      .content { padding-left: 1rem; padding-right: 1rem; }
+      .header-search { min-width: 140px; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">MECH</div>
+    <nav class="nav" aria-label="Primary">
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Community</a>
+      <a class="active" href="#">Docs</a>
+      <a href="#">Explore</a>
+    </nav>
+    <div class="header-search">🔎 Search docs…</div>
+    <div class="header-actions"><button>☆ Star</button></div>
+  </header>
+
+  <div class="app-wrap">
+    <main class="app" id="appLayout">
+      <aside class="toc" id="toc" aria-label="Table of contents">
+        <h2>Getting Started</h2>
+        <ul class="toc-list">
+          <li><a href="#intro">1. Version 0.2 Wrap-up</a></li>
+        </ul>
+        <h2>Core Features</h2>
+        <ul class="toc-list" id="tocList">
+          <li class="expanded" data-group="validation">
+            <a href="#validation">2. Enums, Tagged Unions, and Pattern Matching</a>
+            <ul class="toc-sub">
+              <li><a href="#tagged-unions">2.1 Tagged Unions</a></li>
+              <li><a href="#pattern-matching">2.2 Pattern Matching</a></li>
+              <li><a href="#exhaustiveness">2.3 Validation</a></li>
+            </ul>
+          </li>
+          <li><a href="#functions">3. User-Defined Functions</a></li>
+          <li><a href="#machines">4. State Machines</a></li>
+          <li><a href="#comprehensions">5. Comprehensions</a></li>
+          <li><a href="#joins">6. Table Joins</a></li>
+          <li><a href="#roadmap">7. Roadmap</a></li>
+        </ul>
+      </aside>
+
+      <article class="content" id="content">
+        <p class="breadcrumbs">DOCS &gt; ENUMS, TAGGED UNIONS, AND PATTERN MATCHING &gt; VALIDATION</p>
+        <h1 id="validation">Validation</h1>
+        <p class="lead" id="intro">If patterns are non-exhaustive, the compiler reports missing variants and prevents the program from compiling, so you won't accidentally drop cases.</p>
+
+        <h2 id="tagged-unions">Tagged Unions</h2>
+        <div class="code-block">result := x?
+| .red   =&gt; 0xFF0000
+-- Forgot to cover :blue and :green cases, so this won't compile.</div>
+        <div class="alert">Error: MatchNonExhaustive — Match over enum <code>color</code> is non-exhaustive. Missing variants: <code>:green</code>, <code>:blue</code>.</div>
+
+        <h2 id="pattern-matching">Pattern Matching</h2>
+        <p class="lead">Match arms should also return a compatible kind to prevent accidental type mismatches between branches.</p>
+        <div class="code-block">&lt;status&gt; := :running | :pending | :stopped
+
+x := :running
+code := x?
+| :running =&gt; 1
+| :pending =&gt; "pending"
+| :stopped =&gt; 0</div>
+
+        <h2 id="exhaustiveness">Validation Rules</h2>
+        <p class="lead">As you scroll, the TOC updates to highlight the current section and expand nested items automatically.</p>
+
+        <h2 id="functions">User-Defined Functions</h2>
+        <p class="lead">Function blocks can specify rich pattern signatures and constraints for strongly typed dispatch.</p>
+
+        <h2 id="machines">State Machines</h2>
+        <p class="lead">Reactive transitions combine stream semantics with deterministic updates and rule guards.</p>
+
+        <h2 id="comprehensions">Comprehensions</h2>
+        <p class="lead">Comprehensions fold over relations and streams to produce derived outputs declaratively.</p>
+
+        <h2 id="joins">Table Joins</h2>
+        <p class="lead">Join operators support temporal and relational composition with explicit keying and filters.</p>
+
+        <h2 id="roadmap">Roadmap</h2>
+        <p class="lead">The next milestone ships richer diagnostics, performance tooling, and interactive runtime inspectors.</p>
+      </article>
+
+      <div class="resizer" id="resizer" aria-hidden="true"></div>
+
+      <aside class="console" id="consolePane" aria-label="Console panel">
+        <div class="console-header">
+          <div class="tabs">
+            <button class="tab active" data-pane="consoleView">Console</button>
+            <button class="tab" data-pane="outputView">Output</button>
+          </div>
+          <button class="tab" id="resetConsole">Reset</button>
+        </div>
+
+        <div class="console-body pane active" id="consoleView"><span class="line-prompt">&gt;</span> <span class="line-cmd">:docs math/sin</span>
+
+math/sin
+Sine of argument in radians
+
+<span class="line-prompt">&gt;</span> y := <span class="line-cmd">math/sin(X)</span>
+ok: defined y
+
+<span class="line-prompt">&gt;</span> y := <span class="line-cmd">math/sin(3.14)</span>
+<span class="line-type">f64</span>
+<span class="line-val">0.0015926529</span>
+
+<span class="line-prompt">&gt;</span> <span class="line-cmd">:type y</span>
+y: f64
+
+<span class="line-prompt">&gt;</span> <span class="line-cmd">math/sin(1.5707996)</span>
+<span class="line-type">f64</span>
+1</div>
+
+        <div class="console-body pane" id="outputView">Build output
+============
+✓ parsing
+✓ type checking
+✓ optimization pass
+✓ diagnostics complete
+
+No runtime errors.</div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const appLayout = document.getElementById('appLayout');
+    const root = document.documentElement;
+    const resizer = document.getElementById('resizer');
+    const consolePane = document.getElementById('consolePane');
+
+    let isDragging = false;
+
+    const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
+
+    const setConsoleWidth = (width) => {
+      const min = parseInt(getComputedStyle(root).getPropertyValue('--console-min'), 10);
+      const max = parseInt(getComputedStyle(root).getPropertyValue('--console-max'), 10);
+      const clamped = clamp(width, min, max);
+      root.style.setProperty('--console-width', `${clamped}px`);
+    };
+
+    const enterMaximized = () => {
+      document.body.classList.add('console-max');
+      consolePane.style.minWidth = '100%';
+    };
+
+    const exitMaximized = () => {
+      document.body.classList.remove('console-max');
+      consolePane.style.minWidth = '';
+    };
+
+    resizer?.addEventListener('pointerdown', (event) => {
+      if (window.matchMedia('(max-width: 1200px)').matches) return;
+      isDragging = true;
+      resizer.setPointerCapture(event.pointerId);
+      document.body.style.userSelect = 'none';
+    });
+
+    window.addEventListener('pointermove', (event) => {
+      if (!isDragging) return;
+      const x = event.clientX;
+
+      if (x < 140) {
+        enterMaximized();
+        return;
+      }
+
+      exitMaximized();
+      const width = window.innerWidth - x;
+      setConsoleWidth(width);
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDragging = false;
+      document.body.style.userSelect = '';
+    });
+
+    document.querySelectorAll('.tab[data-pane]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab[data-pane]').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.pane').forEach((pane) => pane.classList.remove('active'));
+        document.getElementById(btn.dataset.pane)?.classList.add('active');
+      });
+    });
+
+    document.getElementById('resetConsole')?.addEventListener('click', () => {
+      exitMaximized();
+      setConsoleWidth(440);
+    });
+
+    const tocLinks = [...document.querySelectorAll('.toc a[href^="#"]')];
+    const sectionMap = new Map();
+
+    tocLinks.forEach((link) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) sectionMap.set(target.id, link);
+    });
+
+    const activateLink = (id) => {
+      tocLinks.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+      });
+
+      document.querySelectorAll('.toc-list > li').forEach((group) => {
+        const hasActive = !!group.querySelector('a.active');
+        group.classList.toggle('expanded', hasActive);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) activateLink(visible[0].target.id);
+      },
+      {
+        rootMargin: '-35% 0px -55% 0px',
+        threshold: [0.2, 0.5, 0.9],
+      }
+    );
+
+    [...sectionMap.keys()].forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+  </script>
+</body>
+</html>
