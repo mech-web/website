@@ -322,8 +322,12 @@
 
     .divider {
       cursor: col-resize;
-      position: relative;
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      align-self: start;
       background: transparent;
+      z-index: 30;
     }
 
     .divider::before {
