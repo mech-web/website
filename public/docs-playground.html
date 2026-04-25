@@ -3,506 +3,654 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Docs + Console Layout Demo</title>
+  <title>Mech Docs Layout Reproduction</title>
   <style>
     :root {
-      --bg: #050b15;
-      --panel: #07101f;
-      --border: #1a2436;
-      --text: #e6e8ee;
-      --muted: #9ba3b4;
-      --accent: #f5c84c;
-      --violet: #c78eff;
-      --console-width: 440px;
-      --console-min: 320px;
-      --console-max: 760px;
-      --toc-width: 280px;
-      --header-h: 64px;
-      --radius: 12px;
+      --bg: #020a16;
+      --panel: #040d1d;
+      --panel-2: #040c1a;
+      --line: #1a2539;
+      --line-soft: #182337;
+      --text: #dfe5ef;
+      --muted: #94a1b5;
+      --gold: #efc84a;
+      --purple: #ca83ff;
+      --cyan: #8cc8ff;
+      --good: #6fd6ff;
+      --header-h: 72px;
+      --left-w: 300px;
+      --console-w: 485px;
+      --console-min: 340px;
+      --console-max: 720px;
       color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      min-height: 100%;
     }
 
-    .header {
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 40;
+      z-index: 50;
       height: var(--header-h);
-      border-bottom: 1px solid var(--border);
-      background: rgba(5, 11, 21, 0.95);
-      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(to bottom, rgba(2, 10, 22, .98), rgba(2, 10, 22, .94));
       display: flex;
       align-items: center;
-      gap: 1.2rem;
-      padding: 0 1rem;
+      gap: 22px;
+      padding: 0 18px;
+      backdrop-filter: blur(6px);
     }
 
-    .logo { font-weight: 800; letter-spacing: .08em; color: var(--accent); font-size: 1.6rem; }
+    .brand {
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: .08em;
+      font-size: 44px;
+      transform: scaleY(.8);
+      line-height: 1;
+      margin-top: 2px;
+    }
 
-    .nav { display: flex; gap: .8rem; }
-    .nav a {
-      color: var(--text);
+    .primary-nav { display: flex; gap: 26px; }
+    .primary-nav a {
+      color: #d7dde7;
       text-decoration: none;
-      padding: .55rem .75rem;
-      border-radius: 8px;
+      font-size: 33px;
+      transform: scale(.42);
+      transform-origin: left center;
+      margin-right: -40px;
+      line-height: 1;
+      padding-top: 4px;
       opacity: .85;
     }
-    .nav a.active {
-      color: var(--accent);
-      border-bottom: 2px solid var(--accent);
-      border-radius: 0;
+    .primary-nav a.active {
+      color: var(--gold);
+      position: relative;
+    }
+    .primary-nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -13px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
     }
 
-    .header-search {
+    .top-right {
       margin-left: auto;
       display: flex;
-      gap: .5rem;
+      gap: 14px;
       align-items: center;
-      background: #0a1324;
-      border: 1px solid var(--border);
+    }
+
+    .search {
+      width: 290px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #071225;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      color: #93a0b4;
+      font-size: 32px;
+      transform: scale(.42);
+      transform-origin: left center;
+      margin-right: -170px;
+    }
+
+    .search kbd {
+      margin-left: auto;
+      border: 1px solid #2a364d;
+      border-radius: 5px;
+      padding: 0 6px;
+      font-size: .75rem;
+      color: #a8b1c0;
+      line-height: 1.4;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: #071225;
       border-radius: 10px;
-      padding: .5rem .75rem;
-      color: var(--muted);
-      min-width: 240px;
+      color: #d8deea;
+      height: 38px;
+      padding: 0 14px;
+      font-size: 15px;
     }
 
-    .header-actions button {
-      border: 1px solid var(--border);
-      background: #0a1324;
-      color: var(--text);
-      border-radius: 8px;
-      padding: .45rem .6rem;
-      cursor: pointer;
-    }
-
-    .app {
+    .layout {
       display: grid;
-      grid-template-columns: var(--toc-width) minmax(0, 1fr) 8px minmax(var(--console-min), var(--console-width));
+      grid-template-columns: var(--left-w) minmax(0, 1fr) 8px minmax(var(--console-min), var(--console-w));
       min-height: calc(100vh - var(--header-h));
     }
 
-    .toc {
-      border-right: 1px solid var(--border);
-      padding: 1rem;
+    .left {
+      border-right: 1px solid var(--line);
+      background: linear-gradient(180deg, #071225 0%, #040d1d 100%);
       position: sticky;
       top: var(--header-h);
       height: calc(100vh - var(--header-h));
       overflow: auto;
-      background: linear-gradient(180deg, rgba(8, 14, 26, 0.95), rgba(6, 11, 20, 0.9));
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .toc h2 {
-      font-size: .78rem;
-      color: var(--muted);
+    .version {
+      border: 1px solid var(--line);
+      background: #0a1426;
+      border-radius: 8px;
+      height: 32px;
+      color: #dde3ee;
+      width: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .toc-title {
+      margin: 14px 0 6px;
+      font-size: 12px;
       letter-spacing: .08em;
-      margin: 1rem 0 .4rem;
       text-transform: uppercase;
+      color: #8f9ab0;
+      font-weight: 700;
     }
 
-    .toc-list,
-    .toc-sub {
+    .toc,
+    .toc ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
-    .toc-list > li { margin-bottom: .3rem; }
+    .toc li { margin: 2px 0; }
 
     .toc a {
-      display: block;
       text-decoration: none;
-      color: #d4d8e2;
-      padding: .35rem .45rem;
-      border-radius: 8px;
-      transition: .16s ease;
+      color: #c9d2e1;
+      display: block;
+      padding: 5px 0;
+      line-height: 1.45;
+      font-size: 33px;
+      transform: scale(.43);
+      transform-origin: left center;
+      margin-bottom: -14px;
+      width: max-content;
+      max-width: 620px;
     }
 
-    .toc .active > a,
-    .toc a.active {
-      background: rgba(245, 200, 76, 0.12);
-      color: var(--accent);
+    .toc > li.current > a,
+    .toc .active {
+      color: var(--gold);
     }
 
-    .toc-sub {
-      margin-left: .75rem;
-      border-left: 1px solid #28354f;
-      padding-left: .55rem;
+    .toc .sub {
+      border-left: 1px solid #2a3850;
+      margin-left: 12px;
+      padding-left: 12px;
       max-height: 0;
       overflow: hidden;
-      transition: max-height .25s ease;
+      transition: max-height .2s ease;
     }
 
-    .toc-list > li.expanded > .toc-sub { max-height: 400px; }
+    .toc > li.open > .sub { max-height: 240px; }
 
-    .content {
-      padding: 2rem clamp(1rem, 2vw, 2.4rem) 4rem;
-      max-width: 960px;
+    .left-footer {
+      margin-top: auto;
+      padding-top: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid #31435f;
+      border-radius: 9px;
+      background: #0b1628;
+      padding: 14px;
+      color: #f0c95a;
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px rgba(255, 215, 105, .03);
+    }
+
+    .card small {
+      display: block;
+      margin-top: 8px;
+      color: #bec7d8;
+      font-weight: 500;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .left-link {
+      color: #9fabc0;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+    }
+
+    .center {
+      padding: 50px min(7vw, 84px) 70px;
+      max-width: 1080px;
       width: 100%;
       margin: 0 auto;
     }
 
-    .breadcrumbs { color: var(--muted); font-size: .86rem; letter-spacing: .03em; }
+    .breadcrumbs {
+      color: #93a3bb;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 26px;
+    }
 
-    h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: .5rem; }
-    h2, h3 { scroll-margin-top: calc(var(--header-h) + 18px); }
-    h2 { margin-top: 2.2rem; color: #f3f4f7; }
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 5vw, 64px);
+      color: #e7ecf5;
+      font-weight: 800;
+      letter-spacing: .01em;
+    }
 
-    .lead { color: #c6ccda; max-width: 70ch; line-height: 1.65; }
+    h2 {
+      margin-top: 34px;
+      margin-bottom: 10px;
+      font-size: 44px;
+      transform: scale(.5);
+      transform-origin: left center;
+      margin-right: -280px;
+      scroll-margin-top: calc(var(--header-h) + 20px);
+    }
 
-    .code-block {
-      margin: 1.2rem 0;
-      background: #070c17;
-      border: 1px solid #263248;
-      border-radius: var(--radius);
-      padding: 1rem;
+    p {
+      margin: 16px 0;
+      max-width: 70ch;
+      color: #c3cddd;
+      font-size: 37px;
+      transform: scale(.45);
+      transform-origin: left top;
+      line-height: 1.6;
+      margin-right: -390px;
+      margin-bottom: -6px;
+    }
+
+    .code {
+      margin-top: 12px;
+      border: 1px solid #24344f;
+      border-radius: 14px;
+      background: #050e1f;
+      color: #8cc8ff;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      color: #a7d5ff;
+      font-size: 34px;
+      transform: scale(.43);
+      transform-origin: left top;
+      padding: 18px 20px;
+      line-height: 1.55;
+      margin-right: -500px;
       overflow: auto;
+      margin-bottom: -24px;
     }
 
-    .alert {
-      border: 1px solid #7a2d46;
-      color: #ffc0d3;
-      background: rgba(122, 45, 70, 0.16);
-      border-radius: var(--radius);
-      padding: .95rem 1rem;
-      margin-top: .8rem;
+    .error {
+      margin-top: 16px;
+      border: 1px solid #6a2a4d;
+      border-radius: 14px;
+      background: #1c1120;
+      color: #efadb9;
+      font-size: 33px;
+      transform: scale(.43);
+      transform-origin: left top;
+      padding: 16px 20px;
+      margin-right: -500px;
+      margin-bottom: -24px;
     }
 
-    .resizer {
-      width: 8px;
-      background: transparent;
+    .divider {
       cursor: col-resize;
       position: relative;
+      background: transparent;
     }
 
-    .resizer::after {
+    .divider::before {
       content: "";
-      width: 4px;
-      border-radius: 8px;
-      height: 72px;
-      background: var(--accent);
       position: absolute;
+      width: 4px;
+      height: 72px;
+      border-radius: 10px;
+      background: var(--gold);
+      top: 50%;
       left: 2px;
-      top: calc(50% - 36px);
-      opacity: .9;
+      transform: translateY(-50%);
+      opacity: .95;
     }
 
-    .console {
-      border-left: 1px solid var(--border);
+    .right {
+      border-left: 1px solid var(--line);
       position: sticky;
       top: var(--header-h);
       height: calc(100vh - var(--header-h));
-      background: #060c18;
-      display: flex;
-      flex-direction: column;
+      background: #040c19;
       overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
       min-width: var(--console-min);
     }
 
-    .console-header {
+    .right-head {
+      border-bottom: 1px solid var(--line-soft);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      padding: .75rem .9rem;
-      gap: .7rem;
+      gap: 12px;
+      padding: 10px 14px;
     }
 
-    .tabs { display: flex; gap: .4rem; }
+    .tabs { display: flex; gap: 16px; }
+
     .tab {
       border: 0;
+      padding: 0 2px 5px;
       background: transparent;
-      color: #a4abc0;
-      padding: .35rem .5rem;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
+      color: #9da8bc;
+      font-size: 14px;
       text-transform: uppercase;
-      font-size: .8rem;
-      letter-spacing: .05em;
+      letter-spacing: .03em;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
     }
 
     .tab.active {
-      color: var(--accent);
-      border-color: var(--accent);
+      color: var(--gold);
+      border-color: var(--gold);
     }
 
-    .console-body {
+    .right-reset {
+      border: 0;
+      background: transparent;
+      color: #98a5bb;
+      font-size: 30px;
+      transform: scale(.45);
+      transform-origin: right center;
+      cursor: pointer;
+    }
+
+    .pane {
+      display: none;
+      height: 100%;
       overflow: auto;
-      padding: 1rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      line-height: 1.65;
+      padding: 20px 16px 40px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 36px;
+      transform: scale(.43);
+      transform-origin: left top;
+      margin-right: -360px;
+      line-height: 1.7;
+      color: #e8ebf2;
       white-space: pre-wrap;
     }
 
-    .line-prompt { color: var(--violet); }
-    .line-cmd { color: var(--accent); }
-    .line-type { color: #c78eff; }
-    .line-val { color: #7dd2ff; }
-
-    .pane { display: none; }
     .pane.active { display: block; }
 
-    .console-max .toc,
-    .console-max .content,
-    .console-max .resizer {
-      display: none;
+    .cmd { color: var(--gold); font-weight: 700; }
+    .prompt { color: var(--purple); }
+    .type { color: var(--purple); }
+    .val { color: var(--good); }
+
+    .right::-webkit-scrollbar,
+    .left::-webkit-scrollbar,
+    .pane::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    .right::-webkit-scrollbar-thumb,
+    .left::-webkit-scrollbar-thumb,
+    .pane::-webkit-scrollbar-thumb {
+      background: #2d3950;
+      border-radius: 6px;
     }
 
-    .console-max .app {
-      grid-template-columns: minmax(0, 1fr);
+    .console-max .layout {
+      grid-template-columns: 1fr;
+    }
+    .console-max .left,
+    .console-max .center,
+    .console-max .divider { display: none; }
+
+    @media (max-width: 1260px) {
+      .layout { grid-template-columns: var(--left-w) minmax(0, 1fr); }
+      .divider,
+      .right { display: none; }
     }
 
-    @media (max-width: 1200px) {
-      .app {
-        grid-template-columns: var(--toc-width) minmax(0, 1fr);
-      }
-      .console,
-      .resizer { display: none; }
-    }
-
-    @media (max-width: 900px) {
-      .app { grid-template-columns: minmax(0, 1fr); }
-      .toc { display: none; }
-      .content { padding-left: 1rem; padding-right: 1rem; }
-      .header-search { min-width: 140px; }
-      .nav { display: none; }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .left { display: none; }
+      .center { padding: 34px 20px 60px; }
+      .top-right { display: none; }
+      .primary-nav { gap: 18px; }
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="logo">MECH</div>
-    <nav class="nav" aria-label="Primary">
+  <header class="topbar">
+    <div class="brand">MECH</div>
+    <nav class="primary-nav" aria-label="Primary">
       <a href="#">About</a>
       <a href="#">Blog</a>
       <a href="#">Community</a>
-      <a class="active" href="#">Docs</a>
+      <a href="#" class="active">Docs</a>
       <a href="#">Explore</a>
     </nav>
-    <div class="header-search">🔎 Search docs…</div>
-    <div class="header-actions"><button>☆ Star</button></div>
+    <div class="top-right">
+      <div class="search">🔎 Search docs... <kbd>/</kbd></div>
+      <button class="chip">☆ Star</button>
+    </div>
   </header>
 
-  <div class="app-wrap">
-    <main class="app" id="appLayout">
-      <aside class="toc" id="toc" aria-label="Table of contents">
-        <h2>Getting Started</h2>
-        <ul class="toc-list">
-          <li><a href="#intro">1. Version 0.2 Wrap-up</a></li>
-        </ul>
-        <h2>Core Features</h2>
-        <ul class="toc-list" id="tocList">
-          <li class="expanded" data-group="validation">
-            <a href="#validation">2. Enums, Tagged Unions, and Pattern Matching</a>
-            <ul class="toc-sub">
-              <li><a href="#tagged-unions">2.1 Tagged Unions</a></li>
-              <li><a href="#pattern-matching">2.2 Pattern Matching</a></li>
-              <li><a href="#exhaustiveness">2.3 Validation</a></li>
-            </ul>
-          </li>
-          <li><a href="#functions">3. User-Defined Functions</a></li>
-          <li><a href="#machines">4. State Machines</a></li>
-          <li><a href="#comprehensions">5. Comprehensions</a></li>
-          <li><a href="#joins">6. Table Joins</a></li>
-          <li><a href="#roadmap">7. Roadmap</a></li>
-        </ul>
-      </aside>
+  <main class="layout" id="layout">
+    <aside class="left" aria-label="Table of contents">
+      <div class="version">v0.3 ▾</div>
 
-      <article class="content" id="content">
-        <p class="breadcrumbs">DOCS &gt; ENUMS, TAGGED UNIONS, AND PATTERN MATCHING &gt; VALIDATION</p>
-        <h1 id="validation">Validation</h1>
-        <p class="lead" id="intro">If patterns are non-exhaustive, the compiler reports missing variants and prevents the program from compiling, so you won't accidentally drop cases.</p>
+      <p class="toc-title">Getting Started</p>
+      <ul class="toc">
+        <li><a href="#wrap">1. Version 0.2 Wrap-up</a></li>
+      </ul>
 
-        <h2 id="tagged-unions">Tagged Unions</h2>
-        <div class="code-block">result := x?
-| .red   =&gt; 0xFF0000
--- Forgot to cover :blue and :green cases, so this won't compile.</div>
-        <div class="alert">Error: MatchNonExhaustive — Match over enum <code>color</code> is non-exhaustive. Missing variants: <code>:green</code>, <code>:blue</code>.</div>
+      <p class="toc-title">Core Features</p>
+      <ul class="toc" id="tocTree">
+        <li class="open" data-group>
+          <a href="#validation">2. Enums, Tagged Unions, and Pattern Matching</a>
+          <ul class="sub">
+            <li><a href="#tagged">2.1 Tagged Unions</a></li>
+            <li><a href="#pattern">2.2 Pattern Matching</a></li>
+            <li><a href="#rules">2.3 Validation</a></li>
+          </ul>
+        </li>
+        <li><a href="#funcs">3. User-Defined Functions</a></li>
+        <li><a href="#state">4. State Machines</a></li>
+        <li><a href="#comp">5. Comprehensions</a></li>
+        <li><a href="#joins">6. Table Joins</a></li>
+        <li><a href="#roadmap">7. Roadmap</a></li>
+      </ul>
 
-        <h2 id="pattern-matching">Pattern Matching</h2>
-        <p class="lead">Match arms should also return a compatible kind to prevent accidental type mismatches between branches.</p>
-        <div class="code-block">&lt;status&gt; := :running | :pending | :stopped
-
-x := :running
-code := x?
-| :running =&gt; 1
-| :pending =&gt; "pending"
-| :stopped =&gt; 0</div>
-
-        <h2 id="exhaustiveness">Validation Rules</h2>
-        <p class="lead">As you scroll, the TOC updates to highlight the current section and expand nested items automatically.</p>
-
-        <h2 id="functions">User-Defined Functions</h2>
-        <p class="lead">Function blocks can specify rich pattern signatures and constraints for strongly typed dispatch.</p>
-
-        <h2 id="machines">State Machines</h2>
-        <p class="lead">Reactive transitions combine stream semantics with deterministic updates and rule guards.</p>
-
-        <h2 id="comprehensions">Comprehensions</h2>
-        <p class="lead">Comprehensions fold over relations and streams to produce derived outputs declaratively.</p>
-
-        <h2 id="joins">Table Joins</h2>
-        <p class="lead">Join operators support temporal and relational composition with explicit keying and filters.</p>
-
-        <h2 id="roadmap">Roadmap</h2>
-        <p class="lead">The next milestone ships richer diagnostics, performance tooling, and interactive runtime inspectors.</p>
-      </article>
-
-      <div class="resizer" id="resizer" aria-hidden="true"></div>
-
-      <aside class="console" id="consolePane" aria-label="Console panel">
-        <div class="console-header">
-          <div class="tabs">
-            <button class="tab active" data-pane="consoleView">Console</button>
-            <button class="tab" data-pane="outputView">Output</button>
-          </div>
-          <button class="tab" id="resetConsole">Reset</button>
+      <div class="left-footer">
+        <div class="card">🤖 &nbsp;Mech Under Construction
+          <small>Building tools for reasoning about data and systems.</small>
         </div>
+        <a class="left-link" href="#">◉ Report an issue</a>
+        <a class="left-link" href="#">◌ Join the community</a>
+      </div>
+    </aside>
 
-        <div class="console-body pane active" id="consoleView"><span class="line-prompt">&gt;</span> <span class="line-cmd">:docs math/sin</span>
+    <section class="center" id="content">
+      <div class="breadcrumbs" id="wrap">DOCS &gt; ENUMS, TAGGED UNIONS, AND PATTERN MATCHING &gt; VALIDATION</div>
+      <h1 id="validation">Validation</h1>
+      <p>If patterns are non-exhaustive, the compiler reports missing variants and prevents the program from compiling, so you won't accidentally drop cases.</p>
+
+      <h2 id="tagged">Tagged Unions</h2>
+      <div class="code">result := x? | .red =&gt; 0xFF0000 -- Forgot to cover :blue and :green cases, so this won't compile.</div>
+      <div class="error">Error: MatchNonExhaustive — Match over enum <code>color</code> is non-exhaustive. Missing variants: <code>:green</code>, <code>:blue</code>.</div>
+
+      <h2 id="pattern">Pattern Matching</h2>
+      <p>Match arms should also return a compatible kind to prevent accidental type mismatches between branches.</p>
+      <div class="code">&lt;status&gt; := :running | :pending | :stopped x := :running code := x? | :running =&gt; 1 | :pending =&gt; "pending" | :stopped =&gt; 0</div>
+
+      <h2 id="rules">Validation Rules</h2>
+      <p>As you scroll, the TOC updates to highlight the current section and expand nested items automatically.</p>
+
+      <h2 id="funcs">User-Defined Functions</h2>
+      <p>Function blocks can specify rich pattern signatures and constraints for strongly typed dispatch.</p>
+
+      <h2 id="state">State Machines</h2>
+      <p>Reactive transitions combine stream semantics with deterministic updates and rule guards.</p>
+
+      <h2 id="comp">Comprehensions</h2>
+      <p>Comprehensions fold over relations and streams to produce derived outputs declaratively.</p>
+
+      <h2 id="joins">Table Joins</h2>
+      <p>Join operators support temporal and relational composition with explicit keying and filters.</p>
+
+      <h2 id="roadmap">Roadmap</h2>
+      <p>The next milestone ships richer diagnostics, performance tooling, and interactive runtime inspectors.</p>
+    </section>
+
+    <div class="divider" id="divider" aria-hidden="true"></div>
+
+    <aside class="right" id="consolePanel">
+      <div class="right-head">
+        <div class="tabs">
+          <button class="tab active" data-pane="consolePane">Console</button>
+          <button class="tab" data-pane="outputPane">Output</button>
+        </div>
+        <button class="right-reset" id="consoleReset">Reset</button>
+      </div>
+      <div class="pane active" id="consolePane"><span class="prompt">&gt;</span> <span class="cmd">:docs math/sin</span>
 
 math/sin
 Sine of argument in radians
 
-<span class="line-prompt">&gt;</span> y := <span class="line-cmd">math/sin(X)</span>
+<span class="prompt">&gt;</span> y := <span class="cmd">math/sin(X)</span>
 ok: defined y
 
-<span class="line-prompt">&gt;</span> y := <span class="line-cmd">math/sin(3.14)</span>
-<span class="line-type">f64</span>
-<span class="line-val">0.0015926529</span>
+<span class="prompt">&gt;</span> y := <span class="cmd">math/sin(3.14)</span>
+<span class="type">f64</span>
+<span class="val">0.0015926529</span>
 
-<span class="line-prompt">&gt;</span> <span class="line-cmd">:type y</span>
+<span class="prompt">&gt;</span> <span class="cmd">:type y</span>
 y: f64
 
-<span class="line-prompt">&gt;</span> <span class="line-cmd">math/sin(1.5707996)</span>
-<span class="line-type">f64</span>
-1</div>
+<span class="prompt">&gt;</span> <span class="cmd">math/sin(1.5707996)</span>
+<span class="type">f64</span>
+1
 
-        <div class="console-body pane" id="outputView">Build output
+<span class="prompt">&gt;</span> <span class="cmd">math/sin(0)</span>
+<span class="type">f64</span>
+0
+
+<span class="prompt">&gt;</span> </div>
+      <div class="pane" id="outputPane">Build output
 ============
-✓ parsing
-✓ type checking
-✓ optimization pass
-✓ diagnostics complete
+✓ parse complete
+✓ type checks complete
+✓ executable generated
 
 No runtime errors.</div>
-      </aside>
-    </main>
-  </div>
+    </aside>
+  </main>
 
   <script>
-    const appLayout = document.getElementById('appLayout');
     const root = document.documentElement;
-    const resizer = document.getElementById('resizer');
-    const consolePane = document.getElementById('consolePane');
+    const divider = document.getElementById('divider');
+    const consolePanel = document.getElementById('consolePanel');
+    const minW = () => parseInt(getComputedStyle(root).getPropertyValue('--console-min'), 10);
+    const maxW = () => parseInt(getComputedStyle(root).getPropertyValue('--console-max'), 10);
+    const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-    let isDragging = false;
+    let dragging = false;
 
-    const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
-
-    const setConsoleWidth = (width) => {
-      const min = parseInt(getComputedStyle(root).getPropertyValue('--console-min'), 10);
-      const max = parseInt(getComputedStyle(root).getPropertyValue('--console-max'), 10);
-      const clamped = clamp(width, min, max);
-      root.style.setProperty('--console-width', `${clamped}px`);
-    };
-
-    const enterMaximized = () => {
-      document.body.classList.add('console-max');
-      consolePane.style.minWidth = '100%';
-    };
-
-    const exitMaximized = () => {
-      document.body.classList.remove('console-max');
-      consolePane.style.minWidth = '';
-    };
-
-    resizer?.addEventListener('pointerdown', (event) => {
-      if (window.matchMedia('(max-width: 1200px)').matches) return;
-      isDragging = true;
-      resizer.setPointerCapture(event.pointerId);
+    divider.addEventListener('pointerdown', (e) => {
+      if (window.matchMedia('(max-width: 1260px)').matches) return;
+      dragging = true;
+      divider.setPointerCapture(e.pointerId);
       document.body.style.userSelect = 'none';
     });
 
-    window.addEventListener('pointermove', (event) => {
-      if (!isDragging) return;
-      const x = event.clientX;
-
-      if (x < 140) {
-        enterMaximized();
+    window.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      if (e.clientX < 136) {
+        document.body.classList.add('console-max');
+        consolePanel.style.minWidth = '100%';
         return;
       }
 
-      exitMaximized();
-      const width = window.innerWidth - x;
-      setConsoleWidth(width);
+      document.body.classList.remove('console-max');
+      consolePanel.style.minWidth = '';
+      const width = clamp(window.innerWidth - e.clientX, minW(), maxW());
+      root.style.setProperty('--console-w', `${width}px`);
     });
 
     window.addEventListener('pointerup', () => {
-      isDragging = false;
+      dragging = false;
       document.body.style.userSelect = '';
+    });
+
+    document.getElementById('consoleReset').addEventListener('click', () => {
+      document.body.classList.remove('console-max');
+      consolePanel.style.minWidth = '';
+      root.style.setProperty('--console-w', '485px');
     });
 
     document.querySelectorAll('.tab[data-pane]').forEach((btn) => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab[data-pane]').forEach((el) => el.classList.remove('active'));
+        document.querySelectorAll('.pane').forEach((el) => el.classList.remove('active'));
         btn.classList.add('active');
-        document.querySelectorAll('.pane').forEach((pane) => pane.classList.remove('active'));
-        document.getElementById(btn.dataset.pane)?.classList.add('active');
+        document.getElementById(btn.dataset.pane).classList.add('active');
       });
     });
 
-    document.getElementById('resetConsole')?.addEventListener('click', () => {
-      exitMaximized();
-      setConsoleWidth(440);
-    });
-
-    const tocLinks = [...document.querySelectorAll('.toc a[href^="#"]')];
-    const sectionMap = new Map();
-
-    tocLinks.forEach((link) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) sectionMap.set(target.id, link);
-    });
-
-    const activateLink = (id) => {
+    const tocLinks = [...document.querySelectorAll('#tocTree a[href^="#"]')];
+    const activate = (id) => {
       tocLinks.forEach((link) => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        const match = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('active', match);
       });
 
-      document.querySelectorAll('.toc-list > li').forEach((group) => {
-        const hasActive = !!group.querySelector('a.active');
-        group.classList.toggle('expanded', hasActive);
+      document.querySelectorAll('#tocTree > li[data-group]').forEach((group) => {
+        group.classList.toggle('open', !!group.querySelector('a.active'));
       });
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) activateLink(visible[0].target.id);
-      },
-      {
-        rootMargin: '-35% 0px -55% 0px',
-        threshold: [0.2, 0.5, 0.9],
-      }
-    );
+    const sections = tocLinks
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
 
-    [...sectionMap.keys()].forEach((id) => {
-      const section = document.getElementById(id);
-      if (section) observer.observe(section);
+    const obs = new IntersectionObserver((entries) => {
+      const current = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (current) activate(current.target.id);
+    }, {
+      rootMargin: '-35% 0px -55% 0px',
+      threshold: [0.15, 0.45, 0.8],
     });
+
+    sections.forEach((sec) => obs.observe(sec));
   </script>
 </body>
 </html>
