@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Docs - Validation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">MECH</div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Community</a>
+      <a class="active" href="#">Docs</a>
+      <a href="#">Explore</a>
+    </nav>
+    <div class="search-wrap">
+      <input type="search" placeholder="Search docs..." aria-label="Search docs" />
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel toc" aria-label="Table of contents">
+      <div class="version">v0.3</div>
+      <h2>Getting Started</h2>
+      <ul>
+        <li><a href="#">1. Version 0.2 Wrap-Up</a></li>
+      </ul>
+      <h2>Core Features</h2>
+      <ul>
+        <li class="selected"><a href="#">2. Enums, Tagged Unions, and Pattern Matching</a></li>
+        <li><a href="#">2.1 Tagged Unions</a></li>
+        <li><a href="#">2.2 Pattern Matching</a></li>
+        <li><a href="#">2.3 Validation</a></li>
+        <li><a href="#">3. User-Defined Functions</a></li>
+        <li><a href="#">4. State Machines</a></li>
+        <li><a href="#">5. Comprehensions</a></li>
+        <li><a href="#">6. Table Joins</a></li>
+      </ul>
+    </aside>
+
+    <section class="panel content" aria-label="Document content">
+      <p class="breadcrumbs">DOCS &gt; ENUMS, TAGGED UNIONS, AND PATTERN MATCHING &gt; VALIDATION</p>
+      <p class="chapter">2.3</p>
+      <h1>Validation</h1>
+      <p>
+        If patterns are non-exhaustive, the compiler reports the missing variants and prevents
+        the program from compiling, so you will not accidentally drop cases.
+      </p>
+
+      <article class="code-card">
+        <pre><code>result := x?
+  | .red  =&gt; 0xFF0000.
+-- Forgot to cover .blue and .green cases, so this won't compile.</code></pre>
+      </article>
+
+      <article class="error-card">
+        <h3>Error</h3>
+        <p><strong>MatchNonExhaustive</strong></p>
+        <p>Match over enum <code>'color'</code> is non-exhaustive. Missing variants: <code>.green</code>, <code>.blue</code>.</p>
+      </article>
+
+      <article class="code-card">
+        <pre><code>&lt;status&gt; := :running | :pending | :stopped
+x := :running
+code := x?
+  | :running =&gt; 1
+  | :pending =&gt; "pending"
+  | :stopped =&gt; 0</code></pre>
+      </article>
+    </section>
+
+    <aside class="panel repl" aria-label="REPL console">
+      <div class="repl-header">
+        <button class="tab active" aria-selected="true">Console</button>
+        <button class="tab" aria-selected="false">Output</button>
+      </div>
+      <div class="terminal" role="log" aria-live="polite">
+        <p><span class="prompt">&gt;</span> :docs math/sin</p>
+        <p class="output">math/sin</p>
+        <p class="muted">Sine of argument in radians</p>
+        <p><span class="prompt">&gt;</span> y := math/sin(X)</p>
+        <p class="output">ok: defined y</p>
+        <p><span class="prompt">&gt;</span> y := math/sin(3.14)</p>
+        <p class="type">f64</p>
+        <p class="output">0.0015926529164868282</p>
+        <p><span class="prompt">&gt;</span> :type y</p>
+        <p class="output">y: f64</p>
+        <p><span class="prompt">&gt;</span> math/sin(1.570799632679)</p>
+        <p class="type">f64</p>
+        <p class="output">1</p>
+        <p><span class="prompt">&gt;</span> math/sin(0)</p>
+        <p class="type">f64</p>
+        <p class="output">0</p>
+        <p><span class="prompt">&gt;</span> <span class="cursor" aria-hidden="true"></span></p>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
