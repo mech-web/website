@@ -594,6 +594,14 @@ let resizing = false;
 let lastNormalWidth = DEFAULT_OPEN_WIDTH;
 let dragStartX = 0;
 let didDrag = false;
+let currentConsoleWidth = parseFloat(
+  document.documentElement.style.getPropertyValue("--console-width")
+) || DEFAULT_OPEN_WIDTH;
+
+function setConsoleWidth(width) {
+  currentConsoleWidth = width;
+  document.documentElement.style.setProperty("--console-width", `${width}px`);
+}
 
 function setEdgeHandle(mode) {
   if (!edgeHandle) return;
@@ -614,9 +622,7 @@ function syncEdgeHandleOnLoad() {
     return;
   }
 
-  const consoleWidth = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
-  ) || 0;
+  const consoleWidth = currentConsoleWidth;
 
   if (document.body.classList.contains("console-fullscreen")) {
     setEdgeHandle("left");
@@ -661,7 +667,7 @@ function closeConsole() {
   contentShell.classList.remove("hidden");
   articleLayout.classList.remove("hide-toc");
   setEdgeHandle("right");
-  document.documentElement.style.setProperty("--console-width", "0px");
+  setConsoleWidth(0);
 }
 
 function openConsoleNormal() {
@@ -678,13 +684,11 @@ function openConsoleNormal() {
     openWidth = Math.min(DEFAULT_OPEN_WIDTH, Math.max(MIN_CONSOLE_WIDTH, viewport * 0.36));
   }
   openWidth = applyNonFullscreenLayout(viewport, openWidth);
-  document.documentElement.style.setProperty("--console-width", `${openWidth}px`);
+  setConsoleWidth(openWidth);
 }
 
 function cycleConsoleMode() {
-  const currentWidth = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
-  ) || 0;
+  const currentWidth = currentConsoleWidth;
   const isFullscreen = document.body.classList.contains("console-fullscreen");
   const isClosed = consolePane.style.display === "none" || currentWidth <= COLLAPSE_THRESHOLD;
 
@@ -763,10 +767,7 @@ window.addEventListener("mousemove", (e) => {
     }
   }
 
-  document.documentElement.style.setProperty(
-    "--console-width",
-    `${consoleWidth}px`
-  );
+  setConsoleWidth(consoleWidth);
 });
 
 window.addEventListener("mouseup", () => {
@@ -779,13 +780,11 @@ window.addEventListener("resize", () => {
   if (window.innerWidth <= 900) return;
 
   const viewport = window.innerWidth;
-  let consoleWidth = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
-  ) || 0;
+  let consoleWidth = currentConsoleWidth;
 
   if (document.body.classList.contains("console-fullscreen")) {
     setEdgeHandle("left");
-    document.documentElement.style.setProperty("--console-width", `${viewport}px`);
+    setConsoleWidth(viewport);
     return;
   }
 
@@ -804,7 +803,7 @@ window.addEventListener("resize", () => {
   }
 
   consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
-  document.documentElement.style.setProperty("--console-width", `${consoleWidth}px`);
+  setConsoleWidth(consoleWidth);
 });
 
 window.addEventListener("keydown", (e) => {
@@ -919,11 +918,27 @@ function requestTocUpdate() {
   });
 }
 
+function deferPostPaint(fn) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(fn);
+  });
+}
+
 window.addEventListener("scroll", requestTocUpdate, { passive: true });
 window.addEventListener("resize", requestTocUpdate);
-document.addEventListener("visibilitychange", requestTocUpdate);
-requestTocUpdate();
-syncEdgeHandleOnLoad();
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    deferPostPaint(() => {
+      syncEdgeHandleOnLoad();
+      requestTocUpdate();
+    });
+  }
+});
+
+deferPostPaint(() => {
+  syncEdgeHandleOnLoad();
+  requestTocUpdate();
+});
 </script>
 
 </body>
