@@ -19,7 +19,7 @@
   --bg-elevated:   #151B21;
   --accent-primary:#F2B63D;
   --accent-hover:  #ecd7ad;
-  --accent-soft:   #ffe4a7;
+  --accent-soft:   #ffefc9;
   --blue-primary:  #2F6FA3;
   --blue-bright:   #3E86C1;
   --border:        #35393d;
@@ -430,7 +430,6 @@ section.active-section {
 .main-content section {
   border-bottom: 1px dotted var(--border);
   padding-bottom: 30px;
-  padding-top: 30px;
 }
 
 /* ── Footer ── */
@@ -676,6 +675,28 @@ body.console-fullscreen .console-pane {
   font-size: 14px;
   line-height: 1.6;
   white-space: pre-wrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-secondary-purple-soft) transparent;
+}
+
+.console-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.console-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.console-scroll::-webkit-scrollbar-thumb {
+  background: var(--accent-secondary-purple-soft);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.console-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-secondary-purple-soft);
+  background-clip: content-box;
 }
 
 /* ── Responsive ── */
