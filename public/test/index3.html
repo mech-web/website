@@ -45,6 +45,22 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
 }
 
+.header-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.top-nav {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--subtle);
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 8px var(--console-width);
@@ -166,7 +182,16 @@ body.console-fullscreen .console-pane {
 <body>
 
 <header class="site-header">
-  Documentation Layout
+  <div class="header-inner">
+    <div>Acme Platform Docs</div>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#intro">Docs</a>
+      <a href="#api-reference">API Reference</a>
+      <a href="#operations">Operations</a>
+      <a href="#faq">FAQ</a>
+      <a href="#footer-links">Support</a>
+    </nav>
+  </div>
 </header>
 
 <main class="workspace" id="workspace">
@@ -180,39 +205,71 @@ body.console-fullscreen .console-pane {
         <aside class="toc">
           <h3>Contents</h3>
           <ul>
-            <li><a href="#intro">Introduction</a></li>
-            <li><a href="#layout">Layout</a></li>
-            <li><a href="#console">Console</a></li>
-            <li><a href="#toc-section">TOC</a></li>
-            <li><a href="#responsive">Responsive</a></li>
+            <li><a href="#intro">Getting Started</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#workflow">Authoring Workflow</a></li>
+            <li><a href="#api-reference">API Reference</a></li>
+            <li><a href="#operations">Operations & Monitoring</a></li>
+            <li><a href="#security">Security Checklist</a></li>
+            <li><a href="#faq">FAQ</a></li>
           </ul>
         </aside>
         <article class="main-content">
           <section id="intro">
-            <h2>Introduction</h2>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <p>The hero scrolls naturally under the sticky header.</p>
+            <h2>Getting Started</h2>
+            <p>The Acme Platform docs site helps teams ship services quickly while keeping reliability and security guardrails in place.</p>
+            <p>Use this page as your onboarding entry point for local setup, deployment flow, API contracts, and operational standards.</p>
+            <p>New engineers should complete the quick-start checklist, run the local bootstrap command, and validate against the staging environment before opening their first change request.</p>
+            <p>For realistic behavior, this demo intentionally includes enough copy to create natural reading flow and page scroll depth.</p>
           </section>
-          <section id="layout">
-            <h2>Layout</h2>
-            <p>TOC + content remain grouped together.</p>
-            <p>Extra width becomes margins outside the group.</p>
+          <section id="architecture">
+            <h2>Architecture</h2>
+            <p>The platform is organized into edge routing, auth, service orchestration, and data planes.</p>
+            <p>Requests enter through the gateway, are validated by policy middleware, and then fan out to internal services through typed contracts.</p>
+            <p>Each service publishes health, latency, and error-budget metrics to the observability stack so incidents can be triaged in minutes rather than hours.</p>
+            <p>Configuration is versioned in Git and promoted through environments using immutable build artifacts.</p>
           </section>
-          <section id="console">
-            <h2>Console</h2>
-            <p>Console is anchored to the viewport edge.</p>
-            <p>It behaves like a real IDE split pane.</p>
+          <section id="workflow">
+            <h2>Authoring Workflow</h2>
+            <p>1) Create a branch from <strong>main</strong>, 2) run local checks, 3) update docs and changelog, 4) request review from the owning team.</p>
+            <p>Every documentation update should include runnable examples, copy-paste-safe commands, and a rollback note where relevant.</p>
+            <p>When behavior changes across versions, keep migration notes close to the affected section instead of burying them in release notes.</p>
+            <p>Writers and engineers co-own docs quality; stale docs should be treated as bugs.</p>
           </section>
-          <section id="toc-section">
-            <h2>TOC</h2>
-            <p>TOC hides automatically once console dominates.</p>
+          <section id="api-reference">
+            <h2>API Reference</h2>
+            <p><strong>POST /v1/deployments</strong> — creates a deployment job and returns a job id for progress tracking.</p>
+            <p><strong>GET /v1/deployments/{id}</strong> — returns current state, start/end timestamps, and failure diagnostics.</p>
+            <p><strong>POST /v1/rollbacks</strong> — restores a previous stable release, preserving environment variables and secrets bindings.</p>
+            <p>All endpoints require OAuth bearer tokens with the <code>deploy.write</code> scope for mutating calls.</p>
           </section>
-          <section id="responsive">
-            <h2>Responsive</h2>
-            <p>Reading mode → normal mode → focus mode.</p>
+          <section id="operations">
+            <h2>Operations & Monitoring</h2>
+            <p>Set SLOs for availability, latency, and freshness. Alert on burn-rate thresholds, not just raw error count.</p>
+            <p>Dashboards should include golden signals, dependency health, saturation indicators, and recent deployment markers.</p>
+            <p>Incident responders should always be able to answer: what changed, when it changed, and how to mitigate quickly.</p>
+            <p>Post-incident reviews focus on system improvements, not individual blame.</p>
+          </section>
+          <section id="security">
+            <h2>Security Checklist</h2>
+            <p>Rotate access tokens regularly, enforce least privilege scopes, and require MFA for production operators.</p>
+            <p>Run dependency scans and static analysis in CI for every merge request.</p>
+            <p>Store secrets in a managed vault and never commit credentials, certificates, or private keys to source control.</p>
+            <p>Perform quarterly access reviews and rehearse incident containment playbooks.</p>
+          </section>
+          <section id="faq">
+            <h2>FAQ</h2>
+            <p><strong>How long does a typical deploy take?</strong> Around 4–8 minutes depending on service size and cache warmup.</p>
+            <p><strong>Can we roll back partially?</strong> Yes, rollback supports service-level targeting when contracts remain compatible.</p>
+            <p><strong>Where do I request new environment secrets?</strong> Use the internal access form and tag the Platform Security group.</p>
+            <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
           </section>
         </article>
-        <footer class="footer">Footer spanning TOC + main content</footer>
+        <footer class="footer" id="footer-links">
+          <strong>Acme Platform Documentation</strong><br>
+          Version 2.8 · Last updated April 2026 · docs@acme.example<br>
+          Quick links: <a href="#intro">Getting Started</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
+        </footer>
       </div>
     </div>
   </section>
@@ -221,15 +278,47 @@ body.console-fullscreen .console-pane {
 
   <aside class="console-pane">
     <div class="console-scroll">
-[12:01] Build started...
-[12:02] Compiling...
-[12:03] Running checks...
-[12:04] Deploy complete
+[09:12:04] INFO  docs-ci: pipeline=7421 branch=feature/layout-refresh commit=4eee406
+[09:12:05] INFO  checkout: cloning repository
+[09:12:06] INFO  install: npm ci --prefer-offline
+[09:12:18] INFO  lint: eslint src/**/*.ts
+[09:12:24] PASS  lint: 0 errors, 2 warnings
+[09:12:24] INFO  test: vitest run --coverage
+[09:12:41] PASS  test: 128 passed, 0 failed, coverage=91.8%
+[09:12:42] INFO  build: vite build
+[09:12:53] PASS  build: output=dist/, size=1.9MB
+[09:12:54] INFO  preview: running smoke checks
+[09:12:58] PASS  smoke: homepage renders
+[09:12:59] PASS  smoke: docs sidebar links valid
+[09:13:00] PASS  smoke: console resize interaction stable
+[09:13:01] INFO  deploy: target=staging region=us-east-1
+[09:13:08] INFO  deploy: waiting for health checks
+[09:13:11] PASS  deploy: service=docs-web revision=2026.04.26.1
+[09:13:12] INFO  observability: creating deployment marker
+[09:13:13] INFO  audit: writing release metadata
+[09:13:15] PASS  release: completed successfully
 
-> real resize logic
-> anchored to viewport edge
-> TOC disappears after 50%
-> snaps to full console mode
+$ tail -n 20 /var/log/docs-web/access.log
+200 GET /docs/getting-started
+200 GET /docs/architecture
+200 GET /docs/api
+200 GET /docs/operations
+200 GET /assets/app-4f2d9e.js
+304 GET /assets/styles-87d1aa.css
+200 GET /api/status
+200 GET /api/search?q=deployments
+200 GET /api/search?q=rollbacks
+200 GET /api/search?q=runbook
+200 GET /favicon.ico
+200 GET /manifest.json
+200 GET /docs/security
+200 GET /docs/faq
+
+notes:
+- console pane intentionally scrolls independently
+- drag handle to resize between reading and focus modes
+- TOC hides first when space is constrained so content remains readable
+- fullscreen snap enters at ~92% viewport width
     </div>
   </aside>
 
