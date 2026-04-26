@@ -49,8 +49,12 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 24px;
+}
+
+.brand {
+  white-space: nowrap;
 }
 
 .top-nav {
@@ -59,6 +63,20 @@ a { color: inherit; text-decoration: none; }
   font-size: 14px;
   font-weight: 500;
   color: var(--subtle);
+  align-self: stretch;
+  align-items: stretch;
+}
+
+.top-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.top-nav a.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
 }
 
 .workspace {
@@ -121,6 +139,10 @@ body.console-fullscreen .workspace {
 .toc li { margin-bottom: 12px; }
 .toc a { color: var(--subtle); display: block; padding: 4px 0; }
 .toc a.active { color: var(--accent); font-weight: 600; }
+.toc .toc-sub { margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
+.toc .toc-sub li { margin-bottom: 8px; }
+.toc .toc-sub a { font-size: 14px; }
+.toc .toc-sub .toc-sub { margin-top: 4px; }
 
 .main-content { min-width: 0; }
 
@@ -183,13 +205,13 @@ body.console-fullscreen .console-pane {
 
 <header class="site-header">
   <div class="header-inner">
-    <div>Acme Platform Docs</div>
+    <div class="brand">Acme Platform Docs</div>
     <nav class="top-nav" aria-label="Primary">
-      <a href="#intro">Docs</a>
-      <a href="#api-reference">API Reference</a>
-      <a href="#operations">Operations</a>
-      <a href="#faq">FAQ</a>
-      <a href="#footer-links">Support</a>
+      <a href="/docs">Docs</a>
+      <a href="/guides" class="active" aria-current="page">Guides</a>
+      <a href="/api">API Reference</a>
+      <a href="/changelog">Changelog</a>
+      <a href="/support">Support</a>
     </nav>
   </div>
 </header>
@@ -206,7 +228,20 @@ body.console-fullscreen .console-pane {
           <h3>Contents</h3>
           <ul>
             <li><a href="#intro">Getting Started</a></li>
-            <li><a href="#architecture">Architecture</a></li>
+            <li>
+              <a href="#architecture" class="active">Architecture</a>
+              <ul class="toc-sub">
+                <li>
+                  <a href="#architecture-overview">System Overview</a>
+                  <ul class="toc-sub">
+                    <li><a href="#architecture-edge">Edge & Gateway Layer</a></li>
+                    <li><a href="#architecture-services">Service Mesh & RPC</a></li>
+                  </ul>
+                </li>
+                <li><a href="#architecture-data">Data Plane & Storage</a></li>
+                <li><a href="#architecture-observability">Observability Topology</a></li>
+              </ul>
+            </li>
             <li><a href="#workflow">Authoring Workflow</a></li>
             <li><a href="#api-reference">API Reference</a></li>
             <li><a href="#operations">Operations & Monitoring</a></li>
@@ -228,6 +263,16 @@ body.console-fullscreen .console-pane {
             <p>Requests enter through the gateway, are validated by policy middleware, and then fan out to internal services through typed contracts.</p>
             <p>Each service publishes health, latency, and error-budget metrics to the observability stack so incidents can be triaged in minutes rather than hours.</p>
             <p>Configuration is versioned in Git and promoted through environments using immutable build artifacts.</p>
+            <h3 id="architecture-overview">System Overview</h3>
+            <p>The control plane governs rollout strategy, policy checks, and regional failover, while the data plane handles runtime traffic and persistence paths.</p>
+            <h4 id="architecture-edge">Edge & Gateway Layer</h4>
+            <p>Global edge POPs terminate TLS, apply WAF controls, and route requests to the nearest healthy region using policy-aware traffic steering.</p>
+            <h4 id="architecture-services">Service Mesh & RPC</h4>
+            <p>Internal services communicate over mutual-TLS RPC channels with retries, budgets, and idempotency keys enforced at the client layer.</p>
+            <h3 id="architecture-data">Data Plane & Storage</h3>
+            <p>Hot paths use low-latency key-value storage while analytical workloads stream into warehouse pipelines with partition-aware ingestion.</p>
+            <h3 id="architecture-observability">Observability Topology</h3>
+            <p>Metrics, traces, and structured logs are correlated by request id, allowing responders to move from symptom to root-cause with minimal context switching.</p>
           </section>
           <section id="workflow">
             <h2>Authoring Workflow</h2>
