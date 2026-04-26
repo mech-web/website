@@ -248,9 +248,35 @@ const HANDLE_WIDTH       = 8;
 const TOC_WIDTH          = 260;
 const TOC_GAP            = 48;
 const MIN_MAIN_CONTENT   = 640;
-const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_CONTENT;
+const MIN_MAIN_WITH_TOC  = 760;
+const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_WITH_TOC;
 
 let resizing = false;
+
+function applyNonFullscreenLayout(viewport, consoleWidth) {
+  /*
+    Keep content readable first in non-fullscreen mode:
+    - cap console so main content can keep a minimum width
+    - hide TOC early if available space gets tight
+  */
+  const maxConsoleForContent = Math.max(
+    0,
+    viewport - HANDLE_WIDTH - MIN_MAIN_CONTENT
+  );
+  if (consoleWidth > maxConsoleForContent) {
+    consoleWidth = maxConsoleForContent;
+  }
+
+  const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
+  const shouldHideToc = leftPaneWidth < MIN_LEFT_WITH_TOC;
+  articleLayout.classList.toggle("hide-toc", shouldHideToc);
+
+  contentShell.classList.remove("hidden");
+  handle.style.display = "";
+  workspace.style.gridTemplateColumns = "";
+
+  return consoleWidth;
+}
 
 handle.addEventListener("mousedown", () => {
   resizing = true;
@@ -293,36 +319,7 @@ window.addEventListener("mousemove", (e) => {
       document.body.classList.add("console-fullscreen");
 
     } else {
-      /*
-        Space-aware layout rules:
-        - keep content visible first
-        - hide TOC only when the viewport is too narrow
-        - on wide screens, keep TOC visible even with a wide console
-      */
-      contentShell.classList.remove("hidden");
-      handle.style.display = "";
-      workspace.style.gridTemplateColumns = "";
-
-      const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
-      const shouldHideToc = leftPaneWidth < MIN_LEFT_WITH_TOC;
-
-      if (shouldHideToc) {
-        articleLayout.classList.add("hide-toc");
-      } else {
-        articleLayout.classList.remove("hide-toc");
-      }
-
-      /*
-        Final safeguard: non-fullscreen mode should never starve main content.
-        Content wins over extra console width.
-      */
-      const maxConsoleForContent = Math.max(
-        0,
-        viewport - HANDLE_WIDTH - MIN_MAIN_CONTENT
-      );
-      if (consoleWidth > maxConsoleForContent) {
-        consoleWidth = maxConsoleForContent;
-      }
+      consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
     }
   }
 
@@ -336,6 +333,36 @@ window.addEventListener("mouseup", () => {
   resizing = false;
   document.body.style.cursor     = "";
   document.body.style.userSelect = "";
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth <= 900) return;
+
+  const viewport = window.innerWidth;
+  let consoleWidth = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
+  ) || 0;
+
+  if (document.body.classList.contains("console-fullscreen")) {
+    document.documentElement.style.setProperty("--console-width", `${viewport}px`);
+    return;
+  }
+
+  if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
+    articleLayout.classList.remove("hide-toc");
+    contentShell.classList.remove("hidden");
+    return;
+  }
+
+  if (consoleWidth > viewport - HANDLE_WIDTH) {
+    consoleWidth = viewport - HANDLE_WIDTH;
+  }
+  if (consoleWidth < MIN_CONSOLE_WIDTH) {
+    consoleWidth = MIN_CONSOLE_WIDTH;
+  }
+
+  consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
+  document.documentElement.style.setProperty("--console-width", `${consoleWidth}px`);
 });
 </script>
 
