@@ -248,10 +248,25 @@ section.active-section {
 }
 
 .resize-handle {
+  position: relative;
   background: #f3f4f6;
-  cursor: col-resize;
+  cursor: grab;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
+}
+
+.resize-handle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 54px;
+  border-radius: 8px;
+  background: #f8cc5f;
+  border: 1px solid #c69020;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
 }
 
 .edge-handle {
@@ -264,7 +279,7 @@ section.active-section {
   border-radius: 8px;
   background: #f8cc5f;
   border: 1px solid #c69020;
-  cursor: col-resize;
+  cursor: grab;
   z-index: 1100;
   display: none;
   opacity: 1;
@@ -296,6 +311,11 @@ section.active-section {
   height: 24px;
   border-radius: 999px;
   background: rgba(17, 24, 39, 0.85);
+}
+
+body.is-resizing,
+body.is-resizing * {
+  cursor: grabbing !important;
 }
 
 .console-pane {
@@ -623,13 +643,13 @@ function applyNonFullscreenLayout(viewport, consoleWidth) {
 
 handle.addEventListener("mousedown", () => {
   resizing = true;
-  document.body.style.cursor     = "col-resize";
+  document.body.classList.add("is-resizing");
   document.body.style.userSelect = "none";
 });
 
 edgeHandle.addEventListener("mousedown", () => {
   resizing = true;
-  document.body.style.cursor     = "col-resize";
+  document.body.classList.add("is-resizing");
   document.body.style.userSelect = "none";
 
   /* Allow dragging back out of collapsed/fullscreen states */
@@ -688,7 +708,7 @@ window.addEventListener("mousemove", (e) => {
 
 window.addEventListener("mouseup", () => {
   resizing = false;
-  document.body.style.cursor     = "";
+  document.body.classList.remove("is-resizing");
   document.body.style.userSelect = "";
 });
 
