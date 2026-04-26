@@ -312,7 +312,8 @@ section.active-section {
   z-index: 50;
 }
 
-.resize-handle::after {
+.resize-handle::after,
+.edge-handle::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -329,11 +330,11 @@ section.active-section {
 .edge-handle {
   position: fixed;
   top: calc(var(--header-height) + ((100vh - var(--header-height)) / 2));
-  right: -8px;
+  right: -12px;
   transform: translateY(-50%);
   width: var(--grip-width);
   height: var(--grip-height);
-  border-radius: var(--grip-radius);
+  border-radius: var(--grip-radius) 0 0 var(--grip-radius);
   background: var(--grip-bg);
   border: 1px solid var(--grip-border);
   cursor: grab;
@@ -346,7 +347,8 @@ section.active-section {
 
 .edge-handle.left {
   right: auto;
-  left: -8px;
+  left: -12px;
+  border-radius: 0 var(--grip-radius) var(--grip-radius) 0;
 }
 
 .edge-handle:hover {
@@ -359,15 +361,11 @@ section.active-section {
 }
 
 .edge-handle::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 2px;
-  height: 24px;
-  border-radius: 999px;
-  background: rgba(17, 24, 39, 0.85);
+  left: 60%;
+}
+
+.edge-handle.left::after {
+  left: 40%;
 }
 
 body.is-resizing,
