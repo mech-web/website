@@ -286,6 +286,29 @@ body.console-fullscreen .workspace {
   object-fit: cover;
 }
 
+/* ── Intro / abstract (full-width) ── */
+.article-intro {
+  max-width: 78ch;
+  margin: 0 auto 52px;
+}
+
+.article-intro p {
+  margin: 0 0 18px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  font-size: 1.06rem;
+}
+
+.article-intro p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.2em;
+  line-height: 0.84;
+  padding-right: 12px;
+  margin-top: 0.06em;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
 /* ── Article layout ── */
 .article-layout {
   display: grid;
@@ -296,6 +319,8 @@ body.console-fullscreen .workspace {
 
 .article-layout.hide-toc { grid-template-columns: 1fr; }
 .article-layout.hide-toc .toc { display: none; }
+.article-layout.no-sections { display: block; }
+.article-layout.no-sections .toc { display: none; }
 .content-shell.hidden { display: none; }
 
 /* ── TOC ── */
@@ -579,11 +604,14 @@ body.console-fullscreen .console-pane {
           <img src="images/hero-square.png" alt="Mech v0.3 announcement visual">
         </div>
       </div>
+      <div class="article-intro" id="articleIntro">
+        <p>Mech v0.3 introduces a cleaner, more composable way to build data-oriented software with state machines, pattern matching, and richer authoring ergonomics across the toolchain.</p>
+        <p>This introductory abstract intentionally runs full width under the hero to establish context before navigation appears. Once the first structured section begins, the split layout and sticky table of contents take over naturally.</p>
+      </div>
       <div class="article-layout" id="articleLayout">
         <aside class="toc">
           <h3>Contents</h3>
           <ul>
-            <li><a href="#intro">Getting Started</a></li>
             <li>
               <a href="#architecture">Architecture</a>
               <ul class="toc-sub">
@@ -606,13 +634,6 @@ body.console-fullscreen .console-pane {
           </ul>
         </aside>
         <article class="main-content">
-          <section id="intro">
-            <h2>Getting Started</h2>
-            <p>The Acme Platform docs site helps teams ship services quickly while keeping reliability and security guardrails in place.</p>
-            <p>Use this page as your onboarding entry point for local setup, deployment flow, API contracts, and operational standards.</p>
-            <p>New engineers should complete the quick-start checklist, run the local bootstrap command, and validate against the staging environment before opening their first change request.</p>
-            <p>For realistic behavior, this demo intentionally includes enough copy to create natural reading flow and page scroll depth.</p>
-          </section>
           <section id="architecture">
             <h2>Architecture</h2>
             <p>The platform is organized into edge routing, auth, service orchestration, and data planes.</p>
@@ -669,7 +690,7 @@ body.console-fullscreen .console-pane {
         <footer class="footer" id="footer-links">
           <strong>Acme Platform Documentation</strong><br>
           Version 2.8 · Last updated April 2026 · docs@acme.example<br>
-          Quick links: <a href="#intro">Getting Started</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
+          Quick links: <a href="#architecture">Architecture</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
         </footer>
       </div>
     </div>
@@ -950,6 +971,11 @@ const topSections = topTocLinks
     return { link, section: id ? document.getElementById(id) : null };
   })
   .filter((e) => e.section);
+
+const contentSections = Array.from(document.querySelectorAll(".main-content > section"));
+if (!contentSections.length) {
+  articleLayout.classList.add("no-sections", "hide-toc");
+}
 
 function setActiveTocSection(activeLink) {
   const allTocLinks = tocRoot ? Array.from(tocRoot.querySelectorAll("a")) : [];
