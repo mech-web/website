@@ -100,6 +100,7 @@ body.console-fullscreen .workspace {
   width: 100%;
   max-width: var(--content-max-width);
   min-width: 0;
+  container-type: inline-size;
 }
 
 .breadcrumbs {
@@ -288,20 +289,18 @@ body.console-fullscreen .console-pane {
   .toc { display: none; }
 }
 
-@media (max-width: 1100px) {
+@container (max-width: 980px) {
   .hero {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 14px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 7.5vw, 56px);
   }
 
   .hero-visual {
-    min-height: 260px;
-  }
-}
-
-@media (max-width: 1320px) and (min-width: 1101px) {
-  .hero {
-    grid-template-columns: minmax(260px, 0.9fr) minmax(280px, 1.1fr);
+    min-height: 280px;
   }
 }
 </style>
