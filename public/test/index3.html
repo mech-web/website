@@ -441,7 +441,6 @@ section.active-section {
   color: var(--text-secondary);
 }
 
-/* 🔑 THIS FIXES ALIGNMENT */
 .footer-inner {
   max-width: var(--content-max-width);
   margin: 0 auto;
@@ -501,7 +500,6 @@ section.active-section {
 .footer-release {
   border: 1px solid var(--border-strong);
   background: var(--bg-primary);
-  min-height: 240px;
 }
 
 .release-grid-row {
@@ -516,7 +514,7 @@ section.active-section {
 
 .release-grid-label,
 .release-grid-value {
-  padding: 14px 16px;
+  padding: 10px 10px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 14px;
@@ -547,8 +545,8 @@ section.active-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid var(--border-strong);
-  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-strong);
+  padding: 10px 10px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 14px;
@@ -970,9 +968,8 @@ body.console-fullscreen .console-pane {
 
             <!-- Right: Latest release info -->
             <div class="footer-release">
-              <div class="release-grid-row">
-                <div class="release-grid-label">Author:</div>
-                <div class="release-grid-value">Mech-Lang</div>
+              <div class="release-ack">
+                <a href="#">Latest Release</a>
               </div>
               <div class="release-grid-row">
                 <div class="release-grid-label">Version:</div>
@@ -983,21 +980,10 @@ body.console-fullscreen .console-pane {
                 <div class="release-grid-value">2026-04-26</div>
               </div>
               <div class="release-grid-row">
-                <div class="release-grid-label">Downloads:</div>
-                <div class="release-grid-value release-downloads">
-                  <a href="https://github.com/mech-lang/mech/releases/latest">All Binaries</a>
-                  <a href="https://github.com/mech-lang/mech/releases/latest">Linux</a>
-                  <a href="https://github.com/mech-lang/mech/releases/latest">macOS</a>
-                  <a href="https://github.com/mech-lang/mech/releases/latest">Windows</a>
-                </div>
-              </div>
-              <div class="release-grid-row">
                 <div class="release-grid-label">License:</div>
                 <div class="release-grid-value"><a href="https://github.com/mech-lang/mech?tab=Apache-2.0-1-ov-file#readme">Apache 2.0</a></div>
               </div>
-              <div class="release-ack">
-                <a href="#">Acknowledgements</a>
-              </div>
+
             </div>
 
           </div>
