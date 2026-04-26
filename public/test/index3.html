@@ -265,8 +265,8 @@ section.active-section {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 14px;
-  height: 54px;
+  width: 18px;
+  height: 66px;
   border-radius: 8px;
   background: #f8cc5f;
   border: 1px solid #c69020;
@@ -584,8 +584,12 @@ const TOC_GAP            = 48;
 const MIN_MAIN_CONTENT   = 640;
 const MIN_MAIN_WITH_TOC  = 760;
 const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_WITH_TOC;
+const DEFAULT_OPEN_WIDTH = 420;
 
 let resizing = false;
+let lastNormalWidth = DEFAULT_OPEN_WIDTH;
+let dragStartX = 0;
+let didDrag = false;
 
 function setEdgeHandle(mode) {
   if (!edgeHandle) return;
@@ -641,30 +645,81 @@ function applyNonFullscreenLayout(viewport, consoleWidth) {
   handle.style.display = "";
   workspace.style.gridTemplateColumns = "";
   setEdgeHandle("none");
+  lastNormalWidth = consoleWidth;
 
   return consoleWidth;
 }
 
-handle.addEventListener("mousedown", () => {
-  resizing = true;
-  document.body.classList.add("is-resizing");
-  document.body.style.userSelect = "none";
-});
+function closeConsole() {
+  document.body.classList.remove("console-fullscreen");
+  consolePane.style.display = "none";
+  handle.style.display = "none";
+  contentShell.classList.remove("hidden");
+  articleLayout.classList.remove("hide-toc");
+  setEdgeHandle("right");
+  document.documentElement.style.setProperty("--console-width", "0px");
+}
 
-edgeHandle.addEventListener("mousedown", () => {
-  resizing = true;
-  document.body.classList.add("is-resizing");
-  document.body.style.userSelect = "none";
-
-  /* Allow dragging back out of collapsed/fullscreen states */
+function openConsoleNormal() {
+  const viewport = window.innerWidth;
   document.body.classList.remove("console-fullscreen");
   consolePane.style.display = "";
   contentShell.classList.remove("hidden");
   handle.style.display = "";
-});
+  let openWidth = Math.min(
+    lastNormalWidth || DEFAULT_OPEN_WIDTH,
+    viewport - HANDLE_WIDTH
+  );
+  if (openWidth < MIN_CONSOLE_WIDTH) {
+    openWidth = Math.min(DEFAULT_OPEN_WIDTH, Math.max(MIN_CONSOLE_WIDTH, viewport * 0.36));
+  }
+  openWidth = applyNonFullscreenLayout(viewport, openWidth);
+  document.documentElement.style.setProperty("--console-width", `${openWidth}px`);
+}
+
+function cycleConsoleMode() {
+  const currentWidth = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
+  ) || 0;
+  const isFullscreen = document.body.classList.contains("console-fullscreen");
+  const isClosed = consolePane.style.display === "none" || currentWidth <= COLLAPSE_THRESHOLD;
+
+  if (isFullscreen) {
+    openConsoleNormal();
+  } else if (isClosed) {
+    openConsoleNormal();
+  } else {
+    lastNormalWidth = currentWidth;
+    closeConsole();
+  }
+}
+
+function onResizeHandleMouseDown(e) {
+  resizing = true;
+  dragStartX = e.clientX;
+  didDrag = false;
+  document.body.classList.add("is-resizing");
+  document.body.style.userSelect = "none";
+}
+
+handle.addEventListener("mousedown", onResizeHandleMouseDown);
+
+edgeHandle.addEventListener("mousedown", onResizeHandleMouseDown);
+
+function onHandleClick() {
+  if (didDrag) {
+    didDrag = false;
+    return;
+  }
+  cycleConsoleMode();
+}
+
+handle.addEventListener("click", onHandleClick);
+edgeHandle.addEventListener("click", onHandleClick);
 
 window.addEventListener("mousemove", (e) => {
   if (!resizing) return;
+  if (Math.abs(e.clientX - dragStartX) > 3) didDrag = true;
 
   const viewport = window.innerWidth;
   let consoleWidth = viewport - e.clientX;
@@ -753,30 +808,7 @@ window.addEventListener("keydown", (e) => {
   const tag = document.activeElement?.tagName;
   if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable) return;
   e.preventDefault();
-
-  const viewport = window.innerWidth;
-  const currentWidth = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
-  ) || 0;
-  const isOpen = consolePane.style.display !== "none" && currentWidth > COLLAPSE_THRESHOLD;
-
-  if (isOpen) {
-    document.body.classList.remove("console-fullscreen");
-    consolePane.style.display = "none";
-    handle.style.display = "none";
-    contentShell.classList.remove("hidden");
-    articleLayout.classList.remove("hide-toc");
-    setEdgeHandle("right");
-    document.documentElement.style.setProperty("--console-width", "0px");
-  } else {
-    document.body.classList.remove("console-fullscreen");
-    consolePane.style.display = "";
-    contentShell.classList.remove("hidden");
-    handle.style.display = "";
-    let openWidth = Math.min(420, Math.max(MIN_CONSOLE_WIDTH, viewport * 0.36));
-    openWidth = applyNonFullscreenLayout(viewport, openWidth);
-    document.documentElement.style.setProperty("--console-width", `${openWidth}px`);
-  }
+  cycleConsoleMode();
 });
 
 /*
