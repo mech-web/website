@@ -256,36 +256,46 @@ section.active-section {
 
 .edge-handle {
   position: fixed;
-  top: calc(var(--header-height) + 120px);
-  right: 8px;
-  transform: none;
-  width: 20px;
-  height: 74px;
-  border-radius: 999px;
-  background: #38bdf8;
-  border: 1px solid #0284c7;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 66px;
+  border-radius: 8px;
+  background: #f8cc5f;
+  border: 1px solid #c69020;
   cursor: col-resize;
   z-index: 1100;
   display: none;
   opacity: 1;
-  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.45);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+  transition: right 140ms ease, left 140ms ease, box-shadow 140ms ease;
 }
 
 .edge-handle.left {
   right: auto;
-  left: 8px;
+  left: -8px;
+}
+
+.edge-handle:hover {
+  right: 0;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45);
+}
+
+.edge-handle.left:hover {
+  left: 0;
 }
 
 .edge-handle::after {
-  content: "⋮";
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 18px;
-  line-height: 1;
-  font-weight: 700;
+  width: 2px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.85);
 }
 
 .console-pane {
