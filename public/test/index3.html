@@ -11,52 +11,60 @@
   --console-width: 575px;
   --toc-width: 260px;
   --content-max-width: 1200px;
-  --border: #1c2c43;
-  --text: #e9e7e2;
-  --subtle: #9ca9bd;
-  --accent: #e8b23f;
-  --accent-strong: #f2c14d;
-  --text-bright: #f4f4f5;
-  --text-inverse: #101828;
-  --text-muted: #9eaabc;
-  --text-soft: #a8b3c6;
-  --panel-text: #e5e7eb;
-  --panel-text-soft: #cbd5e1;
-  --panel-meta: #9ca3af;
-  --link-muted: #9eb0c9;
-  --accent-soft: #f6c45c;
-  --accent-active: #ffd27a;
-  --section-title: #ece7dc;
-  --hero-title: #ebe8e2;
-  --console-text: #e2e8f0;
-  --btn-bg: #151f30;
-  --btn-bg-hover: #1a263a;
-  --btn-border-hover: #2b3b57;
-  --surface-1: #0b1a2d;
-  --surface-2: #030b16;
-  --surface-3: #132338;
-  --surface-4: #162742;
-  --surface-5: #1b2944;
-  --rule-strong: rgba(20, 36, 58, 0.8);
-  --accent-border-soft: rgba(232, 178, 63, 0.24);
-  --accent-line: rgba(245, 185, 66, 0.6);
-  --header-glow: #041123;
-  --page-mid: #020a16;
-  --panel-bg: #08111f;
-  --page-bg: #020915;
-  --header-bg: #020913;
-  --header-line: #0f1d31;
+  --bg-primary: #0B0F12;
+  --bg-secondary: #0F1418;
+  --bg-elevated: #151B21;
+  --accent-primary: #F2B63D;
+  --accent-hover: #E0A82F;
+  --accent-soft: #FFD166;
+  --blue-primary: #2F6FA3;
+  --blue-bright: #3E86C1;
+  --border: #1C232A;
+  --border-strong: #2A333D;
+  --text-primary: #E6EDF3;
+  --text-secondary: #AAB4BE;
+  --text-muted: #6B7682;
+  --success: #3FB950;
+  --error: #F85149;
+  --text: var(--text-primary);
+  --subtle: var(--text-secondary);
+  --accent: var(--accent-primary);
+  --accent-strong: var(--accent-soft);
+  --panel-text: var(--text-primary);
+  --panel-meta: var(--text-secondary);
+  --link-muted: var(--text-secondary);
+  --accent-active: var(--accent-soft);
+  --section-title: var(--text-primary);
+  --hero-title: var(--text-primary);
+  --console-text: var(--text-primary);
+  --btn-bg: var(--bg-elevated);
+  --btn-bg-hover: var(--border-strong);
+  --btn-border-hover: var(--blue-primary);
+  --surface-1: var(--bg-elevated);
+  --surface-2: var(--bg-primary);
+  --surface-3: var(--border-strong);
+  --surface-4: var(--border-strong);
+  --surface-5: var(--border-strong);
+  --rule-strong: var(--border);
+  --accent-border-soft: var(--border-strong);
+  --accent-line: var(--accent-primary);
+  --header-glow: var(--bg-secondary);
+  --page-mid: var(--bg-secondary);
+  --panel-bg: var(--bg-secondary);
+  --page-bg: var(--bg-primary);
+  --header-bg: var(--bg-primary);
+  --header-line: var(--border);
   --grip-width: 8px;
   --grip-height: 50px;
   --grip-radius: 2px;
-  --grip-bg: #efb13f;
-  --grip-border: #9a6c1b;
-  --grip-shadow: 0 10px 20px rgba(2, 6, 23, 0.35);
+  --grip-bg: var(--accent-primary);
+  --grip-border: var(--accent-hover);
+  --grip-shadow: none;
   --separator-grip-width: 8px;
   --separator-grip-height: 50px;
   --grip-notch-width: 2px;
   --grip-notch-height: 24px;
-  --grip-notch-color: #3a4250;
+  --grip-notch-color: var(--border);
   --grip-notch-border: 0;
 }
 
@@ -67,7 +75,7 @@ html, body {
   padding: 0;
   font-family: Inter, system-ui, sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top, var(--header-glow) 0%, var(--page-mid) 38%, var(--page-bg) 68%);
+  background: linear-gradient(180deg, var(--header-glow) 0%, var(--page-mid) 38%, var(--page-bg) 100%);
   scroll-behavior: smooth;
 }
 
@@ -125,7 +133,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .top-nav a.active {
-  color: var(--text-bright);
+  color: var(--text-primary);
   border-bottom-color: var(--accent);
 }
 
@@ -221,7 +229,7 @@ body.console-fullscreen .workspace {
   background: linear-gradient(180deg, var(--panel-bg) 0%, var(--surface-2) 100%);
   border-radius: 18px;
   border: 1px solid var(--surface-3);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  box-shadow: none;
   margin-bottom: 48px;
   color: var(--panel-text);
 }
@@ -265,7 +273,7 @@ body.console-fullscreen .workspace {
   margin-top: 22px;
   padding-top: 18px;
   border-top: 1px solid var(--accent-border-soft);
-  color: var(--text-soft);
+  color: var(--text-secondary);
   line-height: 1.75;
 }
 
@@ -277,7 +285,7 @@ body.console-fullscreen .workspace {
   align-items: center;
   justify-content: center;
   background: var(--accent);
-  color: var(--text-inverse);
+  color: var(--bg-primary);
   font-size: 12px;
   font-weight: 700;
 }
@@ -432,7 +440,7 @@ section.active-section {
 
 .edge-handle:hover {
   right: 0;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45);
+  box-shadow: none;
 }
 
 .edge-handle.left:hover {
