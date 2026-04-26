@@ -585,6 +585,10 @@ const MIN_MAIN_CONTENT   = 640;
 const MIN_MAIN_WITH_TOC  = 760;
 const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_WITH_TOC;
 const DEFAULT_OPEN_WIDTH = 420;
+const HEADER_HEIGHT = parseInt(
+  getComputedStyle(document.documentElement).getPropertyValue("--header-height"),
+  10
+);
 
 let resizing = false;
 let lastNormalWidth = DEFAULT_OPEN_WIDTH;
@@ -852,8 +856,7 @@ function setActiveTocSection(activeLink) {
       .forEach((li) => li.classList.remove("expanded"));
   }
 
-  const offset = parseInt(getComputedStyle(document.documentElement)
-    .getPropertyValue("--header-height"), 10) + 28;
+  const offset = HEADER_HEIGHT + 28;
 
   let activeNestedLink = null;
   nestedLinks.forEach((link) => {
@@ -876,12 +879,10 @@ function setActiveTocSection(activeLink) {
 }
 
 function updateTocOnScroll() {
+  if (document.visibilityState !== "visible") return;
+  if (contentShell.classList.contains("hidden")) return;
   if (!topSections.length) return;
-  const headerOffset = parseInt(
-    getComputedStyle(document.documentElement).getPropertyValue("--header-height"),
-    10
-  );
-  const activationLine = headerOffset + Math.min(window.innerHeight * 0.35, 280);
+  const activationLine = HEADER_HEIGHT + Math.min(window.innerHeight * 0.35, 280);
 
   let active = topSections[0];
   const nearPageBottom =
@@ -908,9 +909,20 @@ function updateTocOnScroll() {
   setActiveTocSection(active.link);
 }
 
-window.addEventListener("scroll", updateTocOnScroll, { passive: true });
-window.addEventListener("resize", updateTocOnScroll);
-updateTocOnScroll();
+let tocTicking = false;
+function requestTocUpdate() {
+  if (tocTicking) return;
+  tocTicking = true;
+  requestAnimationFrame(() => {
+    tocTicking = false;
+    updateTocOnScroll();
+  });
+}
+
+window.addEventListener("scroll", requestTocUpdate, { passive: true });
+window.addEventListener("resize", requestTocUpdate);
+document.addEventListener("visibilitychange", requestTocUpdate);
+requestTocUpdate();
 syncEdgeHandleOnLoad();
 </script>
 
