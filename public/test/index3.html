@@ -139,7 +139,8 @@ body.console-fullscreen .workspace {
 .toc li { margin-bottom: 12px; }
 .toc a { color: var(--subtle); display: block; padding: 4px 0; }
 .toc a.active { color: var(--accent); font-weight: 600; }
-.toc .toc-sub { margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
+.toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
+.toc li.expanded > .toc-sub { display: block; }
 .toc .toc-sub li { margin-bottom: 8px; }
 .toc .toc-sub a { font-size: 14px; }
 .toc .toc-sub .toc-sub { margin-top: 4px; }
@@ -229,7 +230,7 @@ body.console-fullscreen .console-pane {
           <ul>
             <li><a href="#intro">Getting Started</a></li>
             <li>
-              <a href="#architecture" class="active">Architecture</a>
+              <a href="#architecture">Architecture</a>
               <ul class="toc-sub">
                 <li>
                   <a href="#architecture-overview">System Overview</a>
@@ -498,6 +499,90 @@ window.addEventListener("resize", () => {
   consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
   document.documentElement.style.setProperty("--console-width", `${consoleWidth}px`);
 });
+
+/*
+  Scrollspy for TOC:
+  - highlight active top-level section while scrolling
+  - expand nested TOC only for the active top-level section
+  - highlight nested subsection links (up to 3 levels) for the active section
+*/
+const tocRoot = document.querySelector(".toc > ul");
+const topTocItems = tocRoot
+  ? Array.from(tocRoot.querySelectorAll(":scope > li"))
+  : [];
+const topTocLinks = topTocItems
+  .map((item) => item.querySelector(":scope > a"))
+  .filter(Boolean);
+
+const topSections = topTocLinks
+  .map((link) => {
+    const id = link.getAttribute("href")?.replace("#", "");
+    return { link, section: id ? document.getElementById(id) : null };
+  })
+  .filter((entry) => entry.section);
+
+function setActiveTocSection(activeLink) {
+  topTocLinks.forEach((link) => link.classList.remove("active"));
+  topTocItems.forEach((item) => item.classList.remove("expanded"));
+
+  if (!activeLink) return;
+
+  activeLink.classList.add("active");
+  const activeItem = activeLink.closest("li");
+  if (activeItem) activeItem.classList.add("expanded");
+
+  const nestedLinks = activeItem
+    ? Array.from(activeItem.querySelectorAll(".toc-sub a"))
+    : [];
+  nestedLinks.forEach((link) => link.classList.remove("active"));
+  if (activeItem) {
+    activeItem
+      .querySelectorAll(".toc-sub li")
+      .forEach((li) => li.classList.remove("expanded"));
+  }
+
+  const offset = parseInt(getComputedStyle(document.documentElement)
+    .getPropertyValue("--header-height"), 10) + 28;
+
+  let activeNestedLink = null;
+  nestedLinks.forEach((link) => {
+    const id = link.getAttribute("href")?.replace("#", "");
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+    if (target.getBoundingClientRect().top - offset <= 0) {
+      activeNestedLink = link;
+    }
+  });
+
+  if (!activeNestedLink) return;
+
+  activeNestedLink.classList.add("active");
+  let parentLi = activeNestedLink.closest("li");
+  while (parentLi && activeItem && parentLi !== activeItem) {
+    parentLi.classList.add("expanded");
+    parentLi = parentLi.parentElement?.closest("li") || null;
+  }
+}
+
+function updateTocOnScroll() {
+  if (!topSections.length) return;
+  const offset = parseInt(getComputedStyle(document.documentElement)
+    .getPropertyValue("--header-height"), 10) + 32;
+
+  let active = topSections[0];
+  topSections.forEach((entry) => {
+    if (!entry.section) return;
+    if (entry.section.getBoundingClientRect().top - offset <= 0) {
+      active = entry;
+    }
+  });
+
+  setActiveTocSection(active.link);
+}
+
+window.addEventListener("scroll", updateTocOnScroll, { passive: true });
+window.addEventListener("resize", updateTocOnScroll);
+updateTocOnScroll();
 </script>
 
 </body>
