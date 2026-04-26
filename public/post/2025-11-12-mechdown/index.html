@@ -2243,108 +2243,116 @@ mark {
     }
 
   #logo {
-    padding-left: 1rem; /* Extra space on logo side */
+    padding-left: 1rem;
+    flex-shrink: 0;
   }
 
-  /* Logo */
   #logo img {
-    height: 35px; /* scale to fit header */
+    height: 35px;
+    display: block;
   }
 
-  /* Nav container */
   #nav {
     display: flex;
     align-items: center;
-    gap: 2rem; /* spacing between nav items */
+    gap: 2rem;
     font-size: 1rem;
     text-transform: uppercase;
     padding-right: 1rem;
+    flex-wrap: wrap;
   }
 
-  /* Nav links */
+  #nav span {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 0.6rem;
+    border-left: 2px solid transparent;
+  }
+
+  #nav span.active {
+    border-left-color: rgb(246,192,78);
+  }
+
   #nav a {
     color: #f2ead9;
     text-decoration: none;
     transition: color 0.2s ease;
+    white-space: nowrap;
   }
 
   #nav a:hover {
-    color: rgb(246,192,78); /* highlight hover in yellow like logo */
+    color: rgb(246,192,78);
   }
 
-  /* Optional: add colon motif before links for terminal feel */
-  #nav span::before {
-    content: ":";
-    margin-right: 0.25rem;
-    letter-spacing: -0.5ch;
-    color: rgb(246,192,78);
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-
-  #nav span.active::before {
-    content: ">:";
-    margin-right: 0.25rem;
-    letter-spacing: -0.5ch;
-    color: rgb(246,192,78);
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
   #github {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
   }
-  /* compress the header if the view is small */
-  @media (max-width: 840px) {
+
+  @media (max-width: 900px) {
     #header {
-      flex-direction: row;
-      align-items: flex-start;
-      padding: 0px 1rem;
+      padding: 0.5rem 1rem;
       height: auto;
-      padding-top: 3px;
       gap: 1rem;
-    }
-    #logo img {
-      height: 25px;
-    }
-    #nav {
+      align-items: center;
+      justify-content: center;
       flex-wrap: wrap;
+    }
+
+    #logo {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding-left: 0;
+      order: 1;
+    }
+
+    #logo img {
+      height: 28px;
+    }
+
+    #nav {
+      order: 2;
+      justify-content: center;
       gap: 1rem;
       font-size: 0.9rem;
-      padding-top: 0px;
+      padding-right: 0;
     }
+
     #github {
-      position: absolute;
-      top: 2px;
-      right: 1rem;
+      order: 3;
+      margin-left: 0;
+      justify-content: center;
+      width: 100%;
     }
   }
-  @media (max-width: 650px) {
+
+  @media (max-width: 560px) {
     #header {
+      align-items: stretch;
+      gap: 0.6rem;
+      padding-top: 0.6rem;
+      padding-bottom: 0.6rem;
+    }
+
+    #nav {
       flex-direction: column;
-      align-items: center; /* Center items horizontally */
-      padding: 0px 1rem;
-      height: auto;
-      padding-top: 3px;
-      gap: 1rem;
+      align-items: flex-start;
+      gap: 0.45rem;
+      width: fit-content;
+      margin: 0 auto;
+      font-size: 0.85rem;
     }
-    #logo img {
-      height: 25px;
-      margin: auto;
+
+    #nav span {
+      width: 100%;
+      padding-left: 0.5rem;
     }
-    #nav {
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.9rem;
-      padding-top: 0px;
-      justify-content: center; /* Center navigation links */
-    }
+
     #github {
-      position: relative;
-      top: inherit;
-      right: inherit;
-      margin: auto; /* Center GitHub button */
+      width: fit-content;
+      margin: 0 auto;
     }
   }
   </style>
