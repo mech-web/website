@@ -66,6 +66,7 @@
   --nav-accent-hover: var(--accent-hover);
 
   --kicker-accent: var(--accent-teal);
+  --hero-accent: var(--accent-teal);
   --toc-accent: hsl(308, 42%, 69%);
   --toc-accent-soft: hsl(308, 42%, 59%);
   /* ── Resize grip dimensions (non-color layout vars) ── */
@@ -223,6 +224,7 @@ body.console-fullscreen .workspace {
   display: flex;
   justify-content: center;
   padding: 32px;
+  padding-bottom: 0px;
 }
 
 .content-column {
@@ -292,7 +294,7 @@ body.console-fullscreen .workspace {
 .hero-summary {
   margin-top: 22px;
   padding-top: 18px;
-  border-top: 1px solid var(--border-strong);
+  border-top: 1px dotted var(--hero-accent);
   color: var(--text-secondary);
   line-height: 1.75;
 }
@@ -304,7 +306,7 @@ body.console-fullscreen .workspace {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent-primary);
+  background: var(--hero-accent);
   color: var(--bg-primary);
   font-size: 12px;
   font-weight: 700;
@@ -413,7 +415,7 @@ body.console-fullscreen .workspace {
 /* ── Main content ── */
 .main-content { min-width: 0; }
 
-section { margin-bottom: 96px; }
+section { margin-bottom: 0px; }
 section h2 { margin-top: 0; font-size: 34px; color: var(--text-primary); letter-spacing: 0.01em; }
 section p { line-height: 1.7; color: var(--text-primary); }
 section.active-section h2 { color: var(--accent-primary); }
@@ -423,17 +425,135 @@ section.active-section {
 }
 
 .main-content section {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px dotted var(--border);
   padding-bottom: 30px;
+  padding-top: 30px;
 }
 
 /* ── Footer ── */
 .footer {
   grid-column: 1 / -1;
   margin-top: 64px;
-  padding-top: 32px;
   border-top: 1px solid var(--border);
+  background: linear-gradient(90deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
   color: var(--text-secondary);
+}
+
+/* 🔑 THIS FIXES ALIGNMENT */
+.footer-inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Main layout */
+.footer-main {
+  display: grid;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 40px;
+  padding: 54px 0 36px;
+  align-items: start;
+}
+
+/* Robot */
+.footer-robot {
+  display: flex;
+  align-items: flex-end;
+}
+
+.footer-robot img {
+  width: 100%;
+  margin-left: 20px;
+  max-width: 230px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
+}
+
+/* Links */
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  gap: 32px;
+  align-content: start; /* FIX */
+}
+
+.footer-group h4 {
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.footer-group a {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.footer-group a:hover {
+  color: var(--accent-hover);
+}
+
+/* CTA */
+.footer-cta {
+  border-left: 1px solid var(--border-strong);
+  padding-left: 28px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-cta h3 {
+  margin: 0 0 14px;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.footer-cta p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.footer-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--accent-primary);
+}
+
+.footer-cta .btn:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* Bottom bar */
+.footer-meta {
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.footer-meta-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-meta-links a:hover {
+  color: var(--text-primary);
 }
 
 /* ── Resize handle ── */
@@ -586,6 +706,29 @@ body.console-fullscreen .console-pane {
   .workspace { grid-template-columns: 1fr; }
   .article-layout { grid-template-columns: 1fr; }
   .toc { display: none; }
+  .footer-main {
+    grid-template-columns: 1fr;
+    align-items: start;
+    min-height: 0;
+    padding-top: 36px;
+  }
+  .footer-robot img {
+    width: min(220px, 100%);
+  }
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+  .footer-cta {
+    border-left: 0;
+    border-top: 1px solid var(--border-strong);
+    padding: 24px 0 0;
+  }
+  .footer-cta h3 {
+    font-size: clamp(30px, 8vw, 44px);
+  }
+  .footer-cta p {
+    font-size: 28px;
+  }
 }
 
 @container (max-width: 980px) {
@@ -648,7 +791,7 @@ body.console-fullscreen .console-pane {
             <p class="hero-kicker">Announcement</p>
             <h1>Mech v0.3 —<br>State Machines, Match,<br>and Mika the Mech</h1>
             <div class="hero-meta">
-              <span class="hero-avatar">M</span>
+              <span class="hero-avatar">CM</span>
               <span>Corey Montella</span>
               <span>•</span>
               <span>April 27, 2026</span>
@@ -747,11 +890,64 @@ body.console-fullscreen .console-pane {
             <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
           </section>
         </article>
-        <footer class="footer" id="footer-links">
-          <strong>Acme Platform Documentation</strong><br>
-          Version 2.8 · Last updated April 2026 · docs@acme.example<br>
-          Quick links: <a href="#architecture">Architecture</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
-        </footer>
+      <footer class="footer">
+        <div class="footer-inner">
+
+          <div class="footer-main">
+
+            <!-- Left: Robot -->
+            <div class="footer-robot">
+              <img src="images/mika-pose-point.png" alt="Mika the Mech">
+            </div>
+
+            <!-- Middle: Links -->
+            <div class="footer-links">
+              <div class="footer-group">
+                <h4>Product</h4>
+                <a href="#">Architecture</a>
+                <a href="#">Workflow</a>
+                <a href="#">API Reference</a>
+                <a href="#">Runbooks</a>
+              </div>
+
+              <div class="footer-group">
+                <h4>Community</h4>
+                <a href="#">Discord</a>
+                <a href="#">GitHub</a>
+                <a href="#">Blog</a>
+                <a href="#">Changelog</a>
+              </div>
+
+              <div class="footer-group">
+                <h4>Resources</h4>
+                <a href="#">Getting Started</a>
+                <a href="#">Specification</a>
+                <a href="#">REPL Guide</a>
+                <a href="#">Build & Run</a>
+              </div>
+            </div>
+
+            <!-- Right: CTA -->
+            <div class="footer-cta">
+              <h3>Let's build the future, together.</h3>
+              <p>Mech is open source and community-driven.</p>
+              <a href="#" class="btn">View on GitHub</a>
+            </div>
+
+          </div>
+
+          <div class="footer-meta">
+            <div>© 2026 Mech Systems Lab</div>
+            <div>Built with ♡ by builders</div>
+            <div class="footer-meta-links">
+              <a href="#">Privacy</a>
+              <a href="#">Terms</a>
+              <a href="#">Code of Conduct</a>
+            </div>
+          </div>
+
+        </div>
+      </footer>
       </div>
     </div>
   </section>
