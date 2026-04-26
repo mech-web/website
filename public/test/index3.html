@@ -67,8 +67,10 @@
 
   --kicker-accent: var(--accent-teal);
   --hero-accent: var(--accent-teal);
+  --hero-text-secondary: #aabebe;
   --toc-accent: hsl(308, 42%, 69%);
   --toc-accent-soft: hsl(308, 42%, 59%);
+  --toc-text-secondary: hsl(308, 17%, 73%);
   /* ── Resize grip dimensions (non-color layout vars) ── */
   --grip-width:          8px;
   --grip-height:         50px;
@@ -284,7 +286,7 @@ body.console-fullscreen .workspace {
 
 .hero-meta {
   margin-top: 22px;
-  color: var(--text-secondary);
+  color: var(--hero-text-secondary);
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -295,7 +297,7 @@ body.console-fullscreen .workspace {
   margin-top: 22px;
   padding-top: 18px;
   border-top: 1px dotted var(--hero-accent);
-  color: var(--text-secondary);
+  color: var(--hero-text-secondary);
   line-height: 1.75;
 }
 
@@ -383,7 +385,7 @@ body.console-fullscreen .workspace {
 .toc ul { list-style: none; padding: 0; margin: 0; }
 .toc li { margin-bottom: 12px; }
 .toc a {
-  color: var(--text-secondary);
+  color: var(--toc-text-secondary);
   display: block;
   padding: 4px 0 4px 10px;   /* add left padding to make room */
   position: relative;
