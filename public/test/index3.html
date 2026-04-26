@@ -21,6 +21,8 @@
   --grip-bg: #f8cc5f;
   --grip-border: #c69020;
   --grip-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+  --separator-grip-width: 10px;
+  --separator-grip-height: 58px;
 }
 
 * { box-sizing: border-box; }
@@ -319,12 +321,20 @@ section.active-section {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: var(--grip-width);
-  height: var(--grip-height);
   border-radius: var(--grip-radius);
   background: var(--grip-bg);
   border: 1px solid var(--grip-border);
   box-shadow: var(--grip-shadow);
+}
+
+.resize-handle::after {
+  width: var(--separator-grip-width);
+  height: var(--separator-grip-height);
+}
+
+.edge-handle::after {
+  width: var(--grip-width);
+  height: var(--grip-height);
 }
 
 .edge-handle {
@@ -715,11 +725,16 @@ function setEdgeHandle(mode) {
     edgeHandle.style.display = "block";
     edgeHandle.classList.add("left");
     document.body.classList.add("edge-left");
+    handle.style.display = "none";
   } else if (mode === "right") {
     edgeHandle.style.display = "block";
     document.body.classList.add("edge-right");
+    handle.style.display = "none";
   } else {
     edgeHandle.style.display = "none";
+    if (!document.body.classList.contains("console-fullscreen") && consolePane.style.display !== "none") {
+      handle.style.display = "";
+    }
   }
 }
 
