@@ -51,6 +51,10 @@ a { color: inherit; text-decoration: none; }
   min-height: calc(100vh - var(--header-height));
 }
 
+body.console-fullscreen .workspace {
+  grid-template-columns: 0 0 1fr !important;
+}
+
 .content-shell {
   min-width: 0;
   display: flex;
@@ -129,6 +133,15 @@ section p { line-height: 1.7; color: #374151; }
   overflow: hidden;
   background: #07122b;
   color: #e2e8f0;
+}
+
+body.console-fullscreen .console-pane {
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  width: 100vw;
+  height: calc(100vh - var(--header-height));
+  z-index: 900;
 }
 
 .console-scroll {
@@ -252,6 +265,7 @@ window.addEventListener("mousemove", (e) => {
   /* ── MODE 1: fully collapsed ── */
   if (consoleWidth <= COLLAPSE_THRESHOLD) {
     consoleWidth = 0;
+    document.body.classList.remove("console-fullscreen");
     consolePane.style.display = "none";
     handle.style.display      = "none";
     workspace.style.gridTemplateColumns = "";   // restore default
@@ -260,6 +274,7 @@ window.addEventListener("mousemove", (e) => {
 
   /* ── MODE 2: normal / focus ── */
   } else {
+    document.body.classList.remove("console-fullscreen");
     consolePane.style.display = "";
 
     if (consoleWidth < MIN_CONSOLE_WIDTH) consoleWidth = MIN_CONSOLE_WIDTH;
@@ -283,16 +298,12 @@ window.addEventListener("mousemove", (e) => {
       articleLayout.classList.add("hide-toc");
 
       if (consoleWidth >= fullSnap) {
-        /*
-          FIX: collapse the content + handle columns in the grid
-          so the console genuinely fills the viewport.
-          Without this the 1fr + 8px columns push the console
-          partially off-screen even when its CSS width = 100vw.
-        */
+        /* Fullscreen console mode */
         consoleWidth = viewport;
         contentShell.classList.add("hidden");
         handle.style.display = "none";
-        workspace.style.gridTemplateColumns = "0 0 100vw";
+        workspace.style.gridTemplateColumns = "";
+        document.body.classList.add("console-fullscreen");
       } else {
         consoleWidth = normalMax;
         contentShell.classList.remove("hidden");
