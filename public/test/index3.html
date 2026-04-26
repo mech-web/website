@@ -557,12 +557,31 @@ function setEdgeHandle(mode) {
   if (!edgeHandle) return;
   edgeHandle.classList.remove("left");
   if (mode === "left") {
-    edgeHandle.style.display = "";
+    edgeHandle.style.display = "block";
     edgeHandle.classList.add("left");
   } else if (mode === "right") {
-    edgeHandle.style.display = "";
+    edgeHandle.style.display = "block";
   } else {
     edgeHandle.style.display = "none";
+  }
+}
+
+function syncEdgeHandleOnLoad() {
+  if (window.innerWidth <= 900) {
+    setEdgeHandle("none");
+    return;
+  }
+
+  const consoleWidth = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
+  ) || 0;
+
+  if (document.body.classList.contains("console-fullscreen")) {
+    setEdgeHandle("left");
+  } else if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
+    setEdgeHandle("right");
+  } else {
+    setEdgeHandle("none");
   }
 }
 
@@ -826,6 +845,7 @@ function updateTocOnScroll() {
 window.addEventListener("scroll", updateTocOnScroll, { passive: true });
 window.addEventListener("resize", updateTocOnScroll);
 updateTocOnScroll();
+syncEdgeHandleOnLoad();
 </script>
 
 </body>
