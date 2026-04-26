@@ -441,12 +441,18 @@ section.active-section {
   display: grid;
   grid-template-columns: minmax(180px, 0.9fr) 1.2fr minmax(260px, 0.9fr);
   gap: 32px;
-  padding: 36px 0;
-  align-items: end;
+  padding: 54px 0 36px;
+  min-height: 360px;
+  align-items: stretch;
+}
+
+.footer-robot {
+  display: flex;
+  align-items: flex-end;
 }
 
 .footer-robot img {
-  width: min(300px, 100%);
+  width: min(280px, 100%);
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
 }
 
@@ -454,6 +460,7 @@ section.active-section {
   display: grid;
   grid-template-columns: repeat(3, minmax(120px, 1fr));
   gap: 28px;
+  align-content: end;
 }
 
 .footer-group h4 {
@@ -478,6 +485,9 @@ section.active-section {
 .footer-cta {
   border-left: 1px solid var(--border-strong);
   padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .footer-cta h3 {
@@ -489,9 +499,10 @@ section.active-section {
 
 .footer-cta p {
   margin: 0 0 20px;
-  font-size: 32px;
-  line-height: 1.2;
+  font-size: 18px;
+  line-height: 1.35;
   color: var(--text-secondary);
+  max-width: 280px;
 }
 
 .footer-cta .btn {
@@ -499,10 +510,10 @@ section.active-section {
   align-items: center;
   justify-content: center;
   min-height: 50px;
-  padding: 0 22px;
+  padding: 0 24px;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 22px;
+  font-size: 16px;
   background: var(--accent-primary);
   color: var(--bg-primary);
   border: 1px solid var(--accent-primary);
@@ -686,6 +697,8 @@ body.console-fullscreen .console-pane {
   .footer-main {
     grid-template-columns: 1fr;
     align-items: start;
+    min-height: 0;
+    padding-top: 36px;
   }
   .footer-robot img {
     width: min(220px, 100%);
