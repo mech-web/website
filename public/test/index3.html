@@ -223,6 +223,7 @@ body.console-fullscreen .workspace {
   display: flex;
   justify-content: center;
   padding: 32px;
+  padding-bottom: 0px;
 }
 
 .content-column {
@@ -413,7 +414,7 @@ body.console-fullscreen .workspace {
 /* ── Main content ── */
 .main-content { min-width: 0; }
 
-section { margin-bottom: 96px; }
+section { margin-bottom: 0px; }
 section h2 { margin-top: 0; font-size: 34px; color: var(--text-primary); letter-spacing: 0.01em; }
 section p { line-height: 1.7; color: var(--text-primary); }
 section.active-section h2 { color: var(--accent-primary); }
@@ -431,36 +432,46 @@ section.active-section {
 .footer {
   grid-column: 1 / -1;
   margin-top: 64px;
-  padding-top: 0;
   border-top: 1px solid var(--border);
-  color: var(--text-secondary);
   background: linear-gradient(90deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
+  color: var(--text-secondary);
 }
 
+/* 🔑 THIS FIXES ALIGNMENT */
+.footer-inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Main layout */
 .footer-main {
   display: grid;
-  grid-template-columns: minmax(180px, 0.9fr) 1.2fr minmax(260px, 0.9fr);
-  gap: 32px;
+  grid-template-columns: 260px 1fr 320px;
+  gap: 40px;
   padding: 54px 0 36px;
-  min-height: 360px;
-  align-items: stretch;
+  align-items: start;
 }
 
+/* Robot */
 .footer-robot {
   display: flex;
   align-items: flex-end;
 }
 
 .footer-robot img {
-  width: min(280px, 100%);
+  width: 100%;
+  margin-left: 20px;
+  max-width: 230px;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
 }
 
+/* Links */
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
-  gap: 28px;
-  align-content: end;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  gap: 32px;
+  align-content: start; /* FIX */
 }
 
 .footer-group h4 {
@@ -474,7 +485,7 @@ section.active-section {
 .footer-group a {
   display: block;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-secondary);
 }
 
@@ -482,38 +493,36 @@ section.active-section {
   color: var(--accent-hover);
 }
 
+/* CTA */
 .footer-cta {
   border-left: 1px solid var(--border-strong);
   padding-left: 28px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .footer-cta h3 {
   margin: 0 0 14px;
-  font-size: clamp(34px, 2.2vw, 46px);
-  line-height: 1.02;
+  line-height: 1.1;
   color: var(--text-primary);
 }
 
 .footer-cta p {
   margin: 0 0 20px;
-  font-size: 18px;
-  line-height: 1.35;
+  font-size: 16px;
   color: var(--text-secondary);
-  max-width: 280px;
 }
 
 .footer-cta .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 50px;
+  height: 35px;
   padding: 0 24px;
   border-radius: 8px;
   font-weight: 700;
-  font-size: 16px;
   background: var(--accent-primary);
   color: var(--bg-primary);
   border: 1px solid var(--accent-primary);
@@ -524,12 +533,13 @@ section.active-section {
   border-color: var(--accent-hover);
 }
 
+/* Bottom bar */
 .footer-meta {
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
   flex-wrap: wrap;
   padding: 20px 0;
   font-size: 14px;
@@ -537,7 +547,7 @@ section.active-section {
 
 .footer-meta-links {
   display: flex;
-  gap: 26px;
+  gap: 24px;
 }
 
 .footer-meta-links a:hover {
@@ -878,50 +888,64 @@ body.console-fullscreen .console-pane {
             <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
           </section>
         </article>
-        <footer class="footer" id="footer-links">
+      <footer class="footer">
+        <div class="footer-inner">
+
           <div class="footer-main">
+
+            <!-- Left: Robot -->
             <div class="footer-robot">
-              <img src="drawing.png" alt="Mika the Mech at a blueprint table">
+              <img src="images/mika-pose-point.png" alt="Mika the Mech">
             </div>
+
+            <!-- Middle: Links -->
             <div class="footer-links">
               <div class="footer-group">
                 <h4>Product</h4>
-                <a href="#architecture">Architecture</a>
-                <a href="#workflow">Workflow</a>
-                <a href="#api-reference">API Reference</a>
-                <a href="#operations">Runbooks</a>
+                <a href="#">Architecture</a>
+                <a href="#">Workflow</a>
+                <a href="#">API Reference</a>
+                <a href="#">Runbooks</a>
               </div>
+
               <div class="footer-group">
                 <h4>Community</h4>
-                <a href="/community">Discord</a>
-                <a href="https://github.com/mech-lang/mech">GitHub</a>
-                <a href="/blog">Blog</a>
-                <a href="/changelog">Changelog</a>
+                <a href="#">Discord</a>
+                <a href="#">GitHub</a>
+                <a href="#">Blog</a>
+                <a href="#">Changelog</a>
               </div>
+
               <div class="footer-group">
                 <h4>Resources</h4>
-                <a href="/docs/getting-started/install.html">Getting Started</a>
-                <a href="/docs/reference/specification.html">Specification</a>
-                <a href="/docs/reference/repl.html">REPL Guide</a>
-                <a href="/docs/reference/build-and-run.html">Build & Run</a>
+                <a href="#">Getting Started</a>
+                <a href="#">Specification</a>
+                <a href="#">REPL Guide</a>
+                <a href="#">Build & Run</a>
               </div>
             </div>
+
+            <!-- Right: CTA -->
             <div class="footer-cta">
-              <h3>Let's build the<br>future, together.</h3>
+              <h3>Let's build the future, together.</h3>
               <p>Mech is open source and community-driven.</p>
-              <a class="btn" href="https://github.com/mech-lang/mech" rel="noopener" target="_blank">View on GitHub</a>
+              <a href="#" class="btn">View on GitHub</a>
             </div>
+
           </div>
+
           <div class="footer-meta">
-            <span>© 2026 Mech Systems Lab</span>
-            <span>Built with ♡ by builders</span>
+            <div>© 2026 Mech Systems Lab</div>
+            <div>Built with ♡ by builders</div>
             <div class="footer-meta-links">
-              <a href="/privacy">Privacy</a>
-              <a href="/terms">Terms</a>
-              <a href="/code-of-conduct">Code of Conduct</a>
+              <a href="#">Privacy</a>
+              <a href="#">Terms</a>
+              <a href="#">Code of Conduct</a>
             </div>
           </div>
-        </footer>
+
+        </div>
+      </footer>
       </div>
     </div>
   </section>
