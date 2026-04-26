@@ -71,6 +71,7 @@
   --toc-accent: hsl(308, 42%, 69%);
   --toc-accent-soft: hsl(308, 42%, 59%);
   --toc-text-secondary: hsl(308, 17%, 73%);
+  --toc-border: hsl(308, 17%, 73%);
   /* ── Resize grip dimensions (non-color layout vars) ── */
   --grip-width:          8px;
   --grip-height:         50px;
@@ -408,7 +409,7 @@ body.console-fullscreen .workspace {
   height: 14px;
   background: var(--toc-accent-soft);
 }
-.toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
+.toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px dotted var(--toc-accent-soft); }
 .toc li.expanded > .toc-sub { display: block; }
 .toc .toc-sub li { margin-bottom: 8px; }
 .toc .toc-sub a { font-size: 14px; }
