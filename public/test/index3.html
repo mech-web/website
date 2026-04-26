@@ -497,44 +497,61 @@ section.active-section {
   color: var(--accent-hover);
 }
 
-/* CTA */
-.footer-cta {
-  border-left: 1px solid var(--border-strong);
-  padding-left: 28px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+/* Release panel */
+.footer-release {
+  border: 1px solid var(--border-strong);
+  background: var(--bg-primary);
+  min-height: 240px;
 }
 
-.footer-cta h3 {
-  margin: 0 0 14px;
-  line-height: 1.1;
+.release-grid-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.release-grid-row:last-of-type {
+  border-bottom: 0;
+}
+
+.release-grid-label,
+.release-grid-value {
+  padding: 14px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+}
+
+.release-grid-label {
   color: var(--text-primary);
+  border-right: 1px solid var(--border-strong);
 }
 
-.footer-cta p {
-  margin: 0 0 20px;
-  font-size: 16px;
+.release-grid-value {
   color: var(--text-secondary);
 }
 
-.footer-cta .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 35px;
-  padding: 0 24px;
-  border-radius: 8px;
-  font-weight: 700;
-  background: var(--accent-primary);
-  color: var(--bg-primary);
-  border: 1px solid var(--accent-primary);
+.release-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
 }
 
-.footer-cta .btn:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+.release-downloads a,
+.release-grid-value a,
+.release-ack a {
+  text-decoration: underline dotted;
+}
+
+.release-ack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid var(--border-strong);
+  padding: 14px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 14px;
 }
 
 /* Bottom bar */
@@ -951,11 +968,36 @@ body.console-fullscreen .console-pane {
               </div>
             </div>
 
-            <!-- Right: CTA -->
-            <div class="footer-cta">
-              <h3>Let's build the future, together.</h3>
-              <p>Mech is open source and community-driven.</p>
-              <a href="#" class="btn">View on GitHub</a>
+            <!-- Right: Latest release info -->
+            <div class="footer-release">
+              <div class="release-grid-row">
+                <div class="release-grid-label">Author:</div>
+                <div class="release-grid-value">Mech-Lang</div>
+              </div>
+              <div class="release-grid-row">
+                <div class="release-grid-label">Version:</div>
+                <div class="release-grid-value"><a href="https://github.com/mech-lang/mech/releases/latest">v0.3.5-BETA</a></div>
+              </div>
+              <div class="release-grid-row">
+                <div class="release-grid-label">Date:</div>
+                <div class="release-grid-value">2026-04-26</div>
+              </div>
+              <div class="release-grid-row">
+                <div class="release-grid-label">Downloads:</div>
+                <div class="release-grid-value release-downloads">
+                  <a href="https://github.com/mech-lang/mech/releases/latest">All Binaries</a>
+                  <a href="https://github.com/mech-lang/mech/releases/latest">Linux</a>
+                  <a href="https://github.com/mech-lang/mech/releases/latest">macOS</a>
+                  <a href="https://github.com/mech-lang/mech/releases/latest">Windows</a>
+                </div>
+              </div>
+              <div class="release-grid-row">
+                <div class="release-grid-label">License:</div>
+                <div class="release-grid-value"><a href="https://github.com/mech-lang/mech?tab=Apache-2.0-1-ov-file#readme">Apache 2.0</a></div>
+              </div>
+              <div class="release-ack">
+                <a href="#">Acknowledgements</a>
+              </div>
             </div>
 
           </div>
