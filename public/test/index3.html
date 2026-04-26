@@ -368,6 +368,12 @@ section.active-section {
   left: 40%;
 }
 
+
+body.edge-left .resize-handle::after,
+body.edge-right .resize-handle::after {
+  display: none;
+}
+
 body.is-resizing,
 body.is-resizing * {
   cursor: grabbing !important;
@@ -697,12 +703,16 @@ function setConsoleWidth(width) {
 
 function setEdgeHandle(mode) {
   if (!edgeHandle) return;
+  document.body.classList.remove("edge-left", "edge-right");
   edgeHandle.classList.remove("left");
+
   if (mode === "left") {
     edgeHandle.style.display = "block";
     edgeHandle.classList.add("left");
+    document.body.classList.add("edge-left");
   } else if (mode === "right") {
     edgeHandle.style.display = "block";
+    document.body.classList.add("edge-right");
   } else {
     edgeHandle.style.display = "none";
   }
