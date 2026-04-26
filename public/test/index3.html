@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proper Split Layout</title>
-
+<title>Mech v0.3</title>
+<link rel="icon" href="https://gitlab.com/mech-lang/assets/-/raw/main/images/icons/favicon.ico?ref_type=heads" type="image/x-icon">
 <style>
 :root {
   /* ── Layout ── */
@@ -18,20 +18,56 @@
   --bg-secondary:  rgb(15, 20, 24);
   --bg-elevated:   #151B21;
   --accent-primary:#F2B63D;
-  --accent-hover:  #E0A82F;
-  --accent-soft:   #FFD166;
+  --accent-hover:  #ecd7ad;
+  --accent-soft:   #ffe4a7;
   --blue-primary:  #2F6FA3;
   --blue-bright:   #3E86C1;
   --border:        #35393d;
-  --border-strong: #2A333D;
-  --text-primary:  #E6EDF3;
-  --text-secondary:#AAB4BE;
-  --text-muted:    #6B7682;
+  --border-strong: #35393d;
+  --text-primary:  #f3f3e6;
+  --text-secondary:#bebcaa;
+  --text-muted:    #827f6b;
   --success:       #3FB950;
   --error:         #F85149;
   --console-bg:    rgb(2, 3, 3);
   --console-text:  #E6EDF3;
 
+  --accent-secondary-teal-soft: hsl(163, 39%, 71%);
+  --accent-secondary-teal: hsl(164, 47%, 45%);
+  --accent-secondary-teal-hover: hsl(164, 47%, 35%);
+
+  --accent-secondary-coral-soft: rgb(205, 159, 141);
+  --accent-secondary-coral: rgb(224, 122, 82);
+  --accent-secondary-coral-hover: #C96840;
+
+  --accent-secondary-purple-soft: hsl(254, 12%, 58%);
+  --accent-secondary-purple: hsl(255, 22%, 54%);
+  --accent-secondary-purple-hover: hsl(255, 21%, 46%);
+
+  --title-underline-color: hsl(42, 89%, 70%);
+  --callout-background-color: #1f2533;
+  --accent-coral: hsl(10, 100%, 75%);
+  --accent-orange: hsl(29, 100%, 75%);
+  --accent-yellow: hsl(55, 100%, 75%);
+  --accent-green: hsl(128, 100%, 75%);
+  --accent-teal: hsl(168, 100%, 75%);
+  --accent-cyan: hsl(206, 100%, 75%);
+  --accent-blue: hsl(240, 100%, 75%);
+  --accent-indigo: hsl(253, 100%, 75%);
+  --accent-purple: hsl(272, 100%, 75%);
+  --accent-magenta: hsl(312, 100%, 75%);
+  --accent-rose: hsl(338, 100%, 75%);
+  --accent-red: hsl(0, 100%, 75%);
+
+  --nav-text-primary: var(--text-primary);
+  --nav-text-active: var(--text-primary);
+  --nav-text-hover: var(--accent-hover);
+  --nav-accent-active: var(--accent-primary);
+  --nav-accent-hover: var(--accent-hover);
+
+  --kicker-accent: var(--accent-teal);
+  --toc-accent: hsl(308, 42%, 69%);
+  --toc-accent-soft: hsl(308, 42%, 59%);
   /* ── Resize grip dimensions (non-color layout vars) ── */
   --grip-width:          8px;
   --grip-height:         50px;
@@ -40,6 +76,7 @@
   --separator-grip-height: 50px;
   --grip-notch-width:  2px;
   --grip-notch-height: 24px;
+
 }
 
 * { box-sizing: border-box; }
@@ -77,7 +114,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 24px;
+  gap: 34px;
 }
 
 .brand {
@@ -93,7 +130,7 @@ a { color: inherit; text-decoration: none; }
   gap: 18px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--nav-text-primary);
   align-self: stretch;
   align-items: stretch;
 }
@@ -110,14 +147,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .top-nav a:hover {
-  color: var(--text-primary);
-  border-bottom-color: var(--text-muted);
+  color: var(--nav-text-hover);
+  border-bottom-color: var(--nav-accent-hover);
   
 }
 
 .top-nav a.active {
-  color: var(--text-primary);
-  border-bottom-color: var(--accent-primary);
+  color: var(--nav-text-active);
+  border-bottom-color: var(--nav-accent-active);
 }
 
 .header-actions {
@@ -205,7 +242,7 @@ body.console-fullscreen .workspace {
   gap: 8px;
 }
 
-.breadcrumbs .sep { color: var(--text-muted); }
+.breadcrumbs .sep { color: var(--accent-primary); }
 .breadcrumbs a:hover { color: var(--accent-primary); }
 
 /* ── Hero ── */
@@ -228,7 +265,7 @@ body.console-fullscreen .workspace {
   margin: 0 0 16px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--accent-soft);
+  color: var(--kicker-accent);
   font-size: 12px;
   font-weight: 700;
 }
@@ -286,6 +323,29 @@ body.console-fullscreen .workspace {
   object-fit: cover;
 }
 
+/* ── Intro / abstract (full-width) ── */
+.article-intro {
+  max-width: 100%;
+  margin: 0 0 52px;
+}
+
+.article-intro p {
+  margin: 0 0 18px;
+  line-height: 1.85;
+  color: var(--text-primary);
+  font-size: 1.06rem;
+}
+
+.article-intro p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.5em;
+  line-height: 0.84;
+  padding-right: 12px;
+  margin-top: 0.15em;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
 /* ── Article layout ── */
 .article-layout {
   display: grid;
@@ -296,6 +356,8 @@ body.console-fullscreen .workspace {
 
 .article-layout.hide-toc { grid-template-columns: 1fr; }
 .article-layout.hide-toc .toc { display: none; }
+.article-layout.no-sections { display: block; }
+.article-layout.no-sections .toc { display: none; }
 .content-shell.hidden { display: none; }
 
 /* ── TOC ── */
@@ -312,15 +374,36 @@ body.console-fullscreen .workspace {
   margin-top: 0;
   font-size: 14px;
   text-transform: uppercase;
-  color: var(--accent-soft);
+  color: var(--toc-accent-soft);
   letter-spacing: 0.08em;
 }
 
 .toc ul { list-style: none; padding: 0; margin: 0; }
 .toc li { margin-bottom: 12px; }
-.toc a { color: var(--text-secondary); display: block; padding: 4px 0; }
-.toc a.active { color: var(--accent-soft); font-weight: 700; }
-.toc a.active-path { color: var(--accent-soft); font-weight: 650; }
+.toc a {
+  color: var(--text-secondary);
+  display: block;
+  padding: 4px 0 4px 10px;   /* add left padding to make room */
+  position: relative;
+}
+.toc a.active {
+  color: var(--toc-accent);
+  font-weight: 700;
+}
+.toc a.active-path {
+  color: var(--toc-accent);
+  font-weight: 650;
+}
+.toc > ul > li > a.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 14px;
+  background: var(--toc-accent-soft);
+}
 .toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
 .toc li.expanded > .toc-sub { display: block; }
 .toc .toc-sub li { margin-bottom: 8px; }
@@ -551,7 +634,9 @@ body.console-fullscreen .console-pane {
   <section class="content-shell" id="contentShell">
     <div class="content-column">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="/docs">Docs</a>
+        <a href="/docs">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; width:14px; height:14px; vertical-align:middle;"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </a>
         <span class="sep">⟩</span>
         <a href="/guides">Guides</a>
         <span class="sep">⟩</span>
@@ -579,11 +664,14 @@ body.console-fullscreen .console-pane {
           <img src="images/hero-square.png" alt="Mech v0.3 announcement visual">
         </div>
       </div>
+      <div class="article-intro" id="articleIntro">
+        <p>Mech v0.3 introduces a cleaner, more composable way to build data-oriented software with state machines, pattern matching, and richer authoring ergonomics across the toolchain. It's the culmination of months of work and feedback from our amazing early users, and we can't wait to see what you build with it. Whether you're building a microservice, a data pipeline, or an embedded system, Mech v0.3 gives you the tools to model complex logic with clarity and confidence.</p>
+        <p>This introductory abstract intentionally runs full width under the hero to establish context before navigation appears. Once the first structured section begins, the split layout and sticky table of contents take over naturally. And of course, the console pane on the right scrolls independently so you can keep an eye on logs while reading without losing your place in the content.</p>
+      </div>
       <div class="article-layout" id="articleLayout">
         <aside class="toc">
           <h3>Contents</h3>
           <ul>
-            <li><a href="#intro">Getting Started</a></li>
             <li>
               <a href="#architecture">Architecture</a>
               <ul class="toc-sub">
@@ -606,13 +694,6 @@ body.console-fullscreen .console-pane {
           </ul>
         </aside>
         <article class="main-content">
-          <section id="intro">
-            <h2>Getting Started</h2>
-            <p>The Acme Platform docs site helps teams ship services quickly while keeping reliability and security guardrails in place.</p>
-            <p>Use this page as your onboarding entry point for local setup, deployment flow, API contracts, and operational standards.</p>
-            <p>New engineers should complete the quick-start checklist, run the local bootstrap command, and validate against the staging environment before opening their first change request.</p>
-            <p>For realistic behavior, this demo intentionally includes enough copy to create natural reading flow and page scroll depth.</p>
-          </section>
           <section id="architecture">
             <h2>Architecture</h2>
             <p>The platform is organized into edge routing, auth, service orchestration, and data planes.</p>
@@ -669,7 +750,7 @@ body.console-fullscreen .console-pane {
         <footer class="footer" id="footer-links">
           <strong>Acme Platform Documentation</strong><br>
           Version 2.8 · Last updated April 2026 · docs@acme.example<br>
-          Quick links: <a href="#intro">Getting Started</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
+          Quick links: <a href="#architecture">Architecture</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
         </footer>
       </div>
     </div>
@@ -950,6 +1031,11 @@ const topSections = topTocLinks
     return { link, section: id ? document.getElementById(id) : null };
   })
   .filter((e) => e.section);
+
+const contentSections = Array.from(document.querySelectorAll(".main-content > section"));
+if (!contentSections.length) {
+  articleLayout.classList.add("no-sections", "hide-toc");
+}
 
 function setActiveTocSection(activeLink) {
   const allTocLinks = tocRoot ? Array.from(tocRoot.querySelectorAll("a")) : [];
