@@ -295,6 +295,7 @@ body.console-fullscreen .workspace {
 .toc li { margin-bottom: 12px; }
 .toc a { color: #9eb0c9; display: block; padding: 4px 0; }
 .toc a.active { color: #ffd27a; font-weight: 700; }
+.toc a.active-path { color: #ffd27a; font-weight: 650; }
 .toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
 .toc li.expanded > .toc-sub { display: block; }
 .toc .toc-sub li { margin-bottom: 8px; }
@@ -1019,12 +1020,19 @@ const topSections = topTocLinks
   .filter((entry) => entry.section);
 
 function setActiveTocSection(activeLink) {
-  topTocLinks.forEach((link) => link.classList.remove("active"));
+  const allTocLinks = tocRoot
+    ? Array.from(tocRoot.querySelectorAll("a"))
+    : [];
+  allTocLinks.forEach((link) => {
+    link.classList.remove("active");
+    link.classList.remove("active-path");
+  });
   topTocItems.forEach((item) => item.classList.remove("expanded"));
 
   if (!activeLink) return;
 
   activeLink.classList.add("active");
+  activeLink.classList.add("active-path");
   const activeItem = activeLink.closest("li");
   if (activeItem) activeItem.classList.add("expanded");
 
@@ -1053,6 +1061,14 @@ function setActiveTocSection(activeLink) {
   if (!activeNestedLink) return;
 
   activeNestedLink.classList.add("active");
+  let activePathLink = activeNestedLink;
+  while (activePathLink && activeItem) {
+    activePathLink.classList.add("active-path");
+    const parentLi = activePathLink.closest("li");
+    if (!parentLi || parentLi === activeItem) break;
+    activePathLink = parentLi.parentElement?.closest("li")?.querySelector(":scope > a") || null;
+  }
+
   let parentLi = activeNestedLink.closest("li");
   while (parentLi && activeItem && parentLi !== activeItem) {
     parentLi.classList.add("expanded");
