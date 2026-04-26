@@ -244,6 +244,11 @@ const consolePane  = document.querySelector(".console-pane");
 
 const MIN_CONSOLE_WIDTH  = 320;
 const COLLAPSE_THRESHOLD = 80;
+const HANDLE_WIDTH       = 8;
+const TOC_WIDTH          = 260;
+const TOC_GAP            = 48;
+const MIN_MAIN_CONTENT   = 640;
+const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_CONTENT;
 
 let resizing = false;
 
@@ -259,8 +264,6 @@ window.addEventListener("mousemove", (e) => {
   const viewport = window.innerWidth;
   let consoleWidth = viewport - e.clientX;
 
-  const hideToc  = viewport * 0.50;
-  const normalMax = viewport * 0.66;
   const fullSnap  = viewport * 0.92;
 
   /* ── MODE 1: fully collapsed ── */
@@ -280,36 +283,45 @@ window.addEventListener("mousemove", (e) => {
 
     if (consoleWidth < MIN_CONSOLE_WIDTH) consoleWidth = MIN_CONSOLE_WIDTH;
 
-    if (consoleWidth < hideToc) {
-      /* TOC visible */
-      articleLayout.classList.remove("hide-toc");
-      contentShell.classList.remove("hidden");
-      handle.style.display = "";
-      workspace.style.gridTemplateColumns = "";
-
-    } else if (consoleWidth <= normalMax) {
-      /* TOC hidden */
+    if (consoleWidth >= fullSnap) {
+      /* Fullscreen console mode */
       articleLayout.classList.add("hide-toc");
-      contentShell.classList.remove("hidden");
-      handle.style.display = "";
+      consoleWidth = viewport;
+      contentShell.classList.add("hidden");
+      handle.style.display = "none";
       workspace.style.gridTemplateColumns = "";
+      document.body.classList.add("console-fullscreen");
 
     } else {
-      /* approaching / at full console */
-      articleLayout.classList.add("hide-toc");
+      /*
+        Space-aware layout rules:
+        - keep content visible first
+        - hide TOC only when the viewport is too narrow
+        - on wide screens, keep TOC visible even with a wide console
+      */
+      contentShell.classList.remove("hidden");
+      handle.style.display = "";
+      workspace.style.gridTemplateColumns = "";
 
-      if (consoleWidth >= fullSnap) {
-        /* Fullscreen console mode */
-        consoleWidth = viewport;
-        contentShell.classList.add("hidden");
-        handle.style.display = "none";
-        workspace.style.gridTemplateColumns = "";
-        document.body.classList.add("console-fullscreen");
+      const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
+      const shouldHideToc = leftPaneWidth < MIN_LEFT_WITH_TOC;
+
+      if (shouldHideToc) {
+        articleLayout.classList.add("hide-toc");
       } else {
-        consoleWidth = normalMax;
-        contentShell.classList.remove("hidden");
-        handle.style.display = "";
-        workspace.style.gridTemplateColumns = "";
+        articleLayout.classList.remove("hide-toc");
+      }
+
+      /*
+        Final safeguard: non-fullscreen mode should never starve main content.
+        Content wins over extra console width.
+      */
+      const maxConsoleForContent = Math.max(
+        0,
+        viewport - HANDLE_WIDTH - MIN_MAIN_CONTENT
+      );
+      if (consoleWidth > maxConsoleForContent) {
+        consoleWidth = maxConsoleForContent;
       }
     }
   }
