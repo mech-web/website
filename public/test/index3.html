@@ -248,11 +248,15 @@ section.active-section {
 }
 
 .resize-handle {
-  position: relative;
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  align-self: start;
   background: #f3f4f6;
   cursor: grab;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
+  z-index: 50;
 }
 
 .resize-handle::after {
