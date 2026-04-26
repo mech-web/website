@@ -102,6 +102,18 @@ body.console-fullscreen .workspace {
   min-width: 0;
 }
 
+.breadcrumbs {
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--subtle);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.breadcrumbs .sep { color: #9ca3af; }
+.breadcrumbs a:hover { color: var(--accent); }
+
 .hero {
   height: 420px;
   overflow: hidden;
@@ -229,6 +241,13 @@ body.console-fullscreen .console-pane {
 
   <section class="content-shell" id="contentShell">
     <div class="content-column">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/docs">Docs</a>
+        <span class="sep">/</span>
+        <a href="/guides">Guides</a>
+        <span class="sep">/</span>
+        <span aria-current="page">Architecture Overview</span>
+      </nav>
       <div class="hero">
         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="">
       </div>
