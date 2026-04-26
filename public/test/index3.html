@@ -254,6 +254,31 @@ section.active-section {
   border-right: 1px solid var(--border);
 }
 
+.edge-handle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 92px;
+  border-radius: 8px 0 0 8px;
+  background: #cbd5e1;
+  border: 1px solid #94a3b8;
+  border-right: 0;
+  cursor: col-resize;
+  z-index: 1100;
+  display: none;
+  opacity: 0.9;
+}
+
+.edge-handle.left {
+  right: auto;
+  left: 0;
+  border-radius: 0 8px 8px 0;
+  border-right: 1px solid #94a3b8;
+  border-left: 0;
+}
+
 .console-pane {
   position: sticky;
   top: var(--header-height);
@@ -283,7 +308,7 @@ body.console-fullscreen .console-pane {
 }
 
 @media (max-width: 900px) {
-  .console-pane, .resize-handle { display: none; }
+  .console-pane, .resize-handle, .edge-handle { display: none; }
   .workspace { grid-template-columns: 1fr; }
   .article-layout { grid-template-columns: 1fr; }
   .toc { display: none; }
@@ -450,6 +475,7 @@ body.console-fullscreen .console-pane {
   </section>
 
   <div class="resize-handle" id="resizeHandle"></div>
+  <div class="edge-handle" id="edgeHandle" aria-hidden="true"></div>
 
   <aside class="console-pane">
     <div class="console-scroll">
@@ -505,6 +531,7 @@ const workspace    = document.getElementById("workspace");
 const articleLayout = document.getElementById("articleLayout");
 const contentShell = document.getElementById("contentShell");
 const consolePane  = document.querySelector(".console-pane");
+const edgeHandle   = document.getElementById("edgeHandle");
 
 const MIN_CONSOLE_WIDTH  = 320;
 const COLLAPSE_THRESHOLD = 80;
@@ -516,6 +543,19 @@ const MIN_MAIN_WITH_TOC  = 760;
 const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_WITH_TOC;
 
 let resizing = false;
+
+function setEdgeHandle(mode) {
+  if (!edgeHandle) return;
+  edgeHandle.classList.remove("left");
+  if (mode === "left") {
+    edgeHandle.style.display = "";
+    edgeHandle.classList.add("left");
+  } else if (mode === "right") {
+    edgeHandle.style.display = "";
+  } else {
+    edgeHandle.style.display = "none";
+  }
+}
 
 function applyNonFullscreenLayout(viewport, consoleWidth) {
   /*
@@ -538,6 +578,7 @@ function applyNonFullscreenLayout(viewport, consoleWidth) {
   contentShell.classList.remove("hidden");
   handle.style.display = "";
   workspace.style.gridTemplateColumns = "";
+  setEdgeHandle("none");
 
   return consoleWidth;
 }
@@ -546,6 +587,18 @@ handle.addEventListener("mousedown", () => {
   resizing = true;
   document.body.style.cursor     = "col-resize";
   document.body.style.userSelect = "none";
+});
+
+edgeHandle.addEventListener("mousedown", () => {
+  resizing = true;
+  document.body.style.cursor     = "col-resize";
+  document.body.style.userSelect = "none";
+
+  /* Allow dragging back out of collapsed/fullscreen states */
+  document.body.classList.remove("console-fullscreen");
+  consolePane.style.display = "";
+  contentShell.classList.remove("hidden");
+  handle.style.display = "";
 });
 
 window.addEventListener("mousemove", (e) => {
@@ -565,6 +618,7 @@ window.addEventListener("mousemove", (e) => {
     workspace.style.gridTemplateColumns = "";   // restore default
     articleLayout.classList.remove("hide-toc");
     contentShell.classList.remove("hidden");
+    setEdgeHandle("right");
 
   /* ── MODE 2: normal / focus ── */
   } else {
@@ -581,6 +635,7 @@ window.addEventListener("mousemove", (e) => {
       handle.style.display = "none";
       workspace.style.gridTemplateColumns = "";
       document.body.classList.add("console-fullscreen");
+      setEdgeHandle("left");
 
     } else {
       consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
@@ -608,6 +663,7 @@ window.addEventListener("resize", () => {
   ) || 0;
 
   if (document.body.classList.contains("console-fullscreen")) {
+    setEdgeHandle("left");
     document.documentElement.style.setProperty("--console-width", `${viewport}px`);
     return;
   }
@@ -615,6 +671,7 @@ window.addEventListener("resize", () => {
   if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
     articleLayout.classList.remove("hide-toc");
     contentShell.classList.remove("hidden");
+    setEdgeHandle("right");
     return;
   }
 
@@ -627,6 +684,37 @@ window.addEventListener("resize", () => {
 
   consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
   document.documentElement.style.setProperty("--console-width", `${consoleWidth}px`);
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.key !== "`") return;
+  const tag = document.activeElement?.tagName;
+  if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable) return;
+  e.preventDefault();
+
+  const viewport = window.innerWidth;
+  const currentWidth = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue("--console-width")
+  ) || 0;
+  const isOpen = consolePane.style.display !== "none" && currentWidth > COLLAPSE_THRESHOLD;
+
+  if (isOpen) {
+    document.body.classList.remove("console-fullscreen");
+    consolePane.style.display = "none";
+    handle.style.display = "none";
+    contentShell.classList.remove("hidden");
+    articleLayout.classList.remove("hide-toc");
+    setEdgeHandle("right");
+    document.documentElement.style.setProperty("--console-width", "0px");
+  } else {
+    document.body.classList.remove("console-fullscreen");
+    consolePane.style.display = "";
+    contentShell.classList.remove("hidden");
+    handle.style.display = "";
+    let openWidth = Math.min(420, Math.max(MIN_CONSOLE_WIDTH, viewport * 0.36));
+    openWidth = applyNonFullscreenLayout(viewport, openWidth);
+    document.documentElement.style.setProperty("--console-width", `${openWidth}px`);
+  }
 });
 
 /*
