@@ -256,27 +256,40 @@ section.active-section {
 
 .edge-handle {
   position: fixed;
-  top: 50%;
+  top: calc(var(--header-height) + 28px);
   right: 0;
-  transform: translateY(-50%);
-  width: 12px;
-  height: 92px;
+  transform: none;
+  width: 14px;
+  height: 46px;
   border-radius: 8px 0 0 8px;
-  background: #cbd5e1;
-  border: 1px solid #94a3b8;
+  background: #60a5fa;
+  border: 1px solid #2563eb;
   border-right: 0;
   cursor: col-resize;
   z-index: 1100;
   display: none;
-  opacity: 0.9;
+  opacity: 1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.35);
 }
 
 .edge-handle.left {
   right: auto;
   left: 0;
   border-radius: 0 8px 8px 0;
-  border-right: 1px solid #94a3b8;
+  border-right: 1px solid #2563eb;
   border-left: 0;
+}
+
+.edge-handle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .console-pane {
