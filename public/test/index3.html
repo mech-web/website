@@ -23,9 +23,10 @@
   --grip-shadow: 0 10px 20px rgba(2, 6, 23, 0.35);
   --separator-grip-width: 24px;
   --separator-grip-height: 112px;
-  --grip-notch-width: 6px;
-  --grip-notch-height: 52px;
+  --grip-notch-width: 8px;
+  --grip-notch-height: 50px;
   --grip-notch-color: #3a4250;
+  --grip-notch-border: 1px solid #2f3745;
 }
 
 * { box-sizing: border-box; }
@@ -353,6 +354,7 @@ section.active-section {
   height: var(--grip-notch-height);
   border-radius: 3px;
   background: var(--grip-notch-color);
+  border: var(--grip-notch-border);
   z-index: 1;
   pointer-events: none;
 }
