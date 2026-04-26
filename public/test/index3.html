@@ -150,6 +150,11 @@ body.console-fullscreen .workspace {
 section { margin-bottom: 96px; }
 section h2 { margin-top: 0; font-size: 34px; }
 section p { line-height: 1.7; color: #374151; }
+section.active-section h2 { color: var(--accent); }
+section.active-section {
+  padding-left: 16px;
+  border-left: 3px solid #bfdbfe;
+}
 
 .footer {
   grid-column: 1 / -1;
@@ -576,6 +581,12 @@ function updateTocOnScroll() {
       active = entry;
     }
   });
+
+  topSections.forEach((entry) => {
+    if (!entry.section) return;
+    entry.section.classList.remove("active-section");
+  });
+  if (active.section) active.section.classList.add("active-section");
 
   setActiveTocSection(active.link);
 }
