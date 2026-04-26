@@ -126,6 +126,9 @@ body.console-fullscreen .workspace {
   position: sticky;
   top: calc(var(--header-height) + 24px);
   align-self: start;
+  max-height: calc(100vh - var(--header-height) - 32px);
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .toc h3 {
@@ -571,16 +574,27 @@ function setActiveTocSection(activeLink) {
 
 function updateTocOnScroll() {
   if (!topSections.length) return;
-  const offset = parseInt(getComputedStyle(document.documentElement)
-    .getPropertyValue("--header-height"), 10) + 32;
+  const headerOffset = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue("--header-height"),
+    10
+  );
+  const activationLine = headerOffset + Math.min(window.innerHeight * 0.35, 280);
 
   let active = topSections[0];
-  topSections.forEach((entry) => {
-    if (!entry.section) return;
-    if (entry.section.getBoundingClientRect().top - offset <= 0) {
-      active = entry;
-    }
-  });
+  const nearPageBottom =
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 2;
+
+  if (nearPageBottom) {
+    active = topSections[topSections.length - 1];
+  } else {
+    topSections.forEach((entry) => {
+      if (!entry.section) return;
+      if (entry.section.getBoundingClientRect().top <= activationLine) {
+        active = entry;
+      }
+    });
+  }
 
   topSections.forEach((entry) => {
     if (!entry.section) return;
