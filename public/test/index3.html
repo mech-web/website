@@ -45,10 +45,48 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
 }
 
+.header-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.brand {
+  white-space: nowrap;
+}
+
+.top-nav {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--subtle);
+  align-self: stretch;
+  align-items: stretch;
+}
+
+.top-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.top-nav a.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 8px var(--console-width);
   min-height: calc(100vh - var(--header-height));
+}
+
+body.console-fullscreen .workspace {
+  grid-template-columns: 0 0 1fr !important;
 }
 
 .content-shell {
@@ -62,16 +100,96 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   max-width: var(--content-max-width);
   min-width: 0;
+  container-type: inline-size;
 }
+
+.breadcrumbs {
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--subtle);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.breadcrumbs .sep { color: #9ca3af; }
+.breadcrumbs a:hover { color: var(--accent); }
 
 .hero {
-  height: 420px;
-  overflow: hidden;
-  border-radius: 16px;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(380px, 1.45fr);
+  gap: 18px;
+  padding: 10px;
+  background: #020817;
+  border-radius: 18px;
   margin-bottom: 48px;
+  color: #e5e7eb;
 }
 
-.hero img { height: 100%; object-fit: cover; }
+.hero-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.hero-kicker {
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 64px);
+  line-height: 1.04;
+  color: #f9fafb;
+}
+
+.hero-meta {
+  margin-top: 22px;
+  color: #9ca3af;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-summary {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  color: #cbd5e1;
+  line-height: 1.75;
+}
+
+.hero-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f59e0b;
+  color: #111827;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.hero-visual {
+  overflow: hidden;
+  border-radius: 12px;
+  min-height: 320px;
+}
+
+.hero-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .article-layout {
   display: grid;
@@ -88,6 +206,9 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: calc(var(--header-height) + 24px);
   align-self: start;
+  max-height: calc(100vh - var(--header-height) - 32px);
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .toc h3 {
@@ -101,14 +222,25 @@ a { color: inherit; text-decoration: none; }
 .toc li { margin-bottom: 12px; }
 .toc a { color: var(--subtle); display: block; padding: 4px 0; }
 .toc a.active { color: var(--accent); font-weight: 600; }
+.toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px solid var(--border); }
+.toc li.expanded > .toc-sub { display: block; }
+.toc .toc-sub li { margin-bottom: 8px; }
+.toc .toc-sub a { font-size: 14px; }
+.toc .toc-sub .toc-sub { margin-top: 4px; }
 
 .main-content { min-width: 0; }
 
 section { margin-bottom: 96px; }
 section h2 { margin-top: 0; font-size: 34px; }
 section p { line-height: 1.7; color: #374151; }
+section.active-section h2 { color: var(--accent); }
+section.active-section {
+  padding-left: 16px;
+  border-left: 3px solid #bfdbfe;
+}
 
 .footer {
+  grid-column: 1 / -1;
   margin-top: 64px;
   padding-top: 32px;
   border-top: 1px solid var(--border);
@@ -116,10 +248,78 @@ section p { line-height: 1.7; color: #374151; }
 }
 
 .resize-handle {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  align-self: start;
   background: #f3f4f6;
-  cursor: col-resize;
+  cursor: grab;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
+  z-index: 50;
+}
+
+.resize-handle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 66px;
+  border-radius: 8px;
+  background: #f8cc5f;
+  border: 1px solid #c69020;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+}
+
+.edge-handle {
+  position: fixed;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 66px;
+  border-radius: 8px;
+  background: #f8cc5f;
+  border: 1px solid #c69020;
+  cursor: grab;
+  z-index: 1100;
+  display: none;
+  opacity: 1;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+  transition: right 140ms ease, left 140ms ease, box-shadow 140ms ease;
+}
+
+.edge-handle.left {
+  right: auto;
+  left: -8px;
+}
+
+.edge-handle:hover {
+  right: 0;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45);
+}
+
+.edge-handle.left:hover {
+  left: 0;
+}
+
+.edge-handle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.85);
+}
+
+body.is-resizing,
+body.is-resizing * {
+  cursor: grabbing !important;
 }
 
 .console-pane {
@@ -129,6 +329,15 @@ section p { line-height: 1.7; color: #374151; }
   overflow: hidden;
   background: #07122b;
   color: #e2e8f0;
+}
+
+body.console-fullscreen .console-pane {
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  width: 100vw;
+  height: calc(100vh - var(--header-height));
+  z-index: 900;
 }
 
 .console-scroll {
@@ -142,80 +351,218 @@ section p { line-height: 1.7; color: #374151; }
 }
 
 @media (max-width: 900px) {
-  .console-pane, .resize-handle { display: none; }
+  .console-pane, .resize-handle, .edge-handle { display: none; }
   .workspace { grid-template-columns: 1fr; }
   .article-layout { grid-template-columns: 1fr; }
   .toc { display: none; }
+}
+
+@container (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 7.5vw, 56px);
+  }
+
+  .hero-visual {
+    min-height: 280px;
+  }
 }
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  Documentation Layout
+  <div class="header-inner">
+    <div class="brand">Acme Platform Docs</div>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="/docs">Docs</a>
+      <a href="/guides" class="active" aria-current="page">Guides</a>
+      <a href="/api">API Reference</a>
+      <a href="/changelog">Changelog</a>
+      <a href="/support">Support</a>
+    </nav>
+  </div>
 </header>
 
 <main class="workspace" id="workspace">
 
   <section class="content-shell" id="contentShell">
     <div class="content-column">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/docs">Docs</a>
+        <span class="sep">/</span>
+        <a href="/guides">Guides</a>
+        <span class="sep">/</span>
+        <span aria-current="page">Architecture Overview</span>
+      </nav>
       <div class="hero">
-        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="">
+        <div class="hero-panel">
+          <div>
+            <p class="hero-kicker">Announcement</p>
+            <h1>Mech v0.3 —<br>State Machines, Match,<br>and Mika the Mech</h1>
+            <div class="hero-meta">
+              <span class="hero-avatar">M</span>
+              <span>Corey Montella</span>
+              <span>•</span>
+              <span>April 27, 2026</span>
+            </div>
+          </div>
+          <p class="hero-summary">
+            Today, we’re excited to announce Mech v0.3, introducing powerful new
+            features for data modeling, computation, and control flow—along with
+            everyone’s favorite mascot, Mika the Mech.
+          </p>
+        </div>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Mech v0.3 announcement visual">
+        </div>
       </div>
       <div class="article-layout" id="articleLayout">
         <aside class="toc">
           <h3>Contents</h3>
           <ul>
-            <li><a href="#intro">Introduction</a></li>
-            <li><a href="#layout">Layout</a></li>
-            <li><a href="#console">Console</a></li>
-            <li><a href="#toc-section">TOC</a></li>
-            <li><a href="#responsive">Responsive</a></li>
+            <li><a href="#intro">Getting Started</a></li>
+            <li>
+              <a href="#architecture">Architecture</a>
+              <ul class="toc-sub">
+                <li>
+                  <a href="#architecture-overview">System Overview</a>
+                  <ul class="toc-sub">
+                    <li><a href="#architecture-edge">Edge & Gateway Layer</a></li>
+                    <li><a href="#architecture-services">Service Mesh & RPC</a></li>
+                  </ul>
+                </li>
+                <li><a href="#architecture-data">Data Plane & Storage</a></li>
+                <li><a href="#architecture-observability">Observability Topology</a></li>
+              </ul>
+            </li>
+            <li><a href="#workflow">Authoring Workflow</a></li>
+            <li><a href="#api-reference">API Reference</a></li>
+            <li><a href="#operations">Operations & Monitoring</a></li>
+            <li><a href="#security">Security Checklist</a></li>
+            <li><a href="#faq">FAQ</a></li>
           </ul>
         </aside>
         <article class="main-content">
           <section id="intro">
-            <h2>Introduction</h2>
-            <p>Lorem ipsum dolor sit amet.</p>
-            <p>The hero scrolls naturally under the sticky header.</p>
+            <h2>Getting Started</h2>
+            <p>The Acme Platform docs site helps teams ship services quickly while keeping reliability and security guardrails in place.</p>
+            <p>Use this page as your onboarding entry point for local setup, deployment flow, API contracts, and operational standards.</p>
+            <p>New engineers should complete the quick-start checklist, run the local bootstrap command, and validate against the staging environment before opening their first change request.</p>
+            <p>For realistic behavior, this demo intentionally includes enough copy to create natural reading flow and page scroll depth.</p>
           </section>
-          <section id="layout">
-            <h2>Layout</h2>
-            <p>TOC + content remain grouped together.</p>
-            <p>Extra width becomes margins outside the group.</p>
+          <section id="architecture">
+            <h2>Architecture</h2>
+            <p>The platform is organized into edge routing, auth, service orchestration, and data planes.</p>
+            <p>Requests enter through the gateway, are validated by policy middleware, and then fan out to internal services through typed contracts.</p>
+            <p>Each service publishes health, latency, and error-budget metrics to the observability stack so incidents can be triaged in minutes rather than hours.</p>
+            <p>Configuration is versioned in Git and promoted through environments using immutable build artifacts.</p>
+            <h3 id="architecture-overview">System Overview</h3>
+            <p>The control plane governs rollout strategy, policy checks, and regional failover, while the data plane handles runtime traffic and persistence paths.</p>
+            <h4 id="architecture-edge">Edge & Gateway Layer</h4>
+            <p>Global edge POPs terminate TLS, apply WAF controls, and route requests to the nearest healthy region using policy-aware traffic steering.</p>
+            <h4 id="architecture-services">Service Mesh & RPC</h4>
+            <p>Internal services communicate over mutual-TLS RPC channels with retries, budgets, and idempotency keys enforced at the client layer.</p>
+            <h3 id="architecture-data">Data Plane & Storage</h3>
+            <p>Hot paths use low-latency key-value storage while analytical workloads stream into warehouse pipelines with partition-aware ingestion.</p>
+            <h3 id="architecture-observability">Observability Topology</h3>
+            <p>Metrics, traces, and structured logs are correlated by request id, allowing responders to move from symptom to root-cause with minimal context switching.</p>
           </section>
-          <section id="console">
-            <h2>Console</h2>
-            <p>Console is anchored to the viewport edge.</p>
-            <p>It behaves like a real IDE split pane.</p>
+          <section id="workflow">
+            <h2>Authoring Workflow</h2>
+            <p>1) Create a branch from <strong>main</strong>, 2) run local checks, 3) update docs and changelog, 4) request review from the owning team.</p>
+            <p>Every documentation update should include runnable examples, copy-paste-safe commands, and a rollback note where relevant.</p>
+            <p>When behavior changes across versions, keep migration notes close to the affected section instead of burying them in release notes.</p>
+            <p>Writers and engineers co-own docs quality; stale docs should be treated as bugs.</p>
           </section>
-          <section id="toc-section">
-            <h2>TOC</h2>
-            <p>TOC hides automatically once console dominates.</p>
+          <section id="api-reference">
+            <h2>API Reference</h2>
+            <p><strong>POST /v1/deployments</strong> — creates a deployment job and returns a job id for progress tracking.</p>
+            <p><strong>GET /v1/deployments/{id}</strong> — returns current state, start/end timestamps, and failure diagnostics.</p>
+            <p><strong>POST /v1/rollbacks</strong> — restores a previous stable release, preserving environment variables and secrets bindings.</p>
+            <p>All endpoints require OAuth bearer tokens with the <code>deploy.write</code> scope for mutating calls.</p>
           </section>
-          <section id="responsive">
-            <h2>Responsive</h2>
-            <p>Reading mode → normal mode → focus mode.</p>
+          <section id="operations">
+            <h2>Operations & Monitoring</h2>
+            <p>Set SLOs for availability, latency, and freshness. Alert on burn-rate thresholds, not just raw error count.</p>
+            <p>Dashboards should include golden signals, dependency health, saturation indicators, and recent deployment markers.</p>
+            <p>Incident responders should always be able to answer: what changed, when it changed, and how to mitigate quickly.</p>
+            <p>Post-incident reviews focus on system improvements, not individual blame.</p>
           </section>
-          <footer class="footer">Footer spanning TOC + main content</footer>
+          <section id="security">
+            <h2>Security Checklist</h2>
+            <p>Rotate access tokens regularly, enforce least privilege scopes, and require MFA for production operators.</p>
+            <p>Run dependency scans and static analysis in CI for every merge request.</p>
+            <p>Store secrets in a managed vault and never commit credentials, certificates, or private keys to source control.</p>
+            <p>Perform quarterly access reviews and rehearse incident containment playbooks.</p>
+          </section>
+          <section id="faq">
+            <h2>FAQ</h2>
+            <p><strong>How long does a typical deploy take?</strong> Around 4–8 minutes depending on service size and cache warmup.</p>
+            <p><strong>Can we roll back partially?</strong> Yes, rollback supports service-level targeting when contracts remain compatible.</p>
+            <p><strong>Where do I request new environment secrets?</strong> Use the internal access form and tag the Platform Security group.</p>
+            <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
+          </section>
         </article>
+        <footer class="footer" id="footer-links">
+          <strong>Acme Platform Documentation</strong><br>
+          Version 2.8 · Last updated April 2026 · docs@acme.example<br>
+          Quick links: <a href="#intro">Getting Started</a> · <a href="#api-reference">API</a> · <a href="#operations">Runbooks</a> · <a href="#faq">FAQ</a>
+        </footer>
       </div>
     </div>
   </section>
 
   <div class="resize-handle" id="resizeHandle"></div>
+  <div class="edge-handle" id="edgeHandle" aria-hidden="true"></div>
 
   <aside class="console-pane">
     <div class="console-scroll">
-[12:01] Build started...
-[12:02] Compiling...
-[12:03] Running checks...
-[12:04] Deploy complete
+[09:12:04] INFO  docs-ci: pipeline=7421 branch=feature/layout-refresh commit=4eee406
+[09:12:05] INFO  checkout: cloning repository
+[09:12:06] INFO  install: npm ci --prefer-offline
+[09:12:18] INFO  lint: eslint src/**/*.ts
+[09:12:24] PASS  lint: 0 errors, 2 warnings
+[09:12:24] INFO  test: vitest run --coverage
+[09:12:41] PASS  test: 128 passed, 0 failed, coverage=91.8%
+[09:12:42] INFO  build: vite build
+[09:12:53] PASS  build: output=dist/, size=1.9MB
+[09:12:54] INFO  preview: running smoke checks
+[09:12:58] PASS  smoke: homepage renders
+[09:12:59] PASS  smoke: docs sidebar links valid
+[09:13:00] PASS  smoke: console resize interaction stable
+[09:13:01] INFO  deploy: target=staging region=us-east-1
+[09:13:08] INFO  deploy: waiting for health checks
+[09:13:11] PASS  deploy: service=docs-web revision=2026.04.26.1
+[09:13:12] INFO  observability: creating deployment marker
+[09:13:13] INFO  audit: writing release metadata
+[09:13:15] PASS  release: completed successfully
 
-> real resize logic
-> anchored to viewport edge
-> TOC disappears after 50%
-> snaps to full console mode
+$ tail -n 20 /var/log/docs-web/access.log
+200 GET /docs/getting-started
+200 GET /docs/architecture
+200 GET /docs/api
+200 GET /docs/operations
+200 GET /assets/app-4f2d9e.js
+304 GET /assets/styles-87d1aa.css
+200 GET /api/status
+200 GET /api/search?q=deployments
+200 GET /api/search?q=rollbacks
+200 GET /api/search?q=runbook
+200 GET /favicon.ico
+200 GET /manifest.json
+200 GET /docs/security
+200 GET /docs/faq
+
+notes:
+- console pane intentionally scrolls independently
+- drag handle to resize between reading and focus modes
+- TOC hides first when space is constrained so content remains readable
+- fullscreen snap enters at ~92% viewport width
     </div>
   </aside>
 
@@ -227,91 +574,370 @@ const workspace    = document.getElementById("workspace");
 const articleLayout = document.getElementById("articleLayout");
 const contentShell = document.getElementById("contentShell");
 const consolePane  = document.querySelector(".console-pane");
+const edgeHandle   = document.getElementById("edgeHandle");
 
 const MIN_CONSOLE_WIDTH  = 320;
 const COLLAPSE_THRESHOLD = 80;
+const HANDLE_WIDTH       = 8;
+const TOC_WIDTH          = 260;
+const TOC_GAP            = 48;
+const MIN_MAIN_CONTENT   = 640;
+const MIN_MAIN_WITH_TOC  = 760;
+const MIN_LEFT_WITH_TOC  = TOC_WIDTH + TOC_GAP + MIN_MAIN_WITH_TOC;
+const DEFAULT_OPEN_WIDTH = 420;
+const HEADER_HEIGHT = parseInt(
+  getComputedStyle(document.documentElement).getPropertyValue("--header-height"),
+  10
+);
 
 let resizing = false;
+let lastNormalWidth = DEFAULT_OPEN_WIDTH;
+let dragStartX = 0;
+let didDrag = false;
+let currentConsoleWidth = parseFloat(
+  document.documentElement.style.getPropertyValue("--console-width")
+) || DEFAULT_OPEN_WIDTH;
 
-handle.addEventListener("mousedown", () => {
+function setConsoleWidth(width) {
+  currentConsoleWidth = width;
+  document.documentElement.style.setProperty("--console-width", `${width}px`);
+}
+
+function setEdgeHandle(mode) {
+  if (!edgeHandle) return;
+  edgeHandle.classList.remove("left");
+  if (mode === "left") {
+    edgeHandle.style.display = "block";
+    edgeHandle.classList.add("left");
+  } else if (mode === "right") {
+    edgeHandle.style.display = "block";
+  } else {
+    edgeHandle.style.display = "none";
+  }
+}
+
+function syncEdgeHandleOnLoad() {
+  if (window.innerWidth <= 900) {
+    setEdgeHandle("none");
+    return;
+  }
+
+  const consoleWidth = currentConsoleWidth;
+
+  if (document.body.classList.contains("console-fullscreen")) {
+    setEdgeHandle("left");
+  } else if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
+    setEdgeHandle("right");
+  } else {
+    setEdgeHandle("none");
+  }
+}
+
+function applyNonFullscreenLayout(viewport, consoleWidth) {
+  /*
+    Keep content readable first in non-fullscreen mode:
+    - cap console so main content can keep a minimum width
+    - hide TOC early if available space gets tight
+  */
+  const maxConsoleForContent = Math.max(
+    0,
+    viewport - HANDLE_WIDTH - MIN_MAIN_CONTENT
+  );
+  if (consoleWidth > maxConsoleForContent) {
+    consoleWidth = maxConsoleForContent;
+  }
+
+  const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
+  const shouldHideToc = leftPaneWidth < MIN_LEFT_WITH_TOC;
+  articleLayout.classList.toggle("hide-toc", shouldHideToc);
+
+  contentShell.classList.remove("hidden");
+  handle.style.display = "";
+  workspace.style.gridTemplateColumns = "";
+  setEdgeHandle("none");
+  lastNormalWidth = consoleWidth;
+
+  return consoleWidth;
+}
+
+function closeConsole() {
+  document.body.classList.remove("console-fullscreen");
+  consolePane.style.display = "none";
+  handle.style.display = "none";
+  contentShell.classList.remove("hidden");
+  articleLayout.classList.remove("hide-toc");
+  setEdgeHandle("right");
+  setConsoleWidth(0);
+}
+
+function openConsoleNormal() {
+  const viewport = window.innerWidth;
+  document.body.classList.remove("console-fullscreen");
+  consolePane.style.display = "";
+  contentShell.classList.remove("hidden");
+  handle.style.display = "";
+  let openWidth = Math.min(
+    lastNormalWidth || DEFAULT_OPEN_WIDTH,
+    viewport - HANDLE_WIDTH
+  );
+  if (openWidth < MIN_CONSOLE_WIDTH) {
+    openWidth = Math.min(DEFAULT_OPEN_WIDTH, Math.max(MIN_CONSOLE_WIDTH, viewport * 0.36));
+  }
+  openWidth = applyNonFullscreenLayout(viewport, openWidth);
+  setConsoleWidth(openWidth);
+}
+
+function cycleConsoleMode() {
+  const currentWidth = currentConsoleWidth;
+  const isFullscreen = document.body.classList.contains("console-fullscreen");
+  const isClosed = consolePane.style.display === "none" || currentWidth <= COLLAPSE_THRESHOLD;
+
+  if (isFullscreen) {
+    openConsoleNormal();
+  } else if (isClosed) {
+    openConsoleNormal();
+  } else {
+    lastNormalWidth = currentWidth;
+    closeConsole();
+  }
+}
+
+function onResizeHandleMouseDown(e) {
   resizing = true;
-  document.body.style.cursor     = "col-resize";
+  dragStartX = e.clientX;
+  didDrag = false;
+  document.body.classList.add("is-resizing");
   document.body.style.userSelect = "none";
-});
+}
+
+handle.addEventListener("mousedown", onResizeHandleMouseDown);
+
+edgeHandle.addEventListener("mousedown", onResizeHandleMouseDown);
+
+function onHandleClick() {
+  if (didDrag) {
+    didDrag = false;
+    return;
+  }
+  cycleConsoleMode();
+}
+
+handle.addEventListener("click", onHandleClick);
+edgeHandle.addEventListener("click", onHandleClick);
 
 window.addEventListener("mousemove", (e) => {
   if (!resizing) return;
+  if (Math.abs(e.clientX - dragStartX) > 3) didDrag = true;
 
   const viewport = window.innerWidth;
   let consoleWidth = viewport - e.clientX;
 
-  const hideToc  = viewport * 0.50;
-  const normalMax = viewport * 0.66;
   const fullSnap  = viewport * 0.92;
 
   /* ── MODE 1: fully collapsed ── */
   if (consoleWidth <= COLLAPSE_THRESHOLD) {
     consoleWidth = 0;
+    document.body.classList.remove("console-fullscreen");
     consolePane.style.display = "none";
     handle.style.display      = "none";
     workspace.style.gridTemplateColumns = "";   // restore default
     articleLayout.classList.remove("hide-toc");
     contentShell.classList.remove("hidden");
+    setEdgeHandle("right");
 
   /* ── MODE 2: normal / focus ── */
   } else {
+    document.body.classList.remove("console-fullscreen");
     consolePane.style.display = "";
 
     if (consoleWidth < MIN_CONSOLE_WIDTH) consoleWidth = MIN_CONSOLE_WIDTH;
 
-    if (consoleWidth < hideToc) {
-      /* TOC visible */
-      articleLayout.classList.remove("hide-toc");
-      contentShell.classList.remove("hidden");
-      handle.style.display = "";
-      workspace.style.gridTemplateColumns = "";
-
-    } else if (consoleWidth <= normalMax) {
-      /* TOC hidden */
+    if (consoleWidth >= fullSnap) {
+      /* Fullscreen console mode */
       articleLayout.classList.add("hide-toc");
-      contentShell.classList.remove("hidden");
-      handle.style.display = "";
+      consoleWidth = viewport;
+      contentShell.classList.add("hidden");
+      handle.style.display = "none";
       workspace.style.gridTemplateColumns = "";
+      document.body.classList.add("console-fullscreen");
+      setEdgeHandle("left");
 
     } else {
-      /* approaching / at full console */
-      articleLayout.classList.add("hide-toc");
-
-      if (consoleWidth >= fullSnap) {
-        /*
-          FIX: collapse the content + handle columns in the grid
-          so the console genuinely fills the viewport.
-          Without this the 1fr + 8px columns push the console
-          partially off-screen even when its CSS width = 100vw.
-        */
-        consoleWidth = viewport;
-        contentShell.classList.add("hidden");
-        handle.style.display = "none";
-        workspace.style.gridTemplateColumns = "0 0 100vw";
-      } else {
-        consoleWidth = normalMax;
-        contentShell.classList.remove("hidden");
-        handle.style.display = "";
-        workspace.style.gridTemplateColumns = "";
-      }
+      consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
     }
   }
 
-  document.documentElement.style.setProperty(
-    "--console-width",
-    `${consoleWidth}px`
-  );
+  setConsoleWidth(consoleWidth);
 });
 
 window.addEventListener("mouseup", () => {
   resizing = false;
-  document.body.style.cursor     = "";
+  document.body.classList.remove("is-resizing");
   document.body.style.userSelect = "";
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth <= 900) return;
+
+  const viewport = window.innerWidth;
+  let consoleWidth = currentConsoleWidth;
+
+  if (document.body.classList.contains("console-fullscreen")) {
+    setEdgeHandle("left");
+    setConsoleWidth(viewport);
+    return;
+  }
+
+  if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
+    articleLayout.classList.remove("hide-toc");
+    contentShell.classList.remove("hidden");
+    setEdgeHandle("right");
+    return;
+  }
+
+  if (consoleWidth > viewport - HANDLE_WIDTH) {
+    consoleWidth = viewport - HANDLE_WIDTH;
+  }
+  if (consoleWidth < MIN_CONSOLE_WIDTH) {
+    consoleWidth = MIN_CONSOLE_WIDTH;
+  }
+
+  consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
+  setConsoleWidth(consoleWidth);
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.key !== "`") return;
+  const tag = document.activeElement?.tagName;
+  if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable) return;
+  e.preventDefault();
+  cycleConsoleMode();
+});
+
+/*
+  Scrollspy for TOC:
+  - highlight active top-level section while scrolling
+  - expand nested TOC only for the active top-level section
+  - highlight nested subsection links (up to 3 levels) for the active section
+*/
+const tocRoot = document.querySelector(".toc > ul");
+const topTocItems = tocRoot
+  ? Array.from(tocRoot.querySelectorAll(":scope > li"))
+  : [];
+const topTocLinks = topTocItems
+  .map((item) => item.querySelector(":scope > a"))
+  .filter(Boolean);
+
+const topSections = topTocLinks
+  .map((link) => {
+    const id = link.getAttribute("href")?.replace("#", "");
+    return { link, section: id ? document.getElementById(id) : null };
+  })
+  .filter((entry) => entry.section);
+
+function setActiveTocSection(activeLink) {
+  topTocLinks.forEach((link) => link.classList.remove("active"));
+  topTocItems.forEach((item) => item.classList.remove("expanded"));
+
+  if (!activeLink) return;
+
+  activeLink.classList.add("active");
+  const activeItem = activeLink.closest("li");
+  if (activeItem) activeItem.classList.add("expanded");
+
+  const nestedLinks = activeItem
+    ? Array.from(activeItem.querySelectorAll(".toc-sub a"))
+    : [];
+  nestedLinks.forEach((link) => link.classList.remove("active"));
+  if (activeItem) {
+    activeItem
+      .querySelectorAll(".toc-sub li")
+      .forEach((li) => li.classList.remove("expanded"));
+  }
+
+  const offset = HEADER_HEIGHT + 28;
+
+  let activeNestedLink = null;
+  nestedLinks.forEach((link) => {
+    const id = link.getAttribute("href")?.replace("#", "");
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+    if (target.getBoundingClientRect().top - offset <= 0) {
+      activeNestedLink = link;
+    }
+  });
+
+  if (!activeNestedLink) return;
+
+  activeNestedLink.classList.add("active");
+  let parentLi = activeNestedLink.closest("li");
+  while (parentLi && activeItem && parentLi !== activeItem) {
+    parentLi.classList.add("expanded");
+    parentLi = parentLi.parentElement?.closest("li") || null;
+  }
+}
+
+function updateTocOnScroll() {
+  if (document.visibilityState !== "visible") return;
+  if (contentShell.classList.contains("hidden")) return;
+  if (!topSections.length) return;
+  const activationLine = HEADER_HEIGHT + Math.min(window.innerHeight * 0.35, 280);
+
+  let active = topSections[0];
+  const nearPageBottom =
+    window.innerHeight + window.scrollY >=
+    document.documentElement.scrollHeight - 2;
+
+  if (nearPageBottom) {
+    active = topSections[topSections.length - 1];
+  } else {
+    topSections.forEach((entry) => {
+      if (!entry.section) return;
+      if (entry.section.getBoundingClientRect().top <= activationLine) {
+        active = entry;
+      }
+    });
+  }
+
+  topSections.forEach((entry) => {
+    if (!entry.section) return;
+    entry.section.classList.remove("active-section");
+  });
+  if (active.section) active.section.classList.add("active-section");
+
+  setActiveTocSection(active.link);
+}
+
+let tocTicking = false;
+function requestTocUpdate() {
+  if (tocTicking) return;
+  tocTicking = true;
+  requestAnimationFrame(() => {
+    tocTicking = false;
+    updateTocOnScroll();
+  });
+}
+
+function deferPostPaint(fn) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(fn);
+  });
+}
+
+window.addEventListener("scroll", requestTocUpdate, { passive: true });
+window.addEventListener("resize", requestTocUpdate);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    deferPostPaint(() => {
+      syncEdgeHandleOnLoad();
+      requestTocUpdate();
+    });
+  }
+});
+
+deferPostPaint(() => {
+  syncEdgeHandleOnLoad();
+  requestTocUpdate();
 });
 </script>
 
