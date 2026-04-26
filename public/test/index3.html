@@ -7,57 +7,82 @@
 
 <style>
 :root {
-  --header-height: 72px;
-  --console-width: 575px;
-  --toc-width: 260px;
-  --content-max-width: 1200px;
-  --border: #1c2c43;
-  --text: #e9e7e2;
-  --subtle: #9ca9bd;
+  --bg-primary: #0B0F12;
+  --bg-secondary: #0F1418;
+  --bg-elevated: #151B21;
+
+  --accent-primary: #F2B63D;
+  --accent-hover: #E0A82F;
+  --accent-soft: #FFD166;
+
+  --blue-primary: #2F6FA3;
+  --blue-bright: #3E86C1;
+
+  --border: #1C232A;
+  --border-strong: #2A333D;
+
+  --text-primary: #E6EDF3;
+  --text-secondary: #AAB4BE;
+  --text-muted: #6B7682;
+
+  --success: #3FB950;
+  --error: #F85149;
+
+
+
   --accent: #e8b23f;
+  --accent-active: #ffd27a;
+  --accent-border-soft: rgba(232, 178, 63, 0.24);
+  --accent-line: rgba(245, 185, 66, 0.6);
+  --accent-soft: #f6c45c;
   --accent-strong: #f2c14d;
+  --background-dark: rgb(3, 8, 12);
+  --background-light: rgb(8, 22, 33);
+  --border: #1c2c43;
+  --btn-bg: #151f30;
+  --btn-bg-hover: #1a263a;
+  --btn-border-hover: #2b3b57;
+  --console-bg: #040608;
+  --console-text: #e2e8f0;
+  --console-width: 575px;
+  --content-max-width: 1200px;
+  --grip-bg: #efb13f;
+  --grip-border: #9a6c1b;
+  --grip-height: 50px;
+  --grip-notch-border: 0;
+  --grip-notch-color: #3a4250;
+  --grip-notch-height: 24px;
+  --grip-notch-width: 2px;
+  --grip-radius: 2px;
+  --grip-shadow: 0 10px 20px rgba(2, 6, 23, 0.35);
+  --grip-width: 8px;
+  --header-bg: #020913;
+  --header-glow: #041123;
+  --header-height: 72px;
+  --header-line: #0f1d31;
+  --hero-title: #ebe8e2;
+  --link-muted: #9eb0c9;
+  --page-bg: #020915;
+  --page-mid: #020a16;
+  --panel-bg: #08111f;
+  --panel-meta: #9ca3af;
+  --panel-text: #e5e7eb;
+  --panel-text-soft: #cbd5e1;
+  --rule-strong: rgba(20, 36, 58, 0.8);
+  --section-title: #ece7dc;
+  --separator-grip-height: 50px;
+  --separator-grip-width: 8px;
+  --subtle: #9ca9bd;
+  --surface-1: #0b1a2d;
+  --surface-3: #132338;
+  --surface-4: #162742;
+  --surface-5: #1b2944;
+  --text: #848687;
   --text-bright: #f4f4f5;
   --text-inverse: #101828;
   --text-muted: #9eaabc;
   --text-soft: #a8b3c6;
-  --panel-text: #e5e7eb;
-  --panel-text-soft: #cbd5e1;
-  --panel-meta: #9ca3af;
-  --link-muted: #9eb0c9;
-  --accent-soft: #f6c45c;
-  --accent-active: #ffd27a;
-  --section-title: #ece7dc;
-  --hero-title: #ebe8e2;
-  --console-text: #e2e8f0;
-  --btn-bg: #151f30;
-  --btn-bg-hover: #1a263a;
-  --btn-border-hover: #2b3b57;
-  --surface-1: #0b1a2d;
-  --surface-2: #030b16;
-  --surface-3: #132338;
-  --surface-4: #162742;
-  --surface-5: #1b2944;
-  --rule-strong: rgba(20, 36, 58, 0.8);
-  --accent-border-soft: rgba(232, 178, 63, 0.24);
-  --accent-line: rgba(245, 185, 66, 0.6);
-  --header-glow: #041123;
-  --page-mid: #020a16;
-  --panel-bg: #08111f;
-  --page-bg: #020915;
-  --header-bg: #020913;
-  --header-line: #0f1d31;
-  --grip-width: 8px;
-  --grip-height: 50px;
-  --grip-radius: 2px;
-  --grip-bg: #efb13f;
-  --grip-border: #9a6c1b;
-  --grip-shadow: 0 10px 20px rgba(2, 6, 23, 0.35);
-  --separator-grip-width: 8px;
-  --separator-grip-height: 50px;
-  --grip-notch-width: 2px;
-  --grip-notch-height: 24px;
-  --grip-notch-color: #3a4250;
-  --grip-notch-border: 0;
+  --toc-width: 260px;
 }
 
 * { box-sizing: border-box; }
@@ -67,8 +92,7 @@ html, body {
   padding: 0;
   font-family: Inter, system-ui, sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top, var(--header-glow) 0%, var(--page-mid) 38%, var(--page-bg) 68%);
-  scroll-behavior: smooth;
+  background: var(--background-dark);
 }
 
 body { min-height: 100vh; }
@@ -468,7 +492,7 @@ body.is-resizing * {
   top: var(--header-height);
   height: calc(100vh - var(--header-height));
   overflow: hidden;
-  background: var(--surface-2);
+  background: var(--console-bg);
   color: var(--console-text);
   border-left: 1px solid var(--surface-4);
 }
@@ -565,7 +589,11 @@ body.console-fullscreen .console-pane {
 
 <header class="site-header">
   <div class="header-inner">
-    <div class="brand">Acme Platform Docs</div>
+    <div class="brand">
+      <a href="https://mech-lang.org">
+        <img src="https://mech-lang.org/img/logo.png" alt="Mech Programming Language" height="40">
+      </a>
+    </div>
     <nav class="top-nav" aria-label="Primary">
       <a href="/docs">Docs</a>
       <a href="/guides" class="active" aria-current="page">Guides</a>
@@ -617,7 +645,7 @@ body.console-fullscreen .console-pane {
           </p>
         </div>
         <div class="hero-visual">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Mech v0.3 announcement visual">
+          <img src="images/hero-square.png" alt="Mech v0.3 announcement visual">
         </div>
       </div>
       <div class="article-layout" id="articleLayout">
