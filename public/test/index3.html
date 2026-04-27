@@ -1232,7 +1232,14 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
             <li><a href="#api-reference">API Reference</a></li>
             <li><a href="#operations">Operations & Monitoring</a></li>
             <li><a href="#security">Security Checklist</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li>
+              <a href="#faq">FAQ</a>
+              <ul class="toc-sub">
+                <li><a href="#faq-deployments">Deployments</a></li>
+                <li><a href="#faq-rollbacks">Rollbacks</a></li>
+                <li><a href="#faq-access">Access & Approvals</a></li>
+              </ul>
+            </li>
           </ul>
         </aside>
         <article class="main-content">
@@ -1283,8 +1290,13 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
           </section>
           <section id="faq">
             <h2>FAQ</h2>
+            <h3 id="faq-deployments">Deployments</h3>
             <p><strong>How long does a typical deploy take?</strong> Around 4–8 minutes depending on service size and cache warmup.</p>
+            <p><strong>Can we deploy during business hours?</strong> Yes, if SLO burn-rate is healthy and an on-call engineer is available.</p>
+            <h3 id="faq-rollbacks">Rollbacks</h3>
             <p><strong>Can we roll back partially?</strong> Yes, rollback supports service-level targeting when contracts remain compatible.</p>
+            <p><strong>What if rollback fails verification?</strong> The pipeline pauses, keeps the previous revision live, and opens an incident ticket automatically.</p>
+            <h3 id="faq-access">Access & Approvals</h3>
             <p><strong>Where do I request new environment secrets?</strong> Use the internal access form and tag the Platform Security group.</p>
             <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
           </section>
