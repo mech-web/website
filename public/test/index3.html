@@ -808,6 +808,8 @@ body.is-resizing * {
   top: var(--header-height);
   height: calc(100vh - var(--header-height));
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   background: var(--console-bg);
   color: var(--console-text);
   border-left: 1px solid var(--border-strong);
@@ -820,6 +822,78 @@ body.console-fullscreen .console-pane {
   width: 100vw;
   height: calc(100vh - var(--header-height));
   z-index: 900;
+}
+
+.console-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-strong);
+  background: rgba(16, 20, 24, 0.92);
+}
+
+.console-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.console-tab {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  text-transform: lowercase;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.console-tab:hover {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.console-tab.active {
+  color: var(--text-primary);
+  background: rgba(62, 134, 193, 0.25);
+  border-color: rgba(62, 134, 193, 0.5);
+}
+
+.console-fullscreen-toggle {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.console-fullscreen-toggle:hover {
+  border-color: var(--blue-bright);
+  color: var(--accent-soft);
+}
+
+.console-panels {
+  position: relative;
+  min-height: 0;
+  flex: 1;
+}
+
+.console-panel {
+  display: none;
+  height: 100%;
+}
+
+.console-panel.is-active {
+  display: block;
 }
 
 .console-scroll {
@@ -1260,7 +1334,17 @@ body.console-fullscreen .console-pane {
   <div class="edge-handle" id="edgeHandle" aria-hidden="true"></div>
 
   <aside class="console-pane">
-    <div class="console-scroll">
+    <div class="console-topbar">
+      <div class="console-tabs" role="tablist" aria-label="Console sections">
+        <button class="console-tab active" type="button" role="tab" aria-selected="true" data-tab="console">console</button>
+        <button class="console-tab" type="button" role="tab" aria-selected="false" data-tab="output">output</button>
+        <button class="console-tab" type="button" role="tab" aria-selected="false" data-tab="errors">errors</button>
+      </div>
+      <button class="console-fullscreen-toggle" id="consoleFullscreenToggle" type="button" aria-pressed="false">fullscreen</button>
+    </div>
+    <div class="console-panels">
+      <div class="console-panel is-active" data-panel="console">
+        <div class="console-scroll">
 [09:12:04] INFO  docs-ci: pipeline=7421 branch=feature/layout-refresh commit=4eee406
 [09:12:05] INFO  checkout: cloning repository
 [09:12:06] INFO  install: npm ci --prefer-offline
@@ -1302,6 +1386,38 @@ notes:
 - drag handle to resize between reading and focus modes
 - TOC hides first when space is constrained so content remains readable
 - fullscreen snap enters at ~92% viewport width
+        </div>
+      </div>
+      <div class="console-panel" data-panel="output">
+        <div class="console-scroll">$ npm run docs:build
+
+vite v6.1.2 building for production...
+✓ 1782 modules transformed.
+dist/index.html                     1.24 kB │ gzip:   0.63 kB
+dist/assets/index-18d97.css       98.31 kB │ gzip:  16.88 kB
+dist/assets/docs-9f22e.js        412.54 kB │ gzip: 125.03 kB
+dist/assets/vendor-f22c1.js      593.77 kB │ gzip: 194.22 kB
+✓ built in 4.78s
+
+$ npm run docs:preview
+➜  Local:   http://localhost:4173/
+➜  Network: use --host to expose
+
+smoke summary:
+- homepage render: pass
+- nav links: pass
+- docs search request: pass
+- static asset cache hit: pass</div>
+      </div>
+      <div class="console-panel" data-panel="errors">
+        <div class="console-scroll">[09:10:42] WARN  markdown-lint: docs/api/spec.md line 188 exceeds 100 chars
+[09:10:44] WARN  markdown-lint: docs/operations/runbook.md line 241 trailing spaces
+[09:12:24] WARN  eslint: src/components/ConsolePane.tsx:211 unexpected any (ts-eslint/no-explicit-any)
+[09:12:24] WARN  eslint: src/components/ResizeHandle.tsx:88 React Hook useEffect has missing dependency
+
+No critical runtime errors reported.
+Health checks stayed green during deploy.</div>
+      </div>
     </div>
   </aside>
 
@@ -1314,6 +1430,9 @@ const articleLayout = document.getElementById("articleLayout");
 const contentShell  = document.getElementById("contentShell");
 const consolePane   = document.querySelector(".console-pane");
 const edgeHandle    = document.getElementById("edgeHandle");
+const tabButtons    = Array.from(document.querySelectorAll(".console-tab"));
+const tabPanels     = Array.from(document.querySelectorAll(".console-panel"));
+const fullscreenToggle = document.getElementById("consoleFullscreenToggle");
 
 const MIN_CONSOLE_WIDTH  = 320;
 const COLLAPSE_THRESHOLD = 80;
@@ -1336,6 +1455,24 @@ let didDrag = false;
 let currentConsoleWidth = parseFloat(
   document.documentElement.style.getPropertyValue("--console-width")
 ) || DEFAULT_OPEN_WIDTH;
+
+function setActiveConsoleTab(tabName) {
+  tabButtons.forEach((button) => {
+    const isActive = button.dataset.tab === tabName;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+  tabPanels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.dataset.panel === tabName);
+  });
+}
+
+function updateFullscreenToggleLabel() {
+  if (!fullscreenToggle) return;
+  const isFullscreen = document.body.classList.contains("console-fullscreen");
+  fullscreenToggle.textContent = isFullscreen ? "exit fullscreen" : "fullscreen";
+  fullscreenToggle.setAttribute("aria-pressed", String(isFullscreen));
+}
 
 function setConsoleWidth(width) {
   currentConsoleWidth = width;
@@ -1402,6 +1539,7 @@ function closeConsole() {
   syncTocVisibility(window.innerWidth);
   setEdgeHandle("right");
   setConsoleWidth(0);
+  updateFullscreenToggleLabel();
 }
 
 function openConsoleNormal() {
@@ -1416,6 +1554,24 @@ function openConsoleNormal() {
   }
   openWidth = applyNonFullscreenLayout(viewport, openWidth);
   setConsoleWidth(openWidth);
+  updateFullscreenToggleLabel();
+}
+
+function enterConsoleFullscreen() {
+  if (window.innerWidth <= 900) return;
+  const viewport = window.innerWidth;
+  if (currentConsoleWidth > COLLAPSE_THRESHOLD) {
+    lastNormalWidth = currentConsoleWidth;
+  }
+  consolePane.style.display = "";
+  document.body.classList.add("console-fullscreen");
+  articleLayout.classList.add("hide-toc");
+  contentShell.classList.add("hidden");
+  handle.style.display = "none";
+  workspace.style.gridTemplateColumns = "";
+  setEdgeHandle("left");
+  setConsoleWidth(viewport);
+  updateFullscreenToggleLabel();
 }
 
 function cycleConsoleMode() {
@@ -1489,6 +1645,7 @@ window.addEventListener("mousemove", (e) => {
   }
 
   setConsoleWidth(consoleWidth);
+  updateFullscreenToggleLabel();
 });
 
 window.addEventListener("mouseup", () => {
@@ -1503,18 +1660,24 @@ window.addEventListener("resize", () => {
   let consoleWidth = currentConsoleWidth;
 
   if (document.body.classList.contains("console-fullscreen")) {
-    setEdgeHandle("left"); setConsoleWidth(viewport); return;
+    setEdgeHandle("left");
+    setConsoleWidth(viewport);
+    updateFullscreenToggleLabel();
+    return;
   }
   if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
     syncTocVisibility(viewport);
     contentShell.classList.remove("hidden");
-    setEdgeHandle("right"); return;
+    setEdgeHandle("right");
+    updateFullscreenToggleLabel();
+    return;
   }
 
   if (consoleWidth > viewport - HANDLE_WIDTH) consoleWidth = viewport - HANDLE_WIDTH;
   if (consoleWidth < MIN_CONSOLE_WIDTH) consoleWidth = MIN_CONSOLE_WIDTH;
   consoleWidth = applyNonFullscreenLayout(viewport, consoleWidth);
   setConsoleWidth(consoleWidth);
+  updateFullscreenToggleLabel();
 });
 
 window.addEventListener("keydown", (e) => {
@@ -1524,6 +1687,20 @@ window.addEventListener("keydown", (e) => {
   e.preventDefault();
   cycleConsoleMode();
 });
+
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => setActiveConsoleTab(button.dataset.tab));
+});
+
+fullscreenToggle?.addEventListener("click", () => {
+  if (document.body.classList.contains("console-fullscreen")) {
+    openConsoleNormal();
+  } else {
+    enterConsoleFullscreen();
+  }
+});
+
+updateFullscreenToggleLabel();
 
 /* ── Scrollspy ── */
 const tocRoot = document.querySelector(".toc > ul");
