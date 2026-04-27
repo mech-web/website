@@ -1208,12 +1208,14 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
       </div>
       <div class="article-intro" id="articleIntro">
         <p>Today, we are announcing Mech <code>v0.3</code>, which has the following new features:</p>
-        <p>- <strong>Enums and tagged unions</strong> for modeling categorical data and optional values (§2)</p>
-        <p>- <strong>User-defined functions</strong> with pattern matching and recursion (§3)</p>
-        <p>- <strong>State machines</strong> for modeling ordered computation and processes with phases (§4)</p>
-        <p>- <strong>Comprehensions</strong> for constructing new matrices and sets from existing ones (§5)</p>
-        <p>- <strong>Relational table joins</strong> for combining tables based on common keys (§6)</p>
-        <p>- <strong>Mika the Mech</strong> Mech's mascot. (§7)</p>
+        <ul>
+          <li><strong>Enums and tagged unions</strong> for modeling categorical data and optional values (§2)</li>
+          <li><strong>User-defined functions</strong> with pattern matching and recursion (§3)</li>
+          <li><strong>State machines</strong> for modeling ordered computation and processes with phases (§4)</li>
+          <li><strong>Comprehensions</strong> for constructing new matrices and sets from existing ones (§5)</li>
+          <li><strong>Relational table joins</strong> for combining tables based on common keys (§6)</li>
+          <li><strong>Mika the Mech</strong> Mech's mascot. (§7)</li>
+        </ul>
         <p>Before we get into all that, let's first look at how <code>v0.2</code> landed.</p>
       </div>
       <div class="article-layout" id="articleLayout">
@@ -1243,7 +1245,7 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
               <li><a href="https://docs.mech-lang.org/reference/indexing.html">Indexing and slicing</a>: accessing elements within data structures using logical masks.</li>
               <li><a href="https://docs.mech-lang.org/reference/operators.html">Operators</a> and <a href="https://docs.mech-lang.org/stdlib/index.html">standard library functions</a>: arithmetic, logical, comparison, set, matrix etc.</li>
             </ul>
-            <p>You can visit any of those links to read the full[^1] documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the <code>v0.2</code> data model.</p>
+            <p>You can visit any of those links to read the full<sup id="fnref-1"><a href="#fn-1">1</a></sup> documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the <code>v0.2</code> data model.</p>
             <p>Of course there are strict limitations on the kinds of programs you can write with that set of features, so today we are launching Mech <code>v0.3</code> with a whole new set of control flow mechanisms that make Mech more capable.</p>
           </section>
           <section id="enums-tagged-unions-and-pattern-matching">
@@ -1300,7 +1302,7 @@ factorial(6&lt;f64&gt;) -- {ans}</code></pre>
   └ (x, y) =&gt; max(x - 1u64, y - 1u64) + 1u64.
 max(4u64, 7u64) -- {ans}</code></pre>
             <p>The tree syntax (<code>├</code>, <code>└</code>) is an alternative to pipes that is more visually structured. Both styles are supported.</p>
-            <p>(i)&gt; The value with the small yellow arrow in the above block is a new feature that allows you to print the return value of a line by putting <code>{ans}</code> in a comment on that line. Also, click the arrow to send the value to the console, if it's open. You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment.</p>
+            <blockquote><p>The value with the small yellow arrow in the above block is a new feature that allows you to print the return value of a line by putting <code>{ans}</code> in a comment on that line. Also, click the arrow to send the value to the console, if it's open. You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment.</p></blockquote>
             <h3 id="implicit-broadcasting">Implicit broadcasting</h3>
             <p>Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax.</p>
             <p>For example, because {{factorial()}} was defined as <code>factorial(x&amp;amp;lt;f64&amp;amp;gt;) =&amp;amp;gt; &amp;amp;lt;f64&amp;amp;gt;</code>, we can call it with a {{&lt;[f64]&gt;}}, and it will return a matrix of the same shape with the factorial applied to each element:</p>
@@ -1323,7 +1325,7 @@ fib-acc(n&lt;u64&gt;, a&lt;u64&gt;, b&lt;u64&gt;) =&gt; &lt;u64&gt;
   └ (n, a, b) =&gt; fib-acc(n - 1u64, b, a + b).</code></pre>
             <p>The accumulator pattern above runs in constant stack space, so we can do:</p>
             <pre><code>fib(10_000u64)</code></pre>
-            <p>(i)&gt; The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a <code>u64</code>. Mech does support <code>u128</code> but not in the <code>wasm</code> target yet.</p>
+            <blockquote><p>The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a <code>u64</code>. Mech does support <code>u128</code> but not in the <code>wasm</code> target yet.</p></blockquote>
           </section>
           <section id="state-machines">
             <h2>State Machines</h2>
@@ -1493,7 +1495,7 @@ A ⋈ B</code></pre>
               </tbody>
             </table>
             <p>These forms have been integrated into Mech's grammar, which means you can write them in your source code and they will be parsed and factored into the AST!</p>
-            <p>(*)&gt; The closest thing I have found to Mika is when Larry Wall proposed a <a href="https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt">text-version of Camelia</a> the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!</p>
+            <blockquote><p>The closest thing I have found to Mika is when Larry Wall proposed a <a href="https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt">text-version of Camelia</a> the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!</p></blockquote>
             <p>These characters are mostly just cosmetic. How is Mika's integration into the language meaningful beyond mere decoration? That's where synthblocks come in:</p>
             <p>╭⦿╯ ⸢Hello, I'm Micromika!⸥</p>
             <p>In source they look like this:</p>
