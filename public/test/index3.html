@@ -887,14 +887,15 @@ body.console-fullscreen .console-pane {
   .article-layout { grid-template-columns: 1fr; }
   .toc { display: none; }
   .footer-main {
-    grid-template-columns: 150px minmax(0, 1fr);
+    grid-template-columns: max-content minmax(0, 1fr);
     padding-top: 36px;
     row-gap: 22px;
   }
   .footer-robot {
     grid-column: 1;
-    width: 150px;
+    width: auto;
     grid-row: 1;
+    align-self: start;
   }
   .footer-release {
     grid-column: 2;
@@ -945,14 +946,15 @@ body.console-fullscreen .console-pane {
   }
 
   .footer-main {
-    grid-template-columns: 150px minmax(0, 1fr);
+    grid-template-columns: max-content minmax(0, 1fr);
     padding-top: 36px;
     row-gap: 22px;
   }
   .footer-robot {
     grid-column: 1;
-    width: 150px;
+    width: auto;
     grid-row: 1;
+    align-self: start;
   }
 
   .footer-links {
