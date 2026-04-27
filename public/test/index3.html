@@ -405,10 +405,9 @@ body.console-fullscreen .workspace {
   content: "";
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
   width: 2px;
-  height: 14px;
   background: var(--toc-accent-soft);
 }
 .toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px dotted var(--toc-accent-soft); }
@@ -1773,7 +1772,7 @@ if (!contentSections.length) {
   articleLayout.classList.add("no-sections", "hide-toc");
 }
 
-function setActiveTocSection(activeLink) {
+function setActiveTocSection(activeLink, { nearBottom = false } = {}) {
   const allTocLinks = tocRoot ? Array.from(tocRoot.querySelectorAll("a")) : [];
   allTocLinks.forEach((l) => l.classList.remove("active", "active-path"));
   topTocItems.forEach((item) => item.classList.remove("expanded"));
@@ -1789,7 +1788,12 @@ function setActiveTocSection(activeLink) {
 
   const offset = HEADER_HEIGHT + 28;
   let activeNestedLink = null;
+  if (nearBottom && nestedLinks.length) {
+    activeNestedLink = nestedLinks[nestedLinks.length - 1];
+  }
+
   nestedLinks.forEach((link) => {
+    if (nearBottom) return;
     const id = link.getAttribute("href")?.replace("#", "");
     const target = id ? document.getElementById(id) : null;
     if (!target) return;
@@ -1831,7 +1835,7 @@ function updateTocOnScroll() {
 
   topSections.forEach((e) => e.section.classList.remove("active-section"));
   if (active.section) active.section.classList.add("active-section");
-  setActiveTocSection(active.link);
+  setActiveTocSection(active.link, { nearBottom });
 }
 
 let tocTicking = false;
