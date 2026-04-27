@@ -1173,6 +1173,10 @@ function setLeftPaneWidth(width) {
   document.documentElement.style.setProperty("--left-pane-width", `${safeWidth}px`);
 }
 
+function setWorkspaceColumns(leftPaneWidth, consoleWidth) {
+  workspace.style.gridTemplateColumns = `${Math.max(0, leftPaneWidth)}px ${HANDLE_WIDTH}px ${Math.max(0, consoleWidth)}px`;
+}
+
 function setEdgeHandle(mode) {
   if (!edgeHandle) return;
   document.body.classList.remove("edge-left", "edge-right");
@@ -1209,17 +1213,21 @@ function syncEdgeHandleOnLoad() {
 function syncLeftPaneOnLoad() {
   const viewport = window.innerWidth;
   if (viewport <= 900) {
+    workspace.style.gridTemplateColumns = "";
     setLeftPaneWidth(viewport);
     return;
   }
   if (document.body.classList.contains("console-fullscreen")) {
+    workspace.style.gridTemplateColumns = "";
     setLeftPaneWidth(0);
     return;
   }
   if (consolePane.style.display === "none" || currentConsoleWidth <= COLLAPSE_THRESHOLD) {
+    setWorkspaceColumns(viewport, 0);
     setLeftPaneWidth(viewport);
     return;
   }
+  setWorkspaceColumns(viewport - HANDLE_WIDTH - currentConsoleWidth, currentConsoleWidth);
   setLeftPaneWidth(viewport - HANDLE_WIDTH - currentConsoleWidth);
 }
 
@@ -1229,11 +1237,11 @@ function applyNonFullscreenLayout(viewport, consoleWidth) {
 
   const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
   setLeftPaneWidth(leftPaneWidth);
+  setWorkspaceColumns(leftPaneWidth, consoleWidth);
   articleLayout.classList.toggle("hide-toc", leftPaneWidth < MIN_LEFT_WITH_TOC);
 
   contentShell.classList.remove("hidden");
   handle.style.display = "";
-  workspace.style.gridTemplateColumns = "";
   setEdgeHandle("none");
   lastNormalWidth = consoleWidth;
   return consoleWidth;
@@ -1245,6 +1253,7 @@ function closeConsole() {
   handle.style.display = "none";
   contentShell.classList.remove("hidden");
   articleLayout.classList.remove("hide-toc");
+  setWorkspaceColumns(window.innerWidth, 0);
   setLeftPaneWidth(window.innerWidth);
   setEdgeHandle("right");
   setConsoleWidth(0);
@@ -1312,7 +1321,7 @@ window.addEventListener("mousemove", (e) => {
     document.body.classList.remove("console-fullscreen");
     consolePane.style.display = "none";
     handle.style.display = "none";
-    workspace.style.gridTemplateColumns = "";
+    setWorkspaceColumns(viewport, 0);
     articleLayout.classList.remove("hide-toc");
     contentShell.classList.remove("hidden");
     setLeftPaneWidth(viewport);
@@ -1347,6 +1356,7 @@ window.addEventListener("mouseup", () => {
 
 window.addEventListener("resize", () => {
   if (window.innerWidth <= 900) {
+    workspace.style.gridTemplateColumns = "";
     setLeftPaneWidth(window.innerWidth);
     return;
   }
@@ -1354,12 +1364,14 @@ window.addEventListener("resize", () => {
   let consoleWidth = currentConsoleWidth;
 
   if (document.body.classList.contains("console-fullscreen")) {
+    workspace.style.gridTemplateColumns = "";
     setLeftPaneWidth(0);
     setEdgeHandle("left"); setConsoleWidth(viewport); return;
   }
   if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
     articleLayout.classList.remove("hide-toc");
     contentShell.classList.remove("hidden");
+    setWorkspaceColumns(viewport, 0);
     setLeftPaneWidth(viewport);
     setEdgeHandle("right"); return;
   }
