@@ -1180,12 +1180,16 @@ function syncEdgeHandleOnLoad() {
   }
 }
 
+function syncTocVisibility(availableWidth) {
+  articleLayout.classList.toggle("hide-toc", availableWidth < MIN_LEFT_WITH_TOC);
+}
+
 function applyNonFullscreenLayout(viewport, consoleWidth) {
   const maxConsoleForContent = Math.max(0, viewport - HANDLE_WIDTH - MIN_MAIN_CONTENT);
   if (consoleWidth > maxConsoleForContent) consoleWidth = maxConsoleForContent;
 
   const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
-  articleLayout.classList.toggle("hide-toc", leftPaneWidth < MIN_LEFT_WITH_TOC);
+  syncTocVisibility(leftPaneWidth);
 
   contentShell.classList.remove("hidden");
   handle.style.display = "";
@@ -1200,7 +1204,7 @@ function closeConsole() {
   consolePane.style.display = "none";
   handle.style.display = "none";
   contentShell.classList.remove("hidden");
-  articleLayout.classList.remove("hide-toc");
+  syncTocVisibility(window.innerWidth);
   setEdgeHandle("right");
   setConsoleWidth(0);
 }
@@ -1268,7 +1272,7 @@ window.addEventListener("mousemove", (e) => {
     consolePane.style.display = "none";
     handle.style.display = "none";
     workspace.style.gridTemplateColumns = "";
-    articleLayout.classList.remove("hide-toc");
+    syncTocVisibility(viewport);
     contentShell.classList.remove("hidden");
     setEdgeHandle("right");
   } else {
@@ -1307,7 +1311,7 @@ window.addEventListener("resize", () => {
     setEdgeHandle("left"); setConsoleWidth(viewport); return;
   }
   if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
-    articleLayout.classList.remove("hide-toc");
+    syncTocVisibility(viewport);
     contentShell.classList.remove("hidden");
     setEdgeHandle("right"); return;
   }
@@ -1416,11 +1420,21 @@ function deferPostPaint(fn) {
 
 window.addEventListener("scroll", requestTocUpdate, { passive: true });
 window.addEventListener("resize", requestTocUpdate);
+
+function syncInitialResponsiveLayout() {
+  if (window.innerWidth > 900) {
+    const initialWidth = Math.max(MIN_CONSOLE_WIDTH, Math.min(currentConsoleWidth, window.innerWidth - HANDLE_WIDTH));
+    setConsoleWidth(applyNonFullscreenLayout(window.innerWidth, initialWidth));
+  }
+  syncEdgeHandleOnLoad();
+  requestTocUpdate();
+}
+
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") deferPostPaint(() => { syncEdgeHandleOnLoad(); requestTocUpdate(); });
+  if (document.visibilityState === "visible") deferPostPaint(syncInitialResponsiveLayout);
 });
 
-deferPostPaint(() => { syncEdgeHandleOnLoad(); requestTocUpdate(); });
+deferPostPaint(syncInitialResponsiveLayout);
 </script>
 
 </body>
