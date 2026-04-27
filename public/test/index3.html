@@ -523,9 +523,8 @@ section.active-section {
 
 /* Main layout */
 .footer-main {
-  display: grid;
-  grid-template-columns: 220px minmax(250px, 340px) minmax(360px, 1fr);
-  grid-template-areas: "robot release links";
+  display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   padding: 54px 0 36px;
   align-items: start;
@@ -533,7 +532,8 @@ section.active-section {
 
 /* Robot */
 .footer-robot {
-  grid-area: robot;
+  order: 1;
+  flex: 0 1 220px;
   display: flex;
   align-items: flex-end;
 }
@@ -582,7 +582,8 @@ section.active-section {
 
 /* Links */
 .footer-links {
-  grid-area: links;
+  order: 3;
+  flex: 1 1 380px;
   display: grid;
   grid-template-columns: repeat(3, minmax(96px, 1fr));
   gap: 24px;
@@ -610,10 +611,10 @@ section.active-section {
 
 /* Release panel */
 .footer-release {
-  grid-area: release;
+  order: 2;
+  flex: 1 1 320px;
   width: 100%;
-  max-width: 340px;
-  justify-self: start;
+  min-width: 260px;
   border: 1px solid var(--border-strong);
   background: var(--bg-primary);
 }
@@ -862,20 +863,23 @@ body.console-fullscreen .console-pane {
   .article-layout { grid-template-columns: 1fr; }
   .toc { display: none; }
   .footer-main {
-    grid-template-columns: minmax(140px, 200px) minmax(220px, 1fr);
-    grid-template-areas:
-      "robot release"
-      "links links";
-    align-items: start;
+    align-items: flex-start;
     min-height: 0;
     padding-top: 36px;
     gap: 22px 24px;
   }
-  .footer-links {
-    grid-template-columns: repeat(3, minmax(88px, 1fr));
+  .footer-robot {
+    flex: 0 0 150px;
   }
   .footer-release {
+    flex: 1 1 280px;
+    min-width: 0;
     max-width: none;
+  }
+  .footer-links {
+    flex: 1 0 100%;
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(88px, 1fr));
   }
   .footer-robot img {
     opacity: 0;
@@ -910,20 +914,23 @@ body.console-fullscreen .console-pane {
   }
 
   .footer-main {
-    grid-template-columns: minmax(140px, 200px) minmax(220px, 1fr);
-    grid-template-areas:
-      "robot release"
-      "links links";
-    align-items: start;
+    align-items: flex-start;
     min-height: 0;
     padding-top: 36px;
     gap: 22px 24px;
   }
+  .footer-robot {
+    flex: 0 0 150px;
+  }
 
   .footer-links {
+    flex: 1 0 100%;
+    width: 100%;
     grid-template-columns: repeat(3, minmax(88px, 1fr));
   }
   .footer-release {
+    flex: 1 1 280px;
+    min-width: 0;
     max-width: none;
   }
 
@@ -954,10 +961,7 @@ body.console-fullscreen .console-pane {
 }
 
 @container (max-width: 700px) {
-  .footer-main {
-    grid-template-columns: minmax(120px, 170px) minmax(210px, 1fr);
-    gap: 18px 20px;
-  }
+  .footer-main { gap: 18px 20px; }
 }
 
 @container (max-width: 680px) {
