@@ -405,10 +405,9 @@ body.console-fullscreen .workspace {
   content: "";
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
   width: 2px;
-  height: 14px;
   background: var(--toc-accent-soft);
 }
 .toc .toc-sub { display: none; margin: 6px 0 0 14px; padding-left: 12px; border-left: 1px dotted var(--toc-accent-soft); }
@@ -1233,7 +1232,14 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
             <li><a href="#api-reference">API Reference</a></li>
             <li><a href="#operations">Operations & Monitoring</a></li>
             <li><a href="#security">Security Checklist</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li>
+              <a href="#faq">FAQ</a>
+              <ul class="toc-sub">
+                <li><a href="#faq-deployments">Deployments</a></li>
+                <li><a href="#faq-rollbacks">Rollbacks</a></li>
+                <li><a href="#faq-access">Access & Approvals</a></li>
+              </ul>
+            </li>
           </ul>
         </aside>
         <article class="main-content">
@@ -1284,8 +1290,13 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
           </section>
           <section id="faq">
             <h2>FAQ</h2>
+            <h3 id="faq-deployments">Deployments</h3>
             <p><strong>How long does a typical deploy take?</strong> Around 4–8 minutes depending on service size and cache warmup.</p>
+            <p><strong>Can we deploy during business hours?</strong> Yes, if SLO burn-rate is healthy and an on-call engineer is available.</p>
+            <h3 id="faq-rollbacks">Rollbacks</h3>
             <p><strong>Can we roll back partially?</strong> Yes, rollback supports service-level targeting when contracts remain compatible.</p>
+            <p><strong>What if rollback fails verification?</strong> The pipeline pauses, keeps the previous revision live, and opens an incident ticket automatically.</p>
+            <h3 id="faq-access">Access & Approvals</h3>
             <p><strong>Where do I request new environment secrets?</strong> Use the internal access form and tag the Platform Security group.</p>
             <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
           </section>
@@ -1773,7 +1784,7 @@ if (!contentSections.length) {
   articleLayout.classList.add("no-sections", "hide-toc");
 }
 
-function setActiveTocSection(activeLink) {
+function setActiveTocSection(activeLink, { nearBottom = false, activationLine = HEADER_HEIGHT + 28 } = {}) {
   const allTocLinks = tocRoot ? Array.from(tocRoot.querySelectorAll("a")) : [];
   allTocLinks.forEach((l) => l.classList.remove("active", "active-path"));
   topTocItems.forEach((item) => item.classList.remove("expanded"));
@@ -1787,14 +1798,22 @@ function setActiveTocSection(activeLink) {
   nestedLinks.forEach((l) => l.classList.remove("active"));
   if (activeItem) activeItem.querySelectorAll(".toc-sub li").forEach((li) => li.classList.remove("expanded"));
 
-  const offset = HEADER_HEIGHT + 28;
   let activeNestedLink = null;
   nestedLinks.forEach((link) => {
     const id = link.getAttribute("href")?.replace("#", "");
     const target = id ? document.getElementById(id) : null;
     if (!target) return;
-    if (target.getBoundingClientRect().top - offset <= 0) activeNestedLink = link;
+    const rect = target.getBoundingClientRect();
+    if (nearBottom) {
+      if (rect.top <= window.innerHeight - 40) activeNestedLink = link;
+      return;
+    }
+    if (rect.top <= activationLine) activeNestedLink = link;
   });
+
+  if (nearBottom && !activeNestedLink && nestedLinks.length) {
+    activeNestedLink = nestedLinks[nestedLinks.length - 1];
+  }
 
   if (!activeNestedLink) return;
   activeNestedLink.classList.add("active");
@@ -1831,7 +1850,8 @@ function updateTocOnScroll() {
 
   topSections.forEach((e) => e.section.classList.remove("active-section"));
   if (active.section) active.section.classList.add("active-section");
-  setActiveTocSection(active.link);
+  const nestedActivationLine = HEADER_HEIGHT + Math.min(window.innerHeight * 0.30, 220);
+  setActiveTocSection(active.link, { nearBottom, activationLine: nestedActivationLine });
 }
 
 let tocTicking = false;
