@@ -223,6 +223,7 @@ body.console-fullscreen .workspace {
 
 /* ── Content shell ── */
 .content-shell {
+  width: 100%;
   min-width: 0;
   display: flex;
   justify-content: center;
@@ -231,7 +232,7 @@ body.console-fullscreen .workspace {
 }
 
 .content-column {
-  width: 100%;
+  width: min(100%, var(--content-max-width));
   max-width: var(--content-max-width);
   min-width: 0;
   container-type: inline-size;
@@ -353,6 +354,7 @@ body.console-fullscreen .workspace {
 
 /* ── Article layout ── */
 .article-layout {
+  min-width: 0;
   display: grid;
   grid-template-columns: var(--toc-width) minmax(0, 1fr);
   gap: 48px;
@@ -417,7 +419,9 @@ body.console-fullscreen .workspace {
 
 /* ── Main content ── */
 .main-content {
+  width: 100%;
   min-width: 0;
+  max-width: 100%;
   counter-reset: section-index;
 }
 
@@ -475,7 +479,16 @@ section h2 {
   content: counter(section-index, decimal-leading-zero) "." counter(subsection-index, decimal-leading-zero);
 }
 
-section p { line-height: 1.7; color: var(--text-primary); }
+section p {
+  line-height: 1.7;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.main-content p strong {
+  overflow-wrap: anywhere;
+}
 section.active-section h2 { 
  
 }
@@ -485,6 +498,9 @@ section.active-section {
 }
 
 .main-content section {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   border-bottom: 0px dotted var(--border);
   padding-bottom: 30px;
 }
@@ -831,6 +847,23 @@ body.console-fullscreen .console-pane {
   .hero {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    align-items: start;
+    min-height: 0;
+    padding-top: 36px;
+  }
+
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+
+  .footer-cta {
+    border-left: 0;
+    border-top: 1px solid var(--border-strong);
+    padding: 24px 0 0;
   }
 
   .hero h1 { font-size: clamp(34px, 7.5vw, 56px); }
@@ -1180,12 +1213,16 @@ function syncEdgeHandleOnLoad() {
   }
 }
 
+function syncTocVisibility(availableWidth) {
+  articleLayout.classList.toggle("hide-toc", availableWidth < MIN_LEFT_WITH_TOC);
+}
+
 function applyNonFullscreenLayout(viewport, consoleWidth) {
   const maxConsoleForContent = Math.max(0, viewport - HANDLE_WIDTH - MIN_MAIN_CONTENT);
   if (consoleWidth > maxConsoleForContent) consoleWidth = maxConsoleForContent;
 
   const leftPaneWidth = viewport - HANDLE_WIDTH - consoleWidth;
-  articleLayout.classList.toggle("hide-toc", leftPaneWidth < MIN_LEFT_WITH_TOC);
+  syncTocVisibility(leftPaneWidth);
 
   contentShell.classList.remove("hidden");
   handle.style.display = "";
@@ -1200,7 +1237,7 @@ function closeConsole() {
   consolePane.style.display = "none";
   handle.style.display = "none";
   contentShell.classList.remove("hidden");
-  articleLayout.classList.remove("hide-toc");
+  syncTocVisibility(window.innerWidth);
   setEdgeHandle("right");
   setConsoleWidth(0);
 }
@@ -1268,7 +1305,7 @@ window.addEventListener("mousemove", (e) => {
     consolePane.style.display = "none";
     handle.style.display = "none";
     workspace.style.gridTemplateColumns = "";
-    articleLayout.classList.remove("hide-toc");
+    syncTocVisibility(viewport);
     contentShell.classList.remove("hidden");
     setEdgeHandle("right");
   } else {
@@ -1307,7 +1344,7 @@ window.addEventListener("resize", () => {
     setEdgeHandle("left"); setConsoleWidth(viewport); return;
   }
   if (consolePane.style.display === "none" || consoleWidth <= COLLAPSE_THRESHOLD) {
-    articleLayout.classList.remove("hide-toc");
+    syncTocVisibility(viewport);
     contentShell.classList.remove("hidden");
     setEdgeHandle("right"); return;
   }
@@ -1416,11 +1453,21 @@ function deferPostPaint(fn) {
 
 window.addEventListener("scroll", requestTocUpdate, { passive: true });
 window.addEventListener("resize", requestTocUpdate);
+
+function syncInitialResponsiveLayout() {
+  if (window.innerWidth > 900) {
+    const initialWidth = Math.max(MIN_CONSOLE_WIDTH, Math.min(currentConsoleWidth, window.innerWidth - HANDLE_WIDTH));
+    setConsoleWidth(applyNonFullscreenLayout(window.innerWidth, initialWidth));
+  }
+  syncEdgeHandleOnLoad();
+  requestTocUpdate();
+}
+
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") deferPostPaint(() => { syncEdgeHandleOnLoad(); requestTocUpdate(); });
+  if (document.visibilityState === "visible") deferPostPaint(syncInitialResponsiveLayout);
 });
 
-deferPostPaint(() => { syncEdgeHandleOnLoad(); requestTocUpdate(); });
+deferPostPaint(syncInitialResponsiveLayout);
 </script>
 
 </body>
