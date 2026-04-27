@@ -1,9 +1,8 @@
 Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
 Corey Montella ∙ April 27, 2026
+![A robot oversees a construction site.](https://mech-lang.org/post/2026-04-15-version-0.3/images/hero.png)
 ===============================================================================
-
-![](images/hero.png)
 
 Today, we are announcing Mech `v0.3`, which has the following new features:
 
