@@ -416,19 +416,76 @@ body.console-fullscreen .workspace {
 .toc .toc-sub .toc-sub { margin-top: 4px; }
 
 /* ── Main content ── */
-.main-content { min-width: 0; }
+.main-content {
+  min-width: 0;
+  counter-reset: section-index;
+}
 
 section { margin-bottom: 0px; }
-section h2 { margin-top: 0; font-size: 34px; color: var(--text-primary); letter-spacing: 0.01em; }
+section h2 {
+  margin-top: 0;
+  font-size: 34px;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  margin-left: -20px;
+}
+/* ── Editorial numbered headings ── */
+.main-content section { counter-reset: subsection-index; }
+
+.main-content section > h2,
+.main-content section > h3 {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 0.25em; 
+
+  counter-increment: section-index;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 0px dotted var(--title-underline-color);
+}
+
+.main-content section > h3 {
+  counter-increment: subsection-index;
+  margin-top: 30px;
+  margin-bottom: 12px;
+  font-size: 24px;
+}
+
+.main-content section > h2::before,
+.main-content section > h3::before {
+  flex-shrink: 0;
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.40em;
+  font-weight: 700;
+  letter-spacing: 0.21em;
+  line-height: 1;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+}
+
+.main-content section > h2::before {
+  display: block;
+  content: "section " counter(section-index, decimal) "";
+}
+
+.main-content section > h3::before {
+  display: block;
+  font-size: 10px;
+  content: counter(section-index, decimal-leading-zero) "." counter(subsection-index, decimal-leading-zero);
+}
+
 section p { line-height: 1.7; color: var(--text-primary); }
-section.active-section h2 { color: var(--accent-primary); }
+section.active-section h2 { 
+ 
+}
 section.active-section {
   padding-left: 0px;
   border-left: 0px solid var(--accent-primary);
 }
 
 .main-content section {
-  border-bottom: 1px dotted var(--border);
+  border-bottom: 0px dotted var(--border);
   padding-bottom: 30px;
 }
 
