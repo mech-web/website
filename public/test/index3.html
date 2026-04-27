@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mech v0.3</title>
 <link rel="icon" href="https://gitlab.com/mech-lang/assets/-/raw/main/images/icons/favicon.ico?ref_type=heads" type="image/x-icon">
+<link rel="stylesheet" href="https://gitlab.com/mech-lang/mech/-/raw/main/include/style.css?ref_type=heads">
 <style>
 :root {
   /* ── Layout ── */
@@ -1183,7 +1184,7 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
         <span class="sep">⟩</span>
         <a href="/guides">Guides</a>
         <span class="sep">⟩</span>
-        <span aria-current="page">Architecture Overview</span>
+        <span aria-current="page">Mech v0.3 Announcement</span>
       </nav>
       <div class="hero">
         <div class="hero-panel">
@@ -1198,9 +1199,8 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
             </div>
           </div>
           <p class="hero-summary">
-            Today, we're excited to announce Mech v0.3, introducing powerful new
-            features for data modeling, computation, and control flow—along with
-            everyone's favorite mascot, Mika the Mech.
+            Today, we are announcing Mech v0.3 with enums, pattern matching, user-defined
+            functions, state machines, comprehensions, relational joins, and Mika the Mech.
           </p>
         </div>
         <div class="hero-visual">
@@ -1208,86 +1208,67 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
         </div>
       </div>
       <div class="article-intro" id="articleIntro">
-        <p>Mech v0.3 introduces a cleaner, more composable way to build data-oriented software with state machines, pattern matching, and richer authoring ergonomics across the toolchain. It's the culmination of months of work and feedback from our amazing early users, and we can't wait to see what you build with it. Whether you're building a microservice, a data pipeline, or an embedded system, Mech v0.3 gives you the tools to model complex logic with clarity and confidence.</p>
-        <p>This introductory abstract intentionally runs full width under the hero to establish context before navigation appears. Once the first structured section begins, the split layout and sticky table of contents take over naturally. And of course, the console pane on the right scrolls independently so you can keep an eye on logs while reading without losing your place in the content.</p>
+        <p>Before diving into the new features, this release reflects on where v0.2 landed and why the team prioritized strengthening the data model before introducing broader control flow.</p>
+        <p>From that foundation, v0.3 adds enums and tagged unions, user-defined functions, and state machines, then extends data workflows with comprehensions and relational joins.</p>
       </div>
       <div class="article-layout" id="articleLayout">
         <aside class="toc">
           <h3>Contents</h3>
           <ul>
-            <li>
-              <a href="#architecture">Architecture</a>
-              <ul class="toc-sub">
-                <li>
-                  <a href="#architecture-overview">System Overview</a>
-                  <ul class="toc-sub">
-                    <li><a href="#architecture-edge">Edge & Gateway Layer</a></li>
-                    <li><a href="#architecture-services">Service Mesh & RPC</a></li>
-                  </ul>
-                </li>
-                <li><a href="#architecture-data">Data Plane & Storage</a></li>
-                <li><a href="#architecture-observability">Observability Topology</a></li>
-              </ul>
-            </li>
-            <li><a href="#workflow">Authoring Workflow</a></li>
-            <li><a href="#api-reference">API Reference</a></li>
-            <li><a href="#operations">Operations & Monitoring</a></li>
-            <li><a href="#security">Security Checklist</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#v02-wrap-up">Version 0.2 Wrap-Up</a></li>
+            <li><a href="#enums">Enums, Tagged Unions, and Pattern Matching</a></li>
+            <li><a href="#functions">User-Defined Functions</a></li>
+            <li><a href="#state-machines">State Machines</a></li>
+            <li><a href="#comprehensions">Comprehensions</a></li>
+            <li><a href="#joins">Relational Table Joins</a></li>
+            <li><a href="#mika">Mika the Mech</a></li>
           </ul>
         </aside>
         <article class="main-content">
-          <section id="architecture">
-            <h2>Architecture</h2>
-            <p>The platform is organized into edge routing, auth, service orchestration, and data planes.</p>
-            <p>Requests enter through the gateway, are validated by policy middleware, and then fan out to internal services through typed contracts.</p>
-            <p>Each service publishes health, latency, and error-budget metrics to the observability stack so incidents can be triaged in minutes rather than hours.</p>
-            <p>Configuration is versioned in Git and promoted through environments using immutable build artifacts.</p>
-            <h3 id="architecture-overview">System Overview</h3>
-            <p>The control plane governs rollout strategy, policy checks, and regional failover, while the data plane handles runtime traffic and persistence paths.</p>
-            <h4 id="architecture-edge">Edge & Gateway Layer</h4>
-            <p>Global edge POPs terminate TLS, apply WAF controls, and route requests to the nearest healthy region using policy-aware traffic steering.</p>
-            <h4 id="architecture-services">Service Mesh & RPC</h4>
-            <p>Internal services communicate over mutual-TLS RPC channels with retries, budgets, and idempotency keys enforced at the client layer.</p>
-            <h3 id="architecture-data">Data Plane & Storage</h3>
-            <p>Hot paths use low-latency key-value storage while analytical workloads stream into warehouse pipelines with partition-aware ingestion.</p>
-            <h3 id="architecture-observability">Observability Topology</h3>
-            <p>Metrics, traces, and structured logs are correlated by request id, allowing responders to move from symptom to root-cause with minimal context switching.</p>
+          <section id="v02-wrap-up">
+            <h2>Version 0.2 Wrap-Up</h2>
+            <p>Version <code>v0.2</code> was completed at the end of January 2025, and became the foundation for the control-flow work delivered in <code>v0.3</code>.</p>
+            <p>The v0.2 cycle focused heavily on stretching the data model before adding new language machinery. That process validated expressive support for numbers, strings, atoms, maps, matrices, records, sets, tables, and tuples.</p>
+            <p>With broadcasting, indexing, slicing, operators, and stdlib coverage in place, Mech programs could already model substantial logic declaratively.</p>
           </section>
-          <section id="workflow">
-            <h2>Authoring Workflow</h2>
-            <p>1) Create a branch from <strong>main</strong>, 2) run local checks, 3) update docs and changelog, 4) request review from the owning team.</p>
-            <p>Every documentation update should include runnable examples, copy-paste-safe commands, and a rollback note where relevant.</p>
-            <p>When behavior changes across versions, keep migration notes close to the affected section instead of burying them in release notes.</p>
-            <p>Writers and engineers co-own docs quality; stale docs should be treated as bugs.</p>
+
+          <section id="enums">
+            <h2>Enums, Tagged Unions, and Pattern Matching</h2>
+            <p>Mech now supports enums and tagged unions for categorical modeling and optional values. Variants are atom-based, and can be qualified when needed to avoid ambiguity.</p>
+            <p>The new <code>match</code> expression (using <code>?</code>) unifies branching and destructuring, including exhaustive checking at compile time.</p>
+            <p>Pattern forms support nested variants and array shapes, allowing expressive, readable structural logic with compiler guidance.</p>
           </section>
-          <section id="api-reference">
-            <h2>API Reference</h2>
-            <p><strong>POST /v1/deployments</strong> — creates a deployment job and returns a job id for progress tracking.</p>
-            <p><strong>GET /v1/deployments/{id}</strong> — returns current state, start/end timestamps, and failure diagnostics.</p>
-            <p><strong>POST /v1/rollbacks</strong> — restores a previous stable release, preserving environment variables and secrets bindings.</p>
-            <p>All endpoints require OAuth bearer tokens with the <code>deploy.write</code> scope for mutating calls.</p>
+
+          <section id="functions">
+            <h2>User-Defined Functions</h2>
+            <p>Mech functions are pure, idempotent mappings with pattern arms, recursion, kind annotations, and tail-call optimization support.</p>
+            <p>Functions also participate in implicit broadcasting over matrices when scalar signatures are applied to matrix inputs.</p>
+            <p>This allows concise scalar-first definitions that still compose naturally with structured data.</p>
           </section>
-          <section id="operations">
-            <h2>Operations & Monitoring</h2>
-            <p>Set SLOs for availability, latency, and freshness. Alert on burn-rate thresholds, not just raw error count.</p>
-            <p>Dashboards should include golden signals, dependency health, saturation indicators, and recent deployment markers.</p>
-            <p>Incident responders should always be able to answer: what changed, when it changed, and how to mitigate quickly.</p>
-            <p>Post-incident reviews focus on system improvements, not individual blame.</p>
+
+          <section id="state-machines">
+            <h2>State Machines</h2>
+            <p>State machines in Mech include a typed specification and an implementation of transitions via pattern-matched guards.</p>
+            <p>Execution continues until a terminal output transition is reached or a transition safety limit is hit.</p>
+            <p>The release also introduces trace instrumentation for runtime transition visibility and compile-time validation for transition coverage.</p>
           </section>
-          <section id="security">
-            <h2>Security Checklist</h2>
-            <p>Rotate access tokens regularly, enforce least privilege scopes, and require MFA for production operators.</p>
-            <p>Run dependency scans and static analysis in CI for every merge request.</p>
-            <p>Store secrets in a managed vault and never commit credentials, certificates, or private keys to source control.</p>
-            <p>Perform quarterly access reviews and rehearse incident containment playbooks.</p>
+
+          <section id="comprehensions">
+            <h2>Comprehensions</h2>
+            <p>Comprehensions enable compact construction of new matrices and sets from existing structures.</p>
+            <p>They improve readability for derived data construction without losing Mech's data-oriented style.</p>
           </section>
-          <section id="faq">
-            <h2>FAQ</h2>
-            <p><strong>How long does a typical deploy take?</strong> Around 4–8 minutes depending on service size and cache warmup.</p>
-            <p><strong>Can we roll back partially?</strong> Yes, rollback supports service-level targeting when contracts remain compatible.</p>
-            <p><strong>Where do I request new environment secrets?</strong> Use the internal access form and tag the Platform Security group.</p>
-            <p><strong>Who approves production docs changes?</strong> Service owner + on-call engineer for operationally sensitive updates.</p>
+
+          <section id="joins">
+            <h2>Relational Table Joins</h2>
+            <p>Mech v0.3 adds relational joins for combining tables on shared keys, making cross-table workflows more direct.</p>
+            <p>This improves modeling of real-world datasets where normalized sources need to be composed declaratively.</p>
+          </section>
+
+          <section id="mika">
+            <h2>Mika the Mech</h2>
+            <p>The release introduces Mika as Mech's mascot, rounding out the technical updates with a stronger identity for docs and community materials.</p>
+            <p>v0.3 is a milestone that combines language capability growth with clearer developer ergonomics and storytelling.</p>
           </section>
         </article>
       <footer class="footer">
