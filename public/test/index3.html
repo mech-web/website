@@ -523,17 +523,19 @@ section.active-section {
 
 /* Main layout */
 .footer-main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 24px;
   padding: 54px 0 36px;
   align-items: start;
 }
 
 /* Robot */
 .footer-robot {
-  order: 1;
-  flex: 0 1 220px;
+  grid-column: 1;
+  grid-row: 1;
+  width: 150px;
   display: flex;
   align-items: flex-end;
 }
@@ -582,8 +584,8 @@ section.active-section {
 
 /* Links */
 .footer-links {
-  order: 3;
-  flex: 1 1 380px;
+  grid-column: 1 / -1;
+  grid-row: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(96px, 1fr));
   gap: 24px;
@@ -611,10 +613,9 @@ section.active-section {
 
 /* Release panel */
 .footer-release {
-  order: 2;
-  flex: 1 1 320px;
-  width: 100%;
-  min-width: 260px;
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
   border: 1px solid var(--border-strong);
   background: var(--bg-primary);
 }
@@ -863,23 +864,20 @@ body.console-fullscreen .console-pane {
   .article-layout { grid-template-columns: 1fr; }
   .toc { display: none; }
   .footer-main {
-    align-items: flex-start;
-    min-height: 0;
+    grid-template-columns: 1fr;
     padding-top: 36px;
     row-gap: 22px;
-    column-gap: 0;
   }
   .footer-robot {
-    flex: 0 0 150px;
+    grid-column: 1;
+    width: auto;
   }
   .footer-release {
-    flex: 1 1 280px;
+    grid-column: 1;
     min-width: 0;
-    max-width: none;
-    align-self: stretch;
   }
   .footer-links {
-    flex: 1 0 100%;
+    grid-column: 1;
     width: 100%;
     grid-template-columns: repeat(3, minmax(88px, 1fr));
   }
@@ -916,26 +914,23 @@ body.console-fullscreen .console-pane {
   }
 
   .footer-main {
-    align-items: flex-start;
-    min-height: 0;
+    grid-template-columns: 1fr;
     padding-top: 36px;
     row-gap: 22px;
-    column-gap: 0;
   }
   .footer-robot {
-    flex: 0 0 150px;
+    grid-column: 1;
+    width: auto;
   }
 
   .footer-links {
-    flex: 1 0 100%;
+    grid-column: 1;
     width: 100%;
     grid-template-columns: repeat(3, minmax(88px, 1fr));
   }
   .footer-release {
-    flex: 1 1 280px;
+    grid-column: 1;
     min-width: 0;
-    max-width: none;
-    align-self: stretch;
   }
 
   .footer-robot img {
