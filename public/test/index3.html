@@ -235,8 +235,11 @@ body.console-fullscreen .workspace {
 }
 
 .content-column {
-  width: 100%;
-  max-width: min(var(--content-max-width), calc(var(--left-pane-width) - 64px));
+  width: min(
+    var(--content-max-width),
+    max(0px, calc(var(--left-pane-width) - 64px))
+  );
+  max-width: 100%;
   min-width: 0;
   container-type: inline-size;
 }
@@ -422,8 +425,15 @@ body.console-fullscreen .workspace {
 
 /* ── Main content ── */
 .main-content {
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
   counter-reset: section-index;
+}
+
+.main-content section {
+  width: 100%;
+  max-width: 100%;
 }
 
 .main-content p,
