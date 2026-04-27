@@ -427,6 +427,7 @@ section h2 {
   font-size: 34px;
   color: var(--text-primary);
   letter-spacing: 0.01em;
+  margin-left: -20px;
 }
 /* ── Editorial numbered headings ── */
 .main-content section { counter-reset: subsection-index; }
@@ -434,16 +435,14 @@ section h2 {
 .main-content section > h2,
 .main-content section > h3 {
   display: flex;
-  align-items: baseline;
-  gap: 14px;
-  letter-spacing: 0.012em;
-}
+  flex-direction: column;   /* 👈 this is the key */
+  align-items: flex-start;  /* keeps label left-aligned */
+  gap: 0.25em; 
 
-.main-content section > h2 {
   counter-increment: section-index;
   margin-bottom: 14px;
   padding-bottom: 10px;
-  border-bottom: 1px solid color-mix(in srgb, var(--text-muted) 42%, transparent);
+  border-bottom: 0px dotted var(--title-underline-color);
 }
 
 .main-content section > h3 {
@@ -451,38 +450,42 @@ section h2 {
   margin-top: 30px;
   margin-bottom: 12px;
   font-size: 24px;
-  color: var(--accent-soft);
 }
 
 .main-content section > h2::before,
 .main-content section > h3::before {
   flex-shrink: 0;
   font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.58em;
-  font-weight: 600;
-  letter-spacing: 0.11em;
+  font-size: 0.40em;
+  font-weight: 700;
+  letter-spacing: 0.21em;
   line-height: 1;
-  color: color-mix(in srgb, var(--accent-primary) 78%, white);
+  color: var(--accent-primary);
   text-transform: uppercase;
 }
 
 .main-content section > h2::before {
-  content: counter(section-index, decimal-leading-zero) ".00";
+  display: block;
+  content: "section " counter(section-index, decimal) "";
 }
 
 .main-content section > h3::before {
+  display: block;
+  font-size: 10px;
   content: counter(section-index, decimal-leading-zero) "." counter(subsection-index, decimal-leading-zero);
 }
 
 section p { line-height: 1.7; color: var(--text-primary); }
-section.active-section h2 { color: var(--accent-primary); }
+section.active-section h2 { 
+ 
+}
 section.active-section {
   padding-left: 0px;
   border-left: 0px solid var(--accent-primary);
 }
 
 .main-content section {
-  border-bottom: 1px dotted var(--border);
+  border-bottom: 0px dotted var(--border);
   padding-bottom: 30px;
 }
 
