@@ -719,10 +719,7 @@ section.active-section {
   top: var(--header-height);
   height: calc(100vh - var(--header-height));
   align-self: start;
-  background: var(--bg-secondary);
   cursor: grab;
-  border-left: 1px solid var(--border-strong);
-  border-right: 1px solid var(--border-strong);
   z-index: 50;
 }
 
@@ -730,7 +727,7 @@ section.active-section {
 .edge-handle::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 100%;
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: var(--grip-radius);
@@ -762,6 +759,10 @@ section.active-section {
   background: var(--border);
   z-index: 1;
   pointer-events: none;
+}
+
+.resize-handle::before {
+  left: 100%;
 }
 
 /* ── Edge handle ── */
