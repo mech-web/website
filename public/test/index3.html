@@ -584,8 +584,8 @@ section.active-section {
 .footer-links {
   grid-area: links;
   display: grid;
-  grid-template-columns: repeat(3, minmax(140px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(3, minmax(96px, 1fr));
+  gap: 24px;
   align-content: start; /* FIX */
 }
 
@@ -876,7 +876,7 @@ body.console-fullscreen .console-pane {
     margin-left: 0;
   }
   .footer-links {
-    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    grid-template-columns: repeat(3, minmax(88px, 1fr));
   }
   .footer-cta {
     border-left: 0;
@@ -909,7 +909,7 @@ body.console-fullscreen .console-pane {
   }
 
   .footer-links {
-    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    grid-template-columns: repeat(3, minmax(88px, 1fr));
   }
 
   .footer-robot img {
@@ -938,7 +938,7 @@ body.console-fullscreen .console-pane {
   }
 }
 
-@container (max-width: 520px) {
+@container (max-width: 760px) {
   .footer-robot img {
     opacity: 0;
     transform: scale(0.75);
@@ -956,7 +956,7 @@ body.console-fullscreen .console-pane {
   }
 }
 
-@container (max-width: 420px) {
+@container (max-width: 680px) {
   .mika-glyph {
     padding: 8px 9px;
     margin-left: 0;
