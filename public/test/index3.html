@@ -509,7 +509,7 @@ section.active-section {
 .footer {
   grid-column: 1 / -1;
   margin-top: 64px;
-  border-top: 1px solid var(--border);
+  border-top: 1px dotted var(--border);
   background: linear-gradient(90deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
   color: var(--text-secondary);
 }
@@ -525,7 +525,7 @@ section.active-section {
 .footer-main {
   display: grid;
   grid-template-columns: 170px minmax(320px, 420px) minmax(280px, 1fr);
-  column-gap: 20px;
+  column-gap: 50px;
   row-gap: 18px;
   padding: 54px 0 36px;
   align-items: start;
@@ -535,10 +535,10 @@ section.active-section {
 .footer-robot {
   grid-column: 1;
   grid-row: 1;
-  width: 170px;
+  width: 230px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .footer-robot img {
@@ -552,12 +552,7 @@ section.active-section {
 .mika-glyph {
   display: inline-block;
   margin: 0;
-  padding: 10px 12px;
-  border: 1px solid var(--accent-secondary-purple-soft);
-  border-radius: 10px;
-  background: linear-gradient(160deg, rgba(198, 123, 231, 0.14), rgba(246, 202, 93, 0.08));
   color: var(--text-primary);
-  box-shadow: inset 0 0 0 1px rgba(246, 202, 93, 0.18), 0 10px 24px rgba(0, 0, 0, 0.32);
   opacity: 0;
   transform: translateY(6px) scale(0.96);
   max-height: 0;
@@ -597,6 +592,7 @@ section.active-section {
 
 .mika-glyph-art--mini {
   opacity: 1;
+  font-size: 24px;
   transform: scale(1);
 }
 
@@ -679,7 +675,9 @@ section.active-section {
 .release-downloads a,
 .release-grid-value a,
 .release-ack a {
+  color: var(--accent-soft);
   text-decoration: underline dotted;
+  text-underline-offset: 3px;
 }
 
 .release-ack {
@@ -691,11 +689,12 @@ section.active-section {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-size: 14px;
+  
 }
 
 /* Bottom bar */
 .footer-meta {
-  border-top: 1px solid var(--border);
+  border-top: 1px dotted var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -912,7 +911,6 @@ body.console-fullscreen .console-pane {
     opacity: 0;
     transform: scale(0.75);
     width: 0;
-    max-width: 0;
     margin: 0;
   }
   .mika-glyph {
@@ -924,6 +922,7 @@ body.console-fullscreen .console-pane {
   }
   .mika-glyph-art--mini {
     opacity: 1;
+    margin-top: 20px;
     transform: scale(1);
   }
   .footer-cta {
@@ -978,6 +977,7 @@ body.console-fullscreen .console-pane {
   }
 
   .mika-glyph {
+    color: var(--accent-primary);
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
@@ -1005,6 +1005,10 @@ body.console-fullscreen .console-pane {
 }
 
 @container (max-width: 680px) {
+  .footer-release {
+    margin-left: -75px;
+  }
+
   .mika-glyph {
     padding: 8px 9px;
     margin-left: 0;
@@ -1018,7 +1022,7 @@ body.console-fullscreen .console-pane {
   .mika-glyph-art--micro {
     opacity: 1;
     transform: scale(1);
-    font-size: 17px;
+    font-size: 20px;
   }
 }
 </style>
@@ -1180,7 +1184,6 @@ body.console-fullscreen .console-pane {
             <div class="footer-robot">
               <img src="images/mika-pose-point.png" alt="Mika the Mech">
               <div class="mika-glyph" aria-hidden="true">
-                <span class="mika-glyph-label">Mika</span>
                 <div class="mika-glyph-art-wrap">
                   <pre class="mika-glyph-art mika-glyph-art--mini">╭(˙◯˙)─</pre>
                   <pre class="mika-glyph-art mika-glyph-art--micro">╭⦿─</pre>
@@ -1239,7 +1242,7 @@ body.console-fullscreen .console-pane {
 
           <div class="footer-meta">
             <div>© 2026 Mech Systems Lab</div>
-            <div>Built with ♡ by builders</div>
+            <div>Built with ♡ in Pennsylvania</div>
             <div class="footer-meta-links">
               <a href="#">Privacy</a>
               <a href="#">Terms</a>
