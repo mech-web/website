@@ -475,7 +475,16 @@ section h2 {
   content: counter(section-index, decimal-leading-zero) "." counter(subsection-index, decimal-leading-zero);
 }
 
-section p { line-height: 1.7; color: var(--text-primary); }
+section p {
+  line-height: 1.7;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.main-content p strong {
+  overflow-wrap: anywhere;
+}
 section.active-section h2 { 
  
 }
