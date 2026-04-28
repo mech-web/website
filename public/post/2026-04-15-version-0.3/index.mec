@@ -5,19 +5,18 @@ Corey Montella ∙ April 28, 2026
 Today, we're excited to announce Mech v0.3, introducing powerful new features for data modeling, computation, and control flow—along with everyone's favorite mascot, Mika the Mech foo.
 ===============================================================================
 
-Spring is here, so that means a new version of Mech! This post is mostly about the platform changes, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting it off for a long time because it wasn't a priority, but now we are looking to reach a wider audience, so it was time.
+Spring is here, so that means a new version of Mech is ready! This post is mostly about the platform changes, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting it off for a long time because it wasn't a priority next to developing the platform, but as you'll read in this update, the platform is developed enough to be ready for a wider audience.
 
-Whereas the main focus of the just-finished `v0.2` release was on the data model, the main theme of this release is control flow: we've added several new mechanisms for modeling and managing the flow of computation in Mech programs, which opens up a whole new world of possibilities for what you can build with Mech.
+Whereas the main focus of the just-finished `v0.2` release was on the data model, the main theme of this release is control flow; we've added several new mechanisms for modeling and managing the flow of computation in Mech programs, which opens up a whole new world of possibilities for what you can build with Mech. These include:
 
 - **Enums and tagged unions** for modeling categorical data and optional values (§2)
 - **User-defined functions** with pattern matching and recursion (§3)
 - **State machines** for modeling ordered computation and processes with phases (§4)
 - **Comprehensions** for constructing new matrices and sets from existing ones (§5)
 - **Relational table joins** for combining tables based on common keys (§6)
-- **Mika the Mech** Mech's mascot. (§7)
+- **Mika the Mech** Mech's mascot and AI assistant. (§7)
 
-Some of these features may be familiary like enums and functions, but they all have unique twists that are designed to fit with Mech's overall philosophy and design goals. But others like state machines and relational joins are less common in programming languages. Either way, even the familiar features have some unique twists that are designed to fit with Mech's overall philosophy and design goals, so there are some interesting details to go into for each one.
-
+Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages — but in Mech they each one have unique twists that are designed to fit with our overall philosophy and design goals. Others like state machines and relational joins are less common, and they represent more research-focused experiments in ways of modeling computation that are more analyzable and debuggable.
 Before we get into all that, let's first look at how `v0.2` landed.
 
 1. Version 0.2 Wrap-Up
