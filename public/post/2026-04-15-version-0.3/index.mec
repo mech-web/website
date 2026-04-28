@@ -2,21 +2,22 @@ Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
 Corey Montella ∙ April 28, 2026
 ![A robot oversees a construction site.](include/images/hero-square.png)
-Today, we're excited to announce Mech v0.3, introducing powerful new features for data modeling, computation, and control flow—along with everyone's favorite mascot, Mika the Mech foo.
+Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
 ===============================================================================
 
-Spring is here, so that means a new version of Mech is ready! This post is mostly about the platform changes, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting it off for a long time because it wasn't a priority next to developing the platform, but as you'll read in this update, the platform is developed enough to be ready for a wider audience.
+Spring is here, so that means a new version of Mech is ready! This post is mostly about the platform, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting this redesign off for a number of years because it wasn't a priority next to developing the platform. But as you'll read in this update, the platform is developed enough to be ready for a wider audience.
 
-Whereas the main focus of the just-finished `v0.2` release was on the data model, the main theme of this release is control flow; we've added several new mechanisms for modeling and managing the flow of computation in Mech programs, which opens up a whole new world of possibilities for what you can build with Mech. These include:
+Whereas the main focus of the just-finished `v0.2` release was on the data model, the main theme of this release is control flow; we've added several new mechanisms for modeling and managing the flow of computation in Mech programs. These include:
 
-- **Enums and tagged unions** for modeling categorical data and optional values (§2)
-- **User-defined functions** with pattern matching and recursion (§3)
-- **State machines** for modeling ordered computation and processes with phases (§4)
-- **Comprehensions** for constructing new matrices and sets from existing ones (§5)
-- **Relational table joins** for combining tables based on common keys (§6)
+- **Enums and tagged unions** for modeling categorical data and optional values. (§2)
+- **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
+- **State machines** for modeling ordered computation, protocols, and processes with phases. (§4)
+- **Comprehensions** for constructing new matrices and sets from existing ones. (§5)
+- **Relational table joins** for combining tables based on common keys. (§6)
 - **Mika the Mech** Mech's mascot and AI assistant. (§7)
 
-Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages — but in Mech they each one have unique twists that are designed to fit with our overall philosophy and design goals. Others like state machines and relational joins are less common, and they represent more research-focused experiments in ways of modeling computation that are more analyzable and debuggable.
+Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages. Although, in Mech each of these has a unique twist that fits with our overall philosophy and design goals. Others like state machines and relational joins are less commonly found, and they represent more research-focused experiments in ways of modeling computation that are more analyzable and debuggable.
+
 Before we get into all that, let's first look at how `v0.2` landed.
 
 1. Version 0.2 Wrap-Up
@@ -70,7 +71,12 @@ Tagged unions can carry payloads:
 x<option> := :some(:ok(42u64))
 ```
 
-In this example, two enums are defined: {{<result>}} with variants {{:ok}} and {{:err}}, each carrying a {{<u64>}} payload; and {{<option>}} with variants {{:some}} carrying a {{<result>}} payload, and {{:none}} carrying no payload. The variable {{x}} has the kind {{<option>}} and is assigned the value {{:some(:ok(42u64))}}, which demonstrates tagged union nesting.
+In this example, two enums are defined: 
+
+- {{<result>}} with variants {{:ok}} and {{:err}}, each carrying a {{<u64>}} payload
+- {{<option>}} with variants {{:some}} carrying a {{<result>}} payload; and {{:none}} carrying no payload. 
+
+The variable {{x}} has the kind {{<option>}} and is assigned the value {{:some(:ok(42u64))}}, which demonstrates tagged union nesting.
 
 (2.2) Pattern Matching
 
@@ -168,7 +174,7 @@ We are still working on this design so it's subject to change. I'm unsure if thi
 
 However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
-(3.1) Tail-Call Optimization
+(3.2) Tail-Call Optimization
 
 Recursive functions that call themselves in tail position are optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
 
