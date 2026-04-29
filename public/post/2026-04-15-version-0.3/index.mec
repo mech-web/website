@@ -136,8 +136,6 @@ code := x?
 
 Both of these errors if left unchecked can lead to bugs that are difficult to track down, so it's helpful that the compiler can catch them for you.
 
-(2.4) Indexing with Masks
-
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
