@@ -1,7 +1,7 @@
 Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
 Corey Montella ∙ April 28, 2026
-![A robot oversees a construction site.](include/images/hero-square.png)
+![A robot oversees a construction site.](https://mech-lang.org/post/2026-04-15-version-0.3/images/hero-square.png)
 Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
 ===============================================================================
 
@@ -187,18 +187,18 @@ fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
   └ (n, a, b) => fib-acc(n - 1u64, b, a + b).
 ```
 
-The accumulator pattern above runs in constant stack space, so we can do:
+The accumulator pattern above runs in constant stack space, so we can do this without blowing the stack:
 
 ```mech:fib-tco
 fib(10_000u64)
 ```
 
-(i)> The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a `u64`. Mech does support `u128` but not in the `wasm` target yet.
+(i)> The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a `u64`. Mech does support `u128` but not in the `wasm` target yet. Mech will support big integers in the next version.
 
 4. State Machines
 --------------------------------------------------------------------------------
 
-A [`state machine`](/reference/state-machine.html) in Mech has two parts: a *specification* that declares the states and their types, and an *implementation* that defines transitions.
+A [`state machine`](/reference/state-machine.html) in Mech has two parts: a *specification* that declares the states and their types; and an *implementation* that defines transitions. In terms of expressive power, state machines cover the use cases for functions, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`. 
 
 We'll use a simple counting state machine as an example that counts down from a supplied number to zero. The specification looks like this:
 
