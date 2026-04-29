@@ -5,9 +5,9 @@ Corey Montella ∙ April 28, 2026
 Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
 ===============================================================================
 
-Spring is here, so that means a new version of Mech is ready! This post is mostly about the platform, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting this redesign off for a number of years because it wasn't a priority next to developing the platform. But as you'll read in this update, the platform is developed enough to be ready for a wider audience.
+This post is mostly about the platform, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting this redesign off for a number of years because it wasn't a priority next to developing the platform. But as you'll read in this update, the platform is developed enough to be ready for a wider audience.
 
-Whereas the main focus of the just-finished `v0.2` release was on the data model, the main theme of this release is control flow; we've added several new mechanisms for modeling and managing the flow of computation in Mech programs. These include:
+Whereas the main focus of the just-ended `v0.2` development cycle was on the data model, the main theme of this release is control flow; we've added several new mechanisms for modeling and managing the flow of computation in Mech programs. These include:
 
 - **Enums and tagged unions** for modeling categorical data and optional values. (§2)
 - **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
@@ -92,7 +92,9 @@ code := x?
   | *              => 0.
 ```
 
-The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
+The `?` operator is the match operator and works for all values, but is particulary useful for optional values, enum variants, and arrays. Match works by comparing a value against a set of patterns. The first pattern that matches is evaluated and returned as the result of the match expression. 
+
+In the example above, we are matching on {{x}} which has the value {{:some(:ok(42u64))}}. The first pattern `:some(:ok(n))` matches, so the variable {{n}} is bound to `42u64`, and `n` is returned as the result of the match expression.
 
 We can also pattern match on arrays:
 
@@ -104,9 +106,15 @@ code := arr?
   ├ [x y z] => "three elements"
   └ * => "other"
 ```
+
+In this example, the first pattern `[1 2 3]` matches the entire array, so the result is "exact match". If we had `arr := [1 2 4]`, then the first pattern would not match, but the second pattern `[1 | tail]` would match, binding `tail` to `[2 4]`, and the result would be "starts with 1".
+
+
 (2.3) Validation
 
-If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
+Match expressions are a popular in modern programming languages because of how they interact with the type system to provide exhaustiveness checking and type safety, thus preventing tricky bugs that can arise from unhandled cases or mismatched return types. 
+
+In Mech, if match patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
 
 ```mech:enums
 result := x?
@@ -126,10 +134,14 @@ code := x?
 -- This will not compile until the second arm is fixed to return a {{<f64>}} instead of a {{<string>}}.
 ```
 
+Both of these errors if left unchecked can lead to bugs that are difficult to track down, so it's helpful that the compiler can catch them for you.
+
+(2.4) Indexing with Masks
+
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
-[`Functions`](/reference/function.html) in Mech are pure and idempotent mappings from input values to output values. They support pattern matching, recursion, tail-call optimization, and kind annotations. They also support implicit broadcasting over matrices, which means you can write a function that operates on scalars, and it will automatically apply element-wise when given matrices.
+[`Functions`](/reference/function.html) in Mech are pure and idempotent mappings from input values to output values. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matricies. We also have planned support for named arguments, where clauses, and function overloading.
 
 The pattern-matching style should feel familiar to anyone who has used functional programming languages like Haskell or Elm:
 
@@ -140,7 +152,9 @@ factorial(x<f64>) => <f64>
 factorial(6<f64>) -- {ans}
 ```
 
-The `|` arms are match guards; the first one that matches is evaluated and returned as the result of the function. You can pattern-match on multiple arguments too:
+Functions are declared without any keywords, with a name, a parenthesized list of typed parameters, a return type, and then a body consisting of pattern-matching arms. The `|` arms are match guards; just like with the match expression, the first guard that matches is evaluated and returned as the result of the function. 
+
+You can pattern-match on multiple arguments too:
 
 ```mech:max{output:false}
 max(x<u64>, y<u64>) => <u64>
@@ -464,7 +478,7 @@ Then you can use the mask to filter the original list:
 ```mech:filter-example
 x[mask]
 ```
-Only the elements where mask is true will be included in the output.
+Only the elements where mask has the value {{true}} will be included in the output.
 
 Let me know if you need any more examples!⸥
 
