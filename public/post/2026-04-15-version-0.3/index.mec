@@ -210,7 +210,9 @@ fib(10_000u64)
 4. State Machines
 --------------------------------------------------------------------------------
 
-A [`state machine`](/reference/state-machine.html) in Mech has two parts: a *specification* that declares the states and their types; and an *implementation* that defines transitions. In terms of expressive power, state machines cover the use cases for functions, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`. 
+A [`state machine`](/reference/state-machine.html) in Mech is a way to express ordered computation, protocols, and processes with phases. In terms of expressive power, state machines cover the use cases for functions, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`. 
+
+State machines in Mech has two parts: a *specification* that declares the states and the data they hold; and an *implementation* that defines how the machine operates.
 
 We'll use a simple counting state machine as an example that counts down from a supplied number to zero. The specification looks like this:
 
