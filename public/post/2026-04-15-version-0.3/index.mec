@@ -405,7 +405,7 @@ Meet Mika the mech, Mechlang's first mascot:
 
 There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity, but I hadn't fully committed to the idea of a mascot because there are so many other things to work on. 
 
-But then I wrote [a joke about a AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
+But then I wrote [a joke about an AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
 
 So it seems natural that Mech's mascot could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answers questions, or debug programs.
 
