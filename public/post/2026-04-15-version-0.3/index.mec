@@ -498,39 +498,7 @@ The Mech roadmap is organized into four major milestones, each representing a br
 
 Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candidate near October.
 
--(💭) synth/gen
--(💭) introspection
--(💭) higher order functions
--(💭) new types (dec64, currency, email addresses, dates)
--(💭) Integrations
-  -(💭) Godot
-  -(💭) Python
-  -(💭) C/C++
-  -(🐣) Rust
-  -(🐣) Javascript
--(🥚) async
--(🥚) automatic differentiation
--(🥚) language server
--(🥚) physical units with dimension checking
--(🥚) file/parameter server
--(🥚) time travel debugging
--(🥚) modules revamp
--(🥚) database revamp
--(🐣) state machines
--(🐣) match expressions
--(🐣) patterns
--(🐣) mika
--(🐣) matrix comprehension
--(🐣) set comprehension
--(🐣) self-contained binary executables
--(🐣) bytecode interpreter
--(🐣) build system
--(🐣) user-defined functions
-  -(🐣) recursive functions
--(🐣) tests
--(🐣) profiler
--(🐣) gui
--(🐣) live coding
+The next release of this cycle will add two new operators to Mech that will help streamline AI co-development: `synth`, which will allow programmers to use AI to synthesize new Mech code at compile time; and `gen` which will allow programmers to generate values using AI at runtime. Mika will play a prominent role in both of these features, serving as the interface during a pre-compile phase called "synth time", where the programmer can interact with Mika to guide the code synthesis process.
 
 See the full [ROADMAP](https://docs.mech-lang.org/design/ROADMAP.html) for the plan through `0.4`.
 
