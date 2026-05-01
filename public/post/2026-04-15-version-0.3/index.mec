@@ -5,9 +5,7 @@ Corey Montella ∙ April 28, 2026
 Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
 ===============================================================================
 
-This post is mostly about the platform, but first: check out the new website design! We've only updated the blog so far, but we'll be rolling out the new design to the rest of the site in the coming weeks. I've been putting this redesign off for a number of years because it wasn't a priority next to developing the platform. But as you'll read in this update, the platform is developed enough to be ready for a wider audience.
-
-Whereas the main focus of the just-ended `v0.2` development cycle was on the data model, the main theme of this release is control flow; we've added several new mechanisms for modeling and managing the flow of computation in Mech programs. These include:
+Since the last post in November, we have been documenting and stress-testing the declarative data model, deliberately holding back features like functions and explicit control flow to see how far the data model alone could carry us. There's a hard ceiling to what a non-Turing-complete language can express, so to make Mech more interesting we must move beyond data modeling; in `v0.3`, we've added several new mechanisms for modeling and managing the flow of computation in Mech programs, including:
 
 - **Enums and tagged unions** for modeling categorical data and optional values. (§2)
 - **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
@@ -16,9 +14,9 @@ Whereas the main focus of the just-ended `v0.2` development cycle was on the dat
 - **Relational table joins** for combining tables based on common keys. (§6)
 - **Mika the Mech** Mech's mascot and AI assistant. (§7)
 
-Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages. Although, in Mech each of these has a unique twist that fits with our overall philosophy and design goals. Others like state machines and relational joins are less commonly found, and they represent more research-focused experiments in ways of modeling computation that are more analyzable and debuggable.
+Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages — although, in Mech each of these has a unique twist that fits with our overall philosophy and design goals. Others like state machines and relational joins are less commonly found, and they represent more research-focused experiments in modeling computation that are more analyzable and debuggable.
 
-Before we get into all that, let's first look at how `v0.2` landed.
+But before we get to all that, let's first look at how `v0.2` landed.
 
 1. Version 0.2 Wrap-Up
 -------------------------------------------------------------------------------
@@ -164,7 +162,7 @@ max(4u64, 7u64) -- {ans}
 
 The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured. Both styles are supported.
 
-(i)> The value with the small yellow arrow in the above block is a new feature that allows you to print the return value of a line by putting `{ans}` in a comment on that line. Also, click the arrow to send the value to the console, if it's open. You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment.
+(i)> The value with the small yellow arrow in the above block is a new feature called "inline ans" that allows you to print the return value of a line by putting `{ans}` in a comment on that line. Also, click the arrow to send the value to the console (or if it's close a pop-up instead). You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment.
 
 (3.1) Implicit Broadcasting
 
@@ -407,20 +405,20 @@ There's enough to say about Mika that it's worth an entire post, but for now we 
 
 But then I wrote [a joke about an AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
 
-So it seems natural that Mech's mascot could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answers questions, or debug programs.
+So it seems natural that Mech's mascot could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answer questions, or debug programs.
 
 (7.1) Character Design
 
-Mascots are particularly useful in programming language communities because programming languages are such abstract things; what does a compiler look like anyway? How can you imagine it and describe it to someone else? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users.
+Mascots are particularly useful in programming language communities because programming languages are such abstract things; what does a compiler look like anyway? How can you imagine it and describe it to someone else? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users. Despite it being right there in the name, it's often forgotten that programming langauges are in fact *languages*, and therefore they have a culture and a community around them that is just as important as the technical artifacts, if not moreso; plenty of terrible langauges have thriving communities, and plenty of great languages died because they had no community support. A mascot can be a powerful tool for building and sustaining that community, by giving people a shared symbol to rally around and identify with.
 
-So a good mascot requires certain design considerations:
+So then what makes a good mascot? We had the following design goals for our Mascot:
 
 - Visually appealing and memorable, so that people will want to share it and put it on stickers and t-shirts.
 - Embodies the values and personality of the brand it represents, so that it resonates with the community and reflects the spirit of the language.
 - Representable in various poses and expressions, so that it can be used in different contexts and convey different messages. 
 - Possible to simplify the mascot into just a few lines and colors. So in many ways, a good mascot and a good logo share similar design goals.
 
-Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is short and alliterates with Mech, which makes it fun to say.
+Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is gender neutral, short, and alliterates with Mech, which makes it fun to say and versatile.
 
 Here's a showcase of Mika in various poses and scenes to demonstrate her flexibility as a character:
 
