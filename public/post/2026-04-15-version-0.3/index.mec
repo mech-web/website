@@ -10,7 +10,7 @@ Today, we are announcing Mech `v0.3`, which has the following new features:
 - **State machines** for modeling ordered computation and processes with phases (§4)
 - **Comprehensions** for constructing new matrices and sets from existing ones (§5)
 - **Relational table joins** for combining tables based on common keys (§6)
-- **Mika the Mech** Mech's mascot. (§7)
+- **Mika the mech**, Mechlang's mascot (§7)
 
 Before we get into all that, let's first look at how `v0.2` landed.
 
@@ -79,9 +79,7 @@ code := x?
   | *              => 0.
 ```
 
-The `?` operator is the match operator for optional values and enum variants. If a pattern is non-exhaustive, the compiler reports the missing variants — it won't let you silently drop cases.
-
-If patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
+The `?` operator is the match operator for optional values and enum variants. If patterns are non-exhaustive, the compiler reports missing variants and prevents the program from compiling, so you won't accidentally drop cases.
 
 ```mech:enums
 result := x?
@@ -149,7 +147,7 @@ We are still working on this design so it's subject to change. I'm unsure if thi
 
 However, since the whole language is already designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where some functions broadcast and others don't, which is a common source of confusion and bugs. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
-(3.1) Tail-Call Optimization
+(3.2) Tail-Call Optimization
 
 Recursive functions that call themselves in tail position are optimized through a dedicated tail-call elimination pass. This means deeply recursive functions won't blow the stack:
 
@@ -197,7 +195,7 @@ This specification declares two states for the counter: {{:Count}} and {{:Done}}
 #Counter(3u64) -- {ans}
 ```
 
-The state machine continues transitioning until it either reaches a terminal state, which is indicated by a `=>` arrow; or the transition limit is reached, which is a safety mechanism to prevent infinite loops.
+The state machine continues transitioning until it either reaches a terminal state, indicated by a `=>` arrow, or reaches the transition limit, which is a safety mechanism to prevent infinite loops.
 
 (4.1) Execution Tracing
 
@@ -288,7 +286,7 @@ n := 4
 identity<[u8]:4,4> := [ x | i <- 0..n, j <- 0..n, x := i == j ]
 ```
 
-This works by looping over each of the generated index pairs `(i, j)`, evaluating the expression {{x := i == j}} for each pair, and then collecting the results into a new matrix. The result is a 4x4 matrix where the diagonal elements are `1` (true) and the off-diagonal elements are `0` (false). The size of the output matrix is determined by the ranges of the generators, so in this case we get a 4x4 matrix because both `i` and `j` range from `0` to `4`; the resulting matrix is size `1 x 16`, which is then reshaped to `4 x 4` based on the specified output type.
+This works by looping over each of the generated index pairs `(i, j)`, evaluating the expression {{x := i == j}} for each pair, and then collecting the results into a new matrix. The result is a 4x4 matrix where the diagonal elements are `1` (true) and the off-diagonal elements are `0` (false). The size of the output matrix is determined by the ranges of the generators, so in this case we get 4x4 output because both `i` and `j` range from `0` to `4`; the generated values are collected in a `1 x 16` matrix, then reshaped to `4 x 4` based on the specified output type.
 
 (5.2) Set Comprehensions
 
@@ -494,7 +492,7 @@ See the full [ROADMAP](https://docs.mech-lang.org/design/ROADMAP.html) for the p
 9. Conclusion
 --------------------------------------------------------------------------------
 
-Thanks for reading this far and following along with the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. The `v0.3` release is a major milestone for us, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my students who have contributed to this work in various ways, especially the 2024 Mech Senior Capstone team, who were foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
+Thanks for reading this far and following along with the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. The `v0.3` release is a major milestone for us, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout-out goes to my students who have contributed to this work in various ways, especially the 2024 Mech Senior Capstone team, who were foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
 
 If you like what you see and you'd like to follow along, join the community and check out the resources below:
 
