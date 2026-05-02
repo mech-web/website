@@ -1,6 +1,6 @@
 Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
-Corey Montella ∙ April 28, 2026
+Corey Montella ∙ May 6, 2026
 ![A robot oversees a construction site.](https://mech-lang.org/post/2026-04-15-version-0.3/images/hero-square.png)
 Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
 ===============================================================================
@@ -12,9 +12,13 @@ Since the last post in November, we have been documenting and stress-testing the
 - **State machines** for modeling ordered computation, protocols, and processes with phases. (§4)
 - **Comprehensions** for constructing new matrices and sets from existing ones. (§5)
 - **Relational table joins** for combining tables based on common keys. (§6)
-- **Mika the Mech** Mech's mascot and AI assistant. (§7)
 
 Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages — although, in Mech each of these has a unique twist that fits with our overall philosophy and design goals. Others like state machines and relational joins are less commonly found, and they represent more research-focused experiments in modeling computation that are more analyzable and debuggable.
+
+We are also introducing the following platform features:
+
+- **Mika the Mech** Mech's mascot and AI assistant. (§7)
+- **Template Placeholders** for mixing Mechdown with HTML and other content. (§8)
 
 But before we get to all that, let's first look at how `v0.2` landed.
 
@@ -32,7 +36,7 @@ The declarative data model for Mech has landed at the following set of features:
 - [Indexing and slicing](https://docs.mech-lang.org/reference/indexing.html): accessing elements within data structures using logical masks.
 - [Operators](https://docs.mech-lang.org/reference/operators.html) and [standard library functions](https://docs.mech-lang.org/stdlib/index.html): arithmetic, logical, comparison, set, matrix etc.
 
-You can visit any of those links to read the full[^1] documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the `v0.2` data model.
+You can visit any of those links to read the documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the `v0.2` data model.
 
 Of course there are strict limitations on the kinds of programs you can write with that set of features, so today we are launching Mech `v0.3` with a whole new set of control flow mechanisms that make Mech more capable.
 
@@ -134,15 +138,6 @@ code := x?
 
 Both of these errors if left unchecked can lead to bugs that are difficult to track down, so it's helpful that the compiler can catch them for you.
 
-(3.4) Next Steps
-
-The current implementation of enums, tagged unions, and pattern matching is just a starting point, and we have a number of improvements planned for the future, including:
-
-- String patterns, which would allow you to match on string prefixes and substrings.
-- Table patterns, which would allow you to match on the presence or absence of keys in a table, and to destructure values from tables.
-- Set patterns, which would allow you to match on element membership in a set, and to destructure values from sets.
-- Map patterns, which would allow you to match on the presence or absence of keys in a map, or to match maps with particular key-value pairs.
-
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
@@ -213,14 +208,6 @@ fib(10_000u64)
 ```
 
 (i)> The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a `u64`. Mech does support `u128` but not in the `wasm` target yet. Mech will support big integers in the next version.
-
-(3.3) Next Steps
-
-The current implementation of functions is just a starting point, and we have a number of improvements planned for the future, including:
-
-- Named arguments: allowing you to call functions with named parameters for improved readability and flexibility.
-- Function overloading: allowing you to define multiple functions with the same name but different parameter types or counts, and having the compiler resolve which one to call based on the arguments.
-- Where clauses: allowing you to add additional guards and constraints to function definitions for more complex pattern matching.
 
 4. State Machines
 --------------------------------------------------------------------------------
@@ -335,10 +322,6 @@ sorted := #bubble-sort(a)
 
 The runtime validates state machine transition targets at compile time, and raises an error if you reference a state that isn't declared in the specification, or if you forget to handle a state.
 
-(4.3) Next Steps
-
-State machines are probably the lest developed area of the language right now, so there's a lot left to do. The main thing we'll look at next is adding support for asynchronous state machines, which would allow you to model processes that interact with external systems, or that have some notion of time or waiting. This would involve adding new syntax for defining asynchronous transitions (we have `~>` planned for that), and new semantics for how those transitions are executed and traced.
-
 5. Comprehensions
 --------------------------------------------------------------------------------
 
@@ -367,7 +350,7 @@ user := 1
 
 This comprehension generates pairs of users and their friends, and then pairs of friends and their friends-of-friends. The fact that `f` appears twice in the generators creates a relational join between the two generators, which is something from the [Eve language](https://witheve.com) that I really liked and wanted to bring into Mech. In Eve, it would have looked like this:
 
-```
+```eve
 search
   pairs = [user: 1, friend]
   pairs = [user: friend, fof]
@@ -376,10 +359,6 @@ bind
 ```
 
 Where the `search` block generates pairs of users and their friends, and then pairs of friends and their friends-of-friends, and the `bind` block extracts the friends-of-friends. The Mech comprehension syntax is a bit more compact, but it achieves the same result.
-
-(5.3) Next Steps
-
-In a future release, we plan on adding support for record and table comprehensions, which would allow you to generate new records and tables from existing ones using a similar syntax.
 
 6. Table Joins
 --------------------------------------------------------------------------------
@@ -421,13 +400,6 @@ unwrapped := C.a?
 ```
 
 Unwrapping the optional value with `?` allows us to provide a default value of `0` for any rows where the `a` column is missing. Also, because {{C.a}} returns a {{<[u64?]>}}, the unwrap is broadcast over the entire column, yielding a {{<[u64]>}}.
-
-(6.1) Next Steps
-
-The current implementation of table joins is just a starting point, and we have a number of improvements planned for the future, including:
-
-- Joining on multiple keys, which would allow you to perform more complex joins based on multiple columns.
-- Non-equi joins, which would allow you to join tables based on conditions other than equality, such as greater than or less than.
 
 7. Mika the Mech
 --------------------------------------------------------------------------------
@@ -519,10 +491,43 @@ Let me know if you need any more examples!⸥
 
 Then the user can reply to the AI with another query. This transforms a typical AI chat into an interactive code document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source. Everything is stored as plain text, readable without running code or using external tools, and can be version-controlled and diffed like any other source file.
 
-What you see here is all that's been implemented so far, but the vision above is planned for the full `v0.3` release.
+That's all we want to say about Mika for now, but like I said there's more to say so look out for a post just about Mika in the near future.
+
+9. New Mechdown Features
+--------------------------------------------------------------------------------
+
+Mechdown is the markup language used for Mech's documentation, and it has been steadily evolving alongside the language itself. This document is written entirely in Mechdown, which is what is driving all of the code blocks in the document, as well as the in-browser REPL console.
+
+The document itself is built using a new Mechdown feature called "template placeholders", which allows us to write custom components in Mech that can be reused throughout the document. It's done by embedding placeholder tags of the form `{{DOCUMENT-ELEMENT}}` within an HTML shim, which are then replaced with the rendered output of the corresponding Mech component at compile time. For example, the core of this document looks like this:
+
+```html
+<div class="hero">
+  <div class="hero-panel">
+    <div>
+      <p class="hero-kicker">Announcement</p>
+      <h1>{{TITLE}}</h1>
+      {{BYLINE}}
+    </div>
+    {{SUMMARY}}
+  </div>
+  {{HERO}}
+</div>
+<div class="article-intro" id="articleIntro">
+  {{INTRO}}
+</div>
+<div class="article-layout" id="articleLayout">
+  {{TOC}}
+  <article class="main-content">
+    {{CONTENT}}
+  </article>
+</div>
+```
+
+In `v0.3`, we added a number of new features to Mechdown to support the growing needs of our documentation, including:
+
 
 8. Roadmap to v0.4
------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 The Mech roadmap is organized into four major milestones, each representing a broad phase of development with a specific focus and set of features. The milestones are designed to build upon each other, with each one adding new capabilities and expanding the expressiveness of the language.
 
@@ -537,9 +542,72 @@ The next release of this cycle will add two new operators to Mech that will help
 
 See the full [ROADMAP](https://docs.mech-lang.org/design/ROADMAP.html) for the plan through `0.4`.
 
-(8.1) Summer Agenda
+(8.1) Next Steps for v0.3
 
-Decelopment on Mech mostly occurs over the summer months, when I have more time to focus on the project and work with students. This summer, we have a number of students (3 at least confirmed) who will be working on Mech as part of various summer reearch programs, so we will be showcasing their work here as it develops. The main focus is going to be getting Mech ready for demos at various conferences in the Fall. 
+(8.1.1) Enums, Tagged Unions, and Pattern Matching
+
+The current implementation of enums, tagged unions, and pattern matching is just a starting point, and we have a number of improvements planned for the future, including:
+
+- String patterns, which would allow you to match on string prefixes and substrings.
+- Table patterns, which would allow you to match on the presence or absence of keys in a table, and to destructure values from tables.
+- Set patterns, which would allow you to match on element membership in a set, and to destructure values from sets.
+- Map patterns, which would allow you to match on the presence or absence of keys in a map, or to match maps with particular key-value pairs.
+
+(8.1.2) Functions
+
+The current implementation of functions is just a starting point, and we have a number of improvements planned for the future, including:
+
+- Named arguments: allowing you to call functions with named parameters for improved readability and flexibility.
+- Function overloading: allowing you to define multiple functions with the same name but different parameter types or counts, and having the compiler resolve which one to call based on the arguments.
+- Where clauses: allowing you to add additional guards and constraints to function definitions for more complex pattern matching.
+
+
+(8.1.3) State Machines
+
+State machines are probably the lest developed area of the language right now, so there's a lot left to do. The main thing we'll look at next is adding support for asynchronous state machines, which would allow you to model processes that interact with external systems, or that have some notion of time or waiting. This would involve adding new syntax for defining asynchronous transitions (we have `~>` planned for that), and new semantics for how those transitions are executed and traced.
+
+
+(8.1.4) Comprehensions
+
+In a future release, we plan on adding support for record and table comprehensions, which would allow you to generate new records and tables from existing ones using a similar syntax.
+
+(8.1.5) Table Joins
+
+The current implementation of table joins is just a starting point, and we have a number of improvements planned for the future, including:
+
+- Joining on multiple keys, which would allow you to perform more complex joins based on multiple columns.
+- Non-equi joins, which would allow you to join tables based on conditions other than equality, such as greater than or less than.
+
+(8.1.6) Mechdown
+
+In a future release next release you will be able to embed Mech within an HTML document and feed that directly into the Mechdown compiler, which will allow you to use Mech components and features within your own custom web pages. Maybe something like this:
+
+```html
+<mech>
+  years := [2010 2025 2020 2025]
+  population := [2.5 2.6 2.7 2.8 2.9]
+  population-growth-chart := chart/line{
+    title: "Population Growth"
+    x-label: "Year"
+    y-label: "Population (billions)"
+    x: [2010, 2025, 2020, 2025]
+    y: [2.5, 2.6, 2.7, 2.8, 2.9]
+  }
+</mech>
+<html>
+  <body>
+    <h1>Population Growth</h1>
+    <p>Here is a chart about population growth over the years:</p>
+    {{VAR:population-growth-chart}}
+  </body>
+</html>
+```
+
+It would work by first compiling the Mech code to generate the chart component, and then replacing the `{{VAR:population-growth-chart}}` placeholder in the HTML with the rendered output of that component, which could be an SVG or a canvas element or something like that. This will allow you to use Mech and JavaScript together in a more seamless way for building interactive web content. Or if you want to, completely replace JavaScript with Mech for building interactive web content.
+
+(8.2) Summer Agenda
+
+This summer, a number of undergraduate students (3 at least confirmed) will be working on Mech as part of various summer research programs, so we will be showcasing their work here as it develops. The main focus is going to be getting Mech ready for demos at various conferences in the fall. 
 
 9. Conclusion
 --------------------------------------------------------------------------------
@@ -557,4 +625,3 @@ If you like what you see and you'd like to follow along, join the community and 
 
 Thanks for following along. We'll have a lot more to say as the rest of v0.3 comes together.
 
-[^1]: For small measures of "full"; the documentation is still a work in progress. `-◡⦿◡-`
