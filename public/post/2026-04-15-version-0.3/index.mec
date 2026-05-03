@@ -525,8 +525,7 @@ The document itself is built using a new Mechdown feature called "template place
 
 In `v0.3`, we added a number of new features to Mechdown to support the growing needs of our documentation, including:
 
-
-9. Roadmap to v0.4
+9. Road to v0.4
 --------------------------------------------------------------------------------
 
 The Mech roadmap is organized into four major milestones, each representing a broad phase of development with a specific focus and set of features. The milestones are designed to build upon each other, with each one adding new capabilities and expanding the expressiveness of the language.
@@ -538,7 +537,11 @@ The Mech roadmap is organized into four major milestones, each representing a br
 
 Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candidate near October.
 
+(9.1) Upcoming New Features in `v0.3`
+
 The next release of this cycle will add two new operators to Mech that will help streamline AI co-development: `synth`, which will allow programmers to use AI to synthesize new Mech code at compile time; and `gen` which will allow programmers to generate values using AI at runtime. Mika will play a prominent role in both of these features, serving as the interface during a pre-compile phase called "synth time", where the programmer can interact with Mika to guide the code synthesis process.
+
+We will also be bringing back modules, which were present in early versions of Mech but were removed during the `v0.2` release cycle to focus on core language features. Modules will be redesigned to be more ergonomic and powerful, with support for hierarchical namespaces, selective imports, and better integration with the package manager.
 
 See the full [ROADMAP](https://docs.mech-lang.org/design/ROADMAP.html) for the plan through `0.4`.
 
@@ -551,7 +554,7 @@ This summer, a number of undergraduate students (3 at least confirmed) will be w
 
 Thanks for reading this far and following along with the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. The `v0.3` release is a major milestone for us, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my students who have contributed to this work in various ways, especially the 2024 Mech Senior Capstone team, who were foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
 
-If you like what you see and you'd like to follow along, join the community and check out the resources below:
+If you'd like to follow along, join the community and check out the resources below:
 
 - **Try Mech:** [try.mech-lang.org](https://try.mech-lang.org)
 - **Docs:** [docs.mech-lang.org](https://docs.mech-lang.org)
