@@ -1,18 +1,16 @@
-
 Fall 2025 Progress Report - Mechdown Beta
 ===============================================================================
-
-```mech:hidden
-document/author := "Corey Montella"
-document/date := "2025-11-12"
-```
-
-%% Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Use cases include user interfaces, games, embedded systems, and especially robotics.
+Corey Montella ∙ November 12, 2025
+![Mika operating a printing press.](images/mika-press.png)
 In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+===============================================================================
+
+Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Use cases include user interfaces, games, embedded systems, and especially robotics. It is a general-purpose language, but it is particularly well-suited for these domains because of its data defin capabilities and its ability to run efficiently on a variety of platforms.
+
 
 If you're not familiar with Mech, here is a quick taste with as many features as we can demo in 7LOC:
 
-```mech:fizzbuzz
+:>>```mech:fizzbuzz
 x := 1..=10               -- A row vector of numbers from {1} to {10}
 ~out<[string]> := x       -- Convert `x` into mutable string vec
 
@@ -30,17 +28,9 @@ Click on the variables and you'll see their values echoed in the REPL to the rig
 
 Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning operators like `%` and `==` are defined to work on entire arrays at once. Logical indexing is then used to select and update specific elements of the `out` vector based on the truth of corresponding elements in the index vectors `ix2` and `ix3`.
 
-The Mech code {{out[ix2 && ix3] = "✨🐝"}} is equivalent to the following imperative pseudocode:
+For a more detailed version of this example, see the [FizzBuzz example in the Mech documentation](https://docs.mech-lang.org/examples/fizzbuzz.html), which includes a more thorough explanation of the code and its features.
 
-```
-for i in 1..=10 {
-  if (ix2[i] && ix[i]) == 0 {
-    out[i] = "✨🐝"
-  }
-}
-```
-
-Work in progress documentation is available at [docs.mech-lang.org](https://docs.mech-lang.org), and the source code is on [GitHub](https://github.com/mech-lang/mech).
+Work-in-progress documentation is available at [docs.mech-lang.org](https://docs.mech-lang.org), and the source code is on [GitHub](https://github.com/mech-lang/mech).
 
 Anyway, you might want to grab a snack -- this is probably the longest and most significant update to Mech we've posted to date!
 
@@ -944,3 +934,4 @@ Thanks for reading!
 [CWEB]: D. E. Knuth and S. Levy; "The CWEB System of Structured Documentation"; Reading, MA; Addison-Wesley; 1993. [Online](https://cs.stanford.edu/~knuth/cweb.html)
 [LHS]: Literate Haskell; Official Website. [Online](https://wiki.haskell.org/index.php?title=Literate_programming)
 [NOWEB]: N. Ramsey; "Noweb: A Simple, Flexible Tool for Literate Programming"; 1989-2024. [Online](https://www.cs.tufts.edu/~nr/noweb/)
+[VERSO]: Verso; Official Website. [Online](https://verso.lean-lang.org)
