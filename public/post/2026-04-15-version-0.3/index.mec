@@ -64,7 +64,7 @@ Because the variants are themselves valid atom values (which are program-global 
 y<color> := :color/red
 ```
 
-This is similar to other languages with atoms like Elixir, so Mech might have to adopt some of the same best practices around naming and organization to avoid confusion.
+This is similar to other languages with atoms like Elixir[ELIXIRATOM], so Mech might have to adopt some of the same best practices around naming and organization to avoid confusion.
 
 (2.1) Tagged Unions
 
@@ -187,7 +187,7 @@ Implicit broadcasting only applies to functions with scalar inputs and outputs. 
 - If any one argument is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
 - If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, the compiler will return an error.
 
-We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix like Julia and Matlab, which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less error-prone.
+We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix like Julia [JULIABROADCASTING] and Matlab [MATLABBROADCASTING], which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less error-prone.
 
 However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
@@ -351,7 +351,7 @@ user := 1
 {fof | (u,f) <- pairs, (f,fof) <- pairs, u ⩵ user}
 ```
 
-This comprehension generates pairs of users and their friends, and then pairs of friends and their friends-of-friends. The fact that `f` appears twice in the generators creates a relational join between the two generators, which is something from the [Eve language](https://witheve.com) that I really liked and wanted to bring into Mech. In Eve, it would have looked like this:
+This comprehension generates pairs of users and their friends, and then pairs of friends and their friends-of-friends. The fact that `f` appears twice in the generators creates a relational join between the two generators, which is something from the Eve language[EVEJOINS] that I really liked and wanted to bring into Mech. In Eve, it would have looked like this:
 
 ```eve
 search
@@ -366,7 +366,7 @@ Where the `search` block generates pairs of users and their friends, and then pa
 6. Table Joins
 --------------------------------------------------------------------------------
 
-Speaking of relational queries: v0.3 ships the full set of relational join operators, each available as both a Unicode symbol and an ASCII word alias:
+Speaking of relational queries: v0.3 ships the full set of [`relational operators`](https://docs.mech-lang.org/reference/table.html#26828514545883822), each available as both a Unicode symbol and an ASCII word alias:
 
 - `⋈` `table/join` — inner join
 - `⟕` `table/left-outer-join`
@@ -415,7 +415,7 @@ Meet Mika the mech, Mechlang's first mascot:
 
 There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity, but I hadn't fully committed to the idea of a mascot because there are so many other things to work on. 
 
-But then I wrote [a joke about an AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude, Copilot, and Codex all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
+But then I wrote [a joke about an AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude [CLAWD], Copilot [MICO], and Codex [CODEXPETS] all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
 
 So it seems natural that Mech's mascot could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answer questions, or debug programs.
 
@@ -438,7 +438,7 @@ Here's a showcase of Mika in various poses and scenes to demonstrate her flexibi
 | ![A winter scene featuring Mika building a snowman.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-winter.png?ref_type=heads) | ![Mika planting a garden.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-spring.png?ref_type=heads) |
 | ![Pointing at something.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-point.png?ref_type=heads) | ![Running somewhere.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-running.png?ref_type=heads) | ![Mika offers her hand.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-handout.png?ref_type=heads) |
 
-You can find more Mika art in the [Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the art (and Mika's likeness) for non-commercial purposes as long as you give appropriate credit. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall:
+You can find more Mika art in the [Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the art (and Mika's likeness) for non-commercial purposes as long as you give appropriate credit. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall[CAMELIA]:
 
 > Good taste and positive connotations are encouraged, but cannot of course be required.
 
@@ -499,9 +499,13 @@ That's all we want to say about Mika for now, but like I said there's more to sa
 8. New Mechdown Features
 --------------------------------------------------------------------------------
 
-Mechdown is the markup language used for Mech's documentation, and it has been steadily evolving alongside the language itself. This document is written entirely in Mechdown, which is what is driving all of the code blocks in the document, as well as the in-browser REPL console.
+Mechdown is the markup language used for Mech's documentation, and it has been steadily evolving alongside Mech itself. We introduced Mechdown in 2019[LIVE2019], and released the first Beta version at the end of last year[MECHDOWNBETA]. As part of today's release, we are announcing two new features: template placeholders, and figures.
 
-The document itself is built using a new Mechdown feature called "template placeholders", which allows us to write custom components in Mech that can be reused throughout the document. It's done by embedding placeholder tags of the form `{{DOCUMENT-ELEMENT}}` within an HTML shim, which are then replaced with the rendered output of the corresponding Mech component at compile time. For example, the core of this document looks like this:
+These features are demonstrated within this document itself (the one you're reading right now). See the [document source](https://gitlab.com/mech-lang/web/website/-/raw/df4784d44b4ea48984de41db5700f5783beb2e0c/public/post/2026-04-15-version-0.3/index.mec), and the [HTML shim source](https://raw.githubusercontent.com/mech-lang/mech/eea6ff85986236b9f4916b85dead0fa172f45bb7/include/blog.html) for more details.
+
+(8.1) Template Placeholders
+
+Template placeholders allow you to reuse Mechdown document components in an HTML file for presentation. It's done by embedding placeholder tags of the form `{{DOCUMENT-ELEMENT}}` within an HTML shim, which are then replaced with the rendered output of the corresponding Mech component at compile time. For example, the core of the blog shim looks like this:
 
 ```html
 <div class="hero">
@@ -509,7 +513,8 @@ The document itself is built using a new Mechdown feature called "template place
     <div>
       <p class="hero-kicker">{{KICKER}}</p>
       <h1>{{TITLE}}</h1>
-      {{AUTHOR}} {{DATE}}
+      {{AUTHOR}} 
+      {{DATE}}
     </div>
     {{SUMMARY}}
   </div>
@@ -526,7 +531,25 @@ The document itself is built using a new Mechdown feature called "template place
 </div>
 ```
 
-We've added a number of new placeholders to support the growing needs of our documentation, including:
+The Mechdown compiler takes this shim and a `.mec` source file, and produces a final HTML document:
+
+```html
+<div class="hero">
+  <div class="hero-panel">
+    <div>
+      <p class="hero-kicker">Announcement</p>
+      <h1>Template Placeholders</h1>
+      Mika
+      May 7, 2026
+    </div>
+    Today we're excited to announce template placeholders!
+  </div>
+  <img class="mech-image" src="images/hero.png">
+</div>
+...
+```
+
+Here's a full list of the template placeholders we've added:
 
 - `{{TITLE}}` - The title of the document
 - `{{AUTHOR}}` - The author or authors of the document.
@@ -546,7 +569,24 @@ We've added a number of new placeholders to support the growing needs of our doc
 - `{{REPL}}` - The interactive REPL console, which can be embedded anywhere in the document and is connected to the document's Mech runtime.
 - `{{document.mec}}` - Can be used within a .mec source file to embed the contents of a target document within itself, which allows you to stitch together source files into a larger document.
 
-Most of these features are demonstrated within this document (the one you're reading right now). See the [document source](https://gitlab.com/mech-lang/web/website/-/raw/df4784d44b4ea48984de41db5700f5783beb2e0c/public/post/2026-04-15-version-0.3/index.mec), and the [HTML shim source](https://raw.githubusercontent.com/mech-lang/mech/eea6ff85986236b9f4916b85dead0fa172f45bb7/include/blog.html) for more details.
+
+(8.2) Figures
+
+Figures are a new section element which allow you to combine multiple images in a single figure with a shared caption. This is useful for when you want to show multiple related images together, and provide a single caption that describes the overall point of the figure.
+
+We've alerady used on back in the Mika section to show off some of the different poses and expressions of the character:
+
+```
+| ![Idle pose.](idle.png) | ![Back detail](back.png) | ![Two thumbs up!](thumbs-up.png) |
+| ![Building a snowman.](winter.png)      |     ![Planting a garden.](spring.png)       |
+| ![Pointing.](point.png) | ![Running.](running.png) | ![Hand out.](handout.png)        |
+```
+
+The syntax is the same as a regular Mechdown table except each element is an image with a caption. The table layout allows you to arrange the images in a grid, and supports horizontal spans, but doesn't yet support vertical spans.
+
+The caption for the entire figure is provided in the cell below the table, and the caption for each subfigure is provided in the alt text of each image. The subfigure captions are rendered as labels (a), (b), (c), etc. that correspond to the letters in the main caption.
+
+You can see this example rendered in (§7.1). 
 
 9. Road to v0.4
 --------------------------------------------------------------------------------
@@ -587,3 +627,22 @@ If you'd like to follow along, join the community and check out the resources be
 
 That's all for now!
 
+[MECHDOWNBETA]: [C. Montella; "Fall 2025 Progress Report - Mechdown Beta"; Mech Development Blog; 2025-11-12.](https://mech-lang.org/post/2025-11-12-mechdown/)
+
+[LIVE2019]: [C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019-10-22.](https://docs.mech-lang.org/alpha/#/live2019.mec)
+
+[CAMELIA]: [L. Wall; “Camelia,” perl6/mu; 2009.](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt)
+
+[EVEJOINS]: [Eve Language; "Joins"; Project Documentation; 2017; v0.2.](https://docs-next.witheve.com/v0.2/handbook/joins/)
+
+[ELIXIRATOM]: [Elixir Language; "Atom"; Project Documentation; v1.19.5.](https://hexdocs.pm/elixir/1.19.5/Atom.html)
+
+[JULIABROADCASTING]: [Julia Language; "Broadcasting"; Project Documentation; v1.12.6.](https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting)
+
+[MATLABBROADCASTING]: [MATLAB Language; "Vectorization"; Project Documentation; R2026A.](https://www.mathworks.com/help/matlab/matlab_prog/vectorization.html)
+
+[CLAWD]: [T. Shihipar; "We also shipped a ton of new Claude Code features today, including: checkpointing; a new VSCode extension; tab to think,..."; Anthropic; 2025-09-25.](https://x.com/trq212/status/1972784970054893877)
+
+[MICO]: [M. Suleyman; "Human-Centered AI"; Microsoft Copilot Blog; Microsoft; 2025-10-23.](https://www.microsoft.com/en-us/microsoft-copilot/blog/2025/10/23/human-centered-ai/)
+
+[CODEXPETS]: [OpenAI; "Codex app settings"; Codex Documentation; 2026.](https://developers.openai.com/codex/app/settings#codex-pets)
