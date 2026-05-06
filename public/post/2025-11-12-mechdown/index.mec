@@ -1,8 +1,12 @@
 Fall 2025 Progress Report - Mechdown Beta
 ===============================================================================
-Corey Montella ∙ November 12, 2025
-![Mika operating a printing press.](images/mika-press.png)
-In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+author: Corey Montella 
+date: November 12, 2025
+hero: ![Mika operating a printing press.](images/mika-press.png)
+kicker: Announcement
+summary: In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
+next: [Version 0.3-beta](https://mech-lang.org/post/2026-05-07-v0.3-beta/)
+previous: [LLMs Won't Replace Programming Languages](https://mech-lang.org/post/2025-01-09-programming-chatgpt/)
 ===============================================================================
 
 Mech is a language for data-oriented programming, with matrix operations as first-class citizens. It is designed for working with datasets, building numerical simulations, and running interactive applications. Use cases include user interfaces, games, embedded systems, and especially robotics. It is a general-purpose language, but it is particularly well-suited for these domains because of its data defin capabilities and its ability to run efficiently on a variety of platforms.
@@ -24,38 +28,37 @@ out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to {"✨🐝"}
 
 This solution to the classic "FizzBuzz" problem is expressed in Mech using vector operations. It generates a vector of numbers from {{1}} to {{10}}, converts it to a string vector, then replaces multiples of {{2}} with `✨`, multiples of {{3}} with `🐝`, and multiples of both with `✨🐝`. This code block is configured to display the value of the last line as output.
 
-Click on the variables and you'll see their values echoed in the REPL to the right (if the REPL is closed, you'll see a modal popup, which can be dismissed by clicking on it. You can open the REPL by pressing `\``).
+Click on the variables and you'll see their values echoed in the REPL to the right (if the REPL is closed, you'll see a modal popup, which can be dismissed by clicking on it. You can toggle the REPL by pressing `\``).
 
-Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning operators like `%` and `==` are defined to work on entire arrays at once. Logical indexing is then used to select and update specific elements of the `out` vector based on the truth of corresponding elements in the index vectors `ix2` and `ix3`.
+Mech is a matrix-oriented language like Matlab, Julia, or NumPy, meaning operators like `%` and `==` are defined to work on entire arrays at once, a technique known as "broadcasting". Logical indexing is then used to select and update specific elements of the `out` vector based on the truth of corresponding elements in the index vectors `ix2` and `ix3`.
 
 For a more detailed version of this example, see the [FizzBuzz example in the Mech documentation](https://docs.mech-lang.org/examples/fizzbuzz.html), which includes a more thorough explanation of the code and its features.
 
 Work-in-progress documentation is available at [docs.mech-lang.org](https://docs.mech-lang.org), and the source code is on [GitHub](https://github.com/mech-lang/mech).
 
-Anyway, you might want to grab a snack -- this is probably the longest and most significant update to Mech we've posted to date!
+Today we're going to cover progress on Mechdown Beta, a literate programming tool that we are co-designing with Mech to create a seamless experience for writing live documents with embedded code. In most literate programming systems, the code and documentation are separate entities that require a tangle/weave process to keep them in sync; or as in notebook programming systems, special environments are requried to read and write the documents. With Mechdown, the code and documentation are one and the same, and can be read and written in any text editor because the source representation is a Markdown dialect.
+
+If you want to get a taste of Mechdown you can look at hte source of this very document, which is [available here](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads). You can also check out the [Mechdown documentation](https://docs.mech-lang.org/mechdown/) for more examples and details on how to use it.
 
 1. By The Numbers
 -------------------------------------------------------------------------------
 
 Let's begin with a quick history of Mech:
 
-After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, Mech has grown and evolved through several versions representing [over 9000](https://www.youtube.com/watch?v=SiMHTK15Pik) commits (9274 as of the writing of this post) from [14 contributors](https://github.com/mech-lang/mech/graphs/contributors), most of whom are students working on Mech with me as part of their capstone projects.
-
-![[A history of commits](https://github.com/mech-lang/mech/graphs/contributors) to Mech since the last update was posted. Mech is developed on an "academic calendar", meaning most development happens over the Summer and Winter months, then slows down during the Fall and Spring semesters.](images/commits.png)
+After some [preliminary work](https://gitlab.com/mech-lang/mech/-/tree/legacy-root?ref_type=heads) in 2014, the first real implementation of Mech [commenced in 2018](https://github.com/mech-lang/mech/commit/470f5c00bb3768f57ba70e48271c6cd43c52106e) after the [conclusion of the Eve project](https://groups.google.com/g/eve-talk/c/YFguOGkNrBo/m/EozaCfheAQAJ). Since then, Mech has grown and evolved through several versions representing [over 9000](https://www.youtube.com/watch?v=SiMHTK15Pik) commits from [14 contributors](https://github.com/mech-lang/mech/graphs/contributors), most of whom are students working on Mech with me as part of their capstone projects.
 
 Mech Alpha (`v0.0.1` through `v0.0.6`) represented the initial experiments in language design, exploring niche debugging tools like time-travel debugging and reflecting runtime state in a live editor. Documentation and a working demonstration for Mech Alpha are [still available](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
 Mech `v0.1` followed this effort as a refinement of the initial ideas, and also fleshed out the feature set to include a GUI library, plotting tools, a distributed runtime, and even a capability permissions system. A demonstration of this version can be found at the [Have You Tried Rubbing A Database On It (HYTRADBOI) 2022 Conference](https://www.hytradboi.com/2022/i-tried-rubbing-a-database-on-a-robot), and code is available on the [v0.1 branch](https://github.com/mech-lang/mech/tree/v0.1-beta) of the Mech repo, but there is no documentation for this version.
 
-Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing an actual release. Work this cycle focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code. The first release of `v0.2` was on July 16 2024, and this version has received >2900 commits so far. Today we will be covering progress as of `v0.2.66-beta`.
+Today we are reporting progress on [Mech v0.2](https://github.com/mech-lang/mech/tree/v0.2-beta), currently wrapping up development and nearing a release candidate. The first release of `v0.2` was on July 16 2024; today we will be covering progress as of `v0.2.66-beta`. Work this cycle has focused on nailing down a data specification language for Mech, building out the standard library, and creating useful tools for working with Mech code.
 
 As it stands, Mech `v0.2` represents only about 1/3 of the full Mech platform -- just the data specification layer -- and is not yet Turing complete.
 
-(!)> Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're planning to use Mech, 
-!!bugs abound, here be dragons, use at your own risk, etc.!! 
+(!)> Although Mech has been in active development for a while now, it's been mostly experimentation, so the code base is *not* mature in the least. That means if you're planning to use Mech, **bugs abound, here be dragons, use at your own risk, etc.** 
 If you find any bugs, please [file an issue](https://github.com/mech-lang/mech/issues).
 
-With that out of the way, let's take a look at what's new in `v0.2`...
+With that out of the way, let's take a look at what's new in `v0.2`!
 
 2. Mechdown Beta
 -------------------------------------------------------------------------------
@@ -87,7 +90,7 @@ In the rest of this document, we will review the history of literate programming
 3. A Brief History of Literate Programming
 -------------------------------------------------------------------------------
 
-Literate programming is a programming paradigm introduced by Donald Knuth in 1983, when he released the WEB literate programming system as a way to improve the readability and maintainability of code[^1]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. His goal was to write code in a way that was more natural and readable to express his ideas more clearly. Knuth's insight was that programs should be written primarily for human understanding, not just machine execution.
+Literate programming is a programming paradigm introduced by Donald Knuth in 1983, when he released the WEB literate programming system as a way to improve the readability and maintainability of code[^KNUTH]. Knuth was especially frustrated with the limitations of traditional programming languages, which required programmers to write code in a compiler-imposed order that didn't make sense for the narrative of explanatory works like books and academic papers. His goal was to write code in a way that was more natural and readable to express his ideas more clearly. Knuth's insight was that programs should be written primarily for human understanding, not just machine execution.
 
 In his words:
 
@@ -95,7 +98,7 @@ In his words:
 
 For example, some languages of that time required programmers to declare all variables before any of them were used, like early Pascal, Fortran, and Algol. This was not a great feature ergonomically, because it forced the programmer to think about the program structure in a way that was not natural. But it was enforced because it was convenient for compiler developers to know all the variables up front, so they could allocate memory and set up symbol tables before parsing the rest of the program.
 
-<<:!["Literate Programming" by Donald Knuth, 1992 [KNUTHBOOK]](https://upload.wikimedia.org/wikipedia/en/6/62/Literate_Programming_book_cover.jpg)
+<<:!["Literate Programming" by Donald Knuth, 1992, written using the WEB literate programming system.  [KNUTHBOOK]](images/knuth-book.png)
 
 But as a programmer, you would rather declare a variable where it makes sense in the program, to allow the reader to see how it is used in context, rather than be referred to a distant section of the text for its definition. It shouldn't matter how the compiler developer feels about it, because whereas the compiler devloper's frustration is felt only at the time the compiler is written, the user's frustration is felt every time a program in the language is written or read, which occurs much more frequently.
 
@@ -319,7 +322,7 @@ Eve [EVE] was a project I worked on from 2015 to 2018 with Chris Granger, Rob At
 
 ![The Eve notebook editor, which was written mostly in JavaScript and TypeScript. It features a WYSIWYG prose editor integrated directly with the Eve language. The code output is rendered to the right of the code, and an outline of the source is rendered to the left. Various debugging tools exist within the editor and can be used while the program is running. The application pictured is [FlappyEve](https://play.witheve.com/#/examples/flappy.eve). Visiting the link opens the Eve-hosted editor, which runs entirely in the client's browser along with the Eve language runtime.](images/eve.png)
 
-The prototype we released was a notebook programming environment based on a Prolog-like database language, Eve. It maintains the concept of code blocks embedded in Markdown-like prose, but the underlying language is not imperative -- it is declarative and relational[^2]. This addressed one of the trickiest aspects of notebook programming: notebook cells can be evaluated in any order, whereas most languages assume imperative semantics. Eve solved this by using a query engine that recursively evaluated the program until a fixed point was reached, allowing cells to be evaluated in any order as needed.
+The prototype we released was a notebook programming environment based on a Prolog-like database language, Eve. It maintains the concept of code blocks embedded in Markdown-like prose, but the underlying language is not imperative -- it is declarative and relational. This addressed one of the trickiest aspects of notebook programming: notebook cells can be evaluated in any order, whereas most languages assume imperative semantics. Eve solved this by using a query engine that recursively evaluated the program until a fixed point was reached, allowing cells to be evaluated in any order as needed.
 
 For example, in the ["FlappyEve"](https://play.witheve.com/#/examples/flappy.eve) game, the first code block commits several records (facts) to the program database defining the game world:
 
@@ -355,7 +358,7 @@ will search the `@session` database for a record tagged `#game-window`, and bind
 
 Because Eve is reactive, when the `y` value changes on the `#player` record (which, in this game, occurs every tick of the game timer), all dependent values are automatically recomputed. This allows the programmer to focus solely on defining data associations rather than managing control flow.
 
-:>>![[A demonstration](https://play.witheve.com/#/examples/CRM.eve) of reordering code blocks in Eve. Building the language atop a database allows the user to query the program for related code blocks, and extract them into a new view.](images/elision.gif){width: "400px"}
+:>>![[A demonstration](https://play.witheve.com/#/examples/CRM.eve) of reordering code blocks in Eve. Building the language atop a database allows the user to query the program for related code blocks, and extract them into a new view.](images/elision.gif)
 
 This language design opened up all kinds of new possibilities for literate programming, many of which are demoed on this [launch video](https://www.youtube.com/watch?v=TWAMr72VaaU) from 2016. One feature in particular was the inspector, which allowed the user to turn their cursor into a probe that could provide information as to the provenance (the origin and history) of any value in the program. This made it easy to understand how values were computed, and trace bugs back to their source. Another feature related to literate programming was the ability to restructure the narrative of the program by querying it *e.g.* the user could ask for all code related to the generation of a particular UI element, and Eve would extract only those sections and present it in a new view. This solved the problem of having to write the code in narrative form, as the user could create any narrative they wanted, or even construct many narratives on the same codebase (*e.g.* one for designers, one for testers, one for developers, etc.).
 
@@ -529,7 +532,7 @@ The heart and soul of any literate programming document is the humble paragraph.
 - Link Elements
   - [Hyperlinks](#)
   - Autonumbered inline references [MECH]
-  - Autonumbered footnote references[^1]
+  - Autonumbered footnote references[^KNUTH]
 
 These elements can be added wherever paragraphs are used, including in sections, lists, figure captions, table cells, and even Mech code comments. The last case is particularly useful:
 
@@ -895,11 +898,7 @@ If you'd like to get involved with the devolopment of Mech, the best way to do t
 
 Thanks for reading!
 
-***
-
-[^1]: Giving credit where it's due, Knuth notes that his system is not entirely new and draws on ideas that were generally circulating at the time. He specifically cites Pierre-Arnoul de Marneffe's Holon system, and mentions that "a somewhat similar system was independently created by Edwin Towster." You can read about Holon programming in a survey compiled by its author [HOLON], which includes, in the foreword, a letter from Knuth complimenting de Marneffe on his system while offering a critical take on its design. Towster's work is detailed in his 1979 paper [TOWSTER].
-
-[^2]: Declarative relational programming is a paradigm where the programmer specifies relationships between data rather than explicit control flow. The language runtime determines how to satisfy these relationships, often using techniques like constraint solving or logic inference. This provides a high-level, expressive way to define programs, letting the programmer focus on the "what" rather than the "how." Other relational languages include Prolog and Datalog. SQL claims to be relational, but by allowing duplicate rows, it does not enforce true set semantics and is therefore not strictly relational. In Eve, duplicate rows must be made distinct with an ID; otherwise, they are treated as the same row.
+[^KNUTH]: Giving credit where it's due, Knuth notes that his system is not entirely new and draws on ideas that were generally circulating at the time. He specifically cites Pierre-Arnoul de Marneffe's Holon system, and mentions that "a somewhat similar system was independently created by Edwin Towster." You can read about Holon programming in a survey compiled by its author [HOLON], which includes, in the foreword, a letter from Knuth complimenting de Marneffe on his system while offering a critical take on its design. Towster's work is detailed in his 1979 paper [TOWSTER].
 
 [^3]: In an early version of Mech, I accidentally introduced a bug in the standard library where certain inputs to the `sin` function produced an infinite result, causing objects to disappear from the canvas at seemingly random times. Time-travel debugging allowed me to pause the program, rewind to the moment the object vanished, and inspect its state. Discovering that the value was a momentary `NaN` made the fix straightforward. This bug can still be seen in [the first release of Mech alpha](https://mech-lang.org/post/2019-03-27-version-0-0-1) when the robot arm is set to just the right angle.
 
