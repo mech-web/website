@@ -46,14 +46,14 @@ Of course there are strict limitations on the kinds of programs you can write wi
 2. Enums, Tagged Unions, and Pattern Matching
 --------------------------------------------------------------------------------
 
-Mech now has an [`enum`](/reference/enum.html) and tagged-union system:
+Mech now has an [`enum`](https://docs.mech-lang.org/reference/kind.html#39198869339111417) and tagged-union system:
 
 ```mech:enums
 <color> := :red | :green | :blue
 x<color> := :red
 ```
 
-An enum is a defined kind with a fixed set of variants. Each variant is an [`atom`](/reference/atom.html) which can optionally carry a payload (tag) of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable {{x}} has the kind {{<color>}} and is assigned the value {{:red}}.
+An enum is a defined kind with a fixed set of variants. Each variant is an [`atom`](https://docs.mech-lang.org/reference/atom.html) which can optionally carry a payload (tag) of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable {{x}} has the kind {{<color>}} and is assigned the value {{:red}}.
 
 Because the variants are themselves valid atom values (which are program-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
 
@@ -85,7 +85,7 @@ The variable {{x}} has the kind {{<option>}} and is assigned the value {{:some(:
 
 (2.2) Pattern Matching
 
-Values wrapped inside tagged unions cannot be used directly, so we've added a [`match`](/reference/match.html) expression using the `?` operator. Match allows you to destructure data by matching them to patterns, which covers the purpose of `if` and `switch` statements in other languages.
+Values wrapped inside tagged unions cannot be used directly, so we've added a [`match`](https://docs.mech-lang.org/reference/match.html) expression using the `?` operator. Match allows you to destructure data by matching them to patterns, which covers the purpose of `if` and `switch` statements in other languages.
 
 Consider the variable {{x<option>}} from the previous example. We can match on it like this:
 
@@ -144,7 +144,7 @@ Both of these errors if left unchecked can lead to bugs that are difficult to tr
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
-[`Functions`](/reference/function.html) in Mech are pure and idempotent mappings from input values to output values. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matricies. We also have planned support for named arguments, where clauses, and function overloading.
+[`Functions`](https://docs.mech-lang.org/reference/functions.html) in Mech are pure and idempotent mappings from input values to output values. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matricies. We also have planned support for named arguments, where clauses, and function overloading.
 
 The pattern-matching style should feel familiar to anyone who has used functional programming languages like Haskell or Elm:
 
@@ -215,7 +215,7 @@ fib(10_000u64)
 4. State Machines
 --------------------------------------------------------------------------------
 
-A [`state machine`](/reference/state-machine.html) in Mech is a way to express ordered computation, protocols, and processes with phases. In terms of expressive power, state machines cover the use cases for functions, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`. 
+A [`state machine`](https://docs.mech-lang.org/reference/state-machine.html) in Mech is a way to express ordered computation, protocols, and processes with phases. In terms of expressive power, state machines cover the use cases for functions, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`. 
 
 State machines in Mech has two parts: a *specification* that declares the states and the data they hold; and an *implementation* that defines how the machine operates.
 
@@ -328,7 +328,7 @@ The runtime validates state machine transition targets at compile time, and rais
 5. Comprehensions
 --------------------------------------------------------------------------------
 
-A [`comprehension`](/reference/comprehension.html) is a construct for creating new data structures from existing ones using generators. They come in two variants: matrix comprehensions and set comprehensions, which work the same but produce different kinds of output. This is useful for when you want to create something like a filtered or transformed version of an existing dataset.
+A [`comprehension`](https://docs.mech-lang.org/reference/comprehensions.html) is a construct for creating new data structures from existing ones using generators. They come in two variants: matrix comprehensions and set comprehensions, which work the same but produce different kinds of output. This is useful for when you want to create something like a filtered or transformed version of an existing dataset.
 
 (5.1) Matrix Comprehensions
 
@@ -432,13 +432,13 @@ So then what makes a good mascot? We had the following design goals for our Masc
 
 Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is gender neutral, short, and alliterates with Mech, which makes it fun to say and versatile.
 
-Here's a showcase of Mika in various poses and scenes to demonstrate her flexibility as a character:
+Here's a showcase[^MIKA-AI] of Mika in various poses and scenes to demonstrate her flexibility as a character:
 
 | ![Mika the mech idle pose.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-idle.png?ref_type=heads) | ![Back detail](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-back.png?ref_type=heads) | ![Two thumbs up!](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-heeeey.png?ref_type=heads) |
 | ![A winter scene featuring Mika building a snowman.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-winter.png?ref_type=heads) | ![Mika planting a garden.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-scene-spring.png?ref_type=heads) |
 | ![Pointing at something.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-point.png?ref_type=heads) | ![Running somewhere.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-running.png?ref_type=heads) | ![Mika offers her hand.](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-handout.png?ref_type=heads) |
 
-You can find more Mika art in the [Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the art (and Mika's likeness) for non-commercial purposes as long as you give appropriate credit. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall[CAMELIA]:
+You can find more Mika images in the [Mech assets repository](https://gitlab.com/mech-lang/assets/-/tree/v0.3-beta/images/mika), which is licensed under [CC-BY-NC-4.0](https://creativecommons.org/licenses/by-nc/4.0/), which means you're free to use and remix the images (and Mika's likeness) for non-commercial purposes related to Mech, as long as you give appropriate credit. Commercial uses of Mika are not allowed without explicit permission, but non-commercial uses are encouraged and welcomed. To quote Larry Wall[CAMELIA]:
 
 > Good taste and positive connotations are encouraged, but cannot of course be required.
 
@@ -459,7 +459,9 @@ For example, here are some expressions and poses for Minimika and Micromika:
 
 These forms have been [integrated into Mech's grammar](https://github.com/mech-lang/mech/blob/bb977c6056dd7af11ec4a0ba7e70606b68cfd202/src/syntax/src/mika.rs), which means you can write them in your source code and they will be parsed and factored into the AST!
 
-(*)> The closest thing I have found to Mika is when Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!
+(*)> The closest thing I have found to Mini/Micromika is when Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!
+
+(7.3) Synthblocks
 
 These characters are mostly just cosmetic. How is Mika's integration into the language meaningful beyond mere decoration? That's where synthblocks come in:
 
@@ -495,6 +497,8 @@ Let me know if you need any more examples!⸥
 Then the user can reply to the AI with another query. This transforms a typical AI chat into an interactive code document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source. Everything is stored as plain text, readable without running code or using external tools, and can be version-controlled and diffed like any other source file.
 
 That's all we want to say about Mika for now, but like I said there's more to say so look out for a post just about Mika in the near future.
+
+[^MIKA-AI]: The images of Mika used throughout this document were generated using AI tools including Midjourney, Google's Nanobanana, and OpenAI's GPT Image. I realize that not everyone agrees with AI usage, so I want to be transparent about how these images were created. In general, I find that Nanobanana is very good for taking a reference image and posing it according to a text description, so that's how the images of Mika running, pointing, etc. were created. GPT Images is good for generating more complex scenes with multiple elements, so that's how the spring and winter scenes were created, as well as the hero image at hte top of the page. Midjourney is good for editing specific parts of an image, so a good deal of retouching and fine tuning was done using those applications.
 
 8. New Mechdown Features
 --------------------------------------------------------------------------------
@@ -627,22 +631,13 @@ If you'd like to follow along, join the community and check out the resources be
 
 That's all for now!
 
-[MECHDOWNBETA]: [C. Montella; "Fall 2025 Progress Report - Mechdown Beta"; Mech Development Blog; 2025-11-12.](https://mech-lang.org/post/2025-11-12-mechdown/)
-
-[LIVE2019]: [C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019-10-22.](https://docs.mech-lang.org/alpha/#/live2019.mec)
-
 [CAMELIA]: [L. Wall; “Camelia,” perl6/mu; 2009.](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt)
-
-[EVEJOINS]: [Eve Language; "Joins"; Project Documentation; 2017; v0.2.](https://docs-next.witheve.com/v0.2/handbook/joins/)
-
-[ELIXIRATOM]: [Elixir Language; "Atom"; Project Documentation; v1.19.5.](https://hexdocs.pm/elixir/1.19.5/Atom.html)
-
-[JULIABROADCASTING]: [Julia Language; "Broadcasting"; Project Documentation; v1.12.6.](https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting)
-
-[MATLABBROADCASTING]: [MATLAB Language; "Vectorization"; Project Documentation; R2026A.](https://www.mathworks.com/help/matlab/matlab_prog/vectorization.html)
-
 [CLAWD]: [T. Shihipar; "We also shipped a ton of new Claude Code features today, including: checkpointing; a new VSCode extension; tab to think,..."; Anthropic; 2025-09-25.](https://x.com/trq212/status/1972784970054893877)
-
-[MICO]: [M. Suleyman; "Human-Centered AI"; Microsoft Copilot Blog; Microsoft; 2025-10-23.](https://www.microsoft.com/en-us/microsoft-copilot/blog/2025/10/23/human-centered-ai/)
-
 [CODEXPETS]: [OpenAI; "Codex app settings"; Codex Documentation; 2026.](https://developers.openai.com/codex/app/settings#codex-pets)
+[ELIXIRATOM]: [Elixir Language; "Atom"; Project Documentation; v1.19.5.](https://hexdocs.pm/elixir/1.19.5/Atom.html)
+[EVEJOINS]: [Eve Language; "Joins"; Project Documentation; 2017; v0.2.](https://docs-next.witheve.com/v0.2/handbook/joins/)
+[JULIABROADCASTING]: [Julia Language; "Broadcasting"; Project Documentation; v1.12.6.](https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting)
+[LIVE2019]: [C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019-10-22.](https://docs.mech-lang.org/alpha/#/live2019.mec)
+[MATLABBROADCASTING]: [MATLAB Language; "Vectorization"; Project Documentation; R2026A.](https://www.mathworks.com/help/matlab/matlab_prog/vectorization.html)
+[MICO]: [M. Suleyman; "Human-Centered AI"; Microsoft Copilot Blog; Microsoft; 2025-10-23.](https://www.microsoft.com/en-us/microsoft-copilot/blog/2025/10/23/human-centered-ai/)
+[MECHDOWNBETA]: [C. Montella; "Fall 2025 Progress Report - Mechdown Beta"; Mech Development Blog; 2025-11-12.](https://mech-lang.org/post/2025-11-12-mechdown/)
