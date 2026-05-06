@@ -1,8 +1,11 @@
 Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
-Corey Montella ∙ May 6, 2026
-![A robot oversees a construction site.](https://mech-lang.org/post/2026-04-15-version-0.3/images/hero-square.png)
-Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
+author: Corey Montella
+date: May 7, 2026
+kicker: Announcement
+hero: ![A robot oversees a construction site.](images/hero-square.png)
+summary: Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
+previous: [Mechdown Beta](https://mech-lang.org/post/2025-11-12-mechdown/)
 ===============================================================================
 
 Since the last post in November, we have been documenting and stress-testing the declarative data model, deliberately holding back features like functions and explicit control flow to see how far the data model alone could carry us. There's a hard ceiling to what a non-Turing-complete language can express, so to make Mech more interesting we must move beyond data modeling; in `v0.3`, we've added several new mechanisms for modeling and managing the flow of computation in Mech programs, including:
@@ -504,9 +507,9 @@ The document itself is built using a new Mechdown feature called "template place
 <div class="hero">
   <div class="hero-panel">
     <div>
-      <p class="hero-kicker">Announcement</p>
+      <p class="hero-kicker">{{KICKER}}</p>
       <h1>{{TITLE}}</h1>
-      {{BYLINE}}
+      {{AUTHOR}} {{DATE}}
     </div>
     {{SUMMARY}}
   </div>
@@ -523,7 +526,27 @@ The document itself is built using a new Mechdown feature called "template place
 </div>
 ```
 
-In `v0.3`, we added a number of new features to Mechdown to support the growing needs of our documentation, including:
+We've added a number of new placeholders to support the growing needs of our documentation, including:
+
+- `{{TITLE}}` - The title of the document
+- `{{AUTHOR}}` - The author or authors of the document.
+- `{{DATE}}` - The date the document was written.
+- `{{SUMMARY}}` - A short summary of the document.
+- `{{KICKER}}` - A short phrase or sentence that serves as a teaser or category for the content
+- `{{HERO}}` - An image url and alt text for the hero image
+- `{{INTRO}}` - The introduction section of the document, which is everything begore the first numbered section.
+- `{{TOC}}` - A nested list of contents based on the section headers of the document.
+- `{{CONTENT}}` - The entire document contents, which is every numbered section.
+- `{{SECTION#}}` - A specific numbered section.
+- `{{FOOTNOTES}}` - An auto-numbered list of footnotes at the end of the document, based on footnote references in the content.
+- `{{CITED}}` - An auto-numbered list of cited sources at the end of the document, based on citation references in the content.
+- `{{VAR:NAME@SOURCE}}` - A specific value from the Mech program, from a specific interpreter source. This value is rendered as HTML and updated reactively by the Mech runtime when it updates.
+- `{{NEXT}}` - The next document.
+- `{{PREVIOUS}}` - The previous document.
+- `{{REPL}}` - The interactive REPL console, which can be embedded anywhere in the document and is connected to the document's Mech runtime.
+- `{{document.mec}}` - Can be used within a .mec source file to embed the contents of a target document within itself, which allows you to stitch together source files into a larger document.
+
+Most of these features are demonstrated within this document (the one you're reading right now). See the [document source](https://gitlab.com/mech-lang/web/website/-/raw/df4784d44b4ea48984de41db5700f5783beb2e0c/public/post/2026-04-15-version-0.3/index.mec), and the [HTML shim source](https://raw.githubusercontent.com/mech-lang/mech/eea6ff85986236b9f4916b85dead0fa172f45bb7/include/blog.html) for more details.
 
 9. Road to v0.4
 --------------------------------------------------------------------------------
@@ -552,16 +575,15 @@ This summer, a number of undergraduate students (3 at least confirmed) will be w
 10. Conclusion
 --------------------------------------------------------------------------------
 
-Thanks for reading this far and following along with the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. The `v0.3` release is a major milestone for us, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my students who have contributed to this work in various ways, especially the 2024 Mech Senior Capstone team, who were foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
+Thanks for reading this far and following the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. This release is a major milestone for the project, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my students who have contributed to this work in various ways, especially the 2024 Senior Capstone team, who were foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
 
 If you'd like to follow along, join the community and check out the resources below:
 
-- **Try Mech:** [try.mech-lang.org](https://try.mech-lang.org)
 - **Docs:** [docs.mech-lang.org](https://docs.mech-lang.org)
 - **GitHub:** [github.com/mech-lang/mech](https://github.com/mech-lang/mech)
 - **Discord:** [discord.gg/asqP25NNTH](https://discord.gg/asqP25NNTH)
 - **Reddit:** [r/mechlang](https://www.reddit.com/r/mechlang/)
 - **YouTube:** [@MechLang](https://www.youtube.com/@MechLang)
 
-Thanks for following along. We'll have a lot more to say as the rest of v0.3 comes together.
+That's all for now!
 
