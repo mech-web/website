@@ -4,11 +4,11 @@ author: Corey Montella
 date: May 7, 2026
 kicker: Announcement
 hero: ![A robot oversees a construction site.](images/hero-square.png)
-summary: Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, and control flow. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
+summary: Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, control flow, and document presentation. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
 previous: [Mechdown Beta](https://mech-lang.org/post/2025-11-12-mechdown/)
 ===============================================================================
 
-Since the last post in November, we have been documenting and stress-testing the declarative data model, deliberately holding back features like functions and explicit control flow to see how far the data model alone could carry us. There's a hard ceiling to what a non-Turing-complete language can express, so to make Mech more interesting we must move beyond data modeling; in `v0.3`, we've added several new mechanisms for modeling and managing the flow of computation in Mech programs, including:
+At the start of the year, we moved Mech into the `v0.3` development phase, which improves upon `v0.2` by introducing new mechanisms for data modeling, computation, control flow, and document presentation. Today we are happy to announce progress as of `v0.3.5-beta`, which includes a number of new features:
 
 - **Enums and tagged unions** for modeling categorical data and optional values. (§2)
 - **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
@@ -16,32 +16,38 @@ Since the last post in November, we have been documenting and stress-testing the
 - **Comprehensions** for constructing new matrices and sets from existing ones. (§5)
 - **Relational table joins** for combining tables based on common keys. (§6)
 
-Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages — although, in Mech each of these has a unique twist that fits with our overall philosophy and design goals. Others like state machines and relational joins are less commonly found, and they represent more research-focused experiments in modeling computation that are more analyzable and debuggable.
+Some of these features like enums, comprehensions, and functions are mainstays of modern programming languages — although, in Mech each of these has a unique twist that fits with our overall philosophy and design goals. Others like state machines and relational joins are less commonly found, and represent more research-focused experiments in modeling computations that are more analyzable and debuggable.
 
 We are also introducing the following platform features:
 
-- **Mika the Mech** Mech's mascot and AI assistant. (§7)
-- **Template Placeholders** for mixing Mechdown with HTML and other content. (§8)
+- **Mika the Mech**, Mech's mascot and AI assistant. (§7)
+- **Mechdown improvements**, including template placeholders, and figures. (§8)
 
 But before we get to all that, let's first look at how `v0.2` landed.
 
 1. Version 0.2 Wrap-Up
 -------------------------------------------------------------------------------
 
-Version `v0.2` was completed at the end of January 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development, and that work was much more interesting.
+Version `v0.2.75` was [completed](https://github.com/mech-lang/mech/tree/v0.2-beta) at the end of December 2025. We didn't post a formal announcement at the time since we immediately moved on to `v0.3` development, and that work was much more interesting.
 
-We spent an inordinate amount of time on the `v0.2` data model, partly because in most languages the data model is an afterthought or otherwise cargo culted. By refusing to add more features until it became painful, we were forced to stretch the data model as far as it could go. We wanted to see how expressive the language could be without Turing-completeness — leaving out core features like user-defined functions, or explicit control flow — and I think the result is quite encouraging; we were able to write programs like Kalman filters, a simple physics engine, and a live documentation system without needing a full Turing-complete language; the data model expresses a surprising amount of logic on its own.
+Data models in programming languages are often not designed as a single coherent surface across the system; they accrete across syntax, runtime representation, debugging, storage, and wire formats, leaving programmers to mentally and/or manually translate between them[BRANDON]. 
 
-The declarative data model for Mech has landed at the following set of features:
+In Mech, values have to move from the REPL back into source code; they appear in the editor, in generated HTML pages, and in live documentation; and they represent ordinary records alongside tables, matrices, sets, and other structured objects. If each of those contexts grew its own notation, inspection format, or special case, the language would quickly become a collection of adjacent representations rather than one model [^ROS-POINTCLOUD]. So we treated the data model as the surface that had to hold all of that together.
+
+This also shaped our approach to features; we refused to add new language constructs until the data model was sufficiently fleshed out, making it the primary vehicle for expressing computational ideas. The result was encouraging because we were still able to write programs such as Kalman filters, a simple physics engine, and a live documentation system even with a limited language.
+
+The declarative data model for Mech as of `v0.2` had landed at the following set of features:
 
 - Data types and structures: [`number`](https://docs.mech-lang.org/reference/number.html), [`string`](https://docs.mech-lang.org/reference/string.html), [`atom`](https://docs.mech-lang.org/reference/atom.html), [`map`](https://docs.mech-lang.org/reference/map.html), [`matrix`](https://docs.mech-lang.org/reference/matrix.html), [`record`](https://docs.mech-lang.org/reference/record.html), [`set`](https://docs.mech-lang.org/reference/set.html), [`table`](https://docs.mech-lang.org/reference/table.html), [`tuple`](https://docs.mech-lang.org/reference/tuple.html).
 - [Expression broadcasting](https://docs.mech-lang.org/reference/broadcasting.html): applying operations over data structures without explicit loops.
 - [Indexing and slicing](https://docs.mech-lang.org/reference/indexing.html): accessing elements within data structures using logical masks.
 - [Operators](https://docs.mech-lang.org/reference/operators.html) and [standard library functions](https://docs.mech-lang.org/stdlib/index.html): arithmetic, logical, comparison, set, matrix etc.
 
-You can visit any of those links to read the documentation for that feature, with examples and explanations. The docs are still a work in progress, but they should give you a good sense of the capabilities of the `v0.2` data model.
+You can visit any of those links to read the documentation for that feature, with examples and explanations.
 
-Of course there are strict limitations on the kinds of programs you can write with that set of features, so today we are launching Mech `v0.3` with a whole new set of control flow mechanisms that make Mech more capable.
+Of course there are strict limitations on the kinds of programs you can write with that set of features, so today we are launching Mech `v0.3` with new mechanisms that make Mech more expressive.
+
+[^ROS-POINTCLOUD]: I'm reminded of my frustration with the various point cloud representations in the ROS ecosystem, where a “point cloud” may appear as a ROS message, a PCL object, a NumPy array, a GPU buffer, a serialized bag entry, or a visualization artifact in RViz. Each representation may be reasonable in isolation, but the programmer still has to remember which fields are present, how coordinates are laid out, what metadata survived conversion, and which operations silently changed the shape of the data.
 
 2. Enums, Tagged Unions, and Pattern Matching
 --------------------------------------------------------------------------------
@@ -55,16 +61,16 @@ x<color> := :red
 
 An enum is a defined kind with a fixed set of variants. Each variant is an [`atom`](https://docs.mech-lang.org/reference/atom.html) which can optionally carry a payload (tag) of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable {{x}} has the kind {{<color>}} and is assigned the value {{:red}}.
 
-Because the variants are themselves valid atom values (which are program-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program, which potentially can cause name clashes. There are tradeoffs here:
+Because the variants are themselves valid atom values (which are system-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program. This can potentially can cause name clashes, so there are tradeoffs here:
 
 - Allowing variants to be atoms means we don't need a separate syntax for defining and using enums, which keeps the language simpler and more uniform.
-- However, because atoms exist in a shared global space, reusing a value like {{:blue}} across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
+- However, because atoms exist in a shared global space, reusing a value like {{:red}} across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
 
 ```mech:enums
 y<color> := :color/red
 ```
 
-This is similar to other languages with atoms like Elixir[ELIXIRATOM], so Mech might have to adopt some of the same best practices around naming and organization to avoid confusion.
+This is similar to other languages with atoms like Elixir [ELIXIRATOM], so Mech might have to adopt some of the same best practices around naming and organization to avoid confusion.
 
 (2.1) Tagged Unions
 
@@ -85,7 +91,7 @@ The variable {{x}} has the kind {{<option>}} and is assigned the value {{:some(:
 
 (2.2) Pattern Matching
 
-Values wrapped inside tagged unions cannot be used directly, so we've added a [`match`](https://docs.mech-lang.org/reference/match.html) expression using the `?` operator. Match allows you to destructure data by matching them to patterns, which covers the purpose of `if` and `switch` statements in other languages.
+Values wrapped inside tagged unions cannot be used directly, so we've added a [`match`](https://docs.mech-lang.org/reference/match.html) expression using the `?` operator. Match allows you to destructure data by matching them to patterns, which covers the purpose of `if` and `switch` statements/expressions in other languages.
 
 Consider the variable {{x<option>}} from the previous example. We can match on it like this:
 
@@ -97,14 +103,14 @@ code := x?
   | *              => 0.
 ```
 
-The `?` operator is the match operator and works for all values, but is particulary useful for optional values, enum variants, and arrays. Match works by comparing a value against a set of patterns. The first pattern that matches is evaluated and returned as the result of the match expression. 
+The `?` operator is the match operator and works for all values, but is particulary useful for optional values, enum variants, and arrays. Match works by comparing a value against a set of patterns. The arm of first pattern that matches is evaluated and returned as the result of the match expression. 
 
 In the example above, we are matching on {{x}} which has the value {{:some(:ok(42u64))}}. The first pattern `:some(:ok(n))` matches, so the variable {{n}} is bound to `42u64`, and `n` is returned as the result of the match expression.
 
-We can also pattern match on arrays:
+We can also pattern match the structure of an array and bind variables to its elements:
 
 ```mech:pattern-array
-arr := [1 2 3]
+arr := [1 4 7]
 code := arr?
   ├ [1 2 3] => "exact match"
   ├ [1 | tail] => "starts with 1"
@@ -112,12 +118,11 @@ code := arr?
   └ * => "other"
 ```
 
-In this example, the first pattern `[1 2 3]` matches the entire array, so the result is "exact match". If we had `arr := [1 2 4]`, then the first pattern would not match, but the second pattern `[1 | tail]` would match, binding `tail` to `[2 4]`, and the result would be "starts with 1".
-
+In this example, the first pattern `[1 2 3]` does not match the entire array; however the second pattern `[1 | tail]` does match because it matches the first element of the array and binds the rest of the array to the variable {{tail}}. The result of the match expression is "starts with 1". If we had `arr := [1 2 3]`, then the first pattern would have matched and the result would have been "exact match".
 
 (2.3) Validation
 
-Match expressions are a popular in modern programming languages because of how they interact with the type system to provide exhaustiveness checking and type safety, thus preventing tricky bugs that can arise from unhandled cases or mismatched return types. 
+Match expressions are popular in modern programming languages because of how they interact with the type system to provide exhaustiveness checking and type safety, thus preventing tricky bugs that can arise from unhandled cases or mismatched return types. 
 
 In Mech, if match patterns are non-exhaustive, the compiler reports the missing variants and prevents the program from compiling, so you won't accidentally drop cases.
 
@@ -127,7 +132,7 @@ result := x?
 -- Forgot to cover {{:blue}} and {{:green}} cases, so this won't compile.
 ```
 
-Also, match arms arm return values must have the same kind, so you can't accidentally return different types from different arms.
+Also, match arm return values must have the same kind, so you can't accidentally return different types from different arms:
 
 ```mech:mismatched-arms
 <status> := :running | :pending | :stopped;
@@ -139,14 +144,14 @@ code := x?
 -- This will not compile until the second arm is fixed to return a {{<f64>}} instead of a {{<string>}}.
 ```
 
-Both of these errors if left unchecked can lead to bugs that are difficult to track down, so it's helpful that the compiler can catch them for you.
+Both of these errors if left unchecked can cause bugs that are difficult to track down if they are not caught at compile time.
 
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
-[`Functions`](https://docs.mech-lang.org/reference/functions.html) in Mech are pure and idempotent mappings from input values to output values. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matricies. We also have planned support for named arguments, where clauses, and function overloading.
+[`Functions`](https://docs.mech-lang.org/reference/functions.html) in Mech are pure and idempotent mappings from input values to output values [^IDEMPOTENTENCY]. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matricies. We also have planned support for named arguments, where clauses, and function overloading.
 
-The pattern-matching style should feel familiar to anyone who has used functional programming languages like Haskell or Elm:
+The pattern-matching style should feel familiar to anyone who has used functional programming languages like Haskell [HASKELLGUARD] or OCaml [OCAMLGUARD]:
 
 ```mech:factorial{output:false}
 factorial(x<f64>) => <f64>
@@ -155,7 +160,7 @@ factorial(x<f64>) => <f64>
 factorial(6<f64>) -- {ans}
 ```
 
-Functions are declared without any keywords, with a name, a parenthesized list of typed parameters, a return type, and then a body consisting of pattern-matching arms. The `|` arms are match guards; just like with the match expression, the first guard that matches is evaluated and returned as the result of the function. 
+Functions are declared with a name (no preceeding keyword like `fun` or `fn`), a parenthesized list of typed parameters, a return type, and then a body consisting of pattern-matching arms. The `|` arms are match guards; just like with the match expression, the first guard that matches is evaluated and returned as the result of the function. 
 
 You can pattern-match on multiple arguments too:
 
@@ -169,27 +174,27 @@ max(4u64, 7u64) -- {ans}
 
 The tree syntax (`├`, `└`) is an alternative to pipes that is more visually structured. Both styles are supported.
 
-(i)> The value with the small yellow arrow in the above block is a new feature called "inline ans" that allows you to print the return value of a line by putting `{ans}` in a comment on that line. Also, click the arrow to send the value to the console (or if it's close a pop-up instead). You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment.
+(i)> When the above block is rendered to HTML, you'll see a value with the small yellow arrow. This is a new feature called "inline ans" that allows you to print the return value of a line by putting `{ans}` in a comment on that line. Also, click the arrow to send the value to the console (or if it's close a pop-up instead). You can inspect the value as usual with the built-in variable {{ans}}, which is loaded as part of the REPL environment. It's an evolution on Matlab's implicit output that you get by leaving the semicolon off the end of a line [^MATLABOUTPUT].
 
 (3.1) Implicit Broadcasting
 
-Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices, broadcasting as needed. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax.
+Implicit broadcasting is also supported in user-defined functions. If you call a function with arguments that are matrices, Mech will automatically apply the function element-wise over the matrices. This means you can write a function that operates on scalars, and it will work just as well on matrices without any extra syntax.
 
-For example, because {{factorial()}} was defined as `factorial(x<f64>) => <f64>`, we can call it with a {{<[f64]>}}, and it will return a matrix of the same shape with the factorial applied to each element:
+For example, because {{factorial()}} was defined above as `factorial(x<f64>) => <f64>`, we can call it with a {{<[f64]>}}, and the function will return a matrix of the same shape with the factorial applied to each element:
 
 ```mech:factorial
 m := [1 2; 3 4]
-factorial(m)
+factorial(m) -- a 2x2 matrix
 ```
 
-Implicit broadcasting only applies to functions with scalar inputs and outputs. But the rule is simple:
+The implicit broadcasting rule is simple, and only applies to functions with scalar inputs and outputs:
 
-- If any one argument is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
-- If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, the compiler will return an error.
+- If any one supplied argument is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
+- If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, the compiler will return a `ShapeMismatch` error.
 
-We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix like Julia [JULIABROADCASTING] and Matlab [MATLABBROADCASTING], which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less error-prone.
+We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix like Julia [JULIABROADCASTING] and Matlab [MATLABBROADCASTING], which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less surprising.
 
-However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too confusing. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
+However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too much. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing [MATLABDIMENSIONS]. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
 (3.2) Tail-Call Optimization
 
@@ -204,7 +209,7 @@ fib-acc(n<u64>, a<u64>, b<u64>) => <u64>
   └ (n, a, b) => fib-acc(n - 1u64, b, a + b).
 ```
 
-The accumulator pattern above runs in constant stack space, so we can do this without blowing the stack:
+The accumulator pattern above runs in constant stack space, so we can do this without an issue:
 
 ```mech:fib-tco
 fib(10_000u64)
@@ -212,12 +217,19 @@ fib(10_000u64)
 
 (i)> The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a `u64`. Mech does support `u128` but not in the `wasm` target yet. Mech will support big integers in the next version.
 
+[^IDEMPOTENTENCY]: A function is idempotent if it always produces the same output for the same input, and has no side effects. This means that calling an idempotent function multiple times with the same arguments will have the same effect as calling it once. Idempotency is a desirable property for functions in Mech because it makes them easier to reason about, test, and debug, because they only thing you have to consider is the input and output values, without worrying about any hidden state or side effects that might be happening behind the scenes.
+Consequently, operations such as file I/O, network requests, or random number generation, which inherently violate the idempotency requirement, cannot be implemented as pure functions in Mech; instead they must be implemented as state machines, which allow for controlled side effects. 
+This arrangement solves the "function coloring problem" often encountered in imperative programming languages, where functions can be a mix of pure and impure, making it difficult to reason about their behavior and interactions. With functions handling pure computations and state machines handling effectful computations, Mech provides a clear separation of concerns that enhances code clarity and maintainability.
+
+[^MATLABOUTPUT]: In Matlab, if you write an expression without a semicolon at the end of the line, it will automatically print the result to the console. This is a convenient feature for quick calculations and debugging, but it can also lead to cluttered output if you're not careful;one thing that always vexxed me is that it's impossible to associate the printed output with any line of code because you can't search for the absence of a semicolon or search for print statements. 
+Mech's inline ans feature is an evolution of this idea that allows you to print values on demand, but also associate them with specific lines of code, and even send them to the console for further inspection.
+
 4. State Machines
 --------------------------------------------------------------------------------
 
-A [`state machine`](https://docs.mech-lang.org/reference/state-machine.html) in Mech is a way to express ordered computation, protocols, and processes with phases. In terms of expressive power, state machines cover the use cases for functions, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`. 
+A [`state machine`](https://docs.mech-lang.org/reference/state-machine.html) in Mech is a way to express ordered computation, protocols, and processes with phases. In terms of expressive power, state machines cover the use case for `functions`, `if`, `match`, `switch`, `for`, `while`, and `async`/`await`.
 
-State machines in Mech has two parts: a *specification* that declares the states and the data they hold; and an *implementation* that defines how the machine operates.
+State machines in Mech have two parts: a *specification* that declares the states of the machine and the data they hold; and an *implementation* that defines how the machine operates.
 
 We'll use a simple counting state machine as an example that counts down from a supplied number to zero. The specification looks like this:
 
@@ -228,7 +240,7 @@ We'll use a simple counting state machine as an example that counts down from a 
   └ :Done(n<u64>).
 ```
 
-This specification declares two states for the counter: {{:Count}} and {{:Done}}, each carrying a `u64` value. Then, we define state machine transitions, which includes specifying the start state and its initial value, and then defining *at least* one transition per state. Transitions are defined using pattern matching and guards, just like in functions and match expressions. The transition rules are evaluated in order, and the first one that matches is taken as the next state.
+State machines are visually distinguished in the source code by the `#` sigil. This {{#Counter}} specification defines two states for the machine: {{:Count}} and {{:Done}}, each carrying a `u64` value. Then, we define state machine transitions, which includes specifying the start state and its initial value, and then defining *at least* one transition per state. Transitions are defined using pattern matching and guards, just like in functions and match expressions. The transition rules are evaluated in order, and the first one that matches is taken as the next state.
 
 ```mech:counter{output:false}
 -- Define state transitions and initial state.
@@ -241,7 +253,7 @@ This specification declares two states for the counter: {{:Count}} and {{:Done}}
 #Counter(3u64) -- {ans}
 ```
 
-The state machine continues transitioning until it either reaches a terminal state, which is indicated by a `=>` arrow; or the transition limit is reached, which is a safety mechanism to prevent infinite loops.
+The state machine continues transitioning until it either reaches a terminal state, which is indicated by a `=>` arrow; or the transition limit is reached, which is defined at the system level to prevent runaway computations.
 
 (4.1) Execution Tracing
 
@@ -278,7 +290,7 @@ The following trace is generated by running the `Counter` state machine with `--
 [trace][fsm][output] value=u64(@5310:0)
 ```
 
-Tracing instrumentation is behind a feature flag, so it can be turned off as needed for added runtime performance. The trace is stored as JSON, and it can be easily parsed and visualized in various ways -- the text above is generated by a simple text renderer that operates on the captured JSON trace.
+Tracing instrumentation is behind a feature flag, so it can be turned off as needed for added runtime performance. The trace is stored as JSON, and it can be easily parsed and visualized in various ways — the text above is generated by a simple text renderer that operates on the captured JSON trace.
 
 (4.2) Example: Bubble Sort
 
@@ -309,12 +321,12 @@ The best way to see state machines in action is with a real algorithm. Here is b
 
 Here's how it work:
 
-- The state machine starts in the `:Pass` state with the initial array, an empty accumulator, and a swap count of `0`.
-- In the `:Pass` state, it compares adjacent elements `a` and `b`. If `a > b`, it appends `b` to the accumulator and keeps `a` in the list for the next comparison, while incrementing the swap count. Otherwise, it appends `a` to the accumulator and keeps `b` in the list.
-- When it reaches the end of the list (when the input is empty or has one element), it transitions to the `:Next` state with the accumulated list and the swap count.
-- In the `:Next` state, it transitions to the `:Reverse` state to reverse the accumulated list back into the original order.
-- In the `:Reverse` state, it builds up the reversed list in the accumulator. If there were no swaps in the pass, it transitions to `:Done` with the sorted array. If there were swaps, it goes back to `:Pass` to start another pass.
-- The process repeats until the array is fully sorted and the machine reaches the `:Done` state, at which point it returns the sorted array. Output states are denoted with `⇒`, which means the value of the state is returned as the output of the machine. This notation is consistent with functions and match expressions.
+- The state machine starts in the {{:Pass}} state with the initial array, an empty accumulator, and a swap count of {{0}}.
+- In the {{:Pass}} state, it compares adjacent elements {{a}} and {{b}}. If {{a > b}}, it appends {{b}} to the accumulator and keeps {{a}} in the list for the next comparison, while incrementing the swap count. Otherwise, it appends {{a}} to the accumulator and keeps {{b}} in the list.
+- When it reaches the end of the list (when the input is empty or has one element), it transitions to the {{:Next}} state with the accumulated list and the swap count.
+- In the {{:Next}} state, it transitions to the {{:Reverse}} state to reverse the accumulated list back into the original order.
+- In the {{:Reverse}} state, it builds up the reversed list in the accumulator. If there were no swaps in the pass, it transitions to {{:Done}} with the sorted array. If there were swaps, it goes back to {{:Pass}} to start another pass.
+- The process repeats until the array is fully sorted and the machine reaches the {{:Done}} state, at which point it returns the sorted array. Output states are denoted with `⇒`, which means the value of the state is returned as the output of the machine. This notation is consistent with functions and match expressions.
 
 To run it:
 
@@ -323,7 +335,9 @@ a<[u64]> := [4 2 1 3]
 sorted := #bubble-sort(a)
 ```
 
-The runtime validates state machine transition targets at compile time, and raises an error if you reference a state that isn't declared in the specification, or if you forget to handle a state.
+What I like about the idea of state machines is they unify a lot of programming concepts, which has allowed us to avoid adding separate constructs for things like loops, conditionals, and async/await. The state machine formalism can cover all of those use cases.
+
+So I don't know yet how well this will play out, but I think it will start to shine when we build more tooling around it, like visualization of the state graph, step-by-step execution tracing, and static analysis of state transitions.
 
 5. Comprehensions
 --------------------------------------------------------------------------------
@@ -339,7 +353,9 @@ n := 4
 identity<[u8]:4,4> := [ x | i <- 0..n, j <- 0..n, x := i == j ]
 ```
 
-This works by looping over each of the generated index pairs `(i, j)`, evaluating the expression {{x := i == j}} for each pair, and then collecting the results into a new matrix. The result is a 4x4 matrix where the diagonal elements are `1` (true) and the off-diagonal elements are `0` (false). The size of the output matrix is determined by the ranges of the generators, so in this case we get a 4x4 matrix because both `i` and `j` range from `0` to `4`; the resulting matrix is size `1 x 16`, which is then reshaped to `4 x 4` based on the specified output type.
+This works by looping over each of the generated index pairs `(i, j)`, evaluating the expression {{x := i == j}} for each pair, and then collecting the results into a new `4x4` identity matrix. 
+
+(i)> The size of the output matrix is determined by the ranges of the generators, so in this case we get a `4x4` matrix because both `i` and `j` range from `0` to `4`; the resulting matrix is size `1x16`, which is then reshaped to `4x4` based on the specified output type.
 
 (5.2) Set Comprehensions
 
@@ -351,7 +367,7 @@ user := 1
 {fof | (u,f) <- pairs, (f,fof) <- pairs, u ⩵ user}
 ```
 
-This comprehension generates pairs of users and their friends, and then pairs of friends and their friends-of-friends. The fact that `f` appears twice in the generators creates a relational join between the two generators, which is something from the Eve language[EVEJOINS] that I really liked and wanted to bring into Mech. In Eve, it would have looked like this:
+This comprehension generates pairs of users and their friends, and then pairs of friends and their friends-of-friends. The fact that `f` appears twice in the two generators creates a relational join between them, which is something from the Eve language[EVEJOINS] that I really liked and wanted to bring into Mech. In Eve, it would have looked like this:
 
 ```eve
 search
@@ -361,7 +377,7 @@ bind
   [fof]
 ```
 
-Where the `search` block generates pairs of users and their friends, and then pairs of friends and their friends-of-friends, and the `bind` block extracts the friends-of-friends. The Mech comprehension syntax is a bit more compact, but it achieves the same result.
+Where the `search` block generates pairs of users and their friends, and then pairs of friends and their friends-of-friends, and the `bind` block extracts the friends-of-friends. The Mech comprehension syntax is a bit more compact, and it achieves the same result.
 
 6. Table Joins
 --------------------------------------------------------------------------------
@@ -394,7 +410,7 @@ Full outer joins preserve optional kinds for columns that may be absent:
 C := A ⟗ B
 ```
 
-The `a` column in the second row of the output is now optional because that column is missing for the row with `id=4`. This means that values accessed from that column will be wrapped and cannot be accessed without unwrapping them with the `?` operator:
+Because the `a` column is missing for the row with `id=4`, its datatype is {{<u64?>}}, which indicates the contents of a cell may be a `u64` or it may be `_` (empty). This means that values accessed from that column will be wrapped and cannot be accessed without unwrapping them with the `?` operator:
 
 ```mech:table-joins
 unwrapped := C.a?
@@ -402,35 +418,35 @@ unwrapped := C.a?
   | * => 0.
 ```
 
-Unwrapping the optional value with `?` allows us to provide a default value of `0` for any rows where the `a` column is missing. Also, because {{C.a}} returns a {{<[u64?]>}}, the unwrap is broadcast over the entire column, yielding a {{<[u64]>}}.
+Unwrapping the optional value with `?` allows us to provide a default value of `0` for any rows where the `a` column is missing. Also, this demonstrates an instane of expression broadcasting; because {{C.a}} returns a {{<[u64?]>}}, the unwrap is broadcast over the entire column, yielding {{<[u64]>}}.
 
 7. Mika the Mech
 --------------------------------------------------------------------------------
 
-The last new feature from `v0.3` I want to talk about is not a traditional language feature, but it's still a big part of the release and the Mech project generally. 
+The next new feature from `v0.3` I want to talk about is not a traditional language feature, but it's still a big part of the release and the Mech project generally. 
 
 Meet Mika the mech, Mechlang's first mascot:
 
 ![Mika the mech is the Mech programming language mascot. Here she is welcoming you to join the Mech community!](https://gitlab.com/mech-lang/assets/-/raw/v0.3-beta/images/mika/mika-pose-hello_hd.png?ref_type=heads){width: "500px" }
 
-There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity, but I hadn't fully committed to the idea of a mascot because there are so many other things to work on. 
+There's enough to say about Mika that it's worth an entire post, but for now we wanted to lay out the vision and direction for this character. Mika came about early on while I was sketching out ideas for the Mech brand and identity. I had an idea for the character, but I hadn't fully committed to the idea of a mascot because there are so many other things to work on, so Mika has been sitting in the background until I had the time to really flesh her out and make her a real part of the project.
 
-But then I wrote [a joke about an AI cat assistant](https://github.com/cmontella/purrtran/blob/main/README.md), and I realized the idea of an AI language mascot could be more than just a joke if it were done properly. We already see this concept in general AI assistants, and the way people have started to personify and anthropomorphize AI tools. Claude [CLAWD], Copilot [MICO], and Codex [CODEXPETS] all have characters which are meant to embody the personality and intelligence of the assistant, to make the attached service more approachable and relatable to users.
+With the introduction of AI, Mika has become a higher language priority than I expected, because I see a lot of potential for her to be more than just a static character. Last year, I wrote [a stupid joke](https://github.com/cmontella/purrtran/blob/main/README.md) about an AI cat assistant, which got me wondering if there wasn't some merit to the idea if taken seriously. We already see this concept catching on with general AI assistants — Claude [CLAWD], Copilot [MICO], and Codex [CODEXPETS] all have characters to make the attached service more approachable and relatable to users.
 
-So it seems natural that Mech's mascot could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answer questions, or debug programs.
+So it seems natural that Mika could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answer questions, or debug programs, and that makes her a higher priority feature for the project. At the very leat it gives me a hook into the AI funding pipline, which is where all the moeny is these days.
 
 (7.1) Character Design
 
-Mascots are particularly useful in programming language communities because programming languages are such abstract things; what does a compiler look like anyway? How can you imagine it and describe it to someone else? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users. Despite it being right there in the name, it's often forgotten that programming langauges are in fact *languages*, and therefore they have a culture and a community around them that is just as important as the technical artifacts, if not moreso; plenty of terrible langauges have thriving communities, and plenty of great languages died because they had no community support. A mascot can be a powerful tool for building and sustaining that community, by giving people a shared symbol to rally around and identify with.
+Mascots are particularly useful in programming language communities because programming languages are such abstract things; what does a compiler look like anyway? How can you imagine it or describe it to someone else without talking aobut its functions? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users. Despite it being right there in the name, it's often forgotten that programming langauges are in fact *languages*, and therefore they have a culture and a community around them that is just as important as the technical artifacts, if not moreso; plenty of terrible langauges have thriving communities, and plenty of great languages died because they had no community support. By giving people a shared symbol to rally around and identify with, a mascot can be a powerful tool for building and sustaining that community.
 
-So then what makes a good mascot? We had the following design goals for our Mascot:
+So then what makes a good mascot? We had the following design goals for our Mika:
 
-- Visually appealing and memorable, so that people will want to share it and put it on stickers and t-shirts.
+- Visually appealing and cute, so that people will want to share it and put it on stickers and t-shirts.
 - Embodies the values and personality of the brand it represents, so that it resonates with the community and reflects the spirit of the language.
-- Representable in various poses and expressions, so that it can be used in different contexts and convey different messages. 
+- Representable in various poses and contexts, so that it can be used to convey different emotions and messages.
 - Possible to simplify the mascot into just a few lines and colors. So in many ways, a good mascot and a good logo share similar design goals.
 
-Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is gender neutral, short, and alliterates with Mech, which makes it fun to say and versatile.
+Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is gender neutral[^MIKA-GENDER], short, and alliterates with Mech, which makes it fun to say and versatile.
 
 Here's a showcase[^MIKA-AI] of Mika in various poses and scenes to demonstrate her flexibility as a character:
 
@@ -444,7 +460,7 @@ You can find more Mika images in the [Mech assets repository](https://gitlab.com
 
 (7.2) Minimika and Micromika
 
-Minimika (`(˙◯˙)`) and Micromika (`╭⦿╮`) are two simplified versions of Mika that are designed to be used as compact representations in places where space is limited. For example, Mika is already integrated into the REPL prompt when some error messages are reported to the user. Each representation has different expressions, gestures, and poses that can convey different emotions and messages.
+Minimika (`(˙◯˙)`) and Micromika (`╭⦿╮`) are two simplified versions of Mika that are designed to be used as compact representations in places where space is limited, or where text is the primary medium. For example, Mika is already integrated into the Mech (desktop) REPL prompt when some error messages are reported to the user. Each representation has different expressions, gestures, and poses that can convey different emotions and messages.
 
 For example, here are some expressions and poses for Minimika and Micromika:
 
@@ -457,13 +473,13 @@ For example, here are some expressions and poses for Minimika and Micromika:
 | Sleeping   | `(-◯-)` | Gripper  | `╭⦿─‹`   |
 | Dazed      | `(⋇◯⋇)` | Big Hug  | `›⌣⦿⌣‹` |
 
-These forms have been [integrated into Mech's grammar](https://github.com/mech-lang/mech/blob/bb977c6056dd7af11ec4a0ba7e70606b68cfd202/src/syntax/src/mika.rs), which means you can write them in your source code and they will be parsed and factored into the AST!
+These forms have been [integrated into Mech's grammar](https://github.com/mech-lang/mech/blob/bb977c6056dd7af11ec4a0ba7e70606b68cfd202/src/syntax/src/mika.rs), which means you can write them in your source code and they will be parsed and factored into the program AST!
 
 (*)> The closest thing I have found to Mini/Micromika is when Larry Wall proposed a [text-version of Camelia](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt) the Perl 6 / Raku mascot, but as far as I know it was never implemented or integrated into the language in any meaningful way. I am not aware of any other textual representations for mascots in programming languages, but if you know of any please let me know!
 
 (7.3) Synthblocks
 
-These characters are mostly just cosmetic. How is Mika's integration into the language meaningful beyond mere decoration? That's where synthblocks come in:
+But how is Mika's integration into the language meaningful beyond mere decoration? That's where synthblocks come in:
 
 ╭⦿╯ ⸢Hello, I'm Micromika!⸥
 
@@ -473,9 +489,11 @@ In source they look like this:
 ╭⦿╯ ⸢Hello, I'm Micromika!⸥
 ```
 
-The idea is that Mika will eventually serve as the interface for an AI code assistant, integrated into Mech down to the source level, which will be able to understand and generate Mech code, answer questions about the language and libraries, help with debugging, and so forth. These synthblocks represent the AI responses to programmer queries, which can be embedded directly into the source code as a kind of live documentation or interactive comment that is distinguished from regular comments and code.
+The idea is that Mika will soon serve as the interface for an AI coding assistant, integrated into Mech down to the source level, Mika will be able to understand, generate, and execute Mech code, answer questions about the language and libraries, help with debugging, and so forth. These synthblocks represent the AI responses to programmer prompts, which can be embedded directly into the source code as a kind of live documentation or interactive comment that is distinguished from regular comments and code.
 
-The AI assistant will be able to generate these blocks in response to queries, and they will be parsed and integrated into the AST, so they can be accessed and manipulated programmatically as part of the code. Any valid Mech code can be embedded inside a synthblock, which means the AI can generate code snippets that are directly executable as part of the program. For example:
+Being integrated into the grammar and encoded into the AST means they can be accessed, queried, and manipulated programmatically. Any valid Mech code can be embedded inside a synthblock, which means the AI can generate code snippets that are directly executable as part of the program. 
+
+In a hypothetical interaction, the user might ask about how to filter a list. Mika could generate this response:
 
 ╭⦿─ ⸢You had asked about how to filter a list, here's how we can do that:
 
@@ -494,22 +512,29 @@ Only the elements where mask has the value {{true}} will be included in the outp
 
 Let me know if you need any more examples!⸥
 
-Then the user can reply to the AI with another query. This transforms a typical AI chat into an interactive code document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source. Everything is stored as plain text, readable without running code or using external tools, and can be version-controlled and diffed like any other source file.
+Then the user can reply to the AI with another query, asking to clarify the response, or to request additional examples, or to sharpen the answer. This transforms a typical AI chat, which usually occurs in Markdown; into an interactive Mechdown document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source, and excute live in the browser and during the AI's thinking process. Everything is stored as plain text, readable without running code or using external tools like IDEs, and can be version-controlled and diffed like any other source file.
 
 That's all we want to say about Mika for now, but like I said there's more to say so look out for a post just about Mika in the near future.
 
-[^MIKA-AI]: The images of Mika used throughout this document were generated using AI tools including Midjourney, Google's Nanobanana, and OpenAI's GPT Image. I realize that not everyone agrees with AI usage, so I want to be transparent about how these images were created. In general, I find that Nanobanana is very good for taking a reference image and posing it according to a text description, so that's how the images of Mika running, pointing, etc. were created. GPT Images is good for generating more complex scenes with multiple elements, so that's how the spring and winter scenes were created, as well as the hero image at hte top of the page. Midjourney is good for editing specific parts of an image, so a good deal of retouching and fine tuning was done using those applications.
+[^MIKA-AI]: The images of Mika used throughout this document were generated using AI tools including Midjourney, Google's Nanobanana, and OpenAI's GPT Image. I realize that not everyone agrees with AI usage, so I want to be transparent about how these images were created. 
+In general, I find that Nanobanana is very good for taking a reference image and posing it according to a text description, so I used it to generate the images of Mika running, pointing, etc. GPT Images is good for generating more complex scenes with multiple elements, so that's how the spring and winter scenes were created, as well as the hero image at the top of the page. Midjourney is good for editing specific parts of an image, so I used it to retouch and upscale output from the other image generators.
+
+[^MIKA-GENDER]: In this document I referred to Mika with she/her pronouns, but Mika is actually a robot and therefore has no gender, so she/he/they/it pronouns can all be used interchangeably.
 
 8. New Mechdown Features
 --------------------------------------------------------------------------------
 
-Mechdown is the markup language used for Mech's documentation, and it has been steadily evolving alongside Mech itself. We introduced Mechdown in 2019[LIVE2019], and released the first Beta version at the end of last year[MECHDOWNBETA]. As part of today's release, we are announcing two new features: template placeholders, and figures.
+Mechdown is the markup layer of Mech, a markdown dialect used to create live reactive documents. Mech and Mechdown are co-developed — Mechdown is designed with features that are specifically meant to support the needs of Mech programs, and Mech is designed with features that support live reactive documents.
+
+This tight integration is one of the things that makes Mech unique among programming languages. We introduced the first version of Mechdown in 2019[LIVE2019], and released the Beta version at the end of last year[MECHDOWNBETA]. As part of today's announcemnt, we are demonstrating two new Mechdown features: template placeholders, and figures.
 
 These features are demonstrated within this document itself (the one you're reading right now). See the [document source](https://gitlab.com/mech-lang/web/website/-/raw/df4784d44b4ea48984de41db5700f5783beb2e0c/public/post/2026-04-15-version-0.3/index.mec), and the [HTML shim source](https://raw.githubusercontent.com/mech-lang/mech/eea6ff85986236b9f4916b85dead0fa172f45bb7/include/blog.html) for more details.
 
 (8.1) Template Placeholders
 
-Template placeholders allow you to reuse Mechdown document components in an HTML file for presentation. It's done by embedding placeholder tags of the form `{{DOCUMENT-ELEMENT}}` within an HTML shim, which are then replaced with the rendered output of the corresponding Mech component at compile time. For example, the core of the blog shim looks like this:
+A [`template-placeholder`](https://docs.mech-lang.org/mechdown/template-placeholder.html) is a pattern of the form `{{NAME}}` that can be used within an HTML shim to indicate where the rendered output of a Mechdown document component should be inserted at compile time. This allows you to create custom HTML templates for Mechdown documents.
+
+For example, the core of this document's shim looks like this:
 
 ```html
 <div class="hero">
@@ -550,7 +575,7 @@ The Mechdown compiler takes this shim and a `.mec` source file, and produces a f
   </div>
   <img class="mech-image" src="images/hero.png">
 </div>
-...
+…
 ```
 
 Here's a full list of the template placeholders we've added:
@@ -571,14 +596,14 @@ Here's a full list of the template placeholders we've added:
 - `{{NEXT}}` - The next document.
 - `{{PREVIOUS}}` - The previous document.
 - `{{REPL}}` - The interactive REPL console, which can be embedded anywhere in the document and is connected to the document's Mech runtime.
-- `{{document.mec}}` - Can be used within a .mec source file to embed the contents of a target document within itself, which allows you to stitch together source files into a larger document.
+- `{{path/to/doc.mec}}` - Can be used within a .mec source file to embed the contents of a target document within itself, which allows you to stitch together source files into a larger document.
 
 
 (8.2) Figures
 
-Figures are a new section element which allow you to combine multiple images in a single figure with a shared caption. This is useful for when you want to show multiple related images together, and provide a single caption that describes the overall point of the figure.
+A [`figure`](https://docs.mech-lang.org/mechdown/figure.html) is a section element that allows you to combine multiple images into one with a shared caption. This is useful if you have a collection of related images that you want to present together as a single unit. 
 
-We've alerady used on back in the Mika section to show off some of the different poses and expressions of the character:
+We've alerady used one back in the Mika section to show off some of the different poses and expressions of the character. The Mechdown source for that figure looks like this:
 
 ```
 | ![Idle pose.](idle.png) | ![Back detail](back.png) | ![Two thumbs up!](thumbs-up.png) |
@@ -586,29 +611,29 @@ We've alerady used on back in the Mika section to show off some of the different
 | ![Pointing.](point.png) | ![Running.](running.png) | ![Hand out.](handout.png)        |
 ```
 
-The syntax is the same as a regular Mechdown table except each element is an image with a caption. The table layout allows you to arrange the images in a grid, and supports horizontal spans, but doesn't yet support vertical spans.
+The syntax is the same as a [regular Mechdown table](https://docs.mech-lang.org/mechdown/table.html) except each element is an image with a caption. The table layout allows you to arrange the images in a grid, and supports horizontal spans, but doesn't yet support vertical spans.
 
-The caption for the entire figure is provided in the cell below the table, and the caption for each subfigure is provided in the alt text of each image. The subfigure captions are rendered as labels (a), (b), (c), etc. that correspond to the letters in the main caption.
+The caption for the entire figure is rendered below the table, and the caption for each subfigure is rendered with lettered labels e.g. (a), (b), (c), etc.
 
-You can see this example rendered in (§7.1). 
+You can see this example figure rendered in (§7.1). 
 
 9. Road to v0.4
 --------------------------------------------------------------------------------
 
-The Mech roadmap is organized into four major milestones, each representing a broad phase of development with a specific focus and set of features. The milestones are designed to build upon each other, with each one adding new capabilities and expanding the expressiveness of the language.
+The near-term Mech roadmap is organized into four major milestones, each representing a broad phase of development with a specific focus and set of features. The milestones are designed to build upon each other, with each one adding new capabilities and expanding the expressiveness of the language:
 
 -(☑️) **v0.1** proof of concept system - minimum viable language implementation
 -(☑️) **v0.2** data specification - types, structures, formulas, defining and transforming data
--(📍) **v0.3** program specification - functions, modules, state machines, Mika
+-(📍) **v0.3** program specification - functions, modules, state machines, async, Mika
 -(☐) **v0.4** system specification - tools, distributed programs, capabilities
 
-Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this release cycle for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candidate near October.
+Although we've shown off a number of new and working features in this post, this is still just the beginning of the release cycle; we are still actively developing and adding features to `v0.3`, and we plan to be in this development phase for at least another 6 months. After the summer, our hope is that most if not all of the current `v0.3` roadmap features are implemented, and we have a full release candidate near October.
 
 (9.1) Upcoming New Features in `v0.3`
 
 The next release of this cycle will add two new operators to Mech that will help streamline AI co-development: `synth`, which will allow programmers to use AI to synthesize new Mech code at compile time; and `gen` which will allow programmers to generate values using AI at runtime. Mika will play a prominent role in both of these features, serving as the interface during a pre-compile phase called "synth time", where the programmer can interact with Mika to guide the code synthesis process.
 
-We will also be bringing back modules, which were present in early versions of Mech but were removed during the `v0.2` release cycle to focus on core language features. Modules will be redesigned to be more ergonomic and powerful, with support for hierarchical namespaces, selective imports, and better integration with the package manager.
+We will also be bringing back modules, which were present in early versions of Mech but were removed during the `v0.2` release cycle to focus on core language features. Not much to say about that now.
 
 See the full [ROADMAP](https://docs.mech-lang.org/design/ROADMAP.html) for the plan through `0.4`.
 
@@ -619,9 +644,9 @@ This summer, a number of undergraduate students (3 at least confirmed) will be w
 10. Conclusion
 --------------------------------------------------------------------------------
 
-Thanks for reading this far and following the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. This release is a major milestone for the project, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my students who have contributed to this work in various ways, especially the 2024 Senior Capstone team, who were foundational to the state machine work: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
+Thanks for reading this far and following the development of Mech. It's been a long journey to get to this point, and I'm really proud of how far we've come. This release is a major milestone for the project, and it opens up a whole new world of possibilities for what we can build with Mech. Special thanks and a shout out goes to my 2024 Senior Capstone team, who were foundational to the state machine work you've seen here: Matthew Castillo, Kimberly Galdemez, Damon Katz, and Eric Yang.
 
-If you'd like to follow along, join the community and check out the resources below:
+If you'd like to follow along, join the Mech community and check out the resources below:
 
 - **Docs:** [docs.mech-lang.org](https://docs.mech-lang.org)
 - **GitHub:** [github.com/mech-lang/mech](https://github.com/mech-lang/mech)
@@ -631,13 +656,17 @@ If you'd like to follow along, join the community and check out the resources be
 
 That's all for now!
 
+[BRANDON]: [J. Brandon; "The Shape of Data"; Scattered Thoughts Blog; 2022-03-29.](https://www.scattered-thoughts.net/writing/the-shape-of-data)
 [CAMELIA]: [L. Wall; “Camelia,” perl6/mu; 2009.](https://raw.githubusercontent.com/perl6/mu/master/misc/camelia.txt)
-[CLAWD]: [T. Shihipar; "We also shipped a ton of new Claude Code features today, including: checkpointing; a new VSCode extension; tab to think,..."; Anthropic; 2025-09-25.](https://x.com/trq212/status/1972784970054893877)
+[CLAWD]: [T. Shihipar; "We also shipped a ton…"; Anthropic; 2025-09-25.](https://x.com/trq212/status/1972784970054893877)
 [CODEXPETS]: [OpenAI; "Codex app settings"; Codex Documentation; 2026.](https://developers.openai.com/codex/app/settings#codex-pets)
 [ELIXIRATOM]: [Elixir Language; "Atom"; Project Documentation; v1.19.5.](https://hexdocs.pm/elixir/1.19.5/Atom.html)
+[OCAMLGUARD]: [OCaml Language; "Guards"; Project Documentation; 5.4.](https://ocaml.org/manual/5.4/patterns.html)
 [EVEJOINS]: [Eve Language; "Joins"; Project Documentation; 2017; v0.2.](https://docs-next.witheve.com/v0.2/handbook/joins/)
+[HASKELLGUARD]: [Haskell Language; "Pattern guard"; Project Wiki; 2021-06-24.](https://wiki.haskell.org/Pattern_guard)
 [JULIABROADCASTING]: [Julia Language; "Broadcasting"; Project Documentation; v1.12.6.](https://docs.julialang.org/en/v1/manual/arrays/#Broadcasting)
 [LIVE2019]: [C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019-10-22.](https://docs.mech-lang.org/alpha/#/live2019.mec)
 [MATLABBROADCASTING]: [MATLAB Language; "Vectorization"; Project Documentation; R2026A.](https://www.mathworks.com/help/matlab/matlab_prog/vectorization.html)
+[MATLABDIMENSIONS]: [MATLAB Language; "Compatible Array Sizes for Basic Operations"; Project Documentation; R2026A.](https://www.mathworks.com/help/matlab/matlab_prog/compatible-array-sizes-for-basic-operations.html)
 [MICO]: [M. Suleyman; "Human-Centered AI"; Microsoft Copilot Blog; Microsoft; 2025-10-23.](https://www.microsoft.com/en-us/microsoft-copilot/blog/2025/10/23/human-centered-ai/)
 [MECHDOWNBETA]: [C. Montella; "Fall 2025 Progress Report - Mechdown Beta"; Mech Development Blog; 2025-11-12.](https://mech-lang.org/post/2025-11-12-mechdown/)
