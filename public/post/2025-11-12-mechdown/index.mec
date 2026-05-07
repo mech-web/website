@@ -5,7 +5,7 @@ date: November 12, 2025
 hero: ![Mika operating a printing press.](images/mika-press.png)
 kicker: Announcement
 summary: In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
-next: [Version 0.3-beta](https://mech-lang.org/post/2026-05-07-v0.3-beta/)
+next: [Version 0.3-beta](https://mech-lang.org/post/2026-05-07-version-0.3/)
 previous: [LLMs Won't Replace Programming Languages](https://mech-lang.org/post/2025-01-09-programming-chatgpt/)
 ===============================================================================
 
@@ -216,7 +216,7 @@ In this example, the documentation is written using POD. The `=head1` directive 
 
 From here, these docs can be rendered into various formats, such as HTML or man pages, using the `perldoc` command. The documents themselves are exectuable Perl programs -- the Perl interpreter ignores the POD comments when executing the code. This was a marked improvement over WEB, because it allowed the code and documentation to coexist in the same file without the need for separate tangling and weaving steps, helping keep them in sync.
 
-(3.2) Emacs Org Mode (2003)
+(3.3) Emacs Org Mode (2003)
 
 Notebook programming is the most recent incarnation of literate programming, which builds on the tangle/weave paradigm. The idea is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently, and display the result of the execution next to the block. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
 
@@ -256,7 +256,7 @@ When Org tangles code blocks, it expands, merges, and transforms them. Then Org 
 
 Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-screenshots.html) showcasing its versatility.
 
-(3.3) Jupyter Notebook (2015)
+(3.4) Jupyter Notebook (2015)
 
 Although literate programming is a language-agnostic concept, the design of some languages make them more suitable for notebook-style environments than others. For example, languages such as Python, R, and Julia are designed for interactive use in a REPL environment, which makes them a natural fit for notebook environments like [Jupyter](https://jupyter.org), popular in data science and scientific computing. In contrast, ahead-of-time (AOT) compiled languages like C++ can be used in notebooks, but this often requires adapting the language to a more dynamic style by restricting certain features, such as static linking.
 
@@ -316,7 +316,7 @@ Then it defines cells and code as an array of strings:
 }
 ```
 
-(3.4) Eve (2016)
+(3.5) Eve (2016)
 
 Eve [EVE] was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris developed after his work on [Light Table](http://lighttable.com). Although many wanted him to continue working on Light Table, he realized that the features he wanted to implement for the editor were limited by the design of JavaScript. Consequently, he pivoted to the Eve project to fully explore what an IDE could be if it were built around a language designed without the restrictions of JavaScript.
 
@@ -366,7 +366,7 @@ We even had a [chat interface](https://incidentalcomplexity.com/2015/10/15/jul-s
 
 Unfortunately, the Eve project concluded in 2018 due to funding constraints, and the [codebase was archived](https://github.com/witheve/eve). However, many of the ideas explored in Eve have influenced subsequent projects, including Mech and Mechdown.
 
-(3.5) Mechdown Alpha (2019)
+(3.6) Mechdown Alpha (2019)
 
 After the Eve project concluded, I returned to working on Mech, which I had originally started in 2014 (I learned about Eve late in 2014 and applied to work on the project based on my experience with early Mech). The 2014 implementation was not very far along, so I scrapped it and wrote the first version of the current Mech lineage in 2018. By 2019, the first version of Mechdown was implemented in Mech v0.0.2-alpha. In this section, I will review v0.0.6-alpha, which is still [running today](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
@@ -404,13 +404,13 @@ In terms of implementation, the Mech Alpha parser and runtime were written in Ru
 
 The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019].
 
-(3.6) Other Systems
+(3.7) Other Systems
 
 R Markdown [RMD] brought executable documents to the R ecosystem, combining R code with Markdown prose to create dynamic reports and presentations. The goal is to help researchers and data scientists produce reproducible analyses that integrate code, results, and narrative in a single document. R code is fenced within `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it merges code and prose. 
 
 However, although the documents *could* be executed, a large-scale study of nearly 200,000 R Markdown documents in public code repositories found that 64% were not executable. The primary causes were missing libraries, missing data, and incorrect code [REXE]. This highlights an opportunity for Mechdown to improve on R Markdown by providing a more integrated environment where code and data are bundled together, along with tools to help programmers ensure documents remain executable.
 
-Marimo [MARIMO] is a notebook environment for Python, similar to Jupyter, but backed by a native Python document rather than a JSON schema. Unlike Jupyter, Marimo is a reactive notebook -- whenever a cell that defines a global variable is run, Marimo automatically recaclulates every cell that depeneds on it -- which places it more in line with how Mechdown. However, the Python code is structured using `@app.cell` blocks, which contain both Python code and Markdown. As a result, Marimo documents are not easily readable without the accompanying tooling, unlike to Mechdown.
+Marimo [MARIMO] is a notebook environment for Python, similar to Jupyter, but backed by a native Python document rather than a JSON schema. Unlike Jupyter, Marimo is a reactive notebook — whenever a cell that defines a global variable is run, Marimo automatically recaclulates every cell that depeneds on it — which places it more in line with how Mechdown works. However, the Python code is structured using `@app.cell` blocks, which contain both Python code and Markdown. As a result, Marimo documents are not easily readable without the accompanying tooling.
 
 Pluto [PLUTO] is trying to be to Julia what Marimo is to Python. Here, Pluto uses `md` tags to denote Markdown blocks, and regular Julia code for code blocks. Like Marimo and Mechdown, the execution model is reactive. However, the design of the Pluto system requires the user to provision a Julia environment to execute the code, whether it be local or on the cloud. Either way, the user has to pay the cost of significant setup time (for me over a minute on my machine), which makes the experience less than seamless. Mech works without the use of any server-side components by compiling the runtime to WebAssembly, so the entire Mechdown toolchain can run client-side in their browser.
 
@@ -418,9 +418,13 @@ Typst [TYPST] is a new typesetting system that aims to be a modern alternative t
 
 Clerk [CLERK] is a live notebook system for Clojure that integrates code, prose, and rich visualizations in a single environment. Here are some [examples](https://github.clerk.garden/nextjournal/clerk-demo/commit/cb212b2edc64e762bcd1af56417ef9f6b2fde5b1). It allows Clojure code to be embedded in Markdown or namespace files, evaluates code live, and provides built-in viewers for tables, plots, TeX, HTML, and custom data. Computation is cached and paginated for performance, and users can extend the system with custom viewers or transformations. While Clerk shares Mechdown's focus on reactive, literate programming, it differs in that it relies on the host language semantics of Clojure, rather than offering custom semantics for literate programming.
 
+Verso (2024) [VERSO] is a literate programming platform for the Lean proof assistant, developed by the Lean FRO. Like Mechdown, Verso is built on the idea that the document and the language are one and the same; Verso files are Lean files, not Lean code embedded in a separate markup format. This means the full Lean IDE experience is available while writing: autocomplete, error checking, go-to-definition, and live tactic states. Every code example in a Verso document is type-checked by Lean as part of the build, so correctness errors surface during writing rather than after publishing.
+
+This makes Verso the closest peer to Mechdown in terms of document-language integration. However, the goals diverge significantly. Verso is oriented around correctness; its primary audience is authors of formal proofs, reference manuals, and mathematical textbooks, where the value is that the document cannot lie about what the code does, whereas Mechdown is oriented around reactivity. Verso documents are checked and then rendered as static pages; Mechdown documents execute continuously in the browser. Both represent a deeper integration of document and language than any notebook system achieves, but they are optimized for fundamentally different kinds of authorship.
+
 Given these various literate programming tools, Mechdown is well-positioned in this space. With Mech, we have already designed a language that is well suited for data-oriented programming. Other systems rely on existing languages that were not designed for notebook programming, requiring compromises in syntax and semantics to fit the notebook model. Mechdown, in contrast, is built from the ground up to support literate programming, with a syntax that is unambiguous and easy to read and write without specialized tools.
 
-4. Design and Implementation
+4. Mechdown Design and Implementation
 -------------------------------------------------------------------------------
 
 One of the key design philosophies behind Mech's syntax is similar to Markdown: it should be easy to read and write in plain text form, without requiring specialized editors or tools. This makes it accessible to a wide range of users and facilitates collaboration and version control using standard text-based tools. In designing Mechdown, we incorporated the best features of Markdown and extended them with elements from dialects like GHFM (GitHub Flavored Markdown). In doing so, we made Markdown unambiguous, since its [original specification](https://daringfireball.net/projects/markdown) left room for interpretation between different parsers. As a result, although Mechdown is inspired by Markdown, it does not aim to maintain compatibility with Markdown or the CommonMark specification.
@@ -594,7 +598,7 @@ The last feature is notable because the checkboxes are interactive when rendered
 
 There are many more features—if you'd like the full rundown, check out [the specification](https://docs.mech-lang.org/design/specification.html#24738341931264987).
 
-(4.1.3) Tables
+(4.1.4) Tables
 
 ```ebnf
 mechdown-table := mechdown-table-header, *mechdown-table-row ;
@@ -886,7 +890,7 @@ Here's the broad-view roadmap:
 -(☐) v0.3 - program specification - functions, modules, state machines, build system
 -(☐) v0.4 - system specification - tools, distributed programs, capabilities
 
-(6.2) Getting Involved
+(6.3) Getting Involved
 
 If you'd like to get involved with the devolopment of Mech, the best way to do that right now is by writing Mech code and filing bug reports. Right now Mech is "Open source closed development" by necessity, but we are almost ready to open the project to outside contributions. We'll have more to say about that in the new year, but until then you can reach out or follow along with the project in the following places:
 
