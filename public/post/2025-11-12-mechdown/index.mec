@@ -17,10 +17,8 @@ If you're not familiar with Mech, here is a quick taste with as many features as
 :>>```mech:fizzbuzz
 x := 1..=10               -- A row vector of numbers from {1} to {10}
 ~out<[string]> := x       -- Convert `x` into mutable string vec
-
 ix2 := (x % 2) == 0       -- Indices for multiples of {2}
 ix3 := (x % 3) == 0       -- Indices for multiples of {3}
-
 out[ix2] = "✨"           -- Set multiples of {2} to {"✨"}
 out[ix3] = "🐝"           -- Set multiples of {3} to {"🐝"}
 out[ix2 && ix3] = "✨🐝"  -- Set multiples of both to {"✨🐝"}
