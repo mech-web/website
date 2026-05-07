@@ -8,7 +8,7 @@ summary: Today we're announceing Mech `v0.3-beta`, which introduces new features
 previous: [Mechdown Beta](https://mech-lang.org/post/2025-11-12-mechdown/)
 ===============================================================================
 
-At the start of the year, we moved Mech into the `v0.3` development phase, which improves upon `v0.2` by introducing new mechanisms for data modeling, computation, control flow, and document presentation. Today we are happy to announce progress as of `v0.3.5-beta`, which includes a number of new features:
+At the start of the year, we moved Mech into the `v0.3` development phase, which improves upon `v0.2` by introducing new mechanisms for data modeling, computation, control flow, and document presentation. The last development cycle focused on defining and implementing the underlining data model for Mech, wheras this cycle is focused on expressing new computational patterns beyond just funcion calling. Today we are happy to announce our progress on this front as of `v0.3.5-beta`, which introduces the following language features:
 
 - **Enums and tagged unions** for modeling categorical data and optional values. (§2)
 - **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
