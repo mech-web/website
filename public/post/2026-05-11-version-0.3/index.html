@@ -2885,6 +2885,12 @@ html, body {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+body {
+  position: relative;
 }
 
 html::-webkit-scrollbar,
@@ -3064,6 +3070,13 @@ body.console-fullscreen .workspace {
   background: var(--accent-hover);
   background-clip: content-box;
 }
+
+.content-shell {
+  overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
 
 .content-column {
   width: min(100%, var(--content-max-width));
@@ -4208,6 +4221,44 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
   }
   .footer-cta p {
     font-size: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .workspace {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    overflow-x: hidden;
+  }
+
+  .content-shell {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: auto;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 18px;
+  }
+
+  .content-column,
+  .article-layout,
+  .main-content,
+  .article-intro,
+  .article-backmatter {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .toc,
+  .console-pane,
+  .resize-handle,
+  .edge-handle {
+    display: none !important;
   }
 }
 
