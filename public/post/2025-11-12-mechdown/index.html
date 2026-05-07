@@ -1907,6 +1907,10 @@ li p {
     color: #ada594;
 }
 
+.mech-footnote-body .mech-paragraph + .mech-paragraph {
+    margin-top: 10px !important;
+}
+
 .mech-footnote-id {
     color: var(--main-color-mid);
     font-weight: bold;
@@ -4725,16 +4729,24 @@ x := 20
           <div class="backmatter-body">
             <section id="65062379413136992" class="mech-footnotes"><h3 id="42199127147254920" class="mech-program-subtitle mech-backmatter-heading">Footnotes</h3><div class="mech-footnote" id="15940506921712847">
         <div class="mech-footnote-id">1:</div>
-        <p class="mech-paragraph"><span class="mech-text">Giving credit where it's due, Knuth notes that his system is not entirely new and draws on ideas that were generally circulating at the time. He specifically cites Pierre-Arnoul de Marneffe's Holon system, and mentions that "a somewhat similar system was independently created by Edwin Towster." You can read about Holon programming in a survey compiled by its author </span><span id="13329801814415663" class="mech-reference">[<a href="#41368049949861654" class="mech-reference-link">26</a>]</span><span class="mech-text">, which includes, in the foreword, a letter from Knuth complimenting de Marneffe on his system while offering a critical take on its design. Towster's work is detailed in his 1979 paper </span><span id="27983708911941900" class="mech-reference">[<a href="#39338005233570296" class="mech-reference-link">27</a>]</span><span class="mech-text">.</span></p>
+        <div class="mech-footnote-body">
+          <p class="mech-paragraph"><span class="mech-text">Giving credit where it's due, Knuth notes that his system is not entirely new and draws on ideas that were generally circulating at the time. He specifically cites Pierre-Arnoul de Marneffe's Holon system, and mentions that "a somewhat similar system was independently created by Edwin Towster." You can read about Holon programming in a survey compiled by its author </span><span id="13329801814415663" class="mech-reference">[<a href="#41368049949861654" class="mech-reference-link">26</a>]</span><span class="mech-text">, which includes, in the foreword, a letter from Knuth complimenting de Marneffe on his system while offering a critical take on its design. Towster's work is detailed in his 1979 paper </span><span id="27983708911941900" class="mech-reference">[<a href="#39338005233570296" class="mech-reference-link">27</a>]</span><span class="mech-text">.</span></p>
+        </div>
       </div><div class="mech-footnote" id="28901492310691651">
         <div class="mech-footnote-id">2:</div>
-        <p class="mech-paragraph"><span class="mech-text">In an early version of Mech, I accidentally introduced a bug in the standard library where certain inputs to the </span><code class="mech-inline-code">sin</code><span class="mech-text"> function produced an infinite result, causing objects to disappear from the canvas at seemingly random times. Time-travel debugging allowed me to pause the program, rewind to the moment the object vanished, and inspect its state. Discovering that the value was a momentary </span><code class="mech-inline-code">NaN</code><span class="mech-text"> made the fix straightforward. This bug can still be seen in </span><a href="https://mech-lang.org/post/2019-03-27-version-0-0-1" class="mech-hyperlink"><span class="mech-inline-paragraph"><span class="mech-text">the first release of Mech alpha</span></span></a><span class="mech-text"> when the robot arm is set to just the right angle.</span></p>
+        <div class="mech-footnote-body">
+          <p class="mech-paragraph"><span class="mech-text">In an early version of Mech, I accidentally introduced a bug in the standard library where certain inputs to the </span><code class="mech-inline-code">sin</code><span class="mech-text"> function produced an infinite result, causing objects to disappear from the canvas at seemingly random times. Time-travel debugging allowed me to pause the program, rewind to the moment the object vanished, and inspect its state. Discovering that the value was a momentary </span><code class="mech-inline-code">NaN</code><span class="mech-text"> made the fix straightforward. This bug can still be seen in </span><a href="https://mech-lang.org/post/2019-03-27-version-0-0-1" class="mech-hyperlink"><span class="mech-inline-paragraph"><span class="mech-text">the first release of Mech alpha</span></span></a><span class="mech-text"> when the robot arm is set to just the right angle.</span></p>
+        </div>
       </div><div class="mech-footnote" id="48588331821998429">
         <div class="mech-footnote-id">3:</div>
-        <p class="mech-paragraph"><span class="mech-text">Right now the Mechdown </span><code class="mech-inline-code">.wasm</code><span class="mech-text"> binary is 30MB uncompressed, &lt1MB compressed. This is mainly because we are shipping a copy of every function in the standard library, even those not used by the document. Code elimination will reduce this size significantly in future versions. A bigger problem though is we are shipping a parser and the serde serialization framework, which are quite heavy. This will be fixed by including the bytecode compiler and shipping only bytecode to the client, which does not require the parser or serde. We expect this will reduce the size significantly, but for now it's necessarily bloated.</span></p>
+        <div class="mech-footnote-body">
+          <p class="mech-paragraph"><span class="mech-text">Right now the Mechdown </span><code class="mech-inline-code">.wasm</code><span class="mech-text"> binary is 30MB uncompressed, &lt1MB compressed. This is mainly because we are shipping a copy of every function in the standard library, even those not used by the document. Code elimination will reduce this size significantly in future versions. A bigger problem though is we are shipping a parser and the serde serialization framework, which are quite heavy. This will be fixed by including the bytecode compiler and shipping only bytecode to the client, which does not require the parser or serde. We expect this will reduce the size significantly, but for now it's necessarily bloated.</span></p>
+        </div>
       </div><div class="mech-footnote" id="61987991898357807">
         <div class="mech-footnote-id">4:</div>
-        <p class="mech-paragraph"><span class="mech-text">Although not yet implemented, the 1-to-1 correspondence means we could, in principle, parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST.</span></p>
+        <div class="mech-footnote-body">
+          <p class="mech-paragraph"><span class="mech-text">Although not yet implemented, the 1-to-1 correspondence means we could, in principle, parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST.</span></p>
+        </div>
       </div></section>
 
           </div>
