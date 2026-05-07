@@ -132,15 +132,33 @@ However, literate programming didn't really take the world by storm, and it rema
 
 Although the concept was great, the actual tooling left a lot on the table in terms of usability and practicality. To fully take advantage of literate programming, new tools *and* languages that integrated with those tools would be needed.
 
-(3.2) Literate Haskell (1991)
+(3.2) Mathematica (1987)
+
+Mathematica [MATHEMATICA] was one of the first programming languages to integrate literate programming concepts directly into the language and its development environment. As a tool aimed at scientists, engineers, and mathematicians, Mathematica didn't have to support traditional programs with complex control flow and data structures, so it was able to focus on providing a more interactive and exploratory programming experience. Instead, the kinds of programs that were being written in Mathematica were more about defining mathematical functions, performing symbolic computations, and creating visualizations.
+
+:>>![A screenshot of Mathematica's notebook interface circa 1987](images/mathematica.png)
+
+To support these use cases and workflows, Mathematica introduced the concept of "notebooks", which are interactive documents that can contain both code and prose. Notebooks allow users to write code in a cell-based format, where each cell can contain either code or text. The code cells can be executed independently, and the results are displayed directly below the cell. This allows for a more interactive and exploratory programming experience, where users can write code and see the results immediately, without having to compile and run an entire program. Mathematica's notebooks have been widely adopted in scientific computing and data analysis, and have inspired similar features in other languages and tools.
+
+Theodore Gray, who is credited by Wolfram[GRAYINVENTS] as the inventor of "cells and groups… and other things still seen today…" recounts the history of how the notebook interface of Mathematica came to be:
+
+> At the time I was using… a terminal-like interface that was a plain text document in which you could put all the shell commands you needed to build your app… Any output would be placed directly below the input line. Because the document was pure plain text, it had no way of knowing what was input and what was output, or distinguish new output from old…
+The solution I came up with was to create a text document that was annotated with “zones” delimited by vertical bars along the right side of the screen (where cell brackets are now)…
+Initially I called these things zones, but Steve Jobs suggested I use large close-square-bracket symbols instead of patterned bars, and think of them more like cells in a spreadsheet than like zones in a text document. Once you have brackets instead of bars, it's immediately obvious that you could have larger brackets that encompass two or more cells. So I created cell groups, initially just to group input/output pairs, but of course it's not a big leap to also have sections and subsections, then different cell types, styles, graphics cells, etc.
+These key defining features of notebooks did not exist in any other system at the time, and to the best of my knowledge were not independently developed by other people. [GRAYHISTORY]
+
+Since then, the concept of a notebook programming environment has become a standard way of interacting with many languages, especially those aimed at data science and scientific computing. Wolfram research went on to insist on a specific genre of notebook called a "computational essay", which is a notebook that combines code, results, and narrative in a single document [COMPESSAY].
+
+(3.3) Literate Haskell (1991)
 
 Haskell was one of the first languages to provide native support for literate programming [LHS]. In Haskell, a literate program is one with the suffix `.lhs` rather than the typical `.hs` extension. This file would be executed by the typical Haskell compiler, GHC, omitting any sections not marked as code.
 
 For example:
 
-```haskell
-This literate program prompts the user for a number
-and prints the factorial of that number:
+<<:```haskell
+This literate program prompts the user 
+for a number and prints the factorial
+result.
 
 > main :: IO ()
 
@@ -179,7 +197,7 @@ main =  print [ (n, product [1..n]) | n <- [1..20]]
 \end{document}
 ```
 
-(3.2) Perldoc (1994)
+(3.4) Perldoc (1994)
 
 In 1994, Larry Wall significantly enhanced Perldoc [PERLDOC] with Perl 5's [Plain Old Documentation](https://perldoc.perl.org/perlpod) syntax, which brought a more lightweight approach to literate programming compared to the tangle/weave approach of WEB. Perldoc allows programmers to write documentation directly within their Perl source code using specially formatted comments. This documentation can then be extracted and formatted into readable documents using the `perldoc` command.
 
@@ -214,17 +232,13 @@ In this example, the documentation is written using POD. The `=head1` directive 
 
 From here, these docs can be rendered into various formats, such as HTML or man pages, using the `perldoc` command. The documents themselves are exectuable Perl programs -- the Perl interpreter ignores the POD comments when executing the code. This was a marked improvement over WEB, because it allowed the code and documentation to coexist in the same file without the need for separate tangling and weaving steps, helping keep them in sync.
 
-(3.3) Emacs Org Mode (2003)
+(3.5) Emacs Org Mode (2003)
 
 Notebook programming is the most recent incarnation of literate programming, which builds on the tangle/weave paradigm. The idea is to interleave code and prose by restricting the code to discrete blocks or "cells" that can be executed independently, and display the result of the execution next to the block. This allows for a more interactive experience, where the user can run code snippets and see the results immediately, without having to compile and run an entire program.
 
 Notebooks are very close to what Mechdown is, but Mechdown improves on them in important ways. Let's first look at some existing notebook programming systems, and then we will see how Mechdown builds on their ideas.
 
-Emacs Org Mode [ORG] is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, Org Mode supports a wide variety of programming languages. To handle the different semantics of these languages in a consistent way, code in Org Mode is written within code blocks delimited by special markers. Each code block can be executed independently, and its results can be captured and displayed in the document. Since the blocks are clearly delineated, users can also write freeform prose in a markup language similar to Markdown.
-
-Here's an example of an Org Mode document with a code block:
-
-```org
+:>>```org
 * Data Analysis
 ** Load Data
 
@@ -238,14 +252,16 @@ data.head()
 
 #+BEGIN_SRC python :results file
 import matplotlib.pyplot as plt
-plt.plot(data['date'], data['temperature'])
+plt.plot(data['date'], data['temp'])
 plt.savefig("plot.png")
 #+END_SRC
 
 [[./plot.png]]
 ```
 
-In this example, titled "Data Analysis", there are two sections: "Load Data" and "Plot Data". Each section contains a Python code block. The first block loads data from a CSV file and displays the first few rows, while the second block generates a plot and saves it as an image file. The results of each code block can be displayed directly within the document.
+Emacs Org Mode [ORG] is a system for organizing notes, tasks, and code within the Emacs text editor. Because Emacs is an editor, Org Mode supports a wide variety of programming languages. To handle the different semantics of these languages in a consistent way, code in Org Mode is written within code blocks delimited by special markers. Each code block can be executed independently, and its results can be captured and displayed in the document. Since the blocks are clearly delineated, users can also write freeform prose in a markup language similar to Markdown.
+
+In the example, titled "Data Analysis", there are two sections: "Load Data" and "Plot Data". Each section contains a Python code block. The first block loads data from a CSV file and displays the first few rows, while the second block generates a plot and saves it as an image file. The results of each code block can be displayed directly within the document.
 
 Org Mode adopts WEB's "tangle" and "weave" steps in the form of the `:tangle` header argument:
 
@@ -254,7 +270,7 @@ When Org tangles code blocks, it expands, merges, and transforms them. Then Org 
 
 Here's a gallery of various [Org Mode examples](https://orgmode.org/worg/org-screenshots.html) showcasing its versatility.
 
-(3.4) Jupyter Notebook (2015)
+(3.6) Jupyter Notebook (2015)
 
 Although literate programming is a language-agnostic concept, the design of some languages make them more suitable for notebook-style environments than others. For example, languages such as Python, R, and Julia are designed for interactive use in a REPL environment, which makes them a natural fit for notebook environments like [Jupyter](https://jupyter.org), popular in data science and scientific computing. In contrast, ahead-of-time (AOT) compiled languages like C++ can be used in notebooks, but this often requires adapting the language to a more dynamic style by restricting certain features, such as static linking.
 
@@ -314,7 +330,7 @@ Then it defines cells and code as an array of strings:
 }
 ```
 
-(3.5) Eve (2016)
+(3.7) Eve (2016)
 
 Eve [EVE] was a project I worked on from 2015 to 2018 with Chris Granger, Rob Attorri, Jamie Brandon, Josh Cole, and Eric Hoffman. Eve was the follow-up idea Chris developed after his work on [Light Table](http://lighttable.com). Although many wanted him to continue working on Light Table, he realized that the features he wanted to implement for the editor were limited by the design of JavaScript. Consequently, he pivoted to the Eve project to fully explore what an IDE could be if it were built around a language designed without the restrictions of JavaScript.
 
@@ -364,7 +380,7 @@ We even had a [chat interface](https://incidentalcomplexity.com/2015/10/15/jul-s
 
 Unfortunately, the Eve project concluded in 2018 due to funding constraints, and the [codebase was archived](https://github.com/witheve/eve). However, many of the ideas explored in Eve have influenced subsequent projects, including Mech and Mechdown.
 
-(3.6) Mechdown Alpha (2019)
+(3.8) Mechdown Alpha (2019)
 
 After the Eve project concluded, I returned to working on Mech, which I had originally started in 2014 (I learned about Eve late in 2014 and applied to work on the project based on my experience with early Mech). The 2014 implementation was not very far along, so I scrapped it and wrote the first version of the current Mech lineage in 2018. By 2019, the first version of Mechdown was implemented in Mech v0.0.2-alpha. In this section, I will review v0.0.6-alpha, which is still [running today](https://docs.mech-lang.org/alpha/#/docs/index.mec).
 
@@ -374,7 +390,7 @@ The layout for the editor was inspired by what we had done with Eve, retaining t
 
 For example, this (legacy) Mech code defines a `#balls` table, where each row represents a ball in the simulation, and each column represents a property of the ball:
 
-```oldmech
+:>>```oldmech
 # Bouncing Balls
 
 Define the environment
@@ -402,19 +418,19 @@ In terms of implementation, the Mech Alpha parser and runtime were written in Ru
 
 The alpha implementation of Mechdown culminated in a digital paper written in Mechdown, presented at the Live2019 workshop [LIVE2019].
 
-(3.7) Other Systems
+(3.9) Other Systems
 
-R Markdown [RMD] brought executable documents to the R ecosystem, combining R code with Markdown prose to create dynamic reports and presentations. The goal is to help researchers and data scientists produce reproducible analyses that integrate code, results, and narrative in a single document. R code is fenced within `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it merges code and prose. 
+R Markdown (2012) [RMD] brought executable documents to the R ecosystem, combining R code with Markdown prose to create dynamic reports and presentations. The goal is to help researchers and data scientists produce reproducible analyses that integrate code, results, and narrative in a single document. R code is fenced within `{r}` code blocks, and the R Markdown toolchain can execute the code and embed the results directly into the document. This is similar to Mechdown in that it merges code and prose. 
 
 However, although the documents *could* be executed, a large-scale study of nearly 200,000 R Markdown documents in public code repositories found that 64% were not executable. The primary causes were missing libraries, missing data, and incorrect code [REXE]. This highlights an opportunity for Mechdown to improve on R Markdown by providing a more integrated environment where code and data are bundled together, along with tools to help programmers ensure documents remain executable.
 
-Marimo [MARIMO] is a notebook environment for Python, similar to Jupyter, but backed by a native Python document rather than a JSON schema. Unlike Jupyter, Marimo is a reactive notebook — whenever a cell that defines a global variable is run, Marimo automatically recaclulates every cell that depeneds on it — which places it more in line with how Mechdown works. However, the Python code is structured using `@app.cell` blocks, which contain both Python code and Markdown. As a result, Marimo documents are not easily readable without the accompanying tooling.
+Typst (2019) [TYPST] is a new typesetting system that aims to be a modern alternative to $LaTeX$. Like Mechdown, it is written in Rust, providing excellent performance compared to typical $LaTeX$ systems, which are known for long compile times. Typst offers a live-coding experience, where changes are reflected immediately in the rendered document. It also supports reactive documents with a custom dialect, though this is not intended to be a full programming language like Mech. Instead, it enables simple computations within documents, such as calculating values for tables and plots.
 
-Pluto [PLUTO] is trying to be to Julia what Marimo is to Python. Here, Pluto uses `md` tags to denote Markdown blocks, and regular Julia code for code blocks. Like Marimo and Mechdown, the execution model is reactive. However, the design of the Pluto system requires the user to provision a Julia environment to execute the code, whether it be local or on the cloud. Either way, the user has to pay the cost of significant setup time (for me over a minute on my machine), which makes the experience less than seamless. Mech works without the use of any server-side components by compiling the runtime to WebAssembly, so the entire Mechdown toolchain can run client-side in their browser.
+Pluto (2020) [PLUTO] is trying to be to Julia what Marimo is to Python. Here, Pluto uses `md` tags to denote Markdown blocks, and regular Julia code for code blocks. Like Marimo and Mechdown, the execution model is reactive. However, the design of the Pluto system requires the user to provision a Julia environment to execute the code, whether it be local or on the cloud. Either way, the user has to pay the cost of significant setup time (for me over a minute on my machine), which makes the experience less than seamless. Mech works without the use of any server-side components by compiling the runtime to WebAssembly, so the entire Mechdown toolchain can run client-side in their browser.
 
-Typst [TYPST] is a new typesetting system that aims to be a modern alternative to $LaTeX$. Like Mechdown, it is written in Rust, providing excellent performance compared to typical $LaTeX$ systems, which are known for long compile times. Typst offers a live-coding experience, where changes are reflected immediately in the rendered document. It also supports reactive documents with a custom dialect, though this is not intended to be a full programming language like Mech. Instead, it enables simple computations within documents, such as calculating values for tables and plots.
+Clerk (2023) [CLERK] is a live notebook system for Clojure that integrates code, prose, and rich visualizations in a single environment. Here are some [examples](https://github.clerk.garden/nextjournal/clerk-demo/commit/cb212b2edc64e762bcd1af56417ef9f6b2fde5b1). It allows Clojure code to be embedded in Markdown or namespace files, evaluates code live, and provides built-in viewers for tables, plots, TeX, HTML, and custom data. Computation is cached and paginated for performance, and users can extend the system with custom viewers or transformations. While Clerk shares Mechdown's focus on reactive, literate programming, it differs in that it relies on the host language semantics of Clojure, rather than offering custom semantics for literate programming.
 
-Clerk [CLERK] is a live notebook system for Clojure that integrates code, prose, and rich visualizations in a single environment. Here are some [examples](https://github.clerk.garden/nextjournal/clerk-demo/commit/cb212b2edc64e762bcd1af56417ef9f6b2fde5b1). It allows Clojure code to be embedded in Markdown or namespace files, evaluates code live, and provides built-in viewers for tables, plots, TeX, HTML, and custom data. Computation is cached and paginated for performance, and users can extend the system with custom viewers or transformations. While Clerk shares Mechdown's focus on reactive, literate programming, it differs in that it relies on the host language semantics of Clojure, rather than offering custom semantics for literate programming.
+Marimo (2024) [MARIMO] is a notebook environment for Python, similar to Jupyter, but backed by a native Python document rather than a JSON schema. Unlike Jupyter, Marimo is a reactive notebook — whenever a cell that defines a global variable is run, Marimo automatically recaclulates every cell that depeneds on it — which places it more in line with how Mechdown works. However, the Python code is structured using `@app.cell` blocks, which contain both Python code and Markdown. So although it is technically Python, Marimo documents are still not easily readable without the accompanying notebook tooling.
 
 Verso (2024) [VERSO] is a literate programming platform for the Lean proof assistant, developed by the Lean FRO. Like Mechdown, Verso is built on the idea that the document and the language are one and the same; Verso files are Lean files, not Lean code embedded in a separate markup format. This means the full Lean IDE experience is available while writing: autocomplete, error checking, go-to-definition, and live tactic states. Every code example in a Verso document is type-checked by Lean as part of the build, so correctness errors surface during writing rather than after publishing.
 
@@ -908,31 +924,34 @@ Thanks for reading!
 
 [^5]: Although not yet implemented, the 1-to-1 correspondence means we could, in principle, parse the HTML document back into a Mech program by walking the HTML tree and reconstructing the Mech AST.
 
-[KNUTHLP]: D. E. Knuth, "Literate programming," The Computer Journal, vol. 27, no. 2, pp. 97-111, 1984. [Online](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
-[KNUTHBOOK]: D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992. [Online](https://www-cs-faculty.stanford.edu/~knuth/lp.html)
-[ORG]: Emacs Org Mode; Official Website. [Online](https://orgmode.org)
-[TEXBOOK]: D. E. Knuth, "The TeXbook"; Reading, MA; Addison-Wesley; 1986. [Online](https://visualmatheditor.equatheque.net/doc/texbook.pdf)
-[LATEXPRJ]: LaTeX Project; Official Website; [Online](https://www.latex-project.org)
-[HOLON]: P.A. de Marneffe, "Holon Programming: A Survey"; Self Published; December 1973. [Online](https://github.com/holon-scribe/holon-programming)
-[TOWSTER]: E. Towster, "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data"; IEEE Transactions on Software Engineering; vol. SE-5; no. 4; pp. 374-386; July 1979. [Online](https://ieeexplore.ieee.org/document/1702643)
-[TANGLE]: Org Mode Documentation - Extracting Source Code. [Online](https://orgmode.org/manual/Code-Extraction.html)
-[JUPYTER]: Project Jupyter Documentation. [Online](https://docs.jupyter.org/en/latest)
-[TAOCP]: D. E. Knuth; "The Art of Computer Programming", Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011. [Online](https://www-cs-faculty.stanford.edu/~knuth/taocp.html)
-[MECHALPHA]: Mech Alpha Documentation; v0.0.6-alpha; 2020. [Online](https://docs.mech-lang.org/alpha)
-[LIVE2019]: C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019. [Online](https://docs.mech-lang.org/alpha/#/live2019.mec)
-[MECHDOWNSPEC]: Mechdown; Mech Programming Platform Specification; v0.2-beta; 2025. [Online](https://docs.mech-lang.org/design/specification.html#45036232896389885)
-[RMD]: R Markdown; Official Website. [Online](https://rmarkdown.rstudio.com/docs)
-[REXE]: M.A. Islam, M. Asaduzzman, S. Wang, "On the Executability of R Markdown Files", in Proceedings of the 21st International Conference on Mining Software Repositories (MSR '24), July 2-3, 2024, Lisbon, Portugal. ACM, New York, NY, USA, 11 pages. [Online](https://dl.acm.org/doi/abs/10.1145/3643991.3644931). 
-[TYPST]: Typst; Official Website. [Online](https://typst.app)
-[MARIMO]: Marimo; Official Website; [Online](https://marimo.io)
-[CLERK]: M. Kavalar, P. Markovics, J. Rusher; "Clerk: Moldable Live Programming for Clojure";Proceedings of the 7th International Conference on the Art, Science, and Engineering of Programming (Programming '23); Montreal, QC, Canada; September 11-13, 2023. [Online](https://dl.acm.org/doi/10.1145/3594671.3594682)
-[EVE]: Eve; Official Website. [Online](https://witheve.com)
-[MECH]: Mech Programming Language; Official Website. [Online](https://mech-lang.org)
-[GHFM]: GitHub Flavored Markdown; Specification; Version 0.29-gfm (2019-04-06). [Online](https://github.github.com/gfm/)
-[PLUTO]: Pluto.jl; Official Website. [Online](https://plutojl.org)
-[MD]: Markdown; John Gruber's Original Specification. [Online](https://daringfireball.net/projects/markdown/syntax)
-[PERLDOC]: Perl Documentation System; Official Website. [Online](https://perldoc.perl.org/perldoc)
-[CWEB]: D. E. Knuth and S. Levy; "The CWEB System of Structured Documentation"; Reading, MA; Addison-Wesley; 1993. [Online](https://cs.stanford.edu/~knuth/cweb.html)
-[LHS]: Literate Haskell; Official Website. [Online](https://wiki.haskell.org/index.php?title=Literate_programming)
-[NOWEB]: N. Ramsey; "Noweb: A Simple, Flexible Tool for Literate Programming"; 1989-2024. [Online](https://www.cs.tufts.edu/~nr/noweb/)
-[VERSO]: Verso; Official Website. [Online](https://verso.lean-lang.org)
+[KNUTHLP]: [D. E. Knuth; "Literate programming"; The Computer Journal; vol. 27; no. 2; pp. 97-111; 1984.](https://www.cs.tufts.edu/~nr/cs257/archive/literate-programming/01-knuth-lp.pdf).
+[KNUTHBOOK]: [D. E. Knuth; "Literate Programming"; Stanford, CA; Center for the Study of Language and Information; 1992.](https://www-cs-faculty.stanford.edu/~knuth/lp.html)
+[ORG]: [Emacs Org Mode; Official Website.](https://orgmode.org)
+[TEXBOOK]: [D. E. Knuth; "The TeXbook"; Reading, MA; Addison-Wesley; 1986.](https://visualmatheditor.equatheque.net/doc/texbook.pdf)
+[LATEXPRJ]: [LaTeX Project; Official Website.](https://www.latex-project.org)
+[HOLON]: [P.A. de Marneffe; "Holon Programming: A Survey"; Self Published; December 1973.](https://github.com/holon-scribe/holon-programming)
+[TOWSTER]: [E. Towster; "A Convention for Explicit Declaration of Environments and Top-Down Refinement of Data"; IEEE Transactions on Software Engineering; vol. SE-5; no. 4; pp. 374-386; July 1979.](https://ieeexplore.ieee.org/document/1702643)
+[TANGLE]: [Org Mode Documentation - Extracting Source Code.](https://orgmode.org/manual/Code-Extraction.html)
+[JUPYTER]: [Project Jupyter Documentation.](https://docs.jupyter.org/en/latest)
+[TAOCP]: [D. E. Knuth; "The Art of Computer Programming", Volumes 1-4; Reading, MA; Addison-Wesley; 1968-2011.](https://www-cs-faculty.stanford.edu/~knuth/taocp.html)
+[MECHALPHA]: [Mech Alpha Documentation; v0.0.6-alpha; 2020.](https://docs.mech-lang.org/alpha)
+[LIVE2019]: [C. Montella; "Mech - A Programming Language for Data Driven, Reactive Systems"; Presented at the LIVE Workshop @ the ACM SIGPLAN conference on Systems, Programming, Languages, and Applications: Software for Humanity (SPLASH); Athens, Greece; 2019.](https://docs.mech-lang.org/alpha/#/live2019.mec)
+[MECHDOWNSPEC]: [Mechdown; Mech Programming Platform Specification; v0.2-beta; 2025.](https://docs.mech-lang.org/design/specification.html#45036232896389885)
+[RMD]: [R Markdown; Official Website.](https://rmarkdown.rstudio.com/docs)
+[REXE]: [M.A. Islam, M. Asaduzzman, S. Wang, "On the Executability of R Markdown Files", in Proceedings of the 21st International Conference on Mining Software Repositories (MSR '24), July 2-3, 2024, Lisbon, Portugal. ACM, New York, NY, USA, 11 pages.](https://dl.acm.org/doi/abs/10.1145/3643991.3644931)
+[TYPST]: [Typst; Official Website.](https://typst.app)
+[MARIMO]: [Marimo; Official Website.](https://marimo.io)
+[CLERK]: [M. Kavalar, P. Markovics, J. Rusher; "Clerk: Moldable Live Programming for Clojure";Proceedings of the 7th International Conference on the Art, Science, and Engineering of Programming (Programming '23); Montreal, QC, Canada; September 11-13, 2023.](https://dl.acm.org/doi/10.1145/3594671.3594682)
+[EVE]: [Eve; Official Website.](https://witheve.com)
+[MECH]: [Mech Programming Language; Official Website.](https://mech-lang.org)
+[GHFM]: [GitHub Flavored Markdown; Specification; Version 0.29-gfm (2019-04-06).](https://github.github.com/gfm/)
+[PLUTO]: [Pluto.jl; Official Website.](https://plutojl.org)
+[MD]: [Markdown; John Gruber's Original Specification.](https://daringfireball.net/projects/markdown/syntax)
+[PERLDOC]: [Perl Documentation System; Official Website.](https://perldoc.perl.org/perldoc)
+[CWEB]: [D. E. Knuth and S. Levy; "The CWEB System of Structured Documentation"; Reading, MA; Addison-Wesley; 1993.](https://cs.stanford.edu/~knuth/cweb.html)
+[LHS]: [Literate Haskell; Official Website.](https://wiki.haskell.org/index.php?title=Literate_programming)
+[NOWEB]: [N. Ramsey; "Noweb: A Simple, Flexible Tool for Literate Programming"; 1989-2024.](https://www.cs.tufts.edu/~nr/noweb/)
+[VERSO]: [Verso; Official Website.](https://verso.lean-lang.org)
+[GRAYINVENTS]: [Wolfram Research; "The Mathematica Story: A Scrapbook"; 2018.](https://www.wolfram.com/mathematica/scrapbook/)
+[GRAYHISTORY]: [T. Gray; "It's a fair claim if…"; Hacker News; 2023-06-10.](https://news.ycombinator.com/item?id=36270985)
+[COMPESSAY]: [S. Wolfram; "What Is a Computational Essay?"; Wolfram Blog; 2017-11-14.](https://writings.stephenwolfram.com/2017/11/what-is-a-computational-essay/)
