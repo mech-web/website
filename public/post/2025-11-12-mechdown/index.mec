@@ -5,7 +5,7 @@ date: November 12, 2025
 hero: ![Mika operating a printing press.](images/mika-press.png)
 kicker: Announcement
 summary: In this post, we review our progress on Mech so far this year, focusing on the beta implementation of the Mechdown literate programming tool, including its design and implementation. This document itself is [written in Mechdown](https://gitlab.com/mech-lang/web/website/-/raw/main/public/post/2025-11-12-mechdown/index.mec?ref_type=heads) and served on the Mech platform, so everything you see here demonstrates the system's capabilities.
-next: [Version 0.3-beta](https://mech-lang.org/post/2026-05-07-version-0.3/)
+next: [Version 0.3-beta](https://mech-lang.org/post/2026-05-11-version-0.3/)
 previous: [LLMs Won't Replace Programming Languages](https://mech-lang.org/post/2025-01-09-programming-chatgpt/)
 ===============================================================================
 

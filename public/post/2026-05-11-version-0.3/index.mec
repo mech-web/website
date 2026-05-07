@@ -1,7 +1,7 @@
 Mech v0.3 — State Machines, Match, and Mika the Mech
 ===============================================================================
 author: Corey Montella
-date: May 7, 2026
+date: May 11, 2026
 kicker: Announcement
 hero: ![A robot oversees a construction site.](images/hero-square.png)
 summary: Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, control flow, and document presentation. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
