@@ -1,16 +1,16 @@
-Mech v0.3 — State Machines, Match, and Mika the Mech
+Version 0.3 Beta: Match, Functions, and State Machines
 ===============================================================================
 author: Corey Montella
 date: May 11, 2026
 kicker: Announcement
 hero: ![A robot oversees a construction site.](images/hero-square.png)
-summary: Today we're announceing Mech `v0.3-beta`, which introduces new features for data modeling, computation, control flow, and document presentation. Also, Mika the Mech is making her debut as Mech's mascot and AI assistant.
+summary: Today we're announcing Mech `v0.3-beta`, which introduces new features for data modeling, computation, control flow, and document presentation. Also, Mika the Mech is making her debut as Mech's mascot.
 previous: [Mechdown Beta](https://mech-lang.org/post/2025-11-12-mechdown/)
 ===============================================================================
 
 At the start of the year, we moved Mech into the `v0.3` development phase, which improves upon `v0.2` by introducing new mechanisms for data modeling, computation, control flow, and document presentation. The last development cycle focused on defining and implementing the underlining data model for Mech, wheras this cycle is focused on expressing new computational patterns beyond just function calling. Today we are happy to announce our progress on this front as of `v0.3.5-beta`, which introduces the following language features:
 
-- **Enums and tagged unions** for modeling categorical data and optional values. (§2)
+- **Enums and match expressions** for modeling categorical data and handling wrapped values. (§2)
 - **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
 - **State machines** for modeling ordered computation, protocols, and processes with phases. (§4)
 - **Comprehensions** for constructing new matrices and sets from existing ones. (§5)
@@ -221,7 +221,7 @@ fib(10_000u64)
 Consequently, operations such as file I/O, network requests, or random number generation, which inherently violate the idempotency requirement, cannot be implemented as pure functions in Mech; instead they must be implemented as state machines, which allow for controlled side effects. 
 This arrangement solves the "function coloring problem" often encountered in imperative programming languages, where functions can be a mix of pure and impure, making it difficult to reason about their behavior and interactions. With functions handling pure computations and state machines handling effectful computations, Mech provides a clear separation of concerns that enhances code clarity and maintainability.
 
-[^MATLABOUTPUT]: In Matlab, if you write an expression without a semicolon at the end of the line, it will automatically print the result to the console. This is a convenient feature for quick calculations and debugging, but it can also lead to cluttered output if you're not careful;one thing that always vexxed me is that it's impossible to associate the printed output with any line of code because you can't search for the absence of a semicolon or search for print statements. 
+[^MATLABOUTPUT]: In Matlab, if you write an expression without a semicolon at the end of the line, it will automatically print the result of that line to the console. This is a convenient feature for quick calculations and debugging, but it can also lead to cluttered output if you're not careful; one thing that always vexxed me is that it's impossible to associate the printed output with the line that generated it because you can't search for the absence of a semicolon. 
 Mech's inline ans feature is an evolution of this idea that allows you to print values on demand, but also associate them with specific lines of code, and even send them to the console for further inspection.
 
 4. State Machines
