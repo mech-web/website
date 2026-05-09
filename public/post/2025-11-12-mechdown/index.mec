@@ -585,7 +585,7 @@ Both ordered and unordered lists are supported, including nested lists. Here is 
     -[ ] Task Three
 ```
 
-Which will render as:
+Which render as:
 
 1. Bullet lists
     - One
@@ -610,7 +610,7 @@ Which will render as:
 
 The last feature is notable because the checkboxes are interactive when rendered. This opens the possibility of creating interactive documents with Mechdown, where users can check off tasks and the document can respond according to Mech code defined within it. However, this feature will have to wait for `v0.3`.
 
-There are many more features—if you'd like the full rundown, check out [the specification](https://docs.mech-lang.org/design/specification.html#24738341931264987).
+There are many more features — if you'd like the full rundown, check out [the specification](https://docs.mech-lang.org/design/specification.html#24738341931264987).
 
 (4.1.4) Tables
 
@@ -673,9 +673,9 @@ Renders the following table:
 We call these "Mechdown tables" instead of just "tables" to distinguish them from Mech's native table data structure, which are defined a little differently, and represent values in a Mech program:
 
 ```
-q := | x&ltf32&gt  y&ltbool&gt | 
-     |  1 + .2   1 < 2 |
-     |  1 + .3   3 > 4 |
+q := | x<f32>    y<bool> | 
+     |  1 + .2   1 < 2   |
+     |  1 + .3   3 > 4   |
 ```
 
 Which renders as:
