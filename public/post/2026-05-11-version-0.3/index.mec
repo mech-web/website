@@ -8,7 +8,7 @@ summary: Today we're announcing Mech `v0.3-beta`, which introduces new features 
 previous: [Mechdown Beta](https://mech-lang.org/post/2025-11-12-mechdown/)
 ===============================================================================
 
-At the start of the year, we moved Mech into the `v0.3` development phase, which improves upon `v0.2` by introducing new mechanisms for data modeling, computation, control flow, and document presentation. The last development cycle focused on defining and implementing the underlining data model for Mech, wheras this cycle is focused on expressing new computational patterns beyond just function calling. Today we are happy to announce our progress on this front as of `v0.3.5-beta`, which introduces the following language features:
+At the start of the year, we moved Mech into the `v0.3` development phase, which improves upon `v0.2` by introducing new mechanisms for data modeling, computation, control flow, and document presentation. The last development cycle focused on defining and implementing the underlying data model for Mech, whereas this cycle is focused on expressing new computational patterns beyond just function calling. Today we are happy to announce our progress on this front as of `v0.3.5-beta`, which introduces the following language features:
 
 - **Enums and match expressions** for modeling categorical data and handling wrapped values. (§2)
 - **User-defined functions** including pattern matching, recursion, and implicit broadcasting. (§3)
@@ -61,7 +61,7 @@ x<color> := :red
 
 An enum is a defined kind with a fixed set of variants. Each variant is an [`atom`](https://docs.mech-lang.org/reference/atom.html) which can optionally carry a payload (tag) of any kind. In the example above, {{<color>}} is an enum kind with three variants: {{:red}}, {{:green}}, and {{:blue}}. The variable {{x}} has the kind {{<color>}} and is assigned the value {{:red}}.
 
-Because the variants are themselves valid atom values (which are system-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program. This can potentially can cause name clashes, so there are tradeoffs here:
+Because the variants are themselves valid atom values (which are system-global constants that can be used as tags or identifiers), {{:red}} is both a variant of the {{<color>}} enum and an atom value that can be used elsewhere in the program. This can potentially cause name clashes, so there are tradeoffs here:
 
 - Allowing variants to be atoms means we don't need a separate syntax for defining and using enums, which keeps the language simpler and more uniform.
 - However, because atoms exist in a shared global space, reusing a value like {{:red}} across different domains can introduce ambiguity or make code harder to read. To mitigate this, you can use qualified names for variants:
@@ -103,7 +103,7 @@ code := x?
   | *              => 0.
 ```
 
-The `?` operator is the match operator and works for all values, but is particulary useful for optional values, enum variants, and arrays. Match works by comparing a value against a set of patterns. The arm of first pattern that matches is evaluated and returned as the result of the match expression. 
+The `?` operator is the match operator and works for all values, but is particularly useful for optional values, enum variants, and arrays. Match works by comparing a value against a set of patterns. The arm of first pattern that matches is evaluated and returned as the result of the match expression. 
 
 In the example above, we are matching on {{x}} which has the value {{:some(:ok(42u64))}}. The first pattern `:some(:ok(n))` matches, so the variable {{n}} is bound to `42u64`, and `n` is returned as the result of the match expression.
 
@@ -149,7 +149,7 @@ Both of these errors if left unchecked can cause bugs that are difficult to trac
 3. User-Defined Functions
 --------------------------------------------------------------------------------
 
-[`Functions`](https://docs.mech-lang.org/reference/functions.html) in Mech are pure and idempotent mappings from input values to output values [^IDEMPOTENTENCY]. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matricies. We also have planned support for named arguments, where clauses, and function overloading.
+[`Functions`](https://docs.mech-lang.org/reference/functions.html) in Mech are pure and idempotent mappings from input values to output values [^IDEMPOTENTENCY]. They support pattern matching, recursion, tail-call optimization, and implicit broadcasting over matrices. We also have planned support for named arguments, where clauses, and function overloading.
 
 The pattern-matching style should feel familiar to anyone who has used functional programming languages like Haskell [HASKELLGUARD] or OCaml [OCAMLGUARD]:
 
@@ -160,7 +160,7 @@ factorial(x<f64>) => <f64>
 factorial(6<f64>) -- {ans}
 ```
 
-Functions are declared with a name (no preceeding keyword like `fun` or `fn`), a parenthesized list of typed parameters, a return type, and then a body consisting of pattern-matching arms. The `|` arms are match guards; just like with the match expression, the first guard that matches is evaluated and returned as the result of the function. 
+Functions are declared with a name (no preceding keyword like `fun` or `fn`), a parenthesized list of typed parameters, a return type, and then a body consisting of pattern-matching arms. The `|` arms are match guards; just like with the match expression, the first guard that matches is evaluated and returned as the result of the function. 
 
 You can pattern-match on multiple arguments too:
 
@@ -192,9 +192,9 @@ The implicit broadcasting rule is simple, and only applies to functions with sca
 - If any one supplied argument is a matrix, the function is applied element-wise over the matrix, and any scalar arguments are broadcast to match the shape of the matrix.
 - If more than one input is a matrix, all inputs must have the same shape, and the function is applied element-wise across all of them. If the shapes of all inputs don't match, the compiler will return a `ShapeMismatch` error.
 
-We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broacast operator that explicitly applies a function over a matrix like Julia [JULIABROADCASTING] and Matlab [MATLABBROADCASTING], which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less surprising.
+We are still working on this design so it's subject to change. I'm unsure if this idea is good or not. We may just revert back to the idea of a broadcast operator that explicitly applies a function over a matrix like Julia [JULIABROADCASTING] and Matlab [MATLABBROADCASTING], which is more verbose but also more explicit and less magical. Or, maybe the programmer has to write several overloaded versions of the function to handle different combinations of scalar and matrix arguments, which is more boilerplate but also more explicit and less surprising.
 
-However, since the whole language is alreay designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too much. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing [MATLABDIMENSIONS]. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
+However, since the whole language is already designed with implicit broadcasts in many other areas, I think we can try it here and see if it's too much. I just don't want to get into the issue Matlab has where the broadcasting rules are myriad and confusing [MATLABDIMENSIONS]. I'm hoping if we make things more consistent, it will be easier to predict when broadcasting happens.
 
 (3.2) Tail-Call Optimization
 
@@ -217,10 +217,10 @@ fib(10_000u64)
 
 (i)> The result represents an overflowed value, since the 10,000th Fibonacci number is much larger than what can fit in a `u64`. Mech does support `u128` but not in the `wasm` target yet. Mech will support big integers in the next version.
 
-[^IDEMPOTENTENCY]: An idempotent function called multiple times with the same arguments will have the same effect as calling it once. This is desireable because it's predictable, therefore easier to reason about, test, debug, and optimize.
+[^IDEMPOTENTENCY]: An idempotent function called multiple times with the same arguments will have the same effect as calling it once. This is desirable because it's predictable, therefore easier to reason about, test, debug, and optimize.
 Consequently, operations such as file I/O, network requests etc., which inherently violate the idempotency requirement, cannot be implemented as pure functions in Mech; instead they must be implemented as state machines, which allow for controlled side effects.
 
-[^MATLABOUTPUT]: In Matlab, if you write an expression without a semicolon at the end of the line, it will automatically print the result of that line to the console. This is a convenient feature for quick calculations and debugging, but it can also lead to cluttered output if you're not careful; one thing that always vexxed me is that it's impossible to associate the printed output with the line that generated it because you can't search for the absence of a semicolon. 
+[^MATLABOUTPUT]: In Matlab, if you write an expression without a semicolon at the end of the line, it will automatically print the result of that line to the console. This is a convenient feature for quick calculations and debugging, but it can also lead to cluttered output if you're not careful; one thing that always vexed me is that it's impossible to associate the printed output with the line that generated it because you can't search for the absence of a semicolon. 
 Mech's inline ans feature is an evolution of this idea that allows you to print values on demand, but also associate them with specific lines of code, and even send them to the console for further inspection.
 
 4. State Machines
@@ -318,7 +318,7 @@ The best way to see state machines in action is with a real algorithm. Here is b
   :Done(arr) ⇒ arr.
 ```
 
-Here's how it work:
+Here's how it works:
 
 - The state machine starts in the {{:Pass}} state with the initial array, an empty accumulator, and a swap count of {{0}}.
 - In the {{:Pass}} state, it compares adjacent elements {{a}} and {{b}}. If {{a > b}}, it appends {{b}} to the accumulator and keeps {{a}} in the list for the next comparison, while incrementing the swap count. Otherwise, it appends {{a}} to the accumulator and keeps {{b}} in the list.
@@ -417,7 +417,7 @@ unwrapped := C.a?
   | * => 0.
 ```
 
-Unwrapping the optional value with `?` allows us to provide a default value of `0` for any rows where the `a` column is missing. Also, this demonstrates an instane of expression broadcasting; because {{C.a}} returns a {{<[u64?]>}}, the unwrap is broadcast over the entire column, yielding {{<[u64]>}}.
+Unwrapping the optional value with `?` allows us to provide a default value of `0` for any rows where the `a` column is missing. Also, this demonstrates an instance of expression broadcasting; because {{C.a}} returns a {{<[u64?]>}}, the unwrap is broadcast over the entire column, yielding {{<[u64]>}}.
 
 7. Mika the Mech
 --------------------------------------------------------------------------------
@@ -432,13 +432,13 @@ There's enough to say about Mika that it's worth an entire post, but for now we 
 
 With the introduction of AI, Mika has become a higher language priority than I expected, because I see a lot of potential for her to be more than just a static character. Last year, I wrote [a stupid joke](https://github.com/cmontella/purrtran/blob/main/README.md) about an AI cat assistant, which got me wondering if there wasn't some merit to the idea if taken seriously. We already see this concept catching on with general AI assistants — Claude [CLAWD], Copilot [MICO], and Codex [CODEXPETS] all have characters to make the attached service more approachable and relatable to users.
 
-So it seems natural that Mika could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answer questions, or debug programs, and that makes her a higher priority feature for the project. At the very leat it gives me a hook into the AI funding pipline, which is where all the moeny is these days.
+So it seems natural that Mika could evolve from a static character into an AI assistant that lives in the REPL and helps you write code, answer questions, or debug programs, and that makes her a higher priority feature for the project. At the very least it gives me a hook into the AI funding pipeline, which is where all the money is these days.
 
 (7.1) Character Design
 
-Mascots are particularly useful in programming language communities because programming languages are such abstract things; what does a compiler look like anyway? How can you imagine it or describe it to someone else without talking aobut its functions? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. 
+Mascots are particularly useful in programming language communities because programming languages are such abstract things; what does a compiler look like anyway? How can you imagine it or describe it to someone else without talking about its functions? What does it look like on a t-shirt? A mascot gives you a concrete image to associate with the language, which can make it more memorable and engaging. 
 
-Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users. Despite it being right there in the name, it's often forgotten that programming langauges are in fact *languages*, and therefore they have a culture and a community around them that is just as important as the technical artifacts, if not moreso; plenty of terrible langauges have thriving communities, and plenty of great languages died because they had no community support. By giving people a shared symbol to rally around and identify with, a mascot can be a powerful tool for building and sustaining that community.
+Mascots also serve as a symbol for the community and the culture around the language, which can help foster a sense of belonging and identity among users. Despite it being right there in the name, it's often forgotten that programming languages are in fact *languages*, and therefore they have a culture and a community around them that is just as important as the technical artifacts, if not moreso; plenty of terrible languages have thriving communities, and plenty of great languages died because they had no community support. By giving people a shared symbol to rally around and identify with, a mascot can be a powerful tool for building and sustaining that community.
 
 So then what makes a good mascot? We had the following design goals for our Mika:
 
@@ -447,7 +447,7 @@ So then what makes a good mascot? We had the following design goals for our Mika
 - Representable in various poses and contexts, so that it can be used to convey different emotions and messages.
 - Possible to simplify the mascot into just a few lines and colors. So in many ways, a good mascot and a good logo share similar design goals.
 
-Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various represenations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is gender neutral[^MIKA-GENDER], short, and alliterates with Mech, which makes it fun to say and versatile.
+Mika's design is first and foremost meant to be cute and flexible. As a robot, she can be placed in any situation or pose. Her round head and big round lens in the center of her face are distinctive and easy to recognize in various representations. The black and yellow color scheme is high contrast and fits with Mech's wordmark branding. The name "Mika" is gender neutral[^MIKA-GENDER], short, and alliterates with Mech, which makes it fun to say and versatile.
 
 Here's a showcase[^MIKA-AI] of Mika in various poses and scenes to demonstrate her flexibility as a character:
 
@@ -513,7 +513,7 @@ Only the elements where mask has the value {{true}} will be included in the outp
 
 Let me know if you need any more examples!⸥
 
-Then the user can reply to the AI with another query, asking to clarify the response, or to request additional examples, or to sharpen the answer. This transforms a typical AI chat, which usually occurs in Markdown; into an interactive Mechdown document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source, and excute live in the browser and during the AI's thinking process. Everything is stored as plain text, readable without running code or using external tools like IDEs, and can be version-controlled and diffed like any other source file.
+Then the user can reply to the AI with another query, asking to clarify the response, or to request additional examples, or to sharpen the answer. This transforms a typical AI chat, which usually occurs in Markdown; into an interactive Mechdown document, where both the user and the AI can exchange ideas and snippets that are embedded directly in the source, and execute live in the browser and during the AI's thinking process. Everything is stored as plain text, readable without running code or using external tools like IDEs, and can be version-controlled and diffed like any other source file.
 
 That's all we want to say about Mika for now, but like I said there's more to say so look out for a post just about Mika in the near future.
 
@@ -527,7 +527,7 @@ In general, I find that Nanobanana is very good for taking a reference image and
 
 Mechdown is the markup layer of Mech, a markdown dialect used to create live reactive documents. Mech and Mechdown are co-developed — Mechdown is designed with features that are specifically meant to support the needs of Mech programs, and Mech is designed with features that support live reactive documents.
 
-This tight integration is one of the things that makes Mech unique among programming languages. We introduced the first version of Mechdown in 2019[LIVE2019], and released the Beta version at the end of last year[MECHDOWNBETA]. As part of today's announcemnt, we are demonstrating two new Mechdown features: template placeholders, and figures.
+This tight integration is one of the things that makes Mech unique among programming languages. We introduced the first version of Mechdown in 2019[LIVE2019], and released the Beta version at the end of last year[MECHDOWNBETA]. As part of today's announcement, we are demonstrating two new Mechdown features: template placeholders, and figures.
 
 These features are demonstrated within this document itself (the one you're reading right now). See the [document source](https://gitlab.com/mech-lang/web/website/-/raw/df4784d44b4ea48984de41db5700f5783beb2e0c/public/post/2026-04-15-version-0.3/index.mec), and the [HTML shim source](https://raw.githubusercontent.com/mech-lang/mech/eea6ff85986236b9f4916b85dead0fa172f45bb7/include/blog.html) for more details.
 
@@ -587,7 +587,7 @@ Here's a full list of the template placeholders we've added:
 - `{{SUMMARY}}` - A short summary of the document.
 - `{{KICKER}}` - A short phrase or sentence that serves as a teaser or category for the content
 - `{{HERO}}` - An image url and alt text for the hero image
-- `{{INTRO}}` - The introduction section of the document, which is everything begore the first numbered section.
+- `{{INTRO}}` - The introduction section of the document, which is everything before the first numbered section.
 - `{{TOC}}` - A nested list of contents based on the section headers of the document.
 - `{{CONTENT}}` - The entire document contents, which is every numbered section.
 - `{{SECTION#}}` - A specific numbered section.
@@ -604,7 +604,7 @@ Here's a full list of the template placeholders we've added:
 
 A [`figure`](https://docs.mech-lang.org/mechdown/figure.html) is a section element that allows you to combine multiple images into one with a shared caption. This is useful if you have a collection of related images that you want to present together as a single unit. 
 
-We've alerady used one back in the Mika section to show off some of the different poses and expressions of the character. The Mechdown source for that figure looks like this:
+We've already used one back in the Mika section to show off some of the different poses and expressions of the character. The Mechdown source for that figure looks like this:
 
 ```
 | ![Idle pose.](idle.png) | ![Back detail](back.png) | ![Two thumbs up!](thumbs-up.png) |
