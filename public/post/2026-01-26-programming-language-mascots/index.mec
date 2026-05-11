@@ -282,6 +282,33 @@ https://youtu.be/HiWnyeajOLk?si=Wj_n68cgVMD3u6h5&t=87
 https://scratch.mit.edu/users/ScratchCat/
 https://en.scratch-wiki.info/wiki/Scratch_Cat
 
+By Wing Ngan
+
+Pico, Tera, Giga, and Nano were released on May 9th, 2013 when Scratch 2.0 came out, making them 12 years old. 
+
+Gobo was released around the same time as Scratch cat as they are present in all 1x versions, making them also 18 years old. ( in fact Gobo almost became the main mascot for Scratch )
+https://scratch.mit.edu/discuss/topic/831078/?page=1#post-8896010
+
+
+Birth of scratchcat: https://scratch.mit.edu/projects/273675374/
+
+> Special thanks to @natalie for playing a central role throughout the process of designing the Scratch Cat -- and also for coming up with the name "Gobo"!
+https://scratch.mit.edu/users/natalie/ https://scratch.mit.edu/users/designerd/
+Thanks also to Wing Ngan for sketching and designing the original Scratch Cat, and to @designerd for continuing to refine and innovate on the design (including the new Scratch 3.0 version).
+
+Recounting of the design process for scratch cat, written in a scratch program: https://scratch.mit.edu/projects/273675374/editor/
+
+> At first, we thought we wanted a fantasy character. An illustrator named Wing drew some possibilities for us. But these didn't seem quite right.
+Wing drew some other fantasy characters, and we liked these more. You'll probably recognize these as early versions of Gobo. We were really close to choosing Gobo as the main character for Scratch. But we ultimately decided that it would be better to use a familiar animal, not a fantasy character. We know that lots of people like cats, and there's a natural connection between cats and scratching. So we asked Wing to draw some cats.
+These didn't seem quite right either. But we were intrigued by the cat on the bottom left. We liked the way that it was standing on two feet -- more like a cartoon cat. So we asked Wing to draw more cartoon cats -- standing up -- but looking a little friendlier than the one here.
+After a few iterations, Wing came up with these sketches. We liked these a lot more, especially the one middle one in the top row. We liked the way that it looked like it was ready to move, ready for action. So we asked Wing to start adding some color and making final refinements. - Mitch Resnick
+
+Interview with Wing Ngan about scratch cat: https://www.youtube.com/watch?v=0aBwvKLsMAU
+
+
+Wing's design blog:
+https://www.behance.net/gallery/9136191/Scratch-Cat-character-design
+
 (3.3) Python's Python (2005)
 
 :>>![Python is very zen, and tries to strike a balance between powerful and yet very learnable and approachable.](/images/HQ_Python.png){width: "250px"}
@@ -340,6 +367,13 @@ https://9p.io/plan9/glenda.html
 https://go.dev/blog/gopher
 https://beinart.org/collections/renee-french?srsltid=AfmBOooYT_cghnrXCAM4J6w6yjMCbxo40IUxdRq_YBHpKRokKgB1UGDR
 
+https://go.dev/talks/2015/simplicity-is-complicated.slide#17
+
+
+> In fact simplicity can be expressive. This is a very simple drawing. Renee drew this uh a while back and yet he's expressive... He's not really a gopher... he's just the representation of a gopher... And so this for me is what is is part of like the ethos of Go. Here's this really simple drawing that represents what Go is like. We could put more features on. We could make him more like a gopher. We could give them lots more detail and we get something like this. But mostly what we've added is ugliness and hair. We haven't actually made him better. It's complexity without clarity. 
+But I want to make a really important point here, which is I've said Go is simple, but it's not. It's very complicated. I know I worked on it. It's one of the most complicated things I've ever worked on. And yet it feels simple. And I think that's a really important idea. And it feels simple because these pieces fit together orthogonally. And that requires a lot of design, a lot of thinking, a lot of refinement and implementation and re-implementation. And to put it very bluntly, simplicity, at least in this context, is the art of hiding complexity.
+
+
 (3.5) Rust's Ferris (2014)
 
 :>>![Ferris is an expert at defending against attacks, and hits back just as hard.](/images/HQ_Ferris.png){width: "250px"}
@@ -372,6 +406,9 @@ https://crates.io/crates/ferris-actor (show ferris in an ascii pose)
 various poses https://docs.rs/crate/ferris-actor/0.2.5/source/src/act/actor.rs
 
 https://rustfoundation.org/media/celebrating-rusts-birthday-with-karen-tolva-creator-of-ferris-the-rustacean/
+
+
+Don't forget Corro the Unsafe Rusturchin!!
 
 4. Indie Mascots
 -------------------------------------------------------------------------------
@@ -438,6 +475,8 @@ https://www.reddit.com/r/ProgrammingLanguages/comments/1rixx9a/comment/o89q9wu/?
 
 https://github.com/ziglang/logo?tab=readme-ov-file#zero-the-ziguana
 
+Other mascots: Carmen Allocgator, Zero Ziguana
+https://ziglang.org/news/carmen-the-allocgator/
 
 5. The Mascot Catalog
 -------------------------------------------------------------------------------
@@ -454,6 +493,14 @@ https://x.com/AnsonHorton/status/1340560021390729218
 https://image4.slideserve.com/8841667/introduction-to-c-l.jpg
 https://pbs.twimg.com/media/EATYNWWUEAEVlUt.jpg
 
+(5.2) Crystal's Crys the Crystal Crow
+
+Design process for Crystal's mascot:
+
+https://forum.crystal-lang.org/t/introducing-the-crystal-mascot/5808
+
+Cites Rob Pike's talk about simplicty, showing how language designers and communitiies are actually learning here.
+
 (5.2) D's Dman the letter D
 
 https://web.archive.org/web/20130719055943/http://w148.de:80/~mmartin/d/logo.html
@@ -462,6 +509,9 @@ https://web.archive.org/web/20130719055943/http://w148.de:80/~mmartin/d/logo.htm
 
 https://docs.flutter.dev/dash
 https://flutter.dev/events
+
+Mascot for Flutter and Dart so it has dual roles as a language and framework mascot.
+
 
 (5.4) Futhark's Hedgehog
 
@@ -476,6 +526,14 @@ sourceL: "Robin, Gren's Mascot"
 https://gren-lang.org/book/appendix/faq/
 
 "The bird is a robin, which happens to be the name of Gren’s founder. The robin is placed within the G, which is meant to symbolize that it is sitting on a G(ren), which is the norwegian word for branch."
+
+(5.5) Hare's Hariet the Hare
+
+https://lists.sr.ht/~sircmpwn/hare-users/<CBMC9SERFVB7.33GF24BG5AGFO%40taiga>?__goaway_challenge=meta-refresh&__goaway_id=3c96b40d28ca719d1892c44c44c4fd27&__goaway_referer=https%3A%2F%2Ffosstodon.org%2F
+
+https://fosstodon.org/@hare/108192197888247578
+
+by: Louis Taylor, aka kragniz.
 
 (5.5) Inko's Konni the Cyber Parrot
 
@@ -519,6 +577,12 @@ https://comic.modular.com
 
 https://www.modular.com/blog/modular-2025-year-in-review
 
+(5.10) Pony's Maim the Pony
+
+https://pony.groups.io/g/user/topic/1616403
+
+By Jason Hoogland
+
 (5.10) PHP's ElePHPant the Elephant
 
 PHP (pun-driven mascot → plush culture). php.net’s official elePHPant page recognizes the mascot as the “adorable” elephantine symbol of PHP and explicitly warns about imitators, noting that “official stuffed toy elePHPants” designed by Vincent Pontier are occasionally made available. 
@@ -548,6 +612,14 @@ Details of her design: https://developers.slashdot.org/story/16/07/14/1349207/th
 
 Why a butterfly: https://www.youtube.com/watch?v=_wJNPOs-Q20&index=9&t=5m&list=PLRuESFRW2Fa77XObvk7-BYVFwobZHdXdK
 
+(5.12) Snap!'s Alonzo
+
+> Alonzo is the mascot of Snap! and BYOB. Alonzo was named after Alonzo Church, the mathematician who invented lambda calculus. Alonzo is a modified version of Gobo, one of Scratch's mascots, with a lambda (λ) shaped antenna. The Snap! developers were permitted by the Scratch Team to modify Gobo. While reading any thread in the Snap! Forums, scrolling down will reveal Alonzo on the far left side of the top bar; clicking him will navigate the user to the forum homepage.
+
+https://snapwiki.miraheze.org/wiki/Alonzo
+
+https://scratch.mit.edu/users/gobo/
+
 (5.12) SWI Prolog's Owl
 
 https://www.swi-prolog.org
@@ -564,6 +636,10 @@ https://www.uiua.org
 https://www.uiua.org/assets/kala/default.png
 
 https://www.uiua.org/assets/kala/confused.png
+
+(5.15) V'a Veasel
+
+https://github.com/vlang/v-mascot
 
 (5.14) .Net Bot
 
@@ -744,6 +820,12 @@ Various expressions and animations are possible:
 
 7. Conclusion
 --------------------------------------------------------------------------------
+
+Julia mascot discussion: https://discourse.julialang.org/t/should-julia-have-an-unofficial-community-mascot-if-so-which-one/136826
+Scala mascot discussion: https://contributors.scala-lang.org/t/scala-still-in-need-of-a-mascot/5247
+
+
+
 
 This page will have to be amdended as more mascots are created in the futrue. For example, here's a recent page where Scala community members are discussing a potential mascot, so maybe it's just a matter of time until Scla finds its way to hte compendium.
 
