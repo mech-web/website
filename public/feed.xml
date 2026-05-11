@@ -5,9 +5,16 @@
         <link>https://www.mech-lang.org/blog</link>
         <description>Follow along with the development of the Mech programming language.</description>
         <item>
+            <title>Version 0.3 Beta: Enums, Match, State Machines</title>
+            <link>https://mech-lang.org/post/2026-05-11-version-0.3/</link>
+            <guid>https://mech-lang.org/post/2026-05-11-version-0.3/</guid>
+            <pubDate>Mon, 11 May 2026 11:11:00 EST</pubDate>
+            <description>Today we're announcing Mech v0.3-beta, which introduces new features for data modeling, computation, control flow, and document presentation. Also, Mika the Mech is making her debut as Mech's mascot.</description>
+        </item>
+        <item>
             <title>Fall 2025 Progress Report - Mechdown Beta</title>
             <link>https://mech-lang.org/post/2025-11-12-mechdown</link>
-            <guid>https://mech-lang.org/post/2025-11-12-fall-2025-update/</guid>
+            <guid>https://mech-lang.org/post/2025-11-12-mechdown</guid>
             <pubDate>Wed, 12 Nov 2025 00:00:00 EST</pubDate>
             <description>Progress on Mech v0.2, nearing release. This cycle focused on the data specification language, the standard library, and tooling. v0.2 began on July 16 2024 and now includes more than 2900 commits. This report covers progress up to v0.2.66-beta.</description>
         </item>
