@@ -1,9 +1,11 @@
 How We're Using AI in the Development of Mech
 =================================================
 
-I've been working on Mech now for about 12 years now. Not contiguously, but the first line of Mech source code  was written in 2014, so this has been a project that is very close to me. I've wrestled with it over the years, whether to keep working on it, or to let it go. You can see this in the history of the project, where there are stretches when I didn't work on it at all. But I always come back to it, because I feel like it's a project that has a lot of potential, and I want to see it through.
+I've been working on Mech now for about 12 years. Not contiguously, but the first line of Mech source code was written in 2014 [CITATION NEEDED], so this has been a project that is very close to me. I've wrestled with it over the years, whether to keep working on it, or to let it go. You can see this in the history of the project, where there are stretches when I didn't work on it at all. But I always come back to it, because I feel like it's a project that has a lot of potential, and I want to see it through.
 
-The most reccent period of idle time was around 2023, when ChatGPT version 3.5 was released. While I was very interested in the technology, it opened questions about the future of the Mech language and programming languages in general. Would people need to write in programming languages anymore? Was there a need for them at all? What would become of Mech?
+The most reccent period of idle time was around 2023 [CITATION NEEDED], when ChatGPT version 3.5 was released. While I was very interested in the technology, it opened questions about the future of the Mech language and programming languages in general. Would people need to write in programming languages anymore? Was there a need for them at all? What would become of Mech?
 
-It took about a year for me to resolve those questions. I became resolved that yes, people will still need programming languages like Mech in the future; no, LLMs will no replace programming languages; and actually today after watching how reasoning agents work, I'd upgrade that to say that LLMs *cannot* replace programming languages because they use programming languages as reasoning tools.
+It took about a year for me to resolve those questions. I became resolved that yes, people will still need programming languages like Mech in the future; no, LLMs will not replace programming languages [LINK NEEDED]; and actually today after watching how reasoning agents work, I'd upgrade that to say that LLMs *cannot* replace programming languages because they use programming languages as reasoning tools [FOOTNOTE NEEDED].
+
+
 
