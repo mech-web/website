@@ -402,7 +402,7 @@ tbody tr:hover {
 }
 
 .post-card::before {
-  content: counter(blog-post, decimal-leading-zero);
+  content: none;
   padding-top: 5px;
   color: var(--accent-primary);
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
@@ -514,7 +514,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section::before {
-  content: counter(blog-post, decimal-leading-zero);
+  content: none;
   grid-column: 1;
   grid-row: 1 / span 4;
   padding-top: 6px;
