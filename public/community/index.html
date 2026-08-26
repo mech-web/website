@@ -15,14 +15,11 @@
         <img src="https://mech-lang.org/img/logo.png" alt="Mech">
       </a>
       <nav class="top-nav" aria-label="Primary navigation">
-        <a href="https://mech-lang.org">Home</a>
         <a href="https://about.mech-lang.org">About</a>
         <a href="https://mech-lang.org/blog/">Blog</a>
         <a class="active" href="https://mech-lang.org/community/" aria-current="page">Community</a>
-        <a href="https://docs.mech-lang.org">Docs</a>
         <a href="https://try.mech-lang.org">Explore</a>
       </nav>
-      <a class="header-action" href="https://github.com/mech-lang/mech">GitHub ↗</a>
     </div>
   </header>
 
@@ -67,10 +64,86 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="footer-inner">
-      <span class="footer-mark">Mech / Community</span>
-      <span>Looking for the people behind the project? Visit the <a href="https://about.mech-lang.org">About page</a>.</span>
+      <div class="footer-main">
+        <div class="footer-robot">
+          <img src="https://gitlab.com/mech-lang/assets/-/raw/main/images/mika/mika-pose-point.png?ref_type=heads" alt="Mika the Mech" onerror="this.hidden = true">
+          <div class="mika-glyph" aria-hidden="true">
+            <div class="mika-glyph-art-wrap">
+              <pre class="mika-glyph-art mika-glyph-art--mini">╭(˙◯˙)─</pre>
+              <pre class="mika-glyph-art mika-glyph-art--micro">╭⦿─</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-group">
+            <div class="footer-heading"><span class="footer-heading-icon"><svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg></span><span class="footer-heading-text">Platform</span></div>
+            <a href="https://mech-lang.org">Mech</a>
+            <a href="https://mech-lang.org/post/2025-11-12-mechdown/">Mechdown</a>
+            <a href="https://mech-lang.org/post/2026-01-26-programming-language-mascots/">Mika</a>
+            <a href="https://docs.mech-lang.org/stdlib/">Standard Library</a>
+          </div>
+
+          <div class="footer-group">
+            <div class="footer-heading"><span class="footer-heading-icon"><svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg></span><span class="footer-heading-text">Community</span></div>
+            <a href="https://groups.google.com/g/mechtalk">Mailing List</a>
+            <a href="https://discord.gg/asqP25NNTH">Discord</a>
+            <a href="https://github.com/mech-lang">GitHub</a>
+            <a href="https://www.youtube.com/@MechLang">YouTube</a>
+          </div>
+
+          <div class="footer-group">
+            <div class="footer-heading"><span class="footer-heading-icon"><svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg></span><span class="footer-heading-text">Resources</span></div>
+            <a href="https://docs.mech-lang.org/getting-started/introduction.html">Getting Started</a>
+            <a href="https://docs.mech-lang.org/reference/index.html">Reference</a>
+            <a href="https://docs.mech-lang.org/design/index.html">Design</a>
+            <a href="https://docs.mech-lang.org/guides/mech-in-fifteen-minutes.html">Guides</a>
+          </div>
+        </div>
+
+        <div class="footer-release">
+          <div class="release-ack">
+            <svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></svg>
+            <a href="https://github.com/mech-lang/mech/releases/latest">Latest Release</a>
+          </div>
+          <div class="release-grid-row">
+            <div class="release-grid-label">Version:</div>
+            <div class="release-grid-value"><a href="https://github.com/mech-lang/mech/releases/latest">v0.3.5-beta</a></div>
+          </div>
+          <div class="release-grid-row">
+            <div class="release-grid-label">Date:</div>
+            <div class="release-grid-value">2026-05-06</div>
+          </div>
+          <div class="release-grid-row">
+            <div class="release-grid-label">License:</div>
+            <div class="release-grid-value"><a href="https://github.com/mech-lang/mech?tab=Apache-2.0-1-ov-file#readme">Apache 2.0</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <div class="footer-pride">
+          Built with
+          <span aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; width:18px; height:18px; margin-top:-2px; vertical-align:middle;">
+              <defs>
+                <radialGradient id="rainbowRadial" cx="12" cy="17" r="11" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#8b6fd8"/><stop offset="18%" stop-color="#8b6fd8"/>
+                  <stop offset="18%" stop-color="#6fa8ff"/><stop offset="38%" stop-color="#6fa8ff"/>
+                  <stop offset="38%" stop-color="#5DCF8D"/><stop offset="53%" stop-color="#5DCF8D"/>
+                  <stop offset="53%" stop-color="#ffe873"/><stop offset="72%" stop-color="#ffe873"/>
+                  <stop offset="72%" stop-color="#ff9f5f"/><stop offset="90%" stop-color="#ff9f5f"/>
+                  <stop offset="90%" stop-color="#ff6666"/><stop offset="100%" stop-color="#ff6666"/>
+                </radialGradient>
+              </defs>
+              <path d="M22 17a10 10 0 0 0-20 0" stroke="url(#rainbowRadial)"/><path d="M6 17a6 6 0 0 1 12 0" stroke="url(#rainbowRadial)"/><path d="M10 17a2 2 0 0 1 4 0" stroke="url(#rainbowRadial)"/>
+            </svg>
+          </span>
+          in Pennsylvania
+        </div>
+      </div>
     </div>
   </footer>
 </body>
