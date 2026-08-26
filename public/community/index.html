@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Join the Mech programming language community.">
+  <title>Mech Community</title>
+  <link rel="icon" href="https://gitlab.com/mech-lang/assets/-/raw/main/images/icons/favicon.ico?ref_type=heads" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1b2a;
+      --panel: #10243a;
+      --panel-strong: #142c45;
+      --line: #3a506b;
+      --text: #dddfe1;
+      --muted: #94bce7;
+      --accent: #f3b62d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(58, 80, 107, 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(58, 80, 107, 0.22) 1px, transparent 1px);
+      background-size: 32px 32px;
+      font-family: "Fira Code", monospace;
+      line-height: 1.65;
+    }
+
+    a { color: var(--muted); }
+    a:hover { color: var(--text); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px clamp(20px, 5vw, 64px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(13, 27, 42, 0.94);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-family: Montserrat, sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .brand img { width: 28px; height: 28px; object-fit: contain; }
+
+    .site-nav { display: flex; flex-wrap: wrap; gap: 18px; }
+    .site-nav a { font-size: 0.86rem; text-decoration: none; }
+    .site-nav a[aria-current="page"] { color: var(--accent); }
+
+    main {
+      width: min(900px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: clamp(56px, 9vw, 104px) 0 80px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2 { font-family: Montserrat, sans-serif; line-height: 1.2; }
+    h1 { margin: 0; font-size: clamp(2.5rem, 7vw, 5.2rem); }
+    h2 { margin: 0 0 6px; font-size: 1.18rem; }
+
+    .intro {
+      max-width: 680px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.16rem);
+    }
+
+    .community-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .community-card {
+      display: block;
+      min-height: 150px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(16, 36, 58, 0.94);
+      text-decoration: none;
+      transition: border-color 150ms ease, transform 150ms ease, background 150ms ease;
+    }
+
+    .community-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: var(--panel-strong);
+    }
+
+    .community-card p { margin: 10px 0 0; color: var(--muted); font-size: 0.9rem; }
+    .arrow { color: var(--accent); }
+
+    .welcome {
+      margin-top: 48px;
+      padding: 24px;
+      border-left: 3px solid var(--accent);
+      background: var(--panel);
+    }
+
+    .welcome p { margin: 0; }
+
+    footer {
+      padding: 28px 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 720px) {
+      .site-header { align-items: flex-start; flex-direction: column; }
+      .site-nav { gap: 12px 16px; }
+      .community-links { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="https://mech-lang.org" aria-label="Mech home">
+      <img src="https://mech-lang.org/smlogo.png" alt="">
+      <span>Mech</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="https://mech-lang.org">Home</a>
+      <a href="https://about.mech-lang.org">About</a>
+      <a href="https://mech-lang.org/blog/">Blog</a>
+      <a href="https://mech-lang.org/community/" aria-current="page">Community</a>
+      <a href="https://docs.mech-lang.org">Docs</a>
+      <a href="https://try.mech-lang.org">Explore</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="eyebrow">Join the project</p>
+    <h1>Community</h1>
+    <p class="intro">The Mech community gathers in a few places around the Internet. Stop by, ask a question, share what you are building, or contribute to the language.</p>
+
+    <section class="community-links" aria-label="Community links">
+      <a class="community-card" href="https://discord.gg/asqP25NNTH">
+        <h2>Discord <span class="arrow" aria-hidden="true">↗</span></h2>
+        <p>Live chat with Mech users and contributors.</p>
+      </a>
+      <a class="community-card" href="https://github.com/mech-lang">
+        <h2>GitHub <span class="arrow" aria-hidden="true">↗</span></h2>
+        <p>Browse the code, report issues, and contribute.</p>
+      </a>
+      <a class="community-card" href="https://www.youtube.com/@MechLang">
+        <h2>YouTube <span class="arrow" aria-hidden="true">↗</span></h2>
+        <p>Watch tutorials, demos, and project updates.</p>
+      </a>
+      <a class="community-card" href="https://www.reddit.com/r/mechlang/">
+        <h2>Reddit <span class="arrow" aria-hidden="true">↗</span></h2>
+        <p>Get help and join general discussions.</p>
+      </a>
+      <a class="community-card" href="https://groups.google.com/g/mechtalk">
+        <h2>Mailing list <span class="arrow" aria-hidden="true">↗</span></h2>
+        <p>Follow and participate in development discussions.</p>
+      </a>
+    </section>
+
+    <section class="welcome" aria-label="Welcome">
+      <p>Everyone is welcome. Introduce yourself and let us know what brought you to Mech.</p>
+    </section>
+  </main>
+
+  <footer>
+    Looking for the people behind the project? Visit the <a href="https://about.mech-lang.org">About page</a>.
+  </footer>
+</body>
+</html>
