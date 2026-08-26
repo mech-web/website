@@ -600,6 +600,128 @@ body.blog-index-page {
   display: none !important;
 }
 
+.blog-index-page .mech-program-section {
+  position: relative;
+  grid-template-columns: minmax(200px, 260px) minmax(0, 1fr);
+  gap: 0 30px;
+  align-items: start;
+}
+
+.blog-index-page .mech-program-section::before {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  grid-column: auto;
+  grid-row: auto;
+  padding: 4px 7px;
+  border: 1px solid rgb(242 182 61 / 55%);
+  border-radius: 4px;
+  color: var(--bg-dark);
+  background: var(--accent-primary);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 45%);
+}
+
+.blog-index-page .mech-program-section::after {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  width: 100%;
+  min-height: 170px;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background-color: var(--bg-elevated);
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 28%);
+}
+
+.blog-index-page .mech-program-section:nth-child(1)::after {
+  background-image: url("/post/2026-05-11-version-0.3/images/hero-square.png");
+}
+
+.blog-index-page .mech-program-section:nth-child(2)::after {
+  background-image: url("/post/2025-11-12-mechdown/images/mika-press.png");
+}
+
+.blog-index-page .mech-program-section:nth-child(3)::after {
+  background-image: url("/post/2025-01-09-programming-chatgpt/llmbackend.jpeg");
+}
+
+.blog-index-page .mech-program-section:nth-child(4)::after {
+  background-image: url("/post/2022-09-22-fall-update/images/2d_coding.jpg");
+}
+
+.blog-index-page .mech-program-section:nth-child(5)::after {
+  background-image: url("/post/2022-05-20-spring-update/assets/autobot.png");
+}
+
+.blog-index-page .mech-program-section:nth-child(6)::after {
+  background-image: url("/assets/images/robot.png");
+}
+
+.blog-index-page .mech-program-section:nth-child(7)::after {
+  background-image: url("/post/2022-01-01-happy-new-year/assets/mech-capstone-2021.jpg");
+}
+
+.blog-index-page .mech-program-section:nth-child(8)::after {
+  background-image: url("/assets/images/forward.png");
+}
+
+.blog-index-page .mech-program-section:nth-child(9)::after {
+  background-image: url("/assets/images/code.png");
+}
+
+.blog-index-page .mech-program-section:nth-child(10)::after {
+  background-image: url("/img/post/inspector.PNG");
+}
+
+.blog-index-page .mech-program-section:nth-child(11)::after {
+  background-image: url("/img/post/REPL.PNG");
+}
+
+.blog-index-page .mech-program-section:nth-child(12)::after {
+  background-image: url("/img/post/topology.png");
+}
+
+.blog-index-page .mech-program-section:first-child {
+  grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1.12fr);
+  gap: 8px 36px;
+  min-height: 410px;
+  margin: 0 0 38px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-secondary));
+  overflow: hidden;
+}
+
+.blog-index-page .mech-program-section:first-child::before {
+  content: "Latest";
+  top: 46px;
+  right: 16px;
+  left: auto;
+  text-transform: uppercase;
+}
+
+.blog-index-page .mech-program-section:first-child::after {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  min-height: 344px;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.blog-index-page .mech-program-section:first-child > * {
+  grid-column: 1;
+}
+
+.blog-index-page .mech-program-section:first-child h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.14;
+}
+
 .footer {
   margin-top: 0;
   border-top: 1px dotted var(--border);
@@ -905,6 +1027,35 @@ body.blog-index-page {
   .breadcrumbs {
     margin-bottom: 34px;
   }
+
+  .blog-index-page .mech-program-section,
+  .blog-index-page .mech-program-section:first-child {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-index-page .mech-program-section:first-child {
+    gap: 14px;
+    min-height: 0;
+  }
+
+  .blog-index-page .mech-program-section::after,
+  .blog-index-page .mech-program-section:first-child::after {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 260px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .blog-index-page .mech-program-section > *,
+  .blog-index-page .mech-program-section:first-child > * {
+    grid-column: 1;
+  }
+
+  .blog-index-page .mech-program-section:first-child::before {
+    top: 46px;
+    right: 46px;
+  }
 }
 
 @media (max-width: 620px) {
@@ -936,19 +1087,22 @@ body.blog-index-page {
   }
 
   .blog-index-page .mech-program-section {
-    grid-template-columns: 1fr;
     gap: 6px;
     padding: 24px 0;
   }
 
-  .blog-index-page .mech-program-section::before,
-  .blog-index-page .mech-program-section > * {
-    grid-column: 1;
+  .blog-index-page .mech-program-section::before {
+    top: 36px;
+    left: 12px;
   }
 
-  .blog-index-page .mech-program-section::before {
-    grid-row: auto;
-    padding-top: 0;
+  .blog-index-page .mech-program-section:first-child {
+    padding: 18px;
+  }
+
+  .blog-index-page .mech-program-section:first-child::before {
+    top: 30px;
+    right: 30px;
   }
 
   .footer-main {
