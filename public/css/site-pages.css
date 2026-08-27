@@ -366,6 +366,11 @@ tbody tr:hover {
   font-family: Inter, system-ui, sans-serif;
 }
 
+.community-page .lead-card h3 a:hover,
+.contributor-list a:hover {
+  color: var(--accent-primary);
+}
+
 .contributor-list {
   display: grid;
   gap: 0 22px;
@@ -388,10 +393,6 @@ tbody tr:hover {
   color: var(--body-primary);
   font-size: 14px;
   line-height: 1.35;
-}
-
-.contributor-list li:hover {
-  color: var(--accent-soft);
 }
 
 .contributor-thanks {
