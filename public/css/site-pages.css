@@ -909,11 +909,11 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(1)::after {
-  background-image: url("/post/2026-05-11-version-0.3/images/hero-square.png");
+  background-image: url("/assets/images/blog-thumbnails/version-0.3.jpg");
 }
 
 .blog-index-page .mech-program-section:nth-child(2)::after {
-  background-image: url("/post/2025-11-12-mechdown/images/mika-press.png");
+  background-image: url("/assets/images/blog-thumbnails/mechdown.jpg");
 }
 
 .blog-index-page .mech-program-section:nth-child(3)::after {
