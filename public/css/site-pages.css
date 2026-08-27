@@ -639,7 +639,6 @@ tbody tr:hover {
 .post-list {
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--border);
   list-style: none;
   counter-reset: blog-post;
 }
@@ -653,7 +652,6 @@ tbody tr:hover {
   grid-template-columns: 62px minmax(0, 1fr);
   gap: 22px;
   padding: 30px 0;
-  border-bottom: 1px solid var(--border);
 }
 
 .post-card::before {
@@ -760,7 +758,6 @@ body.blog-index-page {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  border-top: 1px dotted var(--border);
   counter-reset: blog-post;
 }
 
@@ -772,7 +769,6 @@ body.blog-index-page {
   grid-template-columns: 62px minmax(0, 1fr);
   gap: 0 22px;
   padding: 30px 0;
-  border-bottom: 1px dotted var(--border);
   counter-increment: blog-post;
 }
 
