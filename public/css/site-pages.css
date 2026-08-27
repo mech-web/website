@@ -356,53 +356,34 @@ tbody tr:hover {
   font-family: Inter, system-ui, sans-serif;
 }
 
-.community-page .table-wrap {
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+.contributor-list {
+  display: grid;
+  gap: 0 22px;
+  margin: 20px 0 0;
+  padding: 0;
+  border-top: 1px dotted var(--border);
+  list-style: none;
 }
 
-.community-page table {
-  margin: 0 auto 20px;
-  border: 1px solid #4d5257;
-  background: #171c26;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 50%);
+.contributor-list--current {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.community-page th,
-.community-page td {
-  padding: 5px;
-  border-bottom: 0;
+.contributor-list--past {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.community-page th {
-  padding: 10px;
-  border-bottom: 1px solid #4d5257;
-  color: #dbc3a5;
-  background: hsl(222, 25%, 9%);
-  font-family: Inter, system-ui, sans-serif;
-  font-size: inherit;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-align: center;
-  text-transform: none;
+.contributor-list li {
+  min-width: 0;
+  padding: 12px 4px;
+  border-bottom: 1px dotted var(--border);
+  color: var(--body-primary);
+  font-size: 14px;
+  line-height: 1.35;
 }
 
-.community-page td {
-  padding: 20px 10px;
-  border-bottom: 1px solid #4d5257;
-}
-
-.community-page tbody tr:nth-child(odd) {
-  background: hsl(222, 25%, 9%);
-}
-
-.community-page tbody tr:nth-child(even) {
-  background: #171c26;
-}
-
-.community-page tbody tr:hover {
-  background: hsl(222, 25%, 17%);
+.contributor-list li:hover {
+  color: var(--accent-soft);
 }
 
 .repository-banner {
@@ -435,8 +416,8 @@ tbody tr:hover {
   padding: 3px 10px;
   border: 1px solid var(--accent-magenta);
   border-radius: 999px;
-  color: var(--bg-dark);
-  background: var(--accent-magenta);
+  color: var(--accent-magenta);
+  background: transparent;
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
   font-size: 11px;
   font-weight: 600;
@@ -1372,6 +1353,14 @@ body.blog-index-page {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .contributor-list--current {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contributor-list--past {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .breadcrumbs {
     margin-bottom: 34px;
   }
@@ -1430,6 +1419,14 @@ body.blog-index-page {
 
   .community-links {
     grid-template-columns: 1fr;
+  }
+
+  .contributor-list--current {
+    grid-template-columns: 1fr;
+  }
+
+  .contributor-list--past {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .repository-banner {
@@ -1501,6 +1498,10 @@ body.blog-index-page {
 }
 
 @media (max-width: 400px) {
+  .contributor-list--past {
+    grid-template-columns: 1fr;
+  }
+
   .footer-inner {
     padding: 0 16px;
   }
