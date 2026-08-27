@@ -752,7 +752,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-title {
-  display: block;
+  display: none;
 }
 
 .blog-index-page .mech-program-body {
