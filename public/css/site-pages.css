@@ -650,7 +650,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(4)::after {
-  background-image: url("/post/2022-09-22-fall-update/images/2d_coding.jpg");
+  background-image: url("/post/2022-09-22-fall-update/images/giraffe.gif");
 }
 
 .blog-index-page .mech-program-section:nth-child(5)::after {
@@ -682,6 +682,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(12)::after {
+  background-color: #fff;
   background-image: url("/img/post/topology.png");
 }
 
