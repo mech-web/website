@@ -887,6 +887,7 @@ section.active-section {
   justify-content: center;
   gap: 4px;
   margin-inline: auto;
+  color: var(--text-muted);
 }
 
 /* ── Resize handle ── */
@@ -1361,4 +1362,4 @@ body.console-fullscreen .console-fullscreen-toggle .icon-exit {
     max-height:40vh;
     overflow:auto;
     border-radius: 0 0 8px 8px;
-  } 
+  }

@@ -1241,6 +1241,7 @@ body.blog-index-page {
   justify-content: center;
   gap: 4px;
   margin-inline: auto;
+  color: var(--text-muted);
 }
 
 .footer-robot img[hidden] + .mika-glyph {
