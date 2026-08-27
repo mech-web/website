@@ -500,7 +500,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-body {
-  border-top: 1px solid var(--border);
+  border-top: 1px dotted var(--border);
   counter-reset: blog-post;
 }
 
@@ -509,7 +509,7 @@ body.blog-index-page {
   grid-template-columns: 62px minmax(0, 1fr);
   gap: 0 22px;
   padding: 30px 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px dotted var(--border);
   counter-increment: blog-post;
 }
 
@@ -564,7 +564,7 @@ body.blog-index-page {
 .blog-index-page .mech-program-section > .mech-paragraph:first-of-type {
   order: -1;
   margin: 0 0 8px;
-  color: var(--accent-teal);
+  color: var(--accent-magenta);
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
   font-size: 12px;
   font-weight: 600;
@@ -646,11 +646,11 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(3)::after {
-  background-image: url("/post/2025-01-09-programming-chatgpt/llmbackend.jpeg");
+  background-image: url("/post/2025-01-09-programming-chatgpt/EKF.png");
 }
 
 .blog-index-page .mech-program-section:nth-child(4)::after {
-  background-image: url("/post/2022-09-22-fall-update/images/giraffe.gif");
+  background-image: url("/post/2022-09-22-fall-update/images/giraffe-still.png");
 }
 
 .blog-index-page .mech-program-section:nth-child(5)::after {
@@ -721,6 +721,154 @@ body.blog-index-page {
 .blog-index-page .mech-program-section:first-child h2 {
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1.14;
+}
+
+.blog-index-page .blog-entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.blog-index-page .bibtex-trigger {
+  appearance: none;
+  padding: 5px 10px;
+  border: 1px dotted var(--accent-magenta);
+  border-radius: 4px;
+  color: var(--accent-magenta);
+  background: transparent;
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.blog-index-page .bibtex-trigger:hover,
+.blog-index-page .bibtex-trigger:focus-visible {
+  color: var(--bg-dark);
+  background: var(--accent-magenta);
+  outline: none;
+}
+
+.bibtex-dialog {
+  width: min(680px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 68%);
+}
+
+.bibtex-dialog::backdrop {
+  background: rgb(2 7 10 / 78%);
+  backdrop-filter: blur(3px);
+}
+
+.bibtex-dialog-inner {
+  padding: 24px;
+}
+
+.bibtex-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px dotted var(--border);
+}
+
+.bibtex-dialog-kicker {
+  margin: 0 0 4px;
+  color: var(--accent-magenta);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bibtex-dialog h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.25;
+}
+
+.bibtex-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px dotted var(--border);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  background: transparent;
+  font-size: 24px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.bibtex-close:hover,
+.bibtex-close:focus-visible {
+  border-color: var(--accent-magenta);
+  color: var(--accent-magenta);
+  outline: none;
+}
+
+.bibtex-code {
+  max-height: min(48vh, 420px);
+  margin: 20px 0 16px;
+  padding: 18px;
+  overflow: auto;
+  border: 1px dotted var(--border);
+  color: var(--accent-soft);
+  background: var(--bg-dark);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre;
+}
+
+.bibtex-dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bibtex-copy {
+  appearance: none;
+  padding: 9px 14px;
+  border: 1px solid var(--accent-primary);
+  border-radius: 4px;
+  color: var(--bg-dark);
+  background: var(--accent-primary);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.bibtex-copy:hover,
+.bibtex-copy:focus-visible {
+  background: var(--accent-hover);
+  outline: none;
+}
+
+.bibtex-copy-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--accent-teal);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 12px;
 }
 
 .footer {

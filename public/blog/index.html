@@ -2312,7 +2312,7 @@ mark {
     }
   }
   </style>
-  <link rel="stylesheet" href="/css/site-pages.css?v=blog-20260826-media">
+  <link rel="stylesheet" href="/css/site-pages.css?v=blog-20260826-citations">
 </head>
 <body class="blog-index-page">
   <header class="site-header">
@@ -2352,6 +2352,22 @@ mark {
     </div>
     <div class="sidebar mech-repl hidden" id="mech-output"></div>
   </main>
+  <dialog class="bibtex-dialog" id="bibtex-dialog" aria-labelledby="bibtex-title">
+    <div class="bibtex-dialog-inner">
+      <div class="bibtex-dialog-header">
+        <div>
+          <p class="bibtex-dialog-kicker">Citation</p>
+          <h2 id="bibtex-title">BibTeX</h2>
+        </div>
+        <button class="bibtex-close" type="button" aria-label="Close citation">×</button>
+      </div>
+      <pre class="bibtex-code"><code id="bibtex-code"></code></pre>
+      <div class="bibtex-dialog-actions">
+        <button class="bibtex-copy" type="button">Copy BibTeX</button>
+        <p class="bibtex-copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </dialog>
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-main">
@@ -2434,6 +2450,7 @@ mark {
       </div>
     </div>
   </footer>
+  <script src="/js/blog-index-citations.js?v=20260826" defer></script>
   <script type="application/x-disabled-legacy-layout">
     document.addEventListener('DOMContentLoaded', () => {
       const contentPane = document.getElementById('left-pane');
