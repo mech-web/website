@@ -310,6 +310,114 @@ tbody tr:hover {
   background: rgb(243 193 92 / 5%);
 }
 
+.repository-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 280px);
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-dark);
+}
+
+.repository-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.repository-name {
+  color: #6ea8ff;
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.repository-visibility {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.repository-description {
+  max-width: 730px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.repository-description a {
+  color: var(--accent-soft);
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+
+.repository-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.repository-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-secondary);
+  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
+  font-size: 12px;
+}
+
+.repository-stat:hover {
+  color: var(--accent-hover);
+}
+
+.repository-stat svg {
+  width: 17px;
+  height: 17px;
+  color: var(--text-muted);
+}
+
+.repository-stat--activity svg {
+  color: #3fb950;
+}
+
+.repository-sparkline {
+  width: 100%;
+  min-height: 82px;
+  color: #3fb950;
+}
+
+.repository-sparkline svg {
+  width: 100%;
+  height: 82px;
+  overflow: visible;
+}
+
+.repository-sparkline .repository-pulse {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.72;
+}
+
+.repository-sparkline .repository-baseline {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.18;
+}
+
 .community-links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -658,7 +766,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(6)::after {
-  background-image: url("/assets/images/robot.png");
+  background-image: url("/assets/images/hytradboi-controller.png");
 }
 
 .blog-index-page .mech-program-section:nth-child(7)::after {
@@ -666,11 +774,12 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(8)::after {
-  background-image: url("/assets/images/forward.png");
+  background-image: url("/post/2020-08-06-forward-robotics/forward-robotics-0336.png");
 }
 
 .blog-index-page .mech-program-section:nth-child(9)::after {
-  background-image: url("/assets/images/code.png");
+  background-color: #fff;
+  background-image: url("/assets/images/live2019-clock.svg");
 }
 
 .blog-index-page .mech-program-section:nth-child(10)::after {
@@ -723,111 +832,72 @@ body.blog-index-page {
   line-height: 1.14;
 }
 
-.blog-index-page .blog-entry-actions {
+.blog-index-page .mech-program-section h2 {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: baseline;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .blog-index-page .bibtex-trigger {
   appearance: none;
-  padding: 5px 10px;
-  border: 1px dotted var(--accent-magenta);
-  border-radius: 4px;
+  padding: 0 0 1px;
+  border: 0;
+  border-bottom: 1px dotted currentColor;
   color: var(--accent-magenta);
   background: transparent;
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.05em;
   line-height: 1.25;
   text-transform: uppercase;
   cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-2px);
+  transition: color 140ms ease, opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+}
+
+.blog-index-page .mech-program-section:hover .bibtex-trigger,
+.blog-index-page .mech-program-section:focus-within .bibtex-trigger {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .blog-index-page .bibtex-trigger:hover,
 .blog-index-page .bibtex-trigger:focus-visible {
-  color: var(--bg-dark);
-  background: var(--accent-magenta);
+  color: var(--accent-soft);
   outline: none;
 }
 
 .bibtex-dialog {
-  width: min(680px, calc(100vw - 32px));
+  width: min(660px, calc(100vw - 32px));
   max-height: calc(100vh - 48px);
   margin: auto;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   color: var(--text-primary);
-  background: var(--bg-elevated);
-  box-shadow: 0 24px 80px rgb(0 0 0 / 68%);
+  background: var(--bg-dark);
+  box-shadow: none;
 }
 
 .bibtex-dialog::backdrop {
-  background: rgb(2 7 10 / 78%);
-  backdrop-filter: blur(3px);
+  background: rgb(2 7 10 / 42%);
 }
 
 .bibtex-dialog-inner {
-  padding: 24px;
-}
-
-.bibtex-dialog-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  padding-bottom: 14px;
-  border-bottom: 1px dotted var(--border);
-}
-
-.bibtex-dialog-kicker {
-  margin: 0 0 4px;
-  color: var(--accent-magenta);
-  font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.bibtex-dialog h2 {
-  margin: 0;
-  color: var(--text-primary);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(22px, 4vw, 30px);
-  line-height: 1.25;
-}
-
-.bibtex-close {
-  flex: 0 0 auto;
-  width: 34px;
-  height: 34px;
   padding: 0;
-  border: 1px dotted var(--border);
-  border-radius: 50%;
-  color: var(--text-secondary);
-  background: transparent;
-  font-size: 24px;
-  line-height: 30px;
-  cursor: pointer;
-}
-
-.bibtex-close:hover,
-.bibtex-close:focus-visible {
-  border-color: var(--accent-magenta);
-  color: var(--accent-magenta);
-  outline: none;
 }
 
 .bibtex-code {
   max-height: min(48vh, 420px);
-  margin: 20px 0 16px;
+  margin: 0;
   padding: 18px;
   overflow: auto;
-  border: 1px dotted var(--border);
+  border: 0;
   color: var(--accent-soft);
   background: var(--bg-dark);
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
@@ -840,6 +910,8 @@ body.blog-index-page {
   display: flex;
   align-items: center;
   gap: 14px;
+  padding: 12px 18px;
+  border-top: 1px dotted var(--border);
 }
 
 .bibtex-copy {
@@ -869,6 +941,14 @@ body.blog-index-page {
   color: var(--accent-teal);
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
   font-size: 12px;
+}
+
+@media (hover: none) {
+  .blog-index-page .bibtex-trigger {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
 }
 
 .footer {
@@ -1177,6 +1257,18 @@ body.blog-index-page {
     margin-bottom: 34px;
   }
 
+  .repository-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .repository-sparkline {
+    min-height: 60px;
+  }
+
+  .repository-sparkline svg {
+    height: 60px;
+  }
+
   .blog-index-page .mech-program-section,
   .blog-index-page .mech-program-section:first-child {
     grid-template-columns: 1fr;
@@ -1219,6 +1311,15 @@ body.blog-index-page {
 
   .community-links {
     grid-template-columns: 1fr;
+  }
+
+  .repository-banner {
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .repository-stats {
+    gap: 12px 18px;
   }
 
   .lead-card {

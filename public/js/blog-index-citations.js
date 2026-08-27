@@ -8,7 +8,15 @@
     { key: "montella2022databaseRobot", author: "Montella, Corey", note: "HYTRADBOI 2022 talk" },
     { key: "montella2022mech2021review", author: "Montella, Corey", note: "Mech Blog" },
     { key: "pontier2020forwardRobotics", author: "Pontier, Sarah", note: "Mech Blog" },
-    { key: "montella2019mechLive", author: "Montella, Corey", note: "LIVE 2019 paper" },
+    {
+      key: "montella2019mechLive",
+      type: "inproceedings",
+      author: "Montella, Corey",
+      booktitle: "LIVE 2019: Workshop on Live Programming Systems, co-located with SPLASH 2019",
+      address: "Athens, Greece",
+      organization: "ACM SIGPLAN",
+      note: "Presented at LIVE 2019",
+    },
     { key: "montella2019mech002", author: "Montella, Corey", note: "Mech v0.0.2 release" },
     { key: "montella2019mech001", author: "Montella, Corey", note: "Mech Blog" },
     { key: "montella2018helloWorld", author: "Montella, Corey", note: "Mech Blog" },
@@ -30,13 +38,11 @@
   };
 
   const dialog = document.getElementById("bibtex-dialog");
-  const dialogTitle = document.getElementById("bibtex-title");
   const code = document.getElementById("bibtex-code");
-  const closeButton = dialog?.querySelector(".bibtex-close");
   const copyButton = dialog?.querySelector(".bibtex-copy");
   const copyStatus = dialog?.querySelector(".bibtex-copy-status");
 
-  if (!dialog || !dialogTitle || !code || !closeButton || !copyButton || !copyStatus) {
+  if (!dialog || !code || !copyButton || !copyStatus) {
     return;
   }
 
@@ -58,21 +64,23 @@
     const year = date ? date[3] : "n.d.";
 
     return [
-      `@misc{${details.key},`,
+      `@${details.type || "misc"}{${details.key},`,
       `  author = {${escapeBibtex(details.author)}},`,
       `  title = {{${escapeBibtex(title)}}},`,
       `  year = {${year}},`,
       ...(month ? [`  month = ${month},`] : []),
       ...(day ? [`  day = {${day}},`] : []),
+      ...(details.booktitle ? [`  booktitle = {${escapeBibtex(details.booktitle)}},`] : []),
+      ...(details.address ? [`  address = {${escapeBibtex(details.address)}},`] : []),
+      ...(details.organization ? [`  organization = {${escapeBibtex(details.organization)}},`] : []),
       `  url = {${escapeBibtex(url)}},`,
       `  note = {${escapeBibtex(details.note)}}`,
       "}",
     ].join("\n");
   };
 
-  const openCitation = (button, title, bibtex) => {
+  const openCitation = (button, bibtex) => {
     activeTrigger = button;
-    dialogTitle.textContent = title;
     code.textContent = bibtex;
     copyStatus.textContent = "";
     copyButton.textContent = "Copy BibTeX";
@@ -94,28 +102,24 @@
 
   document.querySelectorAll(".blog-index-page .mech-program-section").forEach((section, index) => {
     const details = citations[index];
-    const actions = section.querySelector(".mech-paragraph:last-child");
+    const heading = section.querySelector(".mech-program-subtitle");
     const title = section.querySelector(".mech-program-subtitle-link")?.textContent.trim();
 
-    if (!details || !actions || !title) {
+    if (!details || !heading || !title) {
       return;
     }
-
-    actions.classList.add("blog-entry-actions");
 
     const button = document.createElement("button");
     button.type = "button";
     button.className = "bibtex-trigger";
-    button.textContent = "Cite";
+    button.textContent = "BibTeX";
     button.setAttribute("aria-haspopup", "dialog");
-    button.setAttribute("aria-label", `Cite ${title}`);
+    button.setAttribute("aria-label", `Show BibTeX for ${title}`);
 
     const bibtex = makeBibtex(section, details);
-    button.addEventListener("click", () => openCitation(button, title, bibtex));
-    actions.append(button);
+    button.addEventListener("click", () => openCitation(button, bibtex));
+    heading.append(button);
   });
-
-  closeButton.addEventListener("click", () => dialog.close());
 
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) {

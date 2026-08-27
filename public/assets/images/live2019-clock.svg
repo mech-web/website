@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">The blue analog clock from the LIVE 2019 Mech paper</title>
+  <desc id="desc">A solid blue clock face with two dark blue hands and one red second hand.</desc>
+  <rect width="1200" height="900" fill="#ffffff"/>
+  <circle cx="600" cy="450" r="280" fill="#0B79CE"/>
+  <line x1="600" y1="450" x2="428" y2="329" stroke="#023963" stroke-width="22" stroke-linecap="round"/>
+  <line x1="600" y1="450" x2="782" y2="345" stroke="#023963" stroke-width="22" stroke-linecap="round"/>
+  <line x1="600" y1="450" x2="600" y2="680" stroke="#ce0b46" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="600" cy="450" r="18" fill="#023963"/>
+</svg>
