@@ -1,6 +1,6 @@
 :root {
-  --mech-page-scrollbar: var(--mech-brand, var(--accent-primary, #f2b63d));
-  --mech-page-scrollbar-hover: var(--mech-nav-hover, var(--accent-hover, #ecd7ad));
+  --mech-page-scrollbar: var(--mech-scrollbar, rgb(128 128 128 / 70%));
+  --mech-page-scrollbar-hover: var(--mech-scrollbar-hover, rgb(160 160 160 / 85%));
 }
 
 html,
