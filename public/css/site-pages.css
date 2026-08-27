@@ -25,12 +25,17 @@
 }
 
 html {
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
   color: var(--text-primary);
   background: var(--bg-primary);
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -40,6 +45,7 @@ body {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -63,6 +69,7 @@ a {
 
 .header-inner {
   width: 100%;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 34px;
@@ -78,6 +85,7 @@ a {
 }
 
 .top-nav {
+  min-width: 0;
   align-self: stretch;
   display: flex;
   align-items: stretch;
@@ -126,6 +134,8 @@ a {
 
 .page-shell {
   width: min(100%, var(--content-max-width));
+  max-width: 100%;
+  min-width: 0;
   min-height: calc(100vh - var(--header-height));
   margin: 0 auto;
   padding: 32px 32px 80px;
@@ -731,8 +741,10 @@ body.blog-index-page {
 .blog-index-page .mech-content,
 .blog-index-page .mech-program {
   width: 100%;
-  max-width: none;
+  max-width: 100%;
+  min-width: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 .blog-index-page .mech-program-title {
@@ -740,11 +752,17 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border-top: 1px dotted var(--border);
   counter-reset: blog-post;
 }
 
 .blog-index-page .mech-program-section {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: grid;
   grid-template-columns: 62px minmax(0, 1fr);
   gap: 0 22px;
@@ -767,6 +785,8 @@ body.blog-index-page {
 
 .blog-index-page .mech-program-section > * {
   grid-column: 2;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .blog-index-page .mech-program h2 {
@@ -813,6 +833,8 @@ body.blog-index-page {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .blog-index-page .blog-entry-author {
@@ -870,6 +892,8 @@ body.blog-index-page {
   grid-column: 1;
   grid-row: 1 / span 4;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 170px;
   aspect-ratio: 4 / 3;
   border: 1px solid var(--border);
@@ -1026,13 +1050,17 @@ body.blog-index-page {
 }
 
 .footer-inner {
+  width: 100%;
   max-width: var(--content-max-width);
+  min-width: 0;
   margin: 0 auto;
   padding: 0 32px;
   container-type: inline-size;
 }
 
 .footer-main {
+  width: 100%;
+  min-width: 0;
   display: grid;
   grid-template-columns: 170px minmax(280px, 360px) minmax(340px, 1fr);
   column-gap: 30px;
@@ -1102,6 +1130,7 @@ body.blog-index-page {
 }
 
 .footer-links {
+  min-width: 0;
   grid-column: 3;
   grid-row: 1;
   display: grid;
@@ -1363,7 +1392,8 @@ body.blog-index-page {
   .blog-index-page .mech-program-section:first-child::after {
     grid-column: 1;
     grid-row: 1;
-    min-height: 260px;
+    min-height: clamp(160px, 48vw, 260px);
+    max-width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
   }
@@ -1379,14 +1409,89 @@ body.blog-index-page {
   }
 }
 
+@media (max-width: 700px) {
+  .site-header {
+    height: auto;
+    min-height: var(--header-height);
+    align-items: stretch;
+    padding: 8px 14px 0;
+  }
+
+  .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    align-items: start;
+    gap: 5px;
+  }
+
+  .brand {
+    justify-self: center;
+    min-width: 0;
+  }
+
+  .brand img {
+    height: 34px;
+    margin: 0 auto;
+  }
+
+  .top-nav {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 12px;
+    overflow-x: visible;
+    white-space: normal;
+  }
+
+  .top-nav a {
+    padding: 9px 0 11px;
+    font-size: 10px;
+  }
+}
+
 @media (max-width: 620px) {
   .brand img {
     height: 30px;
   }
 
   .top-nav a {
-    padding: 15px 1px;
-    font-size: 11px;
+    padding: 8px 0 10px;
+    font-size: 10px;
+  }
+
+  .page-shell {
+    padding: 22px 14px 52px;
+  }
+
+  .repository-heading,
+  .repository-hosts {
+    flex-wrap: wrap;
+  }
+
+  .repository-name {
+    max-width: 100%;
+    font-size: clamp(15px, 5vw, 20px);
+    overflow-wrap: anywhere;
+  }
+
+  .repository-copy,
+  .repository-stats,
+  .repository-sparkline,
+  .community-links,
+  .community-card,
+  .people-section,
+  .people-group,
+  .contributor-list {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .repository-sparkline svg {
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .community-links {
@@ -1429,13 +1534,41 @@ body.blog-index-page {
     padding: 24px 0;
   }
 
+  .blog-index-page .content,
+  .blog-index-page .mech-content,
+  .blog-index-page .mech-program,
+  .blog-index-page .mech-program-body,
+  .blog-index-page .mech-program-section,
+  .blog-index-page .mech-program-section > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .blog-index-page .mech-program h2 {
+    font-size: clamp(19px, 7vw, 26px);
+    overflow-wrap: anywhere;
+  }
+
+  .blog-index-page .mech-program-section:first-child h2 {
+    font-size: clamp(26px, 9vw, 34px);
+  }
+
+  .blog-index-page .mech-program-section::after,
+  .blog-index-page .mech-program-section:first-child::after {
+    width: 100%;
+    max-width: 100%;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
   .blog-index-page .mech-program-section::before {
     top: 36px;
     left: 12px;
   }
 
   .blog-index-page .mech-program-section:first-child {
-    padding: 18px;
+    padding: 16px;
   }
 
   .blog-index-page .mech-program-section:first-child::before {
@@ -1444,11 +1577,55 @@ body.blog-index-page {
   }
 
   .footer-main {
-    gap: 18px 20px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-top: 28px;
+  }
+
+  .footer-inner {
+    padding: 0 14px;
+  }
+
+  .footer-robot {
+    display: none;
   }
 
   .footer-release {
-    margin-left: -75px;
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .footer-links {
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    width: 100%;
+  }
+
+  .footer-group,
+  .footer-heading,
+  .footer-group a {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .release-grid-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .release-grid-label {
+    padding-bottom: 4px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .release-grid-value {
+    padding-top: 6px;
+    overflow-wrap: anywhere;
   }
 
   .mika-glyph-art--mini {
@@ -1465,7 +1642,7 @@ body.blog-index-page {
 
 @media (max-width: 500px) {
   .footer-inner {
-    padding: 0;
+    padding: 0 14px;
   }
 }
 
