@@ -1,0 +1,40 @@
+:root {
+  --mech-page-scrollbar: var(--mech-scrollbar, rgb(128 128 128 / 70%));
+  --mech-page-scrollbar-hover: var(--mech-scrollbar-hover, rgb(160 160 160 / 85%));
+}
+
+html,
+body,
+.content-shell {
+  scrollbar-color: var(--mech-page-scrollbar) transparent;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.content-shell::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.content-shell::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.content-shell::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--mech-page-scrollbar);
+  background-clip: content-box;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+.content-shell::-webkit-scrollbar-thumb:hover {
+  background: var(--mech-page-scrollbar-hover);
+  background-clip: content-box;
+}
