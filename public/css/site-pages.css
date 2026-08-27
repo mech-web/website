@@ -454,7 +454,15 @@ tbody tr:hover {
 }
 
 .repository-hosts a:hover {
-  color: var(--accent-primary);
+  color: var(--repository-host-hover);
+}
+
+.repository-host--github {
+  --repository-host-hover: var(--mech-accent-blue);
+}
+
+.repository-host--gitlab {
+  --repository-host-hover: var(--mech-accent-orange);
 }
 
 .repository-hosts svg {
@@ -540,7 +548,7 @@ tbody tr:hover {
 .repository-graph-activity {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 7px;
   margin-top: 8px;
   color: var(--mech-text-muted);
