@@ -1,0 +1,40 @@
+:root {
+  --mech-page-scrollbar: var(--mech-brand, var(--accent-primary, #f2b63d));
+  --mech-page-scrollbar-hover: var(--mech-nav-hover, var(--accent-hover, #ecd7ad));
+}
+
+html,
+body,
+.content-shell {
+  scrollbar-color: var(--mech-page-scrollbar) transparent;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.content-shell::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.content-shell::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.content-shell::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--mech-page-scrollbar);
+  background-clip: content-box;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+.content-shell::-webkit-scrollbar-thumb:hover {
+  background: var(--mech-page-scrollbar-hover);
+  background-clip: content-box;
+}
