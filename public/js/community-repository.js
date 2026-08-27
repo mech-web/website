@@ -38,23 +38,26 @@
     return response.json();
   };
 
-  const activityPath = (commits) => {
-    const weekCount = 20;
-    const counts = Array(weekCount).fill(0);
-    const now = Date.now();
+  const activityPath = (contributors) => {
+    const weeklyTotals = new Map();
+    contributors.forEach((contributor) => {
+      (contributor.weeks || []).forEach((week) => {
+        weeklyTotals.set(week.w, (weeklyTotals.get(week.w) || 0) + week.c);
+      });
+    });
 
-    commits.forEach((item) => {
-      const committedAt = new Date(item.commit?.author?.date).getTime();
-      const ageInWeeks = Math.floor((now - committedAt) / (7 * 24 * 60 * 60 * 1000));
-      if (Number.isFinite(ageInWeeks) && ageInWeeks >= 0 && ageInWeeks < weekCount) {
-        counts[weekCount - 1 - ageInWeeks] += 1;
-      }
+    const weeks = [...weeklyTotals.entries()].sort(([a], [b]) => a - b);
+    const binCount = 48;
+    const counts = Array(binCount).fill(0);
+    weeks.forEach(([, count], index) => {
+      const bin = Math.min(binCount - 1, Math.floor(index * binCount / weeks.length));
+      counts[bin] += count;
     });
 
     const peak = Math.max(...counts, 1);
     return counts.map((count, index) => {
-      const x = (280 * index) / (weekCount - 1);
-      const y = 70 - (62 * count) / peak;
+      const x = (280 * index) / (binCount - 1);
+      const y = 70 - (62 * Math.sqrt(count)) / Math.sqrt(peak);
       return `${index === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
     }).join(" ");
   };
@@ -62,8 +65,8 @@
   Promise.allSettled([
     fetchJson("https://api.github.com/repos/mech-lang/mech"),
     fetchJson("https://api.github.com/repos/mech-lang/mech/releases/latest"),
-    fetchJson("https://api.github.com/repos/mech-lang/mech/commits?per_page=100"),
-  ]).then(([repositoryResult, releaseResult, commitsResult]) => {
+    fetchJson("https://api.github.com/repos/mech-lang/mech/stats/contributors"),
+  ]).then(([repositoryResult, releaseResult, contributorsResult]) => {
     if (repositoryResult.status === "fulfilled") {
       stars.textContent = new Intl.NumberFormat("en-US").format(repositoryResult.value.stargazers_count);
       updated.textContent = relativeTime(repositoryResult.value.pushed_at);
@@ -81,8 +84,8 @@
       });
     }
 
-    if (commitsResult.status === "fulfilled" && Array.isArray(commitsResult.value)) {
-      heartbeat.setAttribute("d", activityPath(commitsResult.value));
+    if (contributorsResult.status === "fulfilled" && Array.isArray(contributorsResult.value)) {
+      heartbeat.setAttribute("d", activityPath(contributorsResult.value));
     }
   });
 })();
