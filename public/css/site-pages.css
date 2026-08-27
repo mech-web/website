@@ -189,6 +189,10 @@ h1 {
   line-height: 1.04;
 }
 
+.landing-title {
+  margin-bottom: 42px;
+}
+
 .hero-summary {
   max-width: 760px;
   margin: 24px 0 0;
@@ -748,7 +752,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-title {
-  display: none;
+  display: block;
 }
 
 .blog-index-page .mech-program-body {
