@@ -340,7 +340,6 @@ tbody tr:hover {
 .people-group + .people-group {
   margin-top: 34px;
   padding-top: 30px;
-  border-top: 1px dotted var(--border);
 }
 
 .people-subheading {
@@ -372,7 +371,6 @@ tbody tr:hover {
   gap: 0 22px;
   margin: 20px 0 0;
   padding: 0;
-  border-top: 1px dotted var(--border);
   list-style: none;
 }
 
@@ -387,7 +385,6 @@ tbody tr:hover {
 .contributor-list li {
   min-width: 0;
   padding: 12px 4px;
-  border-bottom: 1px dotted var(--border);
   color: var(--body-primary);
   font-size: 14px;
   line-height: 1.35;
