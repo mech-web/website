@@ -913,7 +913,10 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(2)::after {
-  background-image: url("/assets/images/blog-thumbnails/mechdown.jpg");
+  background-color: #102f47;
+  background-image: url("/assets/images/blog-thumbnails/mechdown-architecture.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .blog-index-page .mech-program-section:nth-child(3)::after {
