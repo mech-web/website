@@ -917,7 +917,7 @@ body.blog-index-page {
 }
 
 .blog-index-page .mech-program-section:nth-child(3)::after {
-  background-image: url("/post/2025-01-09-programming-chatgpt/EKF.png");
+  background-image: url("/assets/images/blog-thumbnails/ekf-styled.jpg");
 }
 
 .blog-index-page .mech-program-section:nth-child(4)::after {
