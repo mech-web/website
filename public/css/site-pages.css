@@ -497,13 +497,13 @@ tbody tr:hover {
 }
 
 .repository-stat--activity svg {
-  color: #3fb950;
+  color: var(--accent-teal);
 }
 
 .repository-sparkline {
   width: 100%;
   min-height: 82px;
-  color: #3fb950;
+  color: var(--accent-teal);
 }
 
 .repository-sparkline svg {
