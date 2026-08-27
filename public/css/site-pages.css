@@ -528,13 +528,13 @@ tbody tr:hover {
 }
 
 .repository-sparkline-range {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   margin-top: 1px;
   color: var(--text-muted);
   font-family: "IBM Plex Mono", "SFMono-Regular", ui-monospace, Menlo, monospace;
   font-size: 9px;
   letter-spacing: 0.08em;
-  text-align: right;
   text-transform: uppercase;
 }
 
