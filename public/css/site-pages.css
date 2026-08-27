@@ -554,14 +554,14 @@ tbody tr:hover {
   padding: 12px 13px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--bg-secondary);
+  background: var(--bg-elevated);
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
 .community-card:hover {
   transform: translateY(-2px);
   border-color: var(--accent-primary);
-  background: var(--bg-secondary);
+  background: rgb(243 193 92 / 5%);
 }
 
 .community-icon {
@@ -571,27 +571,13 @@ tbody tr:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-muted);
+  transition: color 160ms ease;
 }
 
 .community-icon svg {
   width: 100%;
   height: 100%;
-}
-
-.community-icon--discord {
-  color: #8ea1e1;
-}
-
-.community-icon--youtube {
-  color: #ff6b6b;
-}
-
-.community-icon--reddit {
-  color: #ff8a5b;
-}
-
-.community-icon--mail {
-  color: var(--accent-teal);
 }
 
 .community-link-copy {
@@ -603,9 +589,10 @@ tbody tr:hover {
 }
 
 .community-link-copy strong {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 12px;
+  transition: color 160ms ease;
 }
 
 .community-link-copy small {
@@ -619,34 +606,15 @@ tbody tr:hover {
 
 .community-card .arrow {
   margin-left: auto;
-  color: var(--accent-primary);
+  color: var(--text-muted);
   font-size: 12px;
+  transition: color 160ms ease;
 }
 
-.community-card:nth-child(2) .arrow,
-.community-card:nth-child(5) .arrow {
-  color: var(--accent-teal);
-}
-
-.community-card:nth-child(3) .arrow {
-  color: var(--accent-magenta);
-}
-
-.community-card:nth-child(4) .arrow {
-  color: var(--accent-coral);
-}
-
-.welcome {
-  margin-top: 28px;
-  padding: 22px 24px;
-  border-left: 3px solid var(--accent-primary);
-  border-radius: 0 8px 8px 0;
-  color: var(--body-primary);
-  background: var(--bg-elevated);
-}
-
-.welcome p {
-  margin: 0;
+.community-card:hover .community-icon,
+.community-card:hover .community-link-copy strong,
+.community-card:hover .arrow {
+  color: var(--accent-primary);
 }
 
 .blog-page .page-hero {
