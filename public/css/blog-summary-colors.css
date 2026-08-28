@@ -1,0 +1,11 @@
+.blog-index-page
+  .mech-program-section
+  > .mech-paragraph:not(.blog-entry-category):not(:last-child) {
+  color: var(--body-primary);
+}
+
+.blog-index-page
+  .mech-program-section:first-child
+  > .mech-paragraph:not(.blog-entry-category):not(:last-child) {
+  color: var(--mech-text-hero-secondary);
+}
