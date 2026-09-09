@@ -372,7 +372,7 @@ html[data-explore-mode="mech"] .ex-contribute { display: none; }
   min-width: 0;
   margin: 0 0 18px 24px;
   border-radius: 10px;
-  box-shadow: var(--mech-shadow-content-block);
+  box-shadow: var(--mech-shadow-table);
 }
 
 .ex-explorer .ex-code-example .mech-code-block-namespace {
