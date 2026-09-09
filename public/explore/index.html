@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the technical dimensions of Mech.">
+  <title>Explore · Mech</title>
+  <script>document.documentElement.dataset.exploreMode = /\/comparison(?:\/|$)/.test(location.pathname) ? 'comparison' : 'mech';</script>
+  <link rel="icon" href="https://gitlab.com/mech-lang/assets/-/raw/main/images/icons/favicon.ico?ref_type=heads" type="image/x-icon">
+  <!-- SITE_STYLES_START -->
+  <link rel="stylesheet" href="/css/mech-palette.css?v=20260827-subheading">
+  <link rel="stylesheet" href="/css/site-pages.css?v=20260827-blog-scrollbar-muted">
+  <link rel="stylesheet" href="/css/scrollbar-muted.css?v=20260827">
+  <!-- SITE_STYLES_END -->
+  <link rel="stylesheet" href="assets/mech-source.css">
+  <link rel="stylesheet" href="assets/explore.css">
+  <script src="assets/explore.js" defer></script>
+</head>
+<body class="explore-page">
+<!-- SITE_HEADER_START -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="https://mech-lang.org" aria-label="Mech home">
+        <img src="https://mech-lang.org/img/logo.png" alt="Mech">
+      </a>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="https://about.mech-lang.org">About</a>
+        <a href="https://mech-lang.org/blog/">Blog</a>
+        <a href="https://mech-lang.org/community/">Community</a>
+        <a href="https://docs.mech-lang.org">Docs</a>
+        <a class="active" href="/explore/" aria-current="page">Explore</a>
+      </nav>
+    </div>
+  </header>
+  <!-- SITE_HEADER_END -->
+
+  <main class="page-shell">
+    <h1 class="landing-title">Explore</h1>
+    <p class="ex-intro" id="ex-intro">Mech is a programming system as well as a programming language. Its design includes the language’s type system and memory model, together with the ways programs are written, run, inspected, adapted, and shared. The technical dimensions framework<span class="ex-citation"><a class="ex-citation-link" href="#technical-dimensions-citation" data-citation-toggle aria-controls="technical-dimensions-citation" aria-expanded="false" aria-label="View citation 1">[1]</a><span class="ex-citation-popover" id="technical-dimensions-citation" role="note" hidden>J. Jakubovic, J. Edwards, and T. Petricek, “Technical Dimensions of Programming Systems,” <cite>The Art, Science, and Engineering of Programming</cite>, vol. 7, no. 3, pp. 13:1–13:59, Feb. 2023, doi: 10.22152/programming-journal.org/2023/7/13. <a href="https://doi.org/10.22152/programming-journal.org/2023/7/13" target="_blank" rel="noopener noreferrer">View paper<svg class="ex-external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a></span></span> provides a taxonomy for describing and comparing programming systems across this broader range of concerns. This page applies the framework to Mech through descriptions and working examples.</p>
+    <div class="ex-explorer">
+      <a href="#explore-content" class="ex-skip">Skip to dimensions</a>
+
+      <section class="ex-selection" id="ex-system-selection" aria-labelledby="ex-systems-title">
+        <div class="ex-selection-heading">
+          <h2 id="ex-systems-title">Languages</h2>
+          <div class="ex-selection-actions">
+            <button type="button" data-select-all>Select all</button>
+            <button type="button" data-reset>Reset</button>
+          </div>
+        </div>
+        <div id="ex-system-options" class="ex-system-options" role="group" aria-label="Languages included in the comparison"></div>
+        <p class="ex-selection-count" id="ex-selection-count" role="status"></p>
+      </section>
+
+      <section class="ex-catalogue" id="explore-content" aria-labelledby="ex-catalogue-title" tabindex="-1">
+        <h2 class="ex-sr-only" id="ex-catalogue-title">Technical dimensions</h2>
+        <div id="ex-view"><div class="ex-loading">Loading dimensions…</div></div>
+      </section>
+
+      <section class="ex-contribute" aria-labelledby="ex-contribute-title">
+        <h2 class="section-heading" id="ex-contribute-title">Contribute</h2>
+        <p id="ex-contribute-copy">Correct a Mech entry, propose a dimension, or add evidence by opening a pull request.</p>
+        <div class="ex-contribute-links">
+          <a id="ex-edit-link" href="https://github.com/mech-web/website/edit/main/public/explore/data/mech-content.json" target="_blank" rel="noopener noreferrer">Edit the Mech descriptions<svg class="ex-external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+          <a href="https://github.com/mech-web/website/pulls" target="_blank" rel="noopener noreferrer">View pull requests<svg class="ex-external-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+        </div>
+      </section>
+
+      <section class="ex-benchmarks" id="benchmarks" aria-labelledby="ex-benchmark-title" hidden>
+        <div class="ex-group-heading ex-benchmark-heading">
+          <span class="ex-group-number">Section 8</span>
+          <h2 class="section-heading" id="ex-benchmark-title">Benchmarks</h2>
+        </div>
+        <div id="ex-benchmark-content"></div>
+      </section>
+    <noscript><p class="ex-noscript">This page needs JavaScript to show dimension details. The source content is available in <a href="data/mech-content.json">mech-content.json</a>.</p></noscript>
+    </div>
+  </main>
+
+  <!-- SITE_FOOTER_START -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-main">
+        <div class="footer-robot">
+          <img src="https://gitlab.com/mech-lang/assets/-/raw/main/images/mika/mika-pose-point.png?ref_type=heads" alt="Mika the Mech" onerror="this.hidden = true">
+          <div class="mika-glyph" aria-hidden="true">
+            <div class="mika-glyph-art-wrap">
+              <pre class="mika-glyph-art mika-glyph-art--mini">╭(˙◯˙)─</pre>
+              <pre class="mika-glyph-art mika-glyph-art--micro">╭⦿─</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-group">
+            <div class="footer-heading"><span class="footer-heading-icon"><svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg></span><span class="footer-heading-text">Platform</span></div>
+            <a href="https://mech-lang.org">Mech</a>
+            <a href="https://mech-lang.org/post/2025-11-12-mechdown/">Mechdown</a>
+            <a href="https://mech-lang.org/post/2026-01-26-programming-language-mascots/">Mika</a>
+            <a href="https://docs.mech-lang.org/stdlib/">Standard Library</a>
+          </div>
+
+          <div class="footer-group">
+            <div class="footer-heading"><span class="footer-heading-icon"><svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg></span><span class="footer-heading-text">Community</span></div>
+            <a href="https://groups.google.com/g/mechtalk">Mailing List</a>
+            <a href="https://discord.gg/asqP25NNTH">Discord</a>
+            <a href="https://github.com/mech-lang">GitHub</a>
+            <a href="https://www.youtube.com/@MechLang">YouTube</a>
+          </div>
+
+          <div class="footer-group">
+            <div class="footer-heading"><span class="footer-heading-icon"><svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 12h2"/><path d="M6 8h2"/></svg></span><span class="footer-heading-text">Resources</span></div>
+            <a href="https://docs.mech-lang.org/getting-started/introduction.html">Getting Started</a>
+            <a href="https://docs.mech-lang.org/reference/index.html">Reference</a>
+            <a href="https://docs.mech-lang.org/design/index.html">Design</a>
+            <a href="https://docs.mech-lang.org/guides/mech-in-fifteen-minutes.html">Guides</a>
+          </div>
+        </div>
+
+        <div class="footer-release">
+          <div class="release-ack">
+            <svg xmlns="http://www.w3.org/2000/svg" class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 0-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></svg>
+            <a href="https://github.com/mech-lang/mech/releases/latest">Latest Release</a>
+          </div>
+          <div class="release-grid-row">
+            <div class="release-grid-label">Version:</div>
+            <div class="release-grid-value"><a href="https://github.com/mech-lang/mech/releases/latest">v0.3.5-beta</a></div>
+          </div>
+          <div class="release-grid-row">
+            <div class="release-grid-label">Date:</div>
+            <div class="release-grid-value">2026-05-06</div>
+          </div>
+          <div class="release-grid-row">
+            <div class="release-grid-label">License:</div>
+            <div class="release-grid-value"><a href="https://github.com/mech-lang/mech?tab=Apache-2.0-1-ov-file#readme">Apache 2.0</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <div class="footer-pride">© 2026</div>
+      </div>
+    </div>
+  </footer>
+  <!-- SITE_FOOTER_END -->
+  <!-- EXPLORE_INLINE_DATA -->
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mech Explore benchmark index",
+  "type": "object",
+  "required": ["schemaVersion", "reviewedAt", "suites"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "reviewedAt": {"type": "string", "format": "date"},
+    "suites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "note", "unit", "platform", "workload", "rows"],
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "note": {"type": "string"},
+          "unit": {"type": "string"},
+          "platform": {"type": "string"},
+          "workload": {"type": "string"},
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["system", "label", "device", "checked", "unchecked", "evidence"],
+              "properties": {
+                "system": {"type": "string"},
+                "label": {"type": "string"},
+                "device": {"enum": ["cpu", "gpu"]},
+                "checked": {"type": ["number", "null"]},
+                "unchecked": {"type": ["number", "null"]},
+                "evidence": {"type": "string", "format": "uri"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

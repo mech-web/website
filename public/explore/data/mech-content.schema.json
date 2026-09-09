@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mech Explore dimension explanations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "frameworkSource", "groups", "dimensions"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "frameworkSource": {"type": "string"},
+    "groups": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 80}
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "mech", "example"],
+        "properties": {
+          "description": {"type": "string", "minLength": 150},
+          "mech": {"type": "string", "minLength": 120},
+          "example": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "code", "note", "source"],
+            "properties": {
+              "title": {"type": "string"},
+              "code": {"type": "string"},
+              "note": {"type": "string"},
+              "source": {"type": "string", "format": "uri"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

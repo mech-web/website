@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mech Explore \u2014 qualitative programming-system comparisons",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "reviewedAt",
+    "framework",
+    "methodology",
+    "defaults",
+    "clusters",
+    "dimensions",
+    "systems",
+    "assessments",
+    "sources"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "reviewedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "title": {
+      "type": "string"
+    },
+    "framework": {
+      "type": "object"
+    },
+    "methodology": {
+      "type": "object"
+    },
+    "defaults": {
+      "type": "object",
+      "required": [
+        "systems",
+        "cluster"
+      ],
+      "properties": {
+        "systems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "cluster": {
+          "type": "string"
+        }
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cluster"
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dimension"
+      }
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/system"
+      }
+    },
+    "assessments": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/$defs/assessment"
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/source"
+      }
+    }
+  },
+  "$defs": {
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "cluster": {
+      "type": "object",
+      "required": [
+        "id",
+        "number",
+        "title",
+        "summary",
+        "question"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        }
+      }
+    },
+    "system": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "color",
+        "subtitle",
+        "scope",
+        "excluded",
+        "basis",
+        "sources"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^--mech-[a-z0-9-]+$"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "excluded": {
+          "type": "string"
+        },
+        "basis": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        },
+        "mark": {
+          "type": "string"
+        },
+        "sources": {
+          "$ref": "#/$defs/refs"
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "required": [
+        "id",
+        "cluster",
+        "title",
+        "definition",
+        "question",
+        "icon",
+        "color",
+        "sources"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "cluster": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^--mech-[a-z0-9-]+$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "sources": {
+          "$ref": "#/$defs/refs"
+        },
+        "related": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mechTreatment": {
+          "type": "object",
+          "description": "Editorial analysis and proposed directions. Not a capability assessment."
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "summary",
+        "tradeoff",
+        "basis",
+        "sources"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "tradeoff": {
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "documented-design",
+            "documentation-based-analysis"
+          ]
+        },
+        "sources": {
+          "$ref": "#/$defs/refs"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "title",
+        "url",
+        "publisher",
+        "reviewedAt"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

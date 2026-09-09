@@ -1,0 +1,2746 @@
+{
+  "schemaVersion": 2,
+  "reviewedAt": "2026-09-08",
+  "title": "Explore · Mech",
+  "framework": {
+    "title": "Technical Dimensions of Programming Systems",
+    "authors": [
+      "Joel Jakubovic",
+      "Jonathan Edwards",
+      "Tomas Petricek"
+    ],
+    "year": 2023,
+    "sources": [
+      "paper",
+      "catalogue"
+    ],
+    "catalogueDimensionCount": 23,
+    "comparisonTopicCount": 21,
+    "groupingNote": "This page retains 21 grouped topics from the earlier Mech treatment. The authors’ catalogue describes 23 dimensions; compound headings, including surface/internal notation and addressing/externalizability, remain grouped here. These are comparison topics, not a renumbered edition of the paper."
+  },
+  "methodology": {
+    "kind": "Qualitative editorial comparison",
+    "review": "Primary documentation reviewed 2026-09-08; software was not benchmarked or independently qualified in this comparison.",
+    "scope": "Profiles name the environment as well as the language. Library-specific capabilities are not silently promoted to language defaults.",
+    "interpretation": "Labels, tradeoffs, and Mech design implications are editorial assessments based on the linked sources, not ratings by the original paper’s authors or endorsements by the systems’ maintainers.",
+    "missing": "A missing assessment means not yet assessed, never no capability.",
+    "mech": "The Mech profile combines documented language behavior and v0.4 architectural design. Proposed work is kept in the separate Mech design notes."
+  },
+  "defaults": {
+    "systems": [
+      "mech",
+      "julia",
+      "matlab",
+      "rust"
+    ],
+    "cluster": "interaction"
+  },
+  "clusters": [
+    {
+      "id": "interaction",
+      "number": "01",
+      "title": "Interaction",
+      "summary": "The path from an idea to its consequences.",
+      "question": "How do we edit, run, inspect, and make abstractions?"
+    },
+    {
+      "id": "notation",
+      "number": "02",
+      "title": "Notation",
+      "summary": "The representations we use to think and program.",
+      "question": "How do code, documents, visual tools, and internal structures relate?"
+    },
+    {
+      "id": "structure",
+      "number": "03",
+      "title": "Conceptual structure",
+      "summary": "The concepts a system is built around.",
+      "question": "How do the parts fit together, and where are the boundaries?"
+    },
+    {
+      "id": "customizability",
+      "number": "04",
+      "title": "Customizability",
+      "summary": "How an existing system can be changed.",
+      "question": "What can be changed, from where, and at what stage?"
+    },
+    {
+      "id": "complexity",
+      "number": "05",
+      "title": "Complexity",
+      "summary": "The work divided between programmer and system.",
+      "question": "Which details are packaged, inferred, or left explicit?"
+    },
+    {
+      "id": "errors",
+      "number": "06",
+      "title": "Errors",
+      "summary": "Detecting problems and responding to them.",
+      "question": "When do we learn something is wrong, and what happens next?"
+    },
+    {
+      "id": "adoptability",
+      "number": "07",
+      "title": "Adoptability",
+      "summary": "The path into a system, and the community around it.",
+      "question": "What makes a system learnable, shareable, and practical to adopt?"
+    }
+  ],
+  "dimensions": [
+    {
+      "id": "feedback",
+      "icon": "rotate-cw",
+      "color": "--mech-accent-coral",
+      "cluster": "interaction",
+      "number": "01.1",
+      "title": "Feedback loops",
+      "definition": "The loop between an action and an observable consequence.",
+      "question": "After a change, what must you do to see and understand its consequences?",
+      "related": [
+        "detection",
+        "surface",
+        "learnability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Make consequences visible, not merely fast.",
+        "position": "A useful Mech loop connects an idea, an edit, validation, an accepted update, and the visible consequence. Kernel throughput alone does not tell us how difficult that loop is to complete.",
+        "proposal": "Treat edit-to-visible-result latency and the work needed to expose relevant values as first-class evaluation measures. Keep the same result identity across the document, transcript, and inspector.",
+        "tension": "More observation can consume rendering time, retained state, and memory. Fast automatic updates are not helpful when the result the programmer needs is still hidden.",
+        "evidence": "The interactive architecture specifies stable output identity, coordinated diagnostics, and consistent epochs across results and inspection. This is an architectural foundation, not an end-to-end usability measurement.",
+        "status": "architecture",
+        "refs": [
+          "interactive"
+        ],
+        "example": "Change the EKF measurement-noise parameter. Inspect the estimate, covariance, and relevant intermediate values without writing a separate debugging application.",
+        "tests": [
+          "Measure editing, checking, activation, execution, and rendering separately.",
+          "Count the actions needed to reveal the relevant intermediate result.",
+          "Verify that displayed values identify the accepted version that produced them."
+        ]
+      }
+    },
+    {
+      "id": "modes",
+      "icon": "mouse-pointer-click",
+      "color": "--mech-accent-coral",
+      "cluster": "interaction",
+      "number": "01.2",
+      "title": "Modes of interaction",
+      "definition": "The stages that enable or restrict different interactions.",
+      "question": "Which actions are available while editing, inspecting, and running?",
+      "related": [
+        "staging",
+        "integrity",
+        "sociability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Unify meaning without erasing useful boundaries.",
+        "position": "An interactive document, an embedded runtime, and a packaged native application can share computational meaning without sharing every tool or permission.",
+        "proposal": "Keep semantic behavior consistent across modes. Make available actions explicit: an author may replace a computation, while a deployed operator may only adjust approved inputs.",
+        "tension": "Collapsing every mode into unrestricted live editing conflicts with authorization, lifecycle control, and predictable operation. Different permissions need not imply different semantics.",
+        "evidence": "The shared resident session places frontends behind adapters. The native design deliberately omits source parsing and compilation from generated applications.",
+        "status": "architecture",
+        "refs": [
+          "interactive",
+          "native"
+        ],
+        "example": "Read the estimator in a document, inspect it in a resident session, and then load it into a Rust host. The algorithm should not need three definitions.",
+        "tests": [
+          "Identify which actions are available in each mode.",
+          "Compare outputs for the same inputs across supported execution paths.",
+          "Verify that restricted modes cannot acquire authoring privileges implicitly."
+        ]
+      }
+    },
+    {
+      "id": "abstraction",
+      "icon": "shapes",
+      "color": "--mech-accent-coral",
+      "cluster": "interaction",
+      "number": "01.3",
+      "title": "Abstraction construction",
+      "definition": "The path from concrete cases to reusable descriptions.",
+      "question": "How do you turn a working example into a reusable component?",
+      "related": [
+        "composability",
+        "feedback",
+        "automation"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Making a model reusable should not make it invisible.",
+        "position": "A concrete estimator document exposes intermediate calculations. Turning it into a function or component should not automatically remove that visibility. Functions alone are not an example-to-abstraction workflow.",
+        "proposal": "Explore extraction that suggests inputs, persistent state, assumptions, and outputs from dependencies and inferred types. Preserve inspectable intermediate values for individual invocations.",
+        "tension": "Abstraction reduces repetition, but can hide the details that made an example understandable. Automatic extraction also needs a deliberate decision about state and effects.",
+        "evidence": "Mech documents functions and other composition mechanisms. Guided extraction with retained invocation-level observability is a proposal in this analysis, not a verified feature.",
+        "status": "proposal",
+        "refs": [
+          "readme"
+        ],
+        "example": "Extract the EKF into a reusable estimator, create two independent instances, and inspect the predicted covariance inside each invocation.",
+        "tests": [
+          "Record which manual decisions extraction requires.",
+          "Verify that two instances do not accidentally share mutable state.",
+          "Compare access to intermediate values before and after extraction."
+        ]
+      }
+    },
+    {
+      "id": "notational-structure",
+      "icon": "code-xml",
+      "color": "--mech-accent-purple",
+      "cluster": "notation",
+      "number": "02.1",
+      "title": "Notational structure",
+      "definition": "The relationship between the notations used together.",
+      "question": "What notations are used to program the system and how are they related?",
+      "related": [
+        "surface",
+        "primary",
+        "uniformity"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Every editable view needs to say what it edits.",
+        "position": "Prose and equations can express complementary concerns. A matrix editor and a source expression could instead expose overlapping views of the same data. Those are different relationships.",
+        "proposal": "For every visual edit, specify whether it changes a source definition, a live input, or a temporary override. Keep conversions between overlapping views faithful and reviewable.",
+        "tension": "A useful visualization does not automatically define a safe editing operation. Multiple editable views can create competing sources of truth.",
+        "evidence": "Mechdown combines prose and executable content. General bidirectional visual editing is a design opportunity, not established by rendering a document.",
+        "status": "proposal",
+        "refs": [
+          "spec",
+          "mechdown"
+        ],
+        "example": "Drag a landmark in a future visual view. The interface should state whether the operation rewrites the landmark definition or supplies a new runtime input.",
+        "tests": [
+          "Trace each visual edit to its exact semantic target.",
+          "Round-trip an edit through every overlapping notation.",
+          "Check whether unsupported edits are rejected rather than silently approximated."
+        ]
+      }
+    },
+    {
+      "id": "surface",
+      "icon": "layers",
+      "color": "--mech-accent-purple",
+      "cluster": "notation",
+      "number": "02.2",
+      "title": "Surface and internal notation",
+      "definition": "The connection between visible and internal representations.",
+      "question": "How does what you edit relate to the structure that executes?",
+      "related": [
+        "feedback",
+        "commonality",
+        "addressing"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Preserve identity from the document to the running instance.",
+        "position": "Text, rendered documents, semantic programs, activated plans, and live instances are related but different representations. An internal graph is useful only when users can connect it to their program.",
+        "proposal": "Make each observed value traceable to its definition, inputs, accepted version, and owning instance. Use semantic identity rather than transient storage addresses.",
+        "tension": "Showing every implementation structure can overwhelm the programmer. Hiding the source-to-runtime connection makes debugging and inspection unreliable.",
+        "evidence": "The resident design distinguishes immutable program artifacts, runtime-specific activated plans, and independently owned reactive instances. It describes a target decomposition, not a claim that every inspector exists.",
+        "status": "architecture",
+        "refs": [
+          "resident",
+          "interactive"
+        ],
+        "example": "Select the predicted covariance in the document and identify its definition, active input version, and estimator instance.",
+        "tests": [
+          "Verify stable source-to-value navigation after an accepted edit.",
+          "Distinguish artifact identity from instance identity.",
+          "Check that storage changes do not change public semantic identity."
+        ]
+      }
+    },
+    {
+      "id": "primary",
+      "icon": "monitor-smartphone",
+      "color": "--mech-accent-purple",
+      "cluster": "notation",
+      "number": "02.3",
+      "title": "Primary and secondary notations",
+      "definition": "The relative roles of central and supporting notations.",
+      "question": "Is there a central notation, or must you coordinate several peers?",
+      "related": [
+        "notational-structure",
+        "integrity",
+        "automation"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Integrate notation; preserve authority boundaries.",
+        "position": "Mechdown is sometimes operational: annotated headings can establish named compute boundaries. Ordinary headings remain documentation. Similar-looking edits can therefore have different significance.",
+        "proposal": "Make operational annotations unmistakable. Keep a document’s request for a resource separate from a trusted host’s grant of authority, even when configuration uses familiar notation.",
+        "tension": "A unified surface reduces context switching, but can obscure differences between explanation, compilation structure, and permission.",
+        "evidence": "The named-region design gives @compute, @cpu, and @gpu section annotations semantic meaning. Unannotated sections remain documentation structure.",
+        "status": "architecture",
+        "refs": [
+          "compute",
+          "native"
+        ],
+        "example": "Compare renaming a presentation heading with renaming a compute region. Only the latter should affect the documented stable boundary.",
+        "tests": [
+          "Make semantic heading edits identifiable in review.",
+          "Reject unknown operational annotations.",
+          "Verify that source-level requests cannot silently grant host access."
+        ]
+      }
+    },
+    {
+      "id": "geography",
+      "icon": "network",
+      "color": "--mech-accent-purple",
+      "cluster": "notation",
+      "number": "02.4",
+      "title": "Expression geography",
+      "definition": "The relationship between syntactic and semantic distance.",
+      "question": "Can a small-looking edit produce a very different computation?",
+      "related": [
+        "detection",
+        "uniformity",
+        "learnability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "A one-character edit can be valid, plausible, and wrong.",
+        "position": "Concise mathematical notation helps an algorithm resemble its mathematics. It can also place very different operations next to each other in the space of possible edits.",
+        "proposal": "Expose operator meaning, operand and result shapes, and intermediate results. Evaluate how often small mistaken edits become well-typed but incorrect computations.",
+        "tension": "Compactness reduces typing, but can make intended operations harder to distinguish. Type and shape checks cannot recover every mathematical intention.",
+        "evidence": "Mech distinguishes elementwise arithmetic from matrix multiplication through operators such as * and **. Equally shaped square matrices can make both expressions well-typed.",
+        "status": "documented",
+        "refs": [
+          "spec"
+        ],
+        "example": "Replace matrix multiplication with elementwise multiplication in a square-matrix calculation. Ask whether the visible result makes the mistake discoverable.",
+        "tests": [
+          "Create minimal edits that remain valid but change meaning.",
+          "Test whether users can explain the operator difference.",
+          "Measure detection without assuming the type checker knows intent."
+        ]
+      }
+    },
+    {
+      "id": "uniformity",
+      "icon": "equal",
+      "color": "--mech-accent-purple",
+      "cluster": "notation",
+      "number": "02.5",
+      "title": "Uniformity of notation",
+      "definition": "The variety of basic concepts in a notation.",
+      "question": "How many basic concepts and forms must you learn?",
+      "related": [
+        "geography",
+        "commonality",
+        "learnability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Seek regularity, not one universal surface form.",
+        "position": "Equations, tables, state transitions, and prose serve different expressive needs. Several appropriate forms can still share consistent naming, type annotation, mutation, and inspection rules.",
+        "proposal": "Make learning one area useful in the next. Preserve semantic uniformity even where specialized syntax is more suitable.",
+        "tension": "One form everywhere can be awkward for domain tasks; unrelated conventions increase learning cost and opportunities for mistakes.",
+        "evidence": "Mech documents multiple language constructs and literate formatting. A claim that their conventions are learnable still needs evaluation.",
+        "status": "question",
+        "refs": [
+          "readme",
+          "spec"
+        ],
+        "example": "Move from a scalar expression to a matrix operation and a stateful component. Check which naming, type, and inspection conventions transfer.",
+        "tests": [
+          "List concepts that change spelling or behavior across constructs.",
+          "Test transfer of learning between related tasks.",
+          "Distinguish a purposeful special form from an accidental exception."
+        ]
+      }
+    },
+    {
+      "id": "integrity",
+      "icon": "badge-check",
+      "color": "--mech-accent-green",
+      "cluster": "structure",
+      "number": "03.1",
+      "title": "Conceptual integrity vs. openness",
+      "definition": "Coherent internal concepts versus accommodation of outside conventions.",
+      "question": "Where does the system prioritize coherence, and where does it accept outside conventions?",
+      "related": [
+        "modes",
+        "composability",
+        "sociability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "A coherent reactive model inside a larger system.",
+        "position": "Mech can offer a different programming experience without replacing Rust. The key is deciding where the internal model must stay coherent and where an explicit adapter can accommodate existing technology.",
+        "proposal": "Require common rules for identity, update ordering, ownership, and failure inside Mech. Expose deliberate integration points rather than allowing each host to invent new semantics.",
+        "tension": "A closed world sacrifices practical embedding. Uncontrolled host-specific exceptions make the promised unified model superficial.",
+        "evidence": "The native architecture separates executable program description from trusted Rust linkage and host construction.",
+        "status": "architecture",
+        "refs": [
+          "native"
+        ],
+        "example": "Embed an estimator beside an existing Rust device driver. Adapt the driver at the boundary without changing the estimator’s internal state model.",
+        "tests": [
+          "Count semantic exceptions introduced by a new host.",
+          "Verify that the algorithm remains unchanged during embedding.",
+          "Identify exactly which layer owns timing, identity, and failure."
+        ]
+      }
+    },
+    {
+      "id": "composability",
+      "icon": "blocks",
+      "color": "--mech-accent-green",
+      "cluster": "structure",
+      "number": "03.2",
+      "title": "Composability",
+      "definition": "Building new behavior by combining smaller parts.",
+      "question": "Can useful building blocks be combined into new behavior?",
+      "related": [
+        "abstraction",
+        "integrity",
+        "convenience"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Compose behavior, not only values.",
+        "position": "Connecting a sensor, estimator, controller, and visualization involves more than matching function signatures. State isolation, sampling, freshness, and ordering also need an account.",
+        "proposal": "Make independent instances ordinary. Support replacing live inputs with recorded inputs without rewriting the model, with timing assumptions explicit where needed.",
+        "tension": "Implicit wiring reduces boilerplate but can hide asynchronous or temporal assumptions. A connection between values does not settle synchronization.",
+        "evidence": "Mech documents functions, arrays, comprehensions, joins, and state machines. Full system-level composition should be tested through concrete workflows.",
+        "status": "documented",
+        "refs": [
+          "readme",
+          "resident"
+        ],
+        "example": "Feed the same estimator output to a controller and a visualization. Then run two estimators at different rates without sharing unintended state.",
+        "tests": [
+          "Run independent instances with different inputs.",
+          "Replay recorded inputs through the same estimator.",
+          "Document rate, freshness, and synchronization assumptions."
+        ]
+      }
+    },
+    {
+      "id": "convenience",
+      "icon": "mop-sparkles",
+      "color": "--mech-accent-green",
+      "cluster": "structure",
+      "number": "03.3",
+      "title": "Convenience",
+      "definition": "Ready-made solutions for specific tasks.",
+      "question": "Which useful tasks are ready-made rather than assembled from primitives?",
+      "related": [
+        "composability",
+        "factoring",
+        "sociability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Possible from primitives is not the same as straightforward.",
+        "position": "A small set of composable parts can still leave every programmer to assemble inspection, plotting, replay, packaging, and integration from scratch.",
+        "proposal": "Qualify a few complete workflows rather than accumulating an enormous standard library. Make the common path visible and dependable.",
+        "tension": "Ready-made tools save work but can duplicate abstractions or create special cases. A minimal core can push too much infrastructure into every application.",
+        "evidence": "The native documentation names concrete host providers, and the language supplies numerical and data-manipulation constructs. Complete workflow convenience remains something to measure.",
+        "status": "proposal",
+        "refs": [
+          "native",
+          "readme"
+        ],
+        "example": "Start with an estimator and produce an inspectable, replayable, packaged demonstration without constructing a second application around it.",
+        "tests": [
+          "Count setup steps and glue code for the end-to-end task.",
+          "Check whether documentation follows a maintained product path.",
+          "Test the workflow in a clean environment."
+        ]
+      }
+    },
+    {
+      "id": "commonality",
+      "icon": "copy",
+      "color": "--mech-accent-green",
+      "cluster": "structure",
+      "number": "03.4",
+      "title": "Commonality",
+      "definition": "Making shared structure explicit rather than duplicating it.",
+      "question": "How are shared behaviors and independently varying properties represented?",
+      "related": [
+        "surface",
+        "uniformity",
+        "factoring"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Fewer places that can disagree about the same fact.",
+        "position": "Separating semantic types and identity from physical storage can prevent execution paths from independently reconstructing the same rules. Shared requirements need not imply an enormous abstraction framework.",
+        "proposal": "Use small built-in predicates for genuine shared requirements. Keep quantity, representation, shape, effects, and context structurally distinct when they vary independently.",
+        "tension": "Unfactored cases drift apart. Over-generalized mechanisms add complexity and interfaces before users have a concrete need for them.",
+        "evidence": "The R2–R6 plan separates semantic identity, inference, layout planning, and runtime backing. The closed predicate and m_u32 quantity discussions are design proposals, not release claims.",
+        "status": "architecture",
+        "refs": [
+          "endgame"
+        ],
+        "example": "Treat a proposed m_u32 annotation as quantity information plus representation, rather than an unrelated new scalar type for every unit–representation pair.",
+        "tests": [
+          "Find decisions duplicated across source, bytecode, and native paths.",
+          "Check that type identity is independent of allocation identity.",
+          "Ask whether each new abstraction eliminates an actual source of disagreement."
+        ]
+      }
+    },
+    {
+      "id": "staging",
+      "icon": "clock-3",
+      "color": "--mech-accent-cyan",
+      "cluster": "customizability",
+      "number": "04.1",
+      "title": "Staging of customization",
+      "definition": "When changes are possible and how long they persist.",
+      "question": "Can behavior change while running, and what state survives?",
+      "related": [
+        "response",
+        "modes",
+        "addressing"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Show what changed, what survived, and why.",
+        "position": "Changing an input, replacing a computation, altering a state schema, and changing an execution resource are distinct operations. Preserving state across edits does not establish durable persistence.",
+        "proposal": "Report migrations, resets, and rejected candidates as explicit events. Require a deliberate decision when a new schema cannot accept the old state.",
+        "tension": "Automatic migration can preserve useful work or silently preserve incompatible assumptions. Restarting everything is simple but can destroy the context needed for exploration.",
+        "evidence": "The interactive architecture validates a candidate before retiring the accepted runtime and migrates only named compatible state and live inputs.",
+        "status": "architecture",
+        "refs": [
+          "interactive"
+        ],
+        "example": "Change measurement noise while retaining the estimate, then change the estimator state from three dimensions to six and require migration or restart.",
+        "tests": [
+          "Test compatible and incompatible state edits separately.",
+          "Verify that rejected candidates do not retire the accepted version.",
+          "Display which values were retained, migrated, or reset."
+        ]
+      }
+    },
+    {
+      "id": "addressing",
+      "icon": "external-link",
+      "color": "--mech-accent-cyan",
+      "cluster": "customizability",
+      "number": "04.2",
+      "title": "Addressing & externalizability",
+      "definition": "Referring to, transferring, and additively modifying program parts.",
+      "question": "Can you address, transfer, and extend parts without rewriting the original?",
+      "related": [
+        "surface",
+        "staging",
+        "sociability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "A shareable document is not yet a reproducible experiment.",
+        "position": "Source, live state, initial conditions, input history, dependencies, and timing have different roles. Additive customization also needs stable addresses and explicit extension points.",
+        "proposal": "Make a robot-specific configuration supply calibration and bindings without erasing the original model. Keep originals and customizations reviewable, with deterministic conflict rules.",
+        "tension": "A convenient override mechanism can undermine ordinary binding semantics. A portable source file can conceal the external conditions needed to reproduce its execution.",
+        "evidence": "The resident decomposition separates executable artifacts from instances. Full experiment packaging and general additive authoring are opportunities proposed by this analysis.",
+        "status": "proposal",
+        "refs": [
+          "resident",
+          "native"
+        ],
+        "example": "Share an estimator experiment with its initial state and recorded inputs. Add one robot’s calibration alongside the reusable model, not through an unexplained edit.",
+        "tests": [
+          "Reproduce a run with the supplied artifact bundle.",
+          "Identify which program elements are externally addressable.",
+          "Test conflicts between original definitions and additive customization."
+        ]
+      }
+    },
+    {
+      "id": "self-sustainability",
+      "icon": "recycle",
+      "color": "--mech-accent-cyan",
+      "cluster": "customizability",
+      "number": "04.3",
+      "title": "Self-sustainability",
+      "definition": "Changing the system without leaving its own facilities.",
+      "question": "How much of the environment can you change from within it?",
+      "related": [
+        "integrity",
+        "convenience",
+        "notational-structure"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Make useful tools moldable before pursuing self-hosting.",
+        "position": "Mech relies on Rust implementation, build, and host machinery. That is a deliberate boundary to analyze, not evidence of a fully self-sustaining environment.",
+        "proposal": "Consider Mech-authored inspectors, experiment dashboards, and domain-specific views. Prioritize limitations users should remove without leaving Mech.",
+        "tension": "Exposing every implementation layer increases power and the scope of what users must understand. Self-hosting by itself does not answer which customizations are useful.",
+        "evidence": "The implementation and trusted native machinery are Rust-based. Mech-authored programming tools and deeper runtime customization are proposed directions.",
+        "status": "proposal",
+        "refs": [
+          "readme",
+          "native"
+        ],
+        "example": "Build a domain-specific estimator inspector in Mech while leaving compiler and low-level runtime implementation in Rust.",
+        "tests": [
+          "List changes users can make without modifying Rust.",
+          "Prototype one useful customizable inspector.",
+          "Distinguish self-hosting from runtime moldability."
+        ]
+      }
+    },
+    {
+      "id": "factoring",
+      "icon": "package",
+      "color": "--mech-accent-yellow",
+      "cluster": "complexity",
+      "number": "05.1",
+      "title": "Factoring of complexity",
+      "definition": "Packaging recurring complexity into reusable mechanisms.",
+      "question": "Which recurring details are packaged away from application code?",
+      "related": [
+        "commonality",
+        "automation",
+        "convenience"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Remove repetitive work without removing its explanation.",
+        "position": "The opportunity is larger than shorter formulas: application code should not repeatedly implement change propagation, state coordination, host adaptation, and preparation for execution.",
+        "proposal": "Centralize recurring mechanisms and expose diagnostic views of transfers, allocations, and recomputations when those details become relevant.",
+        "tension": "Hidden details simplify authoring but can make performance and failure opaque. An abstraction that adds parallel mechanisms may increase rather than reduce complexity.",
+        "evidence": "Named compute regions derive inputs, outputs, residence, and transfer boundaries from dependencies instead of exposing buffer handles and explicit upload/readback in source.",
+        "status": "architecture",
+        "refs": [
+          "compute"
+        ],
+        "example": "Express a particle update as a numeric section. Inspect why a transfer or recomputation is required without writing the transfer choreography in the source.",
+        "tests": [
+          "Measure application-level glue removed by the runtime.",
+          "Explain a surprising allocation or transfer from diagnostic evidence.",
+          "Audit whether each abstraction centralizes or duplicates responsibility."
+        ]
+      }
+    },
+    {
+      "id": "automation",
+      "icon": "micromika",
+      "color": "--mech-accent-yellow",
+      "cluster": "complexity",
+      "number": "05.2",
+      "title": "Level of automation",
+      "definition": "Inferring details that need not be specified explicitly.",
+      "question": "Which program-specific decisions can the system make for you?",
+      "related": [
+        "factoring",
+        "primary",
+        "detection"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Automate a decision when there is enough information to explain it.",
+        "position": "Calling a prewritten operation and deriving a program-specific memory plan offer different assistance. Type inference, dependency analysis, and planned execution can remove explicit choices from source.",
+        "proposal": "Explain operation selection, copies, migration eligibility, and placement rejection. Keep implemented inference separate from aspirations for general heterogeneous scheduling.",
+        "tension": "More automation reduces manual detail but can obscure operational behavior. Incomplete inference should reject unsupported cases rather than imply a general solution.",
+        "evidence": "The compute-region document describes bounded CPU/GPU support and limitations in multi-region execution and cost-based placement. The memory-planning phases are a plan, not proof of completion.",
+        "status": "architecture",
+        "refs": [
+          "compute",
+          "endgame"
+        ],
+        "example": "Inspect why a named particle-update region selects a supported backend. Reject unsupported multi-region execution instead of silently crossing an explicit boundary.",
+        "tests": [
+          "List which execution decisions are actually inferred.",
+          "Test unsupported placements and require explicit errors.",
+          "Trace a chosen allocation, copy, or operation to its reasons."
+        ]
+      }
+    },
+    {
+      "id": "detection",
+      "icon": "radar",
+      "color": "--mech-accent-red",
+      "cluster": "errors",
+      "number": "06.1",
+      "title": "Error detection",
+      "definition": "Recognizing errors at different stages of work.",
+      "question": "Which mistakes are found before execution, during it, or only by inspection?",
+      "related": [
+        "feedback",
+        "geography",
+        "response"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Let static checks and visible consequences cooperate.",
+        "position": "Syntax, types, known shapes, planning requirements, actual inputs, and human judgment each expose different problems. No one mechanism can establish that the intended model is correct.",
+        "proposal": "Connect diagnostics to the task and the relevant values. Evaluate shape errors separately from incorrect Jacobians, noise models, and other mathematically plausible mistakes.",
+        "tension": "Earlier checks can reject errors cheaply but also add work to the authoring loop. Running a model makes consequences visible without proving its correctness.",
+        "evidence": "The native design checks resource reads and effects without performing external operations during compilation. Mech also documents type inference and distinct numerical operators.",
+        "status": "architecture",
+        "refs": [
+          "native",
+          "readme",
+          "spec"
+        ],
+        "example": "Introduce a shape mismatch, then a well-typed but wrong EKF Jacobian. Compare what checking catches with what inspection must reveal.",
+        "tests": [
+          "Classify failures by authoring, planning, execution, and observation.",
+          "Verify compilation does not perform external I/O.",
+          "Test a valid-but-wrong model, not only malformed programs."
+        ]
+      }
+    },
+    {
+      "id": "response",
+      "icon": "siren",
+      "color": "--mech-accent-red",
+      "cluster": "errors",
+      "number": "06.2",
+      "title": "Error response",
+      "definition": "The behavior of a system after detecting an error.",
+      "question": "What is stopped, preserved, propagated, or recoverable after an error?",
+      "related": [
+        "staging",
+        "detection",
+        "modes"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Preserve valid state without hiding the failure.",
+        "position": "Rejecting an invalid edit can preserve the accepted runtime. The interface must then make clear that the draft is not what is running. Internal rollback is not physical reversibility.",
+        "proposal": "Distinguish rejected edits, aborted internal turns, and external delivery failures. Let application and host policy govern appropriate deployed behavior.",
+        "tension": "Keeping a previous output can be useful in exploration but inappropriate for a physical system. A visible snapshot can remain valid while an external action has already occurred.",
+        "evidence": "The interactive design validates replacement candidates. The resident design separates publication from external delivery and explicitly avoids a general exactly-once claim.",
+        "status": "architecture",
+        "refs": [
+          "interactive",
+          "resident"
+        ],
+        "example": "Reject an incompatible estimator edit while showing the accepted version. Separately handle a failed actuator delivery without pretending a published or physical action was undone.",
+        "tests": [
+          "Verify the accepted version is visible after rejection.",
+          "Check that rollback never implies reversal of external effects.",
+          "Test explicit host failure policies rather than universal keep-running behavior."
+        ]
+      }
+    },
+    {
+      "id": "learnability",
+      "icon": "graduation-cap",
+      "color": "--mech-accent-magenta",
+      "cluster": "adoptability",
+      "number": "07.1",
+      "title": "Learnability",
+      "definition": "The path to understanding and using the system.",
+      "question": "What prior knowledge does the system leverage, and how does complexity unfold?",
+      "related": [
+        "feedback",
+        "uniformity",
+        "sociability"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Let one useful artifact grow with the learner.",
+        "position": "A document can support a progression from reading a model to changing an input, inspecting a result, editing a formula, introducing state, and extracting a component.",
+        "proposal": "Test whether newcomers can modify an unfamiliar working example. Keep the learning path continuous instead of requiring a new environment at every step.",
+        "tension": "Symbolic syntax still has a learning cost. Fewer keywords do not eliminate the need to understand operators, scope, state, and execution.",
+        "evidence": "Mechdown integrates explanation with executable content. Improved learning outcomes are a hypothesis to evaluate, not an established result.",
+        "status": "question",
+        "refs": [
+          "mechdown",
+          "spec"
+        ],
+        "example": "Give a newcomer a working estimator document. Ask them to explain the effect of measurement noise, then make a related change they have not seen in a tutorial.",
+        "tests": [
+          "Evaluate transfer to an unfamiliar working example.",
+          "Record where users must change tools or mental models.",
+          "Separate syntax recall from understanding execution."
+        ]
+      }
+    },
+    {
+      "id": "sociability",
+      "icon": "messages-square",
+      "color": "--mech-accent-magenta",
+      "cluster": "adoptability",
+      "number": "07.2",
+      "title": "Sociability",
+      "definition": "Technical and social conditions for collective adoption.",
+      "question": "How do sharing, interoperability, compatibility, and stewardship affect adoption?",
+      "related": [
+        "integrity",
+        "learnability",
+        "addressing"
+      ],
+      "sources": [
+        "catalogue"
+      ],
+      "mechTreatment": {
+        "takeaway": "Make the path in—and the path out—deliberate.",
+        "position": "A Rust team should be able to adopt one bounded Mech component without committing the whole architecture. Review, reproducibility, interface ownership, and exit paths are part of adoption.",
+        "proposal": "Support incremental integration with explicit compatibility expectations and inspectable artifacts. Keep algorithms and data understandable independently of one frontend.",
+        "tension": "Integration increases usefulness but introduces compatibility commitments. A polished standalone experience is not enough for long-term team ownership.",
+        "evidence": "The native design distinguishes engine and hosted applications and selects trusted dependencies and host machinery. Team-level adoption outcomes still require evidence.",
+        "status": "question",
+        "refs": [
+          "native",
+          "mechdown"
+        ],
+        "example": "Introduce an estimator into an existing Rust application, review its changes, reproduce its inputs, and recover its data without depending on the interactive frontend.",
+        "tests": [
+          "Count algorithm edits and integration glue needed for adoption.",
+          "Verify another team member can reproduce a run.",
+          "Demonstrate data recovery and an understandable exit path."
+        ]
+      }
+    }
+  ],
+  "systems": [
+    {
+      "id": "mech",
+      "name": "Mech",
+      "color": "--mech-brand",
+      "subtitle": "Mechdown + resident runtime",
+      "family": "Mech",
+      "basis": "Documented design",
+      "scope": "Mech source, executable documents, resident-session architecture, and the Rust host boundary described on integration/v0.4.",
+      "excluded": "The v0.4 documentation includes design targets. General distributed scheduling, unrestricted live migration, and release qualification are not assumed.",
+      "mark": "M",
+      "sources": [
+        "readme",
+        "interactive",
+        "native"
+      ]
+    },
+    {
+      "id": "julia",
+      "name": "Julia",
+      "color": "--mech-accent-purple",
+      "subtitle": "REPL + Pkg",
+      "family": "Julia",
+      "basis": "Documented workflow",
+      "scope": "Julia with its REPL, source files, standard library, and Pkg environments.",
+      "excluded": "Pluto is a separate profile. Revise is an optional workflow tool, not an intrinsic guarantee of unrestricted live replacement.",
+      "mark": "Jl",
+      "sources": [
+        "j-workflow",
+        "j-methods",
+        "j-pkg"
+      ]
+    },
+    {
+      "id": "pluto",
+      "name": "Julia + Pluto",
+      "color": "--mech-accent-purple",
+      "subtitle": "Reactive notebook",
+      "family": "Julia",
+      "basis": "Documented workflow",
+      "scope": "Julia in Pluto, including notebook dependency analysis and built-in package management.",
+      "excluded": "Pluto reactivity is notebook-level dependency tracking, not a claim that arbitrary Julia effects or mutations are transactional.",
+      "mark": "Pl",
+      "sources": [
+        "p-react",
+        "p-files",
+        "p-pkg"
+      ]
+    },
+    {
+      "id": "matlab",
+      "name": "MATLAB",
+      "color": "--mech-accent-blue",
+      "subtitle": "Desktop + Live Editor",
+      "family": "MATLAB",
+      "basis": "Documented workflow",
+      "scope": "MATLAB with its desktop, Live Editor, Code Analyzer, and interactive live-script controls.",
+      "excluded": "Simulink, Stateflow, MATLAB Coder, and specialized toolboxes are not silently included in this profile.",
+      "mark": "ML",
+      "sources": [
+        "m-live",
+        "m-controls",
+        "m-check"
+      ]
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "color": "--mech-accent-orange",
+      "subtitle": "Cargo + rust-analyzer",
+      "family": "Rust",
+      "basis": "Documented workflow",
+      "scope": "Rust with Cargo and an editor using rust-analyzer.",
+      "excluded": "Reactive frameworks, hot-reload systems, numerical crates, and specific debuggers are additional choices, not language-wide defaults.",
+      "mark": "Rs",
+      "sources": [
+        "r-cargo",
+        "r-editor",
+        "r-ownership"
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python + Jupyter",
+      "color": "--mech-accent-blue",
+      "subtitle": "Notebook + NumPy",
+      "family": "Python",
+      "basis": "Documented workflow",
+      "scope": "Python in Jupyter Notebook with NumPy for numerical arrays.",
+      "excluded": "Optional static checkers, reactive notebook extensions, and workflow orchestrators are outside this baseline.",
+      "mark": "Py",
+      "sources": [
+        "nb-guide",
+        "nb-format",
+        "np-broadcast"
+      ]
+    },
+    {
+      "id": "excel",
+      "name": "Excel",
+      "color": "--mech-accent-green",
+      "subtitle": "Formulas + LAMBDA",
+      "family": "Excel",
+      "basis": "Bounded reference",
+      "scope": "Excel worksheet formulas, automatic calculation, and named LAMBDA functions.",
+      "excluded": "VBA, Office Scripts, Python in Excel, and Power Query are not included. Capabilities vary by edition; this profile requires LAMBDA support.",
+      "mark": "Xl",
+      "sources": [
+        "x-recalc",
+        "x-settings",
+        "x-lambda"
+      ]
+    }
+  ],
+  "assessments": {
+    "mech": {
+      "feedback": {
+        "label": "Reactive, resident execution",
+        "summary": "Mech derives a dependency graph from the program, updates affected computations when inputs change, and preserves stable output identity across CLI, served-document, browser, editor, and native adapters. Resident sessions expose values, diagnostics, history, and generation boundaries without rebuilding the whole application after every input.",
+        "tradeoff": "The architecture shortens the path from change to result, but perceived feedback also depends on parsing, scheduling, host I/O, rendering, and inspection—not only kernel throughput.",
+        "sources": [
+          "interactive"
+        ],
+        "basis": "documented-design"
+      },
+      "modes": {
+        "label": "One model across authoring and deployment",
+        "summary": "The same program model can be used from the REPL, executable Mechdown documents, browser/Wasm bundles, command-line runs, hosted runtimes, and deterministic native builds. Frontends are adapters around the resident session rather than separate language implementations.",
+        "tradeoff": "Each mode deliberately has different authority and lifetime. A packaged native or web application should not inherit every authoring, inspection, filesystem, or device capability.",
+        "sources": [
+          "interactive",
+          "native"
+        ],
+        "basis": "documented-design"
+      },
+      "abstraction": {
+        "label": "Data, functions, patterns, and machines",
+        "summary": "Functions, modules, records, tables, comprehensions, pattern matching, and state machines cover reusable calculations, data schemas, protocols, and long-lived processes. Reactive variables let intermediate results remain named and inspectable instead of disappearing inside a call stack.",
+        "tradeoff": "Mech has several abstraction forms because pure transformations, data organization, and stateful processes are different problems. Tooling for extracting abstractions from a working example is still an open design area.",
+        "sources": [
+          "readme",
+          "reference"
+        ],
+        "basis": "documented-design"
+      },
+      "notational-structure": {
+        "label": "Programs are executable documents",
+        "summary": "Mechdown places Mech source alongside prose, equations, diagrams, images, tables, callouts, and live output placeholders. Structured section annotations can also name compute regions without introducing a separate project file for the computation.",
+        "tradeoff": "Rich documents create more than one editable surface. The interface must distinguish source edits, live inputs, rendered outputs, configuration, and temporary inspection state.",
+        "sources": [
+          "readme",
+          "compute",
+          "mechdown"
+        ],
+        "basis": "documented-design"
+      },
+      "surface": {
+        "label": "Source → artifact → instance",
+        "summary": "Source is compiled into a typed semantic artifact and canonical bytecode, then activated as a resident graph whose registers own stable value cells. Program identity, physical backend revision, and mutable instance state are tracked separately.",
+        "tradeoff": "These layers enable caching, migration, and multiple backends, but tools must keep provenance visible so a user can tell which source, artifact, configuration, and live generation produced a value.",
+        "sources": [
+          "resident",
+          "bytecode"
+        ],
+        "basis": "documented-design"
+      },
+      "primary": {
+        "label": "Mech computes; Mechdown and config frame it",
+        "summary": "Mech syntax defines data and computation. Mechdown provides document structure and presentation, while configuration names hosts, contexts, grants, runtime settings, and build choices. Compute annotations are a narrow case where document structure also declares placement boundaries.",
+        "tradeoff": "Keeping these roles distinct prevents prose or source code from silently granting authority, but authors must sometimes coordinate source, document structure, and deployment configuration.",
+        "sources": [
+          "compute",
+          "native",
+          "runtime"
+        ],
+        "basis": "documented-design"
+      },
+      "geography": {
+        "label": "Compact notation with graph-wide consequences",
+        "summary": "Broadcasts, logical indexing, joins, matrix operations, references, and reactive definitions express large computations locally. The dependency graph carries a change to downstream values even when the triggering edit is only one expression.",
+        "tradeoff": "Compact mathematical code can hide cost and semantic distance. Shape and kind checks catch many mistakes, but a valid-looking matrix or broadcast expression can still encode the wrong model.",
+        "sources": [
+          "spec"
+        ],
+        "basis": "documented-design"
+      },
+      "uniformity": {
+        "label": "A shared value model with specialized forms",
+        "summary": "Numbers, strings, atoms, options, tuples, records, matrices, tables, maps, sets, enums, functions, patterns, and machines share one semantic kind system and canonical runtime representation. Specialized syntax remains for tabular, mathematical, matching, and stateful work.",
+        "tradeoff": "A single value model improves interoperation, while distinct surface forms preserve clarity. Uniform internals do not remove the learning cost of choosing the right construct.",
+        "sources": [
+          "readme",
+          "reference",
+          "bytecode"
+        ],
+        "basis": "documented-design"
+      },
+      "integrity": {
+        "label": "Coherent semantics, explicit outside world",
+        "summary": "Reactive ordering, value identity, transactions, kinds, and bytecode contracts stay in the core. Hosts, contexts, capabilities, and trusted native catalogs make files, clocks, scenes, robots, and other external resources explicit rather than baking them into the language.",
+        "tradeoff": "This boundary protects conceptual integrity and portability, but host authors must implement exact contracts instead of inventing local versions of ordering, identity, or failure behavior.",
+        "sources": [
+          "native",
+          "interactive"
+        ],
+        "basis": "documented-design"
+      },
+      "composability": {
+        "label": "Values, graphs, modules, and hosts compose",
+        "summary": "Data operations, functions, modules, joins, state machines, and resource bindings can be combined into larger reactive graphs. Typed artifact inputs and outputs also let compute regions and host-backed resources join the same application without exposing backend buffers in source.",
+        "tradeoff": "Type-compatible values are only part of composition. Freshness, transaction boundaries, capability ownership, update order, and independent state lifetimes still need explicit contracts.",
+        "sources": [
+          "readme",
+          "resident"
+        ],
+        "basis": "documented-design"
+      },
+      "convenience": {
+        "label": "Numerical and data primitives with packaged hosts",
+        "summary": "Broadcast math, matrices, tables, joins, conversions, functions, validation, and reactive state cover common data-driven work. Standard providers add CLI, console, time, timers, scenes, and robot-arm integration, while commands build, run, serve, format, and bundle applications.",
+        "tradeoff": "The built-in surface is intentionally focused and the ecosystem is young. A listed provider or function is not evidence of mature coverage for every numerical library, device, editor, or deployment target.",
+        "sources": [
+          "readme",
+          "native",
+          "reference"
+        ],
+        "basis": "documented-design"
+      },
+      "commonality": {
+        "label": "Canonical kinds and operation contracts",
+        "summary": "Semantic kinds, schema keys, function signatures, operation contracts, resource requirements, and stable value identities are canonical across source compilation, bytecode, resident execution, native planning, CPU execution, and GPU lowering.",
+        "tradeoff": "Making common structure explicit reduces drift between paths, but it raises the cost of changing a foundational contract and requires old compatibility layers to be removed carefully.",
+        "sources": [
+          "endgame",
+          "bytecode"
+        ],
+        "basis": "documented-design"
+      },
+      "staging": {
+        "label": "Live replacement and frozen deployment",
+        "summary": "Interactive replacement validates a candidate before retiring the accepted generation and migrates only contract-named compatible state and inputs. Native builds take the opposite stance: they freeze bytecode, exact dependencies, hosts, grants, configuration, and plan identity into a deterministic application.",
+        "tradeoff": "Live work favors continuity while deployment favors reproducibility. Schema-changing edits can require an explicit reset or migration, and a frozen build intentionally cannot inherit arbitrary authoring state.",
+        "sources": [
+          "interactive",
+          "native"
+        ],
+        "basis": "documented-design"
+      },
+      "addressing": {
+        "label": "Names for values, resources, and artifacts",
+        "summary": "Variables and artifact ports have stable logical identities; resource URIs, paths, contexts, operations, intents, and delivery modes name external interactions. Modules, source roots, bytecode digests, and build-plan digests address portable program material separately from running instances.",
+        "tradeoff": "Structured names support transfer and reproducibility, but an address is not authority: configuration and grants still decide whether a resource can be read, assigned, or sent.",
+        "sources": [
+          "resident",
+          "interactive",
+          "runtime",
+          "bytecode"
+        ],
+        "basis": "documented-design"
+      },
+      "self-sustainability": {
+        "label": "Mech-authored applications on a Rust substrate",
+        "summary": "Applications, executable documents, state machines, validations, and reactive render inputs are authored in Mech. The parser, compiler, bytecode machinery, resident runtime, backend lowering, trusted host catalogs, and most adapters remain Rust implementations.",
+        "tradeoff": "Users can extend substantial behavior in Mech without rebuilding the compiler, but the system is not self-hosting and new low-level host or backend capabilities still cross the Rust boundary.",
+        "sources": [
+          "readme",
+          "native"
+        ],
+        "basis": "documented-design"
+      },
+      "factoring": {
+        "label": "Runtime machinery stays out of source",
+        "summary": "Dependency scheduling, stable storage, transactional publication, bytecode validation, buffer residence, scalarization, backend selection, and CPU/GPU lowering are factored behind typed artifacts and compute sessions. Mech source expresses inputs, equations, state, and invariants instead of buffers or command queues.",
+        "tradeoff": "This removes recurring infrastructure from application code, but hidden recomputation, transfer, synchronization, allocation, and compilation costs must remain inspectable when performance is surprising.",
+        "sources": [
+          "compute",
+          "resident",
+          "bytecode"
+        ],
+        "basis": "documented-design"
+      },
+      "automation": {
+        "label": "Inference from source to physical execution",
+        "summary": "Mech infers kinds, broadcasts operations, derives reactive dependencies and artifact interfaces, resolves modules, validates bytecode, computes exact native dependency closures, and can lower fixed-shape regions to scalar, SIMD, JIT, WGPU, or Metal execution paths.",
+        "tradeoff": "Automation is bounded by explicit placement, capability, shape, and host contracts. Current region support is not arbitrary cost-based partitioning or automatic distribution across machines.",
+        "sources": [
+          "readme",
+          "compute",
+          "native",
+          "bytecode"
+        ],
+        "basis": "documented-design"
+      },
+      "detection": {
+        "label": "Layered structural and runtime checks",
+        "summary": "Parsing, name resolution, kind and shape inference, bytecode bounds, operation contracts, resource requirements, capability grants, native linkage, and backend compatibility are checked before activation. Source-authored invariants can additionally reject an invalid candidate during a running turn.",
+        "tradeoff": "Earlier checks reduce invalid states but cannot prove a physical process safe or a mathematical model correct. Data-dependent faults and host failures still occur at runtime.",
+        "sources": [
+          "native",
+          "bytecode",
+          "runtime"
+        ],
+        "basis": "documented-design"
+      },
+      "response": {
+        "label": "Reject the candidate, preserve accepted state",
+        "summary": "Transactional turns and live replacement keep the previously published value or generation when validation fails. Named invariant faults, diagnostics, bounded fault state, stale-work rejection, and actor abort/acknowledgement make failure visible without silently committing partial internal state.",
+        "tradeoff": "Rollback applies only inside its declared boundary. A motor command, network delivery, or other physical effect may be irreversible, so prepare/commit and host protocols matter as much as internal state restoration.",
+        "sources": [
+          "interactive",
+          "resident",
+          "interactive",
+          "runtime"
+        ],
+        "basis": "documented-design"
+      },
+      "learnability": {
+        "label": "Documents, direct data, and worked paths",
+        "summary": "Executable Mechdown keeps explanations, equations, code, and output together. The documentation includes a first project, a fifteen-minute tour, cross-language guides for MATLAB, Python, C++, ROS, and web developers, browser examples, native applications, and host-authoring guides.",
+        "tradeoff": "Familiar mathematical and tabular forms can help, but reactivity, kinds, state machines, contexts, capabilities, and host boundaries are still new concepts that need examples and evaluation with real learners.",
+        "sources": [
+          "readme",
+          "mechdown",
+          "guides"
+        ],
+        "basis": "documented-design"
+      },
+      "sociability": {
+        "label": "Portable artifacts and bounded integration",
+        "summary": "Mech can be introduced as source, canonical bytecode, a browser/Wasm bundle, an engine-only executable, a hosted native application, or a Rust-embedded runtime. Exact build plans and capability grants make the integration boundary reviewable rather than all-or-nothing.",
+        "tradeoff": "The Apache-licensed project is open and portable, but its package ecosystem, deployment history, editor support, compatibility policy, and contributor base are still much smaller than established languages.",
+        "sources": [
+          "native",
+          "readme",
+          "native",
+          "deployment"
+        ],
+        "basis": "documented-design"
+      }
+    },
+    "julia": {
+      "feedback": {
+        "label": "Evaluate on demand",
+        "summary": "The REPL evaluates submitted expressions. A long-lived session supports repeated experiments without relaunching Julia each time.",
+        "tradeoff": "Inspecting dependencies and deciding what to rerun remain part of the workflow.",
+        "sources": [
+          "j-workflow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "modes": {
+        "label": "REPL and source workflow",
+        "summary": "Interactive experimentation and source-file development coexist. The workflow guide also describes optional Revise-assisted development.",
+        "tradeoff": "A live REPL does not imply that every source edit or type change can replace running code.",
+        "sources": [
+          "j-workflow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "abstraction": {
+        "label": "Generic functions",
+        "summary": "Programmers define functions and methods, often after exploring concrete values at the REPL. Multiple dispatch generalizes behavior across arguments.",
+        "tradeoff": "Choosing an abstraction remains a design task, not automatically inferred from examples.",
+        "sources": [
+          "j-methods"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "notational-structure": {
+        "label": "Julia plus tooling files",
+        "summary": "Julia code is central; Pkg uses Project and Manifest files to describe the environment. Rich notebooks are additional systems.",
+        "tradeoff": "Source and environment are related artifacts, not one uniformly edited representation.",
+        "sources": [
+          "j-pkg",
+          "j-workflow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "surface": {
+        "label": "Text with code-as-data",
+        "summary": "Julia exposes expressions and macros as program structures, while ordinary authoring remains textual.",
+        "tradeoff": "Manipulable syntax trees do not make the editor a live projection of all runtime state.",
+        "sources": [
+          "j-meta"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "primary": {
+        "label": "Source is primary",
+        "summary": "Julia expressions carry computation; package metadata specifies the environment around it.",
+        "tradeoff": "Reproducing a program requires more than the visible source expression.",
+        "sources": [
+          "j-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "geography": {
+        "label": "Dot changes array meaning",
+        "summary": "Dotted operators provide elementwise broadcasting; ordinary operators may express matrix operations.",
+        "tradeoff": "Very small notational changes can change the mathematical operation while remaining valid.",
+        "sources": [
+          "j-math"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "uniformity": {
+        "label": "Multiple-dispatch center",
+        "summary": "Generic functions and methods provide a common organization for operations; macros add further syntactic forms.",
+        "tradeoff": "Extensible notation can improve a domain vocabulary while adding conventions to learn.",
+        "sources": [
+          "j-methods",
+          "j-meta"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "integrity": {
+        "label": "Open generic interfaces",
+        "summary": "Generic functions can acquire methods for new types; C and Fortran interfaces connect external implementations.",
+        "tradeoff": "Extension power makes interface discipline important across independently maintained packages.",
+        "sources": [
+          "j-methods",
+          "j-ffi"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "composability": {
+        "label": "Types and methods compose",
+        "summary": "Multiple dispatch and parametric methods allow algorithms to work over families of argument types.",
+        "tradeoff": "Compatible signatures are not enough to establish compatible mathematical or effect semantics.",
+        "sources": [
+          "j-methods"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "convenience": {
+        "label": "Numerical language + packages",
+        "summary": "Built-in mathematical operations combine with project-specific packages managed through Pkg.",
+        "tradeoff": "The package environment is part of the practical system, not incidental setup.",
+        "sources": [
+          "j-math",
+          "j-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "commonality": {
+        "label": "Generic functions and types",
+        "summary": "Related operations share generic-function names, with methods selected by argument types.",
+        "tradeoff": "Poorly coordinated method extensions can introduce ambiguities.",
+        "sources": [
+          "j-methods"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "staging": {
+        "label": "Redefinition with boundaries",
+        "summary": "Methods can be redefined in a session; Julia documents world-age behavior and workflow restrictions around changes.",
+        "tradeoff": "Session continuity is different from unrestricted replacement of arbitrary live state.",
+        "sources": [
+          "j-methods",
+          "j-workflow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "addressing": {
+        "label": "Modules and method extension",
+        "summary": "Module-qualified functions can be extended with methods. Pkg makes source environments addressable and reproducible through project files.",
+        "tradeoff": "Package reproduction is not exhaustive export of a live process and its external resources.",
+        "sources": [
+          "j-methods",
+          "j-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "self-sustainability": {
+        "label": "Reflective language facilities",
+        "summary": "Expression values, macros, and evaluation expose part of programming to Julia code itself.",
+        "tradeoff": "These facilities alone do not establish that the entire implementation can evolve from a persistent live image.",
+        "sources": [
+          "j-meta"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "factoring": {
+        "label": "Generic numerical code",
+        "summary": "Generic operations package algorithmic behavior across argument types; foreign-function interfaces can reuse existing implementations.",
+        "tradeoff": "The abstraction boundary still needs explicit ownership and representation decisions for foreign data.",
+        "sources": [
+          "j-methods",
+          "j-ffi"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "automation": {
+        "label": "Specialization and broadcasting",
+        "summary": "Julia specializes methods for concrete argument types; dotted expressions express broadcasted computation.",
+        "tradeoff": "Compiler inference is not the same as automatic reactive scheduling or deployment placement.",
+        "sources": [
+          "j-methods",
+          "j-math"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "detection": {
+        "label": "Runtime checks and exceptions",
+        "summary": "Dispatch failures and runtime exceptions expose invalid operations when the relevant code is executed.",
+        "tradeoff": "Type information used by the compiler is not a promise of whole-program static rejection.",
+        "sources": [
+          "j-methods",
+          "j-flow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "response": {
+        "label": "Exceptions in a session",
+        "summary": "Exceptions can be caught; otherwise a failed interactive evaluation reports an error while the session remains usable.",
+        "tradeoff": "Earlier mutations or external effects are not automatically undone.",
+        "sources": [
+          "j-flow",
+          "j-workflow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "learnability": {
+        "label": "Familiar numerical notation",
+        "summary": "The REPL and mathematical operators provide a direct route into experiments; generic methods support more advanced organization.",
+        "tradeoff": "Mathematical familiarity does not remove the learning cost of dispatch and performance behavior.",
+        "sources": [
+          "j-workflow",
+          "j-math"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "sociability": {
+        "label": "Shareable environments",
+        "summary": "Pkg projects and manifests describe dependencies; foreign-language interfaces make incremental integration possible.",
+        "tradeoff": "Reproducibility still depends on appropriate external data and platform assumptions.",
+        "sources": [
+          "j-pkg",
+          "j-ffi"
+        ],
+        "basis": "documentation-based-analysis"
+      }
+    },
+    "pluto": {
+      "feedback": {
+        "label": "Dependency-driven reevaluation",
+        "summary": "Pluto analyzes notebook dependencies and reruns affected cells when definitions change.",
+        "tradeoff": "Notebook-level reactivity should not be confused with a general controller runtime.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "modes": {
+        "label": "Edit beside live results",
+        "summary": "Cells combine editing and displayed evaluation; the notebook derives execution order rather than relying on visual order.",
+        "tradeoff": "This tighter loop constrains how definitions are organized across cells.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "abstraction": {
+        "label": "Julia functions inside cells",
+        "summary": "A cell may define ordinary Julia functions and methods for reuse by other cells.",
+        "tradeoff": "Extracting a function may move intermediate values out of the notebook's immediate view.",
+        "sources": [
+          "j-methods",
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "notational-structure": {
+        "label": "A reactive document",
+        "summary": "The notebook combines Julia cells and rendered results, while source is saved as a Julia file with notebook metadata.",
+        "tradeoff": "The document's structure is not identical to Julia's language semantics.",
+        "sources": [
+          "p-files",
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "surface": {
+        "label": "Source plus dependency graph",
+        "summary": "Pluto inspects cell code to determine dependencies and coordinates execution from that analysis.",
+        "tradeoff": "Hidden effects or arbitrary mutation are not equivalent to explicit data dependencies.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "primary": {
+        "label": "Notebook organizes Julia",
+        "summary": "Julia defines computations; the notebook defines the editable presentation and stores its own package environment.",
+        "tradeoff": "A notebook export and a running Julia session have different state boundaries.",
+        "sources": [
+          "p-files",
+          "p-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "geography": {
+        "label": "Julia's operators still apply",
+        "summary": "Julia's distinction between ordinary and dotted array operations remains present inside Pluto.",
+        "tradeoff": "Automatic recomputation can display a wrong mathematical result quickly, not prove it correct.",
+        "sources": [
+          "j-math"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "uniformity": {
+        "label": "One language, several cell roles",
+        "summary": "Julia functions remain the computational vocabulary, while notebook metadata and package handling add document-level structure.",
+        "tradeoff": "Notebook regularity does not erase the host language's different syntactic constructs.",
+        "sources": [
+          "j-methods",
+          "p-files",
+          "p-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "integrity": {
+        "label": "Reactive notebook discipline",
+        "summary": "Pluto coordinates Julia definitions through a dependency model and restricts conflicting definitions across cells.",
+        "tradeoff": "The notebook's coherence is stronger than an arbitrary shared-state REPL, but narrower.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "composability": {
+        "label": "Functions and dependent cells",
+        "summary": "Julia abstractions compose within a graph of notebook dependencies.",
+        "tradeoff": "Cell composition does not automatically establish protocols for long-lived external devices.",
+        "sources": [
+          "j-methods",
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "convenience": {
+        "label": "Environment travels with notebook",
+        "summary": "Pluto manages packages used by a notebook and stores dependency information with it.",
+        "tradeoff": "External data and services still need separate handling.",
+        "sources": [
+          "p-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "commonality": {
+        "label": "Julia abstractions underneath",
+        "summary": "Multiple dispatch and parameterized methods remain available inside the notebook.",
+        "tradeoff": "The dependency graph is a separate kind of structure from the type hierarchy.",
+        "sources": [
+          "j-methods",
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "staging": {
+        "label": "Live cell replacement",
+        "summary": "Editing definitions triggers reevaluation of dependent notebook cells.",
+        "tradeoff": "Recalculation is not a guarantee of compatible state migration or reversible effects.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "addressing": {
+        "label": "Julia-file notebook",
+        "summary": "Saved notebooks are Julia source files with metadata; package information is embedded for reproducibility.",
+        "tradeoff": "A saved notebook describes how to recompute, not every live external resource.",
+        "sources": [
+          "p-files",
+          "p-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "self-sustainability": {
+        "label": "Julia inside a separate editor",
+        "summary": "Julia metaprogramming is available, but it is distinct from modifying the notebook application's own implementation.",
+        "tradeoff": "Language reflection does not imply arbitrary persistent customization of the whole environment.",
+        "sources": [
+          "j-meta",
+          "p-files"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "factoring": {
+        "label": "Dependency maintenance",
+        "summary": "Pluto takes responsibility for tracking notebook dependencies instead of requiring manual cell-order bookkeeping.",
+        "tradeoff": "Correct dependency organization remains necessary, especially around side effects.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "automation": {
+        "label": "Reexecution and package setup",
+        "summary": "Dependency analysis drives reevaluation; built-in package management resolves notebook dependencies.",
+        "tradeoff": "Automation covers these documented tasks, not every part of reproducible experimentation.",
+        "sources": [
+          "p-react",
+          "p-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "detection": {
+        "label": "Notebook rules plus Julia errors",
+        "summary": "Conflicting cell definitions are constrained by Pluto; Julia still detects invalid executed operations.",
+        "tradeoff": "Reactive order reduces one class of confusion without eliminating model errors.",
+        "sources": [
+          "p-react",
+          "j-flow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "response": {
+        "label": "Cell-level failure visibility",
+        "summary": "Julia evaluation errors are surfaced in the notebook's cell-oriented interaction.",
+        "tradeoff": "Do not treat a failed cell as a transaction that undoes external writes.",
+        "sources": [
+          "p-react",
+          "j-flow"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "learnability": {
+        "label": "Change an example in place",
+        "summary": "Editable definitions and automatically refreshed results provide an exploratory path through a notebook.",
+        "tradeoff": "The learning benefit is plausible but needs evaluation for a particular audience.",
+        "sources": [
+          "p-react"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "sociability": {
+        "label": "Share a reproducible document",
+        "summary": "A Julia-file notebook can carry its package environment and be shared for others to run.",
+        "tradeoff": "Executable sharing still requires trust in code and access to its external inputs.",
+        "sources": [
+          "p-files",
+          "p-pkg"
+        ],
+        "basis": "documentation-based-analysis"
+      }
+    },
+    "matlab": {
+      "feedback": {
+        "label": "Run sections or controls",
+        "summary": "Live Editor places results beside code. Interactive controls can be configured to run code when their values change.",
+        "tradeoff": "That configured rerun behavior is not universal dependency-driven reactivity.",
+        "sources": [
+          "m-live",
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "modes": {
+        "label": "Integrated desktop workflow",
+        "summary": "Live scripts bring code, explanation, outputs, and interactive controls into the desktop environment.",
+        "tradeoff": "Editing, executing, and inspecting are connected without being identical operations.",
+        "sources": [
+          "m-live",
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "abstraction": {
+        "label": "Functions and classes",
+        "summary": "Live functions and ordinary classes provide reusable program structure around concrete calculations.",
+        "tradeoff": "Packaging an experiment still requires deciding its inputs, outputs, and state.",
+        "sources": [
+          "m-live",
+          "m-class"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "notational-structure": {
+        "label": "Rich live documents",
+        "summary": "Live scripts combine executable MATLAB code with formatted text, equations, and displayed output.",
+        "tradeoff": "This already addresses part of the executable-document space; Mech is not unique on that axis.",
+        "sources": [
+          "m-live"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "surface": {
+        "label": "Code with rich presentation",
+        "summary": "The Live Editor presents code and results in a document; class definitions remain explicit MATLAB source.",
+        "tradeoff": "Rendered output is not necessarily a bidirectional editor for the code that created it.",
+        "sources": [
+          "m-live",
+          "m-class"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "primary": {
+        "label": "MATLAB with document structure",
+        "summary": "MATLAB statements define computation; live-document structure and control settings organize interaction.",
+        "tradeoff": "Adding Simulink would materially change this profile and requires a separate comparison.",
+        "sources": [
+          "m-live",
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "geography": {
+        "label": "Matrix versus elementwise",
+        "summary": "MATLAB distinguishes matrix operations such as * from elementwise operations such as .*.",
+        "tradeoff": "A small punctuation change can be mathematically significant without being a syntax error.",
+        "sources": [
+          "m-array"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "uniformity": {
+        "label": "Array-centered conventions",
+        "summary": "Array and matrix operations offer a consistent numerical vocabulary; classes add a different organizational form.",
+        "tradeoff": "A familiar numerical core does not make all product and toolbox conventions uniform.",
+        "sources": [
+          "m-array",
+          "m-class"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "integrity": {
+        "label": "Integrated numerical environment",
+        "summary": "The desktop and Live Editor offer a coordinated environment; documented external-language interfaces provide interoperability.",
+        "tradeoff": "Integration is useful, but it is not the same as open-ended replacement of the environment.",
+        "sources": [
+          "m-live",
+          "m-ffi"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "composability": {
+        "label": "Functions, arrays, classes",
+        "summary": "Numerical operations and class methods supply reusable parts for larger computations.",
+        "tradeoff": "Data-shape and domain assumptions still need compatible interfaces.",
+        "sources": [
+          "m-array",
+          "m-class"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "convenience": {
+        "label": "Numerical and document tools",
+        "summary": "Mathematical operations and live-document tools are available without assembling a notebook frontend from separate projects.",
+        "tradeoff": "Specialized toolbox and deployment capabilities must be evaluated separately.",
+        "sources": [
+          "m-array",
+          "m-live"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "commonality": {
+        "label": "Classes and shared methods",
+        "summary": "Classes group data with methods and can represent common behavior behind an explicit interface.",
+        "tradeoff": "That organization differs from Julia's open generic functions and Rust's trait system.",
+        "sources": [
+          "m-class"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "staging": {
+        "label": "Rerun in a live workspace",
+        "summary": "Controls can trigger configured execution of live-script code after a parameter change.",
+        "tradeoff": "Rerunning a section is not general hot migration of an arbitrary deployed application.",
+        "sources": [
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "addressing": {
+        "label": "Source-level extension points",
+        "summary": "Functions and classes give code explicit interfaces; external-language APIs provide defined integration points.",
+        "tradeoff": "An interface is not arbitrary addressability of all runtime or document state.",
+        "sources": [
+          "m-class",
+          "m-ffi"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "self-sustainability": {
+        "label": "Programmable, not self-replacing",
+        "summary": "User code defines functions, classes, and interactions within the environment.",
+        "tradeoff": "The cited facilities do not establish arbitrary replacement of the desktop or execution engine from within.",
+        "sources": [
+          "m-class",
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "factoring": {
+        "label": "Numerical operations and tooling",
+        "summary": "Array operations and Live Editor controls package work that would otherwise require explicit loops or custom interface code.",
+        "tradeoff": "Domain-specific behavior may still need separately selected components.",
+        "sources": [
+          "m-array",
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "automation": {
+        "label": "Analysis and configured reruns",
+        "summary": "Code Analyzer checks for coding issues continuously; live controls automate selected reruns.",
+        "tradeoff": "Neither mechanism establishes that the mathematical model is correct.",
+        "sources": [
+          "m-check",
+          "m-controls"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "detection": {
+        "label": "Code Analyzer + execution",
+        "summary": "Editor diagnostics catch documented coding issues before execution; actual inputs expose additional runtime problems.",
+        "tradeoff": "Warnings and suggestions are not equivalent to a complete static type guarantee.",
+        "sources": [
+          "m-check"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "response": {
+        "label": "Diagnostics with local fixes",
+        "summary": "The editor reports errors and warnings in context and offers automatic fixes for some issues.",
+        "tradeoff": "A source fix does not imply rollback of an earlier computation or physical effect.",
+        "sources": [
+          "m-check"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "learnability": {
+        "label": "Numerical workbench",
+        "summary": "Array notation and live explanations connect mathematical work with immediately accessible results.",
+        "tradeoff": "Familiarity with the domain is a useful entry point, not proof of low overall learning cost.",
+        "sources": [
+          "m-array",
+          "m-live"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "sociability": {
+        "label": "Share and integrate",
+        "summary": "Live documents support sharing; external-language interfaces connect computations to other environments.",
+        "tradeoff": "Product access, toolbox availability, and deployment requirements remain adoption questions.",
+        "sources": [
+          "m-live",
+          "m-ffi"
+        ],
+        "basis": "documentation-based-analysis"
+      }
+    },
+    "rust": {
+      "feedback": {
+        "label": "Check, build, run",
+        "summary": "rust-analyzer supplies editor feedback while Cargo coordinates builds. Running the program remains a distinct step in this baseline.",
+        "tradeoff": "Earlier static feedback and a longer runtime loop serve different needs.",
+        "sources": [
+          "r-editor",
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "modes": {
+        "label": "Authoring and execution separate",
+        "summary": "Editor analysis, compilation, tests, and program execution are distinct tools and stages.",
+        "tradeoff": "Live-changing a running application needs additional machinery beyond this profile.",
+        "sources": [
+          "r-editor",
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "abstraction": {
+        "label": "Traits, generics, extraction",
+        "summary": "Traits describe shared behavior; rust-analyzer offers refactorings including function extraction.",
+        "tradeoff": "An extracted interface must still satisfy ownership and lifetime constraints.",
+        "sources": [
+          "r-traits",
+          "r-editor"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "notational-structure": {
+        "label": "Source, manifest, documentation",
+        "summary": "Rust source describes code while Cargo manifests describe package and build configuration.",
+        "tradeoff": "Several artifacts must agree; the language is not the entire programming system.",
+        "sources": [
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "surface": {
+        "label": "Text with compiler tooling",
+        "summary": "rust-analyzer offers structural navigation and macro expansion while source remains text.",
+        "tradeoff": "Editor understanding is not an editable projection of every live runtime object.",
+        "sources": [
+          "r-editor",
+          "r-macros"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "primary": {
+        "label": "Rust source is central",
+        "summary": "Source and macros specify behavior; Cargo configuration selects dependencies and build details.",
+        "tradeoff": "Macro-generated behavior can require a second view to understand.",
+        "sources": [
+          "r-cargo",
+          "r-macros"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "geography": {
+        "label": "Explicit semantic distinctions",
+        "summary": "Ownership and borrowing distinguish moving a value from referring to it. Editor tooling helps expose inferred information.",
+        "tradeoff": "Small edits can have large ownership or dispatch consequences even when the resulting code compiles.",
+        "sources": [
+          "r-ownership",
+          "r-editor"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "uniformity": {
+        "label": "Several explicit concepts",
+        "summary": "Ownership, traits, generics, and macros are separate language mechanisms rather than one universal construct.",
+        "tradeoff": "Explicit distinctions offer control while increasing the concepts a newcomer encounters.",
+        "sources": [
+          "r-ownership",
+          "r-traits",
+          "r-macros"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "integrity": {
+        "label": "Ownership at the center",
+        "summary": "Ownership rules constrain how values are used, giving code a shared memory-management discipline.",
+        "tradeoff": "Libraries can share that discipline without sharing application-level timing or state protocols.",
+        "sources": [
+          "r-ownership"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "composability": {
+        "label": "Trait-bound components",
+        "summary": "Traits and generics express requirements for composing behavior across types.",
+        "tradeoff": "Compile-time compatibility does not automatically settle every semantic or operational contract.",
+        "sources": [
+          "r-traits"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "convenience": {
+        "label": "Standard build workflow",
+        "summary": "Cargo provides shared dependency and build conventions; editor tooling supplies navigation and refactoring.",
+        "tradeoff": "Numerical visualization and reactive applications need additional library choices.",
+        "sources": [
+          "r-cargo",
+          "r-editor"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "commonality": {
+        "label": "Traits and generic bounds",
+        "summary": "Traits explicitly identify behavior that distinct types share and can constrain generic code.",
+        "tradeoff": "Shared signatures still depend on documented laws and conventions.",
+        "sources": [
+          "r-traits"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "staging": {
+        "label": "Rebuild as the baseline",
+        "summary": "Source changes enter the ordinary Cargo build workflow before a newly built program is run.",
+        "tradeoff": "Specialized hot-reload frameworks must not be silently attributed to Rust itself.",
+        "sources": [
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "addressing": {
+        "label": "Explicit type interfaces",
+        "summary": "Trait implementations extend behavior through declared interfaces rather than unrestricted mutation of arbitrary live program parts.",
+        "tradeoff": "Changing an interface or serialized state may require deliberate migration work.",
+        "sources": [
+          "r-traits"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "self-sustainability": {
+        "label": "Build-time metaprogramming",
+        "summary": "Macros extend source-level expression, but are not unrestricted runtime evaluation of new code.",
+        "tradeoff": "A self-hosted compiler would still be different from a self-sustaining live environment.",
+        "sources": [
+          "r-macros"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "factoring": {
+        "label": "Ownership and reusable crates",
+        "summary": "Ownership rules handle resource lifetime without a garbage collector; Cargo manages reusable package dependencies.",
+        "tradeoff": "Borrowing decisions and external resource protocols remain visible application concerns.",
+        "sources": [
+          "r-ownership",
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "automation": {
+        "label": "Static analysis and build graph",
+        "summary": "Tooling infers information for diagnostics and navigation; Cargo determines dependency build order.",
+        "tradeoff": "This does not establish automatic scheduling of an application's reactive behavior.",
+        "sources": [
+          "r-editor",
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "detection": {
+        "label": "Static ownership checks",
+        "summary": "The compiler enforces ownership rules before execution; recoverable runtime failures can be represented with Result.",
+        "tradeoff": "Accepted code may still contain incorrect algorithms and application-level failures.",
+        "sources": [
+          "r-ownership",
+          "r-errors"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "response": {
+        "label": "Result and panic",
+        "summary": "Result represents recoverable errors; panic is a separate response for unrecoverable failures.",
+        "tradeoff": "Neither is a general transaction that restores previous application state.",
+        "sources": [
+          "r-errors"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "learnability": {
+        "label": "Explicit invariants to learn",
+        "summary": "Ownership and borrowing are central concepts; editor hints can expose types and guide changes.",
+        "tradeoff": "The early learning cost can purchase stronger invariants later, but should not be scored as universally better.",
+        "sources": [
+          "r-ownership",
+          "r-editor"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "sociability": {
+        "label": "Shared package conventions",
+        "summary": "Cargo supplies a common structure for distributing and composing packages.",
+        "tradeoff": "Package compatibility and application integration remain separate engineering responsibilities.",
+        "sources": [
+          "r-cargo"
+        ],
+        "basis": "documentation-based-analysis"
+      }
+    },
+    "python": {
+      "feedback": {
+        "label": "Cell execution on demand",
+        "summary": "Jupyter submits selected cells to a persistent kernel and displays their outputs.",
+        "tradeoff": "The visible document order is not necessarily the history that produced the current state.",
+        "sources": [
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "modes": {
+        "label": "Editing beside a live kernel",
+        "summary": "The notebook presents code, Markdown, and outputs while the kernel maintains execution state.",
+        "tradeoff": "Editing text and executing that text are separate actions.",
+        "sources": [
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "abstraction": {
+        "label": "Functions and classes",
+        "summary": "Python functions and classes can package code developed in notebook cells.",
+        "tradeoff": "Moving work inside a function can hide intermediate values that were previously visible.",
+        "sources": [
+          "py-classes",
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "notational-structure": {
+        "label": "Code, Markdown, outputs",
+        "summary": "A notebook is a structured document with code cells, Markdown cells, metadata, and rich outputs.",
+        "tradeoff": "A rich output is not automatically an editable source representation.",
+        "sources": [
+          "nb-format"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "surface": {
+        "label": "JSON document, separate kernel",
+        "summary": "The notebook file records cells and outputs; running Python objects reside in the kernel rather than in that file.",
+        "tradeoff": "Saving the document is not a checkpoint of every live object.",
+        "sources": [
+          "nb-format",
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "primary": {
+        "label": "Cells organize Python",
+        "summary": "Python defines computation, while notebook structure and metadata organize its presentation.",
+        "tradeoff": "The visible narrative is useful but not a complete execution-order guarantee.",
+        "sources": [
+          "nb-format",
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "geography": {
+        "label": "* and @ differ",
+        "summary": "For NumPy arrays, elementwise multiplication and matrix multiplication are distinct operations; broadcasting can also change shapes.",
+        "tradeoff": "Two valid expressions can encode very different mathematics.",
+        "sources": [
+          "np-matmul",
+          "np-broadcast"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "uniformity": {
+        "label": "Python plus array conventions",
+        "summary": "Python classes supply one set of conventions; NumPy adds array shapes and broadcasting rules.",
+        "tradeoff": "Familiar Python syntax does not remove the need to understand array semantics.",
+        "sources": [
+          "py-classes",
+          "np-broadcast"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "integrity": {
+        "label": "A deliberately layered system",
+        "summary": "The notebook format, Python object model, and NumPy numerical model remain separately defined components.",
+        "tradeoff": "Flexibility at these boundaries requires the user to understand more than one conceptual layer.",
+        "sources": [
+          "nb-format",
+          "py-classes",
+          "np-broadcast"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "composability": {
+        "label": "Functions and object protocols",
+        "summary": "Python classes and methods provide reusable behavior; NumPy array operations combine numerical work.",
+        "tradeoff": "Composition may rely on conventions and runtime checks rather than static enforcement.",
+        "sources": [
+          "py-classes",
+          "np-broadcast"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "convenience": {
+        "label": "Rich display and array tools",
+        "summary": "Jupyter supplies a ready notebook interaction; NumPy supplies array operations and broadcasting.",
+        "tradeoff": "More specialized workflows still depend on selecting compatible packages.",
+        "sources": [
+          "nb-guide",
+          "np-broadcast"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "commonality": {
+        "label": "Protocols and duck typing",
+        "summary": "Python supports shared behavior through object protocols; optional typing facilities can describe structural interfaces.",
+        "tradeoff": "Type hints alone are not runtime enforcement.",
+        "sources": [
+          "py-classes",
+          "py-types"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "staging": {
+        "label": "Persistent interactive state",
+        "summary": "A kernel keeps state between cell executions, so new definitions and experiments can occur in the same session.",
+        "tradeoff": "Reruns can accumulate mutations; session continuity is not controlled state migration.",
+        "sources": [
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "addressing": {
+        "label": "Explicit notebook interchange",
+        "summary": "The notebook format externalizes cells, metadata, and outputs as JSON.",
+        "tradeoff": "That interchange format does not exhaustively serialize a live kernel or its resources.",
+        "sources": [
+          "nb-format"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "self-sustainability": {
+        "label": "Mutable user-level objects",
+        "summary": "Python classes and objects permit substantial user-level customization inside a running session.",
+        "tradeoff": "This does not make the entire frontend, kernel, and native libraries one persistent self-replacing system.",
+        "sources": [
+          "py-classes",
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "factoring": {
+        "label": "Arrays and notebook machinery",
+        "summary": "NumPy broadcasts operations while Jupyter handles cell submission and display.",
+        "tradeoff": "The user still owns experiment organization and external side-effect discipline.",
+        "sources": [
+          "np-broadcast",
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "automation": {
+        "label": "Array-level broadcasting",
+        "summary": "Broadcasting expands compatible shapes for elementwise work without explicit Python loops.",
+        "tradeoff": "The baseline notebook does not thereby infer and rerun all downstream dependencies.",
+        "sources": [
+          "np-broadcast",
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "detection": {
+        "label": "Runtime errors; optional typing",
+        "summary": "Syntax and execution errors are reported by Python. Its type annotations are not enforced automatically at runtime.",
+        "tradeoff": "A separate type checker changes the profile and should be named.",
+        "sources": [
+          "py-errors",
+          "py-types"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "response": {
+        "label": "Exceptions without rollback",
+        "summary": "Exceptions can be caught or terminate the current evaluation; notebook error outputs record failure information.",
+        "tradeoff": "Earlier state mutations remain unless the program explicitly compensates.",
+        "sources": [
+          "py-errors",
+          "nb-format"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "learnability": {
+        "label": "Incremental examples",
+        "summary": "Small code cells and visible results let learners experiment in an explanatory document.",
+        "tradeoff": "Hidden kernel history can make a readable document harder to reproduce than it looks.",
+        "sources": [
+          "nb-guide"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "sociability": {
+        "label": "Structured, shareable documents",
+        "summary": "The open notebook format defines a common representation for source, metadata, and outputs.",
+        "tradeoff": "Sharing the file is not enough to reproduce its packages, data, and runtime history.",
+        "sources": [
+          "nb-format"
+        ],
+        "basis": "documentation-based-analysis"
+      }
+    },
+    "excel": {
+      "feedback": {
+        "label": "Automatic recalculation",
+        "summary": "With automatic calculation enabled, Excel recalculates dependent formulas after relevant changes.",
+        "tradeoff": "Calculation settings and expensive formulas can change the feedback experience.",
+        "sources": [
+          "x-recalc",
+          "x-settings"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "modes": {
+        "label": "Edit and calculate in a sheet",
+        "summary": "Formula editing and calculation coexist in one worksheet; automatic and manual calculation are selectable modes.",
+        "tradeoff": "A displayed value may depend on the workbook's calculation settings.",
+        "sources": [
+          "x-settings"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "abstraction": {
+        "label": "Named LAMBDA functions",
+        "summary": "A tested formula can be packaged as a named LAMBDA and called elsewhere in the workbook.",
+        "tradeoff": "Copying cells and constructing reusable abstractions are different workflows.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "notational-structure": {
+        "label": "Grid and formulas",
+        "summary": "A worksheet gives formulas a spatial home, while references connect computations across cells.",
+        "tradeoff": "Layout can serve both presentation and dependency organization, creating competing pressures.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "surface": {
+        "label": "Visible cells, calculation graph",
+        "summary": "Cell formulas are visible; Excel maintains dependency information and a calculation chain internally.",
+        "tradeoff": "Spatial proximity is not the same as a direct computational dependency.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "primary": {
+        "label": "Worksheet is central",
+        "summary": "Formula definitions live within the worksheet model; named LAMBDAs extend that formula vocabulary.",
+        "tradeoff": "Adding scripting or external query tools would create a different system profile.",
+        "sources": [
+          "x-lambda",
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "geography": {
+        "label": "References carry meaning",
+        "summary": "Changing a referenced cell can redirect a dependency while preserving a syntactically valid formula.",
+        "tradeoff": "A visually small edit may connect a calculation to the wrong data.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "uniformity": {
+        "label": "Cell-and-formula vocabulary",
+        "summary": "The formula model centers on values, references, and functions; LAMBDA adds user-defined functions.",
+        "tradeoff": "A small core can still support formulas that are difficult to audit.",
+        "sources": [
+          "x-lambda",
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "integrity": {
+        "label": "A cohesive worksheet model",
+        "summary": "Values and formulas share a grid and recalculation model.",
+        "tradeoff": "The bounded profile says less about integration with external applications and devices.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "composability": {
+        "label": "Formula dependency networks",
+        "summary": "Formulas can depend on other formulas; named LAMBDAs can be reused in larger calculations.",
+        "tradeoff": "Structural composition does not establish a correct spreadsheet model.",
+        "sources": [
+          "x-recalc",
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "convenience": {
+        "label": "Built-in calculation behavior",
+        "summary": "Excel manages recalculation without requiring a user-written dependency scheduler.",
+        "tradeoff": "More complex automation is outside this formula-only baseline.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "commonality": {
+        "label": "Reuse through named functions",
+        "summary": "LAMBDA lets recurring formulas share a named implementation rather than relying only on copied expressions.",
+        "tradeoff": "This is not a general user-defined type or trait hierarchy.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "staging": {
+        "label": "Recalculate after an edit",
+        "summary": "Formula changes participate in worksheet recalculation rather than a separate compile-and-launch workflow.",
+        "tradeoff": "Recalculation is not migration of a live deployed process.",
+        "sources": [
+          "x-settings"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "addressing": {
+        "label": "Cells and named functions",
+        "summary": "Cell references identify inputs; named LAMBDAs provide workbook-level function names.",
+        "tradeoff": "Addressability is substantial, but unrestricted additive override and complete runtime export are not established here.",
+        "sources": [
+          "x-recalc",
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "self-sustainability": {
+        "label": "Functions within the host",
+        "summary": "Users can extend the formula vocabulary with LAMBDA without leaving the workbook.",
+        "tradeoff": "They are not thereby replacing Excel's own calculation engine.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "factoring": {
+        "label": "Dependency bookkeeping",
+        "summary": "The calculation engine manages formula dependencies and recalculation order.",
+        "tradeoff": "Model structure and the meaning of each reference remain the author's responsibility.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "automation": {
+        "label": "Dependency-based calculation",
+        "summary": "Excel tracks precedents and dependents and recalculates affected formulas.",
+        "tradeoff": "Automatic ordering is not the same as inferring the intended formula.",
+        "sources": [
+          "x-recalc"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "detection": {
+        "label": "Formula-specific failures",
+        "summary": "LAMBDA documents errors for invalid argument counts, invalid definitions, and excessive recursion.",
+        "tradeoff": "Valid formulas with wrong assumptions may still yield plausible numbers.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "response": {
+        "label": "Errors as worksheet results",
+        "summary": "Formula errors such as #VALUE! and #CALC! can appear in worksheet results.",
+        "tradeoff": "A visible error is different from a transaction that preserves an earlier accepted model.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "learnability": {
+        "label": "Start with concrete cells",
+        "summary": "A working cell formula can be tested before being turned into a named LAMBDA.",
+        "tradeoff": "The transition from a concrete sheet to reusable functions adds concepts.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      },
+      "sociability": {
+        "label": "Workbook-scoped reuse",
+        "summary": "Named functions can be reused throughout their workbook.",
+        "tradeoff": "Edition support and the surrounding file-sharing workflow matter; this profile makes no ecosystem-wide claim.",
+        "sources": [
+          "x-lambda"
+        ],
+        "basis": "documentation-based-analysis"
+      }
+    }
+  },
+  "sources": {
+    "paper": {
+      "title": "Technical Dimensions of Programming Systems",
+      "url": "https://arxiv.org/abs/2302.10003",
+      "publisher": "Joel Jakubovic, Jonathan Edwards & Tomas Petricek · 2023",
+      "reviewedAt": "2026-09-08",
+      "note": "The framework concerns programming systems, not only language syntax. Dimensions describe tradeoffs, not a ranking."
+    },
+    "catalogue": {
+      "title": "The authors’ interactive catalogue",
+      "url": "https://tomasp.net/techdims/",
+      "publisher": "Companion to the research paper",
+      "reviewedAt": "2026-09-08",
+      "note": "The companion catalogue states 23 dimensions. This reading retains the 21 grouped comparison topics of the earlier Mech treatment; compound topics are not presented as new dimensions."
+    },
+    "readme": {
+      "title": "Mech language overview",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/README.md",
+      "publisher": "mech-lang/mech · integration/v0.4",
+      "reviewedAt": "2026-09-08",
+      "note": "Language features, intended uses, and roadmap. Feature descriptions are not a claim of release qualification."
+    },
+    "interactive": {
+      "title": "Interactive runtime architecture",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/docs/architecture/interactive-runtime.md",
+      "publisher": "docs/architecture/interactive-runtime.md",
+      "reviewedAt": "2026-09-08",
+      "note": "Resident sessions, frontend adapters, accepted-runtime replacement, migration, epochs, and observation."
+    },
+    "native": {
+      "title": "Native Mech applications",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/docs/design/native-application-builds.md",
+      "publisher": "docs/design/native-application-builds.md",
+      "reviewedAt": "2026-09-08",
+      "note": "Native planning, trusted Rust linkage, exact catalogs, host integration, and deployment distinctions."
+    },
+    "compute": {
+      "title": "Named compute regions",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/docs/design/named-compute-regions.md",
+      "publisher": "docs/design/named-compute-regions.md",
+      "reviewedAt": "2026-09-08",
+      "note": "Mechdown compilation boundaries and bounded CPU/GPU support. General multi-region scheduling and cost-based placement are not established here."
+    },
+    "resident": {
+      "title": "Value-resident execution architecture",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/docs/design/value-resident-execution.md",
+      "publisher": "docs/design/value-resident-execution.md",
+      "reviewedAt": "2026-09-08",
+      "note": "A phased architectural target: program, plan, instance, publication, observation, and effect delivery. Do not interpret the whole document as shipped functionality."
+    },
+    "endgame": {
+      "title": "The v0.4 endgame boundary",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/docs/design/v0.4-endgame.md",
+      "publisher": "docs/design/v0.4-endgame.md",
+      "reviewedAt": "2026-09-08",
+      "note": "R2–R6 separate semantic identity, inference, planning, and physical runtime backing. This boundary document is not a current completion ledger."
+    },
+    "spec": {
+      "title": "Mech specification",
+      "url": "https://docs.mech-lang.org/design/specification.html",
+      "publisher": "Mech project documentation",
+      "reviewedAt": "2026-09-08",
+      "note": "Notation and platform design. Specifications and design notes may contain goals as well as implemented behavior."
+    },
+    "mechdown": {
+      "title": "Mechdown",
+      "url": "https://mech-lang.org/post/2025-11-12-mechdown/",
+      "publisher": "Mech project · executable documents",
+      "reviewedAt": "2026-09-08",
+      "note": "The integration of prose, document structure, and computation."
+    },
+    "reference": {
+      "title": "Mech language reference",
+      "url": "https://docs.mech-lang.org/reference/index.html",
+      "publisher": "Mech project documentation",
+      "reviewedAt": "2026-09-08",
+      "note": "Reference pages for values, functions, patterns, state machines, modules, contexts, runtime components, and commands."
+    },
+    "bytecode": {
+      "title": "Mech bytecode v1",
+      "url": "https://github.com/mech-lang/mech/blob/integration/v0.4/docs/spec/bytecode-v1.md",
+      "publisher": "mech-lang/mech · integration/v0.4",
+      "reviewedAt": "2026-09-08",
+      "note": "Canonical runtime kinds, constants, instructions, operation contracts, limits, and validation."
+    },
+    "runtime": {
+      "title": "Runtime reference",
+      "url": "https://docs.mech-lang.org/reference/runtime/index.html",
+      "publisher": "Mech project documentation",
+      "reviewedAt": "2026-09-08",
+      "note": "Runtime builder, contexts, events, scheduler, source resolution, storage, and module manifests."
+    },
+    "deployment": {
+      "title": "Deployment reference",
+      "url": "https://docs.mech-lang.org/reference/deployment/index.html",
+      "publisher": "Mech project documentation",
+      "reviewedAt": "2026-09-08",
+      "note": "Command-line, web server, Wasm, and static web bundle deployment paths."
+    },
+    "guides": {
+      "title": "Mech guides",
+      "url": "https://docs.mech-lang.org/guides/mech-in-fifteen-minutes.html",
+      "publisher": "Mech project documentation",
+      "reviewedAt": "2026-09-08",
+      "note": "Worked introductions plus guides for browser, native, host, ROS, MATLAB, Python, C++, and web workflows."
+    },
+    "site-palette": {
+      "title": "Canonical Mech color roles",
+      "url": "https://github.com/mech-web/website/blob/main/public/css/mech-palette.css",
+      "publisher": "mech-web/website",
+      "reviewedAt": "2026-09-08",
+      "note": "Design reference, not a programming-system assessment."
+    },
+    "site-pages": {
+      "title": "Mech site page styles",
+      "url": "https://github.com/mech-web/website/blob/main/public/css/site-pages.css",
+      "publisher": "mech-web/website",
+      "reviewedAt": "2026-09-08",
+      "note": "Page-shell and navigation reference."
+    },
+    "j-workflow": {
+      "title": "Julia workflow tips",
+      "url": "https://docs.julialang.org/en/v1/manual/workflow-tips/",
+      "publisher": "Julia documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "j-methods": {
+      "title": "Methods and multiple dispatch",
+      "url": "https://docs.julialang.org/en/v1/manual/methods/",
+      "publisher": "Julia documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "j-meta": {
+      "title": "Metaprogramming",
+      "url": "https://docs.julialang.org/en/v1/manual/metaprogramming/",
+      "publisher": "Julia documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "j-ffi": {
+      "title": "Calling C and Fortran",
+      "url": "https://docs.julialang.org/en/v1/manual/calling-c-and-fortran-code/",
+      "publisher": "Julia documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "j-math": {
+      "title": "Mathematical operations",
+      "url": "https://docs.julialang.org/en/v1/manual/mathematical-operations/",
+      "publisher": "Julia documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "j-flow": {
+      "title": "Control flow and exceptions",
+      "url": "https://docs.julialang.org/en/v1/manual/control-flow/",
+      "publisher": "Julia documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "j-pkg": {
+      "title": "Working with environments",
+      "url": "https://pkgdocs.julialang.org/v1/environments/",
+      "publisher": "Pkg.jl documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "p-react": {
+      "title": "How Pluto notebooks update",
+      "url": "https://plutojl.org/en/docs/reactivity/",
+      "publisher": "Pluto documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "p-files": {
+      "title": "Saving Pluto notebooks",
+      "url": "https://plutojl.org/en/docs/files/",
+      "publisher": "Pluto documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "p-pkg": {
+      "title": "Built-in package management",
+      "url": "https://plutojl.org/en/docs/packages/",
+      "publisher": "Pluto documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "m-live": {
+      "title": "Live scripts and functions",
+      "url": "https://www.mathworks.com/help/matlab/live-scripts-and-functions.html",
+      "publisher": "MathWorks documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "m-controls": {
+      "title": "Interactive controls in live scripts",
+      "url": "https://www.mathworks.com/help/matlab/matlab_prog/add-interactive-controls-to-a-live-script.html",
+      "publisher": "MathWorks documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "m-check": {
+      "title": "Code Analyzer",
+      "url": "https://www.mathworks.com/help/matlab/matlab_prog/check-code-for-errors-and-warnings.html",
+      "publisher": "MathWorks documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "m-array": {
+      "title": "Array versus matrix operations",
+      "url": "https://www.mathworks.com/help/matlab/matlab_prog/array-vs-matrix-operations.html",
+      "publisher": "MathWorks documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "m-class": {
+      "title": "Creating a simple class",
+      "url": "https://www.mathworks.com/help/matlab/matlab_oop/create-a-simple-class.html",
+      "publisher": "MathWorks documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "m-ffi": {
+      "title": "External language interfaces",
+      "url": "https://www.mathworks.com/help/matlab/external-language-interfaces.html",
+      "publisher": "MathWorks documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "r-ownership": {
+      "title": "What is ownership?",
+      "url": "https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html",
+      "publisher": "The Rust Programming Language",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "r-traits": {
+      "title": "Shared behavior with traits",
+      "url": "https://doc.rust-lang.org/book/ch10-02-traits.html",
+      "publisher": "The Rust Programming Language",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "r-errors": {
+      "title": "Error handling",
+      "url": "https://doc.rust-lang.org/book/ch09-00-error-handling.html",
+      "publisher": "The Rust Programming Language",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "r-cargo": {
+      "title": "Why Cargo exists",
+      "url": "https://doc.rust-lang.org/cargo/guide/why-cargo-exists.html",
+      "publisher": "The Cargo Book",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "r-editor": {
+      "title": "rust-analyzer features",
+      "url": "https://rust-analyzer.github.io/book/features.html",
+      "publisher": "rust-analyzer documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "r-macros": {
+      "title": "Rust macros",
+      "url": "https://doc.rust-lang.org/reference/macros.html",
+      "publisher": "The Rust Reference",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "py-errors": {
+      "title": "Errors and exceptions",
+      "url": "https://docs.python.org/3/tutorial/errors.html",
+      "publisher": "Python documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "py-types": {
+      "title": "Type hints",
+      "url": "https://docs.python.org/3/library/typing.html",
+      "publisher": "Python documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "py-classes": {
+      "title": "Classes",
+      "url": "https://docs.python.org/3/tutorial/classes.html",
+      "publisher": "Python documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "nb-guide": {
+      "title": "The Jupyter Notebook",
+      "url": "https://jupyter-notebook.readthedocs.io/en/stable/notebook.html",
+      "publisher": "Jupyter documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "nb-format": {
+      "title": "The notebook file format",
+      "url": "https://nbformat.readthedocs.io/en/latest/format_description.html",
+      "publisher": "nbformat documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "np-broadcast": {
+      "title": "NumPy broadcasting",
+      "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+      "publisher": "NumPy documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "np-matmul": {
+      "title": "NumPy matrix multiplication",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.matmul.html",
+      "publisher": "NumPy documentation",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "x-recalc": {
+      "title": "Excel recalculation",
+      "url": "https://learn.microsoft.com/en-us/office/client-developer/excel/excel-recalculation",
+      "publisher": "Microsoft Learn",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "x-settings": {
+      "title": "Recalculation, iteration, and precision",
+      "url": "https://support.microsoft.com/en-us/excel/change-formula-recalculation-iteration-or-precision-in-excel",
+      "publisher": "Microsoft Support",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    },
+    "x-lambda": {
+      "title": "LAMBDA function",
+      "url": "https://support.microsoft.com/en-us/excel/functions/lambda-function",
+      "publisher": "Microsoft Support",
+      "reviewedAt": "2026-09-08",
+      "note": ""
+    }
+  }
+}

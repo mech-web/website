@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "frameworkSource": "catalogue",
+  "groups": {
+    "interaction": "Describes the operations available to a programmer and the sequence between editing a program, executing it, inspecting its state, and turning a concrete result into reusable code.",
+    "notation": "Describes the representations a programming system exposes and the relationships among source text, documents, visual interfaces, and executable structures.",
+    "structure": "Describes the concepts used to organize a system and the rules for combining, sharing, or extending those concepts.",
+    "customizability": "Describes when a system can be changed, which parts can be addressed independently, and whether changes can be made using the system itself.",
+    "complexity": "Describes how work is divided among explicit program text, reusable libraries, language rules, tools, and runtime inference.",
+    "errors": "Describes when a problem is detected and what the system does after detection as separate design choices.",
+    "adoptability": "Describes the technical and social conditions that affect learning, sharing, maintenance, interoperability, and long-term use."
+  },
+  "dimensions": {
+    "feedback": {
+      "description": "A feedback loop is the complete sequence from changing a program to observing the consequences of that change. Relevant properties include latency, the number of manual actions required, which intermediate values are visible, and whether a displayed result can be associated with the program version that produced it.",
+      "mech": "Mech evaluates dependency-connected values in a resident session. A host can supply an input through a declared context, and values that depend on that input can be written back to the host during the same running session. The current architecture supplies stable program and instance boundaries; the usability and latency of a complete editing interface still need direct measurement.",
+      "example": {
+        "title": "A browser input updates dependent Mech values",
+        "code": "+> @browser := browser/dom\n\nname := @browser/body/content/mech-sandbox/input/_value\ngreeting := \"Hello, \" + name\n@browser/body/content/mech-sandbox/title = greeting",
+        "note": "The input, derived value, and browser output are connected explicitly in the program.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/browser-dom-demo/demo.mec"
+      }
+    },
+    "modes": {
+      "description": "Modes of interaction are the distinct contexts in which a program can be edited, executed, inspected, or deployed. A system may expose different operations in an authoring document, a resident runtime, an embedded host, and a packaged application even when those contexts share the same language semantics.",
+      "mech": "Mech separates source compilation, resident execution, and host integration. Host contexts declare the operations and paths available to a program. A deployed host can therefore expose selected inputs and outputs without granting the same authority as an authoring environment.",
+      "example": {
+        "title": "A resident program reads from a timer and writes to a console",
+        "code": "@timer := timer://timer/tick{:read(tick)}\n@out := console://console/output{:write(line)}\n\ntick := @timer/tick\n@out/line <- tick",
+        "note": "The resource declarations state which operations are available in this execution context.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/tests/fixtures/standard-live-timer/live.mec"
+      }
+    },
+    "abstraction": {
+      "description": "Abstraction construction is the process of turning a concrete program fragment into a reusable definition. The dimension includes how parameters are identified, how state is handled, whether intermediate values remain inspectable, and how much rewriting is required.",
+      "mech": "Mech supports named functions and state-machine forms. The language can express a reusable definition directly, but automatic extraction of a working document fragment into a reusable component is not yet treated here as an established feature.",
+      "example": {
+        "title": "A recursive function introduces a reusable boundary",
+        "code": "factorial(n<f64>) => <f64>\n  ├ 0 => 1\n  └ n => n * factorial(n - 1).\n\nn := 5\nres := factorial(n)",
+        "note": "The function signature makes the input and result type explicit.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/factorial.mec"
+      }
+    },
+    "notational-structure": {
+      "description": "Notational structure describes how multiple notations coexist. They may cover different concerns, such as prose and executable expressions, or provide overlapping views of the same program state. Overlapping editable views require a clear rule for which representation is authoritative.",
+      "mech": "A Mech document can contain prose, equations, diagrams, tables, and executable Mech expressions. Executable expressions define computation; the surrounding document explains or presents it. General bidirectional visual editing is not assumed.",
+      "example": {
+        "title": "Executable definitions can appear inside a Mech document",
+        "code": "x := 1..=100\n~y<[string]> := 1..=100\n\nix3 := (x % 3) == 0\nix5 := (x % 5) == 0\n\ny[ix3] = \"✨\"\ny[ix5] = \"🐝\"",
+        "note": "The surrounding document explains the example; these lines define its executable values.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/fizzbuzz.mec"
+      }
+    },
+    "surface": {
+      "description": "Surface and internal notation concerns the mapping from what a programmer edits to the structures that are compiled and executed. The mapping matters for diagnostics, inspection, refactoring, and the identity of values across program updates.",
+      "mech": "Mech distinguishes source documents, semantic program artifacts, activated runtime plans, and live instances. Host paths and named values provide source-level references, while runtime storage remains an implementation detail.",
+      "example": {
+        "title": "A source-level path names a host value",
+        "code": "+> @browser := browser/dom\n\nname := @browser/body/content/mech-sandbox/input/_value\n@browser/body/content/mech-sandbox/output/_value = name",
+        "note": "The browser path is part of the program-facing interface rather than a storage address.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/browser-dom-demo/demo.mec"
+      }
+    },
+    "primary": {
+      "description": "Primary and secondary notations describe whether one notation defines the program while others annotate, configure, or display it, or whether several notations have equal authority. The distinction determines what an edit means and how conflicting edits are resolved.",
+      "mech": "Mech source remains the executable definition. Mechdown contributes document structure, and annotations such as a compute-region heading can add operational meaning. Host configuration grants authority separately from the program’s request for a resource.",
+      "example": {
+        "title": "A section annotation declares a compute boundary",
+        "code": "particle-field @compute\n-------------------------------------------------------------------------------\n\nparticle-count := 1000000f32\nparticle-index := 1f32..=particle-count",
+        "note": "The heading annotation changes how the enclosed Mech source is compiled and hosted.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/gpu-particles/particles.mec"
+      }
+    },
+    "geography": {
+      "description": "Expression geography compares distance in the written program with distance in behavior. A small textual change may affect one local value or many downstream computations; a visually distant edit may refer to the same underlying definition.",
+      "mech": "Mech expressions define a dependency graph, so changing a definition can update all dependent values. Logical indexing can also apply one compact expression to many elements. Tooling therefore needs to show the affected dependency region, not infer impact from line distance alone.",
+      "example": {
+        "title": "One index expression changes many selected elements",
+        "code": "ix3 := (x % 3) == 0\nix5 := (x % 5) == 0\n\ny[ix3] = \"✨\"\ny[ix5] = \"🐝\"\ny[ix3 && ix5] = \"✨🐝\"",
+        "note": "The written change is local while its effect is distributed across a vector.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/fizzbuzz.mec"
+      }
+    },
+    "uniformity": {
+      "description": "Uniformity of notation describes how many distinct forms and concepts are required for similar operations. Greater uniformity can reduce the number of special cases, but a single universal form can obscure meaningful differences among values or operations.",
+      "mech": "Mech uses the same definition and expression forms across scalars, vectors, and matrices where the operation supports them. Shape, orientation, state, constraints, and external effects remain explicit distinctions rather than being collapsed into one form.",
+      "example": {
+        "title": "One operation applies to several numeric shapes",
+        "code": "scalar := math/add(2, 5)\nvector := math/add([1, 2, 3], [4, 5, 6])\nmatrix := math/add([1, 2; 3, 4], 10)",
+        "note": "The operation name is uniform while input shape remains part of its meaning.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/machines/math/docs/ops/add.mec"
+      }
+    },
+    "integrity": {
+      "description": "Conceptual integrity describes the consistency of a system’s underlying model. Openness describes its willingness to incorporate external conventions, libraries, and hosts. A system can preserve a coherent internal model while defining explicit translation boundaries to other systems.",
+      "mech": "Mech uses a reactive dataflow model with explicit state, constraints, and host contexts. Native and browser hosts interact through declared boundaries rather than becoming additional implicit language semantics.",
+      "example": {
+        "title": "A constraint is part of the same value model",
+        "code": "target := 90.0\nmaximum-target := 120.0\n\ncandidate-controller-command := target\nsafe-target! := candidate-controller-command <= maximum-target",
+        "note": "The validity condition is a named value in the program rather than a separate host-side check.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/transactional-integrity/main.mec"
+      }
+    },
+    "composability": {
+      "description": "Composability describes whether independently defined parts can be combined to produce larger behavior, which interfaces carry that composition, and whether the result preserves the properties of its components.",
+      "mech": "Mech composes named values through dependencies, imports machine operations by path, and uses functions and state machines for reusable behavior. Host contexts and compute regions provide additional composition boundaries with explicit inputs and outputs.",
+      "example": {
+        "title": "Imported operations participate in ordinary definitions",
+        "code": "+> math\n\nθ := μ[3]\nGt := [1  0 -u.v * math/sin(θ) * Δt\n       0  1  u.v * math/cos(θ) * Δt\n       0  0  1]",
+        "note": "Machine operations and matrix notation compose inside a larger dependency graph.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/ekf.mec"
+      }
+    },
+    "convenience": {
+      "description": "Convenience describes which common tasks have direct, documented mechanisms and which must be assembled from lower-level operations. It is specific to a task and cannot be inferred only from the expressive power of the language.",
+      "mech": "Mech provides machines for numerical, matrix, collection, and host operations. Coverage is uneven while the library develops, so the page distinguishes an available primitive from a complete task-level workflow.",
+      "example": {
+        "title": "A documented matrix operation supplies a task-level primitive",
+        "code": "A := [1 2 3]\nB := [4 5 6]\nY := matrix/dot(A, B)",
+        "note": "The dot product is named and documented instead of being reconstructed at each call site.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/machines/matrix/docs/dot.mec"
+      }
+    },
+    "commonality": {
+      "description": "Commonality describes how behavior or structure shared by several cases is represented once while their differences remain separate. The dimension applies to functions and modules as well as data schemas, host interfaces, and configuration.",
+      "mech": "Named definitions, functions, machines, and resource paths can centralize shared structure. The current system still requires deliberate choices about which values are parameters, retained state, host authority, or implementation details.",
+      "example": {
+        "title": "A function records shared behavior once",
+        "code": "factorial(n<f64>) => <f64>\n  ├ 0 => 1\n  └ n => n * factorial(n - 1).\n\nresult-a := factorial(5)\nresult-b := factorial(8)",
+        "note": "The recurrence is shared while the call arguments vary independently.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/factorial.mec"
+      }
+    },
+    "staging": {
+      "description": "Staging of customization describes when a change is made and when it takes effect: during authoring, compilation, activation, or a running session. It also includes whether existing state survives the change and how incompatible changes are handled.",
+      "mech": "Mech separates immutable compiled artifacts from runtime-specific activated plans and live instances. Mutable values use an explicit state form. Replacing a computation in a live session is intended to pass through validation and activation before it becomes visible.",
+      "example": {
+        "title": "State is declared separately from its update",
+        "code": "input := 1.0\n~state := 2.0\nstate = input\noutput := state",
+        "note": "The tilde marks retained state, making persistence a visible part of the program.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/src/engine/tests/fixtures/program-artifact/state-register.mec"
+      }
+    },
+    "addressing": {
+      "description": "Addressing and externalizability describe whether parts of a program have stable names, can be transferred independently, and can be extended without directly rewriting the original. Stable addressing is also necessary for tools, hosts, and collaborators to refer to the same part.",
+      "mech": "Mech names values, machine operations, document regions, and host-resource paths. Resource declarations also restrict which paths and operations cross a host boundary. Packaging and compatibility rules for independently distributed components remain active design work.",
+      "example": {
+        "title": "Host resources are addressed by explicit paths",
+        "code": "+> @browser := browser/dom\n\n@browser/body/content/mech-sandbox/title = greeting\n@browser/body/content/mech-sandbox/output/_value = roundtrip",
+        "note": "The program refers to configured host capabilities through stable logical paths.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/browser-dom-demo/demo.mec"
+      }
+    },
+    "self-sustainability": {
+      "description": "Self-sustainability describes how much of a programming system can be inspected, extended, or rebuilt using its own language and tools. It ranges from user-defined abstractions to self-hosted implementation work; those levels should not be conflated.",
+      "mech": "Mech users can define functions, state machines, executable documents, and compositions of installed machines. The compiler, runtime, and most primitive machine implementations are written in Rust, so Mech is not currently a self-hosting system.",
+      "example": {
+        "title": "A user-defined state machine extends program behavior",
+        "code": "#bubble-sort(arr<[u64]>) ⇒ <[u64]> :=\n  ├ :Pass(arr<[u64]>, acc<[u64]>, swaps<u64>)\n  ├ :Next(arr<[u64]>, swaps<u64>)\n  └ :Done(arr<[u64]>).",
+        "note": "This extends application behavior in Mech; it does not imply that the compiler is implemented in Mech.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/bubble-sort.mec"
+      }
+    },
+    "factoring": {
+      "description": "Factoring of complexity describes where recurring implementation detail is placed. Complexity may remain in application code or move into language constructs, libraries, compilers, runtimes, tools, or host integrations.",
+      "mech": "Array operations, dependency scheduling, state propagation, and host boundaries move repeated work out of individual applications. Their behavior still needs documentation because packaging complexity does not remove it from the system.",
+      "example": {
+        "title": "Array expressions factor repeated element updates",
+        "code": "offset := force-point - positions\ndistance-square := offset * offset + 0.018<f32>\nacceleration := (0f32 - positions) * restoring + offset * pointer-pull\nnext-velocities := velocities + acceleration * dt\nnext-positions := positions + next-velocities * dt",
+        "note": "The program states array relationships while element traversal and scheduling are handled below the source level.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/gpu-particles/particles.mec"
+      }
+    },
+    "automation": {
+      "description": "Level of automation describes which decisions the system makes from available information instead of requiring explicit instructions. Examples include type inference, dependency ordering, memory planning, incremental recomputation, and backend selection.",
+      "mech": "Mech infers types and dependencies from definitions and schedules reactive updates. Explicit annotations remain available where a boundary or numeric representation matters. Backend selection and activation are constrained by the capabilities of the host.",
+      "example": {
+        "title": "Types can be inferred or stated at a boundary",
+        "code": "n := 5\nres := factorial(n)\n\nfactorial(n<f64>) => <f64>\n  ├ 0 => 1\n  └ n => n * factorial(n - 1).",
+        "note": "The local value uses inference; the reusable function records an explicit numeric contract.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/factorial.mec"
+      }
+    },
+    "detection": {
+      "description": "Error detection describes the stage at which a system recognizes a problem and the evidence used to recognize it. Syntax, type, shape, capability, integrity, and runtime-value errors may be detected at different stages.",
+      "mech": "Mech performs parsing, semantic analysis, type and shape checks, capability checks, and runtime integrity validation. A named value ending in an exclamation mark is an integrity constraint that participates in accepting or rejecting an update.",
+      "example": {
+        "title": "An integrity constraint defines an acceptance condition",
+        "code": "left := 1.0\nright := 2.0\nsafe! := left < right\noutput := left",
+        "note": "The program states the condition that must remain true; detection is not deferred to manual inspection of output.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/src/engine/tests/fixtures/program-artifact/integrity-constraint.mec"
+      }
+    },
+    "response": {
+      "description": "Error response describes what happens after detection: which update is rejected, which prior state remains valid, what diagnostics are reported, and whether external effects have already occurred. Detection and response must be evaluated separately.",
+      "mech": "The resident design validates transactional state before publication and distinguishes transactional resources from effectful outputs. A rejected update should preserve the last accepted state; effects require stricter boundaries because they cannot generally be rolled back.",
+      "example": {
+        "title": "Transactional state and an external effect use different resources",
+        "code": "~state := 0.0\nstate += sample\n\n@transactional := gate-d3://transactional/state\n@transactional/value <- state\n\n@scene := gate-d3://scene/output\n@scene/frame <- state",
+        "note": "The resource boundary records which publication can be transactional and which write is an external effect.",
+        "source": "https://github.com/mech-lang/mech/tree/c00104a4037b05552bcc226dbc0046ab4ef7cebb/tests/fixtures/resident-external"
+      }
+    },
+    "learnability": {
+      "description": "Learnability describes how prior knowledge transfers into a system, how quickly a useful result can be produced, and how additional concepts are introduced as programs grow. It includes documentation and tooling as well as syntax.",
+      "mech": "Mech uses familiar expressions, matrices, functions, and documents, then introduces reactive definitions, explicit state, constraints, machines, and host contexts. The existing examples demonstrate these pieces, but a complete learning progression still needs to be evaluated with users.",
+      "example": {
+        "title": "A short array example uses familiar arithmetic and indexing",
+        "code": "x := 1..=100\nix3 := (x % 3) == 0\nix5 := (x % 5) == 0\n\ny[ix3] = \"✨\"\ny[ix5] = \"🐝\"",
+        "note": "The example begins with ranges, arithmetic, and indexing before requiring runtime or host concepts.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/working/fizzbuzz.mec"
+      }
+    },
+    "sociability": {
+      "description": "Sociability describes the conditions for people and organizations to share and maintain programs. It includes file formats, version control, package distribution, interoperability, governance, compatibility policy, and the ability to leave the system with usable data or code.",
+      "mech": "Mech programs and documents are text files that work with ordinary version control. Host contexts define explicit interoperability boundaries. The package ecosystem, compatibility guarantees, contributor processes, and independent production adoption are still developing.",
+      "example": {
+        "title": "A text program declares its external dependency",
+        "code": "+> @browser := browser/dom\n\nname := @browser/body/content/mech-sandbox/input/_value\ngreeting := \"Hello, \" + name",
+        "note": "The source is reviewable as text and names the host integration it requires.",
+        "source": "https://github.com/mech-lang/mech/blob/c00104a4037b05552bcc226dbc0046ab4ef7cebb/examples/browser-dom-demo/demo.mec"
+      }
+    }
+  }
+}

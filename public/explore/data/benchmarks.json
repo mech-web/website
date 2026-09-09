@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-09",
+  "introduction": [
+    "These benchmarks use a bearing-only extended Kalman filter, a stateful numerical workload representative of tracking and sensor fusion. One filter update combines a control input and an observation to update a three-value state estimate and a 3 × 3 covariance matrix. The program exercises fixed-size matrix arithmetic, trigonometry, persistent state, integrity checks, and the acceptance of each completed update as the new current state.",
+    "Every Mech row begins with the same high-level Mech program. The benchmark supplies the number of independent filters, and the host chooses how that program is executed. Separate charts preserve two experimental questions: the first compares sequential execution paths and language implementations, while the second compares parallel resident Mech backends. The second uses a larger batch to keep multiple CPU workers and GPU cores occupied."
+  ],
+  "methodology": "One EKF turn in these charts means one filter update. Values report millions of filter updates per second on an Apple M1. Each linked record provides the machine configuration, commands, sample counts, and raw outputs; a bar uses the median when the record contains multiple samples. Setup, compilation, allocation, warmup, and final checksum or state readback are outside the timed region. Checked mode evaluates three rules written in the Mech source before accepting an update: finite state and covariance values, positive covariance diagonal entries, and covariance symmetry. Unchecked mode uses the corresponding execution path with those rules disabled as a control. A row shows only the modes recorded for that exact implementation and workload. Solid bars indicate CPU execution and diagonal hatching indicates GPU execution. Both charts use the same zero-based logarithmic transform from 0 to 500 million filter updates per second, with a 0.01 offset near zero.",
+  "scale": {
+    "type": "log1p",
+    "minimum": 0,
+    "maximum": 500,
+    "offset": 0.01,
+    "ticks": [0, 0.1, 1, 10, 100, 500]
+  },
+  "suites": [
+    {
+      "id": "parallel-ekf-scalar",
+      "title": "Scalar EKF execution",
+      "note": "This chart holds the outer filter loop sequential and compares two ways of executing the same Mech program: the portable scalar artifact evaluator and a Cranelift JIT. The 10,000-filter, 20-turn workload is large enough to measure repeated state updates while remaining practical for interpreter-based execution. The result shows the throughput gained by changing the execution engine without rewriting the Mech source.",
+      "comparisonNote": "This chart holds the outer filter loop sequential. Its 10,000-filter, 20-turn workload keeps the interpreted implementations practical. The available rows span ahead-of-time native code, language and tracing JITs, and interpreters. The Mech evaluator and Cranelift rows execute the same Mech source; the other languages reproduce the same EKF equations, inputs, turn count, and checksum contract. The result shows how representation and execution model affect throughput before parallel execution is introduced.",
+      "unit": "Million EKF turns per second",
+      "platform": "Apple M1, macOS",
+      "workload": "10,000 filters × 20 turns; median after warmup",
+      "rows": [
+        {
+          "system": "mech",
+          "label": "Scalar artifact evaluator",
+          "device": "cpu",
+          "checked": 1.032,
+          "unchecked": 1.206,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-mech-scalar-checked-matched-2026-09-09.json"
+        },
+        {
+          "system": "mech",
+          "label": "Cranelift JIT",
+          "device": "cpu",
+          "checked": 16.741,
+          "unchecked": 18.776,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-mech-scalar-checked-matched-2026-09-09.json"
+        },
+        {
+          "system": "julia",
+          "label": "Julia sequential small matrices",
+          "device": "cpu",
+          "checked": null,
+          "unchecked": 2.786,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-2026-08-14.json"
+        },
+        {
+          "system": "rust",
+          "label": "Rust optimized fixed-shape",
+          "device": "cpu",
+          "checked": null,
+          "unchecked": 20.299,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-2026-08-14.json"
+        },
+        {
+          "system": "python",
+          "label": "NumPy sequential small matrices",
+          "device": "cpu",
+          "checked": null,
+          "unchecked": 0.055,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-2026-08-14.json"
+        },
+        {
+          "system": "python",
+          "label": "CPython textbook matrices",
+          "device": "cpu",
+          "checked": 0.027,
+          "unchecked": 0.028,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-pypy-2026-09-05.json"
+        },
+        {
+          "system": "python",
+          "label": "CPython optimized SoA",
+          "device": "cpu",
+          "checked": 0.272,
+          "unchecked": 0.307,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-pypy-2026-09-05.json"
+        },
+        {
+          "system": "python",
+          "label": "PyPy textbook matrices",
+          "device": "cpu",
+          "checked": 0.097,
+          "unchecked": 0.102,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-pypy-2026-09-05.json"
+        },
+        {
+          "system": "python",
+          "label": "PyPy optimized SoA",
+          "device": "cpu",
+          "checked": 1.572,
+          "unchecked": 1.569,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-pypy-2026-09-05.json"
+        }
+      ]
+    },
+    {
+      "id": "parallel-ekf-resident",
+      "title": "Parallel Mech backend execution",
+      "note": "This chart compares three parallel execution paths for the same Mech source and persistent state: an eight-worker Cranelift CPU JIT, portable WGPU, and direct Metal. A batch of 500,000 independent filters provides enough work to occupy the CPU worker pool and GPU. Forty dependent turns measure sustained resident execution while each completed turn becomes the starting state for the next. The result shows the throughput range available from host and compilation-target selection without changing the Mech program.",
+      "unit": "Million EKF turns per second",
+      "platform": "Apple M1, macOS",
+      "workload": "500,000 filters × 40 turns; per-turn publication",
+      "rows": [
+        {
+          "system": "mech",
+          "label": "Cranelift JIT, 8 workers",
+          "device": "cpu",
+          "checked": 78.614,
+          "unchecked": 85.449,
+          "evidence": "https://github.com/mech-lang/mech/tree/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf#mech-first-rerun"
+        },
+        {
+          "system": "mech",
+          "label": "WGPU resident",
+          "device": "gpu",
+          "checked": 322.139,
+          "unchecked": 327.961,
+          "evidence": "https://github.com/mech-lang/mech/tree/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf#mech-first-rerun"
+        },
+        {
+          "system": "mech",
+          "label": "Direct Metal",
+          "device": "gpu",
+          "checked": 422.702,
+          "unchecked": 421.651,
+          "evidence": "https://github.com/mech-lang/mech/blob/codex/pypy-ekf-mega-chart/benchmarks/archive/compute/parallel-ekf/results/apple-m1-mech-metal-2026-09-04.json"
+        }
+      ]
+    }
+  ]
+}
